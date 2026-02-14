@@ -1,9 +1,9 @@
 {
-  "status": "error",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
   "current_feature": "vix",
   "current_attempt": 1,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "feature_queue": [
     "technical",
     "cross_asset",
@@ -17,7 +17,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-vix-1",
   "submitted_at": "2026-02-14T22:40:47.403370",
-  "last_updated": "2026-02-14T22:40:47.403398",
+  "last_updated": "2026-02-14T22:50:14.369228",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,
@@ -105,6 +105,5 @@
         "note": "Markov Regime + CUSUM State Features. Highest MI (+39.3%) but worst Gate 3 degradation. 7 state features gave XGBoost more noise to overfit on. 5 attempts exhausted. Proceeding to dxy."
       }
     }
-  },
-  "error_type": "unknown"
+  }
 }
