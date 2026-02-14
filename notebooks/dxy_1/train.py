@@ -280,8 +280,19 @@ def objective(trial, returns):
 
         # Load gold returns for MI calculation
         try:
-            gold_df = pd.read_csv('data/processed/target.csv', index_col=0, parse_dates=True)
-            gold_returns = gold_df['gold_return'].reindex(features.index).dropna()
+            # Kaggle Dataset path: /kaggle/input/{dataset-slug}/{filename}
+            target_path = '/kaggle/input/gold-price-target/target.csv'
+            gold_df = pd.read_csv(target_path, index_col=0, parse_dates=True)
+
+            # Handle column name (either 'gold_return' or 'gold_return_next')
+            if 'gold_return' in gold_df.columns:
+                gold_returns = gold_df['gold_return']
+            elif 'gold_return_next' in gold_df.columns:
+                gold_returns = gold_df['gold_return_next']
+            else:
+                raise ValueError(f"Target column not found. Available: {gold_df.columns.tolist()}")
+
+            gold_returns = gold_returns.reindex(features.index).dropna()
 
             # Align features and gold returns
             common_idx = features.index.intersection(gold_returns.index)
