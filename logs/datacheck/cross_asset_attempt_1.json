@@ -1,0 +1,84 @@
+{
+  "feature": "cross_asset",
+  "attempt": 1,
+  "timestamp": "2026-02-15T00:03:22.280186",
+  "steps": [
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_stats",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "autocorrelation",
+      "issues": [
+        "CRITICAL: gold_close autocorr=0.999396 (exceeds 0.99 threshold)",
+        "CRITICAL: copper_close autocorr=0.997811 (exceeds 0.99 threshold)",
+        "CRITICAL: silver_close autocorr=0.995250 (exceeds 0.99 threshold)",
+        "CRITICAL: gsr autocorr=0.992008 (exceeds 0.99 threshold)",
+        "CRITICAL: gcr autocorr=0.996213 (exceeds 0.99 threshold)"
+      ],
+      "passed": false
+    },
+    {
+      "step": "future_leak",
+      "issues": [
+        "WARNING: silver_return has high correlation 0.7727 with target"
+      ],
+      "passed": true
+    },
+    {
+      "step": "temporal_alignment",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "vif_correlation",
+      "issues": [
+        "WARNING: copper_close vs cross_asset_copper_close corr=1.0000 (VIF risk)",
+        "WARNING: silver_close vs cross_asset_silver_close corr=1.0000 (VIF risk)",
+        "WARNING: gold_close vs technical_gld_low corr=0.9998 (VIF risk)",
+        "WARNING: gold_close vs technical_gld_close corr=0.9998 (VIF risk)",
+        "WARNING: gold_close vs etf_flow_gld_close corr=0.9998 (VIF risk)",
+        "WARNING: gold_close vs technical_gld_high corr=0.9997 (VIF risk)",
+        "WARNING: gold_close vs technical_gld_open corr=0.9996 (VIF risk)",
+        "WARNING: gold_close vs cross_asset_sp500_close corr=0.9458 (VIF risk)",
+        "WARNING: silver_close vs technical_gld_low corr=0.9253 (VIF risk)",
+        "WARNING: silver_close vs technical_gld_open corr=0.9251 (VIF risk)"
+      ],
+      "passed": true
+    },
+    {
+      "step": "schema_validation",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [
+    "CRITICAL: gold_close autocorr=0.999396 (exceeds 0.99 threshold)",
+    "CRITICAL: copper_close autocorr=0.997811 (exceeds 0.99 threshold)",
+    "CRITICAL: silver_close autocorr=0.995250 (exceeds 0.99 threshold)",
+    "CRITICAL: gsr autocorr=0.992008 (exceeds 0.99 threshold)",
+    "CRITICAL: gcr autocorr=0.996213 (exceeds 0.99 threshold)"
+  ],
+  "warnings": [
+    "WARNING: silver_return has high correlation 0.7727 with target",
+    "WARNING: copper_close vs cross_asset_copper_close corr=1.0000 (VIF risk)",
+    "WARNING: silver_close vs cross_asset_silver_close corr=1.0000 (VIF risk)",
+    "WARNING: gold_close vs technical_gld_low corr=0.9998 (VIF risk)",
+    "WARNING: gold_close vs technical_gld_close corr=0.9998 (VIF risk)",
+    "WARNING: gold_close vs etf_flow_gld_close corr=0.9998 (VIF risk)",
+    "WARNING: gold_close vs technical_gld_high corr=0.9997 (VIF risk)",
+    "WARNING: gold_close vs technical_gld_open corr=0.9996 (VIF risk)",
+    "WARNING: gold_close vs cross_asset_sp500_close corr=0.9458 (VIF risk)",
+    "WARNING: silver_close vs technical_gld_low corr=0.9253 (VIF risk)",
+    "WARNING: silver_close vs technical_gld_open corr=0.9251 (VIF risk)"
+  ],
+  "action": "REJECT",
+  "status": "FAILED",
+  "overall_passed": false
+}
