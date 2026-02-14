@@ -133,22 +133,38 @@ class KaggleMonitor:
             print(f"[{datetime.now()}] [FAIL] Git operation failed: {e}")
             return False
 
-    def resume_claude_code(self, message):
-        """Claude Code CLIを再起動"""
+    def create_resume_notification(self, message):
+        """
+        通知ファイルを作成（CLI自動起動の代わり）
+        ユーザーが手動で「Resume from where we left off」と言えば続行可能
+        """
         try:
-            print(f"[{datetime.now()}] >> Resuming Claude Code...")
+            print(f"[{datetime.now()}] >> Creating resume notification...")
 
-            # Claude Code CLIを起動（このプロセスは新しいセッションで実行される）
-            subprocess.Popen(
-                ['claude-code', '--message', message, '--project', str(self.project_root)],
-                start_new_session=True
-            )
+            notification_file = self.project_root / 'shared' / 'RESUME_READY.txt'
 
-            print(f"[{datetime.now()}] [OK] Claude Code launched")
+            with open(notification_file, 'w', encoding='utf-8') as f:
+                f.write("="*70 + "\n")
+                f.write("KAGGLE TRAINING COMPLETE - READY FOR EVALUATION\n")
+                f.write("="*70 + "\n\n")
+                f.write(f"Timestamp: {datetime.now().isoformat()}\n\n")
+                f.write("Next Steps:\n")
+                f.write("1. Open your Claude Code chat\n")
+                f.write("2. Type: 'Resume from where we left off'\n")
+                f.write("3. The evaluator will automatically run\n\n")
+                f.write(f"Message: {message}\n\n")
+                f.write("="*70 + "\n")
+
+            print(f"[{datetime.now()}] [OK] Notification created: {notification_file}")
+            print(f"\n{'='*70}")
+            print(f"[READY] Please return to Claude Code and type:")
+            print(f"        'Resume from where we left off'")
+            print(f"{'='*70}\n")
+
             return True
 
         except Exception as e:
-            print(f"[{datetime.now()}] [FAIL] Failed to launch Claude Code: {e}")
+            print(f"[{datetime.now()}] [FAIL] Failed to create notification: {e}")
             return False
 
     def handle_error(self, kernel_id, feature, attempt):
@@ -177,9 +193,9 @@ class KaggleMonitor:
         # Git commit
         self.git_commit_and_push(f'error: {feature} attempt {attempt} - kaggle training failed')
 
-        # Claude Code再開（エラー修正を促す）
-        self.resume_claude_code(
-            f"Kaggle training for {feature} attempt {attempt} failed. "
+        # 通知ファイル作成（エラー通知）
+        self.create_resume_notification(
+            f"Kaggle training for {feature} attempt {attempt} FAILED. "
             f"Error: {error_log[:200]}. Please review the error and regenerate the training script."
         )
 
@@ -240,13 +256,13 @@ class KaggleMonitor:
                         f'kaggle: {feature} attempt {attempt} - results fetched'
                     )
 
-                    # Claude Code再開
-                    self.resume_claude_code(
+                    # 通知ファイル作成（CLI起動の代わり）
+                    self.create_resume_notification(
                         f"Kaggle training for {feature} attempt {attempt} is complete. "
                         f"Results have been downloaded. Please run the evaluator to assess performance."
                     )
 
-                    print(f"[{datetime.now()}] *** All done! Claude Code will resume evaluation.")
+                    print(f"[{datetime.now()}] *** All done! Please resume in Claude Code.")
                     return True
                 else:
                     print(f"[{datetime.now()}] [FAIL] Failed to download results. Manual intervention required.")

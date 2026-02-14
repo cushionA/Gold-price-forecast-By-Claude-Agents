@@ -152,8 +152,8 @@ class KaggleSubmissionHandler:
         except subprocess.CalledProcessError as e:
             print(f"[WARN] Git operation failed: {e}")
 
-        # 5. 自動監視スクリプトをバックグラウンド起動
-        monitor_script = self.project_root / 'scripts' / 'auto_resume_after_kaggle.py'
+        # 5. 完全自動監視スクリプト(v2)をバックグラウンド起動
+        monitor_script = self.project_root / 'scripts' / 'auto_resume_after_kaggle_v2.py'
 
         try:
             # Windowsの場合
@@ -171,7 +171,7 @@ class KaggleSubmissionHandler:
                     cwd=self.project_root
                 )
 
-            print(f"[OK] Auto-resume monitor started in background")
+            print(f"[OK] Full-auto monitor (v2) started in background")
 
         except Exception as e:
             print(f"[WARN] Failed to start monitor (you can run it manually): {e}")
@@ -182,13 +182,14 @@ class KaggleSubmissionHandler:
         print("*** Kaggle Training Submitted Successfully!")
         print("=" * 70)
         print(f"Kernel URL: https://www.kaggle.com/code/{kernel_id}")
-        print(f"\n Monitoring:")
-        print(f"  - Auto-resume script is running in the background")
-        print(f"  - It will check every 5 minutes for up to 3 hours")
-        print(f"  - Claude Code will automatically restart when training completes")
+        print(f"\n Full Auto Mode (v2):")
+        print(f"  - Monitor checks every 5 minutes for up to 3 hours")
+        print(f"  - Evaluator runs automatically when training completes")
+        print(f"  - Next action is decided automatically (retry / next feature / done)")
         print(f"\n You can now:")
         print(f"  - Close this terminal (monitoring continues in background)")
-        print(f"  - Turn off your PC (monitoring will stop, but Kaggle continues)")
+        print(f"  - Turn off your PC (monitoring stops, but Kaggle continues)")
+        print(f"  - When monitor completes, check state.json for next action")
         print(f"  - Check Kaggle web UI for live training progress")
         print("=" * 70)
 
