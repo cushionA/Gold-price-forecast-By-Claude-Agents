@@ -604,6 +604,23 @@ gold-prediction-agent/
 5. No hardcoded API keys or credentials (including train.py)
 6. Do not execute processes requiring paid services or new API keys without explicit user approval
 
+## File Generation Policy
+
+**DO NOT create the following files** (they are redundant and waste resources):
+
+1. ❌ `notebooks/**/README.md` - Duplicates design documents in `docs/design/`
+2. ❌ `data/**/metadata.json` or `*_metadata.json` - Not used after datachecker passes
+3. ❌ `docs/data/*_summary.md` - Duplicates design documents
+4. ❌ `temp_*/` directories - Use proper output directories instead
+
+**DO create**:
+- ✅ `logs/evaluation/*_summary.md` - User needs these for review
+- ✅ Design docs in `docs/design/`
+- ✅ Research reports in `docs/research/`
+- ✅ Evaluation logs in `logs/evaluation/*.json`
+
+All agents must follow this policy to avoid creating unnecessary files.
+
 ---
 
 ## APIs
