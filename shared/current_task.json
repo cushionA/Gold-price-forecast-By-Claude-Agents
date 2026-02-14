@@ -1,148 +1,138 @@
 {
-  "feature": "cross_asset",
+  "feature": "yield_curve",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
 
-  "objective": "Extract latent cross-asset relationship patterns -- correlation regime, relative value positioning, and structural divergence dynamics -- from gold's relationships with silver, copper, and S&P 500. The base features contain raw price levels (cross_asset_silver_close, cross_asset_copper_close, cross_asset_sp500_close) which tell the meta-model WHERE these assets are, but NOT: (a) whether gold-silver and gold-copper correlations are in a normal or dislocated regime, (b) whether gold is relatively cheap or expensive vs peers (gold/silver ratio extreme, gold/copper ratio signaling recession), (c) whether cross-asset relationships are converging or diverging (mean-reversion dynamics of relative pricing).",
+  "objective": "Extract latent yield curve DYNAMICS -- the shape regime (steepening/flattening/inverting), the rate of change of the term structure, and the curvature or convexity signal -- from the 10Y-2Y spread and its constituent yields. The base features already contain yield_curve_dgs10 (rank #4 at 6.5%), yield_curve_dgs2, and yield_curve_yield_spread (rank #6 at 5.8%), which tell the meta-model WHERE yields and the spread currently sit. But they do NOT convey: (a) whether the curve is in a steepening or flattening REGIME (which drives different gold responses), (b) how fast the term structure is changing relative to its recent history (velocity/momentum of curve shifts), (c) whether the current curve shape is unusual relative to historical norms (position within the distribution of shapes). The submodel must extract these dynamics while avoiding VIF issues with the three existing yield curve base features AND with real_rate_real_rate (DFII10, correlated with DGS10).",
 
-  "requirements": "Build a submodel that captures: (1) Cross-asset correlation regime -- are gold's relationships with silver, copper, and equities in their normal state, or has a structural dislocation occurred (e.g., gold rallying while copper crashes = recession signal, gold rallying while silver lags = safe-haven premium, gold and equities both rising = liquidity-driven)? (2) Relative value position -- is gold expensive or cheap relative to historical relationships (gold/silver ratio z-score, gold/copper ratio z-score)? Extreme relative positions historically mean-revert. (3) Cross-asset momentum divergence -- are the assets moving together (risk-on/risk-off synchronized) or diverging (structural regime change underway)? Output exactly 3 daily features that capture fundamentally different dimensions of cross-asset dynamics.",
+  "requirements": "Build a submodel that captures three orthogonal dimensions of yield curve dynamics: (1) YIELD CURVE REGIME -- Is the curve in a steepening, flattening, or inverting regime? Use an HMM or regime-switching model on the daily CHANGES in the 10Y-2Y spread (not the level, which is already a base feature). The regime provides context that distinguishes 'spread = 50bps and widening' from 'spread = 50bps and narrowing'. (2) SPREAD MOMENTUM / VELOCITY -- How fast is the yield curve shape changing? A z-score of the rate of change of the spread (e.g., 5d or 10d change, z-scored against a rolling window) captures whether current curve dynamics are rapid or gradual. Gold reacts differently to sudden flattening (flight to safety) vs gradual flattening (slow tightening). (3) CURVE POSITION INDICATOR -- Where is the current spread relative to its recent distribution? This could be a percentile rank or a z-score-based extreme indicator that signals when the curve is at unusual levels. However, this MUST be carefully designed to avoid high VIF with the raw yield_spread base feature. Using the spread level z-score directly would likely correlate with the spread level; instead, use a transformed version such as the acceleration (second derivative) of the spread, or a curvature measure involving additional maturity points. Output exactly 3 daily features.",
 
   "theoretical_background": {
-    "why_cross_asset_matters_for_gold": "Gold does not trade in isolation. Its price reflects its relative attractiveness compared to alternative assets in three categories: (a) Precious metals peers (silver) -- silver tracks gold but with higher beta and industrial exposure; deviations in the gold/silver ratio signal shifts in safe-haven vs industrial demand. (b) Industrial metals (copper) -- gold/copper ratio is a well-known recession indicator because copper is pro-cyclical while gold is counter-cyclical; their ratio captures macro regime transitions. (c) Equities (S&P 500) -- gold vs equities reflects risk appetite; when both rise it signals liquidity, when gold rises and equities fall it signals fear. These RELATIVE dynamics contain information about why gold is moving, not just that it is moving.",
-    "what_base_features_provide": "Three columns: cross_asset_silver_close, cross_asset_copper_close, cross_asset_sp500_close. These are raw closing price levels. They rank #2 (silver, 7.3%) and #3 (S&P 500, 6.5%) in baseline feature importance -- among the most important features. However, raw levels encode only absolute price positions. The meta-model cannot easily compute from levels alone: (a) whether the gold/silver ratio is at a 30-year extreme, (b) whether cross-asset correlations have shifted regime, (c) whether current divergences are expanding or contracting. These require relative computation and historical context.",
-    "what_submodel_adds": "Three dimensions of cross-asset context: (1) CORRELATION REGIME -- captures whether the normal positive correlation between gold and silver (and negative correlation between gold and equities) is intact or broken, using rolling correlation dynamics. Regime shifts in correlation precede and signal major gold moves (e.g., 2020 COVID crash saw gold-equity correlation flip from negative to positive). (2) RELATIVE VALUE POSITION -- gold/silver and gold/copper ratios z-scored against their historical distributions, capturing whether gold is historically expensive or cheap relative to peers. Extreme positions predict mean-reversion. (3) DIVERGENCE DYNAMICS -- measures whether cross-asset spreads are expanding or contracting, capturing the velocity and direction of structural regime changes.",
-    "key_cross_asset_relationships": {
-      "gold_silver_ratio": "Historically averages 60-70 (ounces of silver per ounce of gold). Spikes above 80-90 during crises (silver has higher industrial beta, drops more). Drops below 50 during precious metals manias. The LEVEL of this ratio is a macro regime indicator. Its CHANGE predicts gold's relative trajectory.",
-      "gold_copper_ratio": "Often called the 'recession gauge'. High ratio = recession fears (gold up, copper down). Low ratio = expansion (copper demand for construction/manufacturing). A well-documented macro indicator used by institutional investors.",
-      "gold_sp500_correlation": "Normally negative (risk-on/risk-off). Flips positive during liquidity-driven rallies (QE periods) and crash panics (initial sell-everything phase). The REGIME of this correlation is more informative than the correlation level itself.",
-      "precious_metals_momentum": "Silver typically leads gold in both rallies and selloffs due to higher beta. When silver begins outperforming gold (falling GSR), it often signals the start of a precious metals rally. Conversely, silver underperformance (rising GSR) can signal a topping process."
-    },
-    "difference_from_existing_submodels": "VIX submodel captures external fear dynamics. Technical submodel captures gold's own price dynamics. DXY submodel captures dollar dynamics. Cross-asset submodel captures RELATIVE positioning -- how gold's price compares to related assets. This is a fundamentally different information axis: the same gold price at $2000 means very different things if silver is at $22 (GSR=90, extreme safe-haven premium) vs silver at $40 (GSR=50, broad precious metals rally)."
+    "why_yield_curve_matters_for_gold": "The yield curve encodes market expectations about future monetary policy, economic growth, and inflation. Gold's price is inversely related to the OPPORTUNITY COST of holding gold, which is captured by real yields. But beyond levels, the SHAPE and DYNAMICS of the yield curve carry additional information: (a) A steepening curve (long rates rising faster than short) signals growth expectations and potential inflation -- historically bullish for gold. (b) A flattening curve signals tightening expectations -- bearish for gold as the Fed raises short rates. (c) An inverting curve signals recession expectations -- bullish for gold as a safe haven. (d) The SPEED of curve changes matters: a sudden flattening signals panic/flight-to-quality (very bullish for gold), while a gradual flattening signals orderly tightening (moderately bearish). These dynamics are not captured by the raw spread level.",
+    "what_base_features_provide": "Three columns: yield_curve_dgs10 (10Y Treasury yield, rank #4 at 6.5% importance), yield_curve_dgs2 (2Y Treasury yield), yield_curve_yield_spread (10Y - 2Y spread, rank #6 at 5.8% importance). These are raw daily levels. The meta-model can compute simple differences from consecutive days but cannot easily detect: (a) which yield curve regime the economy is in, (b) whether the current rate of change is historically fast or slow, (c) whether the current configuration is at an extreme that predicts reversal.",
+    "what_submodel_adds": "Three dimensions of yield curve context that the raw levels cannot convey: (1) REGIME STATE -- classifies the current curve dynamics into distinct states (steepening/flattening/inversion transition), providing the meta-model with a discrete context variable. (2) CHANGE VELOCITY -- normalizes the speed of curve shifts against recent history, distinguishing panic moves from orderly shifts. (3) A third dimension capturing either curvature, volatility of the spread, or divergence between the spread dynamics and yield level dynamics.",
+    "vif_critical_concern": "This is the HIGHEST VIF-RISK submodel in the pipeline. Three yield curve columns already exist in base features. Additionally, real_rate_real_rate (DFII10) is correlated with DGS10. The submodel MUST extract dynamics, regimes, and derived quantities -- NOT levels or simple derivatives. Key design principle: operate on CHANGES and HIGHER-ORDER DERIVATIVES of the spread, not the spread itself. The HMM should be fitted on spread changes (returns), not spread levels. Z-scores should be of change velocity, not of the spread level.",
+    "relationship_to_real_rate": "The real_rate submodel failed after 5 attempts due to monthly frequency. Its core insight was that real interest rate dynamics (regime, persistence) carry information for gold. The yield_curve submodel captures a DIFFERENT dimension: not the real rate level (which DFII10 already provides) but the NOMINAL term structure dynamics. The 10Y-2Y spread captures the slope of the nominal curve, which encodes growth and policy expectations beyond what real rates convey. Key difference: (a) Real rate = inflation-adjusted cost of holding gold (level matters). (b) Yield curve = growth/policy expectations (dynamics and regime matter). These are complementary, not redundant.",
+    "historical_yield_curve_gold_patterns": {
+      "inversion_2019": "Yield curve inverted in August 2019 (10Y-2Y briefly negative). Gold rallied from $1400 to $1550 in the subsequent weeks as recession fears rose. The TRANSITION to inversion was the signal, not the level.",
+      "steepening_2020_2021": "Post-COVID curve steepened dramatically (2Y anchored near 0, 10Y rose). Gold initially benefited from monetary easing but then declined as the steepening signaled recovery expectations.",
+      "flattening_2022": "Aggressive Fed tightening flattened then inverted the curve. Gold was volatile but ultimately held value as inversion signaled recession risk.",
+      "key_insight": "The REGIME TRANSITION is more informative than the current state. Markets price in the current state; submodel value comes from identifying the dynamics that precede gold moves."
+    }
   },
 
   "data_strategy": {
     "primary_data": {
-      "source": "Yahoo Finance",
-      "tickers": ["SI=F", "HG=F", "^GSPC"],
+      "source": "FRED",
+      "tickers": ["DGS10", "DGS2"],
       "frequency": "daily",
-      "note": "Silver futures, copper futures, S&P 500 index. All already available as base features. Cross-asset submodel works with RATIOS and CORRELATIONS of these with gold, not levels themselves."
+      "note": "10Y and 2Y Treasury yields. Already used as base features. Daily data, no interpolation needed. Data in data/raw/ already available."
     },
-    "gold_reference": {
-      "source": "Yahoo Finance",
-      "ticker": "GC=F or GLD",
-      "note": "Need gold price to compute ratios. GLD preferred (no roll artifacts, proven in technical submodel). Or use gold close from base_features directly."
-    },
-    "additional_candidates": [
+    "additional_maturity_candidates": [
       {
-        "source": "Yahoo Finance",
-        "ticker": "SI=F",
-        "description": "Silver futures. Key for gold/silver ratio. Daily close sufficient.",
-        "already_available": true
+        "source": "FRED",
+        "ticker": "DGS30",
+        "description": "30Y Treasury yield. Enables butterfly/curvature computation: curvature = 2*DGS10 - DGS2 - DGS30. Adds a dimension beyond the simple slope.",
+        "purpose": "Curvature captures convexity of the yield curve, which signals different macro regimes than slope alone.",
+        "note": "Researcher should verify availability and alignment with DGS10/DGS2 date range."
       },
       {
-        "source": "Yahoo Finance",
-        "ticker": "HG=F",
-        "description": "Copper futures. Key for gold/copper ratio (recession gauge).",
-        "already_available": true
+        "source": "FRED",
+        "ticker": "DGS5",
+        "description": "5Y Treasury yield. Mid-point of curve, useful for belly curvature.",
+        "purpose": "Alternative curvature measure: DGS5 - (DGS2 + DGS10)/2.",
+        "note": "Researcher should evaluate whether 5Y adds information beyond 2Y-10Y."
       },
       {
-        "source": "Yahoo Finance",
-        "ticker": "^GSPC",
-        "description": "S&P 500 index. Key for gold/equity correlation regime.",
-        "already_available": true
-      },
-      {
-        "source": "Yahoo Finance",
-        "ticker": "SLV",
-        "description": "Silver ETF. Backup for SI=F if futures have roll issues.",
-        "already_available": false,
-        "note": "Researcher should evaluate if SLV is needed"
+        "source": "FRED",
+        "ticker": "DFF",
+        "description": "Federal Funds effective rate. Front-end of curve.",
+        "purpose": "DGS2 - DFF spread captures near-term policy expectations.",
+        "note": "Less likely needed if 2Y-10Y dynamics are sufficient."
       }
     ],
     "expected_samples": "~2523 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)",
-    "frequency_advantage": "All data is daily. No interpolation needed. Same daily-frequency advantage that made VIX and technical succeed on attempt 1."
+    "frequency_advantage": "FRED Treasury yields are daily. No interpolation needed. This is the key advantage over real_rate (monthly TIPS data)."
   },
 
   "research_questions": [
-    "What is the most effective method for detecting CORRELATION REGIME shifts between gold and peer assets (silver, copper, S&P 500)? Candidates: (a) HMM on a vector of rolling pairwise correlations (e.g., 3-dimensional input: corr(gold,silver), corr(gold,copper), corr(gold,sp500)), (b) DCC-GARCH (Dynamic Conditional Correlation) to estimate time-varying correlations and detect regime changes, (c) rolling correlation z-score (simpler but may miss nonlinear regime shifts). Which method produces the most informative single regime probability? The VIX/technical submodels succeeded with HMM -- does the same pattern work for correlation regime detection?",
-    "Which cross-asset RATIO is most predictive for gold returns: (a) gold/silver ratio (GSR), (b) gold/copper ratio, (c) gold/S&P 500 ratio, or (d) a composite index? Specifically: what are the mean-reversion properties of each ratio? What is the typical half-life? What z-score window captures extremes that predict gold return direction? Academic or quantitative evidence preferred.",
-    "How should DIVERGENCE DYNAMICS between gold and peer assets be measured? Candidates: (a) rate of change of cross-asset ratios (momentum of the ratio), (b) difference in standardized returns over a lookback period (who is outperforming), (c) PCA first component loading change (structural co-movement shift), (d) rolling beta of gold vs S&P 500 and its z-score. The goal is to capture whether cross-asset relationships are converging (normalizing) or diverging (structural shift underway).",
-    "What is the empirical evidence for the gold/copper ratio as a recession indicator? Specifically: (a) at what z-score levels does the ratio become predictive? (b) does the ratio lead or lag gold returns? (c) is the signal captured by the rolling ratio level, or the rate of change? This matters because we need features that predict NEXT-DAY gold returns, not concurrent macro state.",
-    "What lookback windows are optimal for cross-asset features? Specifically: (a) what window for rolling correlations best captures regime shifts without being too noisy (20d? 60d? 120d?)? (b) what window for ratio z-scores captures meaningful extremes (60d? 120d? 250d full year?)? Gold cross-asset relationships can persist for months (e.g., gold/silver ratio stayed above 80 for extended periods in 2019-2020). The window must be long enough to establish a baseline but short enough to detect shifts.",
-    "What is the VIF risk between cross-asset submodel outputs and (a) existing base features (silver_close, copper_close, sp500_close) and (b) existing submodel outputs (vix_regime_probability, vix_mean_reversion_z, dxy_regime_probability)? Specifically: will a gold/silver ratio z-score correlate with silver_close or gold_close levels? Ratios of I(1) series can be I(0), so this needs empirical verification. Will a correlation regime feature overlap with the VIX regime probability (since equity volatility affects gold-equity correlation)?",
-    "Should the cross-asset submodel use a single combined correlation regime (e.g., HMM on multi-dimensional correlation vector) or separate ratio-based features for each asset pair? The single-regime approach captures the overall cross-asset environment but loses pair-specific information. The separate approach preserves pair-specific signals but risks VIF issues if outputs are correlated. What does the literature suggest for gold specifically?"
+    "What is the most effective method for detecting YIELD CURVE REGIME shifts from daily data? Candidates: (a) HMM on daily changes in the 10Y-2Y spread (1D input, simpler, follows VIX pattern), (b) HMM on a 2D vector of [DGS10 change, DGS2 change] (captures parallel vs twist moves), (c) Markov Regime-Switching model on the spread change with switching means and variances, (d) threshold-based regime detection using spread level crossings (e.g., spread < 0 = inversion regime). Which captures the most informative regime probability for gold prediction? The VIX/technical/cross_asset submodels all succeeded with HMM -- what dimensionality of input works best for yield curve dynamics?",
+    "What ADDITIONAL MATURITY POINTS beyond DGS10 and DGS2 are available daily from FRED and would add significant information? Specifically: (a) Is DGS30 available daily with sufficient history back to 2015? (b) Is DGS5 available? (c) Would a butterfly spread (2*DGS10 - DGS2 - DGS30) or belly curvature (DGS5 - avg(DGS2, DGS10)) provide a genuinely different signal from the 10Y-2Y slope? (d) Does the curvature measure correlate with the spread level (VIF risk)? The goal is to find a third feature dimension that is ORTHOGONAL to both the spread level and spread changes.",
+    "What LOOKBACK WINDOWS are optimal for yield curve features? Specifically: (a) What window for spread change z-score captures meaningful velocity signals (5d change z-scored over 20d? 10d change over 60d?)? (b) How does the autocorrelation of spread change z-scores vary with window choice? We need autocorrelation < 0.99 to pass Gate 1. The VIX submodel used 60d z-score window successfully (autocorr 0.85-0.95). Does the yield curve behave similarly or does its persistence create higher autocorrelation? (c) What window for regime detection (HMM training) captures business cycle dynamics?",
+    "What is the empirical VIF between YIELD CURVE DYNAMICS features and the existing base features (yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread) and real_rate_real_rate? Specifically: (a) Does a z-score of the 5d spread change correlate with the spread level? Theory says no (change vs level), but empirical verification is needed. (b) Does an HMM regime probability on spread changes correlate with the spread level? (c) Does a curvature measure (using DGS30 or DGS5) correlate with the existing spread? (d) What is the correlation between DGS10 and DFII10 (real rate)? If very high, yield curve features must be especially careful to capture DYNAMICS, not proxies for the real rate level.",
+    "How does the yield curve's mean-reversion behavior differ from VIX? VIX has well-documented mean-reversion to ~18-20 with right-skewed spikes. Does the yield spread mean-revert similarly? (a) What is the historical mean of the 10Y-2Y spread? (b) What is the typical half-life of spread deviations? (c) Are there structural breaks in the mean (e.g., pre-GFC vs post-GFC vs post-COVID)? This matters for z-score window design: if the spread mean shifts structurally, a fixed long window z-score would be misleading.",
+    "What is the academic evidence for yield curve DYNAMICS (not levels) predicting gold returns? Specifically: (a) Does the RATE OF CHANGE of the spread predict next-day gold returns better than the spread level? (b) Is there evidence that curve regime transitions (flattening to inversion, steepening to flattening) predict gold returns? (c) Does curve convexity/curvature carry predictive power for gold beyond the simple slope? Key papers to investigate: Estrella & Mishkin (1998) on yield curve as recession predictor, Campbell & Thompson (2008) on predictive regressions with Treasury yields.",
+    "Should the yield curve submodel incorporate MULTI-COUNTRY yield curve data to increase information content? Specifically: (a) Are German (Bund), UK, Japanese yield curves available daily from FRED or other free sources? (b) Would a 'global yield curve slope' composite add information beyond the US curve alone? (c) Multi-country data was attempted for real_rate but failed due to monthly frequency. If daily yield data is available for other countries, it could be valuable. (d) What is the risk of VIF between a global curve slope and the US curve slope?"
   ],
 
   "candidate_approaches": {
-    "approach_A_hmm_correlation_regime": {
-      "description": "HMM on rolling correlation vector [corr(gold,silver), corr(gold,copper), corr(gold,sp500)] to detect cross-asset correlation regimes, plus gold/silver ratio z-score for relative value, plus cross-asset return divergence measure for dynamics. Follows the proven HMM + deterministic pattern.",
-      "output": ["xasset_corr_regime_prob", "xasset_relative_value_z", "xasset_divergence"],
-      "pros": "Follows proven HMM pattern from VIX/technical. Multi-dimensional HMM input captures joint correlation structure. Ratio z-score is well-established. Divergence measure captures dynamics.",
-      "cons": "Rolling correlations as HMM input may be noisy (small sample within window). 3D HMM needs more data. May lose pair-specific information."
+    "approach_A_hmm_spread_regime": {
+      "description": "HMM on daily changes in the 10Y-2Y spread to detect steepening/flattening/inversion regimes, plus spread change velocity z-score, plus curvature measure (DGS30 or DGS5-based). Follows the proven HMM + deterministic pattern.",
+      "output": ["yc_regime_prob", "yc_spread_velocity_z", "yc_curvature_z"],
+      "pros": "Follows proven HMM pattern. Spread changes are orthogonal to spread level (VIF safe). Curvature adds new dimension beyond 2Y-10Y slope.",
+      "cons": "1D HMM on spread changes may produce noisy regime detection (spread changes are small daily). Curvature requires additional maturity data from FRED (DGS30 or DGS5)."
     },
-    "approach_B_ratio_based_features": {
-      "description": "Gold/silver ratio z-score (60d) for relative precious metals value, gold/copper ratio z-score (90d) for macro regime indicator, gold-vs-equity relative return (30d) for risk appetite divergence. All deterministic, no ML.",
-      "output": ["xasset_gsr_zscore", "xasset_gcr_zscore", "xasset_equity_divergence"],
-      "pros": "All deterministic (no overfitting). Well-established financial ratios. Each captures a different relationship (precious metals, industrial, equities). Simple and interpretable.",
-      "cons": "May miss nonlinear regime shifts. Z-scores assume normal distribution of ratios. No regime detection component."
+    "approach_B_2d_hmm_twist": {
+      "description": "HMM on 2D vector [DGS10 change, DGS2 change] to detect parallel shift vs twist vs pivoting regimes. Plus spread change velocity z-score. Plus spread volatility regime (rolling std of spread changes).",
+      "output": ["yc_twist_regime_prob", "yc_spread_velocity_z", "yc_spread_vol_z"],
+      "pros": "2D HMM captures richer dynamics (parallel vs twist). Same approach that improved technical submodel (2D HMM on [returns, GK_vol]). No additional maturity data needed.",
+      "cons": "2D input [DGS10_chg, DGS2_chg] may correlate highly (both are Treasury yields). Need to verify the two dimensions provide distinct information. Spread volatility z-score may correlate with VIX."
     },
-    "approach_C_pca_correlation_dynamics": {
-      "description": "PCA on rolling correlation matrix to extract dominant co-movement factor, combined with gold/silver ratio z-score and rolling beta of gold vs S&P 500. Captures structural co-movement changes.",
-      "output": ["xasset_comovement_factor", "xasset_gsr_zscore", "xasset_gold_beta_z"],
-      "pros": "PCA captures the dominant structural pattern in cross-asset relationships. Beta z-score directly measures gold's sensitivity to equities. Combines structural and pair-specific views.",
-      "cons": "PCA on small correlation matrix (3x3) may not be informative. Rolling PCA can be unstable with short windows."
+    "approach_C_deterministic_only": {
+      "description": "Entirely deterministic: spread change z-score (velocity), spread acceleration (second derivative of spread), and spread/vol ratio (spread change normalized by yield volatility). No HMM.",
+      "output": ["yc_spread_velocity_z", "yc_spread_acceleration", "yc_yield_vol_ratio"],
+      "pros": "No overfitting risk (fully deterministic). Simple and fast. Each feature is a different derivative order of the spread.",
+      "cons": "No regime detection component. Previous successes all used HMM for regime. Acceleration (second derivative) may be very noisy on daily data."
     },
-    "approach_D_hybrid_hmm_plus_ratios": {
-      "description": "HMM on joint cross-asset return vector [gold_ret, silver_ret, copper_ret, sp500_ret] for regime detection (identifies risk-on/risk-off/dislocation regimes), plus gold/silver ratio z-score for precious metals relative value, plus cross-asset momentum rank divergence for dynamics.",
-      "output": ["xasset_regime_prob", "xasset_precious_metals_z", "xasset_rank_divergence"],
-      "pros": "HMM on joint returns directly captures the cross-asset regime (risk-on vs risk-off vs dislocation). Ratio z-score proven concept. Rank divergence is robust to scale differences.",
-      "cons": "4D HMM may need many states. Risk of overlapping with VIX regime (VIX also captures risk-on/risk-off)."
+    "approach_D_multi_country": {
+      "description": "HMM on US spread changes, plus US-Germany spread differential (term structure arbitrage signal), plus global yield curve slope composite.",
+      "output": ["yc_regime_prob", "yc_us_de_differential_z", "yc_global_slope_z"],
+      "pros": "Multi-country adds information beyond US-only curve. US-Germany differential captures monetary policy divergence. Global composite smooths country-specific noise.",
+      "cons": "German/UK daily yield data availability from FRED is uncertain. If only monthly data is available, it reproduces the real_rate frequency problem. Researcher must verify daily availability."
     }
   },
 
   "constraints": [
-    "All data must be daily frequency from Yahoo Finance -- inherently same-day, well within 5-day delay limit",
-    "Submodel does NOT predict gold prices -- it extracts cross-asset relationship patterns (correlation regimes, relative value positioning, divergence dynamics)",
-    "Output must be exactly 3 columns (lessons from VIX/technical success with 3, real_rate failure with 7)",
-    "Output must have VIF < 10 against ALL existing base features, especially: cross_asset_silver_close, cross_asset_copper_close, cross_asset_sp500_close (raw levels). Since submodel outputs are RATIOS or CORRELATIONS, they should be structurally different from levels, but empirical verification required",
-    "Output must have VIF < 10 against existing submodel outputs: vix_regime_probability, vix_mean_reversion_z, vix_persistence, tech_trend_regime_prob, tech_mean_reversion_z, tech_volatility_regime",
-    "Autocorrelation < 0.99 for all output columns. Ratio z-scores on long windows (120d+) may approach this threshold -- researcher must verify empirically",
-    "Features must be computable at inference time without lookahead bias -- all rolling windows backward-looking, all model fits on training set only",
-    "Avoid features that VIX submodel already captures. VIX regime already encodes risk-on/risk-off. Cross-asset submodel should capture RELATIVE PRICING dynamics, not generic risk appetite (to minimize overlap with vix_regime_probability)",
-    "Avoid features that correlate strongly with DXY submodel outputs. Gold and DXY are inversely correlated, so a gold/equity correlation regime may partially overlap with DXY regime. Researcher should measure expected cross-correlations",
-    "If using futures continuous contracts (SI=F, HG=F), handle roll artifacts -- use returns-based computations or verify ratio stability across roll dates",
-    "All features must capture DYNAMICS (regime, position, divergence) not levels or simple derivatives that XGBoost could trivially compute from the three base feature columns"
+    "All data must be daily frequency -- FRED Treasury yields (DGS10, DGS2) are daily, within 1-day delay. Any additional maturity points must also be daily. If multi-country yield data is only monthly, DO NOT USE IT (real_rate lesson)",
+    "Submodel does NOT predict gold prices -- it extracts yield curve dynamics (regime, velocity, curvature) that provide context for how the term structure environment affects gold",
+    "Output must be exactly 3 columns (lessons from VIX/technical/cross_asset success with 3 compact features)",
+    "CRITICAL VIF CONSTRAINT: Output must have VIF < 10 against ALL existing base features, especially: yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread, AND real_rate_real_rate. This is the hardest VIF challenge of any submodel because 3 yield curve columns plus 1 real rate column are already in base features. Features MUST operate on changes, regimes, or higher-order derivatives -- NOT levels",
+    "Output must have VIF < 10 against existing submodel outputs: vix_regime_probability, vix_mean_reversion_z, vix_persistence, tech_trend_regime_prob, tech_mean_reversion_z, tech_volatility_regime, xasset_regime_prob, xasset_recession_signal, xasset_divergence. Particular risk: yield curve regime may correlate with VIX regime (both capture macro regime shifts)",
+    "Autocorrelation < 0.99 for all output columns. Yield spread levels have very high persistence (near unit root). Features MUST use changes, z-scores of changes, or regime probabilities -- NOT raw spread levels or z-scores of spread levels. The raw spread z-score will almost certainly fail Gate 1 autocorrelation",
+    "Features must be computable at inference time without lookahead bias -- all rolling windows backward-looking, HMM fit on training set only",
+    "Avoid features that duplicate information already captured by the raw yield_spread base feature. A z-score of the spread level would correlate highly with the spread level itself and add minimal new information. Focus on DYNAMICS (how the spread is MOVING) not POSITION (where the spread IS)",
+    "If using curvature (DGS30 or DGS5), verify daily data availability from FRED covering the full 2015-2025 period before committing to that design"
   ],
 
   "output_schema": {
     "target_columns": 3,
     "candidate_columns": [
-      "xasset_corr_regime_prob: Probability of being in a dislocated/abnormal cross-asset correlation regime vs normal regime. From HMM on rolling correlations or returns vector. Captures whether gold's relationships with peers are intact or broken. Range [0, 1].",
-      "xasset_relative_value_z: Z-score of gold/silver ratio (or composite precious metals ratio) measuring whether gold is historically expensive or cheap relative to peers. Extreme values predict mean-reversion. Range [-4, +4].",
-      "xasset_divergence: Measure of whether cross-asset relationships are converging (normalizing) or diverging (structural shift). Captures the velocity of relative price changes. Range varies by method."
+      "yc_regime_prob: Probability of being in a specific yield curve dynamics regime (e.g., rapid flattening = 'tightening fear' regime). From HMM on spread changes or [DGS10_chg, DGS2_chg]. Captures the latent state of curve dynamics. Range [0, 1].",
+      "yc_spread_velocity_z: Z-score of the N-day change in the yield spread, normalized against a rolling window. Captures how FAST the curve is moving relative to recent history. Positive = rapid steepening, negative = rapid flattening. Range [-4, +4].",
+      "yc_curvature_z OR yc_spread_vol_z: Either (a) a curvature/butterfly measure using DGS30/DGS5 (if available daily), z-scored and differenced, or (b) rolling volatility of spread changes z-scored (how turbulent are current curve dynamics). Either provides a third dimension orthogonal to regime and velocity."
     ],
     "properties": [
       "All daily frequency, no interpolation",
-      "No NaN values after warmup period (max ~120 days for longest rolling window)",
-      "Low multicollinearity with raw price level base features (VIF < 10). Key test: ratio z-scores should NOT correlate with silver_close or copper_close levels",
-      "Low multicollinearity with VIX and technical submodel outputs (VIF < 10). Key test: correlation regime should NOT overlap with vix_regime_probability",
-      "Each feature captures a DIFFERENT dimension: regime (normal vs dislocated), position (cheap vs expensive), dynamics (converging vs diverging)",
-      "Features encode RELATIVE information that raw price levels cannot convey"
+      "No NaN values after warmup period (max ~90 days for longest rolling window)",
+      "VIF < 10 against yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread, AND real_rate_real_rate",
+      "VIF < 10 against all existing submodel outputs",
+      "Each feature captures a DIFFERENT dimension: regime (which state), velocity (how fast), curvature/volatility (what shape/turbulence)",
+      "Features encode DYNAMICS that raw yield levels cannot convey"
     ]
   },
 
-  "success_hypothesis": "Cross-asset relative positioning (correlation regime, gold/silver ratio extremes, divergence dynamics) will provide the meta-model with relational context that improves direction accuracy by +0.5% or more. The key information gain comes from the fact that gold's return is partly determined by WHERE it sits relative to peers: gold at $2000 with silver at $22 (GSR=90) has very different forward return distribution than gold at $2000 with silver at $40 (GSR=50). Base features provide absolute levels but the submodel provides the relative context. Cross-asset features rank #2 and #3 in baseline importance (7.3% and 6.5%), suggesting the meta-model already finds value in the raw levels -- enriching with regime/relative/divergence context should amplify this.",
+  "success_hypothesis": "Yield curve dynamics (steepening/flattening regime, change velocity, curvature or volatility) will provide the meta-model with term structure context that improves direction accuracy by +0.5% or more. The key insight is that identical spread levels have very different gold implications depending on the dynamics: a spread of +50bps that is rapidly narrowing (curve flattening = tightening expectations = bearish gold) is fundamentally different from a spread of +50bps that is widening (curve steepening = easing expectations = bullish gold). Base features already include the spread level (rank #6 at 5.8%), and adding dynamic context should amplify its predictive value. The proven HMM + deterministic pattern (successful in VIX, technical, cross_asset) provides the template.",
 
   "success_criteria": {
     "gate1": {
       "overfit_ratio": "< 1.5 (if neural network used; N/A if deterministic methods like HMM/rolling stats)",
       "no_constant_output": true,
-      "autocorrelation": "< 0.99 for all output columns"
+      "autocorrelation": "< 0.99 for all output columns. This is the key risk: yield curve persistence is high. Features MUST operate on changes not levels."
     },
     "gate2": {
       "mi_increase": "> 5% (sum-based, total MI of all features including submodel outputs vs without)",
-      "vif": "< 10 for all submodel output columns",
+      "vif": "< 10 for all submodel output columns. This is the HARDEST VIF test of any submodel -- 4 correlated base features (3 yield curve + 1 real rate) already present.",
       "rolling_correlation_std": "< 0.15"
     },
     "gate3": {
@@ -155,58 +145,50 @@
 
   "lessons_from_previous_features": {
     "real_rate_failure": {
-      "root_cause": "Monthly-to-daily frequency mismatch. 5 attempts, all passed Gate 2 (MI up to +39.3%) but failed Gate 3.",
-      "lesson_applied": "Cross-asset data is inherently daily. No interpolation needed."
+      "root_cause": "Monthly-to-daily frequency mismatch. 5 attempts, all passed Gate 2 (MI up to +39.3%) but failed Gate 3. Forward-fill/interpolation of monthly data to daily created artifacts.",
+      "lesson_applied": "Yield curve data (DGS10, DGS2) is daily from FRED. No interpolation needed. This eliminates the root cause of real_rate failure."
     },
-    "real_rate_dimensionality": {
-      "root_cause": "Attempt 5 used 7 output columns, giving XGBoost more noise surface to overfit.",
+    "real_rate_vif_relevance": {
+      "observation": "real_rate (DFII10 = 10Y TIPS yield) is highly correlated with DGS10 (10Y nominal yield). DFII10 ~ DGS10 - T10YIE (breakeven inflation). The yield_curve submodel MUST NOT produce features that proxy for nominal yield levels, as this would create VIF issues with both DGS10 and DFII10.",
+      "lesson_applied": "Operate on spread CHANGES and DYNAMICS only. Never on yield levels or spread levels."
+    },
+    "compact_3_feature_pattern": {
+      "observation": "All 4 successful submodels (dxy, vix, technical, cross_asset) used exactly 3 output columns. real_rate attempt 5 used 7 columns and failed hardest. More columns = more noise surface for XGBoost to overfit.",
       "lesson_applied": "Exactly 3 output columns."
     },
-    "vix_success": {
-      "approach": "HMM regime + rolling z-score + rolling autocorrelation. 3 columns. DA +0.96%, Sharpe +0.289.",
-      "lesson_applied": "Follow same structural pattern: regime detector + statistical position + dynamics measure."
+    "hmm_regime_pattern": {
+      "observation": "HMM regime detection is the backbone of all successful submodels. VIX: regime on log-VIX changes (1D). Technical: regime on [returns, GK_vol] (2D). Cross_asset: regime on [gold_ret, silver_ret, copper_ret] (3D). All produced informative regime probabilities.",
+      "lesson_applied": "Use HMM on yield curve CHANGES (spread change or [DGS10_chg, DGS2_chg]). The dimensionality choice (1D vs 2D) should be investigated by the researcher."
     },
-    "technical_success": {
-      "approach": "HMM on 2D [returns, GK_vol] + z-score of returns + GK vol z-score. 3 columns. MAE -0.1824 (18x threshold).",
-      "lesson_applied": "2D HMM input improves regime detection. Use the same multi-dimensional approach for correlation regimes. Daily GK vol (no smoothing) keeps autocorrelation low -- apply same principle to cross-asset features."
+    "autocorrelation_design": {
+      "observation": "Raw z-scores of smooth series have dangerously high autocorrelation (cross_asset gold/copper ratio z-score: 0.959). The solution is to use first differences of z-scores or z-scores of short-period changes.",
+      "lesson_applied": "NEVER use raw spread z-score as output. Use z-score of spread CHANGES, first differences, or other transformations that reduce autocorrelation below 0.99."
     },
-    "dxy_completion": {
-      "note": "DXY completed with MI=0.019 but full Gate 2/3 was not evaluated in detail. Its outputs (dxy_regime_probability, dxy_cross_currency_div, dxy_volatility_z) are in the pipeline. Cross-asset submodel must not duplicate DXY's dollar-relationship information.",
-      "lesson_applied": "Avoid gold/dollar relationships -- that is DXY's domain. Focus on gold/silver, gold/copper, gold/equity relationships."
-    },
-    "gate2_not_sufficient": {
-      "lesson": "Gate 2 MI pass does NOT guarantee Gate 3. Features must be in a form that XGBoost can exploit for directional prediction. Ratio z-scores at extremes provide natural split points for XGBoost."
-    },
-    "high_base_feature_importance": {
-      "lesson": "Silver_close (7.3%) and sp500_close (6.5%) are already top-3 base features. This means the meta-model already finds cross-asset levels valuable. Adding RELATIVE and REGIME context should be complementary, not redundant. But it also means VIF risk is real -- the submodel outputs must be structurally different from levels."
+    "vix_cross_asset_gate2_stability": {
+      "observation": "VIX, technical, and cross_asset all had Gate 2 stability marginally fail for regime_prob only (0.15-0.21 vs 0.15 threshold). This appears to be an inherent property of regime features and has been accepted as precedent.",
+      "lesson_applied": "Expect yc_regime_prob stability to be marginal. This is acceptable given precedent."
     }
   },
 
   "vif_risk_analysis": {
-    "critical_base_features": {
-      "cross_asset_silver_close": "Raw silver price level. Rank #2 in baseline importance (7.3%). A gold/silver RATIO z-score should have low correlation with silver LEVEL because the ratio captures the relative relationship, not silver's absolute price. But empirical verification needed -- if silver and gold move together, the ratio may have low variance.",
-      "cross_asset_copper_close": "Raw copper price level. Gold/copper RATIO z-score should be orthogonal to copper level for similar reasons.",
-      "cross_asset_sp500_close": "Raw S&P 500 level. Rank #3 in baseline importance (6.5%). A gold/equity divergence feature should have low correlation with S&P level because it captures the DIFFERENCE in behavior, not the equity level itself."
+    "critical_concern": "This is the HIGHEST VIF-RISK submodel. The base features contain 3 yield curve columns (DGS10, DGS2, yield_spread) plus real_rate (DFII10, which is DGS10 - breakeven inflation). Any feature that correlates with yield LEVELS will fail VIF.",
+    "base_feature_correlations": {
+      "yield_curve_dgs10_vs_real_rate": "Expected very high correlation (0.7-0.9). DGS10 = DFII10 + breakeven. Both move together.",
+      "yield_curve_dgs10_vs_yield_spread": "Moderate correlation. When DGS10 rises without DGS2 matching, spread widens.",
+      "yield_curve_dgs2_vs_yield_spread": "Negative moderate correlation. DGS2 rise narrows spread.",
+      "hmm_regime_on_spread_changes_vs_spread_level": "Expected LOW correlation. Regime of changes is about HOW the spread is moving, not WHERE it is. Similar to VIX regime vs VIX level (measured 0.2-0.4).",
+      "spread_change_velocity_z_vs_spread_level": "Expected LOW correlation. Z-score of 5d change captures velocity, not position. Change and level are near-orthogonal for mean-reverting series.",
+      "curvature_vs_spread": "Needs empirical verification. Curvature (2*DGS10 - DGS2 - DGS30) may correlate with the spread if DGS30 and DGS10 move together. Researcher must measure."
     },
-    "existing_submodel_correlation_risk": {
-      "vix_regime_probability": "HIGHEST RISK. VIX regime captures risk-on/risk-off. Cross-asset correlation regime may also capture risk-on/risk-off (since correlations shift during crises). Researcher MUST measure expected correlation and design to minimize overlap. Strategy: focus cross-asset regime on PRECIOUS METALS relationships (gold/silver) rather than gold/equity, since gold/equity correlation is partly captured by VIX.",
-      "vix_mean_reversion_z": "Low risk. VIX z-score captures VIX-specific mean-reversion. Cross-asset z-score captures ratio-specific mean-reversion. Different instruments.",
-      "tech_trend_regime_prob": "Moderate risk. Gold's own trend regime may correlate with cross-asset divergence (when gold trends, it may diverge from peers). Expected correlation 0.1-0.3.",
-      "tech_volatility_regime": "Low risk. Gold's GK vol regime is gold-specific OHLC data. Cross-asset features use ratios and correlations.",
-      "dxy_regime_probability": "Moderate risk. Dollar regime affects gold-equity correlation. Cross-asset regime should focus on non-dollar relationships to minimize overlap."
+    "submodel_output_correlations": {
+      "yc_regime_prob_vs_vix_regime_probability": "MODERATE RISK. Both capture macro regime shifts. Yield curve flattening and VIX spikes can co-occur. But they capture different phenomena: curve dynamics vs equity vol. Expected correlation 0.2-0.4.",
+      "yc_spread_velocity_z_vs_xasset_recession_signal": "MODERATE RISK. Both capture rate-of-change of macro indicators. Spread flattening velocity and gold/copper ratio change may move together during recessions. Expected correlation 0.2-0.3.",
+      "yc_regime_prob_vs_tech_trend_regime_prob": "LOW RISK. Gold technicals and yield curve dynamics capture different markets."
     },
-    "mitigation": "Design cross-asset features around PRECIOUS METALS ratios (gold/silver, gold/copper) rather than gold/equity correlation, since the latter overlaps more with VIX and DXY. The gold/silver and gold/copper ratios capture information that NO existing submodel addresses: metal-specific supply/demand dynamics and industrial vs safe-haven demand shifts."
+    "mitigation_strategy": "All features must operate on CHANGES and DERIVATIVES of the yield curve, never on levels. The HMM should be trained on spread changes or yield changes. Z-scores should be of multi-day changes, not levels. Curvature should use daily changes of the butterfly spread. This structural design ensures orthogonality with level-based base features."
   },
-
-  "unique_advantages_of_cross_asset_submodel": [
-    "RELATIVE POSITIONING: Only submodel that captures gold's value RELATIVE to peers. Same gold price has very different implications depending on silver, copper, and equity context.",
-    "COMMODITY-SPECIFIC INFORMATION: Gold/silver and gold/copper ratios encode precious metals and industrial demand dynamics that VIX, DXY, and technical submodels cannot capture.",
-    "HIGH BASE IMPORTANCE: Silver (7.3%) and S&P 500 (6.5%) are top-3 base features. Adding relational context to already-important features should have high marginal value.",
-    "PROVEN RATIOS: Gold/silver ratio and gold/copper ratio are established financial indicators used by institutional investors. Strong theoretical backing.",
-    "DAILY FREQUENCY: All Yahoo Finance data is daily. No interpolation needed (real_rate lesson applied)."
-  ],
 
   "previous_feedback": null,
 
-  "created_at": "2026-02-14T23:50:00"
+  "created_at": "2026-02-15T12:00:00"
 }
