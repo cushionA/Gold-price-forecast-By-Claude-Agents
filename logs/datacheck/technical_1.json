@@ -1,0 +1,46 @@
+{
+  "feature": "technical",
+  "data_source": "data/raw/gld_ohlc.csv",
+  "timestamp": "2026-02-14T23:22:15.839512",
+  "steps": [
+    {
+      "step": "file_check",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_stats",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "temporal",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "alignment",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "schema",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "decision": "PASS",
+  "overall_passed": true
+}
