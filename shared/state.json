@@ -1,5 +1,5 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "dxy",
   "current_attempt": 1,
@@ -14,9 +14,9 @@
     "cny_demand"
   ],
   "completed_features": [],
-  "kaggle_kernel": null,
-  "submitted_at": null,
-  "last_updated": "2026-02-14T21:00:00",
+  "kaggle_kernel": "bigbigzabuton/gold-dxy-1",
+  "submitted_at": "2026-02-14T19:28:49.856484",
+  "last_updated": "2026-02-14T19:28:49.856915",
   "error_context": null,
   "user_action_required": null,
   "datachecker_status": null,
@@ -32,14 +32,22 @@
         "gate2": true,
         "gate3": false,
         "decision": "attempt+1",
-        "primary_failures": ["overfit_ratio=2.69", "autocorr>0.99", "ablation_no_improvement"]
+        "primary_failures": [
+          "overfit_ratio=2.69",
+          "autocorr>0.99",
+          "ablation_no_improvement"
+        ]
       },
       "attempt_2": {
         "gate1": null,
         "gate2": null,
         "gate3": null,
         "decision": "attempt+1",
-        "primary_failures": ["optuna_all_trials_pruned", "no_completed_trials", "gru_convergence_failure"],
+        "primary_failures": [
+          "optuna_all_trials_pruned",
+          "no_completed_trials",
+          "gru_convergence_failure"
+        ],
         "note": "All 20 Optuna trials pruned. GRU failed to converge. Switched to multi-country Transformer."
       },
       "attempt_3": {
@@ -47,8 +55,16 @@
         "gate2": true,
         "gate3": false,
         "decision": "attempt+1",
-        "primary_failures": ["gate3_mae_degradation_all_folds", "gate3_da_marginal_miss_0.48pct", "gate3_sharpe_unstable"],
-        "primary_successes": ["overfit_1.28", "MI_increase_23.8pct", "30_optuna_trials"],
+        "primary_failures": [
+          "gate3_mae_degradation_all_folds",
+          "gate3_da_marginal_miss_0.48pct",
+          "gate3_sharpe_unstable"
+        ],
+        "primary_successes": [
+          "overfit_1.28",
+          "MI_increase_23.8pct",
+          "30_optuna_trials"
+        ],
         "note": "Multi-country Transformer solved overfitting. Information exists (MI+23.8%) but forward-fill step function degrades MAE. Switching to PCA+interpolation for Attempt 4."
       },
       "attempt_4": {
@@ -56,8 +72,17 @@
         "gate2": true,
         "gate3": false,
         "decision": "no_further_improvement",
-        "primary_failures": ["gate3_all_metrics_degraded_all_folds", "gate3_da_delta=-1.96%", "gate3_mae_delta=+0.078", "gate3_sharpe_delta=-0.219"],
-        "primary_successes": ["MI_increase_10.29pct", "VIF_submodel_1.33", "stability_0.135"],
+        "primary_failures": [
+          "gate3_all_metrics_degraded_all_folds",
+          "gate3_da_delta=-1.96%",
+          "gate3_mae_delta=+0.078",
+          "gate3_sharpe_delta=-0.219"
+        ],
+        "primary_successes": [
+          "MI_increase_10.29pct",
+          "VIF_submodel_1.33",
+          "stability_0.135"
+        ],
         "note": "PCA + Cubic Spline. Gate 2 PASS but Gate 3 FAIL on all metrics in all 5 folds. Monthly-to-daily frequency mismatch is fundamental. Declared no_further_improvement."
       },
       "attempt_5": {
@@ -65,8 +90,17 @@
         "gate2": true,
         "gate3": false,
         "decision": "no_further_improvement",
-        "primary_failures": ["gate3_all_metrics_degraded", "gate3_da_delta=-2.53%", "gate3_mae_delta=+0.160", "gate3_sharpe_delta=-0.709"],
-        "primary_successes": ["MI_increase_39.3pct", "VIF_true_3.08", "stability_0.132"],
+        "primary_failures": [
+          "gate3_all_metrics_degraded",
+          "gate3_da_delta=-2.53%",
+          "gate3_mae_delta=+0.160",
+          "gate3_sharpe_delta=-0.709"
+        ],
+        "primary_successes": [
+          "MI_increase_39.3pct",
+          "VIF_true_3.08",
+          "stability_0.132"
+        ],
         "note": "Markov Regime + CUSUM State Features. Highest MI (+39.3%) but worst Gate 3 degradation. 7 state features gave XGBoost more noise to overfit on. 5 attempts exhausted. Proceeding to dxy."
       }
     }

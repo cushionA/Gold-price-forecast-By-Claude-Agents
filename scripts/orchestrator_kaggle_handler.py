@@ -7,6 +7,7 @@ Kaggle提出 → 自動監視スクリプト起動 → セッション終了の�
 import subprocess
 import sys
 import json
+import os
 import re
 from datetime import datetime
 from pathlib import Path
@@ -81,12 +82,20 @@ class KaggleSubmissionHandler:
 
         # 1. Kaggle提出
         try:
+            # 環境変数を設定（UTF-8モード + 新しいAPI Token形式対応）
+            env = os.environ.copy()
+            env['PYTHONUTF8'] = '1'
+            if 'KAGGLE_API_TOKEN' in env:
+                # 新しいAPI Token形式の場合はそのまま使用
+                pass
+
             result = subprocess.run(
                 ['kaggle', 'kernels', 'push', '-p', notebook_path],
                 capture_output=True,
                 text=True,
                 timeout=120,
                 cwd=self.project_root,
+                env=env,
                 encoding='utf-8',
                 errors='replace'
             )

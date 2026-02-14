@@ -49,11 +49,16 @@ class KaggleMonitor:
             str: 'complete', 'running', 'error', 'unknown'
         """
         try:
+            # 環境変数を設定（UTF-8モード）
+            env = os.environ.copy()
+            env['PYTHONUTF8'] = '1'
+
             result = subprocess.run(
                 ['kaggle', 'kernels', 'status', kernel_id],
                 capture_output=True,
                 text=True,
-                timeout=30
+                timeout=30,
+                env=env
             )
 
             output = result.stdout.lower()
@@ -79,11 +84,16 @@ class KaggleMonitor:
         os.makedirs(output_dir, exist_ok=True)
 
         try:
+            # 環境変数を設定（UTF-8モード）
+            env = os.environ.copy()
+            env['PYTHONUTF8'] = '1'
+
             result = subprocess.run(
                 ['kaggle', 'kernels', 'output', kernel_id, '-p', output_dir],
                 capture_output=True,
                 text=True,
-                timeout=120
+                timeout=120,
+                env=env
             )
 
             if result.returncode == 0:
