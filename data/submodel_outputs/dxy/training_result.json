@@ -1,0 +1,45 @@
+{
+  "feature": "dxy",
+  "attempt": 1,
+  "timestamp": "2026-02-14T10:50:16.033475",
+  "method": "GMM + Rolling PCA + Realized Vol Z-Score",
+  "best_params": {
+    "gmm_components": 2,
+    "pca_window": 80,
+    "vol_window": 25
+  },
+  "best_mi": -999.0,
+  "output_shape": [
+    2484,
+    3
+  ],
+  "output_columns": [
+    "dxy_regime_probability",
+    "dxy_cross_currency_div",
+    "dxy_volatility_z"
+  ],
+  "date_range": {
+    "start": "2015-03-27 00:00:00",
+    "end": "2025-02-13 00:00:00"
+  },
+  "descriptive_stats": {
+    "dxy_regime_probability": {
+      "mean": 0.5047162261695642,
+      "std": 0.14268561254026768,
+      "min": 0.15658030609036663,
+      "max": 0.9957899530643146
+    },
+    "dxy_cross_currency_div": {
+      "mean": 0.4797668950106406,
+      "std": 0.23363270140372625,
+      "min": 0.0,
+      "max": 0.9999999969858018
+    },
+    "dxy_volatility_z": {
+      "mean": -0.37585001962918796,
+      "std": 1.0335211615015325,
+      "min": -2.5004453346517104,
+      "max": 4.202927371488487
+    }
+  }
+}

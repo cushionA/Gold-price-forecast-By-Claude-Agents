@@ -1,0 +1,704 @@
+[{"stream_name":"stdout","time":10.069015382,"data":"=== Gold SubModel Training: DXY attempt 1 (Revised) ===\n"}
+,{"stream_name":"stdout","time":10.069090089,"data":"Started: 2026-02-14T10:49:19.821565\n"}
+,{"stream_name":"stdout","time":10.06909714,"data":"\n"}
+,{"stream_name":"stdout","time":10.069101064,"data":"[Data Fetch] Downloading currency data from Yahoo Finance...\n"}
+,{"stream_name":"stdout","time":10.743013662,"data":"[OK] DX-Y.NYB: 2567 rows, latest=107.3100\n"}
+,{"stream_name":"stdout","time":10.986516029,"data":"[OK] EURUSD=X: 2660 rows, latest=1.0392\n"}
+,{"stream_name":"stdout","time":11.217643593,"data":"[OK] JPY=X: 2660 rows, latest=154.2550\n"}
+,{"stream_name":"stdout","time":11.462010634,"data":"[OK] GBPUSD=X: 2660 rows, latest=1.2451\n"}
+,{"stream_name":"stdout","time":11.7537023,"data":"[OK] CAD=X: 2660 rows, latest=1.4301\n"}
+,{"stream_name":"stdout","time":11.984675769999999,"data":"[OK] SEK=X: 2660 rows, latest=10.8659\n"}
+,{"stream_name":"stdout","time":12.220444324,"data":"[OK] CHF=X: 2660 rows, latest=0.9134\n"}
+,{"stream_name":"stdout","time":12.237887021,"data":"\n"}
+,{"stream_name":"stdout","time":12.237928308,"data":"[Data Fetch] Combined: 2564 rows after inner join\n"}
+,{"stream_name":"stdout","time":12.237935185,"data":"Date range: 2014-12-01 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":12.238438772,"data":"\n"}
+,{"stream_name":"stdout","time":12.238462638,"data":"[Preprocessing] Computing log-returns and normalizing directions...\n"}
+,{"stream_name":"stdout","time":12.241248009,"data":"[OK] Returns computed: 2563 rows\n"}
+,{"stream_name":"stdout","time":12.241282287,"data":"Date range: 2014-12-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":12.247039869,"data":"[OK] After gap-filling and NaN removal: 2563 rows\n"}
+,{"stream_name":"stdout","time":12.247078924,"data":"\n"}
+,{"stream_name":"stdout","time":12.247084919,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":12.247090119,"data":"OPTUNA HPO (30 trials)\n"}
+,{"stream_name":"stdout","time":12.247094302,"data":"======================================================================\n"}
+,{"stream_name":"stderr","time":12.248363992,"data":"[I 2026-02-14 10:49:22,000] A new study created in memory with name: no-name-4719dbeb-5986-4e6b-bccf-83f1c73ee359\n"}
+,{"stream_name":"stdout","time":12.254561053,"data":"\n"}
+,{"stream_name":"stdout","time":12.254596631,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":12.254711502,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":12.254724224,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":12.255511405,"data":"\n"}
+,{"stream_name":"stdout","time":12.255538810000001,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":12.373359649,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":12.373403198,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":12.373408971,"data":"\n"}
+,{"stream_name":"stdout","time":12.373413416,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":14.141767307,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":14.141864492,"data":"\n"}
+,{"stream_name":"stdout","time":14.141872593,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":14.145195684,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":14.146718244,"data":"\n"}
+,{"stream_name":"stdout","time":14.146753558,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":14.146763561,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":14.147853203,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":14.149129687,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":14.162236884,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":14.162799503,"data":"[I 2026-02-14 10:49:23,915] Trial 0 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":14.164583967,"data":"\n"}
+,{"stream_name":"stdout","time":14.164612386,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":14.164618077,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":14.164622568,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":14.16543111,"data":"\n"}
+,{"stream_name":"stdout","time":14.16545237,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":14.1850047,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":14.185043251,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":14.185047818,"data":"\n"}
+,{"stream_name":"stdout","time":14.185051654,"data":"[PCA Divergence] Computing 40-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":15.964980543,"data":"[OK] PCA divergence computed: mean=0.365, scaled mean=0.492\n"}
+,{"stream_name":"stdout","time":15.965201181,"data":"\n"}
+,{"stream_name":"stdout","time":15.965219159,"data":"[Volatility Z-Score] Computing 10-day realized vol...\n"}
+,{"stream_name":"stdout","time":15.966603096,"data":"[OK] Volatility z-score: mean=-0.237, std=0.993\n"}
+,{"stream_name":"stdout","time":15.967938557,"data":"\n"}
+,{"stream_name":"stdout","time":15.967964852,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":15.967970008,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":15.968710429,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":15.969400912,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":15.969703911,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":15.970184689,"data":"[I 2026-02-14 10:49:25,722] Trial 1 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 40, 'vol_window': 10}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":15.971954875,"data":"\n"}
+,{"stream_name":"stdout","time":15.971979988,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":15.971986172,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":15.971990683,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":15.97285209,"data":"\n"}
+,{"stream_name":"stdout","time":15.972876406,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":15.989999417,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":15.990037096,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":15.990041513,"data":"\n"}
+,{"stream_name":"stdout","time":15.990045308,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":17.669517025,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":17.669718919,"data":"\n"}
+,{"stream_name":"stdout","time":17.669728827,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":17.671066914,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":17.672499563,"data":"\n"}
+,{"stream_name":"stdout","time":17.672524253,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":17.672529722,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":17.672979138,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":17.6741768,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":17.674477142,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":17.674925383,"data":"[I 2026-02-14 10:49:27,427] Trial 2 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":17.676312432,"data":"\n"}
+,{"stream_name":"stdout","time":17.676354365,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":17.676379362,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":17.676385185,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":17.677265541,"data":"\n"}
+,{"stream_name":"stdout","time":17.677276693,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":17.696661785,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":17.696697087,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":17.696701364,"data":"\n"}
+,{"stream_name":"stdout","time":17.696705093,"data":"[PCA Divergence] Computing 40-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":19.424425293,"data":"[OK] PCA divergence computed: mean=0.365, scaled mean=0.492\n"}
+,{"stream_name":"stdout","time":19.424467754,"data":"\n"}
+,{"stream_name":"stdout","time":19.42447385,"data":"[Volatility Z-Score] Computing 30-day realized vol...\n"}
+,{"stream_name":"stdout","time":19.425726888,"data":"[OK] Volatility z-score: mean=-0.374, std=1.070\n"}
+,{"stream_name":"stdout","time":19.426865553,"data":"\n"}
+,{"stream_name":"stdout","time":19.426890185,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":19.426895132,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":19.427369721,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":19.428220014,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":19.428431694,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":19.428955624,"data":"[I 2026-02-14 10:49:29,181] Trial 3 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 40, 'vol_window': 30}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":19.431023949,"data":"\n"}
+,{"stream_name":"stdout","time":19.431055937,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":19.431060186,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":19.431063089,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":19.431786533,"data":"\n"}
+,{"stream_name":"stdout","time":19.431813311,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":19.450307483,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":19.450357466,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":19.450362083999998,"data":"\n"}
+,{"stream_name":"stdout","time":19.450365806,"data":"[PCA Divergence] Computing 50-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":21.205065576,"data":"[OK] PCA divergence computed: mean=0.370, scaled mean=0.467\n"}
+,{"stream_name":"stdout","time":21.20522862,"data":"\n"}
+,{"stream_name":"stdout","time":21.205239054,"data":"[Volatility Z-Score] Computing 10-day realized vol...\n"}
+,{"stream_name":"stdout","time":21.206407446,"data":"[OK] Volatility z-score: mean=-0.237, std=0.993\n"}
+,{"stream_name":"stdout","time":21.207691803,"data":"\n"}
+,{"stream_name":"stdout","time":21.207720546,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":21.20774236,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":21.2082894,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":21.20918562,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":21.209643236,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":21.209888332,"data":"[I 2026-02-14 10:49:30,962] Trial 4 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 50, 'vol_window': 10}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":21.211575455,"data":"\n"}
+,{"stream_name":"stdout","time":21.211615838,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":21.211622175,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":21.211626999,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":21.212412297,"data":"\n"}
+,{"stream_name":"stdout","time":21.212432882,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":21.22850092,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":21.228537571,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":21.228543905,"data":"\n"}
+,{"stream_name":"stdout","time":21.228549307,"data":"[PCA Divergence] Computing 50-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":23.030234702,"data":"[OK] PCA divergence computed: mean=0.370, scaled mean=0.467\n"}
+,{"stream_name":"stdout","time":23.030299968,"data":"\n"}
+,{"stream_name":"stdout","time":23.030457981,"data":"[Volatility Z-Score] Computing 20-day realized vol...\n"}
+,{"stream_name":"stdout","time":23.031762454,"data":"[OK] Volatility z-score: mean=-0.319, std=1.031\n"}
+,{"stream_name":"stdout","time":23.033354362,"data":"\n"}
+,{"stream_name":"stdout","time":23.033381197,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":23.033386466,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":23.034043508,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":23.03498346,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":23.035477565,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":23.035983895,"data":"[I 2026-02-14 10:49:32,788] Trial 5 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 50, 'vol_window': 20}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":23.038373874,"data":"\n"}
+,{"stream_name":"stdout","time":23.038410341,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":23.038417575,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":23.038421011,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":23.03967854,"data":"\n"}
+,{"stream_name":"stdout","time":23.039704987,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":23.057471063,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":23.057510133,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":23.057521711,"data":"\n"}
+,{"stream_name":"stdout","time":23.057525456,"data":"[PCA Divergence] Computing 50-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":24.800754635,"data":"[OK] PCA divergence computed: mean=0.370, scaled mean=0.467\n"}
+,{"stream_name":"stdout","time":24.80084694,"data":"\n"}
+,{"stream_name":"stdout","time":24.80090062,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":24.802180903,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":24.803478784,"data":"\n"}
+,{"stream_name":"stdout","time":24.803538565,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":24.803545502,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":24.804053681,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":24.804993496,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":24.805296962,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":24.805930249,"data":"[I 2026-02-14 10:49:34,558] Trial 6 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 50, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":24.808008165,"data":"\n"}
+,{"stream_name":"stdout","time":24.808035135,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":24.808041659,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":24.808046103,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":24.808994527,"data":"\n"}
+,{"stream_name":"stdout","time":24.809013157,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":24.825611281,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":24.825648408,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":24.825652663,"data":"\n"}
+,{"stream_name":"stdout","time":24.825656445,"data":"[PCA Divergence] Computing 50-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":26.55286594,"data":"[OK] PCA divergence computed: mean=0.370, scaled mean=0.467\n"}
+,{"stream_name":"stdout","time":26.552945193,"data":"\n"}
+,{"stream_name":"stdout","time":26.552953602,"data":"[Volatility Z-Score] Computing 15-day realized vol...\n"}
+,{"stream_name":"stdout","time":26.554698322,"data":"[OK] Volatility z-score: mean=-0.282, std=1.014\n"}
+,{"stream_name":"stdout","time":26.557017525,"data":"\n"}
+,{"stream_name":"stdout","time":26.55705554,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":26.557061348,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":26.557972672,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":26.559524482,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":26.559860369,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":26.560294989,"data":"[I 2026-02-14 10:49:36,312] Trial 7 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 50, 'vol_window': 15}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":26.56219706,"data":"\n"}
+,{"stream_name":"stdout","time":26.562221677,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":26.562228154,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":26.562232952,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":26.563264333,"data":"\n"}
+,{"stream_name":"stdout","time":26.563290168,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":26.582873761,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":26.582914037,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":26.582920162,"data":"\n"}
+,{"stream_name":"stdout","time":26.58292457,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":28.262384158,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":28.262479508,"data":"\n"}
+,{"stream_name":"stdout","time":28.262492355,"data":"[Volatility Z-Score] Computing 10-day realized vol...\n"}
+,{"stream_name":"stdout","time":28.263902778,"data":"[OK] Volatility z-score: mean=-0.237, std=0.993\n"}
+,{"stream_name":"stdout","time":28.265371526,"data":"\n"}
+,{"stream_name":"stdout","time":28.265395945,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":28.265463952,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":28.265975876,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":28.267520746,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":28.267681078,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":28.268056097,"data":"[I 2026-02-14 10:49:38,020] Trial 8 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 70, 'vol_window': 10}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":28.269779162,"data":"\n"}
+,{"stream_name":"stdout","time":28.269804353,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":28.269811219,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":28.269816581,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":28.270620864,"data":"\n"}
+,{"stream_name":"stdout","time":28.270640341,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":28.288774133,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":28.288815341,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":28.288822323,"data":"\n"}
+,{"stream_name":"stdout","time":28.288826785,"data":"[PCA Divergence] Computing 60-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":29.970185791,"data":"[OK] PCA divergence computed: mean=0.373, scaled mean=0.483\n"}
+,{"stream_name":"stdout","time":29.970470919,"data":"\n"}
+,{"stream_name":"stdout","time":29.970489399,"data":"[Volatility Z-Score] Computing 10-day realized vol...\n"}
+,{"stream_name":"stdout","time":29.971715411,"data":"[OK] Volatility z-score: mean=-0.237, std=0.993\n"}
+,{"stream_name":"stdout","time":29.97300421,"data":"\n"}
+,{"stream_name":"stdout","time":29.973026107,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":29.973135437,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":29.973795485,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":29.974757149,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":29.97510726,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":29.975676151000002,"data":"[I 2026-02-14 10:49:39,728] Trial 9 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 60, 'vol_window': 10}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":29.987449759,"data":"\n"}
+,{"stream_name":"stdout","time":29.987489356,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":29.98749914,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":29.987502402,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":29.988167874,"data":"\n"}
+,{"stream_name":"stdout","time":29.988176099,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":30.004454514,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":30.004491792,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":30.004496266,"data":"\n"}
+,{"stream_name":"stdout","time":30.00449981,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":31.713202801,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":31.713257548,"data":"\n"}
+,{"stream_name":"stdout","time":31.713263319,"data":"[Volatility Z-Score] Computing 30-day realized vol...\n"}
+,{"stream_name":"stdout","time":31.714743239,"data":"[OK] Volatility z-score: mean=-0.374, std=1.070\n"}
+,{"stream_name":"stdout","time":31.715886596,"data":"\n"}
+,{"stream_name":"stdout","time":31.715914906,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":31.715984999,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":31.716603228,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":31.717658033,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":31.717912161,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":31.718495239,"data":"[I 2026-02-14 10:49:41,470] Trial 10 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 30}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":31.726509688,"data":"\n"}
+,{"stream_name":"stdout","time":31.72655968,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":31.726565392,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":31.726569486,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":31.727280623,"data":"\n"}
+,{"stream_name":"stdout","time":31.727296392,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":31.746107972,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":31.746204925,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":31.746209714,"data":"\n"}
+,{"stream_name":"stdout","time":31.746213291,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":33.418183218,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":33.41823234,"data":"\n"}
+,{"stream_name":"stdout","time":33.418239085,"data":"[Volatility Z-Score] Computing 20-day realized vol...\n"}
+,{"stream_name":"stdout","time":33.41958155,"data":"[OK] Volatility z-score: mean=-0.319, std=1.031\n"}
+,{"stream_name":"stdout","time":33.421017205,"data":"\n"}
+,{"stream_name":"stdout","time":33.421040431,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":33.421044313,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":33.421667122,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":33.422972651,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":33.423219048,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":33.423962896,"data":"[I 2026-02-14 10:49:43,176] Trial 11 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 70, 'vol_window': 20}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":33.432916936,"data":"\n"}
+,{"stream_name":"stdout","time":33.432966437,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":33.432975461,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":33.432978471,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":33.433690942,"data":"\n"}
+,{"stream_name":"stdout","time":33.433713714,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":33.451981099,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":33.452020532,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":33.452026503,"data":"\n"}
+,{"stream_name":"stdout","time":33.452030928,"data":"[PCA Divergence] Computing 40-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":35.171474396,"data":"[OK] PCA divergence computed: mean=0.365, scaled mean=0.492\n"}
+,{"stream_name":"stdout","time":35.171832239,"data":"\n"}
+,{"stream_name":"stdout","time":35.171845417,"data":"[Volatility Z-Score] Computing 15-day realized vol...\n"}
+,{"stream_name":"stdout","time":35.173256008,"data":"[OK] Volatility z-score: mean=-0.282, std=1.014\n"}
+,{"stream_name":"stdout","time":35.174501207,"data":"\n"}
+,{"stream_name":"stdout","time":35.17452451,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":35.174547637,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":35.175158137,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":35.17612194,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":35.176266845,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":35.176839818,"data":"[I 2026-02-14 10:49:44,929] Trial 12 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 40, 'vol_window': 15}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":35.184567395,"data":"\n"}
+,{"stream_name":"stdout","time":35.184605272,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":35.184610859,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":35.184620961,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":35.185304629,"data":"\n"}
+,{"stream_name":"stdout","time":35.185313036,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":35.202975591,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":35.203009119,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":35.20301365,"data":"\n"}
+,{"stream_name":"stdout","time":35.203018144,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":36.881000755,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":36.881088127,"data":"\n"}
+,{"stream_name":"stdout","time":36.881099966,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":36.882432757,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":36.883916165,"data":"\n"}
+,{"stream_name":"stdout","time":36.883945344,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":36.883982326,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":36.884635862,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":36.885698835,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":36.88607897,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":36.886491185,"data":"[I 2026-02-14 10:49:46,638] Trial 13 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 70, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":36.894253702,"data":"\n"}
+,{"stream_name":"stdout","time":36.894290226,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":36.894298252,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":36.894302549,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":36.895067114,"data":"\n"}
+,{"stream_name":"stdout","time":36.895091794,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":36.911163686,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":36.911199681,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":36.911204031,"data":"\n"}
+,{"stream_name":"stdout","time":36.911207829,"data":"[PCA Divergence] Computing 60-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":38.61374396,"data":"[OK] PCA divergence computed: mean=0.373, scaled mean=0.483\n"}
+,{"stream_name":"stdout","time":38.613828932,"data":"\n"}
+,{"stream_name":"stdout","time":38.613837468,"data":"[Volatility Z-Score] Computing 15-day realized vol...\n"}
+,{"stream_name":"stdout","time":38.615168241,"data":"[OK] Volatility z-score: mean=-0.282, std=1.014\n"}
+,{"stream_name":"stdout","time":38.61648537,"data":"\n"}
+,{"stream_name":"stdout","time":38.616581962,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":38.616616194,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":38.617200477,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":38.61809142,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":38.618388309,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":38.618826891,"data":"[I 2026-02-14 10:49:48,371] Trial 14 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 60, 'vol_window': 15}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":38.627774111,"data":"\n"}
+,{"stream_name":"stdout","time":38.62781135,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":38.627815797,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":38.627818653,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":38.628606456,"data":"\n"}
+,{"stream_name":"stdout","time":38.628628649,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":38.647066409,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":38.647102972,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":38.647107682,"data":"\n"}
+,{"stream_name":"stdout","time":38.647111100000004,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":40.348785285,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":40.348955229,"data":"\n"}
+,{"stream_name":"stdout","time":40.348966329,"data":"[Volatility Z-Score] Computing 20-day realized vol...\n"}
+,{"stream_name":"stdout","time":40.350301788,"data":"[OK] Volatility z-score: mean=-0.319, std=1.031\n"}
+,{"stream_name":"stdout","time":40.351694137,"data":"\n"}
+,{"stream_name":"stdout","time":40.351715625,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":40.351719474,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":40.35228286,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":40.353427673,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":40.353786277,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":40.354215965,"data":"[I 2026-02-14 10:49:50,106] Trial 15 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 80, 'vol_window': 20}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":40.362053486,"data":"\n"}
+,{"stream_name":"stdout","time":40.362093232,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":40.362099802,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":40.36211092,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":40.363103021,"data":"\n"}
+,{"stream_name":"stdout","time":40.363131937,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":40.38083348,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":40.380867226,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":40.380871622,"data":"\n"}
+,{"stream_name":"stdout","time":40.380875175,"data":"[PCA Divergence] Computing 40-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":42.200234724,"data":"[OK] PCA divergence computed: mean=0.365, scaled mean=0.492\n"}
+,{"stream_name":"stdout","time":42.200285073,"data":"\n"}
+,{"stream_name":"stdout","time":42.200293571,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":42.201407226,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":42.202505986,"data":"\n"}
+,{"stream_name":"stdout","time":42.202528442,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":42.202620748,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":42.203085253,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":42.203857125,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":42.20415231,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":42.204576196,"data":"[I 2026-02-14 10:49:51,957] Trial 16 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 40, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":42.212180852,"data":"\n"}
+,{"stream_name":"stdout","time":42.212217002,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":42.212224219,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":42.212230258,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":42.212933402,"data":"\n"}
+,{"stream_name":"stdout","time":42.212956848,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":42.230216891,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":42.230262786,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":42.230267668,"data":"\n"}
+,{"stream_name":"stdout","time":42.230271136,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":43.916727811,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":43.916777625,"data":"\n"}
+,{"stream_name":"stdout","time":43.916784239,"data":"[Volatility Z-Score] Computing 20-day realized vol...\n"}
+,{"stream_name":"stdout","time":43.918015769,"data":"[OK] Volatility z-score: mean=-0.319, std=1.031\n"}
+,{"stream_name":"stdout","time":43.91955123,"data":"\n"}
+,{"stream_name":"stdout","time":43.919571712,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":43.919576674,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":43.92020609,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":43.921365501,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":43.921787533,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":43.922113612,"data":"[I 2026-02-14 10:49:53,674] Trial 17 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 70, 'vol_window': 20}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":43.930243464,"data":"\n"}
+,{"stream_name":"stdout","time":43.93042033,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":43.930444638,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":43.930451634,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":43.931133655,"data":"\n"}
+,{"stream_name":"stdout","time":43.931147498,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":43.950483036,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":43.950520382,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":43.950524888,"data":"\n"}
+,{"stream_name":"stdout","time":43.950566408,"data":"[PCA Divergence] Computing 60-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":45.638558263,"data":"[OK] PCA divergence computed: mean=0.373, scaled mean=0.483\n"}
+,{"stream_name":"stdout","time":45.638619287,"data":"\n"}
+,{"stream_name":"stdout","time":45.638625688,"data":"[Volatility Z-Score] Computing 15-day realized vol...\n"}
+,{"stream_name":"stdout","time":45.640283521,"data":"[OK] Volatility z-score: mean=-0.282, std=1.014\n"}
+,{"stream_name":"stdout","time":45.641816675,"data":"\n"}
+,{"stream_name":"stdout","time":45.641868338,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":45.641887921,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":45.642466871,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":45.643540807,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":45.643640344,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":45.644112911,"data":"[I 2026-02-14 10:49:55,396] Trial 18 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 60, 'vol_window': 15}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":45.652725873,"data":"\n"}
+,{"stream_name":"stdout","time":45.652765769,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":45.652771836,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":45.652782862,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":45.653571711,"data":"\n"}
+,{"stream_name":"stdout","time":45.65359754,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":45.67073073,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":45.670768966,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":45.670774721,"data":"\n"}
+,{"stream_name":"stdout","time":45.670779273,"data":"[PCA Divergence] Computing 40-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":47.412420527,"data":"[OK] PCA divergence computed: mean=0.365, scaled mean=0.492\n"}
+,{"stream_name":"stdout","time":47.41246428,"data":"\n"}
+,{"stream_name":"stdout","time":47.41247055,"data":"[Volatility Z-Score] Computing 30-day realized vol...\n"}
+,{"stream_name":"stdout","time":47.413637725,"data":"[OK] Volatility z-score: mean=-0.374, std=1.070\n"}
+,{"stream_name":"stdout","time":47.414748132,"data":"\n"}
+,{"stream_name":"stdout","time":47.414771252,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":47.41477776,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":47.41518859,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":47.415984421,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":47.416211767,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":47.416719673,"data":"[I 2026-02-14 10:49:57,169] Trial 19 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 40, 'vol_window': 30}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":47.424398455,"data":"\n"}
+,{"stream_name":"stdout","time":47.424461759,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":47.424469974,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":47.424475594,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":47.425236915,"data":"\n"}
+,{"stream_name":"stdout","time":47.42525911,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":47.445067526,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":47.445106444,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":47.445112217,"data":"\n"}
+,{"stream_name":"stdout","time":47.445116794,"data":"[PCA Divergence] Computing 60-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":49.103109313,"data":"[OK] PCA divergence computed: mean=0.373, scaled mean=0.483\n"}
+,{"stream_name":"stdout","time":49.103229906,"data":"\n"}
+,{"stream_name":"stdout","time":49.117793643,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":49.117845042,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":49.1178517,"data":"\n"}
+,{"stream_name":"stdout","time":49.117856474,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":49.117861113,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":49.117865797,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":49.117871029,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":49.117875349,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":49.117880014,"data":"[I 2026-02-14 10:49:58,861] Trial 20 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 60, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":49.117884655,"data":"\n"}
+,{"stream_name":"stdout","time":49.117889755,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":49.117905954,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":49.11791076,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":49.118212827,"data":"\n"}
+,{"stream_name":"stdout","time":49.118230149,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":49.135465072,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":49.135514863,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":49.135519564,"data":"\n"}
+,{"stream_name":"stdout","time":49.135523122,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":50.778931166,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":50.779073596,"data":"\n"}
+,{"stream_name":"stdout","time":50.779092062,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":50.780288514,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":50.78145872,"data":"\n"}
+,{"stream_name":"stdout","time":50.781492932,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":50.781497618,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":50.781991104,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":50.783108646,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":50.783516187000004,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":50.783879456,"data":"[I 2026-02-14 10:50:00,536] Trial 21 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":50.791866539,"data":"\n"}
+,{"stream_name":"stdout","time":50.791932059,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":50.791936713,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":50.791939689,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":50.792679909,"data":"\n"}
+,{"stream_name":"stdout","time":50.792724194,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":50.809136003,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":50.809177548,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":50.809183101,"data":"\n"}
+,{"stream_name":"stdout","time":50.809187307,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":52.512017268,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":52.51219051,"data":"\n"}
+,{"stream_name":"stdout","time":52.512208825,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":52.513674332,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":52.514950519,"data":"\n"}
+,{"stream_name":"stdout","time":52.514971134,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":52.515000673,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":52.515644803,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":52.516782332,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":52.51717057,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":52.51757098,"data":"[I 2026-02-14 10:50:02,270] Trial 22 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":52.525718687,"data":"\n"}
+,{"stream_name":"stdout","time":52.525759877,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":52.525767919,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":52.525772306,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":52.526629494,"data":"\n"}
+,{"stream_name":"stdout","time":52.526660632,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":52.547400795,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":52.547444512,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":52.54745106,"data":"\n"}
+,{"stream_name":"stdout","time":52.547455423,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":54.218210081,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":54.218304504,"data":"\n"}
+,{"stream_name":"stdout","time":54.218431103,"data":"[Volatility Z-Score] Computing 30-day realized vol...\n"}
+,{"stream_name":"stdout","time":54.219702531,"data":"[OK] Volatility z-score: mean=-0.374, std=1.070\n"}
+,{"stream_name":"stdout","time":54.220968308,"data":"\n"}
+,{"stream_name":"stdout","time":54.220991732,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":54.221011114,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":54.221668692,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":54.222992391,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":54.22324022,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":54.223719999,"data":"[I 2026-02-14 10:50:03,976] Trial 23 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 30}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":54.234092643,"data":"\n"}
+,{"stream_name":"stdout","time":54.234125491,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":54.234137809,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":54.2341419,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":54.235175278,"data":"\n"}
+,{"stream_name":"stdout","time":54.235202514,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":54.251742348,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":54.251780033,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":54.251784413,"data":"\n"}
+,{"stream_name":"stdout","time":54.25178845,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":55.919991334,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":55.920134028,"data":"\n"}
+,{"stream_name":"stdout","time":55.920144239,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":55.921374999,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":55.922613585,"data":"\n"}
+,{"stream_name":"stdout","time":55.922636351,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":55.922652447,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":55.923210516,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":55.924420496,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":55.924766249,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":55.92521374,"data":"[I 2026-02-14 10:50:05,677] Trial 24 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 70, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":55.933133341,"data":"\n"}
+,{"stream_name":"stdout","time":55.933174938,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":55.933187527,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":55.933190882,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":55.93396674,"data":"\n"}
+,{"stream_name":"stdout","time":55.933993114,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":55.950030135,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":55.95006664,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":55.950071408,"data":"\n"}
+,{"stream_name":"stdout","time":55.950075147,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":57.635734959,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":57.636050385,"data":"\n"}
+,{"stream_name":"stdout","time":57.636066981,"data":"[Volatility Z-Score] Computing 20-day realized vol...\n"}
+,{"stream_name":"stdout","time":57.637307137,"data":"[OK] Volatility z-score: mean=-0.319, std=1.031\n"}
+,{"stream_name":"stdout","time":57.638718197,"data":"\n"}
+,{"stream_name":"stdout","time":57.638743887,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":57.63874888,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":57.639346671,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":57.640479021,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":57.64075986,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":57.641199472,"data":"[I 2026-02-14 10:50:07,393] Trial 25 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 20}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":57.650163634,"data":"\n"}
+,{"stream_name":"stdout","time":57.650206155,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":57.650215098,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":57.650223087,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":57.651062778,"data":"\n"}
+,{"stream_name":"stdout","time":57.651097839,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":57.6672603,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":57.667296099,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":57.667300935,"data":"\n"}
+,{"stream_name":"stdout","time":57.667304538,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":59.351780622,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":59.351940294,"data":"\n"}
+,{"stream_name":"stdout","time":59.351957616,"data":"[Volatility Z-Score] Computing 30-day realized vol...\n"}
+,{"stream_name":"stdout","time":59.353241285,"data":"[OK] Volatility z-score: mean=-0.374, std=1.070\n"}
+,{"stream_name":"stdout","time":59.354632528,"data":"\n"}
+,{"stream_name":"stdout","time":59.354660371,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":59.354822699,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":59.355290654,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":59.35653494,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":59.356853903,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":59.35726633,"data":"[I 2026-02-14 10:50:09,109] Trial 26 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 70, 'vol_window': 30}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":59.36570646,"data":"\n"}
+,{"stream_name":"stdout","time":59.365744715,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":59.365751435,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":59.365756123,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":59.366583984,"data":"\n"}
+,{"stream_name":"stdout","time":59.366611019,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":59.383120868,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":59.38315856,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":59.383163534,"data":"\n"}
+,{"stream_name":"stdout","time":59.383166999,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":61.046779665,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":61.046947595,"data":"\n"}
+,{"stream_name":"stdout","time":61.046960318000004,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":61.048163294,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":61.049345246,"data":"\n"}
+,{"stream_name":"stdout","time":61.049368514,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":61.04938665,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":61.050005938,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":61.051122983,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":61.051775942,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":61.052476939,"data":"[I 2026-02-14 10:50:10,804] Trial 27 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 25}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":61.06113264,"data":"\n"}
+,{"stream_name":"stdout","time":61.061170684,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":61.061179566,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":61.061188342,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":61.062001882,"data":"\n"}
+,{"stream_name":"stdout","time":61.062024444,"data":"[GMM Regime] Fitting 3-component GMM...\n"}
+,{"stream_name":"stdout","time":61.079908053,"data":"[OK] GMM fitted. Component variances: [2.03346541e-05 2.37679000e-05 1.02365460e-05]\n"}
+,{"stream_name":"stdout","time":61.079949142,"data":"[OK] High-variance component: 1, mean prob: 0.175\n"}
+,{"stream_name":"stdout","time":61.079956655,"data":"\n"}
+,{"stream_name":"stdout","time":61.079962123,"data":"[PCA Divergence] Computing 70-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":62.788829485,"data":"[OK] PCA divergence computed: mean=0.376, scaled mean=0.477\n"}
+,{"stream_name":"stdout","time":62.789283371,"data":"\n"}
+,{"stream_name":"stdout","time":62.78930804,"data":"[Volatility Z-Score] Computing 15-day realized vol...\n"}
+,{"stream_name":"stdout","time":62.790836038,"data":"[OK] Volatility z-score: mean=-0.282, std=1.014\n"}
+,{"stream_name":"stdout","time":62.792090146,"data":"\n"}
+,{"stream_name":"stdout","time":62.79211774,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":62.792228475,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":62.792998445,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 9, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":62.794134324,"data":"[OK] After NaN removal: (2494, 3)\n"}
+,{"stream_name":"stdout","time":62.794398839,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":62.794804851,"data":"[I 2026-02-14 10:50:12,547] Trial 28 finished with value: -999.0 and parameters: {'gmm_components': 3, 'pca_window': 70, 'vol_window': 15}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stdout","time":62.803384002,"data":"\n"}
+,{"stream_name":"stdout","time":62.803420342,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":62.803435452,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":62.803438687,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":62.804219205,"data":"\n"}
+,{"stream_name":"stdout","time":62.804464603,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":62.821399943,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":62.821436156,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":62.82144076,"data":"\n"}
+,{"stream_name":"stdout","time":62.821444299,"data":"[PCA Divergence] Computing 40-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":64.546438815,"data":"[OK] PCA divergence computed: mean=0.365, scaled mean=0.492\n"}
+,{"stream_name":"stdout","time":64.546498037,"data":"\n"}
+,{"stream_name":"stdout","time":64.546504388,"data":"[Volatility Z-Score] Computing 20-day realized vol...\n"}
+,{"stream_name":"stdout","time":64.547883169,"data":"[OK] Volatility z-score: mean=-0.319, std=1.031\n"}
+,{"stream_name":"stdout","time":64.549356738,"data":"\n"}
+,{"stream_name":"stdout","time":64.549381312,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":64.549467681,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":64.549937691,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 0, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":64.551028021,"data":"[OK] After NaN removal: (2503, 3)\n"}
+,{"stream_name":"stdout","time":64.551332016,"data":"[WARN] target.csv not found, using dummy score\n"}
+,{"stream_name":"stdout","time":64.55181396,"data":"[I 2026-02-14 10:50:14,304] Trial 29 finished with value: -999.0 and parameters: {'gmm_components': 2, 'pca_window': 40, 'vol_window': 20}. Best is trial 0 with value: -999.0.\n"}
+,{"stream_name":"stderr","time":64.552702886,"data":"\r  0%|          | 0/30 [00:00\u003c?, ?it/s]\r                                      \r\r  0%|          | 0/30 [00:01\u003c?, ?it/s]\rBest trial: 0. Best value: -999:   0%|          | 0/30 [00:01\u003c?, ?it/s]\rBest trial: 0. Best value: -999:   3%|▎         | 1/30 [00:01\u003c00:55,  1.91s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:   3%|▎         | 1/30 [00:03\u003c00:55,  1.91s/it]\rBest trial: 0. Best value: -999:   3%|▎         | 1/30 [00:03\u003c00:55,  1.91s/it]\rBest trial: 0. Best value: -999:   7%|▋         | 2/30 [00:03\u003c00:51,  1.85s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:   7%|▋         | 2/30 [00:05\u003c00:51,  1.85s/it]\rBest trial: 0. Best value: -999:   7%|▋         | 2/30 [00:05\u003c00:51,  1.85s/it]\rBest trial: 0. Best value: -999:  10%|█         | 3/30 [00:05\u003c00:48,  1.78s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  10%|█         | 3/30 [00:07\u003c00:48,  1.78s/it]\rBest trial: 0. Best value: -999:  10%|█         | 3/30 [00:07\u003c00:48,  1.78s/it]\rBest trial: 0. Best value: -999:  13%|█▎        | 4/30 [00:07\u003c00:46,  1.77s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  13%|█▎        | 4/30 [00:08\u003c00:46,  1.77s/it]\rBest trial: 0. Best value: -999:  13%|█▎        | 4/30 [00:08\u003c00:46,  1.77s/it]\rBest trial: 0. Best value: -999:  17%|█▋        | 5/30 [00:08\u003c00:44,  1.78s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  17%|█▋        | 5/30 [00:10\u003c00:44,  1.78s/it]\rBest trial: 0. Best value: -999:  17%|█▋        | 5/30 [00:10\u003c00:44,  1.78s/it]\rBest trial: 0. Best value: -999:  20%|██        | 6/30 [00:10\u003c00:43,  1.79s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  20%|██        | 6/30 [00:12\u003c00:43,  1.79s/it]\rBest trial: 0. Best value: -999:  20%|██        | 6/30 [00:12\u003c00:43,  1.79s/it]\rBest trial: 0. Best value: -999:  23%|██▎       | 7/30 [00:12\u003c00:41,  1.79s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  23%|██▎       | 7/30 [00:14\u003c00:41,  1.79s/it]\rBest trial: 0. Best value: -999:  23%|██▎       | 7/30 [00:14\u003c00:41,  1.79s/it]\rBest trial: 0. Best value: -999:  27%|██▋       | 8/30 [00:14\u003c00:39,  1.78s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  27%|██▋       | 8/30 [00:16\u003c00:39,  1.78s/it]\rBest trial: 0. Best value: -999:  27%|██▋       | 8/30 [00:16\u003c00:39,  1.78s/it]\rBest trial: 0. Best value: -999:  30%|███       | 9/30 [00:16\u003c00:36,  1.75s/it]\r                                                                               \r\rBest trial: 0. Best value: -999:  30%|███       | 9/30 [00:17\u003c00:36,  1.75s/it]\rBest trial: 0. Best value: -999:  30%|███       | 9/30 [00:17\u003c00:36,  1.75s/it]\rBest trial: 0. Best value: -999:  33%|███▎      | 10/30 [00:17\u003c00:34,  1.74s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  33%|███▎      | 10/30 [00:19\u003c00:34,  1.74s/it]\rBest trial: 0. Best value: -999:  33%|███▎      | 10/30 [00:19\u003c00:34,  1.74s/it]\rBest trial: 0. Best value: -999:  37%|███▋      | 11/30 [00:19\u003c00:33,  1.74s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  37%|███▋      | 11/30 [00:21\u003c00:33,  1.74s/it]\rBest trial: 0. Best value: -999:  37%|███▋      | 11/30 [00:21\u003c00:33,  1.74s/it]\rBest trial: 0. Best value: -999:  40%|████      | 12/30 [00:21\u003c00:31,  1.73s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  40%|████      | 12/30 [00:22\u003c00:31,  1.73s/it]\rBest trial: 0. Best value: -999:  40%|████      | 12/30 [00:22\u003c00:31,  1.73s/it]\rBest trial: 0. Best value: -999:  43%|████▎     | 13/30 [00:22\u003c00:29,  1.74s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  43%|████▎     | 13/30 [00:24\u003c00:29,  1.74s/it]\rBest trial: 0. Best value: -999:  43%|████▎     | 13/30 [00:24\u003c00:29,  1.74s/it]\rBest trial: 0. Best value: -999:  47%|████▋     | 14/30 [00:24\u003c00:27,  1.73s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  47%|████▋     | 14/30 [00:26\u003c00:27,  1.73s/it]\rBest trial: 0. Best value: -999:  47%|████▋     | 14/30 [00:26\u003c00:27,  1.73s/it]\rBest trial: 0. Best value: -999:  50%|█████     | 15/30 [00:26\u003c00:25,  1.73s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  50%|█████     | 15/30 [00:28\u003c00:25,  1.73s/it]\rBest trial: 0. Best value: -999:  50%|█████     | 15/30 [00:28\u003c00:25,  1.73s/it]\rBest trial: 0. Best value: -999:  53%|█████▎    | 16/30 [00:28\u003c00:24,  1.73s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  53%|█████▎    | 16/30 [00:29\u003c00:24,  1.73s/it]\rBest trial: 0. Best value: -999:  53%|█████▎    | 16/30 [00:29\u003c00:24,  1.73s/it]\rBest trial: 0. Best value: -999:  57%|█████▋    | 17/30 [00:29\u003c00:22,  1.77s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  57%|█████▋    | 17/30 [00:31\u003c00:22,  1.77s/it]\rBest trial: 0. Best value: -999:  57%|█████▋    | 17/30 [00:31\u003c00:22,  1.77s/it]\rBest trial: 0. Best value: -999:  60%|██████    | 18/30 [00:31\u003c00:21,  1.75s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  60%|██████    | 18/30 [00:33\u003c00:21,  1.75s/it]\rBest trial: 0. Best value: -999:  60%|██████    | 18/30 [00:33\u003c00:21,  1.75s/it]\rBest trial: 0. Best value: -999:  63%|██████▎   | 19/30 [00:33\u003c00:19,  1.74s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  63%|██████▎   | 19/30 [00:35\u003c00:19,  1.74s/it]\rBest trial: 0. Best value: -999:  63%|██████▎   | 19/30 [00:35\u003c00:19,  1.74s/it]\rBest trial: 0. Best value: -999:  67%|██████▋   | 20/30 [00:35\u003c00:17,  1.75s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  67%|██████▋   | 20/30 [00:36\u003c00:17,  1.75s/it]\rBest trial: 0. Best value: -999:  67%|██████▋   | 20/30 [00:36\u003c00:17,  1.75s/it]\rBest trial: 0. Best value: -999:  70%|███████   | 21/30 [00:36\u003c00:15,  1.73s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  70%|███████   | 21/30 [00:38\u003c00:15,  1.73s/it]\rBest trial: 0. Best value: -999:  70%|███████   | 21/30 [00:38\u003c00:15,  1.73s/it]\rBest trial: 0. Best value: -999:  73%|███████▎  | 22/30 [00:38\u003c00:13,  1.72s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  73%|███████▎  | 22/30 [00:40\u003c00:13,  1.72s/it]\rBest trial: 0. Best value: -999:  73%|███████▎  | 22/30 [00:40\u003c00:13,  1.72s/it]\rBest trial: 0. Best value: -999:  77%|███████▋  | 23/30 [00:40\u003c00:12,  1.72s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  77%|███████▋  | 23/30 [00:41\u003c00:12,  1.72s/it]\rBest trial: 0. Best value: -999:  77%|███████▋  | 23/30 [00:41\u003c00:12,  1.72s/it]\rBest trial: 0. Best value: -999:  80%|████████  | 24/30 [00:41\u003c00:10,  1.72s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  80%|████████  | 24/30 [00:43\u003c00:10,  1.72s/it]\rBest trial: 0. Best value: -999:  80%|████████  | 24/30 [00:43\u003c00:10,  1.72s/it]\rBest trial: 0. Best value: -999:  83%|████████▎ | 25/30 [00:43\u003c00:08,  1.71s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  83%|████████▎ | 25/30 [00:45\u003c00:08,  1.71s/it]\rBest trial: 0. Best value: -999:  83%|████████▎ | 25/30 [00:45\u003c00:08,  1.71s/it]\rBest trial: 0. Best value: -999:  87%|████████▋ | 26/30 [00:45\u003c00:06,  1.71s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  87%|████████▋ | 26/30 [00:47\u003c00:06,  1.71s/it]\rBest trial: 0. Best value: -999:  87%|████████▋ | 26/30 [00:47\u003c00:06,  1.71s/it]\rBest trial: 0. Best value: -999:  90%|█████████ | 27/30 [00:47\u003c00:05,  1.71s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  90%|█████████ | 27/30 [00:48\u003c00:05,  1.71s/it]\rBest trial: 0. Best value: -999:  90%|█████████ | 27/30 [00:48\u003c00:05,  1.71s/it]\rBest trial: 0. Best value: -999:  93%|█████████▎| 28/30 [00:48\u003c00:03,  1.71s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  93%|█████████▎| 28/30 [00:50\u003c00:03,  1.71s/it]\rBest trial: 0. Best value: -999:  93%|█████████▎| 28/30 [00:50\u003c00:03,  1.71s/it]\rBest trial: 0. Best value: -999:  97%|█████████▋| 29/30 [00:50\u003c00:01,  1.72s/it]\r                                                                                \r\rBest trial: 0. Best value: -999:  97%|█████████▋| 29/30 [00:52\u003c00:01,  1.72s/it]\rBest trial: 0. Best value: -999:  97%|█████████▋| 29/30 [00:52\u003c00:01,  1.72s/it]\rBest trial: 0. Best value: -999: 100%|██████████| 30/30 [00:52\u003c00:00,  1.73s/it]\rBest trial: 0. Best value: -999: 100%|██████████| 30/30 [00:52\u003c00:00,  1.74s/it]\n"}
+,{"stream_name":"stdout","time":64.552902568,"data":"\n"}
+,{"stream_name":"stdout","time":64.552910404,"data":"[OK] Best trial: 0\n"}
+,{"stream_name":"stdout","time":64.553100925,"data":"[OK] Best params: {'gmm_components': 2, 'pca_window': 80, 'vol_window': 25}\n"}
+,{"stream_name":"stdout","time":64.553224132,"data":"[OK] Best MI: -999.000000\n"}
+,{"stream_name":"stdout","time":64.553689644,"data":"\n"}
+,{"stream_name":"stdout","time":64.553706207,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":64.553712009,"data":"FINAL FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":64.553716527,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":64.553721512,"data":"\n"}
+,{"stream_name":"stdout","time":64.55372568,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":64.553730572,"data":"FEATURE GENERATION\n"}
+,{"stream_name":"stdout","time":64.553734698,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":64.554629669,"data":"\n"}
+,{"stream_name":"stdout","time":64.554650394,"data":"[GMM Regime] Fitting 2-component GMM...\n"}
+,{"stream_name":"stdout","time":64.570965671,"data":"[OK] GMM fitted. Component variances: [1.71895886e-05 1.93991053e-05]\n"}
+,{"stream_name":"stdout","time":64.571002106,"data":"[OK] High-variance component: 1, mean prob: 0.504\n"}
+,{"stream_name":"stdout","time":64.571008662,"data":"\n"}
+,{"stream_name":"stdout","time":64.571013276,"data":"[PCA Divergence] Computing 80-day rolling PCA...\n"}
+,{"stream_name":"stdout","time":66.253718469,"data":"[OK] PCA divergence computed: mean=0.378, scaled mean=0.480\n"}
+,{"stream_name":"stdout","time":66.253898576,"data":"\n"}
+,{"stream_name":"stdout","time":66.253912247,"data":"[Volatility Z-Score] Computing 25-day realized vol...\n"}
+,{"stream_name":"stdout","time":66.255460346,"data":"[OK] Volatility z-score: mean=-0.348, std=1.054\n"}
+,{"stream_name":"stdout","time":66.256542843,"data":"\n"}
+,{"stream_name":"stdout","time":66.256572498,"data":"[OK] Features generated: (2503, 3)\n"}
+,{"stream_name":"stdout","time":66.256579423,"data":"[OK] Date range: 2015-03-02 00:00:00 to 2025-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":66.257096829,"data":"[OK] NaN count: {'dxy_regime_probability': 0, 'dxy_cross_currency_div': 19, 'dxy_volatility_z': 0}\n"}
+,{"stream_name":"stdout","time":66.258279654,"data":"[OK] After NaN removal: (2484, 3)\n"}
+,{"stream_name":"stdout","time":66.258302252,"data":"\n"}
+,{"stream_name":"stdout","time":66.25830821,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":66.258312608,"data":"SAVING OUTPUTS\n"}
+,{"stream_name":"stdout","time":66.258330029,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":66.28086264,"data":"[OK] Saved submodel_output.csv: (2484, 3)\n"}
+,{"stream_name":"stdout","time":66.282014009,"data":"[OK] Saved training_result.json\n"}
+,{"stream_name":"stdout","time":66.282071563,"data":"\n"}
+,{"stream_name":"stdout","time":66.282078374,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":66.282083383,"data":"TRAINING COMPLETE\n"}
+,{"stream_name":"stdout","time":66.282087944,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":66.28209219,"data":"Output: 2484 rows x 3 columns\n"}
+,{"stream_name":"stdout","time":66.282096168,"data":"Columns: ['dxy_regime_probability', 'dxy_cross_currency_div', 'dxy_volatility_z']\n"}
+,{"stream_name":"stdout","time":66.28210045,"data":"Best MI: -999.000000\n"}
+,{"stream_name":"stderr","time":69.485702617,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":69.485748009,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":70.048629288,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":70.04866413,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":73.673488257,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":73.673533496,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":73.741305671,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":75.677915656,"data":"[NbConvertApp] Writing 335851 bytes to __results__.html\n"}
+]
