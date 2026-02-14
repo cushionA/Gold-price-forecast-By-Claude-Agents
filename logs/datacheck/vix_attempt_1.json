@@ -1,0 +1,81 @@
+{
+  "feature": "vix",
+  "attempt": 1,
+  "timestamp": "2026-02-14T20:46:44.591186",
+  "steps": [
+    {
+      "step": 1,
+      "name": "file_check",
+      "issues": [
+        "PASS: data/processed/vix_processed.csv exists"
+      ],
+      "passed": true
+    },
+    {
+      "step": 2,
+      "name": "basic_stats",
+      "issues": [
+        "PASS: Row count adequate (2619 rows)",
+        "PASS: vix range reasonable (9.14-82.69)",
+        "PASS: vix_log_change log-change range normal (std=0.0785)"
+      ],
+      "passed": true
+    },
+    {
+      "step": 3,
+      "name": "missing_values",
+      "issues": [
+        "PASS: date is complete (0% missing)",
+        "PASS: vix is complete (0% missing)",
+        "PASS: vix_log_change is complete (0% missing)"
+      ],
+      "missing_summary": {
+        "date": 0.0,
+        "vix": 0.0,
+        "vix_log_change": 0.0
+      },
+      "passed": true
+    },
+    {
+      "step": 4,
+      "name": "future_leak",
+      "issues": [
+        "INFO: Merged 2523 rows for leakage analysis",
+        "PASS: vix correlation normal (lag0=0.004, lag1=0.019)",
+        "PASS: vix_log_change correlation normal (lag0=-0.042, lag1=-0.018)"
+      ],
+      "passed": true
+    },
+    {
+      "step": 5,
+      "name": "temporal",
+      "issues": [
+        "PASS: Dates are monotonically increasing",
+        "PASS: No duplicate dates",
+        "PASS: No unusual gaps (> 7 days)",
+        "INFO: Date gaps - min=1 days 00:00:00, mode=1 days 00:00:00, max=3 days 00:00:00"
+      ],
+      "passed": true
+    },
+    {
+      "step": 6,
+      "name": "schema_compliance",
+      "issues": [
+        "PASS: Required columns present",
+        "PASS: Good date range overlap (3666 days)",
+        "INFO: VIX range in data: 9.14 - 82.69"
+      ],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "action": "PASS",
+  "reason": "All checks passed or resolved",
+  "overall_passed": true,
+  "summary_stats": {
+    "total_steps": 6,
+    "critical_count": 0,
+    "warning_count": 0
+  }
+}
