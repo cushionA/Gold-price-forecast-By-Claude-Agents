@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "error",
   "phase": "2_submodel_loop",
   "current_feature": "vix",
   "current_attempt": 1,
@@ -17,7 +17,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-vix-1",
   "submitted_at": "2026-02-14T21:46:40.071631",
-  "last_updated": "2026-02-14T21:46:40.071654",
+  "last_updated": "2026-02-14T21:52:00.060312",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,

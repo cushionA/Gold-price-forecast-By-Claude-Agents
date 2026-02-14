@@ -1,26 +1,46 @@
-[{"stream_name":"stdout","time":5.768860999,"data":"=== Gold SubModel Training: VIX attempt 1 ===\n"}
-,{"stream_name":"stdout","time":5.7689226179999995,"data":"Started: 2026-02-14T12:33:10.506122\n"}
-,{"stream_name":"stdout","time":5.76892919,"data":"\n"}
-,{"stream_name":"stdout","time":5.7689325799999995,"data":"=== Data Fetching ===\n"}
-,{"stream_name":"stdout","time":6.082429731,"data":"FRED fetch failed: Connection error trying to communicate with service.\n"}
-,{"stream_name":"stdout","time":6.082472112,"data":"Falling back to Yahoo Finance...\n"}
-,{"stream_name":"stderr","time":7.3839361629999996,"data":"/kaggle/src/script.py:62: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
-,{"stream_name":"stderr","time":7.383986175,"data":"  vix_df = yf.download('^VIX', start='2014-10-01', progress=False)\n"}
-,{"stream_name":"stdout","time":8.709380088,"data":"Fetched 2860 rows from Yahoo Finance (^VIX)\n"}
-,{"stream_name":"stderr","time":8.711902765,"data":"Traceback (most recent call last):\n"}
-,{"stream_name":"stderr","time":8.711937754000001,"data":"  File \"/kaggle/src/script.py\", line 240, in \u003cmodule\u003e\n"}
-,{"stream_name":"stderr","time":8.712040973,"data":"    data_df = fetch_data()\n"}
-,{"stream_name":"stderr","time":8.712169292,"data":"              ^^^^^^^^^^^^\n"}
-,{"stream_name":"stderr","time":8.712189151,"data":"  File \"/kaggle/src/script.py\", line 91, in fetch_data\n"}
-,{"stream_name":"stderr","time":8.71228535,"data":"    df = df.set_index('date').asfreq('D', method='ffill', limit=3).reset_index()\n"}
-,{"stream_name":"stderr","time":8.712478128,"data":"         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
-,{"stream_name":"stderr","time":8.712500425,"data":"TypeError: NDFrame.asfreq() got an unexpected keyword argument 'limit'\n"}
-,{"stream_name":"stderr","time":11.49196665,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":11.492014846,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":11.836013955,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":11.836048438,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":13.91766681,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
-,{"stream_name":"stderr","time":13.917713806,"data":"  warn(\n"}
-,{"stream_name":"stderr","time":13.960564172,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
-,{"stream_name":"stderr","time":15.608153316,"data":"[NbConvertApp] Writing 343580 bytes to __results__.html\n"}
+[{"stream_name":"stdout","time":6.591211748,"data":"=== Gold SubModel Training: VIX attempt 1 ===\n"}
+,{"stream_name":"stdout","time":6.591279104,"data":"Started: 2026-02-14T12:46:45.954168\n"}
+,{"stream_name":"stdout","time":6.591284593,"data":"\n"}
+,{"stream_name":"stdout","time":6.591287587,"data":"=== Data Fetching ===\n"}
+,{"stream_name":"stdout","time":6.819619546,"data":"FRED fetch failed: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stdout","time":6.819662318,"data":"Falling back to Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":8.339177995,"data":"/kaggle/src/script.py:62: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":8.339260599,"data":"  vix_df = yf.download('^VIX', start='2014-10-01', progress=False)\n"}
+,{"stream_name":"stdout","time":8.939760265,"data":"Fetched 2860 rows from Yahoo Finance (^VIX)\n"}
+,{"stream_name":"stderr","time":8.944837776,"data":"/kaggle/src/script.py:91: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":8.944878179,"data":"  df = df.set_index('date').asfreq('D').fillna(method='ffill', limit=3).reset_index()\n"}
+,{"stream_name":"stdout","time":8.955044004,"data":"Final data: 4153 rows, date range: 2014-10-02 00:00:00 to 2026-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":8.955153020000001,"data":"VIX range: 9.14 to 82.69\n"}
+,{"stream_name":"stdout","time":8.95539815,"data":"Log-change std: 0.0671\n"}
+,{"stream_name":"stdout","time":8.955409716,"data":"\n"}
+,{"stream_name":"stdout","time":8.955414162,"data":"=== Loading Target Variable ===\n"}
+,{"stream_name":"stderr","time":8.967086376,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":8.9671328,"data":"  File \"/kaggle/src/script.py\", line 245, in \u003cmodule\u003e\n"}
+,{"stream_name":"stdout","time":8.967157469,"data":"Error loading target: [Errno 2] No such file or directory: '/kaggle/input/gold-price-target/target.csv'\n"}
+,{"stream_name":"stderr","time":8.967531279,"data":"    target_df = pd.read_csv('/kaggle/input/gold-price-target/target.csv')\n"}
+,{"stream_name":"stderr","time":8.967557586,"data":"                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.967634988,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 1026, in read_csv\n"}
+,{"stream_name":"stderr","time":8.970164151,"data":"    return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":8.970197615,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.970394665,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 620, in _read\n"}
+,{"stream_name":"stderr","time":8.970786587,"data":"    parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":8.970810852,"data":"             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.970895576,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 1620, in __init__\n"}
+,{"stream_name":"stderr","time":8.971607331,"data":"    self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":8.97164272,"data":"                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.971648749,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 1880, in _make_engine\n"}
+,{"stream_name":"stderr","time":8.972299376,"data":"    self.handles = get_handle(\n"}
+,{"stream_name":"stderr","time":8.97233997,"data":"                   ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.972345995,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/common.py\", line 873, in get_handle\n"}
+,{"stream_name":"stderr","time":8.974559122,"data":"    handle = open(\n"}
+,{"stream_name":"stderr","time":8.97458601,"data":"             ^^^^^\n"}
+,{"stream_name":"stderr","time":8.974591861,"data":"FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/input/gold-price-target/target.csv'\n"}
+,{"stream_name":"stderr","time":12.22827544,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":12.228325476,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12.681893664,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12.681932759,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":15.469835475,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":15.469881894,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":15.55732967,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":17.508562632,"data":"[NbConvertApp] Writing 343680 bytes to __results__.html\n"}
 ]
