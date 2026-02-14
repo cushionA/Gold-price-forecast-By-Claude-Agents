@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "yield_curve",
   "current_attempt": 1,
-  "resume_from": "entrance",
+  "resume_from": "evaluator",
   "datachecker_status": null,
   "feature_queue": [
     "yield_curve",
@@ -17,9 +17,9 @@
     "technical",
     "cross_asset"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
-  "last_updated": "2026-02-15T10:00:00",
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-submodel-attempt-1",
+  "submitted_at": "2026-02-15T02:09:59.857133",
+  "last_updated": "2026-02-15T02:09:59.857157",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
