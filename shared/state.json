@@ -1,5 +1,5 @@
 {
-  "status": "error",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "dxy",
   "current_attempt": 1,
@@ -15,8 +15,8 @@
   ],
   "completed_features": [],
   "kaggle_kernel": "bigbigzabuton/gold-dxy-1",
-  "submitted_at": "2026-02-14T19:28:49.856484",
-  "last_updated": "2026-02-14T19:31:05.244920",
+  "submitted_at": "2026-02-14T19:36:14.741123",
+  "last_updated": "2026-02-14T19:36:14.741146",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,
