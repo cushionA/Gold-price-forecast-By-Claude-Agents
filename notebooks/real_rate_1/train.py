@@ -277,7 +277,7 @@ def train_model(model, train_loader, val_loader, config):
     )
 
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='min', patience=5, factor=0.5, verbose=True
+        optimizer, mode='min', patience=5, factor=0.5
     )
 
     criterion = nn.MSELoss()
