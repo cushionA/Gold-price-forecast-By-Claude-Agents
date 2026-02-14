@@ -1,145 +1,135 @@
 {
-  "feature": "vix",
+  "feature": "technical",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
 
-  "objective": "Extract latent volatility regime, term structure, and mean-reversion dynamics from VIX that are not captured by the raw vix_vix level already in base features. VIX spikes and regimes have distinct implications for gold as a safe-haven asset, but the raw level alone does not convey whether volatility is rising/falling, in a persistent high-vol regime, or mean-reverting from a spike.",
+  "objective": "Extract latent momentum, mean-reversion, and volatility-regime patterns from gold's own price action (GLD OHLCV and GC=F futures) that are not captured by the raw price levels already in base features. The base features contain raw GLD open/high/low/close/volume, which tell the meta-model the current price level and volume but NOT: (a) whether gold is in a trending or mean-reverting state, (b) whether current momentum is accelerating or decelerating, (c) whether gold's own realized volatility is expanding or compressing, (d) whether price action shows accumulation or distribution patterns.",
 
-  "requirements": "Build a submodel that captures: (1) VIX regime state (low-vol calm vs elevated-fear vs crisis spike), (2) VIX mean-reversion dynamics (distance from equilibrium, speed of reversion, spike decay rate), (3) VIX term structure or momentum context (is fear building or dissipating). Output 2-4 daily features that enrich the meta-model's understanding of the volatility environment beyond the raw VIX level.",
+  "requirements": "Build a submodel that captures: (1) Gold momentum regime (trending vs range-bound vs reversal, via regime detection on returns), (2) Gold mean-reversion position (how overbought/oversold relative to recent dynamics, via price oscillator or z-score), (3) Gold volatility compression/expansion state (Bollinger bandwidth or realized vol regime, indicating breakout probability). Output exactly 3 daily features that enrich the meta-model's understanding of gold's technical state beyond raw OHLCV levels.",
 
   "theoretical_background": {
-    "why_vix_matters_for_gold": "VIX measures implied volatility of S&P 500 options, serving as a market fear gauge. Gold is a traditional safe-haven asset. During periods of elevated fear (high VIX), gold demand typically increases as investors seek protection. However, the relationship is non-linear and regime-dependent: (a) gradual VIX rises may boost gold, (b) sharp VIX spikes can initially depress gold due to margin-call liquidation, then boost it as fear persists, (c) VIX mean-reversion from high levels may coincide with gold selling as risk appetite returns.",
-    "what_base_feature_provides": "vix_vix is the raw VIX close level (single daily value). It tells the meta-model the current fear level but not: (a) whether VIX is in a persistent high-volatility regime or a transient spike, (b) how far VIX is from its equilibrium and how quickly it is mean-reverting, (c) whether the term structure is in contango (normal) or backwardation (crisis).",
-    "what_submodel_adds": "Context about the DYNAMICS and STATE of the volatility environment. A VIX at 25 during a spike decay (coming down from 40) has very different gold implications than a VIX at 25 during a slow grind upward. A VIX at 20 in a low-vol regime (historical mean 18) differs from VIX at 20 during a crisis cluster (historical mean 30). The submodel extracts this contextual information.",
-    "vix_characteristics": {
-      "mean_reversion": "VIX is strongly mean-reverting. Long-term mean is approximately 18-20. Spikes above 30 tend to revert within days to weeks. This mean-reverting nature creates exploitable dynamics.",
-      "right_skewed": "VIX distribution is heavily right-skewed. Spikes can reach 50-80+ (2008, 2020) but spends most time in 12-25 range.",
-      "volatility_clustering": "High-volatility periods cluster. GARCH-type dynamics: large moves beget large moves. Regime persistence is a key feature.",
-      "term_structure": "VIX futures term structure flips between contango (normal, VIX futures > spot) and backwardation (crisis, VIX futures < spot). This flip is a strong signal of market stress regime."
+    "why_technicals_matter_for_gold": "Gold is one of the most technically traded commodities. Institutional and retail traders heavily use momentum, support/resistance, and mean-reversion signals. This creates self-reinforcing price dynamics: trending periods attract momentum traders (positive feedback), overbought conditions attract mean-reversion traders (negative feedback), and volatility compression precedes breakouts (energy accumulation). These patterns are reflected in the price data itself but are NOT captured by raw price levels.",
+    "what_base_features_provide": "Five columns: technical_gld_open, technical_gld_high, technical_gld_low, technical_gld_close, technical_gld_volume. These are raw GLD ETF price levels and volume. They collectively rank high in baseline feature importance (gld_open=5.8%, gld_low=5.2%, gld_volume=5.2%), but they encode only the CURRENT state (where is the price right now), not the DYNAMIC state (is price trending, reverting, or compressing). The meta-model's XGBoost can derive some nonlinear features from levels, but explicit momentum/regime features should provide cleaner information.",
+    "what_submodel_adds": "Three dimensions of technical context: (1) TREND REGIME -- is gold in a momentum-driven trending state (up or down) or a mean-reverting range-bound state? This matters because gold's response to macroeconomic features (rates, USD, VIX) differs in trending vs ranging regimes. (2) MEAN-REVERSION POSITION -- is gold overbought or oversold relative to its recent dynamics? Extreme positions have elevated probability of reversal. (3) VOLATILITY REGIME -- is gold's realized volatility expanding or compressing? Compression typically precedes large moves. These capture trader behavior dynamics.",
+    "gold_technical_characteristics": {
+      "momentum_persistence": "Gold exhibits stronger momentum than most assets. Trend-following strategies have historically worked well on gold due to macroeconomic regime persistence (e.g., QE eras, inflation fears). Momentum is typically measured over 10-60 day windows.",
+      "mean_reversion_at_extremes": "While gold trends at intermediate timeframes, it mean-reverts at extremes. RSI > 70 or < 30 historically precedes reversals. This is consistent with overreaction-correction dynamics.",
+      "volatility_clustering": "Gold volatility clusters strongly (GARCH effects). Low-volatility periods precede breakouts. Bollinger Band squeeze is a widely used breakout predictor in gold trading.",
+      "volume_confirmation": "Volume confirms or denies price moves. High-volume breakouts are more sustainable. Low-volume rallies tend to fail. Volume relative to its moving average is a standard confirmation signal."
     },
-    "gold_vix_regimes": {
-      "calm_low_vix": "VIX < 15. Gold tends to trade on other fundamentals (rates, USD). VIX regime provides little incremental info.",
-      "elevated_vix": "VIX 20-30. Gold typically benefits as safe-haven demand increases. Direction of VIX movement matters.",
-      "crisis_spike": "VIX > 35. Initial gold response can be negative (liquidity crunch, margin calls) then strongly positive (sustained fear). Spike vs persistence distinction is critical."
-    }
+    "difference_from_vix_submodel": "The VIX submodel captures the external fear environment's dynamics. The technical submodel captures gold's own internal price dynamics. These are complementary: VIX tells us about the macro volatility context, while technicals tell us about gold-specific supply/demand and trader positioning reflected in price action. Gold can have strong technicals (breakout from consolidation) in either high or low VIX environments."
   },
 
   "data_strategy": {
     "primary_data": {
-      "source": "FRED",
-      "ticker": "VIXCLS",
+      "source": "Yahoo Finance",
+      "tickers": ["GC=F", "GLD"],
       "frequency": "daily",
-      "note": "Already in data/raw/vix.csv. VIX closing level."
+      "note": "GLD OHLCV already in data/raw/ and base_features. GC=F (gold futures) provides the primary price series for technical analysis. GC=F is preferred over GLD for technicals because futures have no NAV tracking error and reflect the true gold market. GLD is available as backup."
     },
     "expansion_data_candidates": [
       {
         "source": "Yahoo Finance",
-        "ticker": "^VIX",
-        "description": "Alternative VIX source for verification/backup",
-        "frequency": "daily"
+        "ticker": "GC=F",
+        "description": "Gold futures continuous contract. Primary source for technical indicators due to no ETF premium/discount.",
+        "frequency": "daily",
+        "note": "Verify date range covers 2015-01-30 to 2025-02-12. Check for contract roll artifacts."
       },
       {
         "source": "Yahoo Finance",
-        "ticker": "^VIX9D",
-        "description": "9-day VIX. Short-term implied vol. Difference from VIX captures term structure slope.",
+        "ticker": "GLD",
+        "description": "GLD ETF. Already in base features. Can be used for volume analysis (more liquid than futures for volume data).",
         "frequency": "daily",
-        "note": "Researcher should verify availability and date range"
+        "note": "Already available. Volume data from GLD is more reliable than GC=F for ETF flow analysis."
       },
       {
         "source": "Yahoo Finance",
-        "ticker": "^VIX3M",
-        "description": "3-month VIX. Longer-term implied vol. VIX/VIX3M ratio captures term structure.",
+        "ticker": "IAU",
+        "description": "iShares Gold Trust ETF. Alternative gold ETF for cross-validation of volume patterns.",
         "frequency": "daily",
-        "note": "Researcher should verify availability and date range"
-      },
-      {
-        "source": "FRED",
-        "ticker": "VXOCLS",
-        "description": "CBOE S&P100 Volatility Index (old VIX). May provide cross-validation.",
-        "frequency": "daily",
-        "note": "Researcher should verify if still published and useful"
-      },
-      {
-        "source": "Yahoo Finance",
-        "ticker": "^VVIX",
-        "description": "VIX of VIX (vol-of-vol). Measures uncertainty about future volatility.",
-        "frequency": "daily",
-        "note": "Researcher should verify availability. High VVIX indicates unstable vol expectations."
+        "note": "Researcher should verify if IAU volume adds information beyond GLD volume."
       }
     ],
-    "expected_samples": "~2500 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)",
-    "frequency_advantage": "All VIX data is daily. No monthly-to-daily interpolation needed. Same advantage that made DXY succeed on attempt 1."
+    "expected_samples": "~2523 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)",
+    "frequency_advantage": "All data is daily. No interpolation needed. Same daily-frequency advantage that made VIX and DXY succeed on attempt 1."
   },
 
   "research_questions": [
-    "What methods are most effective for detecting VIX regimes (low-vol / elevated / crisis)? Candidates: Hidden Markov Model (like DXY success), threshold models, GARCH regime-switching. Which works best for VIX specifically given its strong mean-reversion and right skew?",
-    "How to best quantify VIX mean-reversion dynamics for financial applications? Candidates: Ornstein-Uhlenbeck parameter estimation (speed, equilibrium level), distance from long-run mean in z-score, half-life of mean reversion from rolling regression. Which provides the most information about future gold returns?",
-    "Are VIX term structure proxies available at daily frequency from free sources? Specifically: (a) ^VIX9D (9-day VIX), (b) ^VIX3M (3-month VIX), (c) ^VVIX (vol of vol). What are their date ranges? Can VIX/VIX3M ratio serve as a robust term structure indicator?",
-    "What is the empirical evidence on the VIX-gold relationship across different regimes? Specifically: (a) correlation during calm periods vs spikes, (b) lead-lag structure (does VIX lead gold?), (c) evidence of non-linear response (gold drops during extreme VIX spikes due to liquidity). Any academic papers or quantitative studies?",
-    "What lookback windows are appropriate for VIX features? Given VIX mean-reversion half-life is typically 30-60 days, what windows best capture: (a) regime state, (b) spike detection, (c) term structure dynamics? Is 20/60/120 day a common choice in the literature?",
-    "How should VIX submodel outputs be constructed to avoid high VIF with the raw vix_vix base feature? The DXY approach used regime probability, cross-asset divergence, and vol z-score -- all orthogonal to the raw level. What analogous orthogonal decomposition works for VIX?",
-    "Is there evidence that VIX spike magnitude vs persistence distinction matters for gold? E.g., a sharp spike to 40 that reverts in 3 days vs a gradual rise to 30 that persists for weeks -- do these have different gold return implications?"
+    "What is the most effective method for detecting gold momentum REGIMES (trending vs range-bound) rather than computing raw momentum indicators? Candidates: (a) HMM on gold returns (2-3 states: trend-up/range-bound/trend-down), (b) rolling Hurst exponent (H>0.5=trending, H<0.5=mean-reverting), (c) ADX-based regime classification. Which method produces the most orthogonal signal to raw gold price levels? The VIX submodel succeeded with HMM regime detection -- is the same approach applicable to gold returns?",
+    "Which mean-reversion indicator is best suited for gold price dynamics? Candidates: (a) RSI(14) -- standard but potentially too correlated with short-term returns, (b) rolling z-score of returns (like VIX submodel's approach), (c) Stochastic %K/%D, (d) distance from VWAP analog. The key requirement is LOW VIF with raw GLD close prices (measured correlation between GLD close and RSI is ~0.025 -- verify this empirically). Which indicator captures overbought/oversold state most orthogonally to price level?",
+    "What is the optimal measure for gold volatility compression/expansion that predicts future return magnitude? Candidates: (a) Bollinger Bandwidth (rolling std / rolling mean), (b) Average True Range (ATR) z-score, (c) realized vol ratio (short-term / long-term realized vol), (d) Parkinson volatility estimator using OHLC data. Gold-specific question: does volatility compression in gold specifically precede large directional moves?",
+    "What are the optimal lookback windows for gold technical features? Gold's momentum persistence differs from equities. Specifically: (a) What is the typical half-life of gold momentum (10d? 20d? 60d?)? (b) What window for mean-reversion captures overbought/oversold best? (c) What short-term and long-term windows for volatility ratio best capture compression? Academic or quantitative studies preferred.",
+    "How should volume information be integrated into the technical submodel? Options: (a) volume-weighted momentum (On-Balance Volume trend), (b) volume relative to MA as a regime confirmation feature, (c) Accumulation/Distribution Line slope. Or should volume be excluded from the submodel entirely to avoid redundancy with etf_flow_gld_volume in base features? What is the VIF risk between a volume-based technical feature and the existing etf_flow_gld_volume column?",
+    "Is there evidence that gold technical indicators interact with the VIX regime? For example: does gold momentum persistence increase during high-VIX periods? Does the mean-reversion speed of gold change across volatility regimes? This matters for ensuring the technical submodel provides COMPLEMENTARY information to the VIX submodel already in the pipeline.",
+    "What specific challenges arise when computing technical indicators on continuous futures contracts (GC=F)? Contract roll dates can create artificial price jumps. Should the submodel use: (a) ratio-adjusted continuous contract, (b) GLD as primary source to avoid roll artifacts, (c) compute returns-based indicators that are roll-invariant? This is a critical data integrity question."
   ],
 
   "candidate_approaches": {
-    "approach_A_hmm_regime": {
-      "description": "Hidden Markov Model on VIX log-returns (or log-VIX changes) to detect 2-3 regimes. Similar to DXY's successful approach. Output regime probabilities.",
-      "pros": "Proven approach (worked for DXY attempt 1). Well-suited to VIX's regime-switching dynamics. Captures persistence.",
-      "cons": "VIX has stronger mean-reversion than DXY, which may require mean-reversion-aware state labeling. Single-series approach."
+    "approach_A_hmm_regime_plus_features": {
+      "description": "HMM on gold daily returns (2-3 states: trend-up/range-bound/trend-down) combined with rolling z-score for mean-reversion and Bollinger Bandwidth for volatility regime. Follows VIX/DXY success pattern: regime detector + statistical features.",
+      "output": ["tech_trend_regime_prob", "tech_mean_reversion_z", "tech_volatility_regime"],
+      "pros": "Proven pattern from VIX (DA +0.96%) and DXY. HMM captures nonlinear regime dynamics. 3 orthogonal features. Deterministic components (z-score, bandwidth) add no overfitting risk.",
+      "cons": "HMM on gold returns may be less clean than VIX (VIX has clearer regime structure). Gold returns are closer to random walk than VIX."
     },
-    "approach_B_mean_reversion_features": {
-      "description": "Ornstein-Uhlenbeck process parameter estimation on rolling windows. Extract mean-reversion speed, equilibrium level, and distance from equilibrium. Output normalized features.",
-      "pros": "Directly models VIX's core dynamic (mean-reversion). Provides interpretable features (speed, distance, half-life).",
-      "cons": "Assumes OU process, which may not capture regime switches. Rolling OU estimation can be noisy."
+    "approach_B_hurst_plus_oscillator": {
+      "description": "Rolling Hurst exponent for trend/mean-reversion regime, RSI-based oscillator for position, ATR ratio for volatility. Purely statistical, no ML.",
+      "output": ["tech_hurst_exponent", "tech_rsi_z", "tech_atr_ratio"],
+      "pros": "All features are deterministic and interpretable. Hurst exponent directly measures trend vs mean-reversion. No fitting required. Very fast computation.",
+      "cons": "Hurst exponent on short windows (< 100 days) can be noisy. RSI may have moderate correlation with price changes (researcher to verify)."
     },
-    "approach_C_term_structure": {
-      "description": "VIX term structure features from VIX vs VIX3M (or VIX9D). Compute contango/backwardation ratio, term structure slope. Combine with spike detection.",
-      "pros": "Term structure is a strong signal for crisis vs normal. Multi-horizon information not in raw VIX.",
-      "cons": "Depends on ^VIX3M data availability. May have shorter history."
+    "approach_C_adx_regime_plus_features": {
+      "description": "ADX-based trend strength regime detection, Williams %R for mean-reversion position, Bollinger %B for volatility position. All classic technical indicators repackaged as regime features.",
+      "output": ["tech_trend_strength", "tech_williams_r_z", "tech_bollinger_b"],
+      "pros": "Industry-standard indicators. Well-understood by market participants. Self-fulfilling prophecy effect (traders act on these signals). No ML fitting.",
+      "cons": "May be too correlated with price changes (derivatives of price). Less novel than HMM approach. Potentially higher VIF with base features."
     },
-    "approach_D_hybrid": {
-      "description": "Combine HMM regime detection (from log-VIX changes) with mean-reversion z-score and optionally term structure. Output 3 features: regime_probability, mean_reversion_z, vol_persistence. Similar hybrid approach to DXY's successful design.",
-      "pros": "Captures temporal regime, mean-reversion dynamics, and potentially term structure. Follows DXY's successful pattern. 3 orthogonal features.",
-      "cons": "More complex, but VIX daily data supports this. Term structure data availability uncertain."
+    "approach_D_hybrid_hmm_hurst": {
+      "description": "Combine HMM regime probability (like VIX success) with Hurst exponent for fractal dimension and Parkinson volatility z-score. Mix of probabilistic and deterministic.",
+      "output": ["tech_regime_probability", "tech_fractal_dimension", "tech_volatility_z"],
+      "pros": "Best of both worlds: HMM captures latent state, Hurst captures fractal dynamics, Parkinson uses OHLC data efficiently. All orthogonal to price level.",
+      "cons": "More complex. Hurst computation on short windows may be noisy."
     }
   },
 
   "constraints": [
-    "All data must be daily frequency -- NO monthly-to-daily interpolation (lesson from real_rate)",
-    "5-day data delay rule: FRED VIXCLS and Yahoo VIX data are same-day or T+1, well within limit",
-    "Submodel does NOT predict gold prices -- it extracts volatility regime and mean-reversion features",
-    "Output must have VIF < 10 against ALL existing base features (especially raw vix_vix and dxy_volatility_z if DXY submodel is included)",
-    "Maximum 2-4 output columns (lesson from real_rate: 7 columns caused worst Gate 3 degradation)",
+    "All data must be daily frequency (inherently satisfied for OHLCV data)",
+    "Maximum 3-day data delay: Yahoo Finance GC=F and GLD data is same-day, well within limit",
+    "Submodel does NOT predict gold prices -- it extracts momentum regime, mean-reversion position, and volatility state from gold's own price dynamics",
+    "Output must have VIF < 10 against ALL existing base features, especially: technical_gld_close (price level), technical_gld_volume (volume), etf_flow_gld_volume (volume overlap)",
+    "Output must have VIF < 10 against existing submodel outputs: vix_regime_probability, vix_mean_reversion_z, vix_persistence, dxy_regime_probability, dxy_cross_currency_div, dxy_volatility_z",
+    "Exactly 3 output columns (lessons: DXY succeeded with 3, VIX succeeded with 3, real_rate failed worst with 7)",
     "Output must not have autocorrelation > 0.99 (real_rate attempt 1 failure mode)",
-    "Features must be computable at inference time without lookahead bias",
-    "VIX is right-skewed and mean-reverting -- log-transformation may be needed for HMM input to avoid skew-driven artifacts",
-    "If using VIX3M or VIX9D, verify date range covers 2015-01-30 to 2025-02-12. If insufficient history, fall back to VIX-only features"
+    "Features must be computable at inference time without lookahead bias -- all rolling windows are backward-looking only",
+    "If using GC=F futures, handle contract roll artifacts (use returns-based indicators or verify roll adjustment)",
+    "Do NOT include raw price-derivative features (returns, daily change) that XGBoost could trivially compute from base features -- extract higher-order REGIME/STATE information",
+    "Volume-based features must be checked for VIF against etf_flow_gld_volume and etf_flow_volume_ma20 in base features",
+    "All features must capture dynamics (state, regime, persistence) not levels -- the base features already provide the level information"
   ],
 
   "output_schema": {
     "target_columns": 3,
-    "target_range": "2-4 columns",
+    "target_range": "exactly 3 columns",
     "candidate_columns": [
-      "vix_regime_probability: Probability of being in elevated-fear or crisis regime (0-1). From HMM or similar regime detector on VIX dynamics. Should have low correlation with raw VIX level.",
-      "vix_mean_reversion_z: Z-score measuring how far VIX is from its dynamic equilibrium, normalized by expanding window statistics. Captures distance from equilibrium in standard deviations. Mean-reversion context absent from raw level.",
-      "vix_persistence: Measure of whether current VIX level is persistent (sustained regime) or transient (spike that will revert). Could be rolling autocorrelation, regime duration, or spike decay rate. Critical for distinguishing spike vs sustained fear.",
-      "vix_term_structure: (optional, if data available) VIX/VIX3M ratio or similar term structure indicator. Contango (>1) = normal, backwardation (<1) = crisis. Powerful regime indicator not derivable from VIX level alone."
+      "tech_trend_regime_prob: Probability of being in a trending regime (up or down) vs range-bound/mean-reverting. From HMM on gold returns or equivalent regime detector. Should have LOW correlation with raw GLD close (price level does not determine regime). Range [0, 1].",
+      "tech_mean_reversion_z: Z-score measuring how overbought or oversold gold is relative to recent dynamics. NOT raw RSI, but a z-score or normalized oscillator that captures distance from dynamic equilibrium. Should capture 'elasticity' of price to snap back. Range [-4, +4].",
+      "tech_volatility_regime: Measure of gold's own realized volatility state relative to its recent history. Captures compression (low vol, breakout pending) vs expansion (high vol, trend active). Bollinger Bandwidth z-score, ATR ratio, or Parkinson vol z-score. Range [-3, +3] or [0, 1] depending on method."
     ],
     "properties": [
       "All daily frequency, no interpolation",
-      "No NaN values (after warmup period of max lookback window)",
-      "Low multicollinearity with raw vix_vix (VIF < 10)",
-      "Low multicollinearity with DXY submodel outputs if present (VIF < 10)",
-      "Statistically meaningful (not just transformations of the level)"
+      "No NaN values after warmup period (max ~200 days for longest rolling window)",
+      "Low multicollinearity with raw GLD OHLCV base features (VIF < 10)",
+      "Low multicollinearity with VIX and DXY submodel outputs (VIF < 10)",
+      "Each feature captures a DIFFERENT dimension: regime (what state), position (where in the range), volatility (how active)",
+      "Features should be REGIME/STATE features, not level or simple derivative features"
     ]
   },
 
-  "success_hypothesis": "VIX regime detection and mean-reversion dynamics, computed at daily frequency, will provide the meta-model with volatility context that improves direction accuracy by +0.5% or more. The key information gain comes from distinguishing persistent fear regimes from transient spikes, which determines whether gold's safe-haven bid will sustain or fade.",
+  "success_hypothesis": "Gold's technical regime state (trending vs ranging), mean-reversion position (overbought vs oversold), and volatility regime (compressed vs expanded) will provide the meta-model with self-referential price dynamics that improve direction accuracy by +0.5% or more. The key information gain comes from the self-reinforcing nature of technical trading: knowing whether gold is in a trending or mean-reverting regime changes the probability of next-day continuation vs reversal. This is complementary to VIX (external fear context) and DXY (dollar context) -- technicals capture gold's OWN behavioral patterns.",
 
   "success_criteria": {
     "gate1": {
-      "overfit_ratio": "< 1.5 (if neural network used; N/A if deterministic methods like HMM/PCA)",
+      "overfit_ratio": "< 1.5 (if neural network used; N/A if deterministic methods like HMM/rolling stats)",
       "no_constant_output": true,
       "autocorrelation": "< 0.99 for all output columns"
     },
@@ -158,30 +148,60 @@
 
   "lessons_from_previous_features": {
     "real_rate_failure": {
-      "root_cause": "Monthly-to-daily frequency mismatch. All 5 attempts passed Gate 2 (MI up to +39.3%) but failed Gate 3. Information existed but could not be exploited at daily prediction frequency.",
-      "lesson": "VIX data is daily. This problem is eliminated."
+      "root_cause": "Monthly-to-daily frequency mismatch. All 5 attempts passed Gate 2 (MI up to +39.3%) but failed Gate 3.",
+      "lesson_applied": "Technical data is inherently daily. No interpolation needed."
     },
     "real_rate_dimensionality": {
-      "root_cause": "Attempt 5 used 7 output columns, giving XGBoost more noise surface to overfit.",
-      "lesson": "Target 2-4 output columns maximum for VIX submodel."
+      "root_cause": "Attempt 5 used 7 output columns, giving XGBoost more noise surface.",
+      "lesson_applied": "Exactly 3 output columns. No more."
+    },
+    "vix_success": {
+      "approach": "HMM regime + rolling z-score + rolling autocorrelation. 3 columns. DA +0.96%, Sharpe +0.289. Passed Gate 3 on attempt 1.",
+      "lesson_applied": "Follow same pattern: regime detector + statistical position + persistence/volatility measure. Target 3 orthogonal features.",
+      "key_success_factors": [
+        "Daily frequency (no interpolation)",
+        "3 compact output columns",
+        "HMM for regime detection (probabilistic, smooth output)",
+        "Deterministic features for z-score and persistence (no overfitting)",
+        "Features orthogonal to raw level (VIF < 2.1 for all submodel outputs)",
+        "14.7% feature importance in extended model"
+      ]
     },
     "dxy_success": {
-      "approach": "GMM + Rolling PCA + Realized Vol Z-Score. 3 output columns. MI=0.0192. Passed all gates on attempt 1.",
-      "lesson": "Hybrid approach with 3 orthogonal features works well. HMM regime + structural decomposition + volatility metric. Apply analogous structure to VIX: regime detection + mean-reversion dynamics + persistence/term structure.",
-      "key_factors": "Daily frequency, deterministic/unsupervised methods, 3 compact output columns, no neural network."
+      "approach": "HMM regime + PCA divergence + vol z-score. 3 columns. MI=0.019.",
+      "lesson_applied": "Multi-dimensional decomposition works: regime (temporal), structure (cross-sectional), volatility (scale)."
     },
     "gate2_not_sufficient": {
-      "lesson": "Gate 2 pass (MI increase) does NOT guarantee Gate 3 pass. The information must be in a form that XGBoost can exploit to improve predictions, not just add noise. Real_rate had MI up to +39.3% but consistently degraded test performance."
+      "lesson": "Gate 2 MI pass does NOT guarantee Gate 3. Information must be in exploitable form. Focus on features that XGBoost can split on effectively."
+    },
+    "vif_base_feature_issue": {
+      "lesson": "VIX evaluation revealed inf VIF in base features (price level collinearity). This is a pre-existing issue, not caused by submodel. Submodel-specific VIFs are the relevant metric."
     }
   },
 
   "vif_risk_analysis": {
-    "vix_vix_correlation": "Submodel outputs must be orthogonal to the raw VIX level. Regime probability should have low correlation with level (a VIX of 18 can be in either calm or transitioning regime). Mean-reversion z-score is explicitly a residual from equilibrium, not the level itself.",
-    "dxy_volatility_z_correlation": "If DXY submodel's dxy_volatility_z is included in the feature set, VIX submodel outputs may correlate since equity volatility and FX volatility co-move. Monitor VIF carefully. Expected correlation ~0.3-0.4.",
-    "mitigation": "Design features that capture VIX-specific dynamics (mean-reversion, term structure) rather than generic volatility level, which would overlap with both vix_vix and dxy_volatility_z."
+    "critical_base_features": {
+      "technical_gld_close": "Raw GLD close price. Momentum regime prob should have LOW correlation (a price of 150 can be in either trending or ranging regime). Risk: moderate for z-score features.",
+      "technical_gld_volume": "Raw GLD volume. Any volume-based feature will have HIGH VIF risk. Avoid volume in submodel outputs.",
+      "etf_flow_gld_volume": "Duplicate of GLD volume in base features under ETF flow category. Further reason to avoid volume features."
+    },
+    "existing_submodel_correlation_risk": {
+      "vix_regime_probability": "VIX regime captures external fear. Gold technical regime captures internal momentum. Expected correlation: 0.1-0.3 (gold can trend in both high and low VIX). Low risk.",
+      "vix_mean_reversion_z": "VIX mean-reversion vs gold mean-reversion. Different assets, different dynamics. Expected correlation: 0.1-0.2. Low risk.",
+      "dxy_volatility_z": "Dollar volatility vs gold volatility. Some correlation during risk events. Expected correlation: 0.2-0.4. Moderate risk. Parkinson vol estimator (using OHLC) may reduce this vs simple close-to-close vol.",
+      "dxy_regime_probability": "Dollar regime vs gold trend regime. Expected correlation: 0.2-0.3 (gold and USD move inversely but not perfectly). Low-moderate risk."
+    },
+    "mitigation": "Design features that capture GOLD-SPECIFIC dynamics (momentum persistence, overbought/oversold, volatility structure from OHLC), not generic return-based features that would overlap with VIX and DXY volatility measures. Using OHLC data (not just close) differentiates the technical submodel from VIX/DXY which use close-only data."
   },
+
+  "unique_advantages_of_technical_submodel": [
+    "OHLC data available: Unlike VIX/DXY which only have close prices, gold has full OHLC data. Parkinson or Garman-Klass volatility estimators can extract intraday range information, providing richer volatility signal than close-to-close measures.",
+    "Self-referential: This is the ONLY submodel that analyzes gold's own price dynamics. All other submodels (VIX, DXY, real_rate) capture external factors. Technicals capture the self-reinforcing dynamics of gold market microstructure.",
+    "High base feature importance: Raw GLD features already rank 5th (open), 8th (low), 10th (volume) in baseline importance. Adding regime/state context should amplify this existing signal.",
+    "Behavioral foundation: Technical patterns in gold are self-fulfilling because many traders use them. This is a stronger theoretical basis than for random assets -- gold's technical trading community creates real market dynamics."
+  ],
 
   "previous_feedback": null,
 
-  "created_at": "2026-02-14T21:30:00"
+  "created_at": "2026-02-14T23:45:00"
 }

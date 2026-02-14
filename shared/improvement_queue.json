@@ -1,40 +1,4 @@
 {
-  "feature": "real_rate",
-  "items": [
-    {
-      "priority": 1,
-      "type": "output_transformation",
-      "description": "Replace monthly-to-daily forward-fill with cubic spline interpolation or dual-frequency approach. Alternatively, compute daily change signals from monthly latent outputs (e.g., distance to next regime transition, days since last change).",
-      "reason": "Gate 1/2 PASS, Gate 3 FAIL. MI increase is 23.8% (information exists) but MAE degrades in ALL 5 CV folds. The step-function from forward-fill is the primary cause. Smoothing or transforming the output should preserve MI while reducing MAE penalty.",
-      "resume_from": "builder_model",
-      "research_needed": false,
-      "specific_changes": {
-        "output_smoothing": "Cubic spline interpolation between monthly values",
-        "alternative": "First-difference of monthly values, forward-filled (captures regime changes as pulses rather than steps)",
-        "dual_frequency": "Use monthly output only at month boundaries; combine with daily base features via time-encoding"
-      }
-    },
-    {
-      "priority": 2,
-      "type": "architecture_change",
-      "description": "Replace Transformer with PCA/ICA on multi-country real rate monthly changes. Extract 2-3 principal components representing global rate level, cross-country dispersion, and rate momentum. No neural network needed.",
-      "reason": "269 monthly samples (188 training) is marginal for a 98K-parameter Transformer. PCA is deterministic, does not overfit, and is well-suited to small-sample regime extraction. Attempt 1-3 show neural approaches struggle with sample size.",
-      "resume_from": "architect",
-      "research_needed": false,
-      "specific_changes": {
-        "method": "PCA on standardized monthly real rate changes for 7 countries",
-        "n_components": "2-3 (explain >85% variance)",
-        "output": "PC scores as semantic features (PC1=global, PC2=dispersion)",
-        "daily_alignment": "Interpolation or regime classification"
-      }
-    },
-    {
-      "priority": 3,
-      "type": "feature_selection",
-      "description": "If keeping Transformer output, drop sem_0, sem_1, sem_4 (zero MI) and keep only sem_2, sem_3 to reduce noise.",
-      "reason": "Only 2 of 5 semantic dimensions carry meaningful MI (0.029 and 0.041). The 3 uninformative dimensions add noise that increases MAE.",
-      "resume_from": "builder_model",
-      "research_needed": false
-    }
-  ]
+  "feature": "technical",
+  "items": []
 }
