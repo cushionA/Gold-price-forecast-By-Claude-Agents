@@ -183,9 +183,15 @@ def fetch_gold_target():
 
     gld = yf.download("GLD", start="2015-01-01", progress=False)
 
+    # Extract close price (handle MultiIndex)
+    if isinstance(gld.columns, pd.MultiIndex):
+        gold_close = gld['Close'].iloc[:, 0]
+    else:
+        gold_close = gld['Close']
+
     df = pd.DataFrame({
-        'gold_close': gld['Close']
-    })
+        'gold_close': gold_close.values
+    }, index=gld.index)
 
     # Compute next-day return (%)
     df['gold_return_next'] = df['gold_close'].pct_change().shift(-1) * 100
