@@ -1,6 +1,6 @@
 {
-  "id": "bigbigzabuton/gold-yield-curve-1",
-  "title": "Gold yield_curve SubModel Attempt 1",
+  "id": "bigbigzabuton/gold-yield-curve-submodel-attempt-1-v2",
+  "title": "gold-yield-curve-submodel-attempt-1-v2",
   "code_file": "train.py",
   "language": "python",
   "kernel_type": "script",
