@@ -1,0 +1,13 @@
+{
+  "id": "BigBigZabuton/gold-real-rate-1",
+  "title": "Gold real_rate SubModel Attempt 1",
+  "code_file": "train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
