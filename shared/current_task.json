@@ -1,131 +1,138 @@
 {
-  "feature": "technical",
+  "feature": "cross_asset",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
 
-  "objective": "Extract latent momentum, mean-reversion, and volatility-regime patterns from gold's own price action (GLD OHLCV and GC=F futures) that are not captured by the raw price levels already in base features. The base features contain raw GLD open/high/low/close/volume, which tell the meta-model the current price level and volume but NOT: (a) whether gold is in a trending or mean-reverting state, (b) whether current momentum is accelerating or decelerating, (c) whether gold's own realized volatility is expanding or compressing, (d) whether price action shows accumulation or distribution patterns.",
+  "objective": "Extract latent cross-asset relationship patterns -- correlation regime, relative value positioning, and structural divergence dynamics -- from gold's relationships with silver, copper, and S&P 500. The base features contain raw price levels (cross_asset_silver_close, cross_asset_copper_close, cross_asset_sp500_close) which tell the meta-model WHERE these assets are, but NOT: (a) whether gold-silver and gold-copper correlations are in a normal or dislocated regime, (b) whether gold is relatively cheap or expensive vs peers (gold/silver ratio extreme, gold/copper ratio signaling recession), (c) whether cross-asset relationships are converging or diverging (mean-reversion dynamics of relative pricing).",
 
-  "requirements": "Build a submodel that captures: (1) Gold momentum regime (trending vs range-bound vs reversal, via regime detection on returns), (2) Gold mean-reversion position (how overbought/oversold relative to recent dynamics, via price oscillator or z-score), (3) Gold volatility compression/expansion state (Bollinger bandwidth or realized vol regime, indicating breakout probability). Output exactly 3 daily features that enrich the meta-model's understanding of gold's technical state beyond raw OHLCV levels.",
+  "requirements": "Build a submodel that captures: (1) Cross-asset correlation regime -- are gold's relationships with silver, copper, and equities in their normal state, or has a structural dislocation occurred (e.g., gold rallying while copper crashes = recession signal, gold rallying while silver lags = safe-haven premium, gold and equities both rising = liquidity-driven)? (2) Relative value position -- is gold expensive or cheap relative to historical relationships (gold/silver ratio z-score, gold/copper ratio z-score)? Extreme relative positions historically mean-revert. (3) Cross-asset momentum divergence -- are the assets moving together (risk-on/risk-off synchronized) or diverging (structural regime change underway)? Output exactly 3 daily features that capture fundamentally different dimensions of cross-asset dynamics.",
 
   "theoretical_background": {
-    "why_technicals_matter_for_gold": "Gold is one of the most technically traded commodities. Institutional and retail traders heavily use momentum, support/resistance, and mean-reversion signals. This creates self-reinforcing price dynamics: trending periods attract momentum traders (positive feedback), overbought conditions attract mean-reversion traders (negative feedback), and volatility compression precedes breakouts (energy accumulation). These patterns are reflected in the price data itself but are NOT captured by raw price levels.",
-    "what_base_features_provide": "Five columns: technical_gld_open, technical_gld_high, technical_gld_low, technical_gld_close, technical_gld_volume. These are raw GLD ETF price levels and volume. They collectively rank high in baseline feature importance (gld_open=5.8%, gld_low=5.2%, gld_volume=5.2%), but they encode only the CURRENT state (where is the price right now), not the DYNAMIC state (is price trending, reverting, or compressing). The meta-model's XGBoost can derive some nonlinear features from levels, but explicit momentum/regime features should provide cleaner information.",
-    "what_submodel_adds": "Three dimensions of technical context: (1) TREND REGIME -- is gold in a momentum-driven trending state (up or down) or a mean-reverting range-bound state? This matters because gold's response to macroeconomic features (rates, USD, VIX) differs in trending vs ranging regimes. (2) MEAN-REVERSION POSITION -- is gold overbought or oversold relative to its recent dynamics? Extreme positions have elevated probability of reversal. (3) VOLATILITY REGIME -- is gold's realized volatility expanding or compressing? Compression typically precedes large moves. These capture trader behavior dynamics.",
-    "gold_technical_characteristics": {
-      "momentum_persistence": "Gold exhibits stronger momentum than most assets. Trend-following strategies have historically worked well on gold due to macroeconomic regime persistence (e.g., QE eras, inflation fears). Momentum is typically measured over 10-60 day windows.",
-      "mean_reversion_at_extremes": "While gold trends at intermediate timeframes, it mean-reverts at extremes. RSI > 70 or < 30 historically precedes reversals. This is consistent with overreaction-correction dynamics.",
-      "volatility_clustering": "Gold volatility clusters strongly (GARCH effects). Low-volatility periods precede breakouts. Bollinger Band squeeze is a widely used breakout predictor in gold trading.",
-      "volume_confirmation": "Volume confirms or denies price moves. High-volume breakouts are more sustainable. Low-volume rallies tend to fail. Volume relative to its moving average is a standard confirmation signal."
+    "why_cross_asset_matters_for_gold": "Gold does not trade in isolation. Its price reflects its relative attractiveness compared to alternative assets in three categories: (a) Precious metals peers (silver) -- silver tracks gold but with higher beta and industrial exposure; deviations in the gold/silver ratio signal shifts in safe-haven vs industrial demand. (b) Industrial metals (copper) -- gold/copper ratio is a well-known recession indicator because copper is pro-cyclical while gold is counter-cyclical; their ratio captures macro regime transitions. (c) Equities (S&P 500) -- gold vs equities reflects risk appetite; when both rise it signals liquidity, when gold rises and equities fall it signals fear. These RELATIVE dynamics contain information about why gold is moving, not just that it is moving.",
+    "what_base_features_provide": "Three columns: cross_asset_silver_close, cross_asset_copper_close, cross_asset_sp500_close. These are raw closing price levels. They rank #2 (silver, 7.3%) and #3 (S&P 500, 6.5%) in baseline feature importance -- among the most important features. However, raw levels encode only absolute price positions. The meta-model cannot easily compute from levels alone: (a) whether the gold/silver ratio is at a 30-year extreme, (b) whether cross-asset correlations have shifted regime, (c) whether current divergences are expanding or contracting. These require relative computation and historical context.",
+    "what_submodel_adds": "Three dimensions of cross-asset context: (1) CORRELATION REGIME -- captures whether the normal positive correlation between gold and silver (and negative correlation between gold and equities) is intact or broken, using rolling correlation dynamics. Regime shifts in correlation precede and signal major gold moves (e.g., 2020 COVID crash saw gold-equity correlation flip from negative to positive). (2) RELATIVE VALUE POSITION -- gold/silver and gold/copper ratios z-scored against their historical distributions, capturing whether gold is historically expensive or cheap relative to peers. Extreme positions predict mean-reversion. (3) DIVERGENCE DYNAMICS -- measures whether cross-asset spreads are expanding or contracting, capturing the velocity and direction of structural regime changes.",
+    "key_cross_asset_relationships": {
+      "gold_silver_ratio": "Historically averages 60-70 (ounces of silver per ounce of gold). Spikes above 80-90 during crises (silver has higher industrial beta, drops more). Drops below 50 during precious metals manias. The LEVEL of this ratio is a macro regime indicator. Its CHANGE predicts gold's relative trajectory.",
+      "gold_copper_ratio": "Often called the 'recession gauge'. High ratio = recession fears (gold up, copper down). Low ratio = expansion (copper demand for construction/manufacturing). A well-documented macro indicator used by institutional investors.",
+      "gold_sp500_correlation": "Normally negative (risk-on/risk-off). Flips positive during liquidity-driven rallies (QE periods) and crash panics (initial sell-everything phase). The REGIME of this correlation is more informative than the correlation level itself.",
+      "precious_metals_momentum": "Silver typically leads gold in both rallies and selloffs due to higher beta. When silver begins outperforming gold (falling GSR), it often signals the start of a precious metals rally. Conversely, silver underperformance (rising GSR) can signal a topping process."
     },
-    "difference_from_vix_submodel": "The VIX submodel captures the external fear environment's dynamics. The technical submodel captures gold's own internal price dynamics. These are complementary: VIX tells us about the macro volatility context, while technicals tell us about gold-specific supply/demand and trader positioning reflected in price action. Gold can have strong technicals (breakout from consolidation) in either high or low VIX environments."
+    "difference_from_existing_submodels": "VIX submodel captures external fear dynamics. Technical submodel captures gold's own price dynamics. DXY submodel captures dollar dynamics. Cross-asset submodel captures RELATIVE positioning -- how gold's price compares to related assets. This is a fundamentally different information axis: the same gold price at $2000 means very different things if silver is at $22 (GSR=90, extreme safe-haven premium) vs silver at $40 (GSR=50, broad precious metals rally)."
   },
 
   "data_strategy": {
     "primary_data": {
       "source": "Yahoo Finance",
-      "tickers": ["GC=F", "GLD"],
+      "tickers": ["SI=F", "HG=F", "^GSPC"],
       "frequency": "daily",
-      "note": "GLD OHLCV already in data/raw/ and base_features. GC=F (gold futures) provides the primary price series for technical analysis. GC=F is preferred over GLD for technicals because futures have no NAV tracking error and reflect the true gold market. GLD is available as backup."
+      "note": "Silver futures, copper futures, S&P 500 index. All already available as base features. Cross-asset submodel works with RATIOS and CORRELATIONS of these with gold, not levels themselves."
     },
-    "expansion_data_candidates": [
+    "gold_reference": {
+      "source": "Yahoo Finance",
+      "ticker": "GC=F or GLD",
+      "note": "Need gold price to compute ratios. GLD preferred (no roll artifacts, proven in technical submodel). Or use gold close from base_features directly."
+    },
+    "additional_candidates": [
       {
         "source": "Yahoo Finance",
-        "ticker": "GC=F",
-        "description": "Gold futures continuous contract. Primary source for technical indicators due to no ETF premium/discount.",
-        "frequency": "daily",
-        "note": "Verify date range covers 2015-01-30 to 2025-02-12. Check for contract roll artifacts."
+        "ticker": "SI=F",
+        "description": "Silver futures. Key for gold/silver ratio. Daily close sufficient.",
+        "already_available": true
       },
       {
         "source": "Yahoo Finance",
-        "ticker": "GLD",
-        "description": "GLD ETF. Already in base features. Can be used for volume analysis (more liquid than futures for volume data).",
-        "frequency": "daily",
-        "note": "Already available. Volume data from GLD is more reliable than GC=F for ETF flow analysis."
+        "ticker": "HG=F",
+        "description": "Copper futures. Key for gold/copper ratio (recession gauge).",
+        "already_available": true
       },
       {
         "source": "Yahoo Finance",
-        "ticker": "IAU",
-        "description": "iShares Gold Trust ETF. Alternative gold ETF for cross-validation of volume patterns.",
-        "frequency": "daily",
-        "note": "Researcher should verify if IAU volume adds information beyond GLD volume."
+        "ticker": "^GSPC",
+        "description": "S&P 500 index. Key for gold/equity correlation regime.",
+        "already_available": true
+      },
+      {
+        "source": "Yahoo Finance",
+        "ticker": "SLV",
+        "description": "Silver ETF. Backup for SI=F if futures have roll issues.",
+        "already_available": false,
+        "note": "Researcher should evaluate if SLV is needed"
       }
     ],
     "expected_samples": "~2523 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)",
-    "frequency_advantage": "All data is daily. No interpolation needed. Same daily-frequency advantage that made VIX and DXY succeed on attempt 1."
+    "frequency_advantage": "All data is daily. No interpolation needed. Same daily-frequency advantage that made VIX and technical succeed on attempt 1."
   },
 
   "research_questions": [
-    "What is the most effective method for detecting gold momentum REGIMES (trending vs range-bound) rather than computing raw momentum indicators? Candidates: (a) HMM on gold returns (2-3 states: trend-up/range-bound/trend-down), (b) rolling Hurst exponent (H>0.5=trending, H<0.5=mean-reverting), (c) ADX-based regime classification. Which method produces the most orthogonal signal to raw gold price levels? The VIX submodel succeeded with HMM regime detection -- is the same approach applicable to gold returns?",
-    "Which mean-reversion indicator is best suited for gold price dynamics? Candidates: (a) RSI(14) -- standard but potentially too correlated with short-term returns, (b) rolling z-score of returns (like VIX submodel's approach), (c) Stochastic %K/%D, (d) distance from VWAP analog. The key requirement is LOW VIF with raw GLD close prices (measured correlation between GLD close and RSI is ~0.025 -- verify this empirically). Which indicator captures overbought/oversold state most orthogonally to price level?",
-    "What is the optimal measure for gold volatility compression/expansion that predicts future return magnitude? Candidates: (a) Bollinger Bandwidth (rolling std / rolling mean), (b) Average True Range (ATR) z-score, (c) realized vol ratio (short-term / long-term realized vol), (d) Parkinson volatility estimator using OHLC data. Gold-specific question: does volatility compression in gold specifically precede large directional moves?",
-    "What are the optimal lookback windows for gold technical features? Gold's momentum persistence differs from equities. Specifically: (a) What is the typical half-life of gold momentum (10d? 20d? 60d?)? (b) What window for mean-reversion captures overbought/oversold best? (c) What short-term and long-term windows for volatility ratio best capture compression? Academic or quantitative studies preferred.",
-    "How should volume information be integrated into the technical submodel? Options: (a) volume-weighted momentum (On-Balance Volume trend), (b) volume relative to MA as a regime confirmation feature, (c) Accumulation/Distribution Line slope. Or should volume be excluded from the submodel entirely to avoid redundancy with etf_flow_gld_volume in base features? What is the VIF risk between a volume-based technical feature and the existing etf_flow_gld_volume column?",
-    "Is there evidence that gold technical indicators interact with the VIX regime? For example: does gold momentum persistence increase during high-VIX periods? Does the mean-reversion speed of gold change across volatility regimes? This matters for ensuring the technical submodel provides COMPLEMENTARY information to the VIX submodel already in the pipeline.",
-    "What specific challenges arise when computing technical indicators on continuous futures contracts (GC=F)? Contract roll dates can create artificial price jumps. Should the submodel use: (a) ratio-adjusted continuous contract, (b) GLD as primary source to avoid roll artifacts, (c) compute returns-based indicators that are roll-invariant? This is a critical data integrity question."
+    "What is the most effective method for detecting CORRELATION REGIME shifts between gold and peer assets (silver, copper, S&P 500)? Candidates: (a) HMM on a vector of rolling pairwise correlations (e.g., 3-dimensional input: corr(gold,silver), corr(gold,copper), corr(gold,sp500)), (b) DCC-GARCH (Dynamic Conditional Correlation) to estimate time-varying correlations and detect regime changes, (c) rolling correlation z-score (simpler but may miss nonlinear regime shifts). Which method produces the most informative single regime probability? The VIX/technical submodels succeeded with HMM -- does the same pattern work for correlation regime detection?",
+    "Which cross-asset RATIO is most predictive for gold returns: (a) gold/silver ratio (GSR), (b) gold/copper ratio, (c) gold/S&P 500 ratio, or (d) a composite index? Specifically: what are the mean-reversion properties of each ratio? What is the typical half-life? What z-score window captures extremes that predict gold return direction? Academic or quantitative evidence preferred.",
+    "How should DIVERGENCE DYNAMICS between gold and peer assets be measured? Candidates: (a) rate of change of cross-asset ratios (momentum of the ratio), (b) difference in standardized returns over a lookback period (who is outperforming), (c) PCA first component loading change (structural co-movement shift), (d) rolling beta of gold vs S&P 500 and its z-score. The goal is to capture whether cross-asset relationships are converging (normalizing) or diverging (structural shift underway).",
+    "What is the empirical evidence for the gold/copper ratio as a recession indicator? Specifically: (a) at what z-score levels does the ratio become predictive? (b) does the ratio lead or lag gold returns? (c) is the signal captured by the rolling ratio level, or the rate of change? This matters because we need features that predict NEXT-DAY gold returns, not concurrent macro state.",
+    "What lookback windows are optimal for cross-asset features? Specifically: (a) what window for rolling correlations best captures regime shifts without being too noisy (20d? 60d? 120d?)? (b) what window for ratio z-scores captures meaningful extremes (60d? 120d? 250d full year?)? Gold cross-asset relationships can persist for months (e.g., gold/silver ratio stayed above 80 for extended periods in 2019-2020). The window must be long enough to establish a baseline but short enough to detect shifts.",
+    "What is the VIF risk between cross-asset submodel outputs and (a) existing base features (silver_close, copper_close, sp500_close) and (b) existing submodel outputs (vix_regime_probability, vix_mean_reversion_z, dxy_regime_probability)? Specifically: will a gold/silver ratio z-score correlate with silver_close or gold_close levels? Ratios of I(1) series can be I(0), so this needs empirical verification. Will a correlation regime feature overlap with the VIX regime probability (since equity volatility affects gold-equity correlation)?",
+    "Should the cross-asset submodel use a single combined correlation regime (e.g., HMM on multi-dimensional correlation vector) or separate ratio-based features for each asset pair? The single-regime approach captures the overall cross-asset environment but loses pair-specific information. The separate approach preserves pair-specific signals but risks VIF issues if outputs are correlated. What does the literature suggest for gold specifically?"
   ],
 
   "candidate_approaches": {
-    "approach_A_hmm_regime_plus_features": {
-      "description": "HMM on gold daily returns (2-3 states: trend-up/range-bound/trend-down) combined with rolling z-score for mean-reversion and Bollinger Bandwidth for volatility regime. Follows VIX/DXY success pattern: regime detector + statistical features.",
-      "output": ["tech_trend_regime_prob", "tech_mean_reversion_z", "tech_volatility_regime"],
-      "pros": "Proven pattern from VIX (DA +0.96%) and DXY. HMM captures nonlinear regime dynamics. 3 orthogonal features. Deterministic components (z-score, bandwidth) add no overfitting risk.",
-      "cons": "HMM on gold returns may be less clean than VIX (VIX has clearer regime structure). Gold returns are closer to random walk than VIX."
+    "approach_A_hmm_correlation_regime": {
+      "description": "HMM on rolling correlation vector [corr(gold,silver), corr(gold,copper), corr(gold,sp500)] to detect cross-asset correlation regimes, plus gold/silver ratio z-score for relative value, plus cross-asset return divergence measure for dynamics. Follows the proven HMM + deterministic pattern.",
+      "output": ["xasset_corr_regime_prob", "xasset_relative_value_z", "xasset_divergence"],
+      "pros": "Follows proven HMM pattern from VIX/technical. Multi-dimensional HMM input captures joint correlation structure. Ratio z-score is well-established. Divergence measure captures dynamics.",
+      "cons": "Rolling correlations as HMM input may be noisy (small sample within window). 3D HMM needs more data. May lose pair-specific information."
     },
-    "approach_B_hurst_plus_oscillator": {
-      "description": "Rolling Hurst exponent for trend/mean-reversion regime, RSI-based oscillator for position, ATR ratio for volatility. Purely statistical, no ML.",
-      "output": ["tech_hurst_exponent", "tech_rsi_z", "tech_atr_ratio"],
-      "pros": "All features are deterministic and interpretable. Hurst exponent directly measures trend vs mean-reversion. No fitting required. Very fast computation.",
-      "cons": "Hurst exponent on short windows (< 100 days) can be noisy. RSI may have moderate correlation with price changes (researcher to verify)."
+    "approach_B_ratio_based_features": {
+      "description": "Gold/silver ratio z-score (60d) for relative precious metals value, gold/copper ratio z-score (90d) for macro regime indicator, gold-vs-equity relative return (30d) for risk appetite divergence. All deterministic, no ML.",
+      "output": ["xasset_gsr_zscore", "xasset_gcr_zscore", "xasset_equity_divergence"],
+      "pros": "All deterministic (no overfitting). Well-established financial ratios. Each captures a different relationship (precious metals, industrial, equities). Simple and interpretable.",
+      "cons": "May miss nonlinear regime shifts. Z-scores assume normal distribution of ratios. No regime detection component."
     },
-    "approach_C_adx_regime_plus_features": {
-      "description": "ADX-based trend strength regime detection, Williams %R for mean-reversion position, Bollinger %B for volatility position. All classic technical indicators repackaged as regime features.",
-      "output": ["tech_trend_strength", "tech_williams_r_z", "tech_bollinger_b"],
-      "pros": "Industry-standard indicators. Well-understood by market participants. Self-fulfilling prophecy effect (traders act on these signals). No ML fitting.",
-      "cons": "May be too correlated with price changes (derivatives of price). Less novel than HMM approach. Potentially higher VIF with base features."
+    "approach_C_pca_correlation_dynamics": {
+      "description": "PCA on rolling correlation matrix to extract dominant co-movement factor, combined with gold/silver ratio z-score and rolling beta of gold vs S&P 500. Captures structural co-movement changes.",
+      "output": ["xasset_comovement_factor", "xasset_gsr_zscore", "xasset_gold_beta_z"],
+      "pros": "PCA captures the dominant structural pattern in cross-asset relationships. Beta z-score directly measures gold's sensitivity to equities. Combines structural and pair-specific views.",
+      "cons": "PCA on small correlation matrix (3x3) may not be informative. Rolling PCA can be unstable with short windows."
     },
-    "approach_D_hybrid_hmm_hurst": {
-      "description": "Combine HMM regime probability (like VIX success) with Hurst exponent for fractal dimension and Parkinson volatility z-score. Mix of probabilistic and deterministic.",
-      "output": ["tech_regime_probability", "tech_fractal_dimension", "tech_volatility_z"],
-      "pros": "Best of both worlds: HMM captures latent state, Hurst captures fractal dynamics, Parkinson uses OHLC data efficiently. All orthogonal to price level.",
-      "cons": "More complex. Hurst computation on short windows may be noisy."
+    "approach_D_hybrid_hmm_plus_ratios": {
+      "description": "HMM on joint cross-asset return vector [gold_ret, silver_ret, copper_ret, sp500_ret] for regime detection (identifies risk-on/risk-off/dislocation regimes), plus gold/silver ratio z-score for precious metals relative value, plus cross-asset momentum rank divergence for dynamics.",
+      "output": ["xasset_regime_prob", "xasset_precious_metals_z", "xasset_rank_divergence"],
+      "pros": "HMM on joint returns directly captures the cross-asset regime (risk-on vs risk-off vs dislocation). Ratio z-score proven concept. Rank divergence is robust to scale differences.",
+      "cons": "4D HMM may need many states. Risk of overlapping with VIX regime (VIX also captures risk-on/risk-off)."
     }
   },
 
   "constraints": [
-    "All data must be daily frequency (inherently satisfied for OHLCV data)",
-    "Maximum 3-day data delay: Yahoo Finance GC=F and GLD data is same-day, well within limit",
-    "Submodel does NOT predict gold prices -- it extracts momentum regime, mean-reversion position, and volatility state from gold's own price dynamics",
-    "Output must have VIF < 10 against ALL existing base features, especially: technical_gld_close (price level), technical_gld_volume (volume), etf_flow_gld_volume (volume overlap)",
-    "Output must have VIF < 10 against existing submodel outputs: vix_regime_probability, vix_mean_reversion_z, vix_persistence, dxy_regime_probability, dxy_cross_currency_div, dxy_volatility_z",
-    "Exactly 3 output columns (lessons: DXY succeeded with 3, VIX succeeded with 3, real_rate failed worst with 7)",
-    "Output must not have autocorrelation > 0.99 (real_rate attempt 1 failure mode)",
-    "Features must be computable at inference time without lookahead bias -- all rolling windows are backward-looking only",
-    "If using GC=F futures, handle contract roll artifacts (use returns-based indicators or verify roll adjustment)",
-    "Do NOT include raw price-derivative features (returns, daily change) that XGBoost could trivially compute from base features -- extract higher-order REGIME/STATE information",
-    "Volume-based features must be checked for VIF against etf_flow_gld_volume and etf_flow_volume_ma20 in base features",
-    "All features must capture dynamics (state, regime, persistence) not levels -- the base features already provide the level information"
+    "All data must be daily frequency from Yahoo Finance -- inherently same-day, well within 5-day delay limit",
+    "Submodel does NOT predict gold prices -- it extracts cross-asset relationship patterns (correlation regimes, relative value positioning, divergence dynamics)",
+    "Output must be exactly 3 columns (lessons from VIX/technical success with 3, real_rate failure with 7)",
+    "Output must have VIF < 10 against ALL existing base features, especially: cross_asset_silver_close, cross_asset_copper_close, cross_asset_sp500_close (raw levels). Since submodel outputs are RATIOS or CORRELATIONS, they should be structurally different from levels, but empirical verification required",
+    "Output must have VIF < 10 against existing submodel outputs: vix_regime_probability, vix_mean_reversion_z, vix_persistence, tech_trend_regime_prob, tech_mean_reversion_z, tech_volatility_regime",
+    "Autocorrelation < 0.99 for all output columns. Ratio z-scores on long windows (120d+) may approach this threshold -- researcher must verify empirically",
+    "Features must be computable at inference time without lookahead bias -- all rolling windows backward-looking, all model fits on training set only",
+    "Avoid features that VIX submodel already captures. VIX regime already encodes risk-on/risk-off. Cross-asset submodel should capture RELATIVE PRICING dynamics, not generic risk appetite (to minimize overlap with vix_regime_probability)",
+    "Avoid features that correlate strongly with DXY submodel outputs. Gold and DXY are inversely correlated, so a gold/equity correlation regime may partially overlap with DXY regime. Researcher should measure expected cross-correlations",
+    "If using futures continuous contracts (SI=F, HG=F), handle roll artifacts -- use returns-based computations or verify ratio stability across roll dates",
+    "All features must capture DYNAMICS (regime, position, divergence) not levels or simple derivatives that XGBoost could trivially compute from the three base feature columns"
   ],
 
   "output_schema": {
     "target_columns": 3,
-    "target_range": "exactly 3 columns",
     "candidate_columns": [
-      "tech_trend_regime_prob: Probability of being in a trending regime (up or down) vs range-bound/mean-reverting. From HMM on gold returns or equivalent regime detector. Should have LOW correlation with raw GLD close (price level does not determine regime). Range [0, 1].",
-      "tech_mean_reversion_z: Z-score measuring how overbought or oversold gold is relative to recent dynamics. NOT raw RSI, but a z-score or normalized oscillator that captures distance from dynamic equilibrium. Should capture 'elasticity' of price to snap back. Range [-4, +4].",
-      "tech_volatility_regime: Measure of gold's own realized volatility state relative to its recent history. Captures compression (low vol, breakout pending) vs expansion (high vol, trend active). Bollinger Bandwidth z-score, ATR ratio, or Parkinson vol z-score. Range [-3, +3] or [0, 1] depending on method."
+      "xasset_corr_regime_prob: Probability of being in a dislocated/abnormal cross-asset correlation regime vs normal regime. From HMM on rolling correlations or returns vector. Captures whether gold's relationships with peers are intact or broken. Range [0, 1].",
+      "xasset_relative_value_z: Z-score of gold/silver ratio (or composite precious metals ratio) measuring whether gold is historically expensive or cheap relative to peers. Extreme values predict mean-reversion. Range [-4, +4].",
+      "xasset_divergence: Measure of whether cross-asset relationships are converging (normalizing) or diverging (structural shift). Captures the velocity of relative price changes. Range varies by method."
     ],
     "properties": [
       "All daily frequency, no interpolation",
-      "No NaN values after warmup period (max ~200 days for longest rolling window)",
-      "Low multicollinearity with raw GLD OHLCV base features (VIF < 10)",
-      "Low multicollinearity with VIX and DXY submodel outputs (VIF < 10)",
-      "Each feature captures a DIFFERENT dimension: regime (what state), position (where in the range), volatility (how active)",
-      "Features should be REGIME/STATE features, not level or simple derivative features"
+      "No NaN values after warmup period (max ~120 days for longest rolling window)",
+      "Low multicollinearity with raw price level base features (VIF < 10). Key test: ratio z-scores should NOT correlate with silver_close or copper_close levels",
+      "Low multicollinearity with VIX and technical submodel outputs (VIF < 10). Key test: correlation regime should NOT overlap with vix_regime_probability",
+      "Each feature captures a DIFFERENT dimension: regime (normal vs dislocated), position (cheap vs expensive), dynamics (converging vs diverging)",
+      "Features encode RELATIVE information that raw price levels cannot convey"
     ]
   },
 
-  "success_hypothesis": "Gold's technical regime state (trending vs ranging), mean-reversion position (overbought vs oversold), and volatility regime (compressed vs expanded) will provide the meta-model with self-referential price dynamics that improve direction accuracy by +0.5% or more. The key information gain comes from the self-reinforcing nature of technical trading: knowing whether gold is in a trending or mean-reverting regime changes the probability of next-day continuation vs reversal. This is complementary to VIX (external fear context) and DXY (dollar context) -- technicals capture gold's OWN behavioral patterns.",
+  "success_hypothesis": "Cross-asset relative positioning (correlation regime, gold/silver ratio extremes, divergence dynamics) will provide the meta-model with relational context that improves direction accuracy by +0.5% or more. The key information gain comes from the fact that gold's return is partly determined by WHERE it sits relative to peers: gold at $2000 with silver at $22 (GSR=90) has very different forward return distribution than gold at $2000 with silver at $40 (GSR=50). Base features provide absolute levels but the submodel provides the relative context. Cross-asset features rank #2 and #3 in baseline importance (7.3% and 6.5%), suggesting the meta-model already finds value in the raw levels -- enriching with regime/relative/divergence context should amplify this.",
 
   "success_criteria": {
     "gate1": {
@@ -148,60 +155,58 @@
 
   "lessons_from_previous_features": {
     "real_rate_failure": {
-      "root_cause": "Monthly-to-daily frequency mismatch. All 5 attempts passed Gate 2 (MI up to +39.3%) but failed Gate 3.",
-      "lesson_applied": "Technical data is inherently daily. No interpolation needed."
+      "root_cause": "Monthly-to-daily frequency mismatch. 5 attempts, all passed Gate 2 (MI up to +39.3%) but failed Gate 3.",
+      "lesson_applied": "Cross-asset data is inherently daily. No interpolation needed."
     },
     "real_rate_dimensionality": {
-      "root_cause": "Attempt 5 used 7 output columns, giving XGBoost more noise surface.",
-      "lesson_applied": "Exactly 3 output columns. No more."
+      "root_cause": "Attempt 5 used 7 output columns, giving XGBoost more noise surface to overfit.",
+      "lesson_applied": "Exactly 3 output columns."
     },
     "vix_success": {
-      "approach": "HMM regime + rolling z-score + rolling autocorrelation. 3 columns. DA +0.96%, Sharpe +0.289. Passed Gate 3 on attempt 1.",
-      "lesson_applied": "Follow same pattern: regime detector + statistical position + persistence/volatility measure. Target 3 orthogonal features.",
-      "key_success_factors": [
-        "Daily frequency (no interpolation)",
-        "3 compact output columns",
-        "HMM for regime detection (probabilistic, smooth output)",
-        "Deterministic features for z-score and persistence (no overfitting)",
-        "Features orthogonal to raw level (VIF < 2.1 for all submodel outputs)",
-        "14.7% feature importance in extended model"
-      ]
+      "approach": "HMM regime + rolling z-score + rolling autocorrelation. 3 columns. DA +0.96%, Sharpe +0.289.",
+      "lesson_applied": "Follow same structural pattern: regime detector + statistical position + dynamics measure."
     },
-    "dxy_success": {
-      "approach": "HMM regime + PCA divergence + vol z-score. 3 columns. MI=0.019.",
-      "lesson_applied": "Multi-dimensional decomposition works: regime (temporal), structure (cross-sectional), volatility (scale)."
+    "technical_success": {
+      "approach": "HMM on 2D [returns, GK_vol] + z-score of returns + GK vol z-score. 3 columns. MAE -0.1824 (18x threshold).",
+      "lesson_applied": "2D HMM input improves regime detection. Use the same multi-dimensional approach for correlation regimes. Daily GK vol (no smoothing) keeps autocorrelation low -- apply same principle to cross-asset features."
+    },
+    "dxy_completion": {
+      "note": "DXY completed with MI=0.019 but full Gate 2/3 was not evaluated in detail. Its outputs (dxy_regime_probability, dxy_cross_currency_div, dxy_volatility_z) are in the pipeline. Cross-asset submodel must not duplicate DXY's dollar-relationship information.",
+      "lesson_applied": "Avoid gold/dollar relationships -- that is DXY's domain. Focus on gold/silver, gold/copper, gold/equity relationships."
     },
     "gate2_not_sufficient": {
-      "lesson": "Gate 2 MI pass does NOT guarantee Gate 3. Information must be in exploitable form. Focus on features that XGBoost can split on effectively."
+      "lesson": "Gate 2 MI pass does NOT guarantee Gate 3. Features must be in a form that XGBoost can exploit for directional prediction. Ratio z-scores at extremes provide natural split points for XGBoost."
     },
-    "vif_base_feature_issue": {
-      "lesson": "VIX evaluation revealed inf VIF in base features (price level collinearity). This is a pre-existing issue, not caused by submodel. Submodel-specific VIFs are the relevant metric."
+    "high_base_feature_importance": {
+      "lesson": "Silver_close (7.3%) and sp500_close (6.5%) are already top-3 base features. This means the meta-model already finds cross-asset levels valuable. Adding RELATIVE and REGIME context should be complementary, not redundant. But it also means VIF risk is real -- the submodel outputs must be structurally different from levels."
     }
   },
 
   "vif_risk_analysis": {
     "critical_base_features": {
-      "technical_gld_close": "Raw GLD close price. Momentum regime prob should have LOW correlation (a price of 150 can be in either trending or ranging regime). Risk: moderate for z-score features.",
-      "technical_gld_volume": "Raw GLD volume. Any volume-based feature will have HIGH VIF risk. Avoid volume in submodel outputs.",
-      "etf_flow_gld_volume": "Duplicate of GLD volume in base features under ETF flow category. Further reason to avoid volume features."
+      "cross_asset_silver_close": "Raw silver price level. Rank #2 in baseline importance (7.3%). A gold/silver RATIO z-score should have low correlation with silver LEVEL because the ratio captures the relative relationship, not silver's absolute price. But empirical verification needed -- if silver and gold move together, the ratio may have low variance.",
+      "cross_asset_copper_close": "Raw copper price level. Gold/copper RATIO z-score should be orthogonal to copper level for similar reasons.",
+      "cross_asset_sp500_close": "Raw S&P 500 level. Rank #3 in baseline importance (6.5%). A gold/equity divergence feature should have low correlation with S&P level because it captures the DIFFERENCE in behavior, not the equity level itself."
     },
     "existing_submodel_correlation_risk": {
-      "vix_regime_probability": "VIX regime captures external fear. Gold technical regime captures internal momentum. Expected correlation: 0.1-0.3 (gold can trend in both high and low VIX). Low risk.",
-      "vix_mean_reversion_z": "VIX mean-reversion vs gold mean-reversion. Different assets, different dynamics. Expected correlation: 0.1-0.2. Low risk.",
-      "dxy_volatility_z": "Dollar volatility vs gold volatility. Some correlation during risk events. Expected correlation: 0.2-0.4. Moderate risk. Parkinson vol estimator (using OHLC) may reduce this vs simple close-to-close vol.",
-      "dxy_regime_probability": "Dollar regime vs gold trend regime. Expected correlation: 0.2-0.3 (gold and USD move inversely but not perfectly). Low-moderate risk."
+      "vix_regime_probability": "HIGHEST RISK. VIX regime captures risk-on/risk-off. Cross-asset correlation regime may also capture risk-on/risk-off (since correlations shift during crises). Researcher MUST measure expected correlation and design to minimize overlap. Strategy: focus cross-asset regime on PRECIOUS METALS relationships (gold/silver) rather than gold/equity, since gold/equity correlation is partly captured by VIX.",
+      "vix_mean_reversion_z": "Low risk. VIX z-score captures VIX-specific mean-reversion. Cross-asset z-score captures ratio-specific mean-reversion. Different instruments.",
+      "tech_trend_regime_prob": "Moderate risk. Gold's own trend regime may correlate with cross-asset divergence (when gold trends, it may diverge from peers). Expected correlation 0.1-0.3.",
+      "tech_volatility_regime": "Low risk. Gold's GK vol regime is gold-specific OHLC data. Cross-asset features use ratios and correlations.",
+      "dxy_regime_probability": "Moderate risk. Dollar regime affects gold-equity correlation. Cross-asset regime should focus on non-dollar relationships to minimize overlap."
     },
-    "mitigation": "Design features that capture GOLD-SPECIFIC dynamics (momentum persistence, overbought/oversold, volatility structure from OHLC), not generic return-based features that would overlap with VIX and DXY volatility measures. Using OHLC data (not just close) differentiates the technical submodel from VIX/DXY which use close-only data."
+    "mitigation": "Design cross-asset features around PRECIOUS METALS ratios (gold/silver, gold/copper) rather than gold/equity correlation, since the latter overlaps more with VIX and DXY. The gold/silver and gold/copper ratios capture information that NO existing submodel addresses: metal-specific supply/demand dynamics and industrial vs safe-haven demand shifts."
   },
 
-  "unique_advantages_of_technical_submodel": [
-    "OHLC data available: Unlike VIX/DXY which only have close prices, gold has full OHLC data. Parkinson or Garman-Klass volatility estimators can extract intraday range information, providing richer volatility signal than close-to-close measures.",
-    "Self-referential: This is the ONLY submodel that analyzes gold's own price dynamics. All other submodels (VIX, DXY, real_rate) capture external factors. Technicals capture the self-reinforcing dynamics of gold market microstructure.",
-    "High base feature importance: Raw GLD features already rank 5th (open), 8th (low), 10th (volume) in baseline importance. Adding regime/state context should amplify this existing signal.",
-    "Behavioral foundation: Technical patterns in gold are self-fulfilling because many traders use them. This is a stronger theoretical basis than for random assets -- gold's technical trading community creates real market dynamics."
+  "unique_advantages_of_cross_asset_submodel": [
+    "RELATIVE POSITIONING: Only submodel that captures gold's value RELATIVE to peers. Same gold price has very different implications depending on silver, copper, and equity context.",
+    "COMMODITY-SPECIFIC INFORMATION: Gold/silver and gold/copper ratios encode precious metals and industrial demand dynamics that VIX, DXY, and technical submodels cannot capture.",
+    "HIGH BASE IMPORTANCE: Silver (7.3%) and S&P 500 (6.5%) are top-3 base features. Adding relational context to already-important features should have high marginal value.",
+    "PROVEN RATIOS: Gold/silver ratio and gold/copper ratio are established financial indicators used by institutional investors. Strong theoretical backing.",
+    "DAILY FREQUENCY: All Yahoo Finance data is daily. No interpolation needed (real_rate lesson applied)."
   ],
 
   "previous_feedback": null,
 
-  "created_at": "2026-02-14T23:45:00"
+  "created_at": "2026-02-14T23:50:00"
 }
