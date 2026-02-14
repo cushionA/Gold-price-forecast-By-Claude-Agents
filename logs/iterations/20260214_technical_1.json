@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-02-14T23:38:07",
+  "feature": "technical",
+  "attempt": 1,
+  "phase": "2_submodel_loop",
+  "agent": "evaluator",
+  "action": "3-gate evaluation",
+  "gate1": {
+    "passed": true,
+    "summary": "Unsupervised HMM (no overfit ratio). No all-NaN cols, no zero-variance cols. Autocorrelation safe (max 0.968 < 0.99). 30 Optuna trials."
+  },
+  "gate2": {
+    "passed": false,
+    "summary": "MI increase +21.97% (PASS). Submodel VIF max 3.30 (PASS). Stability FAIL: regime_prob rolling corr std = 0.2115 > 0.15."
+  },
+  "gate3": {
+    "passed": true,
+    "summary": "MAE delta = -0.1824 (PASS, 18x threshold). 5/5 folds improved. DA delta = +0.05% (FAIL). Sharpe delta = -0.092 (FAIL)."
+  },
+  "decision": "completed",
+  "attempt_consumed": false,
+  "next_action": "Proceed to cross_asset (next in feature_queue)",
+  "files_generated": [
+    "logs/evaluation/technical_1.json",
+    "logs/evaluation/technical_1_summary.md",
+    "logs/iterations/20260214_technical_1.json"
+  ],
+  "files_updated": [
+    "shared/completed.json",
+    "shared/state.json"
+  ]
+}

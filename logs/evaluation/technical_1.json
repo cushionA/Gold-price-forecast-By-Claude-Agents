@@ -1,0 +1,150 @@
+{
+  "feature": "technical",
+  "attempt": 1,
+  "timestamp": "2026-02-14T23:38:07.445343",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {
+        "value": "N/A (unsupervised HMM)",
+        "passed": true,
+        "note": "HMM is unsupervised; overfit ratio not applicable. MI computed on val set."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true,
+        "note": "Checked after 40-row warm-up period"
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true
+      },
+      "hpo_coverage": {
+        "value": 30,
+        "passed": true
+      }
+    }
+  },
+  "gate2": {
+    "passed": false,
+    "checks": {
+      "mi": {
+        "base": 0.31288529188847214,
+        "extended": 0.3816134769510655,
+        "increase": 0.21965936661901503,
+        "passed": "True"
+      },
+      "vif": {
+        "max_submodel": 3.298332062772061,
+        "max_overall": Infinity,
+        "submodel_vifs": {
+          "tech_trend_regime_prob": 1.6209717512475275,
+          "tech_mean_reversion_z": 1.53987371062171,
+          "tech_volatility_regime": 3.298332062772061
+        },
+        "passed": "True"
+      },
+      "stability": {
+        "stds": {
+          "tech_trend_regime_prob": 0.21153379000848435,
+          "tech_mean_reversion_z": 0.13522905914582722,
+          "tech_volatility_regime": 0.13834579853915865
+        },
+        "max_std": 0.21153379000848435,
+        "passed": false
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": 0.0005301575178160434,
+        "passed": "False"
+      },
+      "sharpe": {
+        "delta": -0.09194737733254171,
+        "passed": "False"
+      },
+      "mae": {
+        "delta": -0.18237234094383392,
+        "passed": "True"
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.497411151319894,
+      "mae": 1.173743548138675,
+      "sharpe": 0.5072119868277501
+    },
+    "extended": {
+      "direction_accuracy": 0.49794130883771004,
+      "mae": 0.9913712071948412,
+      "sharpe": 0.41526460949520844
+    },
+    "fold_scores": {
+      "baseline": [
+        {
+          "direction_accuracy": 0.5311004784688995,
+          "mae": 0.9123676203357621,
+          "sharpe": 0.8356479385742194
+        },
+        {
+          "direction_accuracy": 0.5048076923076923,
+          "mae": 0.6655096270149077,
+          "sharpe": 1.3635377907612718
+        },
+        {
+          "direction_accuracy": 0.47607655502392343,
+          "mae": 1.367824297940334,
+          "sharpe": 1.0606836719572033
+        },
+        {
+          "direction_accuracy": 0.5298329355608592,
+          "mae": 1.3940399735729938,
+          "sharpe": 0.4270501105029111
+        },
+        {
+          "direction_accuracy": 0.4452380952380952,
+          "mae": 1.5289762218293776,
+          "sharpe": -1.1508595776568549
+        }
+      ],
+      "extended": [
+        {
+          "direction_accuracy": 0.5334928229665071,
+          "mae": 0.7513447415089591,
+          "sharpe": 1.8126690822005076
+        },
+        {
+          "direction_accuracy": 0.5456730769230769,
+          "mae": 0.6095763466878114,
+          "sharpe": 1.857968386286072
+        },
+        {
+          "direction_accuracy": 0.47129186602870815,
+          "mae": 1.1435987143850244,
+          "sharpe": 0.33613565124065903
+        },
+        {
+          "direction_accuracy": 0.48448687350835323,
+          "mae": 1.16515146575694,
+          "sharpe": -0.6268491404500052
+        },
+        {
+          "direction_accuracy": 0.45476190476190476,
+          "mae": 1.287184767635471,
+          "sharpe": -1.3036009318011912
+        }
+      ]
+    },
+    "consistency": {
+      "da_positive_folds": 3,
+      "sharpe_positive_folds": 2,
+      "mae_negative_folds": 5
+    }
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "reason": "Gate 3 PASS - technical submodel contributes to meta-model prediction"
+}

@@ -1,11 +1,10 @@
 {
   "status": "in_progress",
   "phase": "2_submodel_loop",
-  "current_feature": "technical",
+  "current_feature": "cross_asset",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": "entrance",
   "feature_queue": [
-    "technical",
     "cross_asset",
     "yield_curve",
     "etf_flow",
@@ -14,12 +13,13 @@
   ],
   "completed_features": [
     "dxy",
-    "vix"
+    "vix",
+    "technical"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-technical-submodel-attempt-1",
-  "submitted_at": "2026-02-14T23:26:28.277220",
-  "last_updated": "2026-02-14T23:35:19.000735",
-  "error_context": "No error log available",
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": "2026-02-14T23:38:07",
+  "error_context": null,
   "user_action_required": null,
   "datachecker_status": null,
   "baseline_metrics": {
@@ -124,6 +124,27 @@
           "gate3_mae_degraded_+0.016"
         ],
         "note": "HMM regime detection with 3 components. Gate 2 MI test fails but Gate 3 ablation convincingly passes on DA and Sharpe. MI test likely underestimates nonlinear regime-based information."
+      }
+    },
+    "technical": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_mae_delta=-0.1824_18x_threshold",
+          "mae_improved_5_of_5_folds",
+          "feature_importance_regime_prob_7.96pct_rank2",
+          "mi_increase_21.97pct",
+          "submodel_vif_max_3.30"
+        ],
+        "primary_failures": [
+          "gate2_stability_regime_prob_0.2115_above_0.15",
+          "gate3_da_delta=+0.05pct_below_threshold",
+          "gate3_sharpe_delta=-0.092"
+        ],
+        "note": "GLD 2D HMM with z-score and GK volatility. Gate 3 PASS via MAE (-0.1824, 18x threshold, 5/5 folds). Regime_prob ranked #2 in feature importance. Gate 2 stability fails for regime_prob only (expected for structural regime shifts). Sharpe degraded in later folds but MAE improvement is exceptionally strong and consistent."
       }
     }
   }

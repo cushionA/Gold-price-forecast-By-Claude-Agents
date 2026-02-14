@@ -38,5 +38,20 @@
     "output_path": "data/submodel_outputs/vix.csv",
     "model_path": "models/submodels/vix/model.pt",
     "completed_at": "2026-02-14T23:30:00"
+  },
+  "technical": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0005,
+      "sharpe_delta": -0.0919,
+      "mae_delta": -0.1824
+    },
+    "output_columns": ["tech_trend_regime_prob", "tech_mean_reversion_z", "tech_volatility_regime"],
+    "output_path": "data/submodel_outputs/technical.csv",
+    "model_path": "models/submodels/technical/model.pt",
+    "completed_at": "2026-02-14T23:38:07",
+    "reason": "Gate 3 PASS via MAE criterion (-0.1824, 18x threshold). MAE improved in 5/5 folds. HMM regime detection + z-score + GK volatility captures genuine structural information about gold price dynamics."
   }
 }
