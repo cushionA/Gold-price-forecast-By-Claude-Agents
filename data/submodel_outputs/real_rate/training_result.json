@@ -1,0 +1,47 @@
+{
+  "feature": "real_rate",
+  "attempt": 3,
+  "timestamp": "2026-02-14T08:06:21.270220",
+  "architecture": "MultiCountryTransformerAutoencoder",
+  "device": "cuda",
+  "best_params": {
+    "window_size": 18,
+    "d_model": 48,
+    "nhead": 2,
+    "num_encoder_layers": 3,
+    "latent_dim": 5,
+    "dropout": 0.444382210900569,
+    "learning_rate": 0.0003400018090469449,
+    "weight_decay": 0.008349869532257317,
+    "batch_size": 32
+  },
+  "metrics": {
+    "train_loss": 0.7506065964698792,
+    "val_loss": 0.9588034749031067,
+    "overfit_ratio": 1.277371500976204,
+    "epochs_trained": 86
+  },
+  "model_parameters": 98094,
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 0.9209399819374084,
+  "output_shape": [
+    5413,
+    5
+  ],
+  "output_columns": [
+    "real_rate_sem_0",
+    "real_rate_sem_1",
+    "real_rate_sem_2",
+    "real_rate_sem_3",
+    "real_rate_sem_4"
+  ],
+  "data_info": {
+    "n_features": 25,
+    "n_samples_monthly": 269,
+    "train_samples": 188,
+    "val_samples": 40,
+    "test_samples": 41,
+    "window_size": 18,
+    "output_samples_daily": 5413
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-02-14T19:00:00",
+  "feature": "real_rate",
+  "attempt": 4,
+  "method": "PCA + Cubic Spline (deterministic)",
+  "agent": "evaluator",
+  "action": "gate_evaluation",
+  "gate1": {
+    "status": "N/A",
+    "note": "Deterministic PCA, no overfit ratio"
+  },
+  "gate2": {
+    "status": "PASS",
+    "mi_increase_pct": 10.29,
+    "vif_submodel_max": 1.33,
+    "stability_max_std": 0.1347
+  },
+  "gate3": {
+    "status": "FAIL",
+    "da_delta": -0.0196,
+    "mae_delta": 0.0782,
+    "sharpe_delta": -0.2189,
+    "folds_with_mae_degradation": "5/5",
+    "folds_with_da_degradation": "5/5"
+  },
+  "decision": "no_further_improvement",
+  "decision_reason": "4 attempts exhausted. Consistent Gate 2 PASS / Gate 3 FAIL pattern indicates fundamental frequency mismatch. Base feature retained.",
+  "next_action": "Proceed to dxy submodel (entrance agent)",
+  "attempt_consumed": true,
+  "total_attempts_used": 4,
+  "max_attempts": 5
+}

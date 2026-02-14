@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-02-14T18:30:00",
+  "feature": "real_rate",
+  "attempt": 3,
+  "phase": "1.5_smoke_test",
+  "architecture": "MultiCountryTransformerAutoencoder",
+  "gate1_passed": true,
+  "gate2_passed": true,
+  "gate3_passed": false,
+  "overall_passed": false,
+  "decision": "attempt+1",
+  "attempt_consumed": true,
+  "attempts_used": 3,
+  "attempts_remaining": 2,
+  "key_metrics": {
+    "overfit_ratio": 1.277,
+    "mi_increase_pct": 23.84,
+    "gate3_da_delta": 0.004834,
+    "gate3_sharpe_delta": 0.276706,
+    "gate3_mae_delta": 0.417986
+  },
+  "improvement_from_attempt_1": {
+    "gate1": "FAIL -> PASS (overfit 2.69 -> 1.28)",
+    "gate2_mi": "18.5% -> 23.8%",
+    "gate3_da": "+0.39% -> +0.48% (closer to threshold but still FAIL)",
+    "gate3_mae": "+0.165% -> +0.418% (worsened)"
+  },
+  "next_action": "improvement plan for Attempt 4: output smoothing + architecture simplification"
+}

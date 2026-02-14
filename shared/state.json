@@ -1,11 +1,10 @@
 {
   "status": "in_progress",
   "phase": "1.5_smoke_test",
-  "current_feature": "real_rate",
-  "current_attempt": 3,
-  "resume_from": "evaluator",
+  "current_feature": "dxy",
+  "current_attempt": 1,
+  "resume_from": "entrance",
   "feature_queue": [
-    "real_rate",
     "dxy",
     "vix",
     "technical",
@@ -15,13 +14,13 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "completed_features": [],
-  "kaggle_kernel": "bigbigzabuton/gold-real-rate-3",
+  "completed_features": ["real_rate"],
+  "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T17:15:00",
+  "last_updated": "2026-02-14T19:00:00",
   "error_context": null,
-  "user_action_required": "kaggle_manual_upload",
-  "datachecker_status": "PASS",
+  "user_action_required": null,
+  "datachecker_status": null,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -42,7 +41,25 @@
         "gate3": null,
         "decision": "attempt+1",
         "primary_failures": ["optuna_all_trials_pruned", "no_completed_trials", "gru_convergence_failure"],
-        "note": "All 20 Optuna trials pruned by MedianPruner. GRU failed to converge. Switching to multi-country Transformer approach."
+        "note": "All 20 Optuna trials pruned. GRU failed to converge. Switched to multi-country Transformer."
+      },
+      "attempt_3": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": false,
+        "decision": "attempt+1",
+        "primary_failures": ["gate3_mae_degradation_all_folds", "gate3_da_marginal_miss_0.48pct", "gate3_sharpe_unstable"],
+        "primary_successes": ["overfit_1.28", "MI_increase_23.8pct", "30_optuna_trials"],
+        "note": "Multi-country Transformer solved overfitting. Information exists (MI+23.8%) but forward-fill step function degrades MAE. Switching to PCA+interpolation for Attempt 4."
+      },
+      "attempt_4": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": false,
+        "decision": "no_further_improvement",
+        "primary_failures": ["gate3_all_metrics_degraded_all_folds", "gate3_da_delta=-1.96%", "gate3_mae_delta=+0.078", "gate3_sharpe_delta=-0.219"],
+        "primary_successes": ["MI_increase_10.29pct", "VIF_submodel_1.33", "stability_0.135"],
+        "note": "PCA + Cubic Spline. Gate 2 PASS but Gate 3 FAIL on all metrics in all 5 folds. Monthly-to-daily frequency mismatch is fundamental. Declared no_further_improvement."
       }
     }
   }
