@@ -1,55 +1,128 @@
 {
   "feature": "real_rate",
-  "attempt": 1,
+  "attempt": 2,
   "phase": "smoke_test",
-  "source": "entrance",
+  "source": "evaluator",
   "data_source": "FRED: DFII10 (10-Year Treasury Inflation-Indexed Security, Constant Maturity)",
   "objective": "Extract latent dynamics of the real interest rate -- persistence, regime state, mean-reversion probability, and rate-of-change momentum -- to provide contextual signals that the meta-model cannot derive from the raw DFII10 level alone.",
-  "requirements": "Build a submodel that captures the hidden state and dynamics of the US 10Y real interest rate. The submodel does NOT predict gold prices. Instead, it produces a small set of continuous features (3-5 dimensions) encoding: (1) whether the current real rate regime is 'high', 'low', or 'transitioning', (2) the persistence of recent rate changes (trending vs mean-reverting), and (3) the velocity and acceleration of rate movements relative to historical norms.",
+  "requirements": "Build a submodel that captures the hidden state and dynamics of the US 10Y real interest rate. The submodel does NOT predict gold prices. Instead, it produces a small set of continuous features (2-3 dimensions) encoding: (1) whether the current real rate regime is 'high', 'low', or 'transitioning', (2) the persistence of recent rate changes (trending vs mean-reverting), and (3) the velocity and acceleration of rate movements relative to historical norms.",
   "theoretical_background": {
     "why_real_rate_matters": "Gold pays no yield. Its opportunity cost is the real (inflation-adjusted) interest rate. When real rates fall, gold becomes relatively more attractive; when they rise, yield-bearing assets dominate. This is the single strongest fundamental driver of gold prices, operating through an inverse relationship.",
-    "what_baseline_misses": "The baseline XGBoost model receives only the raw DFII10 level as input. It cannot easily capture: (a) whether a rate change is persistent or transitory, (b) the current regime (e.g., negative real rates vs positive), (c) rate-of-change dynamics across multiple time horizons, or (d) the probability that the current trend will continue or reverse. These contextual features require temporal modeling that a tree-based model with point-in-time features struggles to learn.",
-    "vif_concern": "Real rate (DFII10) is mathematically related to nominal yield (DGS10) minus breakeven inflation (T10YIE). The yield_curve submodel will also use DGS10. The real_rate submodel output must capture dynamics that are sufficiently distinct from yield curve level/spread information to maintain VIF < 10 in the meta-model."
+    "what_baseline_misses": "The baseline XGBoost model receives only the raw DFII10 level as input. It cannot easily capture: (a) whether a rate change is persistent or transitory, (b) the current regime (e.g., negative real rates vs positive), (c) rate-of-change dynamics across multiple time horizons, or (d) the probability that the current trend will continue or reverse."
   },
-  "research_questions": [
-    "What are the most effective methods for detecting regime changes in real interest rates? (e.g., Hidden Markov Models, threshold autoregression, Markov-switching models)",
-    "How should persistence of real rate changes be measured? (e.g., rolling Hurst exponent, autocorrelation analysis, variance ratio tests)",
-    "Can multi-country real rate data (G7/G10) be used to increase training samples? Which countries have TIPS-equivalent daily series available on FRED?",
-    "What window lengths are appropriate for rate-of-change features (velocity, acceleration) given the slow-moving nature of monetary policy?",
-    "What is the typical lag between real rate regime shifts and gold price reactions? Does the relationship vary by regime?"
-  ],
+  "previous_feedback": {
+    "attempt": 1,
+    "gate1_passed": false,
+    "gate2_passed": true,
+    "gate3_passed": false,
+    "failures": {
+      "overfit": {
+        "value": 2.69,
+        "threshold": 1.5,
+        "diagnosis": "AE-MLP with window_size=20, hidden_dim=64 is too expressive for 1766 training samples. Memorizes patterns without generalizing."
+      },
+      "autocorrelation": {
+        "values": {
+          "latent_0": 0.9956,
+          "latent_1": 0.9970,
+          "latent_2": 0.9962,
+          "latent_3": 0.9958
+        },
+        "diagnosis": "Near-identity mapping. Bottleneck not tight enough. Model copies smoothed input rather than extracting regime/state features."
+      },
+      "gate3_ablation": {
+        "direction_delta": 0.0039,
+        "sharpe_delta": -0.0257,
+        "mae_delta": 0.1651,
+        "diagnosis": "Noisy latent outputs add prediction error. MAE worsens across all folds. Information exists (Gate 2 passed) but is too noisy to exploit."
+      },
+      "dead_dimension": {
+        "latent_2_mi": 0.0,
+        "diagnosis": "real_rate_latent_2 contributes zero MI with gold returns. Dimension collapsed during training."
+      }
+    },
+    "successes": {
+      "mi_increase": "18.5% (threshold 5%) -- significant information content exists",
+      "vif": "Max 2.55 (threshold 10) -- no multicollinearity with base features",
+      "stability": "Max std 0.124 (threshold 0.15) -- correlations are stable over time"
+    },
+    "mandatory_changes": [
+      "Reduce overfit ratio below 1.5: stronger regularization (dropout >= 0.3, weight_decay >= 1e-3)",
+      "Break identity mapping: tighter bottleneck (latent_dim 4 -> 2) and/or contrastive loss",
+      "Reduce output autocorrelation below 0.99: consider first-differencing outputs or adding temporal diversity loss"
+    ],
+    "recommended_architecture_changes": [
+      "Replace AE-MLP encoder with GRU/LSTM encoder to capture temporal dependencies",
+      "Reduce latent_dim from 4 to 2 (tighter bottleneck, force meaningful compression)",
+      "Reduce hidden_dim from 64 to 32 (reduce model capacity)",
+      "Increase window_size from 20 to 40 (capture longer regime transitions)",
+      "Add temporal contrastive loss to push apart latent representations of different regimes",
+      "Increase Optuna trials from 5 to 20 for broader hyperparameter search"
+    ]
+  },
+  "architect_design": {
+    "status": "confirmed",
+    "design_doc": "docs/design/real_rate_attempt_2.md",
+    "architecture": "GRU Autoencoder (sequence-to-sequence)",
+    "key_changes_from_attempt_1": [
+      "MLP -> GRU encoder (temporal dependencies)",
+      "latent_dim 4 -> 2 (tighter bottleneck)",
+      "dropout floor 0.3 (was 0.1)",
+      "weight_decay floor 1e-4 (was 1e-6)",
+      "window_size search {40,60,80} (was {20,40,60})",
+      "First-difference postprocessing on outputs",
+      "Gradient clipping max_norm=1.0",
+      "Optuna 20 trials (was 5)",
+      "batch_size search {16,32} (was fixed 64)"
+    ],
+    "fixed_params": {
+      "latent_dim": 2,
+      "n_features": 8,
+      "max_epochs": 150,
+      "early_stop_patience": 15,
+      "postprocessing": "first_difference"
+    },
+    "optuna_search_space": {
+      "window_size": [40, 60, 80],
+      "gru_hidden_dim": [16, 32, 64],
+      "gru_num_layers": [1, 2],
+      "dropout": [0.3, 0.5],
+      "learning_rate": [1e-5, 1e-3],
+      "weight_decay": [1e-4, 1e-2],
+      "bidirectional": [true, false],
+      "batch_size": [16, 32]
+    },
+    "kaggle_settings": {
+      "enable_gpu": false,
+      "estimated_time_minutes": 20,
+      "estimated_memory_gb": 1
+    },
+    "fact_check_passed": true,
+    "confirmed_at": "2026-02-14"
+  },
   "submodel_output_spec": {
     "type": "continuous features",
-    "dimensions": "3-5 columns",
-    "candidate_outputs": [
-      "regime_state: probability distribution over 2-3 regimes (e.g., low/mid/high real rate environment)",
-      "persistence_score: rolling measure of trend persistence vs mean-reversion tendency",
-      "velocity: rate of change normalized by historical volatility",
-      "acceleration: second derivative of rate changes, capturing inflection points"
-    ],
+    "dimensions": 2,
+    "column_names": ["real_rate_latent_0", "real_rate_latent_1"],
+    "postprocessing": "first_difference (z[t] - z[t-1])",
     "alignment": "Daily frequency, same date index as base_features.csv"
   },
   "constraints": [
-    "Data delay: FRED DFII10 is published daily with T+1 delay, well within the 5-day rule",
+    "Data delay: FRED DFII10 is published daily with T+1 delay",
     "The submodel must NOT predict gold prices or gold returns",
-    "Output must maintain VIF < 10 when combined with yield_curve features (DGS10, DGS2, yield_spread)",
-    "Smoke test: Optuna limited to 5 trials for quick pipeline verification",
-    "No future information leakage -- all features must be computable from data available at time t",
-    "Time-series split only (train 70% / val 15% / test 15%, chronological order)"
+    "Output must maintain VIF < 10 when combined with yield_curve features",
+    "Optuna trials set to 20 for attempt 2",
+    "No future information leakage",
+    "Time-series split only (train 70% / val 15% / test 15%, chronological order)",
+    "Overfit ratio must be below 1.5",
+    "Output autocorrelation must be below 0.99",
+    "GRU dropout=0.0 when num_layers=1 (use nn.Dropout separately)",
+    "Gradient clipping max_norm=1.0 required"
   ],
-  "success_hypothesis": "Adding real rate dynamics context (regime + persistence + velocity) to the meta-model will improve test direction accuracy by at least +0.5 percentage points over the baseline of 43.5%, because the baseline cannot distinguish between persistent rate trends and transitory movements.",
-  "baseline_context": {
-    "test_direction_accuracy": 0.4354,
-    "test_mae": 0.7139,
-    "test_sharpe": -1.696,
-    "note": "Baseline is below coin-flip on direction accuracy. Even modest contextual information should help."
-  },
-  "optuna_trials": 5,
-  "previous_feedback": null,
+  "optuna_trials": 20,
   "created_at": "2026-02-14",
   "smoke_test_simplifications": [
-    "Optuna trials reduced to 5 (production would use 50+)",
-    "Focus on US data only for smoke test (multi-country expansion in later attempts if needed)",
-    "Simpler model architecture preferred (e.g., small LSTM/GRU or even sliding-window MLP) to verify pipeline"
+    "Optuna trials set to 20 (increased from 5 based on attempt 1)",
+    "Focus on US data only (multi-country in later attempts if needed)"
   ]
 }

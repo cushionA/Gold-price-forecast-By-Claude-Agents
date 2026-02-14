@@ -2,8 +2,8 @@
   "status": "in_progress",
   "phase": "1.5_smoke_test",
   "current_feature": "real_rate",
-  "current_attempt": 1,
-  "resume_from": "evaluator",
+  "current_attempt": 2,
+  "resume_from": "architect",
   "feature_queue": [
     "real_rate",
     "dxy",
@@ -18,12 +18,23 @@
   "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T14:45:00",
+  "last_updated": "2026-02-14T14:52:43",
   "error_context": null,
   "user_action_required": null,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
     "test_sharpe_ratio": -1.696
+  },
+  "evaluation_history": {
+    "real_rate": {
+      "attempt_1": {
+        "gate1": false,
+        "gate2": true,
+        "gate3": false,
+        "decision": "attempt+1",
+        "primary_failures": ["overfit_ratio=2.69", "autocorr>0.99", "ablation_no_improvement"]
+      }
+    }
   }
 }

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-02-14T14:52:43",
+  "feature": "real_rate",
+  "attempt": 1,
+  "phase": "1.5_smoke_test",
+  "gate1_passed": false,
+  "gate2_passed": true,
+  "gate3_passed": false,
+  "overall_passed": false,
+  "decision": "attempt+1",
+  "attempt_consumed": true,
+  "key_failures": [
+    "Gate 1: overfit_ratio=2.69 (threshold <1.5)",
+    "Gate 1: autocorrelation >0.99 on all 4 latent dimensions",
+    "Gate 3: direction accuracy delta +0.39% (threshold +0.50%)",
+    "Gate 3: MAE delta +0.165% (threshold <-0.01%, got worse)",
+    "Gate 3: Sharpe delta -0.026 (threshold +0.05, got worse)"
+  ],
+  "key_positives": [
+    "Gate 2 PASS: MI increase 18.5% (threshold 5%)",
+    "Gate 2 PASS: VIF max 2.55 (threshold 10, excellent)",
+    "Gate 2 PASS: Rolling corr std 0.124 (threshold 0.15)",
+    "No NaN issues after warmup",
+    "No zero-variance or dead columns (except latent_2 has zero MI)"
+  ],
+  "improvement_direction": "model_change: GRU encoder, tighter bottleneck, stronger regularization",
+  "next_action": "architect redesign for attempt 2"
+}

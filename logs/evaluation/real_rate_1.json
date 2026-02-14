@@ -1,0 +1,211 @@
+{
+  "feature": "real_rate",
+  "attempt": 1,
+  "phase": "1.5_smoke_test",
+  "timestamp": "2026-02-14T14:52:43.198676",
+  "gate1": {
+    "passed": false,
+    "checks": {
+      "overfit": {
+        "value": 2.6919,
+        "threshold": 1.5,
+        "passed": false
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true
+      },
+      "nan_count": {
+        "total_rows": 2523,
+        "nan_rows": 19,
+        "valid_rows": 2504,
+        "warmup_expected": 19,
+        "extra_nans": 0,
+        "passed": true
+      },
+      "autocorr_real_rate_latent_0": {
+        "value": 0.995633,
+        "passed": false
+      },
+      "autocorr_real_rate_latent_1": {
+        "value": 0.99704,
+        "passed": false
+      },
+      "autocorr_real_rate_latent_2": {
+        "value": 0.996249,
+        "passed": false
+      },
+      "autocorr_real_rate_latent_3": {
+        "value": 0.995789,
+        "passed": false
+      },
+      "autocorr_summary": {
+        "values": {
+          "real_rate_latent_0": 0.995633,
+          "real_rate_latent_1": 0.99704,
+          "real_rate_latent_2": 0.996249,
+          "real_rate_latent_3": 0.995789
+        },
+        "passed": false,
+        "note": "All latent dims have autocorr > 0.99, indicating near-identity mapping or excessive smoothing"
+      },
+      "hpo_coverage": {
+        "value": 5,
+        "passed": true,
+        "warning": "Only 5 Optuna trials (smoke test). Search space underexplored."
+      }
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base_sum": 0.304229,
+        "extended_sum": 0.360486,
+        "increase_pct": 18.4917,
+        "passed": true,
+        "per_submodel_feature": {
+          "real_rate_latent_0": 0.016918,
+          "real_rate_latent_1": 0.018281,
+          "real_rate_latent_2": 0.0,
+          "real_rate_latent_3": 0.018004
+        }
+      },
+      "vif": {
+        "submodel_vifs": {
+          "real_rate_latent_0": 2.01,
+          "real_rate_latent_1": 2.55,
+          "real_rate_latent_2": 2.02,
+          "real_rate_latent_3": 2.16
+        },
+        "max_submodel_vif": 2.55,
+        "note": "VIF checked for submodel columns only. Base features have pre-existing multicollinearity.",
+        "passed": true
+      },
+      "stability": {
+        "rolling_corr_stds": {
+          "real_rate_latent_0": 0.1117,
+          "real_rate_latent_1": 0.123,
+          "real_rate_latent_2": 0.1138,
+          "real_rate_latent_3": 0.124
+        },
+        "max_std": 0.124,
+        "passed": true
+      }
+    }
+  },
+  "gate3": {
+    "passed": false,
+    "checks": {
+      "direction": {
+        "base": 0.477854,
+        "extended": 0.481749,
+        "delta": 0.003895,
+        "passed": false
+      },
+      "sharpe": {
+        "base": -0.2793,
+        "extended": -0.305,
+        "delta": -0.0257,
+        "passed": false
+      },
+      "mae": {
+        "base": 1.135927,
+        "extended": 1.300986,
+        "delta": 0.165059,
+        "passed": false
+      }
+    },
+    "baseline_avg": {
+      "direction_accuracy": 0.477854,
+      "mae": 1.135927,
+      "sharpe": -0.279287
+    },
+    "extended_avg": {
+      "direction_accuracy": 0.481749,
+      "mae": 1.300986,
+      "sharpe": -0.304998
+    },
+    "fold_scores": {
+      "baseline": [
+        {
+          "direction_accuracy": 0.510843,
+          "mae": 0.709691,
+          "sharpe": 0.895081
+        },
+        {
+          "direction_accuracy": 0.457627,
+          "mae": 0.875353,
+          "sharpe": -1.020173
+        },
+        {
+          "direction_accuracy": 0.496386,
+          "mae": 1.005411,
+          "sharpe": 0.213083
+        },
+        {
+          "direction_accuracy": 0.480769,
+          "mae": 1.28242,
+          "sharpe": -0.708297
+        },
+        {
+          "direction_accuracy": 0.443645,
+          "mae": 1.806761,
+          "sharpe": -0.776132
+        }
+      ],
+      "extended": [
+        {
+          "direction_accuracy": 0.493976,
+          "mae": 0.800226,
+          "sharpe": 0.391868
+        },
+        {
+          "direction_accuracy": 0.493947,
+          "mae": 0.975411,
+          "sharpe": -0.153213
+        },
+        {
+          "direction_accuracy": 0.501205,
+          "mae": 1.170266,
+          "sharpe": 0.583404
+        },
+        {
+          "direction_accuracy": 0.480769,
+          "mae": 1.661956,
+          "sharpe": -1.264484
+        },
+        {
+          "direction_accuracy": 0.438849,
+          "mae": 1.897072,
+          "sharpe": -1.082564
+        }
+      ]
+    }
+  },
+  "overall_passed": false,
+  "final_gate_reached": 3,
+  "decision": "attempt+1",
+  "training_info": {
+    "overfit_ratio": 2.6919,
+    "optuna_trials": 5,
+    "epochs_trained": 21,
+    "train_loss": 0.4095997342041561,
+    "val_loss": 1.102596253156662,
+    "best_params": {
+      "window_size": 20,
+      "hidden_dim": 64,
+      "dropout": 0.12726103634876115,
+      "learning_rate": 0.001980635905570196,
+      "weight_decay": 1.3101310054014495e-06
+    },
+    "output_shape": [
+      2523,
+      4
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "feature": "real_rate",
+  "items": [
+    {
+      "priority": 1,
+      "type": "model_change",
+      "description": "Replace AE-MLP with GRU encoder + tighter bottleneck (latent_dim 4->2), stronger regularization (dropout 0.13->0.3, weight_decay 1e-6->1e-3)",
+      "reason": "Gate 1 failed: overfit_ratio=2.69, autocorr>0.995 on all latents. Model performs near-identity mapping instead of extracting meaningful dynamics. Tighter bottleneck forces compression, GRU captures temporal patterns, stronger regularization prevents memorization.",
+      "resume_from": "architect",
+      "research_needed": false,
+      "specific_changes": {
+        "architecture": "GRU encoder (replaces sliding-window MLP)",
+        "latent_dim": "4 -> 2 (force tighter bottleneck)",
+        "hidden_dim": "64 -> 32 (reduce capacity)",
+        "dropout": "0.13 -> 0.3 (stronger regularization)",
+        "weight_decay": "1e-6 -> 1e-3 (stronger L2 regularization)",
+        "window_size": "20 -> 40 (capture longer regime transitions)",
+        "loss": "Add temporal contrastive loss term to break identity mapping",
+        "optuna_trials": "5 -> 20 (expand search for attempt 2)"
+      }
+    },
+    {
+      "priority": 2,
+      "type": "output_postprocessing",
+      "description": "Apply first-difference or rolling z-score to latent outputs before passing to meta-model",
+      "reason": "Gate 3 failed: noisy latent outputs hurt MAE. First-differencing removes autocorrelation and focuses on regime changes rather than levels.",
+      "resume_from": "builder_model",
+      "research_needed": false
+    },
+    {
+      "priority": 3,
+      "type": "feature_engineering",
+      "description": "If GRU approach underperforms, consider classical regime detection (HMM / Markov-switching) as alternative approach",
+      "reason": "If neural approach continues to overfit, a statistical model with explicit regime structure may be more appropriate for the limited sample size (1766 training samples).",
+      "resume_from": "researcher",
+      "research_needed": true
+    }
+  ]
+}
