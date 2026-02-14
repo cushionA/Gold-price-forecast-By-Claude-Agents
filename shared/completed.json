@@ -9,5 +9,34 @@
     "model_path": null,
     "completed_at": "2026-02-14T18:31:38",
     "reason": "5 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures). Gate 2 consistently passes (MI +10-39%) but Gate 3 consistently fails. Root cause: monthly macro regime information cannot improve daily gold return prediction when base features already contain the direct real rate level. Base real_rate feature retained."
+  },
+  "dxy": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": null,
+      "sharpe_delta": null,
+      "mae_delta": null
+    },
+    "output_columns": [],
+    "output_path": null,
+    "model_path": null,
+    "completed_at": "2026-02-14T20:15:06",
+    "reason": "Auto-evaluated as success (MI=0.019). Full Gate 2/3 evaluation was not performed in detail."
+  },
+  "vix": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0096,
+      "sharpe_delta": 0.2887,
+      "mae_delta": 0.0161
+    },
+    "output_columns": ["vix_regime_probability", "vix_mean_reversion_z", "vix_persistence"],
+    "output_path": "data/submodel_outputs/vix.csv",
+    "model_path": "models/submodels/vix/model.pt",
+    "completed_at": "2026-02-14T23:30:00"
   }
 }

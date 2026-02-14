@@ -1,0 +1,26 @@
+{
+  "feature": "vix",
+  "attempt": 1,
+  "timestamp": "2026-02-14T23:30:00",
+  "gate1_passed": true,
+  "gate2_passed": false,
+  "gate3_passed": true,
+  "decision": "completed",
+  "key_findings": {
+    "gate1": "All quality checks passed. HMM unsupervised model with 30 Optuna trials. No leak indicators (max autocorr=0.926).",
+    "gate2": "MI increase only 0.68% (threshold 5%). Submodel per-column MI = 0.0 via sklearn. VIF inf from base features (submodel VIFs < 2.1). Stability PASS at 0.148.",
+    "gate3": "DA +0.96% (PASS), Sharpe +0.289 (PASS), MAE +0.016 (FAIL). Consistent improvement in 4/5 folds for both DA and Sharpe."
+  },
+  "model_config": {
+    "type": "HMM (Hidden Markov Model) + Rolling Statistics",
+    "hmm_components": 3,
+    "covariance_type": "diag",
+    "zscore_window": 40,
+    "autocorr_window": 30
+  },
+  "output_info": {
+    "columns": ["vix_regime_probability", "vix_mean_reversion_z", "vix_persistence"],
+    "shape": [2857, 3],
+    "feature_importance_in_meta": 0.1469
+  }
+}
