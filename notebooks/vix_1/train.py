@@ -239,8 +239,9 @@ def objective(trial, vix_log_changes, vix_levels, target, train_size, val_mask):
 # Fetch data
 data_df = fetch_data()
 
-# Load target variable
+# Load target variable (optional - for HPO only)
 print("\n=== Loading Target Variable ===")
+TARGET_AVAILABLE = False
 try:
     target_df = pd.read_csv('/kaggle/input/gold-price-target/target.csv')
     target_df['date'] = pd.to_datetime(target_df['date'])
@@ -254,14 +255,18 @@ try:
         raise ValueError(f"Target file must contain 'gold_return_next' or 'gold_return' column. Found: {target_df.columns.tolist()}")
 
     print(f"Target loaded: {len(target_df)} rows, using column '{target_col}'")
+    TARGET_AVAILABLE = True
+
+    # Merge data with target
+    merged_df = pd.merge(data_df, target_df[['date', target_col]], on='date', how='inner')
+    print(f"Merged data: {len(merged_df)} rows")
 
 except Exception as e:
-    print(f"Error loading target: {e}")
-    raise
-
-# Merge data with target
-merged_df = pd.merge(data_df, target_df[['date', target_col]], on='date', how='inner')
-print(f"Merged data: {len(merged_df)} rows")
+    print(f"[WARN] Target not available: {e}")
+    print(f"[WARN] Proceeding without HPO optimization (using default params)")
+    TARGET_AVAILABLE = False
+    merged_df = data_df.copy()
+    target_col = None
 
 # Extract arrays for processing
 vix_log_changes = merged_df['vix_log_change'].values
@@ -291,29 +296,42 @@ print(f"\nData split: train={n_train}, val={n_val}, test={n_test}")
 
 print("\n=== Running Optuna HPO ===")
 
-study = optuna.create_study(
-    direction='maximize',
-    sampler=optuna.samplers.TPESampler(seed=42)
-)
+if TARGET_AVAILABLE:
+    # Run HPO with target variable
+    study = optuna.create_study(
+        direction='maximize',
+        sampler=optuna.samplers.TPESampler(seed=42)
+    )
 
-study.optimize(
-    lambda trial: objective(trial, vix_log_changes, vix_levels, target, n_train, val_mask),
-    n_trials=30,
-    timeout=300,
-    show_progress_bar=False
-)
+    study.optimize(
+        lambda trial: objective(trial, vix_log_changes, vix_levels, target, n_train, val_mask),
+        n_trials=30,
+        timeout=300,
+        show_progress_bar=False
+    )
 
-print(f"\nOptuna completed: {len(study.trials)} trials")
-print(f"Best value: {study.best_value:.6f}")
-print(f"Best params: {study.best_params}")
+    print(f"\nOptuna completed: {len(study.trials)} trials")
+    print(f"Best value: {study.best_value:.6f}")
+    print(f"Best params: {study.best_params}")
+
+    best_params = study.best_params
+else:
+    # Use default params (no HPO)
+    print("\n[WARN] Using default parameters (no HPO)")
+    best_params = {
+        'hmm_n_components': 2,
+        'hmm_covariance_type': 'full',
+        'hmm_n_init': 5,
+        'zscore_window': 60,
+        'autocorr_window': 20
+    }
+    print(f"Default params: {best_params}")
 
 # ============================================================
 # 7. GENERATE FINAL OUTPUT WITH BEST PARAMS
 # ============================================================
 
 print("\n=== Generating Final Output ===")
-
-best_params = study.best_params
 
 # Generate features with best params
 regime = generate_regime_feature(
@@ -375,31 +393,36 @@ def discretize_for_mi(x, bins=20):
     except:
         return pd.cut(x_clean, bins, labels=False, duplicates='drop')
 
-mi_test = {}
-for col in ['vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence']:
-    feat_test = output_df.loc[test_mask, col].values
-    target_test = target[test_mask]
+if TARGET_AVAILABLE:
+    mi_test = {}
+    for col in ['vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence']:
+        feat_test = output_df.loc[test_mask, col].values
+        target_test = target[test_mask]
 
-    mask = ~np.isnan(feat_test) & ~np.isnan(target_test)
+        mask = ~np.isnan(feat_test) & ~np.isnan(target_test)
 
-    if mask.sum() > 50:
-        feat_disc = discretize_for_mi(feat_test[mask])
-        tgt_disc = discretize_for_mi(target_test[mask])
+        if mask.sum() > 50:
+            feat_disc = discretize_for_mi(feat_test[mask])
+            tgt_disc = discretize_for_mi(target_test[mask])
 
-        if feat_disc is not None and tgt_disc is not None:
-            mi = mutual_info_score(feat_disc, tgt_disc)
-            mi_test[col] = float(mi)
+            if feat_disc is not None and tgt_disc is not None:
+                mi = mutual_info_score(feat_disc, tgt_disc)
+                mi_test[col] = float(mi)
+            else:
+                mi_test[col] = 0.0
         else:
             mi_test[col] = 0.0
-    else:
-        mi_test[col] = 0.0
 
-mi_total_test = sum(mi_test.values())
+    mi_total_test = sum(mi_test.values())
 
-print(f"MI on test set:")
-for col, mi in mi_test.items():
-    print(f"  {col}: {mi:.6f}")
-print(f"  Total: {mi_total_test:.6f}")
+    print(f"MI on test set:")
+    for col, mi in mi_test.items():
+        print(f"  {col}: {mi:.6f}")
+    print(f"  Total: {mi_total_test:.6f}")
+else:
+    mi_test = {col: 0.0 for col in ['vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence']}
+    mi_total_test = 0.0
+    print(f"[WARN] MI not computed (no target)")
 
 # Compute autocorrelation for each feature
 autocorr_metrics = {}
