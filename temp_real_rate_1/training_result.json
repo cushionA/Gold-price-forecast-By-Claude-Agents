@@ -1,0 +1,61 @@
+{
+  "feature": "real_rate",
+  "attempt": 1,
+  "timestamp": "2026-02-14T05:35:07.314035",
+  "best_params": {
+    "window_size": 20,
+    "hidden_dim": 64,
+    "dropout": 0.12726103634876115,
+    "learning_rate": 0.001980635905570196,
+    "weight_decay": 1.3101310054014495e-06
+  },
+  "metrics": {
+    "train_loss": 0.4095997342041561,
+    "val_loss": 1.102596253156662,
+    "overfit_ratio": 2.691887129833703,
+    "epochs_trained": 21
+  },
+  "optuna_trials_completed": 5,
+  "optuna_best_value": 1.1890185077985127,
+  "output_shape": [
+    2523,
+    4
+  ],
+  "output_columns": [
+    "real_rate_latent_0",
+    "real_rate_latent_1",
+    "real_rate_latent_2",
+    "real_rate_latent_3"
+  ],
+  "data_info": {
+    "train_samples": 1766,
+    "val_samples": 378,
+    "test_samples": 379,
+    "full_samples": 2523,
+    "window_size": 20,
+    "n_features": 8,
+    "latent_dim": 4
+  },
+  "standardization": {
+    "train_mean": [
+      0.11374292185730468,
+      -0.0003567383918459796,
+      -0.26595758496450883,
+      -1.0973066917644756,
+      0.12878152606341267,
+      0.036877635959471335,
+      0.4640531467400097,
+      0.016639046607583023
+    ],
+    "train_std": [
+      0.6384334412757067,
+      0.0405865492646011,
+      4.067786174115403,
+      6.930164688106404,
+      5.696976820447907,
+      0.017488295134922983,
+      0.3628856228690761,
+      0.127469734339467
+    ]
+  }
+}

@@ -2,8 +2,8 @@
   "status": "in_progress",
   "phase": "1.5_smoke_test",
   "current_feature": "real_rate",
-  "current_attempt": 2,
-  "resume_from": "evaluator",
+  "current_attempt": 3,
+  "resume_from": "architect",
   "feature_queue": [
     "real_rate",
     "dxy",
@@ -34,6 +34,14 @@
         "gate3": false,
         "decision": "attempt+1",
         "primary_failures": ["overfit_ratio=2.69", "autocorr>0.99", "ablation_no_improvement"]
+      },
+      "attempt_2": {
+        "gate1": null,
+        "gate2": null,
+        "gate3": null,
+        "decision": "attempt+1",
+        "primary_failures": ["optuna_all_trials_pruned", "no_completed_trials", "gru_convergence_failure"],
+        "note": "All 20 Optuna trials pruned by MedianPruner. GRU failed to converge. Switching to multi-country Transformer approach."
       }
     }
   }
