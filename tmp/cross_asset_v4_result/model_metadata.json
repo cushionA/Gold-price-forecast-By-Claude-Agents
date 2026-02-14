@@ -1,0 +1,8 @@
+{
+  "method": "deterministic_hmm",
+  "hmm_n_components": 3,
+  "hmm_n_restarts": 10,
+  "zscore_window": 90,
+  "div_window": 20,
+  "note": "Pre-computed features, no HP optimization"
+}

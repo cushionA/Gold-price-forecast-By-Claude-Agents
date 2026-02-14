@@ -1,0 +1,94 @@
+[{"stream_name":"stdout","time":7.421900963,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":7.421980963,"data":"Gold SubModel Training: cross_asset Attempt 2\n"}
+,{"stream_name":"stdout","time":7.421988386,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":7.421993241,"data":"Started: 2026-02-14T15:51:22.327441\n"}
+,{"stream_name":"stdout","time":7.421997471,"data":"\n"}
+,{"stream_name":"stdout","time":7.422001436,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":14.878661874,"data":"\n"}
+,{"stream_name":"stdout","time":14.878704544,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.878712257,"data":"STEP 1: Loading Pre-Computed Features\n"}
+,{"stream_name":"stdout","time":14.8787186,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.878724726,"data":"Fetching raw commodity data from Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":14.879474656,"data":"/kaggle/src/script.py:47: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":14.879503255,"data":"  gold = yf.download(\"GC=F\", start=start_date, progress=False)\n"}
+,{"stream_name":"stderr","time":15.527750803,"data":"/kaggle/src/script.py:48: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":15.52779514,"data":"  silver = yf.download(\"SI=F\", start=start_date, progress=False)\n"}
+,{"stream_name":"stderr","time":15.746148163,"data":"/kaggle/src/script.py:49: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":15.746198903,"data":"  copper = yf.download(\"HG=F\", start=start_date, progress=False)\n"}
+,{"stream_name":"stdout","time":16.583010981,"data":"Fitting 3D HMM on commodity returns...\n"}
+,{"stream_name":"stderr","time":16.923945615,"data":"Model is not converging.  Current: 27476.518348436082 is not greater than 27476.63280414142. Delta is -0.11445570533760474\n"}
+,{"stream_name":"stderr","time":17.386597229,"data":"Model is not converging.  Current: 27637.116857050187 is not greater than 27637.16045757098. Delta is -0.043600520792097086\n"}
+,{"stream_name":"stderr","time":17.720852568,"data":"Model is not converging.  Current: 27633.84817902615 is not greater than 27633.865893092618. Delta is -0.01771406646730611\n"}
+,{"stream_name":"stderr","time":21.92717365,"data":"Model is not converging.  Current: 27639.208059833432 is not greater than 27639.253848066317. Delta is -0.04578823288466083\n"}
+,{"stream_name":"stderr","time":23.494966818,"data":"Model is not converging.  Current: 27632.889533214515 is not greater than 27632.89570293825. Delta is -0.006169723736093147\n"}
+,{"stream_name":"stdout","time":24.584569631,"data":"Best HMM log-likelihood: 27639.08\n"}
+,{"stream_name":"stdout","time":24.589126087,"data":"Crisis state: 2, trace: 0.0052\n"}
+,{"stream_name":"stdout","time":24.591182049,"data":"Computing gold/copper ratio z-score change...\n"}
+,{"stream_name":"stdout","time":24.597524053,"data":"Computing gold-silver divergence z-score...\n"}
+,{"stream_name":"stdout","time":24.603518166,"data":"Features generated: 2523 rows\n"}
+,{"stream_name":"stdout","time":24.603799403,"data":"Date range: 2015-01-30 00:00:00 to 2025-02-12 00:00:00\n"}
+,{"stream_name":"stdout","time":24.604529662,"data":"NaN counts: {'xasset_regime_prob': 0, 'xasset_recession_signal': 0, 'xasset_divergence': 0}\n"}
+,{"stream_name":"stdout","time":24.604904078,"data":"\n"}
+,{"stream_name":"stdout","time":24.60503173,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.605114343,"data":"STEP 2: Fetching Gold Target\n"}
+,{"stream_name":"stdout","time":24.605139742,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.605226647,"data":"Fetching GLD for target variable...\n"}
+,{"stream_name":"stderr","time":24.605642299,"data":"/kaggle/src/script.py:184: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":24.605651494,"data":"  gld = yf.download(\"GLD\", start=\"2015-01-01\", progress=False)\n"}
+,{"stream_name":"stdout","time":24.800669158,"data":"Gold target: 2795 rows\n"}
+,{"stream_name":"stdout","time":24.800815666,"data":"Date range: 2015-01-02 00:00:00 to 2026-02-12 00:00:00\n"}
+,{"stream_name":"stdout","time":24.807288092,"data":"\n"}
+,{"stream_name":"stdout","time":24.807329426,"data":"Aligned data: 2522 rows\n"}
+,{"stream_name":"stdout","time":24.80733765,"data":"Data split: train=1765, val=378, test=379\n"}
+,{"stream_name":"stdout","time":24.80734634,"data":"\n"}
+,{"stream_name":"stdout","time":24.807350505,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.807354847,"data":"STEP 3: Computing MI Metrics\n"}
+,{"stream_name":"stdout","time":24.807359563,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.835995408,"data":"\n"}
+,{"stream_name":"stdout","time":24.836036482,"data":"Mutual Information (validation set):\n"}
+,{"stream_name":"stdout","time":24.836044141,"data":"  xasset_regime_prob: 0.6068\n"}
+,{"stream_name":"stdout","time":24.836090998,"data":"  xasset_recession_signal: 0.5557\n"}
+,{"stream_name":"stdout","time":24.83609673,"data":"  xasset_divergence: 0.5677\n"}
+,{"stream_name":"stdout","time":24.836101351,"data":"  MI Sum: 1.7302\n"}
+,{"stream_name":"stdout","time":24.837544909000002,"data":"\n"}
+,{"stream_name":"stdout","time":24.837590452,"data":"Autocorrelation (lag 1, training set):\n"}
+,{"stream_name":"stdout","time":24.837597119,"data":"  xasset_regime_prob: 0.8611\n"}
+,{"stream_name":"stdout","time":24.837601953,"data":"  xasset_recession_signal: -0.0484\n"}
+,{"stream_name":"stdout","time":24.837623031,"data":"  xasset_divergence: -0.0328\n"}
+,{"stream_name":"stdout","time":24.837627558,"data":"\n"}
+,{"stream_name":"stdout","time":24.837633416,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.837641303,"data":"STEP 4: Saving Results\n"}
+,{"stream_name":"stdout","time":24.837644801,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.869247531,"data":"Saved: submodel_output.csv (2522 rows)\n"}
+,{"stream_name":"stdout","time":24.869507996,"data":"Saved: model_metadata.json\n"}
+,{"stream_name":"stdout","time":24.869958289,"data":"Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":24.86997377,"data":"\n"}
+,{"stream_name":"stdout","time":24.869979175,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.869984219,"data":"Training Complete!\n"}
+,{"stream_name":"stdout","time":24.869989072,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.869993266,"data":"Finished: 2026-02-14T15:51:39.775687\n"}
+,{"stream_name":"stdout","time":24.869997303,"data":"Output shape: (2522, 3)\n"}
+,{"stream_name":"stdout","time":24.870025712,"data":"Output columns: ['xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence']\n"}
+,{"stream_name":"stdout","time":24.870029116,"data":"MI Sum: 1.7302\n"}
+,{"stream_name":"stdout","time":24.87003195,"data":"\n"}
+,{"stream_name":"stdout","time":24.870034528,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.87003722,"data":"Feature Statistics (full dataset)\n"}
+,{"stream_name":"stdout","time":24.870039858,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.884833528,"data":"       xasset_regime_prob  xasset_recession_signal  xasset_divergence\n"}
+,{"stream_name":"stdout","time":24.884872882,"data":"count         2522.000000              2522.000000        2522.000000\n"}
+,{"stream_name":"stdout","time":24.884884991,"data":"mean             0.024574                -0.001370           0.001573\n"}
+,{"stream_name":"stdout","time":24.884888563,"data":"std              0.130393                 0.394479           0.979880\n"}
+,{"stream_name":"stdout","time":24.884891628,"data":"min              0.000002                -1.499445          -3.360649\n"}
+,{"stream_name":"stdout","time":24.884894439,"data":"25%              0.000039                -0.196328          -0.579003\n"}
+,{"stream_name":"stdout","time":24.884897315,"data":"50%              0.000192                 0.005522           0.012561\n"}
+,{"stream_name":"stdout","time":24.884900056,"data":"75%              0.001197                 0.187340           0.595341\n"}
+,{"stream_name":"stdout","time":24.884902788,"data":"max              1.000000                 2.901894           3.623236\n"}
+,{"stream_name":"stderr","time":27.718693488,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":27.718743922,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":28.096159369,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":28.096194855,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":29.121464297,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":29.121558301,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":29.17152635,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":30.956963342,"data":"[NbConvertApp] Writing 333419 bytes to __results__.html\n"}
+]

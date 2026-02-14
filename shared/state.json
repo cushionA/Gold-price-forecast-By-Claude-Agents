@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
   "current_feature": "cross_asset",
   "current_attempt": 2,
@@ -19,7 +19,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-cross-asset-submodel-attempt-2-v2",
   "submitted_at": "2026-02-15T00:51:16.994513",
-  "last_updated": "2026-02-15T00:51:16.994535",
+  "last_updated": "2026-02-15T01:35:21.500283",
   "error_context": "No error log available",
   "user_action_required": false,
   "baseline_metrics": {
