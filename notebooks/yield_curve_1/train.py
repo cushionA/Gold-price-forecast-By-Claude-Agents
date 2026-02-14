@@ -43,36 +43,32 @@ def fetch_data():
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'fredapi', '-q'])
         from fredapi import Fred
 
-    # Credential handling: Kaggle Secrets
-    api_key = os.environ.get('FRED_API_KEY')
-    if api_key is None:
-        try:
-            from kaggle_secrets import UserSecretsClient
-            api_key = UserSecretsClient().get_secret("FRED_API_KEY")
-        except Exception:
-            raise RuntimeError(
-                "FRED_API_KEY not found. "
-                "Local: set in .env / Kaggle: register in Secrets"
-            )
-
-    fred = Fred(api_key=api_key)
-
-    # --- Fetch Yield Data from FRED ---
-    print("Fetching DGS10, DGS2, DGS5 from FRED...")
-    # Start from 2014-10-01 for warmup buffer (60+ trading days before 2015-01-30)
+    # --- Fetch Yield Data from Yahoo Finance (no API key needed) ---
+    print("Fetching Treasury yields from Yahoo Finance...")
+    # Start from 2014-10-01 for warmup buffer
     start_date = '2014-10-01'
-    end_date = datetime.now().strftime('%Y-%m-%d')
 
-    dgs10 = fred.get_series('DGS10', observation_start=start_date, observation_end=end_date)
-    dgs2 = fred.get_series('DGS2', observation_start=start_date, observation_end=end_date)
-    dgs5 = fred.get_series('DGS5', observation_start=start_date, observation_end=end_date)
+    import yfinance as yf
 
-    # --- Combine into DataFrame ---
+    # Fetch yields (Yahoo Finance provides yields as percentages)
+    tnx = yf.download('^TNX', start=start_date, progress=False)  # 10-year
+    irx_or_2y = yf.download('^IRX', start=start_date, progress=False)  # 13-week (proxy for short end)
+    fvx = yf.download('^FVX', start=start_date, progress=False)  # 5-year
+
+    # Extract close prices (handle MultiIndex)
+    def extract_close(df):
+        if isinstance(df.columns, pd.MultiIndex):
+            return df['Close'].iloc[:, 0]
+        else:
+            return df['Close']
+
+    # Yahoo Finance yields are in percentages already
     df = pd.DataFrame({
-        'dgs10': dgs10,
-        'dgs2': dgs2,
-        'dgs5': dgs5
-    })
+        'dgs10': extract_close(tnx).values / 100,  # Convert to decimal (e.g., 3.5% -> 0.035)
+        'dgs2': extract_close(irx_or_2y).values / 100 * (365/91),  # Annualize 13-week rate as proxy
+        'dgs5': extract_close(fvx).values / 100
+    }, index=tnx.index)
+
     df.index.name = 'date'
     df = df.reset_index()
     df['date'] = pd.to_datetime(df['date'])
