@@ -25,6 +25,10 @@ np.random.seed(42)
 if torch.cuda.is_available():
     torch.cuda.manual_seed_all(42)
 
+# Device configuration (use GPU if available)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
 # ============================================================
 # 2. DATA FETCHING & PREPROCESSING
 # ============================================================
@@ -291,6 +295,7 @@ def train_model(model, train_loader, val_loader, config):
         model.train()
         train_loss = 0.0
         for batch in train_loader:
+            batch = batch.to(device)
             optimizer.zero_grad()
             reconstruction, _ = model(batch)
             loss = criterion(reconstruction, batch)
@@ -305,6 +310,7 @@ def train_model(model, train_loader, val_loader, config):
         val_loss = 0.0
         with torch.no_grad():
             for batch in val_loader:
+                batch = batch.to(device)
                 reconstruction, _ = model(batch)
                 loss = criterion(reconstruction, batch)
                 val_loss += loss.item()
@@ -379,14 +385,14 @@ def run_hpo(train_data, val_data, n_trials, timeout):
             'batch_size': 64
         }
 
-        # Create model
+        # Create model and move to device
         model = RealRateAutoencoder(
             window_size=window_size,
             n_features=8,
             hidden_dim=hidden_dim,
             latent_dim=4,
             dropout=dropout
-        )
+        ).to(device)
 
         # Create datasets and loaders
         train_dataset = SlidingWindowDataset(train_data, window_size)
@@ -506,7 +512,7 @@ if __name__ == "__main__":
         hidden_dim=best_params['hidden_dim'],
         latent_dim=4,
         dropout=best_params['dropout']
-    )
+    ).to(device)
 
     window_size = best_params['window_size']
     train_dataset = SlidingWindowDataset(train_data, window_size)
@@ -540,6 +546,7 @@ if __name__ == "__main__":
     model.eval()
     with torch.no_grad():
         for batch in full_loader:
+            batch = batch.to(device)
             z = model.transform(batch)
             latent_features.append(z.cpu().numpy())
 
