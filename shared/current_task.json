@@ -1,13 +1,26 @@
 {
   "feature": "real_rate",
-  "attempt": 4,
+  "attempt": 5,
   "phase": "smoke_test",
-  "source": "evaluator",
-  "approach": "pca_multi_country_or_smoothed_transformer",
+  "source": "user_insight",
+  "approach": "hmm_wavelet_changepoint_persistence",
 
-  "objective": "Extract robust economic signals from multi-country real rate data that improve meta-model performance without degrading MAE. Address the fundamental problem of monthly-to-daily frequency mismatch.",
+  "objective": "Extract interest rate regime persistence, trend direction, and change point features from multi-country monthly data. Address the fundamental frequency mismatch by modeling 'persistence and direction of changes' rather than interpolating monthly values to daily.",
 
-  "requirements": "Build a submodel that either: (A) Uses PCA/ICA on multi-country monthly real rate changes to extract 2-3 principal components, with smooth daily interpolation, OR (B) Retains the Attempt 3 Transformer but applies output smoothing (cubic spline or first-difference) and feature selection (keep only sem_2, sem_3). The chosen approach must not degrade MAE in the Gate 3 ablation test.",
+  "user_insight": "Interest rates don't change frequently (FOMC meets 8x/year, monthly data releases). Daily interpolation creates noise that degrades MAE. The key question is: 'Is this rate change transient or persistent?' Model the meta-features (persistence, direction, regime) rather than the raw interpolated values.",
+
+  "requirements": "Build a deterministic feature engineering pipeline using: (1) Hidden Markov Model (HMM) to detect rate regimes (rising/stable/falling) and compute regime persistence probabilities, (2) Wavelet decomposition (DWT) to extract long-term trend components and trend strength, (3) Change Point Detection to identify when rates meaningfully change and compute time since last change. Output 5-8 daily features that describe regime state and trend characteristics without interpolating raw monthly values.",
+
+  "recommended_features": [
+    "regime_persistence_score: Average probability that current HMM regime will persist (0-1)",
+    "trend_strength: Magnitude of long-term Wavelet trend component (normalized)",
+    "trend_direction: Direction of trend (-1/0/+1 for falling/stable/rising)",
+    "days_since_last_change: Days elapsed since last detected change point",
+    "change_magnitude: Absolute size of last change (in standard deviations)",
+    "cross_country_regime_sync: Proportion of countries in the same regime (0-1)",
+    "regime_transition_probability: Probability of regime change in next period",
+    "trend_acceleration: Second derivative of trend (rate of change of change)"
+  ],
 
   "previous_feedback": {
     "attempt_1": {
@@ -41,7 +54,7 @@
         "gate3_sharpe_delta_cv": 0.276706,
         "gate3_mae_delta_cv": 0.417986
       },
-      "diagnosis": "Multi-country Transformer solves overfitting and extracts more information (Gate 1/2 PASS). However, monthly-to-daily forward-fill creates step-function outputs that degrade MAE in all 5 CV folds. The information exists (23.8% MI increase) but the output format prevents XGBoost from exploiting it. Two of 5 semantic dimensions carry all the MI; the other 3 add pure noise.",
+      "diagnosis": "Multi-country Transformer solves overfitting and extracts more information (Gate 1/2 PASS). However, monthly-to-daily forward-fill creates step-function outputs that degrade MAE in all 5 CV folds. The information exists (23.8% MI increase) but the output format prevents XGBoost from exploiting it.",
       "root_causes": [
         "Step-function output from forward-fill hurts point prediction (MAE)",
         "Only 188 monthly training samples for 98K-parameter model",
@@ -49,45 +62,121 @@
         "Synthetic real rates (0.49 correlation) add noise"
       ]
     },
-    "pattern": "Three attempts show: (1) information exists in real rate features (Gate 2 passes consistently), (2) neural approaches struggle with small monthly samples, (3) output frequency mismatch is the critical bottleneck for Gate 3."
+    "attempt_4": {
+      "architecture": "PCA + Cubic Spline Interpolation",
+      "gate1": true,
+      "gate2": true,
+      "gate3": false,
+      "failures": ["gate3_all_metrics_degraded_all_folds", "gate3_da_delta=-1.96%", "gate3_mae_delta=+0.078", "gate3_sharpe_delta=-0.219"],
+      "successes": ["MI_increase=10.29%", "VIF_submodel=1.33", "stability=0.135", "deterministic", "fast"],
+      "diagnosis": "PCA + Cubic Spline reduced MAE degradation vs Attempt 3 (0.078 vs 0.42) but still failed Gate 3 in all 5 folds. Even smooth interpolation adds noise. The fundamental issue is interpolating monthly values to daily frequency.",
+      "root_cause": "ANY interpolation of monthly data to daily creates synthetic values that add noise to daily predictions. The problem is not the interpolation method (forward-fill vs cubic spline) but the interpolation itself."
+    },
+    "pattern": "All 4 attempts consistently pass Gate 2 (information exists at monthly frequency) but fail Gate 3 (interpolation to daily adds noise). The breakthrough insight: don't interpolate the raw values - extract meta-features (persistence, direction) that can be referenced daily without creating synthetic noise."
   },
 
-  "recommended_approach": {
-    "option_A": {
-      "name": "PCA + Interpolation",
-      "method": "PCA on standardized monthly multi-country real rate changes",
-      "n_components": "2-3",
-      "daily_alignment": "Cubic spline interpolation between monthly PC scores",
-      "advantages": ["No overfitting (deterministic)", "Interpretable", "No training required", "Fast"],
-      "risks": ["Linear method may miss nonlinear regime patterns"]
-    },
-    "option_B": {
-      "name": "Smoothed Transformer Output",
-      "method": "Reuse Attempt 3 model, but transform output: (1) keep only sem_2 and sem_3, (2) apply cubic spline interpolation instead of forward-fill",
-      "advantages": ["Reuses existing trained model", "Preserves nonlinear patterns"],
-      "risks": ["Still relies on 188-sample training"]
-    },
-    "recommendation": "Option A (PCA) is preferred: deterministic, no overfitting risk, and simpler. If PCA fails Gate 3, declare no_further_improvement and proceed."
-  },
-
-  "constraints": [
-    "Output must not degrade MAE in Gate 3 ablation",
-    "Use multi-country data from Attempt 3 data pipeline",
-    "Smooth or interpolate monthly values to daily (no step functions)",
-    "2-3 output dimensions maximum",
-    "Time-series split: train 70% / val 15% / test 15%"
+  "critical_design_constraints": [
+    "DO NOT interpolate monthly rate values to daily (no forward-fill, no spline, no any interpolation of raw values)",
+    "Extract meta-features from monthly data that describe state/regime/trend",
+    "These meta-features can be held constant or slowly updated on a daily basis without creating step-function noise",
+    "Example: 'regime persistence = 0.85' can be referenced every day until the next monthly update",
+    "Output must not degrade MAE in Gate 3 ablation (this is the critical failure point)"
   ],
 
+  "technical_approach": {
+    "step_1_hmm": {
+      "method": "Gaussian Hidden Markov Model with 3 states",
+      "library": "hmmlearn (scikit-learn compatible)",
+      "input": "Monthly rate changes (first differences) for each country",
+      "output_per_country": [
+        "current_regime: 0/1/2 (falling/stable/rising)",
+        "regime_persistence: P(stay in current regime)",
+        "transition_prob: P(switch to another regime)"
+      ],
+      "daily_handling": "Hold regime state constant between monthly updates (not interpolated, just constant)"
+    },
+    "step_2_wavelet": {
+      "method": "Discrete Wavelet Transform (DWT) with Daubechies wavelet",
+      "library": "pywt (PyWavelets)",
+      "input": "Monthly rate time series for each country",
+      "output_per_country": [
+        "long_term_trend: Approximation coefficients (low-frequency component)",
+        "trend_strength: L2 norm of approximation coefficients",
+        "trend_direction: Sign of recent trend slope"
+      ],
+      "daily_handling": "Hold constant between monthly updates"
+    },
+    "step_3_changepoint": {
+      "method": "CUSUM or Ruptures library for change point detection",
+      "input": "Monthly rate changes for all countries (stacked)",
+      "output_global": [
+        "days_since_last_change: Days since last detected change point",
+        "change_magnitude: Size of last change in standard deviations",
+        "change_acceleration: Second derivative (rate of change of change)"
+      ],
+      "daily_handling": "Increment 'days_since_last_change' daily; other values constant until next change"
+    },
+    "step_4_aggregation": {
+      "method": "Aggregate per-country features into global regime indicators",
+      "output": [
+        "regime_sync: Proportion of countries in same regime",
+        "avg_persistence: Mean persistence probability across countries",
+        "avg_trend_strength: Mean trend strength across countries"
+      ]
+    }
+  },
+
+  "output_schema": {
+    "columns": [
+      "real_rate_regime_persistence",
+      "real_rate_trend_strength",
+      "real_rate_trend_direction",
+      "real_rate_days_since_change",
+      "real_rate_change_magnitude",
+      "real_rate_regime_sync",
+      "real_rate_transition_prob"
+    ],
+    "shape": "3667 rows (daily) × 5-8 columns",
+    "properties": [
+      "No NaN values",
+      "No interpolation of raw monthly values",
+      "Features describe regime/state, not raw rates",
+      "Can be held constant or slowly updated daily without creating noise"
+    ]
+  },
+
   "success_criteria": {
-    "gate1": "overfit_ratio < 1.5 (or N/A for PCA)",
+    "gate1": "N/A (deterministic, no training)",
     "gate2": "MI increase > 5%",
-    "gate3": "Any one of: DA +0.5%, Sharpe +0.05, MAE -0.01%. CRITICAL: MAE must not worsen."
+    "gate3": "Any one of: DA +0.5%, Sharpe +0.05, MAE -0.01%. CRITICAL: MAE must not degrade."
   },
 
-  "fallback_plan": {
-    "if_attempt_4_fails": "Declare no_further_improvement for real_rate. The base real_rate feature already provides direct information. Proceed to dxy submodel.",
-    "reason": "4 attempts is substantial investment. If PCA with interpolation cannot pass Gate 3, the marginal value of real_rate submodel is insufficient to justify further attempts."
+  "expected_outcome": {
+    "hypothesis": "Regime persistence and trend direction provide actionable information for daily trading without the noise of interpolated values. 'Rate regime has been falling for 45 days with 85% persistence probability' is more useful than 'interpolated rate today is 2.43%'.",
+    "gate2_expectation": "PASS (information exists, as proven by Attempts 3 and 4)",
+    "gate3_expectation": "PASS (no interpolation noise, features describe meta-properties)",
+    "if_fails": "Declare no_further_improvement and proceed to dxy. 5 attempts is sufficient validation."
   },
 
-  "created_at": "2026-02-14T18:30:00"
+  "libraries_required": [
+    "hmmlearn (pip install hmmlearn)",
+    "pywt (pip install PyWavelets)",
+    "ruptures (pip install ruptures)"
+  ],
+
+  "execution_plan": {
+    "estimated_time": "10-30 seconds (deterministic, no training)",
+    "kaggle_required": false,
+    "steps": [
+      "Load multi-country monthly data from data/multi_country/",
+      "Fit HMM on monthly rate changes → extract regimes",
+      "Apply DWT on monthly rate series → extract trends",
+      "Detect change points on monthly data → identify events",
+      "Aggregate into 5-8 daily features (held constant between months)",
+      "Save to data/submodel_outputs/real_rate.csv",
+      "Run Gate 2/3 evaluation"
+    ]
+  },
+
+  "created_at": "2026-02-14T20:35:00"
 }

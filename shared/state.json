@@ -1,9 +1,9 @@
 {
   "status": "in_progress",
   "phase": "1.5_smoke_test",
-  "current_feature": "dxy",
-  "current_attempt": 1,
-  "resume_from": "entrance",
+  "current_feature": "real_rate",
+  "current_attempt": 5,
+  "resume_from": "architect",
   "feature_queue": [
     "dxy",
     "vix",
@@ -14,10 +14,10 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "completed_features": ["real_rate"],
+  "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T19:00:00",
+  "last_updated": "2026-02-14T20:35:00",
   "error_context": null,
   "user_action_required": null,
   "datachecker_status": null,
