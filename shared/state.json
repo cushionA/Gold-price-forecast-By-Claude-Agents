@@ -3,7 +3,7 @@
   "phase": "1.5_smoke_test",
   "current_feature": "real_rate",
   "current_attempt": 3,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "feature_queue": [
     "real_rate",
     "dxy",
@@ -16,11 +16,11 @@
     "cny_demand"
   ],
   "completed_features": [],
-  "kaggle_kernel": "bigbigzabuton/gold-real-rate-2",
-  "submitted_at": "2026-02-14T15:35:00",
-  "last_updated": "2026-02-14T16:44:49",
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-3",
+  "submitted_at": null,
+  "last_updated": "2026-02-14T17:15:00",
   "error_context": null,
-  "user_action_required": null,
+  "user_action_required": "kaggle_manual_upload",
   "datachecker_status": "PASS",
   "baseline_metrics": {
     "test_mae": 0.7139,

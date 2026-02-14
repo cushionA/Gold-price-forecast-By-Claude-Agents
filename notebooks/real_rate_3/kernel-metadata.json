@@ -1,0 +1,13 @@
+{
+  "id": "bigbigzabuton/gold-real-rate-3",
+  "title": "Gold real_rate SubModel Attempt 3 (Multi-Country Transformer GPU)",
+  "code_file": "train.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
