@@ -1,108 +1,150 @@
 {
-  "feature": "dxy",
+  "feature": "vix",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
 
-  "objective": "Extract dollar momentum regime, cross-currency divergence, and volatility state features from DXY and its 6 constituent currency pairs. Exploit the daily-frequency advantage that real_rate lacked to provide actionable context beyond the raw DXY level already in base features.",
+  "objective": "Extract latent volatility regime, term structure, and mean-reversion dynamics from VIX that are not captured by the raw vix_vix level already in base features. VIX spikes and regimes have distinct implications for gold as a safe-haven asset, but the raw level alone does not convey whether volatility is rising/falling, in a persistent high-vol regime, or mean-reverting from a spike.",
 
-  "requirements": "Build a submodel that captures: (1) DXY momentum regime (trending vs mean-reverting periods), (2) cross-currency agreement/divergence (are all 6 components moving together, or is EUR driving DXY while JPY diverges?), (3) dollar volatility regime (calm vs turbulent). Output 2-4 daily features that enrich the meta-model's understanding of USD dynamics beyond the raw level.",
+  "requirements": "Build a submodel that captures: (1) VIX regime state (low-vol calm vs elevated-fear vs crisis spike), (2) VIX mean-reversion dynamics (distance from equilibrium, speed of reversion, spike decay rate), (3) VIX term structure or momentum context (is fear building or dissipating). Output 2-4 daily features that enrich the meta-model's understanding of the volatility environment beyond the raw VIX level.",
 
   "theoretical_background": {
-    "why_dxy_matters": "Gold is priced in USD. A stronger dollar mechanically reduces gold's USD price. But the relationship is not constant: during risk-off events, both USD and gold can rise simultaneously (safe-haven co-movement). The submodel should capture WHEN the standard inverse relationship holds vs breaks down.",
-    "what_base_feature_provides": "dxy_dxy is the raw DXY close price (single daily value). It tells the meta-model the current dollar level but not: (a) whether the dollar is in a trending or mean-reverting regime, (b) whether all constituent currencies agree on USD direction, (c) whether FX volatility is elevated.",
-    "what_submodel_adds": "Context about the dollar's DYNAMICS and STRUCTURE that a single level reading cannot convey. A DXY at 95 in a strong uptrend with high cross-currency agreement has very different implications for gold than DXY at 95 oscillating in a range with divergent currency signals.",
-    "multi_currency_advantage": "DXY is a weighted index of 6 currencies (EUR 57.6%, JPY 13.6%, GBP 11.9%, CAD 9.1%, SEK 4.2%, CHF 3.6%). Decomposing into individual pairs reveals hidden structure: e.g., EUR weakening while JPY strengthens signals different macro regimes than both weakening together."
+    "why_vix_matters_for_gold": "VIX measures implied volatility of S&P 500 options, serving as a market fear gauge. Gold is a traditional safe-haven asset. During periods of elevated fear (high VIX), gold demand typically increases as investors seek protection. However, the relationship is non-linear and regime-dependent: (a) gradual VIX rises may boost gold, (b) sharp VIX spikes can initially depress gold due to margin-call liquidation, then boost it as fear persists, (c) VIX mean-reversion from high levels may coincide with gold selling as risk appetite returns.",
+    "what_base_feature_provides": "vix_vix is the raw VIX close level (single daily value). It tells the meta-model the current fear level but not: (a) whether VIX is in a persistent high-volatility regime or a transient spike, (b) how far VIX is from its equilibrium and how quickly it is mean-reverting, (c) whether the term structure is in contango (normal) or backwardation (crisis).",
+    "what_submodel_adds": "Context about the DYNAMICS and STATE of the volatility environment. A VIX at 25 during a spike decay (coming down from 40) has very different gold implications than a VIX at 25 during a slow grind upward. A VIX at 20 in a low-vol regime (historical mean 18) differs from VIX at 20 during a crisis cluster (historical mean 30). The submodel extracts this contextual information.",
+    "vix_characteristics": {
+      "mean_reversion": "VIX is strongly mean-reverting. Long-term mean is approximately 18-20. Spikes above 30 tend to revert within days to weeks. This mean-reverting nature creates exploitable dynamics.",
+      "right_skewed": "VIX distribution is heavily right-skewed. Spikes can reach 50-80+ (2008, 2020) but spends most time in 12-25 range.",
+      "volatility_clustering": "High-volatility periods cluster. GARCH-type dynamics: large moves beget large moves. Regime persistence is a key feature.",
+      "term_structure": "VIX futures term structure flips between contango (normal, VIX futures > spot) and backwardation (crisis, VIX futures < spot). This flip is a strong signal of market stress regime."
+    },
+    "gold_vix_regimes": {
+      "calm_low_vix": "VIX < 15. Gold tends to trade on other fundamentals (rates, USD). VIX regime provides little incremental info.",
+      "elevated_vix": "VIX 20-30. Gold typically benefits as safe-haven demand increases. Direction of VIX movement matters.",
+      "crisis_spike": "VIX > 35. Initial gold response can be negative (liquidity crunch, margin calls) then strongly positive (sustained fear). Spike vs persistence distinction is critical."
+    }
   },
 
   "data_strategy": {
     "primary_data": {
-      "source": "Yahoo Finance",
-      "ticker": "DX-Y.NYB",
+      "source": "FRED",
+      "ticker": "VIXCLS",
       "frequency": "daily",
-      "available_from": "2015-01-02",
-      "note": "Already in data/raw/dxy.csv"
+      "note": "Already in data/raw/vix.csv. VIX closing level."
     },
-    "expansion_data": {
-      "source": "Yahoo Finance",
-      "tickers": [
-        {"symbol": "EURUSD=X", "weight_in_dxy": 0.576, "note": "Largest DXY component"},
-        {"symbol": "JPY=X", "weight_in_dxy": 0.136, "note": "USD/JPY"},
-        {"symbol": "GBPUSD=X", "weight_in_dxy": 0.119, "note": "GBP/USD"},
-        {"symbol": "CAD=X", "weight_in_dxy": 0.091, "note": "USD/CAD"},
-        {"symbol": "SEK=X", "weight_in_dxy": 0.042, "note": "USD/SEK"},
-        {"symbol": "CHF=X", "weight_in_dxy": 0.036, "note": "USD/CHF"}
-      ],
-      "frequency": "daily",
-      "note": "All daily -- NO interpolation needed. This is the critical advantage over real_rate."
-    },
-    "expected_samples": "~2500 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)"
+    "expansion_data_candidates": [
+      {
+        "source": "Yahoo Finance",
+        "ticker": "^VIX",
+        "description": "Alternative VIX source for verification/backup",
+        "frequency": "daily"
+      },
+      {
+        "source": "Yahoo Finance",
+        "ticker": "^VIX9D",
+        "description": "9-day VIX. Short-term implied vol. Difference from VIX captures term structure slope.",
+        "frequency": "daily",
+        "note": "Researcher should verify availability and date range"
+      },
+      {
+        "source": "Yahoo Finance",
+        "ticker": "^VIX3M",
+        "description": "3-month VIX. Longer-term implied vol. VIX/VIX3M ratio captures term structure.",
+        "frequency": "daily",
+        "note": "Researcher should verify availability and date range"
+      },
+      {
+        "source": "FRED",
+        "ticker": "VXOCLS",
+        "description": "CBOE S&P100 Volatility Index (old VIX). May provide cross-validation.",
+        "frequency": "daily",
+        "note": "Researcher should verify if still published and useful"
+      },
+      {
+        "source": "Yahoo Finance",
+        "ticker": "^VVIX",
+        "description": "VIX of VIX (vol-of-vol). Measures uncertainty about future volatility.",
+        "frequency": "daily",
+        "note": "Researcher should verify availability. High VVIX indicates unstable vol expectations."
+      }
+    ],
+    "expected_samples": "~2500 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)",
+    "frequency_advantage": "All VIX data is daily. No monthly-to-daily interpolation needed. Same advantage that made DXY succeed on attempt 1."
   },
 
   "research_questions": [
-    "What methods are most effective for detecting momentum vs mean-reversion regimes in FX markets? Candidates: Hidden Markov Model, threshold autoregressive model (TAR), Markov-switching model. Which has the best track record for daily FX data?",
-    "How to quantify cross-currency divergence within a currency index? Candidates: PCA on daily currency returns (PC1 = common factor, residuals = divergence), pairwise correlation rolling window, dispersion index (std of individual currency returns). Which provides the most informative signal?",
-    "What is the empirical evidence on DXY-gold correlation regime shifts? When does the standard negative correlation break down (e.g., 2008 crisis, 2020 COVID)? How frequent are these regime shifts?",
-    "What lookback windows are appropriate for FX momentum and volatility features? Literature suggests 5/10/20/60 day windows. Is there consensus on optimal lookback for gold-relevant FX signals?",
-    "Are there known seasonality or day-of-week effects in DXY that could create spurious patterns? Should we control for these?",
-    "What is the relationship between FX implied volatility and gold returns? Can realized volatility of currency pairs serve as a useful proxy?",
-    "How should cross-currency features be normalized to avoid VIF issues with the raw dxy_dxy base feature? The submodel output must have VIF < 10 against existing base features."
+    "What methods are most effective for detecting VIX regimes (low-vol / elevated / crisis)? Candidates: Hidden Markov Model (like DXY success), threshold models, GARCH regime-switching. Which works best for VIX specifically given its strong mean-reversion and right skew?",
+    "How to best quantify VIX mean-reversion dynamics for financial applications? Candidates: Ornstein-Uhlenbeck parameter estimation (speed, equilibrium level), distance from long-run mean in z-score, half-life of mean reversion from rolling regression. Which provides the most information about future gold returns?",
+    "Are VIX term structure proxies available at daily frequency from free sources? Specifically: (a) ^VIX9D (9-day VIX), (b) ^VIX3M (3-month VIX), (c) ^VVIX (vol of vol). What are their date ranges? Can VIX/VIX3M ratio serve as a robust term structure indicator?",
+    "What is the empirical evidence on the VIX-gold relationship across different regimes? Specifically: (a) correlation during calm periods vs spikes, (b) lead-lag structure (does VIX lead gold?), (c) evidence of non-linear response (gold drops during extreme VIX spikes due to liquidity). Any academic papers or quantitative studies?",
+    "What lookback windows are appropriate for VIX features? Given VIX mean-reversion half-life is typically 30-60 days, what windows best capture: (a) regime state, (b) spike detection, (c) term structure dynamics? Is 20/60/120 day a common choice in the literature?",
+    "How should VIX submodel outputs be constructed to avoid high VIF with the raw vix_vix base feature? The DXY approach used regime probability, cross-asset divergence, and vol z-score -- all orthogonal to the raw level. What analogous orthogonal decomposition works for VIX?",
+    "Is there evidence that VIX spike magnitude vs persistence distinction matters for gold? E.g., a sharp spike to 40 that reverts in 3 days vs a gradual rise to 30 that persists for weeks -- do these have different gold return implications?"
   ],
 
   "candidate_approaches": {
-    "approach_A_regime_features": {
-      "description": "Markov-Switching Model on DXY returns to detect 2-3 regimes (strong trend / range-bound / volatile). Output regime probabilities as daily features.",
-      "pros": "Well-established in FX literature, directly captures what base feature misses",
-      "cons": "Single-series approach, does not use multi-currency info"
+    "approach_A_hmm_regime": {
+      "description": "Hidden Markov Model on VIX log-returns (or log-VIX changes) to detect 2-3 regimes. Similar to DXY's successful approach. Output regime probabilities.",
+      "pros": "Proven approach (worked for DXY attempt 1). Well-suited to VIX's regime-switching dynamics. Captures persistence.",
+      "cons": "VIX has stronger mean-reversion than DXY, which may require mean-reversion-aware state labeling. Single-series approach."
     },
-    "approach_B_pca_divergence": {
-      "description": "PCA on daily returns of 6 constituent currencies. PC1 captures common USD movement, residual variance captures cross-currency divergence. Output PC1 loading strength + divergence ratio.",
-      "pros": "Exploits multi-currency structure, deterministic, no overfitting risk",
-      "cons": "PCA is linear, may miss nonlinear regime patterns"
+    "approach_B_mean_reversion_features": {
+      "description": "Ornstein-Uhlenbeck process parameter estimation on rolling windows. Extract mean-reversion speed, equilibrium level, and distance from equilibrium. Output normalized features.",
+      "pros": "Directly models VIX's core dynamic (mean-reversion). Provides interpretable features (speed, distance, half-life).",
+      "cons": "Assumes OU process, which may not capture regime switches. Rolling OU estimation can be noisy."
     },
-    "approach_C_hybrid": {
-      "description": "Combine regime detection (HMM/Markov-switching on DXY) with cross-currency divergence (PCA residual). Output 3-4 features: regime_state, regime_probability, cross_currency_divergence, fx_volatility_state.",
-      "pros": "Captures both temporal dynamics and structural decomposition",
-      "cons": "More complex, but daily data makes this feasible"
+    "approach_C_term_structure": {
+      "description": "VIX term structure features from VIX vs VIX3M (or VIX9D). Compute contango/backwardation ratio, term structure slope. Combine with spike detection.",
+      "pros": "Term structure is a strong signal for crisis vs normal. Multi-horizon information not in raw VIX.",
+      "cons": "Depends on ^VIX3M data availability. May have shorter history."
+    },
+    "approach_D_hybrid": {
+      "description": "Combine HMM regime detection (from log-VIX changes) with mean-reversion z-score and optionally term structure. Output 3 features: regime_probability, mean_reversion_z, vol_persistence. Similar hybrid approach to DXY's successful design.",
+      "pros": "Captures temporal regime, mean-reversion dynamics, and potentially term structure. Follows DXY's successful pattern. 3 orthogonal features.",
+      "cons": "More complex, but VIX daily data supports this. Term structure data availability uncertain."
     }
   },
 
   "constraints": [
-    "All data is daily frequency -- NO monthly-to-daily interpolation permitted (key lesson from real_rate)",
-    "5-day data delay rule: All Yahoo Finance daily FX data is same-day or T+1, well within limit",
-    "Submodel does NOT predict gold prices -- it extracts USD regime/structure features",
-    "Output must have VIF < 10 against existing base features (especially raw dxy_dxy)",
-    "Maximum 2-4 output columns to avoid noise amplification (real_rate lesson: 7 columns caused worst Gate 3 degradation)",
-    "Output must not have autocorrelation > 0.99 (real_rate attempt 1 failure)",
-    "Features must be computable at inference time without lookahead bias"
+    "All data must be daily frequency -- NO monthly-to-daily interpolation (lesson from real_rate)",
+    "5-day data delay rule: FRED VIXCLS and Yahoo VIX data are same-day or T+1, well within limit",
+    "Submodel does NOT predict gold prices -- it extracts volatility regime and mean-reversion features",
+    "Output must have VIF < 10 against ALL existing base features (especially raw vix_vix and dxy_volatility_z if DXY submodel is included)",
+    "Maximum 2-4 output columns (lesson from real_rate: 7 columns caused worst Gate 3 degradation)",
+    "Output must not have autocorrelation > 0.99 (real_rate attempt 1 failure mode)",
+    "Features must be computable at inference time without lookahead bias",
+    "VIX is right-skewed and mean-reverting -- log-transformation may be needed for HMM input to avoid skew-driven artifacts",
+    "If using VIX3M or VIX9D, verify date range covers 2015-01-30 to 2025-02-12. If insufficient history, fall back to VIX-only features"
   ],
 
   "output_schema": {
     "target_columns": 3,
     "target_range": "2-4 columns",
     "candidate_columns": [
-      "dxy_momentum_regime: Probability of being in trending regime (0-1). Low autocorrelation expected since regimes switch.",
-      "dxy_cross_currency_divergence: Measure of disagreement among DXY component currencies (0-1 normalized). When high, DXY is being driven by one currency rather than broad USD strength/weakness.",
-      "dxy_volatility_state: Realized FX volatility relative to historical norm (z-score or percentile). Elevated volatility often precedes gold price dislocations."
+      "vix_regime_probability: Probability of being in elevated-fear or crisis regime (0-1). From HMM or similar regime detector on VIX dynamics. Should have low correlation with raw VIX level.",
+      "vix_mean_reversion_z: Z-score measuring how far VIX is from its dynamic equilibrium, normalized by expanding window statistics. Captures distance from equilibrium in standard deviations. Mean-reversion context absent from raw level.",
+      "vix_persistence: Measure of whether current VIX level is persistent (sustained regime) or transient (spike that will revert). Could be rolling autocorrelation, regime duration, or spike decay rate. Critical for distinguishing spike vs sustained fear.",
+      "vix_term_structure: (optional, if data available) VIX/VIX3M ratio or similar term structure indicator. Contango (>1) = normal, backwardation (<1) = crisis. Powerful regime indicator not derivable from VIX level alone."
     ],
     "properties": [
       "All daily frequency, no interpolation",
-      "No NaN values (after warmup period)",
-      "Low multicollinearity with raw dxy_dxy",
+      "No NaN values (after warmup period of max lookback window)",
+      "Low multicollinearity with raw vix_vix (VIF < 10)",
+      "Low multicollinearity with DXY submodel outputs if present (VIF < 10)",
       "Statistically meaningful (not just transformations of the level)"
     ]
   },
 
-  "success_hypothesis": "DXY momentum regime and cross-currency divergence features, computed at daily frequency without interpolation, will provide the meta-model with USD context that improves direction accuracy by +0.5% or more. The daily-frequency advantage eliminates the root cause of real_rate's 5-attempt failure.",
+  "success_hypothesis": "VIX regime detection and mean-reversion dynamics, computed at daily frequency, will provide the meta-model with volatility context that improves direction accuracy by +0.5% or more. The key information gain comes from distinguishing persistent fear regimes from transient spikes, which determines whether gold's safe-haven bid will sustain or fade.",
 
   "success_criteria": {
     "gate1": {
-      "overfit_ratio": "< 1.5 (if neural network used; N/A if deterministic)",
+      "overfit_ratio": "< 1.5 (if neural network used; N/A if deterministic methods like HMM/PCA)",
       "no_constant_output": true,
       "autocorrelation": "< 0.99 for all output columns"
     },
     "gate2": {
-      "mi_increase": "> 5% (sum-based)",
+      "mi_increase": "> 5% (sum-based, total MI of all features including submodel outputs vs without)",
       "vif": "< 10 for all submodel output columns",
       "rolling_correlation_std": "< 0.15"
     },
@@ -110,19 +152,36 @@
       "direction_accuracy_delta": "> +0.5%",
       "or_sharpe_delta": "> +0.05",
       "or_mae_delta": "< -0.01%",
-      "note": "Any ONE of these three is sufficient to pass"
+      "note": "Any ONE of these three is sufficient to pass Gate 3"
     }
   },
 
-  "lessons_from_real_rate": {
-    "lesson_1_frequency": "Monthly-to-daily interpolation was the root cause of all 5 real_rate failures. DXY data is daily -- this problem is eliminated.",
-    "lesson_2_output_dimensionality": "More output columns gave XGBoost more noise dimensions to overfit on. Attempt 5 (7 columns) performed worse than Attempt 4 (2 columns) despite higher MI. Target 2-4 columns maximum.",
-    "lesson_3_gate2_not_sufficient": "Gate 2 pass (MI increase) does NOT guarantee Gate 3 pass. All 5 real_rate attempts passed Gate 2 but failed Gate 3. Information must be in a form XGBoost can exploit without overfitting.",
-    "lesson_4_vif_override": "Base features have existing multicollinearity (gld_close = etf_flow_gld_close). VIF must be computed carefully, using true R^2 regression if needed.",
-    "lesson_5_deterministic_ok": "Deterministic approaches (PCA, state features) can pass Gate 1 trivially. If the researcher finds strong evidence for a deterministic approach, prefer it over neural networks for Attempt 1."
+  "lessons_from_previous_features": {
+    "real_rate_failure": {
+      "root_cause": "Monthly-to-daily frequency mismatch. All 5 attempts passed Gate 2 (MI up to +39.3%) but failed Gate 3. Information existed but could not be exploited at daily prediction frequency.",
+      "lesson": "VIX data is daily. This problem is eliminated."
+    },
+    "real_rate_dimensionality": {
+      "root_cause": "Attempt 5 used 7 output columns, giving XGBoost more noise surface to overfit.",
+      "lesson": "Target 2-4 output columns maximum for VIX submodel."
+    },
+    "dxy_success": {
+      "approach": "GMM + Rolling PCA + Realized Vol Z-Score. 3 output columns. MI=0.0192. Passed all gates on attempt 1.",
+      "lesson": "Hybrid approach with 3 orthogonal features works well. HMM regime + structural decomposition + volatility metric. Apply analogous structure to VIX: regime detection + mean-reversion dynamics + persistence/term structure.",
+      "key_factors": "Daily frequency, deterministic/unsupervised methods, 3 compact output columns, no neural network."
+    },
+    "gate2_not_sufficient": {
+      "lesson": "Gate 2 pass (MI increase) does NOT guarantee Gate 3 pass. The information must be in a form that XGBoost can exploit to improve predictions, not just add noise. Real_rate had MI up to +39.3% but consistently degraded test performance."
+    }
+  },
+
+  "vif_risk_analysis": {
+    "vix_vix_correlation": "Submodel outputs must be orthogonal to the raw VIX level. Regime probability should have low correlation with level (a VIX of 18 can be in either calm or transitioning regime). Mean-reversion z-score is explicitly a residual from equilibrium, not the level itself.",
+    "dxy_volatility_z_correlation": "If DXY submodel's dxy_volatility_z is included in the feature set, VIX submodel outputs may correlate since equity volatility and FX volatility co-move. Monitor VIF carefully. Expected correlation ~0.3-0.4.",
+    "mitigation": "Design features that capture VIX-specific dynamics (mean-reversion, term structure) rather than generic volatility level, which would overlap with both vix_vix and dxy_volatility_z."
   },
 
   "previous_feedback": null,
 
-  "created_at": "2026-02-14T21:00:00"
+  "created_at": "2026-02-14T21:30:00"
 }

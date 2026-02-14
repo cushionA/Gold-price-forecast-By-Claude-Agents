@@ -3,7 +3,7 @@
   "phase": "2_submodel_loop",
   "current_feature": "vix",
   "current_attempt": 1,
-  "resume_from": "entrance",
+  "resume_from": "researcher",
   "feature_queue": [
     "technical",
     "cross_asset",
