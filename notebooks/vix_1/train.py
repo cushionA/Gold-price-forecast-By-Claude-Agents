@@ -87,8 +87,8 @@ def fetch_data():
     # Remove any NaN values
     df = df.dropna(subset=['vix'])
 
-    # Forward-fill gaps up to 3 days
-    df = df.set_index('date').asfreq('D', method='ffill', limit=3).reset_index()
+    # Forward-fill gaps up to 3 days (pandas 2.x compatible)
+    df = df.set_index('date').asfreq('D').fillna(method='ffill', limit=3).reset_index()
     df = df.dropna(subset=['vix'])
 
     # Compute log-changes
