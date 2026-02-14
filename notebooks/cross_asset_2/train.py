@@ -48,12 +48,18 @@ def load_precomputed_features():
     silver = yf.download("SI=F", start=start_date, progress=False)
     copper = yf.download("HG=F", start=start_date, progress=False)
 
-    # Extract close prices
+    # Extract close prices (handle MultiIndex case)
+    def extract_close(df):
+        if isinstance(df.columns, pd.MultiIndex):
+            return df['Close'].iloc[:, 0]
+        else:
+            return df['Close']
+
     df = pd.DataFrame({
-        'gold_close': gold['Close'],
-        'silver_close': silver['Close'],
-        'copper_close': copper['Close']
-    })
+        'gold_close': extract_close(gold).values,
+        'silver_close': extract_close(silver).values,
+        'copper_close': extract_close(copper).values
+    }, index=gold.index)
 
     # Forward-fill missing values (max 3 days)
     df = df.ffill(limit=3).dropna()
