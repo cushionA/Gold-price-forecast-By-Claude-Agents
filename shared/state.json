@@ -1,14 +1,19 @@
 {
   "status": "in_progress",
-  "phase": "0_complete",
+  "phase": "1_complete",
   "current_feature": null,
   "current_attempt": null,
-  "resume_from": "baseline",
+  "resume_from": "smoke_test",
   "feature_queue": ["real_rate", "dxy", "vix", "technical", "cross_asset", "yield_curve", "etf_flow", "inflation_expectation", "cny_demand"],
   "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T13:35:00",
+  "last_updated": "2026-02-14T14:00:00",
   "error_context": null,
-  "user_action_required": null
+  "user_action_required": null,
+  "baseline_metrics": {
+    "test_mae": 0.7139,
+    "test_direction_accuracy": 0.4354,
+    "test_sharpe_ratio": -1.696
+  }
 }
