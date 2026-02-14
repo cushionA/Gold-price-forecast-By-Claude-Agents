@@ -3,7 +3,7 @@
   "phase": "1.5_smoke_test",
   "current_feature": "real_rate",
   "current_attempt": 2,
-  "resume_from": "architect",
+  "resume_from": "builder_model",
   "feature_queue": [
     "real_rate",
     "dxy",
@@ -18,7 +18,7 @@
   "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T14:52:43",
+  "last_updated": "2026-02-14T15:19:27",
   "error_context": null,
   "user_action_required": null,
   "baseline_metrics": {
