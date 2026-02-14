@@ -85,9 +85,6 @@ data/**/metadata.json
 data/**/*_metadata.json
 docs/data/*_summary.md
 
-# 評価 summary（JSONと重複）
-logs/evaluation/*_summary.md
-
 # 一時ファイル
 temp_*/
 **/temp_*/
