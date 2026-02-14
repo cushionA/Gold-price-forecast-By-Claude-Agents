@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "1.5_smoke_test",
   "current_feature": "real_rate",
   "current_attempt": 1,
@@ -16,9 +16,9 @@
     "cny_demand"
   ],
   "completed_features": [],
-  "kaggle_kernel": "bigbigzabuton/gold-real-rate-1",
-  "submitted_at": "2026-02-14T14:28:55.945671",
-  "last_updated": "2026-02-14T14:28:55.945696",
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": "2026-02-14T14:45:00",
   "error_context": null,
   "user_action_required": null,
   "baseline_metrics": {

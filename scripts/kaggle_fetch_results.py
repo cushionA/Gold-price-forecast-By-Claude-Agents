@@ -4,6 +4,7 @@ Check Kaggle kernel status and fetch results when complete
 
 import os
 import sys
+import io
 import json
 import shutil
 from pathlib import Path
@@ -21,29 +22,29 @@ from kaggle import api
 
 def check_and_fetch_results(feature, attempt):
     """Check kernel status and fetch results if complete"""
-    kernel_id = f"{os.getenv('KAGGLE_USERNAME').lower()}/gold-{feature}-{attempt}"
+    # Use hyphen for kernel ID (Kaggle standard)
+    kernel_id = f"{os.getenv('KAGGLE_USERNAME').lower()}/gold-{feature.replace('_', '-')}-{attempt}"
 
     print(f"Checking kernel: {kernel_id}")
 
     # Suppress stderr to avoid encoding issues
-    import io
     old_stderr = sys.stderr
     sys.stderr = io.StringIO()
 
     try:
         # Check status
         status_result = api.kernels_status(kernel_id)
-        status = status_result['status']
+        status = str(status_result.status)
         print(f"Kernel status: {status}")
 
-        if status == "running" or status == "queued":
+        if "RUNNING" in status or "QUEUED" in status:
             print(f"\nKernel is still {status}. Training continues on Kaggle cloud.")
             print("Check again later with the same command.")
             return False
 
-        elif status == "error":
+        elif "ERROR" in status:
             print(f"\nKernel failed with error!")
-            failure_msg = status_result.get('failureMessage', 'Unknown error')
+            failure_msg = getattr(status_result, 'failure_message', 'Unknown error')
             print(f"Error message: {failure_msg}")
 
             # Update state
@@ -68,7 +69,7 @@ def check_and_fetch_results(feature, attempt):
             print("State updated. Review error and resubmit if needed.")
             return False
 
-        elif status == "complete":
+        elif "COMPLETE" in status:
             print(f"\nKernel completed successfully! Fetching results...")
 
             # Create output directory
@@ -79,7 +80,17 @@ def check_and_fetch_results(feature, attempt):
             temp_dir = Path(f"temp_{feature}_{attempt}")
             temp_dir.mkdir(exist_ok=True)
 
-            api.kernels_output(kernel_id, str(temp_dir))
+            # Suppress encoding issues
+            old_stdout_inner = sys.stdout
+            old_stderr_inner = sys.stderr
+            sys.stdout = io.StringIO()
+            sys.stderr = io.StringIO()
+
+            try:
+                api.kernels_output(kernel_id, str(temp_dir))
+            finally:
+                sys.stdout = old_stdout_inner
+                sys.stderr = old_stderr_inner
 
             # Move files to proper locations
             files_moved = []
