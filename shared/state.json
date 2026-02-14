@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
   "current_feature": "yield_curve",
   "current_attempt": 1,
@@ -19,7 +19,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-yield-curve-submodel-attempt-1-v2",
   "submitted_at": "2026-02-15T02:13:23.958889",
-  "last_updated": "2026-02-15T02:13:23.958918",
+  "last_updated": "2026-02-15T02:23:35.257946",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
