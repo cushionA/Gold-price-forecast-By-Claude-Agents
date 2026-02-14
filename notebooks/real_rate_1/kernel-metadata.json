@@ -1,6 +1,6 @@
 {
-  "id": "BigBigZabuton/gold-real-rate-1",
-  "title": "Gold real_rate SubModel Attempt 1",
+  "id": "bigbigzabuton/gold-real-rate-1",
+  "title": "gold-real-rate-1",
   "code_file": "train.py",
   "language": "python",
   "kernel_type": "script",
