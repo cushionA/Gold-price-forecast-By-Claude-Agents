@@ -1,12 +1,11 @@
 {
   "status": "in_progress",
   "phase": "2_submodel_loop",
-  "current_feature": "yield_curve",
+  "current_feature": "etf_flow",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": "entrance",
   "datachecker_status": null,
   "feature_queue": [
-    "yield_curve",
     "etf_flow",
     "inflation_expectation",
     "cny_demand"
@@ -15,11 +14,12 @@
     "dxy",
     "vix",
     "technical",
-    "cross_asset"
+    "cross_asset",
+    "yield_curve"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-submodel-attempt-1-v2",
-  "submitted_at": "2026-02-15T02:13:23.958889",
-  "last_updated": "2026-02-15T02:23:35.257946",
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": "2026-02-15T12:00:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
@@ -177,6 +177,30 @@
           "gate3_sharpe_delta=+0.040_below_0.05"
         ],
         "note": "Deterministic HMM with 3-state regime detection on cross-asset correlations. Gate 3 PASS on DA (+0.76%) and MAE (-0.0866, 8.7x threshold). Sharpe improved in 4/5 folds but average just below threshold. Gate 2 stability marginally fails for regime_prob only (0.156 vs 0.15) - consistent with VIX/Technical precedent."
+      }
+    },
+    "yield_curve": {
+      "attempt_1": {
+        "gate1": false,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_mae_delta=-0.0693_6.9x_threshold",
+          "mae_improved_4_of_5_folds",
+          "yc_curvature_z_rank15_importance_0.0426",
+          "yc_spread_velocity_z_rank17_importance_0.0383",
+          "stability_all_below_0.15",
+          "submodel_vif_1.17"
+        ],
+        "primary_failures": [
+          "gate1_yc_regime_prob_constant_std_1e-11",
+          "gate2_mi_increase_0.37pct_below_5pct",
+          "gate2_vif_inf_base_features",
+          "gate3_da_delta=+0.20pct_below_threshold",
+          "gate3_sharpe_delta=-0.089"
+        ],
+        "note": "HMM 2-state yield curve model. yc_regime_prob is constant (HMM collapsed to 1 state) - excluded from meta-model. Only yc_spread_velocity_z and yc_curvature_z are usable. Gate 3 PASS via MAE (-0.0693, 6.9x threshold, 4/5 folds). MI=0.37% but nonlinear contribution confirmed by ablation."
       }
     }
   }

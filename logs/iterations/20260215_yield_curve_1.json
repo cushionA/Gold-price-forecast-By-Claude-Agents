@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-02-15T12:00:00",
+  "feature": "yield_curve",
+  "attempt": 1,
+  "agent": "evaluator",
+  "action": "3-gate evaluation",
+  "gate1_result": "FAIL",
+  "gate1_failures": ["yc_regime_prob constant (std=1.07e-11)"],
+  "gate2_result": "FAIL",
+  "gate2_failures": ["MI increase 0.37% (need >5%)", "VIF inf (base features)"],
+  "gate3_result": "PASS",
+  "gate3_criterion": "MAE",
+  "gate3_mae_delta": -0.0693,
+  "gate3_da_delta": 0.0020,
+  "gate3_sharpe_delta": -0.0891,
+  "gate3_mae_folds_improved": "4/5",
+  "decision": "completed",
+  "attempt_consumed": false,
+  "next_action": "Proceed to etf_flow submodel",
+  "notes": "Only 2 of 3 columns usable (yc_spread_velocity_z, yc_curvature_z). yc_regime_prob must be excluded from meta-model."
+}
