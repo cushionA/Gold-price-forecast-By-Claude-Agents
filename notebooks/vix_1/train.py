@@ -239,31 +239,52 @@ def objective(trial, vix_log_changes, vix_levels, target, train_size, val_mask):
 # Fetch data
 data_df = fetch_data()
 
-# Load target variable (optional - for HPO only)
-print("\n=== Loading Target Variable ===")
+# Load target variable (compute from Gold data directly)
+print("\n=== Computing Target Variable ===")
 TARGET_AVAILABLE = False
+target_col = 'gold_return_next'
+
 try:
-    target_df = pd.read_csv('/kaggle/input/gold-price-target/target.csv')
-    target_df['date'] = pd.to_datetime(target_df['date'])
+    # Fetch Gold price data directly
+    import yfinance as yf
+    print("Fetching Gold data (GC=F) for target computation...")
+    gold_df = yf.download('GC=F', start='2014-01-01', progress=False)
 
-    # Handle both column name possibilities
-    if 'gold_return_next' in target_df.columns:
-        target_col = 'gold_return_next'
-    elif 'gold_return' in target_df.columns:
-        target_col = 'gold_return'
+    # Handle MultiIndex if present
+    if isinstance(gold_df.columns, pd.MultiIndex):
+        gold_close = gold_df[('Close', 'GC=F')].copy()
+    elif 'Close' in gold_df.columns:
+        gold_close = gold_df['Close'].copy()
     else:
-        raise ValueError(f"Target file must contain 'gold_return_next' or 'gold_return' column. Found: {target_df.columns.tolist()}")
+        gold_close = gold_df.iloc[:, 0].copy()
 
-    print(f"Target loaded: {len(target_df)} rows, using column '{target_col}'")
+    gold_target_df = pd.DataFrame({
+        'date': gold_df.index,
+        'gold_close': gold_close.values
+    })
+    gold_target_df['date'] = pd.to_datetime(gold_target_df['date'])
+    gold_target_df = gold_target_df.dropna()
+
+    # Compute next-day return (%)
+    gold_target_df['gold_return_next'] = (
+        gold_target_df['gold_close'].pct_change().shift(-1) * 100
+    )
+    gold_target_df = gold_target_df.dropna(subset=['gold_return_next'])
+
+    print(f"Gold target computed: {len(gold_target_df)} rows")
+    print(f"Target range: {gold_target_df['gold_return_next'].min():.2f}% to {gold_target_df['gold_return_next'].max():.2f}%")
+
+    # Merge with VIX data
+    merged_df = pd.merge(data_df, gold_target_df[['date', 'gold_return_next']], on='date', how='inner')
+    print(f"Merged data: {len(merged_df)} rows (VIX + Gold target)")
+
     TARGET_AVAILABLE = True
 
-    # Merge data with target
-    merged_df = pd.merge(data_df, target_df[['date', target_col]], on='date', how='inner')
-    print(f"Merged data: {len(merged_df)} rows")
-
 except Exception as e:
-    print(f"[WARN] Target not available: {e}")
+    print(f"[WARN] Target computation failed: {e}")
     print(f"[WARN] Proceeding without HPO optimization (using default params)")
+    import traceback
+    traceback.print_exc()
     TARGET_AVAILABLE = False
     merged_df = data_df.copy()
     target_col = None
