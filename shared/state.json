@@ -1,13 +1,14 @@
 {
-  "status": "not_started",
-  "phase": null,
+  "status": "in_progress",
+  "phase": "0_complete",
   "current_feature": null,
   "current_attempt": null,
-  "resume_from": null,
+  "resume_from": "baseline",
   "feature_queue": ["real_rate", "dxy", "vix", "technical", "cross_asset", "yield_curve", "etf_flow", "inflation_expectation", "cny_demand"],
+  "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": null,
+  "last_updated": "2026-02-14T13:32:35",
   "error_context": null,
-  "user_action_required": null
+  "user_action_required": "Kaggle API authentication needs to be configured. Please verify KAGGLE_API_TOKEN in Kaggle Secrets at https://www.kaggle.com/settings"
 }
