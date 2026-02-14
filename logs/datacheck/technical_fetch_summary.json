@@ -1,0 +1,35 @@
+{
+  "feature": "technical",
+  "created_at": "2026-02-14T23:19:01.993367",
+  "sources": [
+    "Yahoo Finance: GLD"
+  ],
+  "date_range": [
+    "2014-10-01",
+    "2026-02-13"
+  ],
+  "rows": 2860,
+  "columns": [
+    "date",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "returns",
+    "gk_vol"
+  ],
+  "missing_values": {
+    "returns": 1
+  },
+  "flat_bars": 0,
+  "zero_gk_vol_days": 0,
+  "extreme_returns": 1,
+  "fetch_script": "src/fetch_technical.py",
+  "notes": [
+    "GLD OHLC data with 60+ trading days warmup buffer",
+    "Computed daily returns and Garman-Klass volatility",
+    "Zero flat bars confirms GLD superiority over GC=F",
+    "One extreme return (-10.27% on 2026-01-30) appears to be legitimate market data"
+  ]
+}
