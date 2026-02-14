@@ -1,0 +1,55 @@
+{
+  "feature": "cross_asset",
+  "attempt": 2,
+  "timestamp": "2026-02-15T00:11:23.196602",
+  "steps": [
+    {
+      "step": "file_structure",
+      "issues": [],
+      "row_count": 2524,
+      "column_count": 3,
+      "date_range": "2015-01-30 00:00:00 to 2025-02-12 00:00:00",
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "outliers",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "autocorrelation",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "temporal_alignment",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "output_format",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "action": "PASS",
+  "summary": {
+    "total_rows": 2524,
+    "total_cols": 3,
+    "date_range": "2015-01-30 00:00:00 to 2025-02-12 00:00:00",
+    "critical_count": 0,
+    "warning_count": 0
+  }
+}
