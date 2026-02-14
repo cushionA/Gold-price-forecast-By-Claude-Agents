@@ -68,10 +68,10 @@ class KaggleMonitor:
                 return 'unknown'
 
         except subprocess.TimeoutExpired:
-            print(f"[{datetime.now()}] ⚠️ Kaggle API timeout")
+            print(f"[{datetime.now()}] [WARN] Kaggle API timeout")
             return 'unknown'
         except Exception as e:
-            print(f"[{datetime.now()}] ⚠️ Error checking status: {e}")
+            print(f"[{datetime.now()}] [WARN] Error checking status: {e}")
             return 'unknown'
 
     def fetch_kaggle_results(self, kernel_id, output_dir):
@@ -87,14 +87,14 @@ class KaggleMonitor:
             )
 
             if result.returncode == 0:
-                print(f"[{datetime.now()}] ✅ Results downloaded to {output_dir}")
+                print(f"[{datetime.now()}] [OK] Results downloaded to {output_dir}")
                 return True
             else:
-                print(f"[{datetime.now()}] ❌ Download failed: {result.stderr}")
+                print(f"[{datetime.now()}] [FAIL] Download failed: {result.stderr}")
                 return False
 
         except Exception as e:
-            print(f"[{datetime.now()}] ❌ Error downloading results: {e}")
+            print(f"[{datetime.now()}] [FAIL] Error downloading results: {e}")
             return False
 
     def git_commit_and_push(self, message):
@@ -112,21 +112,21 @@ class KaggleMonitor:
             )
 
             if result.returncode != 0 and 'nothing to commit' not in result.stdout:
-                print(f"[{datetime.now()}] ⚠️ Git commit warning: {result.stdout}")
+                print(f"[{datetime.now()}] [WARN] Git commit warning: {result.stdout}")
 
             # Git push
             subprocess.run(['git', 'push'], cwd=self.project_root, check=True)
-            print(f"[{datetime.now()}] ✅ Git pushed")
+            print(f"[{datetime.now()}] [OK] Git pushed")
             return True
 
         except subprocess.CalledProcessError as e:
-            print(f"[{datetime.now()}] ❌ Git operation failed: {e}")
+            print(f"[{datetime.now()}] [FAIL] Git operation failed: {e}")
             return False
 
     def resume_claude_code(self, message):
         """Claude Code CLIを再起動"""
         try:
-            print(f"[{datetime.now()}] 🚀 Resuming Claude Code...")
+            print(f"[{datetime.now()}] >> Resuming Claude Code...")
 
             # Claude Code CLIを起動（このプロセスは新しいセッションで実行される）
             subprocess.Popen(
@@ -134,16 +134,16 @@ class KaggleMonitor:
                 start_new_session=True
             )
 
-            print(f"[{datetime.now()}] ✅ Claude Code launched")
+            print(f"[{datetime.now()}] [OK] Claude Code launched")
             return True
 
         except Exception as e:
-            print(f"[{datetime.now()}] ❌ Failed to launch Claude Code: {e}")
+            print(f"[{datetime.now()}] [FAIL] Failed to launch Claude Code: {e}")
             return False
 
     def handle_error(self, kernel_id, feature, attempt):
         """Kaggleエラー時の処理"""
-        print(f"[{datetime.now()}] ❌ Kaggle training failed")
+        print(f"[{datetime.now()}] [FAIL] Kaggle training failed")
 
         # エラーログ取得を試みる
         try:
@@ -179,7 +179,7 @@ class KaggleMonitor:
         state = self.load_state()
 
         if state.get('status') != 'waiting_training':
-            print(f"[{datetime.now()}] ❌ Error: state.status is not 'waiting_training'")
+            print(f"[{datetime.now()}] [FAIL] Error: state.status is not 'waiting_training'")
             print(f"Current status: {state.get('status')}")
             sys.exit(1)
 
@@ -188,11 +188,11 @@ class KaggleMonitor:
         attempt = state.get('current_attempt')
 
         if not kernel_id:
-            print(f"[{datetime.now()}] ❌ Error: No kaggle_kernel in state.json")
+            print(f"[{datetime.now()}] [FAIL] Error: No kaggle_kernel in state.json")
             sys.exit(1)
 
         print("=" * 70)
-        print(f"[{datetime.now()}] 🔍 Kaggle Training Monitor Started")
+        print(f"[{datetime.now()}] >> Kaggle Training Monitor Started")
         print("=" * 70)
         print(f"Kernel ID: {kernel_id}")
         print(f"Feature: {feature}, Attempt: {attempt}")
@@ -213,7 +213,7 @@ class KaggleMonitor:
             status = self.check_kaggle_status(kernel_id)
 
             if status == 'complete':
-                print(f"[{datetime.now()}] ✅✅✅ Training COMPLETE! ✅✅✅")
+                print(f"[{datetime.now()}] [OK][OK][OK] Training COMPLETE! [OK][OK][OK]")
 
                 # 結果を取得
                 output_dir = self.project_root / 'data' / 'submodel_outputs' / feature
@@ -236,10 +236,10 @@ class KaggleMonitor:
                         f"Results have been downloaded. Please run the evaluator to assess performance."
                     )
 
-                    print(f"[{datetime.now()}] 🎉 All done! Claude Code will resume evaluation.")
+                    print(f"[{datetime.now()}] *** All done! Claude Code will resume evaluation.")
                     return True
                 else:
-                    print(f"[{datetime.now()}] ❌ Failed to download results. Manual intervention required.")
+                    print(f"[{datetime.now()}] [FAIL] Failed to download results. Manual intervention required.")
                     return False
 
             elif status == 'error':
@@ -247,10 +247,10 @@ class KaggleMonitor:
                 return False
 
             elif status == 'running':
-                print(f"[{datetime.now()}] ⏳ Still running... (next check in {self.check_interval}s)")
+                print(f"[{datetime.now()}] ... Still running... (next check in {self.check_interval}s)")
 
             else:
-                print(f"[{datetime.now()}] ⚠️ Unknown status. Will check again.")
+                print(f"[{datetime.now()}] [WARN] Unknown status. Will check again.")
 
             time.sleep(self.check_interval)
 

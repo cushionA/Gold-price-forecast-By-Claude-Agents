@@ -34,14 +34,14 @@ class AutoCleanResume:
             )
 
             if result.returncode != 0 and 'nothing to commit' not in result.stdout:
-                print(f"⚠️ Git commit warning: {result.stdout}")
+                print(f"[WARN] Git commit warning: {result.stdout}")
 
             subprocess.run(['git', 'push'], cwd=self.project_root, check=True)
-            print(f"✅ Git pushed: {message}")
+            print(f"[OK] Git pushed: {message}")
             return True
 
         except subprocess.CalledProcessError as e:
-            print(f"❌ Git operation failed: {e}")
+            print(f"[FAIL] Git operation failed: {e}")
             return False
 
     def clean_context(self):
@@ -60,7 +60,7 @@ class AutoCleanResume:
             )
 
             if result.returncode == 0:
-                print(f"✅ Context cleaned (claude clean)")
+                print(f"[OK] Context cleaned (claude clean)")
                 return True
 
         except subprocess.CalledProcessError:
@@ -78,7 +78,7 @@ class AutoCleanResume:
             )
 
             if result.returncode == 0:
-                print(f"✅ Context cleaned (claude-code clean)")
+                print(f"[OK] Context cleaned (claude-code clean)")
                 return True
 
         except subprocess.CalledProcessError:
@@ -86,7 +86,7 @@ class AutoCleanResume:
         except FileNotFoundError:
             pass
 
-        print(f"⚠️ Failed to clean context (command not found or failed)")
+        print(f"[WARN] Failed to clean context (command not found or failed)")
         print(f"   This is optional - continuing anyway.")
         return False
 
@@ -98,7 +98,7 @@ class AutoCleanResume:
             message: 再開時のメッセージ
         """
         try:
-            print(f"\n🚀 Resuming Claude Code with fresh context...")
+            print(f"\n>> Resuming Claude Code with fresh context...")
 
             # Claude Code CLIを新しいセッションで起動
             if sys.platform == 'win32':
@@ -112,11 +112,11 @@ class AutoCleanResume:
                     start_new_session=True
                 )
 
-            print(f"✅ Claude Code launched in new session")
+            print(f"[OK] Claude Code launched in new session")
             return True
 
         except Exception as e:
-            print(f"❌ Failed to launch Claude Code: {e}")
+            print(f"[FAIL] Failed to launch Claude Code: {e}")
             return False
 
     def execute(self, feature, attempt, decision):
@@ -132,7 +132,7 @@ class AutoCleanResume:
             bool: 成功ならTrue
         """
         print("=" * 70)
-        print(f"[{datetime.now()}] 🧹 Auto Clean & Resume")
+        print(f"[{datetime.now()}]  Auto Clean & Resume")
         print("=" * 70)
         print(f"Feature: {feature}, Attempt: {attempt}")
         print(f"Decision: {decision}")
@@ -141,10 +141,10 @@ class AutoCleanResume:
         # 1. Git commit & push（評価結果を保存）
         commit_msg = f"eval: {feature} attempt {attempt} - {decision}"
         if not self.git_commit_and_push(commit_msg):
-            print(f"⚠️ Git push failed, but continuing...")
+            print(f"[WARN] Git push failed, but continuing...")
 
         # 2. コンテキストクリーン（オプショナル）
-        print(f"\n🧹 Cleaning context...")
+        print(f"\n Cleaning context...")
         self.clean_context()
 
         # 3. 次のアクションを決定
@@ -182,7 +182,7 @@ class AutoCleanResume:
 
         if success:
             print("\n" + "=" * 70)
-            print("✅ Auto Clean & Resume Complete!")
+            print("[OK] Auto Clean & Resume Complete!")
             print("=" * 70)
             print(f"  - Context cleaned")
             print(f"  - Git pushed")
@@ -191,7 +191,7 @@ class AutoCleanResume:
             print("=" * 70)
         else:
             print("\n" + "=" * 70)
-            print("⚠️ Auto Resume Failed")
+            print("[WARN] Auto Resume Failed")
             print("=" * 70)
             print(f"  - You can manually restart with:")
             print(f"    claude-code --message 'Resume from where we left off'")
@@ -207,7 +207,7 @@ class AutoCleanResume:
         """
         success = self.execute(feature, attempt, decision)
 
-        print(f"\n🛑 Exiting current session...")
+        print(f"\nSTOP Exiting current session...")
         print(f"(New Claude Code session has been started)")
 
         sys.exit(0)  # 正常終了（新しいセッションが起動済み）

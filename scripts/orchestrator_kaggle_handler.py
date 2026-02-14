@@ -73,7 +73,7 @@ class KaggleSubmissionHandler:
             bool: 提出成功ならTrue
         """
         print("=" * 70)
-        print(f"[{datetime.now()}] 🚀 Submitting to Kaggle")
+        print(f"[{datetime.now()}] >> Submitting to Kaggle")
         print("=" * 70)
         print(f"Feature: {feature}, Attempt: {attempt}")
         print(f"Notebook path: {notebook_path}")
@@ -95,14 +95,14 @@ class KaggleSubmissionHandler:
             if result.returncode != 0:
                 print(f"\n[Kaggle Error]")
                 print(result.stderr)
-                print(f"\n❌ Kaggle submission failed")
+                print(f"\n[FAIL] Kaggle submission failed")
                 return False
 
         except subprocess.TimeoutExpired:
-            print(f"❌ Kaggle submission timeout")
+            print(f"[FAIL] Kaggle submission timeout")
             return False
         except Exception as e:
-            print(f"❌ Error during Kaggle submission: {e}")
+            print(f"[FAIL] Error during Kaggle submission: {e}")
             return False
 
         # 2. Kernel IDを抽出
@@ -113,11 +113,11 @@ class KaggleSubmissionHandler:
             kernel_id = self.get_kernel_id_from_metadata(notebook_path)
 
         if not kernel_id:
-            print(f"❌ Failed to extract kernel ID")
+            print(f"[FAIL] Failed to extract kernel ID")
             print(f"Output: {result.stdout}")
             return False
 
-        print(f"\n✅ Kernel ID: {kernel_id}")
+        print(f"\n[OK] Kernel ID: {kernel_id}")
 
         # 3. state.json更新
         self.update_state({
@@ -126,7 +126,7 @@ class KaggleSubmissionHandler:
             'submitted_at': datetime.now().isoformat()
         })
 
-        print(f"✅ state.json updated")
+        print(f"[OK] state.json updated")
 
         # 4. Git commit & push
         try:
@@ -137,9 +137,9 @@ class KaggleSubmissionHandler:
                 check=True
             )
             subprocess.run(['git', 'push'], cwd=self.project_root, check=True)
-            print(f"✅ Git committed and pushed")
+            print(f"[OK] Git committed and pushed")
         except subprocess.CalledProcessError as e:
-            print(f"⚠️ Git operation failed: {e}")
+            print(f"[WARN] Git operation failed: {e}")
 
         # 5. 自動監視スクリプトをバックグラウンド起動
         monitor_script = self.project_root / 'scripts' / 'auto_resume_after_kaggle.py'
@@ -160,22 +160,22 @@ class KaggleSubmissionHandler:
                     cwd=self.project_root
                 )
 
-            print(f"✅ Auto-resume monitor started in background")
+            print(f"[OK] Auto-resume monitor started in background")
 
         except Exception as e:
-            print(f"⚠️ Failed to start monitor (you can run it manually): {e}")
+            print(f"[WARN] Failed to start monitor (you can run it manually): {e}")
             print(f"Manual command: python {monitor_script}")
 
         # 6. ユーザーに通知
         print("\n" + "=" * 70)
-        print("🎉 Kaggle Training Submitted Successfully!")
+        print("*** Kaggle Training Submitted Successfully!")
         print("=" * 70)
         print(f"Kernel URL: https://www.kaggle.com/code/{kernel_id}")
-        print(f"\n📊 Monitoring:")
+        print(f"\n Monitoring:")
         print(f"  - Auto-resume script is running in the background")
         print(f"  - It will check every 5 minutes for up to 3 hours")
         print(f"  - Claude Code will automatically restart when training completes")
-        print(f"\n👋 You can now:")
+        print(f"\n You can now:")
         print(f"  - Close this terminal (monitoring continues in background)")
         print(f"  - Turn off your PC (monitoring will stop, but Kaggle continues)")
         print(f"  - Check Kaggle web UI for live training progress")
@@ -192,11 +192,11 @@ class KaggleSubmissionHandler:
         success = self.submit_to_kaggle(notebook_path, feature, attempt)
 
         if success:
-            print(f"\n🛑 Exiting orchestrator session...")
+            print(f"\nSTOP Exiting orchestrator session...")
             print(f"(Auto-resume will handle the rest)")
             sys.exit(0)  # 正常終了
         else:
-            print(f"\n❌ Submission failed. Staying in current session.")
+            print(f"\n[FAIL] Submission failed. Staying in current session.")
             return False
 
 
