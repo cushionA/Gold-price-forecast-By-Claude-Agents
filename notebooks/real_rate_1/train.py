@@ -138,12 +138,29 @@ def fetch_and_preprocess():
     print(f"Dropped {initial_rows - len(df)} rows due to rolling window NaN")
 
     # === Align to schema date range ===
+    # IMPORTANT: Ensure NO NaN in final output
+    # Strategy: Fetch data with enough buffer (2013-06-01) so that
+    # after dropping NaN, we still have full schema range covered
     schema_start = '2015-01-30'
     schema_end = '2025-02-12'
 
+    # First check if we have data covering the schema range
+    if df.index.min() > pd.Timestamp(schema_start):
+        raise ValueError(f"Insufficient data buffer. First valid date: {df.index.min()}, "
+                        f"but schema starts at {schema_start}")
+
     df = df.loc[schema_start:schema_end]
+
+    # Verify NO NaN in final output
+    if df.isna().any().any():
+        nan_count = df.isna().sum().sum()
+        print(f"WARNING: {nan_count} NaN values remain in schema range")
+        print("Dropping rows with NaN...")
+        df = df.dropna()
+
     print(f"Final shape after schema alignment: {df.shape}")
     print(f"Date range: {df.index.min()} to {df.index.max()}")
+    print(f"NaN count: {df.isna().sum().sum()}")
 
     # Verify we have 8 feature columns
     feature_cols = ['level', 'change_1d', 'velocity_20d', 'velocity_60d',
@@ -562,15 +579,35 @@ if __name__ == "__main__":
     # Fill in latent features (starting from index window_size-1)
     output_df.iloc[window_size - 1:] = latent_features
 
-    print(f"Output shape: {output_df.shape}")
-    print(f"Non-NaN rows: {output_df.notna().all(axis=1).sum()}")
+    print(f"Output shape before dropping NaN: {output_df.shape}")
     print(f"NaN rows (due to windowing): {output_df.isna().any(axis=1).sum()}")
-    print(f"\nFirst few rows (with NaN):")
-    print(output_df.head(window_size + 5))
+
+    # Drop NaN rows to ensure clean output
+    output_df = output_df.dropna()
+
+    print(f"Output shape after dropping NaN: {output_df.shape}")
+    print(f"Date range: {output_df.index.min()} to {output_df.index.max()}")
+    print(f"\nFirst few rows:")
+    print(output_df.head())
     print(f"\nLast few rows:")
     print(output_df.tail())
     print(f"\nLatent feature statistics:")
     print(output_df.describe())
+
+    # Validate schema alignment
+    schema_start_dt = pd.Timestamp(schema_start)
+    schema_end_dt = pd.Timestamp(schema_end)
+
+    if output_df.index.min() > schema_start_dt:
+        print(f"\nWARNING: Output starts at {output_df.index.min()}, but schema requires {schema_start_dt}")
+        print("This means insufficient data buffer for the window size.")
+        raise ValueError(f"Output date range does not cover schema start date. Need more historical data.")
+
+    if output_df.index.max() < schema_end_dt:
+        print(f"\nWARNING: Output ends at {output_df.index.max()}, but schema requires {schema_end_dt}")
+        raise ValueError(f"Output date range does not cover schema end date.")
+
+    print(f"\n✓ Schema validation passed: output covers {schema_start} to {schema_end}")
 
     # === 7. Save Results ===
     print("\n" + "=" * 60)
