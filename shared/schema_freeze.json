@@ -1,0 +1,53 @@
+{
+  "columns": [
+    "gold_return_next",
+    "real_rate_real_rate",
+    "dxy_dxy",
+    "vix_vix",
+    "technical_gld_open",
+    "technical_gld_high",
+    "technical_gld_low",
+    "technical_gld_close",
+    "technical_gld_volume",
+    "cross_asset_silver_close",
+    "cross_asset_copper_close",
+    "cross_asset_sp500_close",
+    "yield_curve_dgs10",
+    "yield_curve_dgs2",
+    "yield_curve_yield_spread",
+    "etf_flow_gld_volume",
+    "etf_flow_gld_close",
+    "etf_flow_volume_ma20",
+    "inflation_expectation_inflation_expectation",
+    "cny_demand_cny_usd"
+  ],
+  "dtypes": {
+    "gold_return_next": "float64",
+    "real_rate_real_rate": "float64",
+    "dxy_dxy": "float64",
+    "vix_vix": "float64",
+    "technical_gld_open": "float64",
+    "technical_gld_high": "float64",
+    "technical_gld_low": "float64",
+    "technical_gld_close": "float64",
+    "technical_gld_volume": "float64",
+    "cross_asset_silver_close": "float64",
+    "cross_asset_copper_close": "float64",
+    "cross_asset_sp500_close": "float64",
+    "yield_curve_dgs10": "float64",
+    "yield_curve_dgs2": "float64",
+    "yield_curve_yield_spread": "float64",
+    "etf_flow_gld_volume": "float64",
+    "etf_flow_gld_close": "float64",
+    "etf_flow_volume_ma20": "float64",
+    "inflation_expectation_inflation_expectation": "float64",
+    "cny_demand_cny_usd": "float64"
+  },
+  "date_range": {
+    "start": "2015-01-30T00:00:00",
+    "end": "2025-02-12T00:00:00"
+  },
+  "row_count": 2523,
+  "feature_count": 19,
+  "created_at": "2026-02-14T13:41:41.415403"
+}

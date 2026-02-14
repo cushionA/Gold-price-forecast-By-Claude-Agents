@@ -1,0 +1,59 @@
+{
+  "model": "XGBoost",
+  "created_at": "2026-02-14T13:43:00.551637",
+  "data_split": {
+    "train": 1766,
+    "val": 378,
+    "test": 379,
+    "total": 2523
+  },
+  "metrics": {
+    "train": {
+      "mae": 0.6396672583926699,
+      "rmse": 0.9039975718422714,
+      "direction_accuracy": 0.5449886104783599,
+      "sharpe_ratio": 2.17916378594485,
+      "n_samples": 1766
+    },
+    "val": {
+      "mae": 0.7043610541244644,
+      "rmse": 0.9329018303552105,
+      "direction_accuracy": 0.5384615384615384,
+      "sharpe_ratio": 1.327303319454782,
+      "n_samples": 378
+    },
+    "test": {
+      "mae": 0.7138635356566214,
+      "rmse": 0.9230650958210285,
+      "direction_accuracy": 0.43535620052770446,
+      "sharpe_ratio": -1.6960937773823588,
+      "n_samples": 379,
+      "high_confidence_direction_accuracy": 0.4274193548387097
+    }
+  },
+  "feature_importance": {
+    "inflation_expectation_inflation_expectation": 0.09402891248464584,
+    "cross_asset_silver_close": 0.07325790077447891,
+    "cross_asset_sp500_close": 0.06513308733701706,
+    "yield_curve_dgs10": 0.06508533656597137,
+    "technical_gld_open": 0.05839147791266441,
+    "yield_curve_yield_spread": 0.057568252086639404,
+    "cny_demand_cny_usd": 0.05306203290820122,
+    "technical_gld_low": 0.052480388432741165,
+    "etf_flow_gld_volume": 0.05205715075135231,
+    "technical_gld_volume": 0.051881130784749985
+  },
+  "hyperparameters": {
+    "n_estimators": 200,
+    "max_depth": 5,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8
+  },
+  "targets": {
+    "direction_accuracy": 0.56,
+    "high_confidence_direction_accuracy": 0.6,
+    "mae": 0.75,
+    "sharpe_ratio": 0.8
+  }
+}
