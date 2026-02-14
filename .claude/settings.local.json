@@ -12,7 +12,8 @@
       "Task",
       "TodoWrite",
       "NotebookEdit",
-      "Bash(kaggle kernels list:*)"
+      "Bash(kaggle kernels list:*)",
+      "WebSearch"
     ],
     "defaultMode": "bypassPermissions"
   }
