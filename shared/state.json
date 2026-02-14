@@ -1,11 +1,10 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
-  "current_feature": "dxy",
+  "current_feature": "vix",
   "current_attempt": 1,
-  "resume_from": "architect",
+  "resume_from": "entrance",
   "feature_queue": [
-    "vix",
     "technical",
     "cross_asset",
     "yield_curve",
@@ -13,10 +12,12 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "completed_features": [],
+  "completed_features": [
+    "dxy"
+  ],
   "kaggle_kernel": "bigbigzabuton/gold-dxy-1",
   "submitted_at": "2026-02-14T20:09:37.327769",
-  "last_updated": "2026-02-14T20:09:37.327792",
+  "last_updated": "2026-02-14T20:15:06.946604",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,
