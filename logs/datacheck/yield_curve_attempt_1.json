@@ -1,0 +1,67 @@
+{
+  "feature": "yield_curve",
+  "attempt": 1,
+  "timestamp": "2026-02-15T02:04:37.733659",
+  "steps": [
+    {
+      "step": "file_structure",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_stats",
+      "issues": [
+        "WARNING: spread has values outside typical yield range"
+      ],
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "temporal",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "vif_correlation",
+      "issues": [
+        "WARNING: dgs10 high correlation with real_rate_real_rate (0.939)",
+        "WARNING: dgs10 high correlation with yield_curve_dgs10 (1.000)",
+        "WARNING: dgs10 high correlation with yield_curve_dgs2 (0.949)",
+        "WARNING: dgs2 high correlation with yield_curve_dgs10 (0.949)",
+        "WARNING: dgs2 high correlation with yield_curve_dgs2 (1.000)",
+        "WARNING: dgs5 high correlation with real_rate_real_rate (0.921)",
+        "WARNING: dgs5 high correlation with yield_curve_dgs10 (0.988)",
+        "WARNING: dgs5 high correlation with yield_curve_dgs2 (0.982)"
+      ],
+      "passed": true
+    },
+    {
+      "step": "format_schema",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [
+    "WARNING: spread has values outside typical yield range",
+    "WARNING: dgs10 high correlation with real_rate_real_rate (0.939)",
+    "WARNING: dgs10 high correlation with yield_curve_dgs10 (1.000)",
+    "WARNING: dgs10 high correlation with yield_curve_dgs2 (0.949)",
+    "WARNING: dgs2 high correlation with yield_curve_dgs10 (0.949)",
+    "WARNING: dgs2 high correlation with yield_curve_dgs2 (1.000)",
+    "WARNING: dgs5 high correlation with real_rate_real_rate (0.921)",
+    "WARNING: dgs5 high correlation with yield_curve_dgs10 (0.988)",
+    "WARNING: dgs5 high correlation with yield_curve_dgs2 (0.982)"
+  ],
+  "decision": "CONDITIONAL_PASS",
+  "passed": true
+}
