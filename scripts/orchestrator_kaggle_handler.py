@@ -86,7 +86,9 @@ class KaggleSubmissionHandler:
                 capture_output=True,
                 text=True,
                 timeout=120,
-                cwd=self.project_root
+                cwd=self.project_root,
+                encoding='utf-8',
+                errors='replace'
             )
 
             print(f"\n[Kaggle Output]")
