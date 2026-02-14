@@ -87,20 +87,39 @@ def show_full_answer(file_path: str, question: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python scripts/search_knowledge.py <query> [--show N]")
+        print("Usage: python scripts/search_knowledge.py <query> [--show N] [--type TYPE]")
         print("\nExamples:")
         print("  python scripts/search_knowledge.py 'regime detection'")
         print("  python scripts/search_knowledge.py 'window length' --show 1")
+        print("  python scripts/search_knowledge.py 'MLP autoencoder' --type evaluation")
+        print("  python scripts/search_knowledge.py 'Gate 2 FAIL' --type evaluation")
         sys.exit(1)
 
     query = sys.argv[1]
     show_index = None
+    search_type = None
 
-    # Parse --show flag
-    if len(sys.argv) > 2 and sys.argv[2] == "--show":
-        show_index = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+    # Parse flags
+    i = 2
+    while i < len(sys.argv):
+        if sys.argv[i] == "--show" and i + 1 < len(sys.argv):
+            show_index = int(sys.argv[i + 1])
+            i += 2
+        elif sys.argv[i] == "--type" and i + 1 < len(sys.argv):
+            search_type = sys.argv[i + 1]
+            i += 2
+        else:
+            i += 1
 
-    results = search_knowledge(query)
+    # Filter by type if specified
+    if search_type == "evaluation":
+        # Search only in evaluations/ directory
+        old_kb = KNOWLEDGE_BASE
+        KNOWLEDGE_BASE = Path("docs/knowledge/evaluations")
+        results = search_knowledge(query)
+        KNOWLEDGE_BASE = old_kb
+    else:
+        results = search_knowledge(query)
 
     if show_index is not None and 0 < show_index <= len(results):
         file_path, question, _ = results[show_index - 1]
