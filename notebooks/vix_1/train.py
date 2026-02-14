@@ -271,7 +271,7 @@ except Exception as e:
 # Extract arrays for processing
 vix_log_changes = merged_df['vix_log_change'].values
 vix_levels = merged_df['vix'].values
-target = merged_df[target_col].values
+target = merged_df[target_col].values if TARGET_AVAILABLE else np.zeros(len(merged_df))
 dates = merged_df['date'].values
 
 # Data split: train/val/test = 70/15/15 (time-series order)
