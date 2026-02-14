@@ -1,6 +1,6 @@
 {
-  "id": "tatukado/gold-cross-asset-2",
-  "title": "Gold cross_asset SubModel Attempt 2",
+  "id": "bigbigzabuton/gold-cross-asset-submodel-attempt-2-v2",
+  "title": "gold-cross-asset-submodel-attempt-2-v2",
   "code_file": "train.py",
   "language": "python",
   "kernel_type": "script",
