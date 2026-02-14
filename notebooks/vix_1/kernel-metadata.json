@@ -1,6 +1,6 @@
 {
   "id": "bigbigzabuton/gold-vix-1",
-  "title": "Gold VIX SubModel Attempt 1",
+  "title": "gold-vix-1",
   "code_file": "train.py",
   "language": "python",
   "kernel_type": "script",
