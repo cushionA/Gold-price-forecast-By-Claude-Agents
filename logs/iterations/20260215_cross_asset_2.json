@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-02-15T10:00:00",
+  "feature": "cross_asset",
+  "attempt": 2,
+  "phase": "evaluation",
+  "gate1": {
+    "passed": true,
+    "notes": "Deterministic HMM. No NaN, no constant output, all autocorrelations < 0.99. Fixed from attempt 1 (autocorr > 0.99 rejected by datachecker)."
+  },
+  "gate2": {
+    "passed": false,
+    "mi_increase_pct": 16.16,
+    "max_sub_vif": 1.66,
+    "max_stability_std": 0.1561,
+    "notes": "MI PASS (+16.16%), VIF PASS (1.66), Stability marginal FAIL (0.156 vs 0.15 for regime_prob). Proceeded to Gate 3 per VIX/Technical precedent."
+  },
+  "gate3": {
+    "passed": true,
+    "da_delta": 0.0076,
+    "sharpe_delta": 0.0399,
+    "mae_delta": -0.0866,
+    "da_pass": true,
+    "sharpe_pass": false,
+    "mae_pass": true,
+    "notes": "PASS on DA (+0.76%) and MAE (-0.0866, 8.7x threshold). MAE improved in 4/5 folds, Sharpe improved in 4/5 folds."
+  },
+  "decision": "completed",
+  "attempt_consumed": false,
+  "next_action": "Move to yield_curve (next in feature_queue)"
+}

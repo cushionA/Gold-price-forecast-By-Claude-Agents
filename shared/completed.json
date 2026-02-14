@@ -53,5 +53,20 @@
     "model_path": "models/submodels/technical/model.pt",
     "completed_at": "2026-02-14T23:38:07",
     "reason": "Gate 3 PASS via MAE criterion (-0.1824, 18x threshold). MAE improved in 5/5 folds. HMM regime detection + z-score + GK volatility captures genuine structural information about gold price dynamics."
+  },
+  "cross_asset": {
+    "status": "completed",
+    "final_attempt": 2,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0076,
+      "sharpe_delta": 0.0399,
+      "mae_delta": -0.0866
+    },
+    "output_columns": ["xasset_regime_prob", "xasset_recession_signal", "xasset_divergence"],
+    "output_path": "data/submodel_outputs/cross_asset.csv",
+    "model_path": null,
+    "completed_at": "2026-02-15T10:00:00",
+    "reason": "Gate 3 PASS via DA (+0.76%, 3/5 folds) and MAE (-0.0866, 8.7x threshold, 4/5 folds). Deterministic HMM with 3-state regime detection on cross-asset correlations. regime_prob rank 7/28 and divergence rank 10/28 in feature importance. Gate 2 stability marginally fails (0.156 vs 0.15) for regime_prob only - consistent with VIX/Technical precedent for regime features."
   }
 }

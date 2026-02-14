@@ -1,12 +1,11 @@
 {
   "status": "in_progress",
   "phase": "2_submodel_loop",
-  "current_feature": "cross_asset",
-  "current_attempt": 2,
-  "resume_from": "evaluator",
-  "datachecker_status": "PASS_ATTEMPT_2",
+  "current_feature": "yield_curve",
+  "current_attempt": 1,
+  "resume_from": "entrance",
+  "datachecker_status": null,
   "feature_queue": [
-    "cross_asset",
     "yield_curve",
     "etf_flow",
     "inflation_expectation",
@@ -15,12 +14,13 @@
   "completed_features": [
     "dxy",
     "vix",
-    "technical"
+    "technical",
+    "cross_asset"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-cross-asset-submodel-attempt-2-v2",
-  "submitted_at": "2026-02-15T00:51:16.994513",
-  "last_updated": "2026-02-15T01:35:21.500283",
-  "error_context": "No error log available",
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": "2026-02-15T10:00:00",
+  "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
     "test_mae": 0.7139,
@@ -145,6 +145,38 @@
           "gate3_sharpe_delta=-0.092"
         ],
         "note": "GLD 2D HMM with z-score and GK volatility. Gate 3 PASS via MAE (-0.1824, 18x threshold, 5/5 folds). Regime_prob ranked #2 in feature importance. Gate 2 stability fails for regime_prob only (expected for structural regime shifts). Sharpe degraded in later folds but MAE improvement is exceptionally strong and consistent."
+      }
+    },
+    "cross_asset": {
+      "attempt_1": {
+        "gate1": null,
+        "gate2": null,
+        "gate3": null,
+        "decision": "attempt+1",
+        "primary_failures": [
+          "datachecker_reject_autocorr>0.99"
+        ],
+        "note": "Rejected by datachecker for autocorrelation > 0.99. Switched to deterministic HMM approach."
+      },
+      "attempt_2": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_da_delta=+0.76%",
+          "gate3_mae_delta=-0.0866_8.7x_threshold",
+          "mae_improved_4_of_5_folds",
+          "sharpe_improved_4_of_5_folds",
+          "MI_increase_16.16%",
+          "VIF_max_1.66",
+          "regime_prob_rank7_divergence_rank10"
+        ],
+        "primary_failures": [
+          "gate2_stability_regime_prob_0.1561_above_0.15",
+          "gate3_sharpe_delta=+0.040_below_0.05"
+        ],
+        "note": "Deterministic HMM with 3-state regime detection on cross-asset correlations. Gate 3 PASS on DA (+0.76%) and MAE (-0.0866, 8.7x threshold). Sharpe improved in 4/5 folds but average just below threshold. Gate 2 stability marginally fails for regime_prob only (0.156 vs 0.15) - consistent with VIX/Technical precedent."
       }
     }
   }
