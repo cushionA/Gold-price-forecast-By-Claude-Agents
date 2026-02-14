@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "error",
   "phase": "2_submodel_loop",
   "current_feature": "vix",
   "current_attempt": 1,
-  "resume_from": "researcher",
+  "resume_from": "builder_model",
   "feature_queue": [
     "technical",
     "cross_asset",
@@ -17,7 +17,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-vix-submodel-attempt-1",
   "submitted_at": "2026-02-14T20:51:32.827097",
-  "last_updated": "2026-02-14T20:51:32.827120",
+  "last_updated": "2026-02-14T20:56:56.329761",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,

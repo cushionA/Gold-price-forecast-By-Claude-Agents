@@ -1,0 +1,74 @@
+[{"stream_name":"stdout","time":6.655332437,"data":"=== Gold SubModel Training: VIX attempt 1 ===\n"}
+,{"stream_name":"stdout","time":6.655425654,"data":"Started: 2026-02-14T11:51:37.778213\n"}
+,{"stream_name":"stdout","time":6.6554374020000004,"data":"\n"}
+,{"stream_name":"stdout","time":6.655442247,"data":"=== Data Fetching ===\n"}
+,{"stream_name":"stdout","time":6.838469731,"data":"FRED fetch failed: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stdout","time":6.838508908,"data":"Falling back to Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":8.264870879,"data":"/kaggle/src/script.py:62: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":8.264905922,"data":"  vix_df = yf.download('^VIX', start='2014-10-01', progress=False)\n"}
+,{"stream_name":"stderr","time":8.718029964,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":8.718066043,"data":"  File \"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py\", line 46, in make_post_request\n"}
+,{"stream_name":"stderr","time":8.718123783,"data":"    with urllib.request.urlopen(req, timeout=timeout) as response:\n"}
+,{"stream_name":"stderr","time":8.718239377,"data":"         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.718458274,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 215, in urlopen\n"}
+,{"stream_name":"stderr","time":8.720169873,"data":"    return opener.open(url, data, timeout)\n"}
+,{"stream_name":"stderr","time":8.720281993,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.720291858,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 521, in open\n"}
+,{"stream_name":"stderr","time":8.720857057,"data":"    response = meth(req, response)\n"}
+,{"stream_name":"stderr","time":8.720873749999999,"data":"               ^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.720879899,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 630, in http_response\n"}
+,{"stream_name":"stderr","time":8.721330567999999,"data":"    response = self.parent.error(\n"}
+,{"stream_name":"stderr","time":8.721341247,"data":"               ^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.721345791,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 559, in error\n"}
+,{"stream_name":"stderr","time":8.721631549,"data":"    return self._call_chain(*args)\n"}
+,{"stream_name":"stderr","time":8.721659656,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.721718398,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 492, in _call_chain\n"}
+,{"stream_name":"stderr","time":8.722116569,"data":"    result = func(*args)\n"}
+,{"stream_name":"stderr","time":8.722127772,"data":"             ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.722132106,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 639, in http_error_default\n"}
+,{"stream_name":"stderr","time":8.722494151,"data":"    raise HTTPError(req.full_url, code, msg, hdrs, fp)\n"}
+,{"stream_name":"stderr","time":8.722511862,"data":"urllib.error.HTTPError: HTTP Error 400: Bad Request\n"}
+,{"stream_name":"stderr","time":8.722517234,"data":"\n"}
+,{"stream_name":"stderr","time":8.722531524,"data":"The above exception was the direct cause of the following exception:\n"}
+,{"stream_name":"stderr","time":8.722536682,"data":"\n"}
+,{"stream_name":"stderr","time":8.722541061,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":8.722545459,"data":"  File \"/kaggle/src/script.py\", line 39, in fetch_data\n"}
+,{"stream_name":"stderr","time":8.722717813,"data":"    FRED_API_KEY = secrets.get_secret(\"FRED_API_KEY\")\n"}
+,{"stream_name":"stderr","time":8.722862705,"data":"                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.722920062,"data":"  File \"/usr/local/lib/python3.12/dist-packages/kaggle_secrets.py\", line 64, in get_secret\n"}
+,{"stream_name":"stderr","time":8.723108916,"data":"    response_json = self.web_client.make_post_request(request_body, self.GET_USER_SECRET_BY_LABEL_ENDPOINT)\n"}
+,{"stream_name":"stderr","time":8.723422019000001,"data":"                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.72344956,"data":"  File \"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py\", line 58, in make_post_request\n"}
+,{"stream_name":"stderr","time":8.723584782,"data":"    raise ConnectionError(\n"}
+,{"stream_name":"stderr","time":8.723595833,"data":"ConnectionError: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stderr","time":8.723601145,"data":"\n"}
+,{"stream_name":"stderr","time":8.723605470999999,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":8.723610143,"data":"\n"}
+,{"stream_name":"stderr","time":8.723614952,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":8.723622539,"data":"  File \"/kaggle/src/script.py\", line 226, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":8.723893582,"data":"    data_df = fetch_data()\n"}
+,{"stream_name":"stderr","time":8.723903532,"data":"              ^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.723908688,"data":"  File \"/kaggle/src/script.py\", line 64, in fetch_data\n"}
+,{"stream_name":"stderr","time":8.724082282,"data":"    df = pd.DataFrame({\n"}
+,{"stream_name":"stderr","time":8.724090437,"data":"         ^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.724094861,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py\", line 778, in __init__\n"}
+,{"stream_name":"stderr","time":8.725841383,"data":"    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)\n"}
+,{"stream_name":"stderr","time":8.726049829,"data":"          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.726064551,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py\", line 503, in dict_to_mgr\n"}
+,{"stream_name":"stderr","time":8.727189423,"data":"    return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)\n"}
+,{"stream_name":"stderr","time":8.727565332,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.72758263,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py\", line 114, in arrays_to_mgr\n"}
+,{"stream_name":"stderr","time":8.727817736,"data":"    index = _extract_index(arrays)\n"}
+,{"stream_name":"stderr","time":8.727844269,"data":"            ^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":8.727897867,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py\", line 664, in _extract_index\n"}
+,{"stream_name":"stderr","time":8.728191221,"data":"    raise ValueError(\"Per-column arrays must each be 1-dimensional\")\n"}
+,{"stream_name":"stderr","time":8.72820009,"data":"ValueError: Per-column arrays must each be 1-dimensional\n"}
+,{"stream_name":"stderr","time":11.612020651,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":11.612080114,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12.002711435,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12.002743626,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":14.458885155,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":14.458942798,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":14.515701068,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":16.253987011,"data":"[NbConvertApp] Writing 341571 bytes to __results__.html\n"}
+]
