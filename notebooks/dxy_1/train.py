@@ -55,8 +55,24 @@ def fetch_data():
             if df.empty:
                 print(f"[WARN] {ticker} returned empty dataframe")
                 continue
-            dfs[name] = df['Close'].rename(name)
-            print(f"[OK] {ticker}: {len(df)} rows, latest={df['Close'].iloc[-1]:.4f}")
+
+            # Handle both single-ticker (Series) and multi-ticker (DataFrame) formats
+            if 'Close' in df.columns:
+                close_series = df['Close']
+            elif isinstance(df.columns, pd.MultiIndex):
+                # MultiIndex case: ('Close', ticker)
+                close_series = df[('Close', ticker)]
+            else:
+                # Fallback: assume single column
+                close_series = df.iloc[:, 0]
+
+            # Ensure it's a Series and rename
+            if isinstance(close_series, pd.DataFrame):
+                close_series = close_series.iloc[:, 0]
+
+            close_series.name = name
+            dfs[name] = close_series
+            print(f"[OK] {ticker}: {len(df)} rows, latest={close_series.iloc[-1]:.4f}")
         except Exception as e:
             print(f"[FAIL] {ticker}: {e}")
             raise
