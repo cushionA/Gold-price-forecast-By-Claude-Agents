@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
   "current_feature": "technical",
   "current_attempt": 1,
@@ -18,7 +18,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-technical-submodel-attempt-1",
   "submitted_at": "2026-02-14T23:26:28.277220",
-  "last_updated": "2026-02-14T23:26:28.277249",
+  "last_updated": "2026-02-14T23:35:19.000735",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,
