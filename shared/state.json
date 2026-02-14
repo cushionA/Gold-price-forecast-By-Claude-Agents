@@ -1,8 +1,8 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "dxy",
-  "current_attempt": 2,
+  "current_attempt": 1,
   "resume_from": "architect",
   "feature_queue": [
     "vix",
@@ -15,8 +15,8 @@
   ],
   "completed_features": [],
   "kaggle_kernel": "bigbigzabuton/gold-dxy-1",
-  "submitted_at": "2026-02-14T19:49:14.230100",
-  "last_updated": "2026-02-14T19:54:35.941411",
+  "submitted_at": "2026-02-14T20:09:37.327769",
+  "last_updated": "2026-02-14T20:09:37.327792",
   "error_context": "No error log available",
   "user_action_required": null,
   "datachecker_status": null,
