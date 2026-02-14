@@ -1,10 +1,10 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "cross_asset",
   "current_attempt": 2,
-  "resume_from": "builder_data",
-  "datachecker_status": "REJECT_ATTEMPT_1_AUTOCORRELATION",
+  "resume_from": "evaluator",
+  "datachecker_status": "PASS_ATTEMPT_2",
   "feature_queue": [
     "cross_asset",
     "yield_curve",
@@ -17,10 +17,10 @@
     "vix",
     "technical"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
-  "last_updated": "2026-02-15T00:03:22",
-  "error_context": "Builder_data delivered price levels (gsr, gcr) instead of first-differences/z-scores per design spec. All level columns exceed autocorr 0.99 threshold (gold_close=0.9994, copper_close=0.9978, silver_close=0.9952, gsr=0.9920, gcr=0.9962). Design requires HMM probabilities and return-based features only.",
+  "kaggle_kernel": "bigbigzabuton/gold-cross-asset-submodel-attempt-2",
+  "submitted_at": "2026-02-15T00:16:03.978157",
+  "last_updated": "2026-02-15T00:16:03.978181",
+  "error_context": "No error log available",
   "user_action_required": false,
   "baseline_metrics": {
     "test_mae": 0.7139,
