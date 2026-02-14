@@ -76,6 +76,22 @@ data/processed/**/data.csv
 # Kaggle Notebook内の大きな出力
 notebooks/**/output/
 
+# === 自動生成される無駄ファイル（エージェントが作るが不要） ===
+# Notebook README（設計書と重複）
+notebooks/**/README.md
+
+# データ metadata/summary（datachecker通過後は不要）
+data/**/metadata.json
+data/**/*_metadata.json
+docs/data/*_summary.md
+
+# 評価 summary（JSONと重複）
+logs/evaluation/*_summary.md
+
+# 一時ファイル
+temp_*/
+**/temp_*/
+
 # Git LFS を使う場合のマーカー（将来用）
 # *.pt filter=lfs diff=lfs merge=lfs -text
 
