@@ -55,11 +55,13 @@ def load_precomputed_features():
         else:
             return df['Close']
 
-    df = pd.DataFrame({
-        'gold_close': extract_close(gold).values,
-        'silver_close': extract_close(silver).values,
-        'copper_close': extract_close(copper).values
-    }, index=gold.index)
+    # Create separate DataFrames and merge on date index
+    gold_df = pd.DataFrame({'gold_close': extract_close(gold)})
+    silver_df = pd.DataFrame({'silver_close': extract_close(silver)})
+    copper_df = pd.DataFrame({'copper_close': extract_close(copper)})
+
+    # Merge on index (dates)
+    df = gold_df.join(silver_df, how='inner').join(copper_df, how='inner')
 
     # Forward-fill missing values (max 3 days)
     df = df.ffill(limit=3).dropna()

@@ -1,0 +1,47 @@
+[{"stream_name":"stdout","time":6.146768639,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":6.146847974,"data":"Gold SubModel Training: cross_asset Attempt 2\n"}
+,{"stream_name":"stdout","time":6.146852487,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":6.146855139,"data":"Started: 2026-02-14T15:21:40.452900\n"}
+,{"stream_name":"stdout","time":6.146857707,"data":"\n"}
+,{"stream_name":"stdout","time":6.146860052,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":11.925120916000001,"data":"\n"}
+,{"stream_name":"stdout","time":11.925164404,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.925171394,"data":"STEP 1: Loading Pre-Computed Features\n"}
+,{"stream_name":"stdout","time":11.925176901,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.925180964,"data":"Fetching raw commodity data from Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":11.925686908,"data":"/kaggle/src/script.py:47: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":11.925717053,"data":"  gold = yf.download(\"GC=F\", start=start_date, progress=False)\n"}
+,{"stream_name":"stderr","time":13.114405315,"data":"/kaggle/src/script.py:48: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":13.114443941,"data":"  silver = yf.download(\"SI=F\", start=start_date, progress=False)\n"}
+,{"stream_name":"stderr","time":13.596417488,"data":"/kaggle/src/script.py:49: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":13.596461383,"data":"  copper = yf.download(\"HG=F\", start=start_date, progress=False)\n"}
+,{"stream_name":"stderr","time":14.063672774,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":14.063715462,"data":"  File \"/kaggle/src/script.py\", line 310, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":14.063908771,"data":"    features = load_precomputed_features()\n"}
+,{"stream_name":"stderr","time":14.063931764,"data":"               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":14.063990606,"data":"  File \"/kaggle/src/script.py\", line 58, in load_precomputed_features\n"}
+,{"stream_name":"stderr","time":14.064132636,"data":"    df = pd.DataFrame({\n"}
+,{"stream_name":"stderr","time":14.064142687,"data":"         ^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":14.064209774,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py\", line 778, in __init__\n"}
+,{"stream_name":"stderr","time":14.065979416,"data":"    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)\n"}
+,{"stream_name":"stderr","time":14.066173858,"data":"          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":14.066226696,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py\", line 503, in dict_to_mgr\n"}
+,{"stream_name":"stderr","time":14.068465116,"data":"    return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)\n"}
+,{"stream_name":"stderr","time":14.06869139,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":14.068710351,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py\", line 119, in arrays_to_mgr\n"}
+,{"stream_name":"stderr","time":14.068926654,"data":"    arrays, refs = _homogenize(arrays, index, dtype)\n"}
+,{"stream_name":"stderr","time":14.069014278,"data":"                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":14.069033534,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py\", line 630, in _homogenize\n"}
+,{"stream_name":"stderr","time":14.069273759,"data":"    com.require_length_match(val, index)\n"}
+,{"stream_name":"stderr","time":14.06930687,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/common.py\", line 573, in require_length_match\n"}
+,{"stream_name":"stderr","time":14.070057563,"data":"    raise ValueError(\n"}
+,{"stream_name":"stderr","time":14.070079874,"data":"ValueError: Length of values (2945) does not match length of index (2944)\n"}
+,{"stream_name":"stderr","time":16.496825656,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":16.496853675,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":16.80578926,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":16.805829409,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":17.664709291,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":17.664765905,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":17.705707728,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":19.179527866,"data":"[NbConvertApp] Writing 331734 bytes to __results__.html\n"}
+]
