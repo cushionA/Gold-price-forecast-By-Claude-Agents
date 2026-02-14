@@ -3,7 +3,7 @@
   "phase": "2_submodel_loop",
   "current_feature": "etf_flow",
   "current_attempt": 1,
-  "resume_from": "entrance",
+  "resume_from": "researcher",
   "datachecker_status": null,
   "feature_queue": [
     "etf_flow",
