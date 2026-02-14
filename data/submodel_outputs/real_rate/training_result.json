@@ -1,47 +1,97 @@
 {
   "feature": "real_rate",
-  "attempt": 3,
-  "timestamp": "2026-02-14T08:06:21.270220",
-  "architecture": "MultiCountryTransformerAutoencoder",
-  "device": "cuda",
-  "best_params": {
-    "window_size": 18,
-    "d_model": 48,
-    "nhead": 2,
-    "num_encoder_layers": 3,
-    "latent_dim": 5,
-    "dropout": 0.444382210900569,
-    "learning_rate": 0.0003400018090469449,
-    "weight_decay": 0.008349869532257317,
-    "batch_size": 32
+  "attempt": 5,
+  "method": "MarkovRegression_EWM_CUSUM_StateFeatures",
+  "timestamp": "2026-02-14T18:23:44.098134",
+  "markov_regimes": {
+    "regime_0": {
+      "mean_change": -0.059853769535914786,
+      "pct_months": 66.54275092936803,
+      "std": 0.08268553839495942
+    },
+    "regime_1": {
+      "mean_change": 0.14689005738852737,
+      "pct_months": 24.1635687732342,
+      "std": 0.05118339027531498
+    },
+    "regime_2": {
+      "mean_change": -0.007741962548852918,
+      "pct_months": 9.293680297397769,
+      "std": 0.32801458574517783
+    }
   },
-  "metrics": {
-    "train_loss": 0.7506065964698792,
-    "val_loss": 0.9588034749031067,
-    "overfit_ratio": 1.277371500976204,
-    "epochs_trained": 86
-  },
-  "model_parameters": 98094,
-  "optuna_trials_completed": 30,
-  "optuna_best_value": 0.9209399819374084,
+  "cusum_change_points": 20,
+  "ewm_span": 3,
   "output_shape": [
-    5413,
-    5
+    2523,
+    7
   ],
   "output_columns": [
-    "real_rate_sem_0",
-    "real_rate_sem_1",
-    "real_rate_sem_2",
-    "real_rate_sem_3",
-    "real_rate_sem_4"
+    "real_rate_regime_persistence",
+    "real_rate_transition_prob",
+    "real_rate_trend_direction",
+    "real_rate_trend_strength",
+    "real_rate_regime_sync",
+    "real_rate_change_magnitude",
+    "real_rate_days_since_change"
   ],
-  "data_info": {
-    "n_features": 25,
-    "n_samples_monthly": 269,
-    "train_samples": 188,
-    "val_samples": 40,
-    "test_samples": 41,
-    "window_size": 18,
-    "output_samples_daily": 5413
+  "output_stats": {
+    "real_rate_regime_persistence": {
+      "mean": 0.8388399809252005,
+      "std": 0.14754059957218515,
+      "min": 0.42898363982423426,
+      "max": 0.999999999966136
+    },
+    "real_rate_transition_prob": {
+      "mean": 0.1611600190747995,
+      "std": 0.14754059957218515,
+      "min": 3.3864022697116525e-11,
+      "max": 0.5710163601757657
+    },
+    "real_rate_trend_direction": {
+      "mean": -0.006738010305192232,
+      "std": 1.000175530555022,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "real_rate_trend_strength": {
+      "mean": 0.5206727068849257,
+      "std": 0.44746284232281724,
+      "min": 0.00389279952081641,
+      "max": 2.1428501031014933
+    },
+    "real_rate_regime_sync": {
+      "mean": 0.8367023384859295,
+      "std": 0.15285473437586608,
+      "min": 0.5714285714285714,
+      "max": 1.0
+    },
+    "real_rate_change_magnitude": {
+      "mean": 0.8260047372560844,
+      "std": 0.6456203455938134,
+      "min": 0.014247864647332768,
+      "max": 2.9169160163047603
+    },
+    "real_rate_days_since_change": {
+      "mean": 761.1026555687673,
+      "std": 691.861445865043,
+      "min": 0.0,
+      "max": 2251.0
+    }
+  },
+  "unique_value_counts": {
+    "real_rate_regime_persistence": 122,
+    "real_rate_transition_prob": 122,
+    "real_rate_trend_direction": 2,
+    "real_rate_trend_strength": 122,
+    "real_rate_regime_sync": 4,
+    "real_rate_change_magnitude": 122,
+    "real_rate_days_since_change": 1701
+  },
+  "n_train_months": 188,
+  "n_total_months": 269,
+  "validation": {
+    "nan_count": 0,
+    "all_checks_passed": true
   }
 }
