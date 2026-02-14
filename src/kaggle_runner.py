@@ -8,8 +8,17 @@ import json
 import time
 import shutil
 import tempfile
+import os
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Set up Kaggle credentials for KGAT_ token format
+if 'KAGGLE_API_TOKEN' in os.environ:
+    os.environ['KAGGLE_KEY'] = os.environ['KAGGLE_API_TOKEN']
 
 
 def _make_tmp_dir(prefix: str) -> Path:
