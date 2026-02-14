@@ -1,0 +1,35 @@
+{
+  "feature": "real_rate",
+  "attempt": 4,
+  "method": "PCA",
+  "timestamp": "2026-02-14T17:38:59.633894",
+  "n_components": 2,
+  "features_used": [
+    "germany_nominal_change",
+    "uk_nominal_change",
+    "canada_nominal_change",
+    "switzerland_nominal_change",
+    "norway_nominal_change",
+    "sweden_nominal_change",
+    "us_tips_change"
+  ],
+  "explained_variance_ratio": [
+    0.7049361593135737,
+    0.12312323385273044
+  ],
+  "cumulative_variance": 0.8280593931663041,
+  "interpolation": "cubic_spline",
+  "output_shape": [
+    3667,
+    2
+  ],
+  "output_columns": [
+    "real_rate_pc_0",
+    "real_rate_pc_1"
+  ],
+  "date_range": {
+    "start": "2015-01-30 00:00:00",
+    "end": "2025-02-12 00:00:00"
+  },
+  "execution_time_seconds": "<10"
+}
