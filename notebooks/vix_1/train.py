@@ -88,7 +88,7 @@ def fetch_data():
     df = df.dropna(subset=['vix'])
 
     # Forward-fill gaps up to 3 days (pandas 2.x compatible)
-    df = df.set_index('date').asfreq('D').fillna(method='ffill', limit=3).reset_index()
+    df = df.set_index('date').asfreq('D').ffill(limit=3).reset_index()
     df = df.dropna(subset=['vix'])
 
     # Compute log-changes
@@ -269,10 +269,21 @@ except Exception as e:
     target_col = None
 
 # Extract arrays for processing
+print(f"\n=== Extracting Arrays ===")
+print(f"merged_df shape: {merged_df.shape}")
+print(f"merged_df columns: {list(merged_df.columns)}")
+print(f"TARGET_AVAILABLE: {TARGET_AVAILABLE}")
+print(f"target_col: {target_col}")
+
 vix_log_changes = merged_df['vix_log_change'].values
 vix_levels = merged_df['vix'].values
 target = merged_df[target_col].values if TARGET_AVAILABLE else np.zeros(len(merged_df))
 dates = merged_df['date'].values
+
+print(f"vix_log_changes shape: {vix_log_changes.shape}")
+print(f"vix_levels shape: {vix_levels.shape}")
+print(f"target shape: {target.shape}")
+print(f"dates shape: {dates.shape}")
 
 # Data split: train/val/test = 70/15/15 (time-series order)
 n_total = len(merged_df)
