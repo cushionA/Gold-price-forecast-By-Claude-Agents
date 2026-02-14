@@ -61,9 +61,23 @@ def fetch_data():
         # Fetch ^VIX from Yahoo Finance
         vix_df = yf.download('^VIX', start='2014-10-01', progress=False)
 
+        # Handle both single-ticker (Series) and multi-ticker (DataFrame with MultiIndex) formats
+        if 'Close' in vix_df.columns:
+            close_series = vix_df['Close']
+        elif isinstance(vix_df.columns, pd.MultiIndex):
+            # MultiIndex case: ('Close', '^VIX')
+            close_series = vix_df[('Close', '^VIX')]
+        else:
+            # Fallback: assume single column
+            close_series = vix_df.iloc[:, 0]
+
+        # Ensure it's a Series
+        if isinstance(close_series, pd.DataFrame):
+            close_series = close_series.iloc[:, 0]
+
         df = pd.DataFrame({
             'date': vix_df.index,
-            'vix': vix_df['Close'].values
+            'vix': close_series.values
         })
         df['date'] = pd.to_datetime(df['date'])
         df = df.reset_index(drop=True)
