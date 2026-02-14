@@ -296,30 +296,179 @@ class KaggleMonitorV2:
             return 'done'
 
     def handle_error(self, kernel_id, feature, attempt):
-        """Kaggleエラー時の処理"""
+        """
+        Kaggleエラー時の処理
+        エラー内容を解析して自動アクションを決定
+        """
         print(f"[{datetime.now()}] [FAIL] Kaggle training failed")
 
+        # エラーログダウンロード
         try:
+            env = os.environ.copy()
+            env['PYTHONUTF8'] = '1'
+
+            error_dir = self.project_root / 'tmp' / 'error_logs' / f'{feature}_{attempt}'
+            error_dir.mkdir(parents=True, exist_ok=True)
+
             result = subprocess.run(
-                ['kaggle', 'kernels', 'output', kernel_id, '-p', 'tmp/error_logs/'],
+                ['kaggle', 'kernels', 'output', kernel_id, '-p', str(error_dir)],
                 capture_output=True,
                 text=True,
-                timeout=120
+                timeout=120,
+                env=env
             )
-            error_log = result.stderr[:1000] if result.stderr else "No error log available"
-        except:
-            error_log = "Failed to retrieve error log"
 
-        self.update_state({
-            'status': 'error',
-            'error_context': error_log,
-            'resume_from': 'builder_model'
-        })
+            # ログファイルを読み込み
+            log_files = list(error_dir.glob('*.log'))
+            if log_files:
+                with open(log_files[0], 'r', encoding='utf-8', errors='ignore') as f:
+                    error_log = f.read()
+            else:
+                error_log = result.stderr[:1000] if result.stderr else "No error log available"
+        except Exception as e:
+            error_log = f"Failed to retrieve error log: {e}"
 
-        self.git_commit_and_push(f'error: {feature} attempt {attempt} - kaggle training failed')
+        # エラー種別を判定
+        error_type = self.classify_error(error_log)
+        action = self.decide_error_action(error_type, feature, attempt)
 
-        print(f"[FAIL] Training failed. Manual intervention required.")
-        print(f"Error: {error_log[:200]}")
+        print(f"[{datetime.now()}] Error type: {error_type}")
+        print(f"[{datetime.now()}] Auto action: {action}")
+
+        if action == 'retry_same':
+            # 同じコードで再提出（一時的エラーの可能性）
+            print(f"[{datetime.now()}] [AUTO-RETRY] Resubmitting same notebook...")
+            self.resubmit_notebook(feature, attempt)
+
+        elif action == 'fix_and_retry':
+            # builder_modelで修正が必要
+            print(f"[{datetime.now()}] [NEEDS-FIX] Code fix required, setting resume_from=builder_model")
+            self.update_state({
+                'status': 'error',
+                'error_context': error_log[:1000],
+                'resume_from': 'builder_model',
+                'error_type': error_type
+            })
+            self.git_commit_and_push(f'error: {feature} attempt {attempt} - {error_type}')
+            print(f"[FAIL] Manual intervention required. Error type: {error_type}")
+
+        elif action == 'skip_feature':
+            # 致命的エラー、次の特徴量へ
+            print(f"[{datetime.now()}] [SKIP] Fatal error, moving to next feature")
+            self.skip_to_next_feature(feature, attempt, error_log)
+
+        else:
+            # デフォルト：手動介入
+            self.update_state({
+                'status': 'error',
+                'error_context': error_log[:1000],
+                'resume_from': 'builder_model'
+            })
+            self.git_commit_and_push(f'error: {feature} attempt {attempt} - unknown error')
+            print(f"[FAIL] Unknown error, manual intervention required")
+
+    def classify_error(self, error_log):
+        """
+        エラーログから種別を判定
+
+        Returns:
+            str: エラー種別
+        """
+        error_log_lower = error_log.lower()
+
+        # よくあるエラーパターン
+        if 'multiindex' in error_log_lower or 'per-column arrays must each be 1-dimensional' in error_log_lower:
+            return 'yfinance_multiindex'
+        elif 'no such file or directory' in error_log_lower and 'target.csv' in error_log_lower:
+            return 'dataset_not_found'
+        elif 'asfreq() got an unexpected keyword' in error_log_lower:
+            return 'pandas_api_change'
+        elif 'connection' in error_log_lower and ('timeout' in error_log_lower or 'refused' in error_log_lower):
+            return 'network_timeout'
+        elif 'memory' in error_log_lower or 'killed' in error_log_lower:
+            return 'out_of_memory'
+        elif 'import' in error_log_lower and ('cannot import' in error_log_lower or 'no module' in error_log_lower):
+            return 'missing_dependency'
+        else:
+            return 'unknown'
+
+    def decide_error_action(self, error_type, feature, attempt):
+        """
+        エラー種別に基づき自動アクションを決定
+
+        Returns:
+            str: 'retry_same' | 'fix_and_retry' | 'skip_feature' | 'manual'
+        """
+        if error_type == 'network_timeout':
+            # 一時的なネットワークエラー → 再試行
+            return 'retry_same'
+        elif error_type in ['yfinance_multiindex', 'pandas_api_change', 'dataset_not_found']:
+            # コード修正が必要
+            return 'fix_and_retry'
+        elif error_type == 'out_of_memory':
+            # メモリ不足 → skip（設計変更が必要）
+            return 'skip_feature'
+        else:
+            # 不明なエラー → 手動介入
+            return 'fix_and_retry'
+
+    def resubmit_notebook(self, feature, attempt):
+        """同じNotebookを再提出（一時的エラー対策）"""
+        try:
+            env = os.environ.copy()
+            env['PYTHONUTF8'] = '1'
+
+            notebook_path = self.project_root / 'notebooks' / f'{feature}_{attempt}'
+
+            result = subprocess.run(
+                ['kaggle', 'kernels', 'push', '-p', str(notebook_path)],
+                capture_output=True,
+                text=True,
+                timeout=120,
+                env=env
+            )
+
+            if result.returncode == 0:
+                print(f"[{datetime.now()}] [OK] Notebook resubmitted successfully")
+                self.update_state({
+                    'status': 'waiting_training',
+                    'submitted_at': datetime.now().isoformat()
+                })
+                self.git_commit_and_push(f'retry: {feature} attempt {attempt} - auto-resubmit after network error')
+                return True
+            else:
+                print(f"[{datetime.now()}] [FAIL] Resubmission failed: {result.stderr}")
+                return False
+        except Exception as e:
+            print(f"[{datetime.now()}] [FAIL] Resubmission exception: {e}")
+            return False
+
+    def skip_to_next_feature(self, feature, attempt, error_log):
+        """致命的エラー時に次の特徴量へスキップ"""
+        state = self.load_state()
+        queue = state.get('feature_queue', [])
+
+        if queue:
+            next_feature = queue.pop(0)
+            print(f"[{datetime.now()}] [SKIP] Moving from {feature} to {next_feature}")
+
+            self.update_state({
+                'status': 'in_progress',
+                'current_feature': next_feature,
+                'current_attempt': 1,
+                'feature_queue': queue,
+                'resume_from': 'entrance',
+                'error_context': f'{feature} skipped due to fatal error'
+            })
+
+            self.git_commit_and_push(f'skip: {feature} attempt {attempt} - fatal error, moving to {next_feature}')
+        else:
+            print(f"[{datetime.now()}] [DONE] No more features, project complete")
+            self.update_state({
+                'status': 'completed',
+                'error_context': f'{feature} was last feature, completed with errors'
+            })
+            self.git_commit_and_push(f'complete: project finished (last feature {feature} had errors)')
 
     def monitor(self):
         """メイン監視ループ"""
