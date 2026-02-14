@@ -246,6 +246,122 @@ Orchestrator behavior on resume:
    → "complete" → Fetch results and pass to evaluator
 ```
 
+### Full Automation System
+
+The project includes automation scripts for unattended operation:
+
+#### 1. Auto-Resume After Kaggle (`scripts/auto_resume_after_kaggle.py`)
+
+Monitors Kaggle training and automatically resumes Claude Code when complete:
+
+```python
+# Started automatically by orchestrator after kaggle kernels push
+# Features:
+- Checks kernel status every 5 minutes (max 3 hours)
+- Downloads results when complete
+- Commits & pushes to Git
+- Automatically launches Claude Code CLI with evaluator task
+- Handles errors and timeouts
+```
+
+Usage:
+```bash
+# Automatic (called by orchestrator after submission):
+python scripts/auto_resume_after_kaggle.py
+
+# Manual (if needed):
+python scripts/auto_resume_after_kaggle.py
+```
+
+#### 2. Kaggle Submission Handler (`scripts/orchestrator_kaggle_handler.py`)
+
+Integrates Kaggle submission into orchestrator workflow:
+
+```python
+from scripts.orchestrator_kaggle_handler import KaggleSubmissionHandler
+
+handler = KaggleSubmissionHandler()
+handler.submit_and_exit(
+    notebook_path='notebooks/real_rate_1/',
+    feature='real_rate',
+    attempt=1
+)
+# → Submits to Kaggle
+# → Starts auto-resume monitor in background
+# → Exits orchestrator (PC can be closed)
+```
+
+#### 3. Auto-Clean & Resume (`scripts/auto_clean_and_resume.py`)
+
+Cleans context and resumes after evaluation:
+
+```python
+from scripts.auto_clean_and_resume import AutoCleanResume
+
+handler = AutoCleanResume()
+handler.execute_and_exit(
+    feature='real_rate',
+    attempt=1,
+    decision='attempt+1'  # or 'no_further_improvement', 'success'
+)
+# → Commits evaluation results
+# → Cleans Claude Code context
+# → Launches new session with fresh context
+# → Exits current session
+```
+
+#### Full Automation Flow
+
+```
+[PC on] builder_model: Generate Kaggle Notebook
+  ↓
+orchestrator: KaggleSubmissionHandler.submit_and_exit()
+  - kaggle kernels push
+  - Start auto_resume_after_kaggle.py (background)
+  - git commit & push
+  - exit(0)  ← orchestrator terminates
+  ↓
+[PC off OK] auto_resume_after_kaggle.py monitors every 5 min
+  ↓
+[Kaggle complete] auto_resume_after_kaggle.py detects completion
+  - kaggle kernels output (download results)
+  - git commit & push
+  - Launch: claude-code --message "Evaluate results..."
+  ↓
+[PC on] Claude Code auto-starts → evaluator runs
+  ↓
+evaluator: Gate 1/2/3 evaluation complete
+  - Write improvement plan to current_task.json
+  - Call AutoCleanResume.execute_and_exit()
+  ↓
+AutoCleanResume:
+  - git commit & push
+  - claude clean (clear context)
+  - Launch: claude-code --message "Resume from..."
+  - exit(0)  ← evaluator terminates
+  ↓
+[New session] Claude Code starts with fresh context
+  - architect/builder_data for next attempt
+  ↓
+[Loop continues automatically]
+```
+
+#### Benefits
+
+✅ **Zero manual intervention** after initial setup
+✅ **PC can be closed** during Kaggle training (monitor runs in background)
+✅ **Memory efficient** (context cleared after each evaluation)
+✅ **Error resilient** (3-hour timeout, error notifications)
+✅ **Git persistence** (all state saved, resumable anytime)
+
+#### Configuration
+
+No additional configuration needed. Scripts auto-detect:
+- Project root from script location
+- Kaggle kernel ID from state.json
+- Feature/attempt from state.json
+- Resume point from state.json
+
 ---
 
 ## Agent Architecture

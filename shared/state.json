@@ -1,11 +1,10 @@
 {
   "status": "in_progress",
-  "phase": "1.5_smoke_test",
-  "current_feature": "real_rate",
-  "current_attempt": 5,
-  "resume_from": "architect",
+  "phase": "2_submodel_loop",
+  "current_feature": "dxy",
+  "current_attempt": 1,
+  "resume_from": "entrance",
   "feature_queue": [
-    "dxy",
     "vix",
     "technical",
     "cross_asset",
@@ -17,7 +16,7 @@
   "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T20:35:00",
+  "last_updated": "2026-02-14T18:31:38",
   "error_context": null,
   "user_action_required": null,
   "datachecker_status": null,
@@ -60,6 +59,15 @@
         "primary_failures": ["gate3_all_metrics_degraded_all_folds", "gate3_da_delta=-1.96%", "gate3_mae_delta=+0.078", "gate3_sharpe_delta=-0.219"],
         "primary_successes": ["MI_increase_10.29pct", "VIF_submodel_1.33", "stability_0.135"],
         "note": "PCA + Cubic Spline. Gate 2 PASS but Gate 3 FAIL on all metrics in all 5 folds. Monthly-to-daily frequency mismatch is fundamental. Declared no_further_improvement."
+      },
+      "attempt_5": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": false,
+        "decision": "no_further_improvement",
+        "primary_failures": ["gate3_all_metrics_degraded", "gate3_da_delta=-2.53%", "gate3_mae_delta=+0.160", "gate3_sharpe_delta=-0.709"],
+        "primary_successes": ["MI_increase_39.3pct", "VIF_true_3.08", "stability_0.132"],
+        "note": "Markov Regime + CUSUM State Features. Highest MI (+39.3%) but worst Gate 3 degradation. 7 state features gave XGBoost more noise to overfit on. 5 attempts exhausted. Proceeding to dxy."
       }
     }
   }

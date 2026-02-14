@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-02-14T18:31:38",
+  "feature": "real_rate",
+  "attempt": 5,
+  "method": "Markov Regime + CUSUM Change Points + State Features (no interpolation)",
+  "agent": "evaluator",
+  "action": "gate_evaluation",
+  "gate1_passed": true,
+  "gate2_passed": true,
+  "gate3_passed": false,
+  "decision": "no_further_improvement",
+  "key_metrics": {
+    "mi_increase_pct": 39.3,
+    "vif_true_max": 3.08,
+    "stability_max_std": 0.132,
+    "gate3_da_delta": -0.0253,
+    "gate3_mae_delta": 0.1604,
+    "gate3_sharpe_delta": -0.7095
+  },
+  "next_action": "Proceed to dxy feature (entrance agent)",
+  "attempt_consumed": true,
+  "total_attempts_used": 5,
+  "max_attempts": 5,
+  "notes": "Final attempt for real_rate. 5 fundamentally different approaches exhausted. Consistent pattern: Gate 2 passes (MI +10-39%) but Gate 3 always fails. Monthly macro regime information contains gold-relevant information but cannot improve daily prediction over base features. Base real_rate feature retained."
+}

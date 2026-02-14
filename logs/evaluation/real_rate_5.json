@@ -1,0 +1,291 @@
+{
+  "feature": "real_rate",
+  "attempt": 5,
+  "method": "Markov Regime + CUSUM Change Points + State Features (no interpolation)",
+  "timestamp": "2026-02-14T18:31:38.489107",
+  "n_samples": 2523,
+  "date_range": [
+    "2015-01-30 00:00:00",
+    "2025-02-12 00:00:00"
+  ],
+  "gate1": {
+    "passed": true,
+    "note": "Deterministic Markov+CUSUM approach. Only days_since_change has autocorr>0.99 (structural, not leak).",
+    "checks": {
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true
+      },
+      "autocorr_real_rate_days_since_change": {
+        "value": 0.997612,
+        "passed": false,
+        "note": "days_since_change is monotonically increasing between change points. High autocorrelation is expected structural behavior, not data leakage.",
+        "override": true
+      },
+      "overfit": {
+        "value": "N/A",
+        "passed": true,
+        "note": "Deterministic approach (Markov Regime + CUSUM). No train/val loss."
+      }
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "note": "MI +39.3%. VIF overridden (raw=37.4 inflated by base rank deficiency, true=3.08). Stability max_std=0.1315.",
+    "checks": {
+      "mi": {
+        "base": 0.309536,
+        "extended": 0.431187,
+        "increase": 0.393011,
+        "increase_pct": 39.3,
+        "passed": true,
+        "per_column_mi": {
+          "real_rate_regime_persistence": 0.032831,
+          "real_rate_transition_prob": 0.033091,
+          "real_rate_trend_direction": 0.006609,
+          "real_rate_trend_strength": 0.010524,
+          "real_rate_regime_sync": 0.0,
+          "real_rate_change_magnitude": 0.009186,
+          "real_rate_days_since_change": 0.028791
+        }
+      },
+      "vif": {
+        "max_raw": 37.362,
+        "max_true": 3.0763,
+        "raw_passed": false,
+        "passed": true,
+        "submodel_vifs_raw": {
+          "real_rate_regime_persistence": 37.362,
+          "real_rate_transition_prob": 2.4817,
+          "real_rate_trend_direction": 1.286,
+          "real_rate_trend_strength": 3.2131,
+          "real_rate_regime_sync": 33.5659,
+          "real_rate_change_magnitude": 3.4356,
+          "real_rate_days_since_change": 6.0027
+        },
+        "submodel_vifs_true": {
+          "real_rate_regime_persistence": 1.1333,
+          "real_rate_transition_prob": 1.1333,
+          "real_rate_trend_direction": 1.3187,
+          "real_rate_trend_strength": 1.4115,
+          "real_rate_regime_sync": 1.0949,
+          "real_rate_change_magnitude": 1.3097,
+          "real_rate_days_since_change": 3.0763
+        },
+        "note": "Raw statsmodels VIF is inflated due to rank-deficient base features (gld_close=etf_flow_gld_close, gld_volume=etf_flow_gld_volume cause VIF=inf in base). True VIF computed via manual R^2 regression. Max true VIF well below 10. Same override applied in Attempt 4 for identical structural reason.",
+        "override": true
+      },
+      "stability": {
+        "max_std": 0.1315,
+        "passed": true,
+        "details": {
+          "real_rate_regime_persistence": {
+            "std": 0.1242,
+            "mean": 0.0129
+          },
+          "real_rate_transition_prob": {
+            "std": 0.1242,
+            "mean": -0.0129
+          },
+          "real_rate_trend_direction": {
+            "std": "NaN",
+            "mean": "NaN"
+          },
+          "real_rate_trend_strength": {
+            "std": 0.1315,
+            "mean": 0.014
+          },
+          "real_rate_regime_sync": {
+            "std": "NaN",
+            "mean": "NaN"
+          },
+          "real_rate_change_magnitude": {
+            "std": 0.1259,
+            "mean": 0.0106
+          },
+          "real_rate_days_since_change": {
+            "std": 0.1238,
+            "mean": 0.0109
+          }
+        }
+      }
+    }
+  },
+  "gate3": {
+    "passed": false,
+    "checks": {
+      "direction": {
+        "delta": -0.025334,
+        "passed": false,
+        "threshold": "> +0.005"
+      },
+      "sharpe": {
+        "delta": -0.709454,
+        "passed": false,
+        "threshold": "> +0.05"
+      },
+      "mae": {
+        "delta": 0.160425,
+        "passed": false,
+        "threshold": "< -0.01"
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.496,
+      "mae": 0.8807,
+      "sharpe": 0.274
+    },
+    "extended": {
+      "direction_accuracy": 0.4706,
+      "mae": 1.0412,
+      "sharpe": -0.4354
+    },
+    "baseline_std": {
+      "direction_accuracy": 0.0259,
+      "mae": 0.1677,
+      "sharpe": 0.4928
+    },
+    "extended_std": {
+      "direction_accuracy": 0.021,
+      "mae": 0.2292,
+      "sharpe": 0.7199
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "train_size": 423,
+        "test_size": 420,
+        "baseline": {
+          "direction_accuracy": 0.5072,
+          "mae": 0.8153,
+          "sharpe": 0.6685
+        },
+        "extended": {
+          "direction_accuracy": 0.4785,
+          "mae": 1.3463,
+          "sharpe": -0.1928
+        },
+        "delta": {
+          "direction_accuracy": -0.0287,
+          "mae": 0.5311,
+          "sharpe": -0.8613
+        }
+      },
+      {
+        "fold": 2,
+        "train_size": 843,
+        "test_size": 420,
+        "baseline": {
+          "direction_accuracy": 0.5168,
+          "mae": 0.5919,
+          "sharpe": 0.3435
+        },
+        "extended": {
+          "direction_accuracy": 0.5048,
+          "mae": 0.6591,
+          "sharpe": 0.1368
+        },
+        "delta": {
+          "direction_accuracy": -0.012,
+          "mae": 0.0672,
+          "sharpe": -0.2066
+        }
+      },
+      {
+        "fold": 3,
+        "train_size": 1263,
+        "test_size": 420,
+        "baseline": {
+          "direction_accuracy": 0.4713,
+          "mae": 0.9913,
+          "sharpe": 0.7029
+        },
+        "extended": {
+          "direction_accuracy": 0.4498,
+          "mae": 1.183,
+          "sharpe": 0.1497
+        },
+        "delta": {
+          "direction_accuracy": -0.0215,
+          "mae": 0.1917,
+          "sharpe": -0.5532
+        }
+      },
+      {
+        "fold": 4,
+        "train_size": 1683,
+        "test_size": 420,
+        "baseline": {
+          "direction_accuracy": 0.5251,
+          "mae": 0.9286,
+          "sharpe": 0.3131
+        },
+        "extended": {
+          "direction_accuracy": 0.4726,
+          "mae": 0.9831,
+          "sharpe": -1.7997
+        },
+        "delta": {
+          "direction_accuracy": -0.0525,
+          "mae": 0.0545,
+          "sharpe": -2.1128
+        }
+      },
+      {
+        "fold": 5,
+        "train_size": 2103,
+        "test_size": 420,
+        "baseline": {
+          "direction_accuracy": 0.4595,
+          "mae": 1.0767,
+          "sharpe": -0.6579
+        },
+        "extended": {
+          "direction_accuracy": 0.4476,
+          "mae": 1.0343,
+          "sharpe": -0.4712
+        },
+        "delta": {
+          "direction_accuracy": -0.0119,
+          "mae": -0.0423,
+          "sharpe": 0.1867
+        }
+      }
+    ],
+    "folds_improved": {
+      "direction_accuracy": 0,
+      "mae": 1,
+      "sharpe": 1
+    }
+  },
+  "overall_passed": "False",
+  "final_gate_reached": 3,
+  "decision": "no_further_improvement",
+  "decision_reason": "Gate 2 PASS, Gate 3 FAIL. 5 attempts exhausted across 5 fundamentally different approaches: (1) MLP (overfit), (2) GRU (no convergence), (3) Transformer (MI+23.8% but MAE degradation), (4) PCA+Spline (all metrics degraded), (5) StateFeatures (current). Information exists in real rate dynamics (consistent Gate 2 MI increase across all attempts) but cannot be extracted in a form that improves daily gold return prediction via XGBoost ablation. Base real_rate feature retained. Proceeding to dxy.",
+  "attempt_history_summary": {
+    "attempt_1": "MLP, US-only. Gate 1 FAIL (overfit=2.69), Gate 2 PASS (+18.5%), Gate 3 FAIL.",
+    "attempt_2": "GRU, US-only. All 20 Optuna trials pruned. No convergence.",
+    "attempt_3": "Transformer, multi-country. Gate 1 PASS (1.28), Gate 2 PASS (+23.8%), Gate 3 FAIL (MAE +0.42%).",
+    "attempt_4": "PCA + Cubic Spline. Gate 1 N/A, Gate 2 PASS (+10.29%), Gate 3 FAIL (all metrics degraded).",
+    "attempt_5": "Markov Regime + CUSUM State Features. Gate 1 PASS, Gate 2 PASS (MI +39.3%), Gate 3 FAIL."
+  },
+  "cross_attempt_comparison": {
+    "gate2_mi_increase": {
+      "attempt_1": "+18.5%",
+      "attempt_3": "+23.8%",
+      "attempt_4": "+10.29%",
+      "attempt_5": "+39.3%"
+    },
+    "gate3_da_delta": {
+      "attempt_1": "unknown (failed Gate 1)",
+      "attempt_3": "-0.48%",
+      "attempt_4": "-1.96%",
+      "attempt_5": "-2.53%"
+    },
+    "conclusion": "All approaches that reached Gate 2 showed significant MI increase (10-39%), confirming information in real rate dynamics. However, none improved XGBoost ablation metrics. The fundamental issue is that monthly macro regime information does not help predict daily gold returns when base features already contain the direct real rate level."
+  }
+}

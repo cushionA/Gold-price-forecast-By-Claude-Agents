@@ -1,13 +1,13 @@
 {
   "real_rate": {
     "status": "no_further_improvement",
-    "final_attempt": 4,
+    "final_attempt": 5,
     "final_gate_reached": 3,
     "gate3_scores": null,
     "output_columns": [],
     "output_path": null,
     "model_path": null,
-    "completed_at": "2026-02-14T19:00:00",
-    "reason": "4 attempts exhausted (MLP, GRU, Transformer, PCA). Gate 2 consistently passes (MI +10-24%) but Gate 3 consistently fails. Root cause: monthly-to-daily frequency mismatch adds noise to daily prediction. Base real_rate feature retained."
+    "completed_at": "2026-02-14T18:31:38",
+    "reason": "5 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures). Gate 2 consistently passes (MI +10-39%) but Gate 3 consistently fails. Root cause: monthly macro regime information cannot improve daily gold return prediction when base features already contain the direct real rate level. Base real_rate feature retained."
   }
 }
