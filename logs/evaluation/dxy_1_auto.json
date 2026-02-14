@@ -1,0 +1,8 @@
+{
+  "feature": "dxy",
+  "attempt": 1,
+  "timestamp": "2026-02-14T19:54:35.940022",
+  "decision": "attempt+1",
+  "best_mi": -999.0,
+  "training_method": "GMM + Rolling PCA + Realized Vol Z-Score"
+}
