@@ -1,182 +1,128 @@
 {
-  "feature": "real_rate",
-  "attempt": 5,
-  "phase": "smoke_test",
-  "source": "user_insight",
-  "approach": "hmm_wavelet_changepoint_persistence",
+  "feature": "dxy",
+  "attempt": 1,
+  "source": "entrance",
+  "phase": "phase2_submodel",
 
-  "objective": "Extract interest rate regime persistence, trend direction, and change point features from multi-country monthly data. Address the fundamental frequency mismatch by modeling 'persistence and direction of changes' rather than interpolating monthly values to daily.",
+  "objective": "Extract dollar momentum regime, cross-currency divergence, and volatility state features from DXY and its 6 constituent currency pairs. Exploit the daily-frequency advantage that real_rate lacked to provide actionable context beyond the raw DXY level already in base features.",
 
-  "user_insight": "Interest rates don't change frequently (FOMC meets 8x/year, monthly data releases). Daily interpolation creates noise that degrades MAE. The key question is: 'Is this rate change transient or persistent?' Model the meta-features (persistence, direction, regime) rather than the raw interpolated values.",
+  "requirements": "Build a submodel that captures: (1) DXY momentum regime (trending vs mean-reverting periods), (2) cross-currency agreement/divergence (are all 6 components moving together, or is EUR driving DXY while JPY diverges?), (3) dollar volatility regime (calm vs turbulent). Output 2-4 daily features that enrich the meta-model's understanding of USD dynamics beyond the raw level.",
 
-  "requirements": "Build a deterministic feature engineering pipeline using: (1) Hidden Markov Model (HMM) to detect rate regimes (rising/stable/falling) and compute regime persistence probabilities, (2) Wavelet decomposition (DWT) to extract long-term trend components and trend strength, (3) Change Point Detection to identify when rates meaningfully change and compute time since last change. Output 5-8 daily features that describe regime state and trend characteristics without interpolating raw monthly values.",
-
-  "recommended_features": [
-    "regime_persistence_score: Average probability that current HMM regime will persist (0-1)",
-    "trend_strength: Magnitude of long-term Wavelet trend component (normalized)",
-    "trend_direction: Direction of trend (-1/0/+1 for falling/stable/rising)",
-    "days_since_last_change: Days elapsed since last detected change point",
-    "change_magnitude: Absolute size of last change (in standard deviations)",
-    "cross_country_regime_sync: Proportion of countries in the same regime (0-1)",
-    "regime_transition_probability: Probability of regime change in next period",
-    "trend_acceleration: Second derivative of trend (rate of change of change)"
-  ],
-
-  "previous_feedback": {
-    "attempt_1": {
-      "architecture": "MLP Autoencoder (US-only)",
-      "gate1": false,
-      "gate2": true,
-      "gate3": false,
-      "failures": ["overfit_ratio=2.69", "autocorr>0.99", "identity_mapping", "gate3_no_improvement"],
-      "successes": ["MI_increase=18.5%", "VIF<10", "correlation_stable"],
-      "diagnosis": "Single-country MLP overfits and learns identity mapping."
-    },
-    "attempt_2": {
-      "architecture": "GRU Autoencoder (US-only)",
-      "gate1": null,
-      "gate2": null,
-      "gate3": null,
-      "failures": ["optuna_all_trials_pruned", "gru_convergence_failure"],
-      "diagnosis": "GRU failed to converge. Single-country approach insufficient."
-    },
-    "attempt_3": {
-      "architecture": "Multi-Country Transformer Autoencoder (GPU)",
-      "gate1": true,
-      "gate2": true,
-      "gate3": false,
-      "failures": ["gate3_mae_degradation_all_folds", "gate3_da_marginal_miss", "gate3_sharpe_unstable"],
-      "successes": ["overfit_ratio=1.28", "MI_increase=23.8%", "30_optuna_trials", "convergence_ok"],
-      "key_metrics": {
-        "overfit_ratio": 1.277,
-        "mi_increase_pct": 23.84,
-        "gate3_da_delta_cv": 0.004834,
-        "gate3_sharpe_delta_cv": 0.276706,
-        "gate3_mae_delta_cv": 0.417986
-      },
-      "diagnosis": "Multi-country Transformer solves overfitting and extracts more information (Gate 1/2 PASS). However, monthly-to-daily forward-fill creates step-function outputs that degrade MAE in all 5 CV folds. The information exists (23.8% MI increase) but the output format prevents XGBoost from exploiting it.",
-      "root_causes": [
-        "Step-function output from forward-fill hurts point prediction (MAE)",
-        "Only 188 monthly training samples for 98K-parameter model",
-        "3 of 5 latent dimensions have zero mutual information with gold returns",
-        "Synthetic real rates (0.49 correlation) add noise"
-      ]
-    },
-    "attempt_4": {
-      "architecture": "PCA + Cubic Spline Interpolation",
-      "gate1": true,
-      "gate2": true,
-      "gate3": false,
-      "failures": ["gate3_all_metrics_degraded_all_folds", "gate3_da_delta=-1.96%", "gate3_mae_delta=+0.078", "gate3_sharpe_delta=-0.219"],
-      "successes": ["MI_increase=10.29%", "VIF_submodel=1.33", "stability=0.135", "deterministic", "fast"],
-      "diagnosis": "PCA + Cubic Spline reduced MAE degradation vs Attempt 3 (0.078 vs 0.42) but still failed Gate 3 in all 5 folds. Even smooth interpolation adds noise. The fundamental issue is interpolating monthly values to daily frequency.",
-      "root_cause": "ANY interpolation of monthly data to daily creates synthetic values that add noise to daily predictions. The problem is not the interpolation method (forward-fill vs cubic spline) but the interpolation itself."
-    },
-    "pattern": "All 4 attempts consistently pass Gate 2 (information exists at monthly frequency) but fail Gate 3 (interpolation to daily adds noise). The breakthrough insight: don't interpolate the raw values - extract meta-features (persistence, direction) that can be referenced daily without creating synthetic noise."
+  "theoretical_background": {
+    "why_dxy_matters": "Gold is priced in USD. A stronger dollar mechanically reduces gold's USD price. But the relationship is not constant: during risk-off events, both USD and gold can rise simultaneously (safe-haven co-movement). The submodel should capture WHEN the standard inverse relationship holds vs breaks down.",
+    "what_base_feature_provides": "dxy_dxy is the raw DXY close price (single daily value). It tells the meta-model the current dollar level but not: (a) whether the dollar is in a trending or mean-reverting regime, (b) whether all constituent currencies agree on USD direction, (c) whether FX volatility is elevated.",
+    "what_submodel_adds": "Context about the dollar's DYNAMICS and STRUCTURE that a single level reading cannot convey. A DXY at 95 in a strong uptrend with high cross-currency agreement has very different implications for gold than DXY at 95 oscillating in a range with divergent currency signals.",
+    "multi_currency_advantage": "DXY is a weighted index of 6 currencies (EUR 57.6%, JPY 13.6%, GBP 11.9%, CAD 9.1%, SEK 4.2%, CHF 3.6%). Decomposing into individual pairs reveals hidden structure: e.g., EUR weakening while JPY strengthens signals different macro regimes than both weakening together."
   },
 
-  "critical_design_constraints": [
-    "DO NOT interpolate monthly rate values to daily (no forward-fill, no spline, no any interpolation of raw values)",
-    "Extract meta-features from monthly data that describe state/regime/trend",
-    "These meta-features can be held constant or slowly updated on a daily basis without creating step-function noise",
-    "Example: 'regime persistence = 0.85' can be referenced every day until the next monthly update",
-    "Output must not degrade MAE in Gate 3 ablation (this is the critical failure point)"
+  "data_strategy": {
+    "primary_data": {
+      "source": "Yahoo Finance",
+      "ticker": "DX-Y.NYB",
+      "frequency": "daily",
+      "available_from": "2015-01-02",
+      "note": "Already in data/raw/dxy.csv"
+    },
+    "expansion_data": {
+      "source": "Yahoo Finance",
+      "tickers": [
+        {"symbol": "EURUSD=X", "weight_in_dxy": 0.576, "note": "Largest DXY component"},
+        {"symbol": "JPY=X", "weight_in_dxy": 0.136, "note": "USD/JPY"},
+        {"symbol": "GBPUSD=X", "weight_in_dxy": 0.119, "note": "GBP/USD"},
+        {"symbol": "CAD=X", "weight_in_dxy": 0.091, "note": "USD/CAD"},
+        {"symbol": "SEK=X", "weight_in_dxy": 0.042, "note": "USD/SEK"},
+        {"symbol": "CHF=X", "weight_in_dxy": 0.036, "note": "USD/CHF"}
+      ],
+      "frequency": "daily",
+      "note": "All daily -- NO interpolation needed. This is the critical advantage over real_rate."
+    },
+    "expected_samples": "~2500 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)"
+  },
+
+  "research_questions": [
+    "What methods are most effective for detecting momentum vs mean-reversion regimes in FX markets? Candidates: Hidden Markov Model, threshold autoregressive model (TAR), Markov-switching model. Which has the best track record for daily FX data?",
+    "How to quantify cross-currency divergence within a currency index? Candidates: PCA on daily currency returns (PC1 = common factor, residuals = divergence), pairwise correlation rolling window, dispersion index (std of individual currency returns). Which provides the most informative signal?",
+    "What is the empirical evidence on DXY-gold correlation regime shifts? When does the standard negative correlation break down (e.g., 2008 crisis, 2020 COVID)? How frequent are these regime shifts?",
+    "What lookback windows are appropriate for FX momentum and volatility features? Literature suggests 5/10/20/60 day windows. Is there consensus on optimal lookback for gold-relevant FX signals?",
+    "Are there known seasonality or day-of-week effects in DXY that could create spurious patterns? Should we control for these?",
+    "What is the relationship between FX implied volatility and gold returns? Can realized volatility of currency pairs serve as a useful proxy?",
+    "How should cross-currency features be normalized to avoid VIF issues with the raw dxy_dxy base feature? The submodel output must have VIF < 10 against existing base features."
   ],
 
-  "technical_approach": {
-    "step_1_hmm": {
-      "method": "Gaussian Hidden Markov Model with 3 states",
-      "library": "hmmlearn (scikit-learn compatible)",
-      "input": "Monthly rate changes (first differences) for each country",
-      "output_per_country": [
-        "current_regime: 0/1/2 (falling/stable/rising)",
-        "regime_persistence: P(stay in current regime)",
-        "transition_prob: P(switch to another regime)"
-      ],
-      "daily_handling": "Hold regime state constant between monthly updates (not interpolated, just constant)"
+  "candidate_approaches": {
+    "approach_A_regime_features": {
+      "description": "Markov-Switching Model on DXY returns to detect 2-3 regimes (strong trend / range-bound / volatile). Output regime probabilities as daily features.",
+      "pros": "Well-established in FX literature, directly captures what base feature misses",
+      "cons": "Single-series approach, does not use multi-currency info"
     },
-    "step_2_wavelet": {
-      "method": "Discrete Wavelet Transform (DWT) with Daubechies wavelet",
-      "library": "pywt (PyWavelets)",
-      "input": "Monthly rate time series for each country",
-      "output_per_country": [
-        "long_term_trend: Approximation coefficients (low-frequency component)",
-        "trend_strength: L2 norm of approximation coefficients",
-        "trend_direction: Sign of recent trend slope"
-      ],
-      "daily_handling": "Hold constant between monthly updates"
+    "approach_B_pca_divergence": {
+      "description": "PCA on daily returns of 6 constituent currencies. PC1 captures common USD movement, residual variance captures cross-currency divergence. Output PC1 loading strength + divergence ratio.",
+      "pros": "Exploits multi-currency structure, deterministic, no overfitting risk",
+      "cons": "PCA is linear, may miss nonlinear regime patterns"
     },
-    "step_3_changepoint": {
-      "method": "CUSUM or Ruptures library for change point detection",
-      "input": "Monthly rate changes for all countries (stacked)",
-      "output_global": [
-        "days_since_last_change: Days since last detected change point",
-        "change_magnitude: Size of last change in standard deviations",
-        "change_acceleration: Second derivative (rate of change of change)"
-      ],
-      "daily_handling": "Increment 'days_since_last_change' daily; other values constant until next change"
-    },
-    "step_4_aggregation": {
-      "method": "Aggregate per-country features into global regime indicators",
-      "output": [
-        "regime_sync: Proportion of countries in same regime",
-        "avg_persistence: Mean persistence probability across countries",
-        "avg_trend_strength: Mean trend strength across countries"
-      ]
+    "approach_C_hybrid": {
+      "description": "Combine regime detection (HMM/Markov-switching on DXY) with cross-currency divergence (PCA residual). Output 3-4 features: regime_state, regime_probability, cross_currency_divergence, fx_volatility_state.",
+      "pros": "Captures both temporal dynamics and structural decomposition",
+      "cons": "More complex, but daily data makes this feasible"
     }
   },
 
-  "output_schema": {
-    "columns": [
-      "real_rate_regime_persistence",
-      "real_rate_trend_strength",
-      "real_rate_trend_direction",
-      "real_rate_days_since_change",
-      "real_rate_change_magnitude",
-      "real_rate_regime_sync",
-      "real_rate_transition_prob"
-    ],
-    "shape": "3667 rows (daily) × 5-8 columns",
-    "properties": [
-      "No NaN values",
-      "No interpolation of raw monthly values",
-      "Features describe regime/state, not raw rates",
-      "Can be held constant or slowly updated daily without creating noise"
-    ]
-  },
-
-  "success_criteria": {
-    "gate1": "N/A (deterministic, no training)",
-    "gate2": "MI increase > 5%",
-    "gate3": "Any one of: DA +0.5%, Sharpe +0.05, MAE -0.01%. CRITICAL: MAE must not degrade."
-  },
-
-  "expected_outcome": {
-    "hypothesis": "Regime persistence and trend direction provide actionable information for daily trading without the noise of interpolated values. 'Rate regime has been falling for 45 days with 85% persistence probability' is more useful than 'interpolated rate today is 2.43%'.",
-    "gate2_expectation": "PASS (information exists, as proven by Attempts 3 and 4)",
-    "gate3_expectation": "PASS (no interpolation noise, features describe meta-properties)",
-    "if_fails": "Declare no_further_improvement and proceed to dxy. 5 attempts is sufficient validation."
-  },
-
-  "libraries_required": [
-    "hmmlearn (pip install hmmlearn)",
-    "pywt (pip install PyWavelets)",
-    "ruptures (pip install ruptures)"
+  "constraints": [
+    "All data is daily frequency -- NO monthly-to-daily interpolation permitted (key lesson from real_rate)",
+    "5-day data delay rule: All Yahoo Finance daily FX data is same-day or T+1, well within limit",
+    "Submodel does NOT predict gold prices -- it extracts USD regime/structure features",
+    "Output must have VIF < 10 against existing base features (especially raw dxy_dxy)",
+    "Maximum 2-4 output columns to avoid noise amplification (real_rate lesson: 7 columns caused worst Gate 3 degradation)",
+    "Output must not have autocorrelation > 0.99 (real_rate attempt 1 failure)",
+    "Features must be computable at inference time without lookahead bias"
   ],
 
-  "execution_plan": {
-    "estimated_time": "10-30 seconds (deterministic, no training)",
-    "kaggle_required": false,
-    "steps": [
-      "Load multi-country monthly data from data/multi_country/",
-      "Fit HMM on monthly rate changes → extract regimes",
-      "Apply DWT on monthly rate series → extract trends",
-      "Detect change points on monthly data → identify events",
-      "Aggregate into 5-8 daily features (held constant between months)",
-      "Save to data/submodel_outputs/real_rate.csv",
-      "Run Gate 2/3 evaluation"
+  "output_schema": {
+    "target_columns": 3,
+    "target_range": "2-4 columns",
+    "candidate_columns": [
+      "dxy_momentum_regime: Probability of being in trending regime (0-1). Low autocorrelation expected since regimes switch.",
+      "dxy_cross_currency_divergence: Measure of disagreement among DXY component currencies (0-1 normalized). When high, DXY is being driven by one currency rather than broad USD strength/weakness.",
+      "dxy_volatility_state: Realized FX volatility relative to historical norm (z-score or percentile). Elevated volatility often precedes gold price dislocations."
+    ],
+    "properties": [
+      "All daily frequency, no interpolation",
+      "No NaN values (after warmup period)",
+      "Low multicollinearity with raw dxy_dxy",
+      "Statistically meaningful (not just transformations of the level)"
     ]
   },
 
-  "created_at": "2026-02-14T20:35:00"
+  "success_hypothesis": "DXY momentum regime and cross-currency divergence features, computed at daily frequency without interpolation, will provide the meta-model with USD context that improves direction accuracy by +0.5% or more. The daily-frequency advantage eliminates the root cause of real_rate's 5-attempt failure.",
+
+  "success_criteria": {
+    "gate1": {
+      "overfit_ratio": "< 1.5 (if neural network used; N/A if deterministic)",
+      "no_constant_output": true,
+      "autocorrelation": "< 0.99 for all output columns"
+    },
+    "gate2": {
+      "mi_increase": "> 5% (sum-based)",
+      "vif": "< 10 for all submodel output columns",
+      "rolling_correlation_std": "< 0.15"
+    },
+    "gate3": {
+      "direction_accuracy_delta": "> +0.5%",
+      "or_sharpe_delta": "> +0.05",
+      "or_mae_delta": "< -0.01%",
+      "note": "Any ONE of these three is sufficient to pass"
+    }
+  },
+
+  "lessons_from_real_rate": {
+    "lesson_1_frequency": "Monthly-to-daily interpolation was the root cause of all 5 real_rate failures. DXY data is daily -- this problem is eliminated.",
+    "lesson_2_output_dimensionality": "More output columns gave XGBoost more noise dimensions to overfit on. Attempt 5 (7 columns) performed worse than Attempt 4 (2 columns) despite higher MI. Target 2-4 columns maximum.",
+    "lesson_3_gate2_not_sufficient": "Gate 2 pass (MI increase) does NOT guarantee Gate 3 pass. All 5 real_rate attempts passed Gate 2 but failed Gate 3. Information must be in a form XGBoost can exploit without overfitting.",
+    "lesson_4_vif_override": "Base features have existing multicollinearity (gld_close = etf_flow_gld_close). VIF must be computed carefully, using true R^2 regression if needed.",
+    "lesson_5_deterministic_ok": "Deterministic approaches (PCA, state features) can pass Gate 1 trivially. If the researcher finds strong evidence for a deterministic approach, prefer it over neural networks for Attempt 1."
+  },
+
+  "previous_feedback": null,
+
+  "created_at": "2026-02-14T21:00:00"
 }

@@ -3,7 +3,7 @@
   "phase": "2_submodel_loop",
   "current_feature": "dxy",
   "current_attempt": 1,
-  "resume_from": "entrance",
+  "resume_from": "researcher",
   "feature_queue": [
     "vix",
     "technical",
@@ -16,7 +16,7 @@
   "completed_features": [],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-14T18:31:38",
+  "last_updated": "2026-02-14T21:00:00",
   "error_context": null,
   "user_action_required": null,
   "datachecker_status": null,
