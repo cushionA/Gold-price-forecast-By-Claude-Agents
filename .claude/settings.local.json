@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\tatuk\\\\Desktop\\\\Gold-price-forecast-By-Claude-Agents\\\\shared\"\" 2>nul || echo \"shared directory does not exist \")"
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+# 金相場予測モデル - 設定ファイル v5
+
+data:
+  start_date: "2005-01-01"
+  end_date: "2026-12-31"
+  target: "gold_return_1d"
+  gold_ticker: "GC=F"
+  gld_ticker: "GLD"
+  random_seed: 42
+
+features:
+  real_rate:
+    source: "FRED"
+    series_id: "DFII10"
+    note: "yield_curve(DGS10)と相関が高い。VIFチェック注意"
+  dxy:
+    source: "yahoo"
+    ticker: "DX-Y.NYB"
+  vix:
+    source: "FRED"
+    series_id: "VIXCLS"
+  technical:
+    source: "yahoo"
+    tickers: ["GC=F", "GLD"]
+  cross_asset:
+    source: "yahoo"
+    tickers: ["SI=F", "HG=F", "^GSPC", "^TNX"]
+  yield_curve:
+    source: "FRED"
+    series_ids: ["DGS10", "DGS2", "DGS30"]
+    note: "real_rate(DFII10)と相関が高い。VIFチェック注意"
+  etf_flow:
+    source: "yahoo"
+    ticker: "GLD"
+    proxy: "volume + shares_outstanding変化率"
+    note: "Yahoo Financeから取得可能なのはvolumeとprice。真のETF純流入出額は取得困難なため、volume異常値とshares outstanding変化率を代理指標として使用"
+  inflation_expectation:
+    source: "FRED"
+    series_id: "T10YIE"
+    note: "10年Breakeven Inflation Rate。TIPS利回り(DFII10)に含まれるが独立した変動パターンを持つ"
+  cny_demand:
+    source: "yahoo"
+    ticker: "CNY=X"
+    note: "中国需要の代理指標。金需要の約30%は中国。上海プレミアムの代理としてCNY/USD為替を使用"
+
+# PyTorch共通設定
+pytorch:
+  device: "cpu"
+  seed: 42
+  default_max_epochs: 200
+  default_patience: 10
+  default_batch_size: 64
+
+# Optuna共通設定
+optuna:
+  default_n_trials: 50
+  default_timeout: 600
+  pruner: "MedianPruner"
+  pruner_n_warmup_steps: 5
+
+# 認証情報（実際の値は .env / Kaggle Secrets に設定）
+credentials:
+  fred:
+    env_var: "FRED_API_KEY"
+    kaggle_secret: "FRED_API_KEY"
+    required: true
+    obtain_url: "https://fred.stlouisfed.org/docs/api/api_key.html"
+  kaggle:
+    env_var: "KAGGLE_API_TOKEN"
+    required: true
+    obtain_url: "https://www.kaggle.com/docs/api"
+  # 将来追加されるAPIキーはここに定義
+  # researcher/architectが新規APIを推奨した場合、
+  # orchestratorはこのセクションを確認し、
+  # 未登録なら waiting_user_input で停止する
+
+# Kaggle設定
+kaggle:
+  username: "${KAGGLE_USERNAME}"       # .env から取得
+  enable_gpu: false                    # デフォルト。architectが変更可能
+  enable_internet: true
+  poll_interval_seconds: 30
+  max_wait_seconds: 3600
+  max_script_retries: 3                # Kaggleエラー時の再試行上限
+
+# Gate 3ベースライン比較用
+baseline:
+  model: "xgboost"
+  params:
+    n_estimators: 200
+    max_depth: 4
+    learning_rate: 0.05
+
+# データ分割（時系列順）
+data_split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+# 評価設定
+evaluation:
+  time_series_splits: 5
+  transaction_cost_bps: 5  # 片道5bps（往復10bps）をSharpe計算に組込
+
+# 最終目標値
+targets:
+  direction_accuracy: 0.56
+  high_confidence_accuracy: 0.60
+  mae: 0.0075
+  sharpe: 0.8
+
+# ループ制御
+loop:
+  max_attempts_per_feature: 5
+  no_improvement_threshold: 0.001
+  no_improvement_consecutive: 3
+  max_datacheck_retries: 3
+
+# 多国籍データ
+multinational:
+  g10_countries: ["US", "GB", "DE", "JP", "CA", "AU", "NZ", "CH", "NO", "SE"]

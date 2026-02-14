@@ -1,0 +1,13 @@
+{
+  "status": "not_started",
+  "phase": null,
+  "current_feature": null,
+  "current_attempt": null,
+  "resume_from": null,
+  "feature_queue": ["real_rate", "dxy", "vix", "technical", "cross_asset", "yield_curve", "etf_flow", "inflation_expectation", "cny_demand"],
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": null,
+  "error_context": null,
+  "user_action_required": null
+}
