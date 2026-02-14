@@ -1,0 +1,56 @@
+================================================================================
+DATACHECKER LOG: real_rate Attempt 1
+================================================================================
+Timestamp: 2026-02-14T13:57:57.565245
+Feature: real_rate
+Attempt: 1
+
+
+MISSING_VALUES
+--------------------------------------------------------------------------------
+OK
+Passed: True
+
+OUTLIERS_ANOMALIES
+--------------------------------------------------------------------------------
+OK
+Passed: True
+
+FUTURE_LEAK
+--------------------------------------------------------------------------------
+WARNING: Column 'change_1d' has corr[lag0]=1.0000, corr[lag1]=0.0519 - possible duplication
+Passed: True
+
+CORRELATION
+--------------------------------------------------------------------------------
+OK
+Passed: True
+
+SCHEMA_ALIGNMENT
+--------------------------------------------------------------------------------
+OK
+Passed: True
+
+DATA_INTEGRITY
+--------------------------------------------------------------------------------
+OK
+Passed: True
+
+FEATURE_STATISTICS
+--------------------------------------------------------------------------------
+WARNING: Column 'change_1d' has high kurtosis: 7.23
+WARNING: Column 'rolling_std_20d' has high kurtosis: 7.69
+Passed: True
+
+================================================================================
+SUMMARY
+================================================================================
+Critical Issues: 0
+
+Warnings: 3
+  - WARNING: Column 'change_1d' has corr[lag0]=1.0000, corr[lag1]=0.0519 - possible duplication
+  - WARNING: Column 'change_1d' has high kurtosis: 7.23
+  - WARNING: Column 'rolling_std_20d' has high kurtosis: 7.69
+
+Final Action: PASS
+Overall Passed: True
