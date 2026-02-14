@@ -1,0 +1,102 @@
+VIX DATA PREPROCESSING SUMMARY
+Generated: 2026-02-14
+Feature: VIX (Attempt 1)
+================================================================================
+
+DATA SOURCES
+------------
+Primary: FRED VIXCLS (VIX Closing Price)
+Fallback: Yahoo Finance ^VIX (not used - FRED successful)
+Fetch script: src/fetch_vix.py
+
+DATE RANGE
+----------
+Target range: 2015-01-30 to 2025-02-12 (matching base_features schema_freeze)
+Actual range: 2015-01-30 to 2025-02-12 ✓
+Total rows: 2,619
+
+Note: Row count (2,619) exceeds base_features (2,523) because VIX includes all
+trading days while gold may have different trading calendar. This is expected
+and will be handled during feature generation by date-based merge.
+
+DATA QUALITY CHECKS
+-------------------
+✓ PASS: No gaps > 3 consecutive days (max gap: 3 days)
+✓ PASS: Missing data < 2% (0% missing for vix and vix_log_change)
+✓ PASS: VIX values in reasonable range [8, 90] (actual: 9.14 to 82.69)
+✓ ACCEPTABLE: 3 extreme log-changes (|change| > 0.5) - real market events
+  - 2018-02-05: VIX 37.32 (Volmageddon)
+  - 2024-08-05: VIX 38.57 (Carry trade unwind)
+  - 2024-12-18: VIX 27.62 (FOMC policy shift)
+✓ PASS: Date range alignment with schema_freeze
+✓ PASS: Log-change calculation verified (max error < 1e-8)
+
+PREPROCESSING STEPS COMPLETED
+------------------------------
+1. Fetched VIXCLS from FRED (2014-10-01 to 2026-02-12, 2,967 rows)
+2. Sorted by date and handled missing values (forward-fill up to 3 days)
+3. Computed log-changes: log(VIX_t) - log(VIX_t-1)
+4. Filtered to target date range (2015-01-30 to 2025-02-12)
+5. Verified data quality against design specification
+6. Saved to data/processed/vix_processed.csv
+
+OUTPUT FILES
+------------
+Raw data:        data/raw/vix.csv
+Processed data:  data/processed/vix_processed.csv
+Metadata:        data/processed/vix_metadata.json
+Fetch script:    src/fetch_vix.py
+
+COLUMNS
+-------
+1. date          - Trading date (datetime)
+2. vix           - VIX closing level (float)
+3. vix_log_change - log(VIX_t) - log(VIX_t-1) (float)
+
+STATISTICS
+----------
+VIX Level:
+  Mean:   18.22
+  Median: 16.27
+  Std:    7.23
+  Min:    9.14
+  Max:    82.69
+  Q1:     13.34
+  Q3:     21.27
+
+VIX Log-Change:
+  Mean:   -0.000063 (near-zero drift, as expected)
+  Median: -0.004715
+  Std:    0.078491 (~7.8% typical daily volatility)
+  Min:    -0.330681 (-28% single-day drop)
+  Max:    0.768245  (+116% single-day spike, 2018-02-05 Volmageddon)
+  Autocorrelation (lag 1): -0.0522 (low, confirming mean-reverting behavior)
+
+DESIGN COMPLIANCE
+-----------------
+✓ Daily frequency data (no interpolation artifacts like real_rate)
+✓ No missing values after preprocessing
+✓ Log-transform applied for HMM input normalization
+✓ Date range matches base_features schema
+✓ VIX statistics align with expected range (long-term mean ~18-20)
+✓ Extreme events identified and documented (not removed - real data)
+
+NEXT STEPS
+----------
+1. Pass to datachecker for standardized 7-step validation
+2. If datachecker PASS: builder_model generates Kaggle training script
+3. Training will use this data to generate 3 submodel outputs:
+   - vix_regime_probability (HMM)
+   - vix_mean_reversion_z (rolling z-score)
+   - vix_persistence (rolling autocorrelation)
+
+NOTES
+-----
+- VIX data is cleaner than real_rate (daily frequency, no interpolation)
+- Extreme spikes are documented market events, not data errors
+- Row count difference from base_features is expected (calendar alignment)
+- Log-change autocorrelation of -0.052 confirms mean-reverting dynamics
+  (consistent with VIX theoretical properties)
+
+READY FOR DATACHECKER: YES
+================================================================================
