@@ -1,0 +1,122 @@
+[{"stream_name":"stderr","time":8.234289183,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.234434832,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.234451395,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.234455477,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.898945075,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.898979202,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.898983931,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.8989876,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.232642668,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":13.232675795,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stdout","time":13.232681054,"data":"Started: 2026-02-15T12:57:51.236753\n"}
+,{"stream_name":"stdout","time":13.256275261,"data":"Features defined: 22 features\n"}
+,{"stream_name":"stdout","time":13.435262,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":13.435285139,"data":"FETCHING RAW DATA VIA APIS\n"}
+,{"stream_name":"stdout","time":13.435290196,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.533044492,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":16.592449482,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":16.60811202,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":16.643601977,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":16.644983327,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":16.646904536,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.648020143,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.657251744,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":16.677640382,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":16.735737625,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":16.735776051,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":16.735781483,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":16.73578556,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":16.7357899,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":16.735814462,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.735820742,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.735825177,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":16.735829645,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":18.673879614,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.700432119,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.87600401,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.876035536,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.87604092,"data":"OK: FRED API key loaded (embedded)\n"}
+,{"stream_name":"stdout","time":18.876045027,"data":"\n"}
+,{"stream_name":"stdout","time":18.876049087,"data":"Fetching base features...\n"}
+,{"stream_name":"stderr","time":19.922919507,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":19.922945958,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":19.922950849,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":19.923081722,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":19.923102349,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":19.923305885,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":19.92371696,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":19.923726951,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":19.923731434,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":19.923735199,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":19.923739191,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":19.923743243,"data":"/tmp/ipykernel_24/1763765730.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":19.923748244,"data":"     36 gold_ret = gold['Close'].pct_change() * 100  # Convert to %\n"}
+,{"stream_name":"stderr","time":19.923752104,"data":"     37 gold_ret_next = gold_ret.shift(-1)  # Next-day return\n"}
+,{"stream_name":"stderr","time":19.923755514,"data":"---\u003e 38 gold_df = pd.DataFrame({'gold_return_next': gold_ret_next}, index=gold.index)\n"}
+,{"stream_name":"stderr","time":19.923759188,"data":"     39 \n"}
+,{"stream_name":"stderr","time":19.92376279,"data":"     40 # Real rate (10Y TIPS)\n"}
+,{"stream_name":"stderr","time":19.923766147,"data":"\n"}
+,{"stream_name":"stderr","time":19.923769436,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py in __init__(self, data, index, columns, dtype, copy)\n"}
+,{"stream_name":"stderr","time":19.923785562,"data":"    776         elif isinstance(data, dict):\n"}
+,{"stream_name":"stderr","time":19.923789146,"data":"    777             # GH#38939 de facto copy defaults to False only in non-dict cases\n"}
+,{"stream_name":"stderr","time":19.923792572,"data":"--\u003e 778             mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)\n"}
+,{"stream_name":"stderr","time":19.92379626,"data":"    779         elif isinstance(data, ma.MaskedArray):\n"}
+,{"stream_name":"stderr","time":19.923799765,"data":"    780             from numpy.ma import mrecords\n"}
+,{"stream_name":"stderr","time":19.9238034,"data":"\n"}
+,{"stream_name":"stderr","time":19.923807031,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py in dict_to_mgr(data, index, columns, dtype, typ, copy)\n"}
+,{"stream_name":"stderr","time":19.923810665,"data":"    501             arrays = [x.copy() if hasattr(x, \"dtype\") else x for x in arrays]\n"}
+,{"stream_name":"stderr","time":19.923814369,"data":"    502 \n"}
+,{"stream_name":"stderr","time":19.923817715,"data":"--\u003e 503     return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)\n"}
+,{"stream_name":"stderr","time":19.923821635,"data":"    504 \n"}
+,{"stream_name":"stderr","time":19.923825729,"data":"    505 \n"}
+,{"stream_name":"stderr","time":19.923829076,"data":"\n"}
+,{"stream_name":"stderr","time":19.923832557,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py in arrays_to_mgr(arrays, columns, index, dtype, verify_integrity, typ, consolidate)\n"}
+,{"stream_name":"stderr","time":19.923836502,"data":"    117 \n"}
+,{"stream_name":"stderr","time":19.923839956,"data":"    118         # don't force copy because getting jammed in an ndarray anyway\n"}
+,{"stream_name":"stderr","time":19.923843664,"data":"--\u003e 119         arrays, refs = _homogenize(arrays, index, dtype)\n"}
+,{"stream_name":"stderr","time":19.923847786,"data":"    120         # _homogenize ensures\n"}
+,{"stream_name":"stderr","time":19.92385152,"data":"    121         #  - all(len(x) == len(index) for x in arrays)\n"}
+,{"stream_name":"stderr","time":19.923855501,"data":"\n"}
+,{"stream_name":"stderr","time":19.923858922,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py in _homogenize(data, index, dtype)\n"}
+,{"stream_name":"stderr","time":19.923862812,"data":"    627                 val = lib.fast_multiget(val, oindex._values, default=np.nan)\n"}
+,{"stream_name":"stderr","time":19.923866712,"data":"    628 \n"}
+,{"stream_name":"stderr","time":19.923881717,"data":"--\u003e 629             val = sanitize_array(val, index, dtype=dtype, copy=False)\n"}
+,{"stream_name":"stderr","time":19.92388527,"data":"    630             com.require_length_match(val, index)\n"}
+,{"stream_name":"stderr","time":19.923888646,"data":"    631             refs.append(None)\n"}
+,{"stream_name":"stderr","time":19.923892568,"data":"\n"}
+,{"stream_name":"stderr","time":19.923919806,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/construction.py in sanitize_array(data, index, dtype, copy, allow_2d)\n"}
+,{"stream_name":"stderr","time":19.923924095,"data":"    631         else:\n"}
+,{"stream_name":"stderr","time":19.923927768,"data":"    632             data = np.array(data, copy=copy)\n"}
+,{"stream_name":"stderr","time":19.923931422,"data":"--\u003e 633         return sanitize_array(\n"}
+,{"stream_name":"stderr","time":19.923935725,"data":"    634             data,\n"}
+,{"stream_name":"stderr","time":19.923939459,"data":"    635             index=index,\n"}
+,{"stream_name":"stderr","time":19.923947367,"data":"\n"}
+,{"stream_name":"stderr","time":19.92395105,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/construction.py in sanitize_array(data, index, dtype, copy, allow_2d)\n"}
+,{"stream_name":"stderr","time":19.923954903,"data":"    657                 subarr = maybe_infer_to_datetimelike(subarr)\n"}
+,{"stream_name":"stderr","time":19.923958578,"data":"    658 \n"}
+,{"stream_name":"stderr","time":19.923961962,"data":"--\u003e 659     subarr = _sanitize_ndim(subarr, data, dtype, index, allow_2d=allow_2d)\n"}
+,{"stream_name":"stderr","time":19.923965789,"data":"    660 \n"}
+,{"stream_name":"stderr","time":19.923969173,"data":"    661     if isinstance(subarr, np.ndarray):\n"}
+,{"stream_name":"stderr","time":19.92397295,"data":"\n"}
+,{"stream_name":"stderr","time":19.923976434,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/construction.py in _sanitize_ndim(result, data, dtype, index, allow_2d)\n"}
+,{"stream_name":"stderr","time":19.923980664,"data":"    716             if allow_2d:\n"}
+,{"stream_name":"stderr","time":19.92398412,"data":"    717                 return result\n"}
+,{"stream_name":"stderr","time":19.923988178,"data":"--\u003e 718             raise ValueError(\n"}
+,{"stream_name":"stderr","time":19.923992015,"data":"    719                 f\"Data must be 1-dimensional, got ndarray of shape {data.shape} instead\"\n"}
+,{"stream_name":"stderr","time":19.923995921,"data":"    720             )\n"}
+,{"stream_name":"stderr","time":19.923999456,"data":"\n"}
+,{"stream_name":"stderr","time":19.924003029,"data":"ValueError: Data must be 1-dimensional, got ndarray of shape (2796, 1) instead\n"}
+,{"stream_name":"stderr","time":19.924007004,"data":"\n"}
+,{"stream_name":"stderr","time":22.036181831,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.03621645,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":22.193666215,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":22.193694115,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":22.864082967999998,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":22.864130208,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":22.904388159,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":23.247031301,"data":"[NbConvertApp] Writing 69697 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":25.892265183,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":25.892302593,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":25.917761083,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":26.931655424,"data":"[NbConvertApp] Writing 488527 bytes to __results__.html\n"}
+]
