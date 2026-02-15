@@ -1,12 +1,12 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_feature_expansion",
   "current_feature": "options_market",
   "current_attempt": 2,
-  "resume_from": "architect",
+  "resume_from": "builder_model",
   "error_context": null,
   "user_action_required": false,
-  "datachecker_status": null,
+  "datachecker_status": "PASS",
   "builder_model_status": null,
   "git_branch": "develop",
   "git_workflow_enabled": true,
@@ -22,7 +22,7 @@
     "cny_demand"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-model-training-options-market",
-  "submitted_at": "2026-02-16T01:30:08.157344",
+  "submitted_at": "2026-02-16T02:28:20.737615",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -391,6 +391,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T12:00:00",
+  "last_updated": "2026-02-16T02:28:20.737928",
   "current_submodel": "options_market"
 }
