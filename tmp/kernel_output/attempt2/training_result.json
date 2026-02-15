@@ -1,0 +1,90 @@
+{
+  "feature": "meta_model",
+  "attempt": 3,
+  "timestamp": "2026-02-15T11:50:18.668922",
+  "architecture": "5-model XGBoost ensemble with confidence-based re-ranking",
+  "ensemble_seeds": [
+    42,
+    137,
+    256,
+    389,
+    512
+  ],
+  "alpha_confidence": 0.7975490147085735,
+  "best_params": {
+    "n_estimators": 300,
+    "max_depth": 3,
+    "learning_rate": 0.09688412330411864,
+    "min_child_weight": 11,
+    "subsample": 0.7451637657174383,
+    "colsample_bytree": 0.7239221949309819,
+    "reg_lambda": 7.575547815844361,
+    "reg_alpha": 2.8853674625116805,
+    "gamma": 0.41895983130029674
+  },
+  "optuna": {
+    "n_trials_completed": 80,
+    "best_objective_value": 1.250837171162193,
+    "optimization_time": 85.70210900000001
+  },
+  "metrics": {
+    "train": {
+      "mae": 0.42741138051230587,
+      "direction_accuracy": 0.7925925925925926,
+      "sharpe_ratio": 11.037461019161993,
+      "hcda_standard": 0.9688385269121813,
+      "hcda_reranked": 0.9688385269121813
+    },
+    "val": {
+      "mae": 0.7459282257877485,
+      "direction_accuracy": 0.5809018567639257,
+      "sharpe_ratio": 3.2234942587770274,
+      "hcda_standard": 0.5333333333333333,
+      "hcda_reranked": 0.5333333333333333
+    },
+    "test": {
+      "mae": 0.7172519027475013,
+      "direction_accuracy": 0.5329815303430079,
+      "sharpe_ratio": 1.2215340195581357,
+      "hcda_standard": 0.5921052631578947,
+      "hcda_reranked": 0.5921052631578947
+    }
+  },
+  "targets_met": {
+    "direction_accuracy": "False",
+    "hcda_reranked": "False",
+    "mae": true,
+    "sharpe_ratio": "True",
+    "all_targets_met": false
+  },
+  "data_info": {
+    "train_samples": 1765,
+    "val_samples": 378,
+    "test_samples": 379,
+    "n_features": 22,
+    "feature_cols": [
+      "real_rate_change",
+      "dxy_change",
+      "vix",
+      "yield_spread_change",
+      "inflation_exp_change",
+      "vix_regime_probability",
+      "vix_mean_reversion_z",
+      "vix_persistence",
+      "tech_trend_regime_prob",
+      "tech_mean_reversion_z",
+      "tech_volatility_regime",
+      "xasset_regime_prob",
+      "xasset_recession_signal",
+      "xasset_divergence",
+      "yc_spread_velocity_z",
+      "yc_curvature_z",
+      "etf_regime_prob",
+      "etf_capital_intensity",
+      "etf_pv_divergence",
+      "ie_regime_prob",
+      "ie_anchoring_z",
+      "ie_gold_sensitivity_z"
+    ]
+  }
+}

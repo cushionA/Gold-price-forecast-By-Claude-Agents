@@ -21,8 +21,8 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-4",
-  "submitted_at": "2026-02-15T21:27:37.142792",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2-v2",
+  "submitted_at": "2026-02-15T21:35:11.009119",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -343,5 +343,5 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T21:27:37.143084"
+  "last_updated": "2026-02-15T21:35:11.009798"
 }
