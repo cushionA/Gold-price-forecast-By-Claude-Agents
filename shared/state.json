@@ -3,7 +3,7 @@
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 1,
-  "resume_from": "researcher",
+  "resume_from": "architect",
   "datachecker_status": "passed",
   "builder_model_status": "completed",
   "git_branch": "develop",
