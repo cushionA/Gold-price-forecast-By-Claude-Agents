@@ -136,5 +136,20 @@
       "Sharpe degradation -0.593 is worst of any passing submodel",
       "Consider meta-model ablation with/without cny_demand features"
     ]
+  },
+  "options_market": {
+    "status": "completed",
+    "final_attempt": 2,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": -0.0024,
+      "sharpe_delta": -0.1413,
+      "mae_delta": -0.1562
+    },
+    "output_columns": ["options_risk_regime_prob"],
+    "output_path": "data/submodel_outputs/options_market.csv",
+    "model_path": null,
+    "completed_at": "2026-02-16T12:00:00",
+    "reason": "Gate 3 PASS via MAE criterion (-0.1562, 15.6x threshold, 4/5 folds). HMM 3-state regime detection on SKEW/GVZ options market indicators. Single-column output after dimensionality reduction from attempt 1 (3 columns). options_risk_regime_prob ranked #2/20 in feature importance (7.55%). Gate 2 marginally fails (MI 4.96% vs 5%, stability 0.1555 vs 0.15) but Gate 3 ablation is convincing."
   }
 }

@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
-  "phase": "2_feature_expansion",
+  "status": "in_progress",
+  "phase": "phase3_meta_model",
   "current_feature": "options_market",
   "current_attempt": 2,
-  "resume_from": "builder_model",
+  "resume_from": "entrance",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -19,7 +19,8 @@
     "yield_curve",
     "etf_flow",
     "inflation_expectation",
-    "cny_demand"
+    "cny_demand",
+    "options_market"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-model-training-options-market",
   "submitted_at": "2026-02-16T02:28:20.737615",
@@ -29,8 +30,9 @@
     "test_sharpe_ratio": -1.696
   },
   "phase2_complete": true,
-  "phase2_summary": "All 9 features processed. 7 submodels completed (Gate 3 PASS), 1 auto-evaluated (dxy), 1 no further improvement (real_rate). Ready for Phase 3: Meta-Model Construction.",
+  "phase2_summary": "All 9 features + options_market processed. 8 submodels completed (Gate 3 PASS), 1 auto-evaluated (dxy), 1 no further improvement (real_rate). options_market attempt 2 PASS via MAE (-0.1562, 15.6x threshold). Ready for Phase 3: Meta-Model Construction with expanded feature set.",
   "next_phase": "phase3_meta_model",
+  "options_market_evaluation": "completed_gate3_pass_mae",
   "evaluation_history": {
     "real_rate": {
       "attempt_1": {
@@ -298,6 +300,27 @@
           "sharpe_improved_1_of_5_folds"
         ],
         "note": "HMM 3-state on SKEW/GVZ with 3 output columns. Gate 1/2 PASS convincingly but Gate 3 FAIL on all criteria. Information exists (MI +17.12%) but 3-column output adds noise. options_risk_regime_prob ranked #2/22 (5.70%) but tail_risk_z and skew_momentum_z may be noise. Reducing to 1-2 columns for attempt 2."
+      },
+      "attempt_2": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_mae_delta=-0.1562_15.6x_threshold",
+          "mae_improved_4_of_5_folds",
+          "options_risk_regime_prob_rank2_7.55pct",
+          "da_improved_3_of_5_folds",
+          "dimensionality_reduction_3to1_successful",
+          "VIF_excellent_2.13"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=4.96%_marginally_below_5%",
+          "gate2_stability=0.1555_marginally_above_0.15",
+          "gate3_da_delta=-0.24%",
+          "gate3_sharpe_delta=-0.141"
+        ],
+        "note": "HMM 3-state on SKEW/GVZ with single column output (regime_prob only). Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds). Dimensionality reduction from 3 to 1 column was key: DA improved from 0/5 to 3/5 folds, MAE from 2/5 to 4/5 folds. Feature importance increased from 5.70% to 7.55% (rank #2 maintained). Gate 2 marginal failures consistent with other HMM regime models."
       }
     }
   },
@@ -391,6 +414,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T02:28:20.737928",
+  "last_updated": "2026-02-16T12:00:00",
   "current_submodel": "options_market"
 }

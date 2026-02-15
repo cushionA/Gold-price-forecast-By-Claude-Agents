@@ -1,0 +1,127 @@
+{
+  "feature": "options_market",
+  "attempt": 2,
+  "timestamp": "2026-02-16T12:00:00",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {"value": "N/A (HMM unsupervised)", "passed": true, "note": "HMM model uses Optuna MI-based objective, no train/val loss ratio applicable"},
+      "no_all_nan": {"value": [], "passed": true},
+      "no_zero_var": {"value": [], "passed": true},
+      "autocorr_options_risk_regime_prob": {"value": 0.9749, "passed": true},
+      "hpo_coverage": {"value": 30, "passed": true, "note": "30 Optuna trials completed"},
+      "nan_ratio": {"value": {"options_risk_regime_prob": 0.0}, "passed": true}
+    },
+    "notes": {
+      "output_stats": {
+        "mean": 0.1483,
+        "std": 0.3125,
+        "min": 1.49e-32,
+        "max": 1.0
+      },
+      "single_column_output": true,
+      "reduced_from_attempt_1": "3 columns -> 1 column"
+    }
+  },
+  "gate2": {
+    "passed": false,
+    "checks": {
+      "mi": {
+        "base": 0.2708,
+        "extended": 0.2843,
+        "increase": 0.0496,
+        "increase_pct": 4.96,
+        "submodel_mi": 0.0146,
+        "passed": false,
+        "note": "MI increase 4.96% - marginally below 5% threshold. Down from attempt 1 (17.12%) due to dimensionality reduction from 3 to 1 column."
+      },
+      "vif": {
+        "options_risk_regime_prob": 2.13,
+        "max": 2.13,
+        "passed": true,
+        "note": "Excellent VIF. No multicollinearity concern."
+      },
+      "stability": {
+        "options_risk_regime_prob": 0.1555,
+        "max_std": 0.1555,
+        "passed": false,
+        "note": "Stability marginally above 0.15 threshold (0.1555). Consistent with regime-switching nature of HMM outputs seen in VIX (pass), Technical (fail at 0.21), Cross-Asset (fail at 0.156), ETF Flow (fail at 0.162)."
+      }
+    },
+    "comparison_to_attempt_1": {
+      "attempt_1_mi_increase": "17.12%",
+      "attempt_2_mi_increase": "4.96%",
+      "note": "MI decrease expected: 3 columns had total MI = sum of 3 features. Single column retains strongest signal only."
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {"delta": -0.0024, "passed": false},
+      "sharpe": {"delta": -0.1413, "passed": false},
+      "mae": {"delta": -0.1562, "passed": true}
+    },
+    "baseline": {
+      "direction_accuracy": 0.4915,
+      "mae": 1.2570,
+      "sharpe": 0.0942
+    },
+    "extended": {
+      "direction_accuracy": 0.4890,
+      "mae": 1.1008,
+      "sharpe": -0.0471
+    },
+    "fold_details": {
+      "fold_1": {
+        "base": {"da": 0.5270, "mae": 0.8218, "sharpe": 0.8397},
+        "ext": {"da": 0.4902, "mae": 0.8684, "sharpe": 0.3083},
+        "delta": {"da": -0.0368, "mae": 0.0466, "sharpe": -0.5314}
+      },
+      "fold_2": {
+        "base": {"da": 0.4951, "mae": 0.8360, "sharpe": 0.0167},
+        "ext": {"da": 0.5123, "mae": 0.7570, "sharpe": 0.3327},
+        "delta": {"da": 0.0172, "mae": -0.0789, "sharpe": 0.3160}
+      },
+      "fold_3": {
+        "base": {"da": 0.4681, "mae": 1.1293, "sharpe": 0.8301},
+        "ext": {"da": 0.4853, "mae": 1.0285, "sharpe": 0.8151},
+        "delta": {"da": 0.0172, "mae": -0.1008, "sharpe": -0.0150}
+      },
+      "fold_4": {
+        "base": {"da": 0.5134, "mae": 1.3362, "sharpe": -0.1113},
+        "ext": {"da": 0.4890, "mae": 1.3285, "sharpe": -0.9144},
+        "delta": {"da": -0.0244, "mae": -0.0077, "sharpe": -0.8031}
+      },
+      "fold_5": {
+        "base": {"da": 0.4537, "mae": 2.1619, "sharpe": -1.1040},
+        "ext": {"da": 0.4683, "mae": 1.5215, "sharpe": -0.7771},
+        "delta": {"da": 0.0146, "mae": -0.6403, "sharpe": 0.3269}
+      }
+    },
+    "fold_improvement_counts": {
+      "da_improved": 3,
+      "mae_improved": 4,
+      "sharpe_improved": 2
+    },
+    "feature_importance": {
+      "options_risk_regime_prob": {"value": 0.0755, "rank": 2}
+    },
+    "notes": {
+      "mae_improvement": "MAE delta -0.1562 is 15.6x the threshold (-0.01). MAE improved in 4/5 folds.",
+      "comparison_to_attempt_1": "Attempt 1 had DA degraded in ALL 5 folds. Attempt 2 has DA improved in 3/5 folds. MAE improved in 4/5 folds vs 2/5 in attempt 1.",
+      "feature_rank": "options_risk_regime_prob ranked #2/20 in feature importance (7.55%), up from #2/22 (5.70%) in attempt 1."
+    }
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "decision_rationale": "Gate 1 PASS. Gate 2 FAIL (MI 4.96% marginally below 5%, stability 0.1555 marginally above 0.15). Gate 3 PASS via MAE criterion (-0.1562, 15.6x threshold, 4/5 folds improved). This follows precedent set by 6 other submodels that passed Gate 3 despite Gate 2 failures (VIX, Technical, Cross-Asset, Yield Curve, ETF Flow, CNY Demand). The dimensionality reduction from 3 to 1 column successfully eliminated the noise problem from attempt 1: DA degraded in 0/5 folds in attempt 1 but improved in 3/5 folds in attempt 2. Feature importance rank unchanged at #2 while actual importance increased from 5.70% to 7.55%. MAE improvement is strong and consistent across folds.",
+  "improvement_from_attempt_1": {
+    "da_folds_improved": "0/5 -> 3/5",
+    "mae_folds_improved": "2/5 -> 4/5",
+    "sharpe_folds_improved": "1/5 -> 2/5",
+    "mae_delta": "+0.018 -> -0.1562 (reversed from degradation to strong improvement)",
+    "da_delta": "-0.0105 -> -0.0024 (reduced degradation by 77%)",
+    "feature_importance": "5.70% -> 7.55% (rank #2 maintained)"
+  }
+}
