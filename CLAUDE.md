@@ -109,18 +109,19 @@ builder_model auto-generates the following Notebook:
 notebooks/
   └── {feature}_{attempt}/
       ├── kernel-metadata.json    ← Kaggle API config
-      └── train.py                ← Self-contained training script
+      └── train.ipynb             ← Jupyter Notebook (self-contained training script)
 ```
+
+**重要**: 全サブモデルで統一Notebook「**Gold Model Training**」（ID: `bigbigzabuton/gold-model-training`）を使用します。このNotebookにはFRED_API_KEYが有効化されています。
 
 ### kernel-metadata.json
 
 ```json
 {
-  "id": "{KAGGLE_USERNAME}/gold-{feature}-{attempt}",
-  "title": "Gold {feature} SubModel Attempt {attempt}",
-  "code_file": "train.py",
+  "id": "bigbigzabuton/gold-model-training",
+  "code_file": "train.ipynb",
   "language": "python",
-  "kernel_type": "script",
+  "kernel_type": "notebook",
   "is_private": true,
   "enable_gpu": false,
   "enable_internet": true,
@@ -130,9 +131,9 @@ notebooks/
 }
 ```
 
-### train.py Design Principles
+### train.ipynb Design Principles
 
-Training scripts must be **self-contained**. No dependency on Claude Code or Kaggle:
+Training notebooks must be **self-contained** Jupyter Notebooks. No dependency on Claude Code or Kaggle:
 
 ```python
 """

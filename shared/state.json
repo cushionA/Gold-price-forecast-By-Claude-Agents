@@ -19,9 +19,9 @@
     "yield_curve",
     "etf_flow"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-inflation-expectation-submodel-attempt-1",
-  "submitted_at": "2026-02-15T13:20:00",
-  "last_updated": "2026-02-15T13:20:00",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
+  "submitted_at": "2026-02-15T13:30:00",
+  "last_updated": "2026-02-15T13:30:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
