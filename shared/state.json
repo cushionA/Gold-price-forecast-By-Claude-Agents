@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "cny_demand",
   "current_attempt": 1,
-  "resume_from": "orchestrator",
+  "resume_from": "evaluator",
   "datachecker_status": "passed",
   "builder_model_status": "completed",
   "git_branch": "develop",
@@ -20,8 +20,8 @@
     "etf_flow",
     "inflation_expectation"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
+  "submitted_at": "2026-02-15T15:12:30.365586",
   "last_updated": "2026-02-15T18:30:00",
   "error_context": null,
   "user_action_required": false,
@@ -254,5 +254,6 @@
         "note": "2D HMM (3-state) on IE dynamics + anchoring z-score + gold sensitivity z-score. First submodel to pass all 3 gates. Gate 2 fully passes (MI +10.94%, VIF 2.25, stability 0.14). Gate 3 passes on DA (+0.57%) and Sharpe (+0.15). MAE degrades but DA and Sharpe improvements are consistent across majority of folds."
       }
     }
-  }
+  },
+  "kaggle_version": 10
 }
