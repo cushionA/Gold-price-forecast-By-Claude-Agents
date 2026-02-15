@@ -1,5 +1,5 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 4,
@@ -21,8 +21,8 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-model-training",
-  "submitted_at": "2026-02-16T02:00:00",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-4",
+  "submitted_at": "2026-02-15T21:22:54.753195",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -317,7 +317,7 @@
     },
     "attempt_3": {
       "decision": "attempt+1",
-      "test_da": 0.5330,
+      "test_da": 0.533,
       "test_hcda": 0.5921,
       "test_mae": 0.7173,
       "test_sharpe": 1.2201,
@@ -343,5 +343,5 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T21:30:00"
+  "last_updated": "2026-02-15T21:22:54.754030"
 }
