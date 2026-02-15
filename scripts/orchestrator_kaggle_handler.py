@@ -61,7 +61,7 @@ class KaggleSubmissionHandler:
                 return metadata.get('id')
         return None
 
-    def submit_to_kaggle(self, notebook_path, feature, attempt):
+    def submit_to_kaggle(self, notebook_path, feature, attempt, auto_mode=True):
         """
         Kaggleにノートブックを提出し、自動監視を開始
 
@@ -69,6 +69,7 @@ class KaggleSubmissionHandler:
             notebook_path: Kaggle notebookのディレクトリパス
             feature: 特徴量名 (e.g., "real_rate")
             attempt: 試行番号
+            auto_mode: True=完全自動化、False=通常モード（手動評価）
 
         Returns:
             bool: 提出成功ならTrue
@@ -152,61 +153,81 @@ class KaggleSubmissionHandler:
         except subprocess.CalledProcessError as e:
             print(f"[WARN] Git operation failed: {e}")
 
-        # 5. 完全自動監視スクリプト(v2)をバックグラウンド起動
-        monitor_script = self.project_root / 'scripts' / 'auto_resume_after_kaggle_v2.py'
+        # 5. 監視スクリプト起動（auto_modeによって動作が変わる）
+        if auto_mode:
+            monitor_script = self.project_root / 'scripts' / 'auto_resume_after_kaggle.py'
 
-        try:
-            # Windowsの場合
-            if sys.platform == 'win32':
-                subprocess.Popen(
-                    ['python', str(monitor_script)],
-                    creationflags=subprocess.CREATE_NEW_CONSOLE | subprocess.DETACHED_PROCESS,
-                    cwd=self.project_root
-                )
-            # Unix系の場合
-            else:
-                subprocess.Popen(
-                    ['python', str(monitor_script)],
-                    start_new_session=True,
-                    cwd=self.project_root
-                )
+            try:
+                # Windowsの場合
+                if sys.platform == 'win32':
+                    subprocess.Popen(
+                        ['python', str(monitor_script)],
+                        creationflags=subprocess.CREATE_NEW_CONSOLE | subprocess.DETACHED_PROCESS,
+                        cwd=self.project_root
+                    )
+                # Unix系の場合
+                else:
+                    subprocess.Popen(
+                        ['python', str(monitor_script)],
+                        start_new_session=True,
+                        cwd=self.project_root
+                    )
 
-            print(f"[OK] Full-auto monitor (v2) started in background")
+                print(f"[OK] Full-auto monitor started in background")
 
-        except Exception as e:
-            print(f"[WARN] Failed to start monitor (you can run it manually): {e}")
-            print(f"Manual command: python {monitor_script}")
+            except Exception as e:
+                print(f"[WARN] Failed to start monitor (you can run it manually): {e}")
+                print(f"Manual command: python {monitor_script}")
 
         # 6. ユーザーに通知
         print("\n" + "=" * 70)
         print("*** Kaggle Training Submitted Successfully!")
         print("=" * 70)
         print(f"Kernel URL: https://www.kaggle.com/code/{kernel_id}")
-        print(f"\n Full Auto Mode (v2):")
-        print(f"  - Monitor checks every 5 minutes for up to 3 hours")
-        print(f"  - Evaluator runs automatically when training completes")
-        print(f"  - Next action is decided automatically (retry / next feature / done)")
-        print(f"\n You can now:")
-        print(f"  - Close this terminal (monitoring continues in background)")
-        print(f"  - Turn off your PC (monitoring stops, but Kaggle continues)")
-        print(f"  - When monitor completes, check state.json for next action")
-        print(f"  - Check Kaggle web UI for live training progress")
+
+        if auto_mode:
+            print(f"\n🤖 Full Auto Mode:")
+            print(f"  - Monitor checks every 1 minute for up to 3 hours")
+            print(f"  - Evaluator runs automatically when training completes")
+            print(f"  - Next action is decided automatically (retry / next feature / done)")
+            print(f"  - Error handling: auto-retry (network) / auto-skip (OOM)")
+            print(f"\n You can now:")
+            print(f"  - Close this terminal (monitoring continues in background)")
+            print(f"  - Turn off your PC (monitoring stops, but Kaggle continues)")
+            print(f"  - When monitor completes, check state.json for next action")
+        else:
+            print(f"\n👤 Manual Mode:")
+            print(f"  - Training is running on Kaggle")
+            print(f"  - When complete, run: 'Resume from where we left off'")
+            print(f"  - Or manually fetch results and evaluate")
+
+        print(f"\n Check Kaggle web UI for live training progress")
         print("=" * 70)
 
         return True
 
-    def submit_and_exit(self, notebook_path, feature, attempt):
+    def submit_and_exit(self, notebook_path, feature, attempt, auto_mode=True):
         """
         Kaggle提出 → 自動監視開始 → このセッションを終了
 
+        Args:
+            notebook_path: Kaggle notebookのディレクトリパス
+            feature: 特徴量名
+            attempt: 試行番号
+            auto_mode: True=完全自動化、False=通常モード（手動評価）
+
         OrchestratorがKaggle提出後に呼び出す想定
         """
-        success = self.submit_to_kaggle(notebook_path, feature, attempt)
+        success = self.submit_to_kaggle(notebook_path, feature, attempt, auto_mode=auto_mode)
 
-        if success:
-            print(f"\nSTOP Exiting orchestrator session...")
+        if success and auto_mode:
+            print(f"\n🤖 Exiting orchestrator session (full-auto mode)...")
             print(f"(Auto-resume will handle the rest)")
             sys.exit(0)  # 正常終了
+        elif success:
+            print(f"\n👤 Submission complete (manual mode)")
+            print(f"Say 'Resume from where we left off' when training completes")
+            return True
         else:
             print(f"\n[FAIL] Submission failed. Staying in current session.")
             return False
@@ -221,16 +242,18 @@ def main():
     parser.add_argument('feature', help='特徴量名 (e.g., real_rate)')
     parser.add_argument('attempt', type=int, help='試行番号')
     parser.add_argument('--no-exit', action='store_true', help='終了せずに戻る')
+    parser.add_argument('--manual', action='store_true', help='手動モード（自動監視なし）')
 
     args = parser.parse_args()
 
     handler = KaggleSubmissionHandler()
+    auto_mode = not args.manual
 
     if args.no_exit:
-        success = handler.submit_to_kaggle(args.notebook_path, args.feature, args.attempt)
+        success = handler.submit_to_kaggle(args.notebook_path, args.feature, args.attempt, auto_mode=auto_mode)
         sys.exit(0 if success else 1)
     else:
-        handler.submit_and_exit(args.notebook_path, args.feature, args.attempt)
+        handler.submit_and_exit(args.notebook_path, args.feature, args.attempt, auto_mode=auto_mode)
 
 
 if __name__ == '__main__':
