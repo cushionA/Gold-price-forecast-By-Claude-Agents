@@ -21,8 +21,8 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-model-training",
-  "submitted_at": "2026-02-16T01:04:33.139281",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training-options-market",
+  "submitted_at": "2026-02-16T01:05:00.382506",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -367,6 +367,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T01:04:33.150264",
+  "last_updated": "2026-02-16T01:05:00.395459",
   "current_submodel": "options_market"
 }
