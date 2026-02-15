@@ -1,10 +1,10 @@
 {
-  "status": "error",
+  "status": "waiting_training",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 2,
-  "resume_from": "builder_model",
-  "error_context": "No error log available",
+  "resume_from": "evaluator",
+  "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "completed",
@@ -22,7 +22,7 @@
     "cny_demand"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2-v2",
-  "submitted_at": "2026-02-16T00:15:00",
+  "submitted_at": "2026-02-16T00:30:00",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
