@@ -1,0 +1,214 @@
+[{"stream_name":"stderr","time":11.282232003,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.282305102,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.282311012,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.282313982,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.30004715,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.300096961,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.300102611,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.300125182,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":17.287549097,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":17.309284003,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":17.343710096,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":17.347570108,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":17.355795642,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":17.380194564,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":17.382003656,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":17.412640502,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":17.441536668,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 6.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":17.491480138,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":17.491562889,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":17.491567892,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":17.491571966,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":17.491575008,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":17.491578438,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":17.49158169,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":17.49164451,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":17.491650614,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 6.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.114126054,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":20.231056769,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":20.317132169,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":20.317172841,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":27.43411888,"data":"Fetching data...\n"}
+,{"stream_name":"stdout","time":28.006057899,"data":"SKEW data: 2553 rows\n"}
+,{"stream_name":"stdout","time":28.0060947,"data":"GVZ data: 2610 rows\n"}
+,{"stream_name":"stdout","time":28.072047277,"data":"Gold data: 2608 rows\n"}
+,{"stream_name":"stdout","time":28.072100145,"data":"Aligned data: 2607 rows\n"}
+,{"stream_name":"stdout","time":28.07210589,"data":"Date range: 2014-10-01 00:00:00-04:00 to 2025-02-14 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":28.072110663,"data":"SKEW range: [110.34, 180.09]\n"}
+,{"stream_name":"stdout","time":28.072140076,"data":"GVZ range: [8.88, 48.98]\n"}
+,{"stream_name":"stdout","time":28.09946221,"data":"After computing changes: 2606 rows\n"}
+,{"stream_name":"stdout","time":28.099545987,"data":"SKEW change range: [-22.81, 24.75]\n"}
+,{"stream_name":"stdout","time":28.099551777,"data":"GVZ change range: [-9.50, 7.25]\n"}
+,{"stream_name":"stdout","time":28.116929506,"data":"Train: 1824 rows\n"}
+,{"stream_name":"stdout","time":28.11697304,"data":"Val: 390 rows\n"}
+,{"stream_name":"stdout","time":28.116981119,"data":"Test: 392 rows\n"}
+,{"stream_name":"stdout","time":28.136042369,"data":"Feature generation functions defined.\n"}
+,{"stream_name":"stdout","time":28.157593394,"data":"Optuna objective defined.\n"}
+,{"stream_name":"stderr","time":28.177890379,"data":"[I 2026-02-15 16:28:15,393] A new study created in memory with name: no-name-e7f07a90-0630-4141-b81e-c135d13bec4e\n"}
+,{"stream_name":"stderr","time":28.177931902,"data":"\n"}
+,{"stream_name":"stderr","time":28.177938319,"data":"[I 2026-02-15 16:28:15,393] A new study created in memory with name: no-name-e7f07a90-0630-4141-b81e-c135d13bec4e\n"}
+,{"stream_name":"stderr","time":28.182271074,"data":"[I 2026-02-15 16:28:15,397] Trial 0 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.182316506,"data":"\n"}
+,{"stream_name":"stderr","time":28.182323161,"data":"[I 2026-02-15 16:28:15,397] Trial 0 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.185292415,"data":"[I 2026-02-15 16:28:15,400] Trial 1 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.185333305,"data":"\n"}
+,{"stream_name":"stderr","time":28.185338449,"data":"[I 2026-02-15 16:28:15,400] Trial 1 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.186727962,"data":"[I 2026-02-15 16:28:15,401] Trial 2 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.18678442,"data":"\n"}
+,{"stream_name":"stderr","time":28.186790651,"data":"[I 2026-02-15 16:28:15,401] Trial 2 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.1882439,"data":"[I 2026-02-15 16:28:15,404] Trial 3 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.188271154,"data":"\n"}
+,{"stream_name":"stderr","time":28.18827618,"data":"[I 2026-02-15 16:28:15,404] Trial 3 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.189836338,"data":"[I 2026-02-15 16:28:15,405] Trial 4 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.189863337,"data":"\n"}
+,{"stream_name":"stderr","time":28.189868846,"data":"[I 2026-02-15 16:28:15,405] Trial 4 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.191355277,"data":"[I 2026-02-15 16:28:15,407] Trial 5 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.191387120999998,"data":"\n"}
+,{"stream_name":"stderr","time":28.191414078,"data":"[I 2026-02-15 16:28:15,407] Trial 5 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.193063875,"data":"[I 2026-02-15 16:28:15,408] Trial 6 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.19312205,"data":"\n"}
+,{"stream_name":"stderr","time":28.193153136,"data":"[I 2026-02-15 16:28:15,408] Trial 6 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.194841984,"data":"[I 2026-02-15 16:28:15,410] Trial 7 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.195072356,"data":"\n"}
+,{"stream_name":"stderr","time":28.195088131,"data":"[I 2026-02-15 16:28:15,410] Trial 7 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.198638549,"data":"[I 2026-02-15 16:28:15,412] Trial 8 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.198677589,"data":"\n"}
+,{"stream_name":"stderr","time":28.198682866,"data":"[I 2026-02-15 16:28:15,412] Trial 8 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.199326429,"data":"[I 2026-02-15 16:28:15,414] Trial 9 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.199367618,"data":"\n"}
+,{"stream_name":"stderr","time":28.199373754,"data":"[I 2026-02-15 16:28:15,414] Trial 9 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.206315942,"data":"[I 2026-02-15 16:28:15,422] Trial 10 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.206361938,"data":"\n"}
+,{"stream_name":"stderr","time":28.206366153,"data":"[I 2026-02-15 16:28:15,422] Trial 10 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.212344024,"data":"[I 2026-02-15 16:28:15,427] Trial 11 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.212386274,"data":"\n"}
+,{"stream_name":"stderr","time":28.212390438,"data":"[I 2026-02-15 16:28:15,427] Trial 11 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.216761552,"data":"[I 2026-02-15 16:28:15,432] Trial 12 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.216808696,"data":"\n"}
+,{"stream_name":"stderr","time":28.216815514,"data":"[I 2026-02-15 16:28:15,432] Trial 12 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.22375882,"data":"[I 2026-02-15 16:28:15,437] Trial 13 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.22379697,"data":"\n"}
+,{"stream_name":"stderr","time":28.223822036,"data":"[I 2026-02-15 16:28:15,437] Trial 13 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.226257792,"data":"[I 2026-02-15 16:28:15,441] Trial 14 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.226296506,"data":"\n"}
+,{"stream_name":"stderr","time":28.226302489,"data":"[I 2026-02-15 16:28:15,441] Trial 14 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.230420615,"data":"[I 2026-02-15 16:28:15,446] Trial 15 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.230464617,"data":"\n"}
+,{"stream_name":"stderr","time":28.230472037,"data":"[I 2026-02-15 16:28:15,446] Trial 15 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.236329958,"data":"[I 2026-02-15 16:28:15,450] Trial 16 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.236387697,"data":"\n"}
+,{"stream_name":"stderr","time":28.2363941,"data":"[I 2026-02-15 16:28:15,450] Trial 16 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.243342326,"data":"[I 2026-02-15 16:28:15,457] Trial 17 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.243382597,"data":"\n"}
+,{"stream_name":"stderr","time":28.243388348,"data":"[I 2026-02-15 16:28:15,457] Trial 17 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.248491511,"data":"[I 2026-02-15 16:28:15,462] Trial 18 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.248532317,"data":"\n"}
+,{"stream_name":"stderr","time":28.248537956,"data":"[I 2026-02-15 16:28:15,462] Trial 18 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.251803474,"data":"[I 2026-02-15 16:28:15,467] Trial 19 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.251839523,"data":"\n"}
+,{"stream_name":"stderr","time":28.251845391,"data":"[I 2026-02-15 16:28:15,467] Trial 19 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.259030952,"data":"[I 2026-02-15 16:28:15,472] Trial 20 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.259067699,"data":"\n"}
+,{"stream_name":"stderr","time":28.259080181,"data":"[I 2026-02-15 16:28:15,472] Trial 20 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.261641951,"data":"[I 2026-02-15 16:28:15,477] Trial 21 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.261677452,"data":"\n"}
+,{"stream_name":"stderr","time":28.261725691,"data":"[I 2026-02-15 16:28:15,477] Trial 21 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":28.26421561,"data":"Running Optuna HPO...\n"}
+,{"stream_name":"stdout","time":28.264273326,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264279941,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264285282,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264290333,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.26431357,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264317923,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264323719,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264332034,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264334945,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.26433771,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264340369,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264343005,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264345666,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.26434838,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264351034,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264353749,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264356407,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.26435953,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264377314,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264382083,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264386834,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.264391419,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stderr","time":28.268609198,"data":"[I 2026-02-15 16:28:15,483] Trial 22 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.268730816,"data":"\n"}
+,{"stream_name":"stderr","time":28.268739041,"data":"[I 2026-02-15 16:28:15,483] Trial 22 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.273432843,"data":"[I 2026-02-15 16:28:15,489] Trial 23 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.273497232,"data":"\n"}
+,{"stream_name":"stderr","time":28.27350548,"data":"[I 2026-02-15 16:28:15,489] Trial 23 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.279984472,"data":"[I 2026-02-15 16:28:15,495] Trial 24 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.28002473,"data":"\n"}
+,{"stream_name":"stderr","time":28.28003126,"data":"[I 2026-02-15 16:28:15,495] Trial 24 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.2837592,"data":"[I 2026-02-15 16:28:15,500] Trial 25 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.283804242,"data":"\n"}
+,{"stream_name":"stderr","time":28.283840815,"data":"[I 2026-02-15 16:28:15,500] Trial 25 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.290577841,"data":"[I 2026-02-15 16:28:15,504] Trial 26 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.290624556,"data":"\n"}
+,{"stream_name":"stderr","time":28.290630945,"data":"[I 2026-02-15 16:28:15,504] Trial 26 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.29543836,"data":"[I 2026-02-15 16:28:15,510] Trial 27 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.295511611,"data":"\n"}
+,{"stream_name":"stderr","time":28.295522823,"data":"[I 2026-02-15 16:28:15,510] Trial 27 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":28.300176987,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.300222097,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.300228914,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.300233473,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.300237781,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.300242174,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stderr","time":28.301749848,"data":"[I 2026-02-15 16:28:15,518] Trial 28 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.301784842,"data":"\n"}
+,{"stream_name":"stderr","time":28.301790485,"data":"[I 2026-02-15 16:28:15,518] Trial 28 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 10}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.309644514,"data":"[I 2026-02-15 16:28:15,523] Trial 29 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.309734741,"data":"\n"}
+,{"stream_name":"stderr","time":28.309742545,"data":"[I 2026-02-15 16:28:15,523] Trial 29 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 5}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":28.311014569,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.311060696,"data":"Trial failed: name 'n_init' is not defined\n"}
+,{"stream_name":"stdout","time":28.31106706,"data":"Best trial: 0\n"}
+,{"stream_name":"stdout","time":28.311071476,"data":"Best value: 0.000000\n"}
+,{"stream_name":"stdout","time":28.311076129,"data":"Best params: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}\n"}
+,{"stream_name":"stdout","time":28.337065572,"data":"Generating final output with best params...\n"}
+,{"stream_name":"stderr","time":29.28635731,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":29.286414955,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":29.286422276,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":29.286427237,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":29.286539591,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":29.286673719,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":29.287305785,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":29.287337164,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":29.287343638,"data":"Exception encountered at \"In [8]\":\n"}
+,{"stream_name":"stderr","time":29.287349008,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":29.287353333,"data":"NameError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":29.287357735,"data":"/tmp/ipykernel_17/417355821.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":29.287362394,"data":"      4 best_params = study.best_params\n"}
+,{"stream_name":"stderr","time":29.287373431,"data":"      5 \n"}
+,{"stream_name":"stderr","time":29.287376542,"data":"----\u003e 6 regime_final = generate_regime_feature(\n"}
+,{"stream_name":"stderr","time":29.28737956,"data":"      7     df['skew_change'].values,\n"}
+,{"stream_name":"stderr","time":29.287382189,"data":"      8     df['gvz_change'].values,\n"}
+,{"stream_name":"stderr","time":29.287384906,"data":"\n"}
+,{"stream_name":"stderr","time":29.287387542,"data":"/tmp/ipykernel_17/2923747320.py in generate_regime_feature(skew_changes, gvz_changes, n_components, train_size)\n"}
+,{"stream_name":"stderr","time":29.287390596,"data":"     14         tol=1e-4,\n"}
+,{"stream_name":"stderr","time":29.287393329,"data":"     15         random_state=42,\n"}
+,{"stream_name":"stderr","time":29.287396026,"data":"---\u003e 16         n_init=n_init\n"}
+,{"stream_name":"stderr","time":29.287398725,"data":"     17     )\n"}
+,{"stream_name":"stderr","time":29.287401427,"data":"     18     model.fit(X_train)\n"}
+,{"stream_name":"stderr","time":29.287419428,"data":"\n"}
+,{"stream_name":"stderr","time":29.287424034,"data":"NameError: name 'n_init' is not defined\n"}
+,{"stream_name":"stderr","time":29.287428828,"data":"\n"}
+,{"stream_name":"stderr","time":32.463719561,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":32.463772121,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":32.706023544,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":32.70609938,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":33.664085868,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":33.664139033,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":33.728714669,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":34.162405428,"data":"[NbConvertApp] Writing 32235 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":37.787012617,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":37.787058028,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":37.820888148,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":39.01406265,"data":"[NbConvertApp] Writing 340696 bytes to __results__.html\n"}
+]

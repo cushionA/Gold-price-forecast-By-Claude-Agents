@@ -22,7 +22,7 @@
     "cny_demand"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-model-training-options-market",
-  "submitted_at": "2026-02-16T01:27:44.677201",
+  "submitted_at": "2026-02-16T01:30:08.157344",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -367,6 +367,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T01:27:44.677533",
+  "last_updated": "2026-02-16T01:30:08.168266",
   "current_submodel": "options_market"
 }
