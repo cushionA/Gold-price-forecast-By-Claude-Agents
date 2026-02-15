@@ -2,8 +2,8 @@
   "status": "in_progress",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 1,
-  "resume_from": "evaluator",
+  "current_attempt": 2,
+  "resume_from": "researcher",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "passed",
@@ -23,7 +23,7 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-1",
   "submitted_at": "2026-02-15T20:30:00",
-  "last_updated": "2026-02-15T19:00:00",
+  "last_updated": "2026-02-15T22:00:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
@@ -278,6 +278,24 @@
         ],
         "note": "HMM 2-state regime detection on CNY/USD dynamics + momentum z-score + volatility regime z-score. Gate 3 PASS via MAE (-0.0658, 6.6x threshold, 3/5 folds). Weakest Gate 3 pass: DA degrades -2.06% and Sharpe degrades -0.593 (worst of any passing submodel). CNY features may attenuate prediction magnitudes while adding directional noise. Monitor in meta-model."
       }
+    }
+  },
+  "meta_model_history": {
+    "attempt_1": {
+      "decision": "attempt+1",
+      "test_da": 0.541,
+      "test_hcda": 0.543,
+      "test_mae": 0.978,
+      "test_sharpe": 0.428,
+      "train_test_da_gap_pp": 40.15,
+      "primary_failures": [
+        "all_4_targets_missed",
+        "catastrophic_overfitting_train_da_94.3_val_da_46.9",
+        "worse_than_naive_always_up_59.9%",
+        "data_loss_45pct_964_vs_1766_train",
+        "directional_penalty_caused_memorization"
+      ],
+      "improvement_plan": "Drop price-level features (11), drop CNY features (4), use reg:squarederror, fix data pipeline, align Sharpe formula, strengthen regularization"
     }
   },
   "kaggle_version": 10

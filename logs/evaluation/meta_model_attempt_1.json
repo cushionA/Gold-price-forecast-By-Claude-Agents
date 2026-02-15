@@ -1,0 +1,129 @@
+{
+  "feature": "meta_model",
+  "attempt": 1,
+  "timestamp": "2026-02-15T22:00:00",
+  "phase": "phase3_meta_model",
+
+  "test_metrics": {
+    "direction_accuracy": 0.5411,
+    "high_confidence_da": 0.5429,
+    "mae": 0.9782,
+    "sharpe_ratio": 0.4281,
+    "da_target": 0.56,
+    "hcda_target": 0.60,
+    "mae_target": 0.0075,
+    "sharpe_target": 0.80,
+    "da_passed": false,
+    "hcda_passed": false,
+    "mae_passed": false,
+    "sharpe_passed": false
+  },
+
+  "overfitting_diagnostics": {
+    "train_da": 0.9426,
+    "val_da": 0.4686,
+    "test_da": 0.5411,
+    "train_test_da_gap_pp": 40.15,
+    "train_val_da_gap_pp": 47.40,
+    "mae_overfit_ratio_val_train": 1.016,
+    "mae_overfit_ratio_test_train": 1.586,
+    "train_pred_actual_corr": 0.590,
+    "val_pred_actual_corr": -0.090,
+    "test_pred_actual_corr": 0.047
+  },
+
+  "prediction_distribution": {
+    "test_pct_positive": 0.536,
+    "test_pred_std": 0.0617,
+    "test_pred_mean": 0.0105,
+    "test_actual_std": 1.307,
+    "test_actual_mean": 0.222,
+    "pred_actual_std_ratio": 0.047,
+    "val_pct_positive_predictions": 0.773,
+    "val_pct_positive_actuals": 0.502
+  },
+
+  "data_issues": {
+    "expected_total_rows": 2523,
+    "actual_total_rows": 1378,
+    "data_loss_pct": 45.4,
+    "actual_train": 964,
+    "actual_val": 207,
+    "actual_test": 207,
+    "expected_train": 1766,
+    "expected_val": 378,
+    "expected_test": 379,
+    "cause": "Inner join + NaN dropna in notebook lost 45.4% of rows due to timezone mismatches and NaN in submodel outputs"
+  },
+
+  "naive_baselines": {
+    "always_up_da_test": 0.5990,
+    "model_vs_naive_gap_pp": -5.8,
+    "always_long_sharpe_test": 2.098
+  },
+
+  "sharpe_formula_discrepancy": {
+    "notebook_formula": "net_returns = strategy_returns - cost_pct (every day)",
+    "claude_md_formula": "ret = positions * actual - trades * cost (on position changes only)",
+    "model_sharpe_daily_cost": 0.428,
+    "model_sharpe_trade_cost": 1.027,
+    "recommendation": "Align to CLAUDE.md formula (cost on trades only) for Attempt 2"
+  },
+
+  "best_params": {
+    "max_depth": 3,
+    "min_child_weight": 5,
+    "subsample": 0.695,
+    "colsample_bytree": 0.535,
+    "reg_lambda": 1.56,
+    "reg_alpha": 0.249,
+    "learning_rate": 0.0108,
+    "gamma": 0.360,
+    "directional_penalty": 4.52,
+    "confidence_threshold": 0.0116,
+    "n_estimators_used": 98
+  },
+
+  "optuna_summary": {
+    "n_trials": 50,
+    "best_trial": 38,
+    "val_da_range": [0.459, 0.527],
+    "val_da_mean": 0.491,
+    "trials_val_da_above_50pct": 9,
+    "val_sharpe_range": [-2.101, 0.748],
+    "trials_val_sharpe_above_0": 34,
+    "trials_val_sharpe_above_0_5": 4
+  },
+
+  "feature_importance_issues": {
+    "price_level_features_in_top5": ["etf_flow_gld_close", "cross_asset_silver_close", "technical_gld_open"],
+    "price_level_total_importance": 83.24,
+    "cny_features_total_importance": 46.17,
+    "issue": "Non-stationary price levels dominate importance, causing regime-dependent overfitting"
+  },
+
+  "root_causes": [
+    "1. Directional-weighted MAE with penalty=4.52 caused 94.3% train DA memorization with 46.9% val DA",
+    "2. Raw price-level features (gld_close, silver_close, etc.) are non-stationary and cause regime shift overfitting",
+    "3. Data loss reduced training from 1766 to 964 samples (24.7 samples per feature)",
+    "4. CNY features add directional noise (DA -2.06%, Sharpe -0.593 in Phase 2 ablation)",
+    "5. Cost formula deducts 5bps every day (not just on trades), creating excessive drag"
+  ],
+
+  "decision": "attempt+1",
+  "improvement_plan": {
+    "primary_changes": [
+      "Fix data loss: ensure notebook handles timezone and NaN properly to retain ~2000+ training samples",
+      "Drop 11 non-stationary price-level base features (gld_open/high/low/close, silver_close, etc.)",
+      "Drop 4 CNY features (cny_regime_prob, cny_momentum_z, cny_vol_regime_z, cny_demand_cny_usd)",
+      "Replace directional-weighted MAE with standard reg:squarederror",
+      "Align Sharpe formula to CLAUDE.md (cost on position changes only)",
+      "Strengthen regularization: lambda [3,20], alpha [1,10], max_depth [2,4], min_child_weight [10,30]"
+    ],
+    "expected_feature_count": 24,
+    "target_train_test_da_gap": "< 10pp",
+    "resume_from": "architect"
+  },
+
+  "overall_passed": false
+}

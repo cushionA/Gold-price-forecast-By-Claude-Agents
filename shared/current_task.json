@@ -1,24 +1,22 @@
 {
   "task_type": "meta_model",
   "feature": "meta_model",
-  "attempt": 1,
+  "attempt": 2,
   "phase": "phase3_meta_model",
-  "source": "entrance",
-  "objective": "Build a regression meta-model integrating 19 base features + 20 submodel outputs (from 7 HMM-based submodels) to predict next-day gold return (%). Must simultaneously achieve DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8.",
+  "source": "evaluator",
+  "objective": "Build a regression meta-model integrating stationary base features + submodel outputs (excluding CNY and price-level features) to predict next-day gold return (%). Must simultaneously achieve DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8.",
 
-  "requirements": "Meta-model must integrate heterogeneous inputs (raw prices, HMM regime probabilities, z-scores, binary signals) from 39 total features. Architecture must handle feature-type heterogeneity, multicollinearity (etf_regime_prob VIF=12.47), varying submodel quality (cny_demand degrades DA/Sharpe), and overfitting risk (1766 train samples, 39 features). Loss function must balance directional accuracy and magnitude simultaneously. High-confidence prediction threshold must be learned or optimized.",
+  "requirements": "Meta-model must use ONLY stationary/bounded features. All raw price-level base features (gld_open/high/low/close, silver_close, copper_close, sp500_close, volumes) and CNY features must be excluded. Use standard reg:squarederror loss (no custom directional penalty). Apply aggressive regularization to prevent overfitting (target: train-test DA gap < 10pp). Fix data pipeline to retain ~2000+ training samples. Align Sharpe formula to CLAUDE.md specification (cost on position changes only, not daily).",
 
   "inputs": {
     "base_features": "data/processed/base_features.csv",
-    "base_feature_count": 19,
     "submodel_outputs": [
       "data/submodel_outputs/vix.csv",
       "data/submodel_outputs/technical.csv",
       "data/submodel_outputs/cross_asset.csv",
       "data/submodel_outputs/yield_curve.csv",
       "data/submodel_outputs/etf_flow.csv",
-      "data/submodel_outputs/inflation_expectation.csv",
-      "data/submodel_outputs/cny_demand.csv"
+      "data/submodel_outputs/inflation_expectation.csv"
     ],
     "submodel_columns": {
       "vix": ["vix_regime_probability", "vix_mean_reversion_z", "vix_persistence"],
@@ -26,85 +24,80 @@
       "cross_asset": ["xasset_regime_prob", "xasset_recession_signal", "xasset_divergence"],
       "yield_curve": ["yc_spread_velocity_z", "yc_curvature_z"],
       "etf_flow": ["etf_regime_prob", "etf_capital_intensity", "etf_pv_divergence"],
-      "inflation_expectation": ["ie_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"],
-      "cny_demand": ["cny_regime_prob", "cny_momentum_z", "cny_vol_regime_z"]
+      "inflation_expectation": ["ie_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"]
     },
+    "excluded_submodels": ["real_rate", "dxy", "cny_demand"],
     "excluded_columns": ["yc_regime_prob"],
-    "excluded_submodels": ["real_rate", "dxy"],
-    "total_feature_count": 39,
-    "usable_submodel_columns": 20,
-    "target": "data/processed/target.csv",
-    "data_rows": 2523,
-    "train_rows": 1766,
-    "val_rows": 378,
-    "test_rows": 379,
-    "baseline_metrics": {
-      "test_mae": 0.7139,
-      "test_direction_accuracy": 0.4354,
-      "test_high_confidence_da": 0.4274,
-      "test_sharpe_ratio": -1.696
-    }
+    "target": "data/processed/target.csv"
   },
 
   "research_questions": [
-    "Q1: What are the strengths and weaknesses of candidate meta-model architectures (XGBoost/LightGBM, MLP, TabNet, FT-Transformer, stacking ensemble) for integrating 39 heterogeneous features (raw prices, HMM regime probs, z-scores) with only 1766 training samples? Which is most likely to meet all 4 targets simultaneously?",
-    "Q2: Should the meta-model use a single unified model on all 39 features, or a two-level stacking ensemble, or a feature-group-aware architecture (separate processing for base vs submodel features then fusion)? Evaluate overfitting risk and complexity trade-offs.",
-    "Q3: What loss function or training objective best balances DA, MAE, and Sharpe simultaneously? Is there a composite loss that avoids the DA-MAE trade-off (some submodels improved MAE but degraded DA)?",
-    "Q4: How should high-confidence direction accuracy (HC-DA > 60%) influence model design? Should the model produce explicit confidence scores, or is a simple magnitude threshold on predictions sufficient? What threshold selection methods exist?",
-    "Q5: What feature selection strategy is optimal given cny_demand's DA/Sharpe degradation (-2.06%/-0.593) and etf_regime_prob's VIF=12.47? Test: (a) all 39, (b) drop cny_demand (36), (c) drop cny_demand + etf_regime_prob (35), (d) Optuna-based selection. Can model-internal regularization substitute for manual feature selection?",
-    "Q6: Should raw price-level base features (gld_open/high/low/close, silver_close, copper_close, sp500_close) be transformed to returns or z-scores for neural architectures? Or kept as-is for tree-based models?",
-    "Q7: What regularization strategies are most effective for preventing the overfitting pattern seen in the baseline (train DA 54.5% vs test DA 43.5%)? Specific recommendations for tree-based and neural approaches with 39 features on 1766 samples.",
-    "Q8: Is temporal cross-validation (expanding/sliding window) more appropriate than a single train/val split for meta-model HP optimization via Optuna? What is the computational trade-off with 50+ trials?",
-    "Q9: Are there published examples of combining multiple HMM regime probability features in a meta-model for financial prediction? What architectures were used and what performance was achieved?",
-    "Q10: What is a realistic achievable DA range for next-day gold return prediction using regime-based features? Academic benchmarks suggest 52-58% for commodity returns -- is 56% achievable with our feature set?",
-    "Q11: Should the Optuna HP search space include feature subset selection as a hyperparameter (e.g., include_cny_demand: bool, include_etf_regime_prob: bool), or should feature selection be done as a pre-processing step?"
+    "Q1: Given the Attempt 1 failure with 94.3% train DA / 46.9% val DA, what specific regularization settings for XGBoost achieve train-test DA gap < 10pp on financial return prediction with ~1700 training samples and 24 features?",
+    "Q2: With standard reg:squarederror loss, how should the Optuna objective be structured to simultaneously optimize DA and Sharpe? Should DA be measured directly in the objective, or does it emerge naturally from accurate return predictions?",
+    "Q3: Which base features are stationary and should be retained? Candidates: real_rate, dxy, vix, yield_spread, dgs10, dgs2, inflation_expectation. Should rates be converted to changes rather than levels?",
+    "Q4: Should the Sharpe formula use cost on every day or only on position changes? The CLAUDE.md evaluator spec uses position-change cost, but src/evaluation.py uses daily cost. Which should the training notebook match?",
+    "Q5: What data imputation strategy should be used for early-period rows where some submodel outputs are NaN? Options: (a) forward-fill, (b) fill with unconditional mean, (c) fill with 0.5 for regime_prob and 0 for z-scores, (d) drop rows. Current approach (d) lost 45% of data."
   ],
 
   "constraints": [
-    "Data split frozen: train 1766 / val 378 / test 379 (time-series order, no shuffle)",
+    "Data split frozen: 70/15/15 (time-series order, no shuffle)",
     "No future information leakage",
     "5-day data delay maximum",
-    "Transaction cost 5bps per trade (one-way) for Sharpe calculation",
-    "Returns exactly 0 excluded from DA calculation (np.sign(0) = 0 problem)",
-    "yc_regime_prob must be excluded (constant from collapsed HMM)",
     "Self-contained Kaggle Notebook (all code in single notebook)",
     "Optuna HP optimization with minimum 50 trials",
-    "Gate 3 ablation NOT required -- final evaluation against absolute targets only",
-    "Meta-model does NOT predict gold prices (it predicts gold returns)"
+    "Meta-model does NOT predict gold prices (it predicts gold returns)",
+    "NO raw price-level features (gld_open/high/low/close, silver_close, copper_close, sp500_close, volumes, volume_ma20)",
+    "NO CNY demand features (cny_regime_prob, cny_momentum_z, cny_vol_regime_z, cny_demand_cny_usd)",
+    "NO custom directional-weighted MAE loss -- use standard reg:squarederror",
+    "Train-test DA gap MUST be < 10pp (Attempt 1 had 40pp gap)",
+    "Sharpe formula must use cost on position changes only (matching CLAUDE.md evaluator spec)"
   ],
 
   "known_issues": {
-    "cny_demand_quality": "DA -2.06%, Sharpe -0.593 (worst of any passing submodel). cny_momentum_z rank #4 importance suggests signal exists but is noisy. Consider ablation.",
-    "etf_regime_prob_vif": "VIF=12.47 exceeds 10 threshold. Collinear with other HMM regime probs. Gate 3 Sharpe +0.377 confirms value despite VIF.",
-    "baseline_overfitting": "Phase 1 XGBoost: train DA 54.5% vs test DA 43.5% (11pp gap). 39 features increase overfitting risk.",
-    "mae_already_met": "Baseline MAE 0.7139 already < 0.75 target. Several submodels improved MAE further. MAE constraint is likely non-binding.",
-    "da_sharpe_gap_large": "DA 43.5% to 56% requires +12.5pp. Sharpe -1.70 to +0.80 requires sign flip. These are the binding constraints.",
-    "submodel_complementarity": "VIX/inflation_expectation improve DA+Sharpe, technical/yield_curve/cross_asset improve MAE. These complement each other but combining may cause interference."
+    "attempt1_overfitting": "Train DA 94.3% vs Val DA 46.9% (47pp gap). Caused by directional-weighted MAE with penalty=4.52 and non-stationary price-level features.",
+    "attempt1_data_loss": "Notebook inner join + dropna reduced 2523 rows to 1378 (45.4% loss). Must fix timezone handling and NaN imputation.",
+    "attempt1_magnitude_suppression": "Predictions std = 0.062% vs actual std = 1.307% (4.7% ratio). Custom loss caused model to make tiny conservative predictions.",
+    "attempt1_worse_than_naive": "Model DA 54.1% < naive always-up DA 59.9% on test set.",
+    "sharpe_formula_discrepancy": "Training notebook deducts 5bps daily (Sharpe=0.428). CLAUDE.md formula deducts on trades only (Sharpe=1.027). Must align to CLAUDE.md."
   },
 
-  "submodel_ranking": [
-    {"rank": 1, "name": "etf_flow", "strength": "Sharpe +0.377, MAE -0.044, dual criterion pass"},
-    {"rank": 2, "name": "technical", "strength": "MAE -0.182 (18x threshold, 5/5 folds)"},
-    {"rank": 3, "name": "inflation_expectation", "strength": "DA +0.57%, Sharpe +0.152, all 3 gates pass"},
-    {"rank": 4, "name": "vix", "strength": "DA +0.96% (highest), Sharpe +0.289"},
-    {"rank": 5, "name": "cross_asset", "strength": "DA +0.76%, MAE -0.087"},
-    {"rank": 6, "name": "yield_curve", "strength": "MAE -0.069 (4/5 folds)"},
-    {"rank": 7, "name": "cny_demand", "strength": "MAE -0.066 only, DA/Sharpe degrade"}
-  ],
+  "previous_feedback": {
+    "attempt": 1,
+    "result": "FAIL - all 4 targets missed",
+    "root_causes": [
+      "Directional-weighted MAE with penalty=4.52 caused catastrophic overfitting (train DA 94.3%, val DA 46.9%)",
+      "Non-stationary price-level features dominated importance (top 5) causing regime-dependent overfitting",
+      "Data pipeline lost 45.4% of rows (964 train instead of ~1700+)",
+      "CNY features added directional noise (DA -2.06%, Sharpe -0.593 in Phase 2 ablation)",
+      "Sharpe formula inconsistency between training and evaluation"
+    ],
+    "improvement_actions": [
+      "MANDATORY: Drop directional-weighted MAE, use reg:squarederror",
+      "MANDATORY: Drop all 11 non-stationary price-level base features",
+      "MANDATORY: Drop all 4 CNY features",
+      "MANDATORY: Fix data pipeline to retain ~2000+ training samples",
+      "MANDATORY: Align Sharpe to CLAUDE.md (cost on trades only)",
+      "MANDATORY: Strengthen regularization (lambda [3,20], alpha [1,10], max_depth [2,4], min_child_weight [10,30])"
+    ],
+    "metrics": {
+      "test_da": 0.541,
+      "test_hcda": 0.543,
+      "test_mae": 0.978,
+      "test_sharpe": 0.428,
+      "train_test_da_gap": 40.15,
+      "naive_always_up_da": 0.599
+    }
+  },
 
-  "success_hypothesis": "Combining 7 complementary HMM-based submodel outputs with 19 base features in a well-regularized meta-model (likely gradient boosting or TabNet) with a direction-aware loss function achieves DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8 simultaneously. Key enabler: regime probabilities act as implicit mixture-of-experts gating, allowing the model to learn regime-conditioned prediction strategies.",
-
-  "success_criteria": "Test set must achieve ALL of: DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8 (after 5bps costs). All four metrics measured simultaneously on the same test predictions.",
+  "success_criteria": "Test set must achieve ALL of: DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8 (after 5bps costs on position changes). Train-test DA gap < 10pp.",
 
   "expected_artifacts": [
-    "docs/research/meta_model_attempt_1.md",
-    "docs/design/meta_model_attempt_1.md",
-    "data/processed/meta_model_input.csv",
-    "notebooks/meta_model_1/train.ipynb",
-    "logs/evaluation/meta_model_attempt_1_summary.md"
+    "docs/research/meta_model_attempt_2.md",
+    "docs/design/meta_model_attempt_2.md",
+    "notebooks/meta_model_2/train.ipynb",
+    "logs/evaluation/meta_model_attempt_2_summary.md"
   ],
 
-  "previous_feedback": null,
-  "created_at": "2026-02-15T20:00:00",
-  "created_by": "entrance"
+  "created_at": "2026-02-15T22:00:00",
+  "created_by": "evaluator"
 }
