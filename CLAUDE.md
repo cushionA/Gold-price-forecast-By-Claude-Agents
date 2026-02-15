@@ -418,7 +418,7 @@ Orchestrator (Sonnet)
   ├─ architect (Opus)         Fact-check → Design doc → HP search space
   ├─ builder_data (Sonnet)    Data fetching & preprocessing
   ├─ datachecker (Haiku)      Standardized 7-step check
-  ├─ builder_model (Sonnet)   PyTorch training script generation (for Kaggle)
+  ├─ builder_model (Sonnet)   PyTorch training script generation (for Kaggle) + Notebook validation
   └─ evaluator (Opus)         Gate 1/2/3 → Loop control → Improvement plan
 ```
 
@@ -552,7 +552,14 @@ Orchestrator (Sonnet)
 │ builder_model (Sonnet)                       │
 │  → Generate self-contained train.py          │
 │  → Generate kernel-metadata.json             │
-│  → git commit                                │
+│  → **RUN VALIDATION** (scripts/validate_notebook.py) │
+│    • Syntax check                            │
+│    • Typo detection (.UPPER() etc)           │
+│    • Compatibility warnings (SHAP+XGBoost)   │
+│    • Dataset reference check                 │
+│    • kernel-metadata.json validation         │
+│  → FAIL → Fix and re-validate                │
+│  → PASS → git commit                         │
 └────────────────┬─────────────────────────────┘
                  ▼
 ┌──────────────────────────────────────────────┐

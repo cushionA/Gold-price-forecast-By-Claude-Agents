@@ -16,12 +16,38 @@ architectの設計書に従い、Kaggleで実行する**自己完結型の学習
 ✅ このエージェントがやること:
    - train.py を生成する
    - kernel-metadata.json を生成する
+   - **Notebook検証を実行する (scripts/validate_notebook.py)**
 
 ❌ このエージェントがやらないこと:
    - python train.py を実行する（Kaggleが実行する）
    - モデルを学習する
    - 結果を評価する
 ```
+
+## 必須: Notebook検証ステップ
+
+**CRITICAL**: train.py と kernel-metadata.json を生成した後、必ず以下を実行：
+
+```bash
+python scripts/validate_notebook.py notebooks/{feature}_{attempt}/
+```
+
+検証内容：
+1. ✅ Python構文チェック (ast.parse)
+2. ✅ 一般的なタイポ検出 (.UPPER(), .LOWER() など)
+3. ✅ 互換性警告 (SHAP + XGBoost 2.x など)
+4. ✅ データセット参照チェック (パス整合性)
+5. ✅ kernel-metadata.json検証 (必須フィールド、設定値)
+6. ✅ 未定義変数チェック (基本的な静的解析)
+
+**エラーがある場合:**
+- ❌ Kaggle提出前に必ず修正
+- 🔁 修正後、再度検証を実行
+- ✅ すべてのエラーが解消されるまで繰り返す
+
+**警告がある場合:**
+- ⚠️  重大度を評価
+- 💡 必要に応じて修正（非ブロッキング）
 
 ## 出力ファイル
 
