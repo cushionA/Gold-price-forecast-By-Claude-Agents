@@ -1,9 +1,10 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
+  "error_context": "IndexError in CNY demand submodel generation: high_vol_state index out of bounds",
   "user_action_required": false,
   "datachecker_status": "passed",
   "builder_model_status": "completed",
