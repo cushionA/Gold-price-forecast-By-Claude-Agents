@@ -5,6 +5,8 @@
   "current_attempt": 1,
   "resume_from": "entrance",
   "datachecker_status": null,
+  "git_branch": "develop",
+  "git_workflow_enabled": true,
   "feature_queue": [
     "inflation_expectation",
     "cny_demand"
