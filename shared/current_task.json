@@ -1,220 +1,277 @@
 {
-  "feature": "etf_flow",
+  "feature": "inflation_expectation",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
 
-  "objective": "Extract latent ETF flow dynamics -- volume regime (accumulation vs distribution vs panic), capital intensity (abnormal flow concentration), and price-volume divergence (smart money positioning signal) -- from GLD's volume and price data. The base features already contain etf_flow_gld_volume (rank #9 at 5.2% importance, IDENTICAL to technical_gld_volume), etf_flow_gld_close (IDENTICAL to technical_gld_close), and etf_flow_volume_ma20 (20-day volume moving average). These raw levels tell the meta-model HOW MUCH volume occurred and a smoothed trend. But they do NOT convey: (a) whether the current volume environment is in an accumulation, distribution, or panic REGIME (which drives different gold responses), (b) whether the dollar-weighted flow intensity is abnormally concentrated relative to history (capital urgency), (c) whether price and volume are moving in agreement (confirmation) or divergence (potential reversal). True ETF net flow data (creation/redemption of shares) is NOT available from free sources, so the submodel must construct flow PROXIES from observable volume and price data.",
+  "objective": "Extract latent inflation expectation dynamics -- IE change regime (rising/stable/falling expectations), IE volatility state (anchored vs unanchored expectations), and IE-gold sensitivity regime (whether inflation expectations are currently driving gold) -- from the FRED T10YIE (10-Year Breakeven Inflation Rate) daily series. The base feature already contains inflation_expectation_inflation_expectation (the raw T10YIE LEVEL), which is the #1 most important feature in the baseline model at 9.4% importance. The raw level tells the meta-model WHERE inflation expectations are. But it does NOT convey: (a) whether the current change dynamics constitute a sustained REGIME shift vs noise (is the market repricing inflation expectations systematically, or is today's move random?), (b) whether inflation expectations are ANCHORED (low volatility, stable) or UNANCHORED (high volatility, unstable) -- a critical distinction for central bank credibility and gold demand, (c) whether IE changes are currently correlated with gold returns (active inflation-hedge demand) or decoupled (gold driven by other factors). These three dimensions of IE DYNAMICS provide context that the raw level cannot.",
 
-  "requirements": "Build a submodel that captures three orthogonal dimensions of ETF flow dynamics: (1) VOLUME REGIME -- Is the market in an accumulation (steady buying), distribution (steady selling), or panic (extreme volume spike) regime? Use an HMM on a 2D vector of [log_volume_ratio, gold_return] where log_volume_ratio = log(volume / volume_ma20). The 2D input allows the HMM to distinguish price-confirming volume (volume spike + directional move = genuine flow) from noise volume (volume spike + flat price = market making). (2) FLOW INTENSITY Z-SCORE -- How abnormal is the current dollar-volume relative to its recent distribution? Use dollar_volume (price * volume) z-scored against a rolling window. Dollar volume is superior to raw volume because it adjusts for price level drift (GLD price rose from $114 to $270 over the sample period, so the SAME share volume represents 2.4x more capital flow). The z-score captures capital urgency: extreme positive values signal institutional repositioning. (3) PRICE-VOLUME DIVERGENCE INDICATOR -- Are price and volume confirming or contradicting each other? When price rises on declining volume, the rally lacks conviction (distribution). When price falls on declining volume, selling pressure is exhausted (accumulation bottom). Use a rolling correlation between returns and volume changes (short window, 5-10 days) z-scored against a longer baseline. This is a classic flow analysis concept. Output exactly 3 daily features.",
+  "requirements": "Build a submodel that captures three orthogonal dimensions of inflation expectation dynamics: (1) IE CHANGE REGIME -- Is the market in a rising-expectations (reflationary), stable, or falling-expectations (disinflationary) regime? Use an HMM on a 2D vector of [IE_daily_change, IE_change_volatility_short] where IE_daily_change captures the direction and magnitude and IE_change_volatility_short (e.g., 5-day rolling std of IE changes) captures local instability. The 2D input allows the HMM to distinguish a sustained directional move (high change + low vol = trending) from chaotic repricing (high change + high vol = regime transition). Empirical finding: IE rising days show gold_next mean +0.088% vs falling days -0.031% -- a 12bps directional asymmetry that the HMM should capture as distinct regimes. (2) IE ANCHORING Z-SCORE -- How anchored or unanchored are inflation expectations relative to recent history? Use the rolling standard deviation of IE daily changes (20-day window), z-scored against a longer baseline (120-day). When z-score is high, expectations are unanchored (volatile), which historically corresponds to higher gold volatility (gold std 1.10% vs 0.80% in low-vol IE periods). This captures central bank credibility perception. CRITICAL: raw 20d rolling volatility has autocorrelation 0.97 -- the z-scoring against 120d baseline reduces this, but must verify empirically that it drops below 0.99. If not, use the CHANGE in 20d volatility rather than the level. (3) IE-GOLD SENSITIVITY -- Is inflation expectation currently driving gold prices, or is gold driven by other factors (USD, risk sentiment)? Use the rolling correlation between IE daily changes and same-day gold returns over a short window (5-day), z-scored against a 60-day baseline. When correlation is high, inflation-hedge demand is active. When correlation is low or negative, other drivers dominate. Measured autocorrelation: 5-day rolling corr = 0.75 (acceptable). This feature is unique -- no existing submodel captures the TIME-VARYING SENSITIVITY between a specific macro driver and gold. Output exactly 3 daily features.",
 
   "theoretical_background": {
-    "why_etf_flows_matter_for_gold": "Gold ETF flows (creation/redemption of shares) directly reflect investor demand for gold exposure. When institutions want to increase gold allocation, they buy GLD shares, which causes authorized participants to create new shares by depositing physical gold. This creation process tightens physical gold supply and supports prices. The reverse (redemption) adds physical gold back to the market. GLD alone holds ~$174B in gold assets (~30% of all gold ETFs), making its flow dynamics a significant demand driver. Volume is a partial proxy for flow: high volume on up days suggests net buying (creation), high volume on down days suggests net selling (redemption). While imperfect, volume-based flow proxies capture the INTENSITY and DIRECTION of capital movement that raw price changes alone cannot convey.",
-    "what_base_features_provide": "Three columns: etf_flow_gld_volume (daily share volume, rank #9 at 5.2% importance), etf_flow_gld_close (GLD closing price, identical to technical_gld_close), and etf_flow_volume_ma20 (20-day moving average of volume). Note: etf_flow_gld_volume is IDENTICAL to technical_gld_volume -- the same data appears under two feature group names. The base features tell the meta-model the raw volume level and a smoothed trend. The meta-model can compare today's volume to the 20-day average, but cannot easily detect: (a) whether the volume pattern constitutes an accumulation or distribution REGIME, (b) whether the capital intensity (dollar-adjusted) is historically extreme, (c) whether price and volume are diverging (a leading reversal signal).",
-    "what_submodel_adds": "Three dimensions of flow context that raw volume levels cannot convey: (1) REGIME STATE -- classifies current volume-price dynamics into distinct states (accumulation/distribution/panic). Identical volume levels have different gold implications depending on whether they accompany upward or downward price movement. (2) FLOW INTENSITY -- normalizes volume by price level and historical distribution, capturing the actual CAPITAL being deployed rather than just share count. A z-score of $2.5B/day dollar volume is fundamentally different from a z-score of 8M shares/day because the dollar threshold adjusts for price level. (3) PRICE-VOLUME DIVERGENCE -- measures whether volume confirms or contradicts the price trend, which is a classic technical analysis signal for identifying distribution tops and accumulation bottoms.",
-    "etf_flow_proxy_limitations": "True ETF flow data requires shares outstanding changes (creation/redemption units), which yfinance does NOT provide historically. Only the current snapshot is available (260.3M shares outstanding). Historical shares outstanding would enable computing daily creation/redemption, but this data requires Bloomberg, IHS Markit, or direct SPDR filings. Our proxy approach uses volume + price patterns instead, which captures the INTENSITY dimension but not the exact NET FLOW. This is an accepted limitation -- academic literature confirms volume-based flow proxies explain 60-70% of the variance in actual ETF flows (see Ben-David et al., 2018).",
-    "volume_as_flow_proxy_evidence": {
-      "volume_spikes_predict_reversals": "Empirical analysis of our GLD data: volume z-score > 2.0 (147 occurrences) followed by mean next-day return of -0.08% (vs +0.04% normal). Volume spikes signal exhaustion and subsequent mean-reversion.",
-      "volume_troughs_predict_continuation": "Volume z-score < -1.0 (315 occurrences) followed by mean next-day return of +0.06% with lower volatility (std 0.73% vs 0.90% normal). Low volume indicates price stability and slow accumulation.",
-      "asymmetric_volume_response": "Volume reacts asymmetrically to price: it spikes more on down days (panic selling) than on up days (gradual buying). This asymmetry is captured by the HMM's 2D input.",
-      "dollar_volume_vs_share_volume": "GLD price increased 2.4x from $114 (2015) to $270 (2025). Share volume trends are confounded by this price drift. Dollar volume ($1.9B to $2.5B typical) better represents actual capital movement."
-    },
+    "why_inflation_expectations_matter_for_gold": "Gold is traditionally considered an inflation hedge. The 10-Year Breakeven Inflation Rate (T10YIE = DGS10 - DFII10) represents the market's consensus expectation of average CPI inflation over the next 10 years. When T10YIE rises, the market expects higher future inflation, increasing demand for real assets like gold. When T10YIE falls, disinflationary expectations reduce the inflation-hedge premium in gold. T10YIE is the #1 most important base feature at 9.4% importance, confirming its relevance. However, the raw LEVEL is already captured. The submodel must extract DYNAMICS (regime, anchoring, sensitivity) that the level alone cannot convey.",
+    "fisher_identity_and_vif_risk": "CRITICAL: T10YIE = DGS10 - DFII10 exactly (measured correlation 1.0000). This means the IE level is a PERFECT LINEAR COMBINATION of the nominal yield (DGS10, in base features) and the real rate (DFII10, in base features). Any submodel feature that correlates with IE LEVELS will create severe VIF with yield_curve_dgs10 and real_rate_real_rate. The mitigation: all submodel features must operate on CHANGES, REGIMES, or VOLATILITY of IE -- never on levels. Empirical verification: corr(IE_change_z60, real_rate_change_z60) = -0.044 (orthogonal). corr(IE_change_z60, DGS10_change_z60) = 0.514 (moderate but manageable because z-scoring decorrelates from levels).",
+    "anchored_vs_unanchored_expectations": "Central bank credibility is measured by the anchoring of inflation expectations. When T10YIE volatility is low and stable, expectations are 'anchored' -- the market trusts the central bank's inflation target. When T10YIE volatility spikes, expectations are 'unanchored' -- the market loses confidence in the inflation target. This distinction matters for gold: unanchored expectations create uncertainty about real returns on nominal assets, increasing gold's relative attractiveness. The 2020 COVID period saw T10YIE crash to 0.50% (from 1.65%) then surge to 2.76% by 2021 -- extreme unanchoring that coincided with gold's rally to all-time highs.",
+    "time_varying_ie_gold_sensitivity": "The relationship between IE and gold is not constant. During 'inflation-scare' periods (2021-2022), rising IE directly drove gold higher. During 'risk-off' periods (March 2020), gold rallied despite falling IE because safe-haven demand dominated. During 'Fed-tightening' periods (late 2022-2023), rising real rates dominated despite stable IE. Capturing WHEN IE is driving gold (high IE-gold correlation) vs when other factors dominate (low correlation) provides the meta-model with a dynamic weighting signal.",
+    "what_base_features_provide": "One column: inflation_expectation_inflation_expectation (T10YIE level). Range 0.50 to 3.02, mean 1.995. Autocorrelation 0.997 (highly persistent level). The raw level is the #1 baseline feature at 9.4% importance. But the level has near-zero correlation with next-day gold return (corr = -0.015). The CHANGE has higher correlation (corr = +0.092). This 6x difference between level and change correlation confirms that IE dynamics (not levels) drive the gold relationship.",
+    "what_submodel_adds": "Three dimensions of IE dynamics that the raw level cannot convey: (1) REGIME STATE -- classifies current IE change dynamics into distinct states (rising/stable/falling). A +0.03 daily IE change has different implications if it occurs in a sustained rising regime (reflationary trend) vs a volatile regime (noise). (2) ANCHORING STATE -- measures whether IE is currently stable (anchored) or volatile (unanchored). Gold volatility is 38% higher when IE is unanchored (1.10% vs 0.80%). (3) SENSITIVITY STATE -- measures whether IE changes are currently correlated with gold returns. When correlation is high, IE is the dominant gold driver. When low, other factors dominate. This allows the meta-model to dynamically weight the IE level based on whether it is currently 'active' as a gold driver.",
     "relationship_to_existing_submodels": {
-      "vix_submodel": "VIX captures market-wide fear/greed regime. ETF flow captures gold-SPECIFIC demand dynamics. Volume spikes often co-occur with VIX spikes (corr = 0.37 for raw volume vs VIX), but the FLOW REGIME adds directionality: VIX spike + GLD volume spike on up day = safe haven buying (bullish), VIX spike + GLD volume spike on down day = forced liquidation (bearish). The VIX submodel cannot distinguish these.",
-      "technical_submodel": "Technical submodel uses GLD OHLC for regime detection based on returns and GK volatility. The ETF flow submodel uses GLD volume + returns for regime detection based on FLOW PATTERNS. Different inputs (volume vs price range) capturing different phenomena (demand dynamics vs price dynamics). Low expected correlation: vol_z60 vs tech outputs showed max corr 0.20.",
-      "cross_asset_submodel": "Cross-asset captures relative pricing regime. ETF flow captures absolute demand intensity for gold specifically. These are complementary: cross-asset says 'gold is expensive vs copper' while ETF flow says 'institutions are aggressively buying/selling gold regardless of relative value'."
+      "real_rate_submodel": "FAILED after 5 attempts due to monthly-to-daily frequency mismatch. T10YIE is daily from FRED (no interpolation needed). Fisher identity: T10YIE + DFII10 = DGS10. Despite this algebraic relationship at the LEVEL, IE changes and real rate changes are nearly orthogonal (corr = -0.044 after z-scoring). IE dynamics capture inflation expectation repricing, while real rate dynamics (had they worked) would capture real yield repricing. These are independent market processes.",
+      "yield_curve_submodel": "Yield curve captures the DGS10-DGS2 spread dynamics (steepening/flattening). IE captures the DGS10-DFII10 decomposition dynamics (inflation expectations vs real yields). These are orthogonal decompositions of the same nominal yield: spread = DGS10-DGS2 (maturity structure), IE = DGS10-DFII10 (inflation component). corr(IE_change_z, yield_curve outputs) < 0.12 measured.",
+      "vix_submodel": "VIX captures market-wide risk sentiment regime. IE captures inflation expectation regime. These are distinct macro factors with low correlation (corr(IE_change_z, vix_outputs) < 0.15). However, during extreme events (2020), both VIX and IE moved dramatically -- the HMM may detect overlapping 'crisis' regimes.",
+      "etf_flow_submodel": "ETF flow captures investor demand dynamics through volume patterns. IE captures macro expectation dynamics. Different information domains. Low expected correlation.",
+      "technical_submodel": "Technical captures gold price dynamics (trend, mean-reversion, volatility). IE captures macro input dynamics. No overlap."
     }
   },
 
   "data_strategy": {
     "primary_data": {
-      "source": "Yahoo Finance",
-      "ticker": "GLD",
-      "fields": ["Volume", "Close", "Open", "High", "Low"],
+      "source": "FRED",
+      "series_id": "T10YIE",
+      "description": "10-Year Breakeven Inflation Rate (T10YIE = DGS10 - DFII10)",
       "frequency": "daily",
-      "note": "GLD OHLCV data already available in data/raw/etf_flow.csv (volume, close, volume_ma20) and data/raw/technical.csv (full OHLCV). Close and Volume are the critical fields. Open/High/Low provide intraday range for advanced flow indicators if needed."
+      "delay": "1 day (published next business day)",
+      "note": "Already in base_features as inflation_expectation_inflation_expectation. The submodel re-fetches from FRED to compute dynamics (changes, volatility, etc.) that are not in base_features."
     },
     "supplementary_candidates": [
       {
-        "source": "Yahoo Finance",
-        "ticker": "IAU",
-        "description": "iShares Gold Trust. Second largest gold ETF (~$80B AUM). Comparing GLD vs IAU volume ratios could indicate institutional preference shifts.",
-        "purpose": "Flow divergence between GLD and IAU may signal large institutional repositioning. If institutions shift from GLD to IAU (lower expense ratio), GLD volume drops while gold demand remains stable.",
-        "note": "Researcher should evaluate whether GLD-IAU volume ratio adds information or just adds noise. The ratio may have high autocorrelation (both track the same gold price)."
+        "source": "FRED",
+        "series_id": "T5YIE",
+        "description": "5-Year Breakeven Inflation Rate",
+        "purpose": "Shorter-horizon inflation expectations. The T5YIE vs T10YIE spread captures the market's view on long-term vs medium-term inflation. A widening spread (T10YIE > T5YIE) suggests long-term inflation concerns. However, T5YIE and T10YIE are highly correlated (likely > 0.95). Researcher should verify correlation and whether the spread adds information beyond T10YIE alone.",
+        "risk": "High correlation with T10YIE may make the spread uninformative. VIF risk."
       },
       {
-        "source": "Yahoo Finance",
-        "ticker": "GLDM",
-        "description": "SPDR Gold MiniShares. Lower cost alternative launched 2018.",
-        "purpose": "GLD-GLDM volume ratio could indicate retail vs institutional flow. GLDM targets retail (lower price per share).",
-        "note": "Only available from June 2018. 7 years of data may be insufficient for robust HMM training."
+        "source": "FRED",
+        "series_id": "T5YIFR",
+        "description": "5-Year, 5-Year Forward Inflation Expectation Rate",
+        "purpose": "Captures long-term inflation expectations (5-10 years ahead), stripping out near-term inflation noise. More closely related to 'anchoring' of expectations. Less volatile than T10YIE. Used by the Fed as a key indicator of long-run inflation expectations.",
+        "risk": "May be too smooth (high autocorrelation). Researcher should verify daily availability and correlation with T10YIE."
+      },
+      {
+        "source": "FRED",
+        "series_id": "MICH",
+        "description": "University of Michigan Inflation Expectations (1-year ahead, consumer survey)",
+        "purpose": "Consumer-based inflation expectations vs market-based (T10YIE). Captures 'main street' inflation sentiment. Divergence between MICH and T10YIE may signal institutional vs consumer disagreement.",
+        "risk": "MONTHLY frequency. Cannot be used in daily pipeline without interpolation, which failed for real_rate. REJECT unless researcher finds a daily proxy."
       }
     ],
-    "shares_outstanding_assessment": {
-      "availability": "Historical shares outstanding for GLD is NOT available from yfinance. Only current snapshot (260.3M shares). Quarterly financials return empty for GLD. yfinance provides: Open, High, Low, Close, Volume, Dividends, Stock Splits, Capital Gains.",
-      "alternative_free_sources": "None identified. Historical shares outstanding requires Bloomberg terminal or direct SEC filings parsing.",
-      "design_implication": "The submodel MUST rely entirely on volume-based and price-volume-based flow proxies. Shares outstanding changes (creation/redemption) cannot be used."
+    "multi_country_assessment": {
+      "availability": "Multi-country breakeven inflation rates are NOT readily available from FRED at daily frequency. UK (FRED: T10YIEUK) exists but may be monthly. Euro area has no direct breakeven series on FRED. Japan has extremely low breakeven rates (near zero), making them uninformative.",
+      "decision": "US-only design. This is consistent with all successful submodels (VIX, technical, cross_asset, yield_curve, etf_flow) which used US-only data. Multi-country data failed for real_rate due to monthly frequency.",
+      "researcher_task": "Verify T10YIEUK daily availability on FRED. If daily with reasonable coverage, it could provide a valuable second data point for the HMM. If monthly, reject."
     },
     "expected_samples": "~2523 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)"
   },
 
   "research_questions": [
-    "What is the optimal HMM input specification for detecting ETF flow regimes? Candidates: (a) 1D HMM on log(volume/volume_ma20) -- simplest, captures volume regime only. (b) 2D HMM on [log_volume_ratio, gold_return] -- captures price-confirming vs price-contradicting volume. (c) 2D HMM on [dollar_volume_z, gold_return] -- captures dollar-adjusted flow intensity with direction. (d) 3D HMM on [log_volume_ratio, gold_return, intraday_range] -- richest but may overfit. Which dimensionality provides the most informative regime detection for gold return prediction? What number of HMM states (2 vs 3) best captures accumulation/distribution/panic? Empirically measure MI of each candidate's regime_prob with gold_return_next, and measure autocorrelation.",
-    "What is the empirical evidence for volume-based flow proxies predicting ETF or gold returns? Key aspects: (a) What fraction of actual ETF flow variance is explained by volume patterns? (Ben-David, Franzoni, Moussawi 2018 on ETF flows). (b) Is there academic support for On-Balance Volume (OBV) or volume-price trend (VPT) as predictors? (c) Does the 'volume precedes price' hypothesis hold for gold ETFs specifically? (d) What is the documented predictive horizon -- does flow information predict 1-day ahead returns or only longer horizons? We need evidence that daily volume patterns carry next-day information, not just weekly or monthly.",
-    "How should dollar volume be normalized to remove the price-level drift? GLD price increased 2.4x over 10 years ($114 to $270). Options: (a) z-score of log(dollar_volume) against a 60-day rolling window -- captures relative intensity but may have high autocorrelation. (b) z-score of dollar_volume_pct_change -- captures daily flow change, very low autocorrelation (-0.34 measured). (c) Dollar volume rank percentile over a rolling window -- robust to outliers. (d) Dollar volume divided by rolling 20-day average dollar volume (ratio) -- interpretable but may correlate with raw volume ratio. Which normalization produces the most informative signal with acceptable autocorrelation (< 0.99) and low VIF with base features?",
-    "What is the optimal specification for the price-volume divergence indicator? Options: (a) Rolling 5-day correlation between daily returns and daily volume changes -- captures short-term confirmation/divergence. Measured autocorrelation = 0.90 for 10-day window, which is below 0.99 but high. (b) Rolling 10-day correlation -- smoother but higher autocorrelation (0.96 measured for 20-day). (c) Daily OBV-based indicator: sign(return) * volume, z-scored. Very low autocorrelation (0.03 measured) but noisier. (d) Accumulation/Distribution line (A/D) using OHLC: [(Close - Low) - (High - Close)] / (High - Low) * Volume, z-scored. Uses intraday range for better flow direction estimation. Which captures the most useful price-volume divergence signal? The 5-day rolling correlation has the right theoretical foundation but autocorrelation must be verified empirically.",
-    "What VIF risk exists between the proposed flow features and existing base features and submodel outputs? Specifically: (a) Dollar volume z-score vs raw etf_flow_gld_volume -- measured corr 0.14 for vol_z60 vs vix, but what about vs raw volume? (b) Volume regime prob vs vix_regime_probability -- both capture abnormal market activity. Measured corr(vol_z60, vix_regime_prob) = 0.20. Would an HMM regime produce higher correlation? (c) Price-volume divergence vs tech_mean_reversion_z -- both capture reversal signals. What is the measured correlation? (d) Flow intensity vs cross_asset signals -- volume spikes may co-occur with cross-asset dislocations.",
-    "Are there alternative free data sources that provide historical GLD shares outstanding or ETF flow data? Specifically: (a) Does the World Gold Council provide free historical ETF holdings data? (b) Does the SEC EDGAR filing system (N-PORT or N-CEN filings) provide parseable historical shares outstanding for GLD? (c) Are there any free APIs (e.g., IEX Cloud free tier, Alpha Vantage) that provide ETF shares outstanding history? (d) If historical shares outstanding IS available from any free source, how frequently is it updated (daily vs weekly vs monthly)? If only weekly/monthly, it fails the 5-day delay constraint.",
-    "Should the submodel incorporate GLD options volume or put/call ratio as an additional flow signal? Options: (a) Yahoo Finance may provide GLD options chain data. (b) CBOE may provide GLD put/call ratio. (c) Options flow often leads equity/ETF flow due to leverage. (d) However, options data availability and lag must be verified. If options data is available with <5 day delay, it could provide a powerful leading flow indicator. Researcher should verify data availability and latency.",
-    "What lookback windows are optimal for each feature? Specifically: (a) HMM training window -- full training set (as in VIX/technical) or rolling (as sometimes proposed)? Full training set is simpler and has been the standard in all successful submodels. (b) Dollar volume z-score window -- 20d, 40d, or 60d? Trade-off: shorter window = more responsive but noisier, longer window = smoother but higher autocorrelation. VIX used 60d successfully. (c) Price-volume divergence window -- 5d or 10d rolling correlation? Shorter = lower autocorrelation but noisier. The 5d window likely has autocorrelation around 0.75-0.85 (acceptable), while 20d has 0.96 (risky). (d) Volume moving average baseline for log_volume_ratio -- 20d (already in base features) or different window? Using the same 20d creates potential VIF with etf_flow_volume_ma20."
+    "What is the optimal HMM input specification for detecting inflation expectation regimes? Candidates: (a) 1D HMM on IE_daily_change -- simplest, captures directional regime only. (b) 2D HMM on [IE_daily_change, IE_change_vol_5d] -- captures direction + stability, distinguishing trending from chaotic periods. (c) 2D HMM on [IE_daily_change, gold_daily_return] -- captures IE-gold co-movement regime directly. (d) 2D HMM on [IE_daily_change, real_rate_daily_change] -- captures the decomposition of nominal yield changes into IE vs real rate components. Which dimensionality and input combination produces the most informative regime detection for gold return prediction? What number of HMM states (2 vs 3) best captures rising/stable/falling expectations? Empirically measure MI of each candidate's regime_prob with gold_return_next, and measure autocorrelation. Note: measured IE_daily_change autocorrelation is 0.072 (excellent), so HMM input should be well-behaved.",
+    "Is the 5-Year, 5-Year Forward Inflation Expectation Rate (T5YIFR from FRED) available at daily frequency with sufficient coverage (2015-2025)? What is its correlation with T10YIE at both level and change? If corr(T5YIFR_change, T10YIE_change) < 0.7, the T10YIE-T5YIFR spread could capture the 'term structure of inflation expectations' -- a potentially unique signal. If correlation is > 0.9, the spread is uninformative. Also verify T5YIE daily availability and its correlation with T10YIE.",
+    "What academic evidence supports the concept of 'anchored vs unanchored' inflation expectations, and how does the anchoring state relate to gold prices? Key questions: (a) How do central banks define 'anchored' expectations? (b) Is there published research on T10YIE volatility as a measure of anchoring? (c) Does the literature support the finding that gold volatility increases during unanchored periods? (d) What rolling window is standard for measuring IE volatility (5d, 10d, 20d)? We measured: gold std = 1.10% when IE vol is high (Q4) vs 0.80% when low (Q1) -- a 38% difference.",
+    "What is the empirical evidence for time-varying inflation-hedge effectiveness of gold? Specifically: (a) Does the gold-IE correlation vary over time, and if so, what drives the variation? (b) Academic studies on 'conditional inflation hedging' -- does gold hedge inflation better in some regimes than others? (c) What rolling window is appropriate for measuring IE-gold correlation (5d, 10d, 20d)? We measured: 5d autocorrelation = 0.75 (acceptable), 10d = 0.89 (borderline). (d) Is there a threshold effect where IE-gold correlation flips sign (e.g., moderate IE supports gold but extreme IE triggers risk-off)?",
+    "How should IE volatility be normalized to achieve autocorrelation below 0.99? The raw 20-day rolling std of IE changes has autocorrelation 0.97 (borderline). Options: (a) Z-score against 120-day rolling window -- may reduce to ~0.90-0.95. (b) First difference of rolling volatility -- removes persistence but may be too noisy. (c) Log-ratio of short-term vol to long-term vol (e.g., vol_5d / vol_60d) -- captures relative volatility regime. (d) Rank percentile over 120-day window -- bounded, reduces autocorrelation. Which normalization achieves autocorrelation < 0.95 while preserving the gold-volatility relationship?",
+    "What VIF risk exists between the proposed IE submodel features and the Fisher-identity-related base features (real_rate_real_rate, yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread)? Fisher identity: T10YIE + DFII10 = DGS10. At the LEVEL, IE is a perfect linear combination. But we measured: corr(IE_change_z60, real_rate_change_z60) = -0.044, corr(IE_change_z60, DGS10_change_z60) = 0.514. The 0.514 correlation with DGS10 changes is moderate. Will a z-scored IE change feature have VIF < 10 against the full base feature set including DGS10 and yield_spread? What about the HMM regime_prob? Researcher must compute VIF empirically.",
+    "Is the UK 10-Year Breakeven Inflation Rate (T10YIEUK on FRED or similar) available at daily frequency from 2015 to 2025? If so, what is the correlation between US and UK breakeven inflation changes? Multi-country IE data could enrich the HMM training (more samples for regime detection) following the cross_asset multi-country pattern. However, if only monthly data is available, it must be REJECTED (real_rate monthly interpolation failed).",
+    "What is the relationship between T10YIE changes and gold returns across different macro regimes? Specifically: (a) During QE periods (2015-2018, 2020-2021), does the IE-gold relationship strengthen (both respond to monetary stimulus)? (b) During tightening periods (2022-2023), does the relationship weaken (real rates dominate)? (c) During crisis periods (March 2020), does IE crash while gold rises (safe-haven decoupling)? This regime-dependent sensitivity is the theoretical basis for the IE-gold sensitivity feature. Researcher should identify 3-4 distinct macro regimes and measure IE-gold correlation within each.",
+    "Are there any free data sources for inflation swap rates or CPI futures that could supplement T10YIE? Inflation swaps provide a purer measure of inflation expectations (no liquidity premium). Zero-coupon inflation swap rates are published by some central banks. If available with daily frequency and < 5-day delay, they could replace T10YIE as the primary input. However, this is likely unavailable from free sources (Bloomberg-only). Researcher should confirm unavailability to document the constraint."
   ],
 
   "candidate_approaches": {
-    "approach_A_hmm_2d_volume_price": {
-      "description": "HMM on 2D [log_volume_ratio, gold_return] for flow regime, plus dollar_volume z-score for intensity, plus 5-day rolling return-volume correlation z-score for divergence. Follows the proven HMM + deterministic pattern.",
-      "output": ["etf_regime_prob", "etf_flow_intensity_z", "etf_pv_divergence_z"],
-      "pros": "Follows proven HMM pattern. 2D HMM distinguishes confirming vs contradicting volume. Dollar volume z-score is orthogonal to raw volume. PV divergence captures classic flow reversal signal.",
-      "cons": "PV correlation z-score may have high autocorrelation (0.90+ for 10-day window). Must use 5-day window or daily OBV-based approach instead.",
+    "approach_A_hmm_2d_ie_dynamics": {
+      "description": "HMM on 2D [IE_daily_change, IE_change_vol_5d] for IE regime detection, plus IE anchoring z-score (20d vol z-scored against 120d baseline), plus IE-gold rolling correlation (5d) z-score. Follows the proven HMM + deterministic pattern.",
+      "output": ["ie_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"],
+      "pros": "Follows proven HMM pattern from all 6 successful submodels. 2D HMM captures direction + stability, distinguishing trending from volatile periods. Anchoring z-score is theoretically grounded in central bank credibility literature. IE-gold sensitivity captures time-varying inflation hedging. All three dimensions are orthogonal: regime (which state), anchoring (how stable), sensitivity (how gold-relevant).",
+      "cons": "IE anchoring z-score may inherit high autocorrelation from underlying 20d vol (measured 0.97). Must verify z-scoring sufficiently reduces this. IE-gold sensitivity (5d rolling corr) has autocorrelation 0.75 -- acceptable but higher than ideal.",
       "preferred": true,
-      "reasoning": "Most aligned with successful submodel pattern. 2D HMM captures richer information than 1D. Dollar volume z-score adds unique price-adjusted intensity. PV divergence is genuinely new information not captured by any existing submodel."
+      "reasoning": "Most aligned with successful submodel pattern. IE is the #1 base feature, so enriching it with dynamics has the highest potential payoff. 2D HMM input [change, vol] is novel (previous HMMs used [value, return] pairs) and captures the anchoring concept directly in the regime detection."
     },
-    "approach_B_deterministic_only": {
-      "description": "Entirely deterministic: log_volume_ratio (vol/ma20) z-scored, dollar_volume daily change z-score, Accumulation/Distribution line z-score using OHLC. No HMM.",
-      "output": ["etf_vol_regime_z", "etf_dollar_flow_z", "etf_ad_line_z"],
-      "pros": "No overfitting risk. Accumulation/Distribution line uses OHLC data for better flow direction estimation. Very fast computation.",
-      "cons": "No regime detection. All successful submodels used HMM. Z-score of vol/ma20 may correlate with the raw volume_ma20 base feature (VIF risk)."
+    "approach_B_hmm_2d_ie_gold_comovement": {
+      "description": "HMM on 2D [IE_daily_change, gold_daily_return] for direct IE-gold co-movement regime detection, plus IE change z-score (60d), plus IE acceleration z-score (change of change). Directly models the IE-gold relationship.",
+      "output": ["ie_gold_regime_prob", "ie_change_z", "ie_acceleration_z"],
+      "pros": "HMM directly detects when IE and gold move together vs apart -- the core theoretical insight. IE change z-score has autocorrelation 0.04 (excellent). IE acceleration z-score has autocorrelation -0.45 (excellent, mean-reverting).",
+      "cons": "Using gold_return as HMM input is risky: the submodel must NOT predict gold. Using gold returns as input might create information leakage if the HMM learns to classify 'gold up' vs 'gold down' days rather than genuine IE-gold co-movement regimes. Also, MI of simple change-z and acceleration-z is 0.0000 with gold_return_next -- they may be too noisy without regime context.",
+      "risk": "Gold return as HMM input may violate the 'submodel does NOT predict gold' principle. Architect must evaluate this carefully."
     },
-    "approach_C_multi_etf_comparison": {
-      "description": "HMM on GLD volume regime, plus GLD/IAU volume ratio z-score (institutional preference), plus dollar volume z-score.",
-      "output": ["etf_regime_prob", "etf_gld_iau_ratio_z", "etf_flow_intensity_z"],
-      "pros": "GLD/IAU ratio captures institutional rotation that single-ETF analysis misses.",
-      "cons": "IAU volume is much smaller than GLD, making the ratio noisy. IAU volume may have different liquidity dynamics. Adds complexity without clear benefit over price-volume analysis."
+    "approach_C_deterministic_only": {
+      "description": "Entirely deterministic: IE change z-score (60d window), IE change volatility ratio (5d/60d), IE momentum cross (5d change vs 20d change normalized). No HMM.",
+      "output": ["ie_change_z", "ie_vol_ratio", "ie_momentum_cross"],
+      "pros": "No overfitting risk. All features have measured autocorrelation well below 0.99. IE change z-score autocorr = 0.04, momentum cross autocorr = 0.79. Very fast computation. No training required.",
+      "cons": "No regime detection. MI of individual candidates is 0.0000 against gold_return_next -- suggesting linear features alone cannot extract useful information. All successful submodels used HMM, which captures nonlinear regime information. This approach is likely to fail Gate 2 (MI < 5%).",
+      "risk": "High probability of Gate 2 failure. Retained as a fallback if HMM approaches have implementation issues."
     },
-    "approach_D_obv_based": {
-      "description": "HMM on daily OBV changes for regime, plus dollar volume z-score for intensity, plus Chaikin Money Flow (CMF) z-score for positioning.",
-      "output": ["etf_obv_regime_prob", "etf_flow_intensity_z", "etf_cmf_z"],
-      "pros": "OBV and CMF are established flow indicators with academic backing. CMF uses OHLCV for precise within-day flow estimation.",
-      "cons": "OBV changes are very noisy (single-day sign assignment). CMF requires OHLC which is the same data as technical submodel (potential overlap). HMM on OBV changes may produce unstable regimes."
+    "approach_D_multi_input_hmm_with_t5yifr": {
+      "description": "HMM on 2D [T10YIE_change, T5YIFR_change] for inflation expectation term structure regime detection, plus T10YIE anchoring z-score, plus IE-gold sensitivity z-score. Uses the term structure of inflation expectations.",
+      "output": ["ie_term_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"],
+      "pros": "Term structure of inflation expectations (T10YIE vs T5YIFR) captures whether long-run vs medium-run expectations are diverging -- a powerful signal for structural inflation regime shifts. T5YIFR is the Fed's preferred measure of long-run anchoring.",
+      "cons": "Depends on T5YIFR being available at daily frequency from FRED (researcher must verify). T5YIFR and T10YIE may be too correlated (both derived from TIPS market), making the 2D HMM inputs redundant. If T5YIFR is monthly, this approach is invalid.",
+      "risk": "Conditional on data availability. Researcher must verify T5YIFR daily availability before architect can proceed with this approach."
     }
   },
 
   "constraints": [
-    "All data must be daily frequency from Yahoo Finance. GLD OHLCV is daily with 0-1 day delay. No data with >5 day delay permitted.",
-    "Submodel does NOT predict gold prices -- it extracts flow dynamics (volume regime, capital intensity, price-volume divergence) that provide context for how investor behavior affects gold.",
-    "Output must be exactly 3 columns. The proven 3-feature compact pattern from VIX/technical/cross_asset/yield_curve is the standard.",
-    "CRITICAL VIF CONSTRAINT: etf_flow_gld_volume is IDENTICAL to technical_gld_volume. etf_flow_gld_close is IDENTICAL to technical_gld_close. Any feature that correlates with raw volume levels will create VIF issues. Features MUST use z-scores, ratios, or regime probabilities -- NOT raw volume or price levels. Additionally, check VIF against vix_vix (raw volume corr with VIX = 0.37) and technical submodel outputs.",
-    "VIF < 10 against all existing submodel outputs: vix (regime_probability, mean_reversion_z, persistence), technical (trend_regime_prob, mean_reversion_z, volatility_regime), cross_asset (regime_prob, recession_signal, divergence), yield_curve (spread_velocity_z, curvature_z). Particular VIF risk: volume z-score vs vix_mean_reversion_z (measured corr 0.28) and volume z-score vs vix_regime_probability (measured corr 0.20).",
-    "Autocorrelation < 0.99 for all output columns. Measured autocorrelations of candidates: volume z-score 60d = 0.44 (safe), dollar volume daily change = -0.34 (safe), OBV direction = 0.03 (safe), PV corr 10d = 0.91 (borderline), PV corr 20d = 0.96 (risky). Avoid long-window rolling correlations. Use 5-day or daily-based indicators.",
-    "Features must be computable at inference time without lookahead bias -- all rolling windows backward-looking, HMM fit on training set only.",
-    "Historical GLD shares outstanding data is NOT available from yfinance. Do NOT design features that require shares outstanding changes (creation/redemption proxy). Rely on volume and price data only, unless the researcher identifies a free alternative data source.",
-    "Dollar volume normalization is ESSENTIAL. GLD price increased 2.4x over the sample period ($114 to $270). Raw share volume trends are confounded by this price drift. Any volume-based feature should use dollar volume (price * volume) or volume ratios, not raw share volume.",
-    "Avoid features that duplicate information from the technical submodel. The technical submodel already captures gold's PRICE dynamics (trend regime, mean-reversion, volatility). The ETF flow submodel must capture VOLUME dynamics (flow regime, capital intensity, price-volume interaction) -- a fundamentally different information source."
+    "All data must be daily frequency from FRED. T10YIE is daily with 1-day delay. No data with > 5 day delay permitted. Monthly data (MICH, multi-country IE) is REJECTED based on real_rate failure precedent.",
+    "Submodel does NOT predict gold prices -- it extracts inflation expectation dynamics (regime, anchoring, sensitivity) that provide context for how IE state affects gold's response to other factors.",
+    "Output must be exactly 3 columns. The proven 3-feature compact pattern from all 6 successful submodels is the standard. real_rate attempt 5 used 7 features and produced the worst Gate 3 degradation.",
+    "CRITICAL FISHER IDENTITY VIF CONSTRAINT: T10YIE = DGS10 - DFII10 exactly (correlation 1.0000 confirmed). Any feature that correlates with IE LEVELS will create severe VIF with yield_curve_dgs10 (base feature) and real_rate_real_rate (base feature). ALL submodel features MUST operate on CHANGES, REGIMES, or VOLATILITY -- NEVER on IE levels or level z-scores. IE level z-score (120d) has autocorrelation 0.978 and would also fail Gate 1.",
+    "VIF < 10 against all existing base features AND submodel outputs. Key risks: (a) IE change z-score vs DGS10 change -- measured corr 0.514 at z-score level, must verify VIF formally. (b) IE regime_prob vs vix_regime_prob -- both capture regime dynamics, corr must stay below VIF threshold. (c) IE anchoring z-score vs ie_vol indicators if any exist. Measured correlations of IE candidates with all existing submodel outputs: all below 0.15 (excellent).",
+    "Autocorrelation < 0.99 for ALL output columns. Measured candidates: IE change z-score = 0.04 (excellent), IE acceleration z-score = -0.47 (excellent), IE-gold 5d rolling corr = 0.75 (acceptable), IE 20d vol raw = 0.97 (BORDERLINE). The IE volatility/anchoring feature MUST be normalized (z-scored, ratio, or differenced) to reduce autocorrelation below 0.95.",
+    "Features must be computable at inference time without lookahead bias -- all rolling windows backward-looking, HMM fit on training set only, z-score statistics computed from training window only.",
+    "No monthly data interpolation. The real_rate submodel failed across 5 attempts because monthly-to-daily interpolation created step functions. T10YIE is natively daily, but any supplementary series (MICH, multi-country IE) that is monthly MUST be rejected.",
+    "Dollar-value normalization is NOT needed (unlike ETF flow). T10YIE is already a percentage rate. No price drift confound exists.",
+    "Avoid features that duplicate information from the yield_curve submodel. Yield_curve captures DGS10-DGS2 spread dynamics. IE submodel captures the inflation component of DGS10 (= DGS10 - DFII10). These are orthogonal decompositions (slope vs composition) but must be verified empirically. corr(IE_change_z, yc_curvature_z) = 0.12, corr(IE_change_z, yc_spread_velocity_z) = not yet measured -- researcher must verify.",
+    "HMM input MUST NOT include gold_return directly as a primary dimension unless architect confirms this does not violate the 'submodel does not predict gold' principle. Using gold_return as HMM input risks learning to classify 'gold up' vs 'gold down' days rather than genuine IE dynamics. If gold_return is used, it must be as a SECONDARY input to condition IE regime detection, not as the primary signal."
   ],
 
   "output_schema": {
     "target_columns": 3,
     "candidate_columns": [
-      "etf_regime_prob: Probability of being in a specific volume-price regime (e.g., 'accumulation' = moderate volume + up price, 'distribution' = moderate volume + down price, 'panic' = extreme volume + directional move). From HMM on [log_volume_ratio, gold_return]. Range [0, 1].",
-      "etf_flow_intensity_z: Z-score of dollar volume (price * volume) against a rolling window. Captures how much CAPITAL is flowing into/out of gold ETFs relative to recent history. Dollar-adjusted removes the 2.4x price drift confound. Positive = abnormally high capital movement, negative = abnormally quiet. Range [-4, +4].",
-      "etf_pv_divergence_z: Z-score of the rolling correlation between daily returns and daily volume changes. Positive = price and volume moving together (trend confirmation). Negative = price and volume diverging (potential reversal). This is the classic 'volume precedes price' indicator. Range [-4, +4]."
+      "ie_regime_prob: Probability of being in a specific IE change regime (e.g., 'rising expectations' = sustained positive IE changes + low volatility, 'stable' = near-zero changes, 'volatile/unanchored' = large changes + high volatility). From HMM on [IE_daily_change, IE_change_vol_5d]. Range [0, 1].",
+      "ie_anchoring_z: Z-score of IE change volatility (20d rolling std of IE daily changes) against a 120d rolling baseline. Captures whether inflation expectations are anchored (z < 0, low vol relative to history) or unanchored (z > 0, high vol). Related to central bank credibility. Range approximately [-3, +4]. MUST have autocorrelation < 0.99 after z-scoring.",
+      "ie_gold_sensitivity_z: Z-score of rolling 5-day correlation between IE daily changes and same-day gold returns, against a 60-day baseline. Captures whether IE is currently an active driver of gold (high correlation) or decoupled (low correlation). This is a TIME-VARYING SENSITIVITY measure unique among all submodels. Range approximately [-3, +3]. Measured autocorrelation 0.75 for raw 5d rolling corr."
     ],
     "properties": [
-      "All daily frequency from Yahoo Finance, no interpolation needed",
-      "No NaN values after warmup period (max ~60-90 days for longest rolling window)",
-      "VIF < 10 against etf_flow_gld_volume, etf_flow_gld_close, etf_flow_volume_ma20, AND technical_gld_* base features",
-      "VIF < 10 against all existing submodel outputs",
-      "Each feature captures a DIFFERENT dimension: regime (which flow state), intensity (how much capital), divergence (confirming or contradicting)",
-      "Features encode FLOW DYNAMICS that raw volume levels cannot convey"
+      "All daily frequency from FRED T10YIE, no interpolation needed",
+      "No NaN values after warmup period (max ~120 days for longest rolling baseline window)",
+      "VIF < 10 against inflation_expectation_inflation_expectation (level), real_rate_real_rate, yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread base features",
+      "VIF < 10 against all existing submodel outputs (vix, technical, cross_asset, yield_curve, etf_flow)",
+      "Each feature captures a DIFFERENT dimension: regime (which IE state), anchoring (how stable), sensitivity (how gold-relevant)",
+      "Features encode IE DYNAMICS that the raw IE level cannot convey",
+      "NO LEVEL-BASED FEATURES due to Fisher identity VIF constraint"
     ]
   },
 
-  "success_hypothesis": "ETF flow dynamics (volume-price regime, dollar-adjusted flow intensity, price-volume divergence) will provide the meta-model with investor demand context that improves MAE by -0.01% or direction accuracy by +0.5% or more. The key insight is that identical volume levels have very different gold implications depending on the context: high volume on an up day signals accumulation (bullish continuation), while high volume on a down day signals distribution/panic (potential reversal). Our preliminary analysis shows volume spikes (z > 2.0, N=147) are followed by mean next-day return of -0.08% vs +0.04% normal -- a 12bps difference that is statistically meaningful over 2500 observations. The raw etf_flow_gld_volume base feature (rank #9 at 5.2%) already contributes, and adding directional flow context should amplify its predictive value. The proven HMM + deterministic pattern (successful in VIX, technical, cross_asset, yield_curve) provides the template.",
+  "success_hypothesis": "Inflation expectation dynamics (IE change regime, anchoring state, IE-gold sensitivity) will provide the meta-model with macro expectation context that improves MAE by at least -0.01% (Gate 3 threshold). IE is the #1 base feature at 9.4% importance, so enriching it with dynamics has the highest potential payoff of any remaining submodel. The key insight: identical IE levels have very different gold implications depending on dynamics. An IE of 2.3% that is rising steadily (reflationary regime) supports gold differently than 2.3% that is falling rapidly (disinflationary shock) or 2.3% that is stable (anchored expectations). The 12bps directional asymmetry (rising IE: +0.088% vs falling: -0.031%) provides a measurable edge. The proven HMM + deterministic pattern (successful in 6/6 completed submodels) provides the template. Primary success path is MAE improvement, following the pattern of technical (-0.182), cross_asset (-0.087), yield_curve (-0.069), etf_flow (-0.044).",
 
   "success_criteria": {
     "gate1": {
-      "overfit_ratio": "< 1.5 (for HMM component, N/A for deterministic rolling features)",
+      "overfit_ratio": "< 1.5 (for HMM component, N/A for deterministic features)",
       "no_constant_output": true,
-      "autocorrelation": "< 0.99 for all output columns. Primary risk: price-volume divergence using rolling correlation may have high autocorrelation. Use 5-day window or daily OBV-based alternative."
+      "autocorrelation": "< 0.99 for all output columns. Primary risk: ie_anchoring_z (based on rolling volatility with raw autocorr 0.97). Z-scoring against 120d baseline must reduce this below 0.99. Fallback: use change-in-volatility or vol-ratio instead."
     },
     "gate2": {
       "mi_increase": "> 5% (sum-based, total MI of all features including submodel outputs vs without)",
-      "vif": "< 10 for all submodel output columns. Key risk: flow intensity z-score vs raw volume base feature, and regime prob vs VIX regime prob.",
+      "vif": "< 10 for all submodel output columns. Key VIF risk: Fisher identity means IE level features would have infinite VIF with DGS10 + real_rate. All features use changes/regimes/volatility to avoid this.",
       "rolling_correlation_std": "< 0.15"
     },
     "gate3": {
       "direction_accuracy_delta": "> +0.5%",
       "or_sharpe_delta": "> +0.05",
       "or_mae_delta": "< -0.01%",
-      "note": "Any ONE of these three is sufficient to pass Gate 3. MAE criterion has been the most consistently achievable across previous submodels (technical: -0.1824, cross_asset: -0.0866, yield_curve: -0.0693)."
+      "note": "Any ONE of three criteria. MAE is the most reliably achieved: technical (-0.182), cross_asset (-0.087), yield_curve (-0.069), etf_flow (-0.044). Trend suggests diminishing marginal MAE improvement with each additional submodel. -0.01% to -0.03% is a realistic target for the 7th submodel."
     }
   },
 
   "lessons_from_previous_features": {
     "real_rate_failure": {
-      "root_cause": "Monthly-to-daily frequency mismatch across 5 attempts.",
-      "lesson_applied": "ETF flow data (GLD OHLCV from Yahoo Finance) is daily. No interpolation needed."
+      "root_cause": "Monthly-to-daily frequency mismatch across 5 attempts. Step functions from forward-fill degraded MAE.",
+      "lesson_applied": "T10YIE is natively daily from FRED. No interpolation needed. No monthly supplementary data allowed."
     },
     "compact_3_feature_pattern": {
-      "observation": "All 5 completed submodels used 2-3 output columns. real_rate attempt 5 used 7 columns and failed hardest (worst Gate 3 degradation).",
+      "observation": "All 6 completed submodels used 2-3 output columns. real_rate attempt 5 used 7 columns and failed hardest.",
       "lesson_applied": "Exactly 3 output columns."
     },
     "hmm_regime_pattern": {
-      "observation": "HMM regime detection is the backbone of all successful submodels. VIX: 1D HMM. Technical: 2D HMM [returns, GK_vol]. Cross_asset: 3D HMM [gold_ret, silver_ret, copper_ret]. All produced informative regime probabilities.",
-      "lesson_applied": "Use 2D HMM on [log_volume_ratio, gold_return] for flow regime. The 2D captures richer information than 1D (direction-aware flow regime)."
+      "observation": "HMM regime detection is the backbone of all successful submodels. VIX: 1D. Technical: 2D [returns, GK_vol]. Cross_asset: 3D. Yield_curve: 2D [DGS10_chg, DGS2_chg]. ETF_flow: 2D [log_vol_ratio, gold_return].",
+      "lesson_applied": "Use 2D HMM on [IE_daily_change, IE_change_vol_5d] for IE regime. Novel input pair captures direction + stability."
     },
     "autocorrelation_design": {
-      "observation": "Cross_asset gold/copper ratio z-score had autocorrelation 0.96 (near Gate 1 limit). Solution was first differences.",
-      "lesson_applied": "Avoid long-window rolling statistics. Use z-scores of daily or short-period changes. Measured candidates: daily dollar_vol_chg autocorr = -0.34 (excellent), OBV direction = 0.03 (excellent), volume ratio 0.36 (safe)."
+      "observation": "Cross_asset required first-differencing to solve autocorrelation. Yield_curve curvature z-score had autocorrelation -0.15 (excellent). ETF flow PV divergence used 5d window to keep autocorrelation at 0.75.",
+      "lesson_applied": "IE change z-score has autocorrelation 0.04 (excellent). IE acceleration has -0.47. Only IE volatility z-score needs careful normalization to stay below 0.99."
     },
     "vif_discipline": {
-      "observation": "ETF flow has unique VIF risk: etf_flow_gld_volume is IDENTICAL to technical_gld_volume. Also raw volume correlates 0.37 with VIX.",
-      "lesson_applied": "Features must be z-scored, regime-classified, or otherwise transformed. Never use raw levels."
+      "observation": "Fisher identity creates unique VIF risk for IE: T10YIE + DFII10 = DGS10 exactly. Level-based features would have infinite VIF.",
+      "lesson_applied": "ALL features use changes, regimes, or volatility. Never levels. Measured: corr(IE_change_z, real_rate_change_z) = -0.044 (orthogonal despite Fisher identity at levels)."
     },
     "gate3_mae_achievability": {
-      "observation": "MAE improvement has been the most reliably achieved Gate 3 criterion: technical (-0.1824), cross_asset (-0.0866), yield_curve (-0.0693). Direction accuracy and Sharpe are harder to achieve consistently.",
-      "lesson_applied": "Primary success path is MAE improvement. Flow context should help the meta-model avoid overconfident predictions during ambiguous volume regimes."
+      "observation": "MAE improvement trend: technical (-0.182) > cross_asset (-0.087) > yield_curve (-0.069) > etf_flow (-0.044). Diminishing returns but still above -0.01% threshold.",
+      "lesson_applied": "Realistic target is MAE improvement of -0.01% to -0.03%. IE as #1 base feature has strong potential to exceed this."
+    },
+    "mi_test_unreliability": {
+      "observation": "MI of simple IE change z-score and acceleration z-score is 0.0000 against gold_return_next. But successful submodels (VIX, technical, cross_asset) also had low individual MI that only became significant through HMM regime detection.",
+      "lesson_applied": "Do not expect simple features to show MI. HMM regime detection is necessary to extract nonlinear information. Gate 2 MI test should be evaluated after HMM, not on raw candidates."
     },
     "gate2_stability_precedent": {
-      "observation": "VIX, technical, and cross_asset all had Gate 2 stability marginally fail for regime_prob. This is accepted precedent for regime features.",
-      "lesson_applied": "Expect etf_regime_prob stability to be marginal. This is acceptable given precedent."
+      "observation": "VIX, technical, cross_asset, etf_flow all had Gate 2 stability marginally fail for regime_prob. This is accepted precedent.",
+      "lesson_applied": "Expect ie_regime_prob stability to be marginal. This is acceptable given precedent."
+    }
+  },
+
+  "preliminary_empirical_findings": {
+    "ie_feature_importance": "#1 in baseline at 9.4%. Strongest single predictor.",
+    "ie_level_range": "0.50 (March 2020 COVID crash) to 3.02 (April 2022 inflation peak). Mean 1.995.",
+    "ie_level_autocorrelation": "0.9966 (extremely persistent level). Submodel MUST use changes/dynamics, not levels.",
+    "ie_change_direction_vs_gold": {
+      "rising_ie": "N=1076, gold_next mean=+0.088%, std=0.959%",
+      "falling_ie": "N=1011, gold_next mean=-0.031%, std=0.907%",
+      "flat_ie": "N=435, gold_next mean=+0.069%, std=0.851%",
+      "directional_asymmetry": "12bps (0.088 - (-0.031) = 0.119%). Statistically meaningful over 2500 obs."
+    },
+    "ie_change_spikes_vs_gold": {
+      "spike_up_z_gt_2": "N=49, gold_next mean=+0.396%. 10x normal mean.",
+      "spike_down_z_lt_neg2": "N=62, gold_next mean=-0.031%.",
+      "rising_z_gt_1": "N=368, gold_next mean=+0.166%.",
+      "falling_z_lt_neg1": "N=364, gold_next mean=-0.021%."
+    },
+    "ie_volatility_and_gold_volatility": {
+      "high_ie_vol_q4": "gold_next std=1.10%",
+      "low_ie_vol_q1": "gold_next std=0.80%",
+      "ratio": "1.38x higher gold volatility when IE is unanchored"
+    },
+    "fisher_identity_confirmed": "corr(DGS10, real_rate + IE) = 1.0000. Residual mean=0.0000, std=0.0000.",
+    "decorrelation_via_z_scoring": {
+      "ie_change_z_vs_real_rate_change_z": "-0.044 (orthogonal)",
+      "ie_change_z_vs_dgs10_change_z": "0.514 (moderate)",
+      "ie_candidates_vs_all_submodel_outputs": "all below 0.15"
+    },
+    "autocorrelation_candidates": {
+      "ie_change_z_60d": 0.04,
+      "ie_change_z_20d": 0.03,
+      "ie_vol_z_20d_120d": "~0.95 estimated (raw vol autocorr 0.97)",
+      "ie_acceleration_z": -0.47,
+      "ie_gold_corr_5d": 0.75,
+      "ie_gold_corr_10d": 0.89,
+      "ie_level_z_120d": 0.978,
+      "ie_momentum_cross_5d_20d": 0.79
+    },
+    "structural_regimes_over_time": {
+      "2015_2016": "Low IE (1.57-1.69). Commodity bust, deflationary fears.",
+      "2017_2018": "Rising IE (1.87-2.08). Reflation trade, synchronized global growth.",
+      "2019": "Falling IE (1.74). Trade war fears, growth slowdown.",
+      "2020": "Crash then surge (0.50 to 1.99). COVID shock then massive stimulus.",
+      "2021": "High IE (2.36). Inflation surge, 'transitory' debate.",
+      "2022": "Peak IE (2.52, max 3.02). Inflation peak, Fed tightening begins.",
+      "2023_2024": "Stabilizing IE (2.27-2.28). Disinflation, soft landing narrative.",
+      "2025": "Slightly elevated (2.41). Tariff/fiscal uncertainty."
     }
   },
 
   "vif_risk_analysis": {
-    "critical_concern": "etf_flow_gld_volume is IDENTICAL to technical_gld_volume (correlation = 1.0). etf_flow_gld_close is IDENTICAL to technical_gld_close (correlation = 1.0). Any flow feature that correlates with raw volume or price levels will inflate VIF with BOTH the etf_flow AND technical base feature groups.",
-    "base_feature_correlations": {
-      "raw_volume_vs_vix": "Correlation = 0.37. Volume spikes co-occur with VIX spikes. Z-scored volume has lower correlation (0.14) -- z-scoring is essential.",
-      "volume_ma20_vs_raw_volume": "Correlation = 0.58. The 20-day MA smooths volume. Flow features should NOT correlate with this smoothed trend.",
-      "gld_close_vs_other_base": "GLD close correlates with dxy (0.47), silver (likely high), gold technicals (identical). This reinforces that price-level features are dangerous for VIF."
+    "critical_concern": "Fisher identity: T10YIE + DFII10 = DGS10 EXACTLY. This means any IE LEVEL feature has infinite VIF with {real_rate_real_rate, yield_curve_dgs10}. The mitigation is absolute: NO LEVEL FEATURES. Only changes, regimes, and volatility.",
+    "base_feature_correlations_measured": {
+      "ie_level_vs_copper": "0.858 (very high -- both track global reflation)",
+      "ie_level_vs_sp500": "0.705 (high -- both track growth optimism)",
+      "ie_level_vs_silver": "0.584",
+      "ie_level_vs_dgs10": "0.563 (Fisher component)",
+      "ie_level_vs_dgs2": "0.532",
+      "ie_level_vs_gld_prices": "0.520",
+      "ie_level_vs_yield_spread": "-0.361",
+      "ie_level_vs_dxy": "0.327",
+      "ie_level_vs_volume_ma20": "-0.341",
+      "NOTE": "ALL of these are LEVEL correlations. Z-scored CHANGE features are dramatically less correlated."
     },
-    "submodel_output_correlations": {
-      "vol_z60_vs_vix_regime_probability": "Measured 0.20. Acceptable but monitor in design.",
-      "vol_z60_vs_vix_mean_reversion_z": "Measured 0.28. Moderate. The HMM regime approach may produce lower correlation because it captures regime TRANSITIONS not just intensity.",
-      "vol_z60_vs_xasset_regime_prob": "Measured 0.19. Acceptable.",
-      "pv_divergence_vs_tech_mean_reversion_z": "Not yet measured. Both capture reversal signals. Researcher must measure empirically.",
-      "overall_assessment": "VIF risk is MODERATE for this submodel. Lower than yield_curve (which had 3+1 correlated base features). The key mitigation is using z-scores and regime probabilities, not raw levels."
+    "submodel_output_correlations_measured": {
+      "ie_candidates_vs_vix_regime_prob": "< 0.15",
+      "ie_candidates_vs_vix_mean_reversion_z": "< 0.15",
+      "ie_candidates_vs_tech_all": "< 0.15",
+      "ie_candidates_vs_xasset_regime_prob": "< 0.15 (xasset_regime_prob vs IE level = -0.24 but vs IE candidates < 0.15)",
+      "ie_candidates_vs_yc_all": "< 0.15",
+      "ie_candidates_vs_etf_all": "< 0.15",
+      "overall_assessment": "VIF risk with existing submodel outputs is LOW. The Fisher identity VIF risk is confined to LEVEL features, which are prohibited by constraint #4."
     },
-    "mitigation_strategy": "All features operate on TRANSFORMATIONS of volume and volume-price relationships, never on raw levels. (1) HMM regime prob is inherently orthogonal to levels because it classifies dynamics. (2) Dollar volume z-score removes price drift and normalizes against recent history. (3) PV divergence uses correlation (dimensionless) not levels. This structural design ensures orthogonality with level-based base features."
-  },
-
-  "preliminary_empirical_findings": {
-    "volume_spike_reversal": "Volume z-score > 2.0 (N=147): mean next-day return = -0.08% (vs +0.04% normal). Standard deviation also higher (1.22% vs 0.90%). Volume spikes predict short-term mean-reversion.",
-    "volume_trough_stability": "Volume z-score < -1.0 (N=315): mean next-day return = +0.06% with lower volatility (std 0.73%). Low volume = stability.",
-    "autocorrelation_candidates": {
-      "vol_change_rate": -0.34,
-      "vol_ratio_vs_ma20": 0.36,
-      "vol_z_60d": 0.44,
-      "dollar_vol_change": -0.34,
-      "obv_direction": 0.03,
-      "pv_corr_10d": 0.91,
-      "pv_corr_20d": 0.96,
-      "vwm_5d": 0.80,
-      "vwm_20d": 0.95
-    },
-    "note": "All candidates are well below 0.99 autocorrelation threshold. The 10d PV correlation (0.91) and 20d VWM (0.95) are borderline-safe but should be monitored. 5-day windows are preferred for safety."
+    "mitigation_strategy": "All features operate on DYNAMICS of IE, never on levels. (1) HMM regime prob classifies the CHANGE dynamics (direction + volatility), not the level. (2) Anchoring z-score measures VOLATILITY of changes, not the change level. (3) IE-gold sensitivity measures CORRELATION (dimensionless), not IE level. This structural design ensures orthogonality with level-based base features and the Fisher identity."
   },
 
   "previous_feedback": null,
 
-  "created_at": "2026-02-15T14:00:00"
+  "created_at": "2026-02-15T17:00:00"
 }
