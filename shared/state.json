@@ -3,7 +3,7 @@
   "phase": "2_feature_expansion",
   "current_feature": "options_market",
   "current_attempt": 1,
-  "resume_from": "researcher",
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
