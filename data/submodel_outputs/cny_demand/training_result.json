@@ -1,0 +1,56 @@
+{
+  "feature": "cny_demand",
+  "attempt": 1,
+  "timestamp": "2026-02-15T06:12:58.299275",
+  "best_params": {
+    "hmm_n_components": 2,
+    "hmm_covariance_type": "full",
+    "vol_short_window": 10,
+    "vol_baseline_window": 60,
+    "momentum_baseline_window": 120
+  },
+  "metrics": {
+    "autocorrelations": {
+      "cny_regime_prob": 0.6393805156082881,
+      "cny_momentum_z": 0.7367012688025609,
+      "cny_vol_regime_z": 0.9205541019179605
+    },
+    "mutual_information": {
+      "cny_regime_prob": 0.5317711983466331,
+      "cny_momentum_z": 0.5477178164579165,
+      "cny_vol_regime_z": 0.5446599660733298
+    },
+    "mi_total": 1.6241489808778795,
+    "output_std": {
+      "cny_regime_prob": 0.16365982234628362,
+      "cny_momentum_z": 1.0413181785455408,
+      "cny_vol_regime_z": 1.1848439465494807
+    },
+    "output_nan_pct": {
+      "cny_regime_prob": 0.003247924936845904,
+      "cny_momentum_z": 0.04438830747022735,
+      "cny_vol_regime_z": 0.024539877300613498
+    }
+  },
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 1.6241489808778795,
+  "output_shape": [
+    2771,
+    3
+  ],
+  "output_columns": [
+    "cny_regime_prob",
+    "cny_momentum_z",
+    "cny_vol_regime_z"
+  ],
+  "data_info": {
+    "train_samples": 1939,
+    "val_samples": 416,
+    "test_samples": 416,
+    "full_samples": 2771,
+    "date_range": {
+      "start": "2015-01-30 00:00:00",
+      "end": "2026-02-13 00:00:00"
+    }
+  }
+}

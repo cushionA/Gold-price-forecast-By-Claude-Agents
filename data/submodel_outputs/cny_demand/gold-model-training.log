@@ -1,0 +1,515 @@
+[{"stream_name":"stderr","time":8.070987288,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.071051758,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.071055398,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.071057668,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.715243339,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.715302329,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.715306949,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.715310789,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.328155447,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 5.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":12.531827448,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 5.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.250532381,"data":"Libraries installed successfully!\n"}
+,{"stream_name":"stdout","time":19.081279774,"data":"Training started: 2026-02-15T06:12:42.546271\n"}
+,{"stream_name":"stdout","time":19.281451226,"data":"Fetching CNY=X (CNY/USD exchange rate)...\n"}
+,{"stream_name":"stderr","time":19.310400234,"data":"/tmp/ipykernel_17/3270634921.py:13: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.310453124,"data":"  cny_data = yf.download('CNY=X', start='2014-06-01', progress=False)\n"}
+,{"stream_name":"stderr","time":19.310459375,"data":"\n"}
+,{"stream_name":"stderr","time":19.310464644,"data":"/tmp/ipykernel_17/3270634921.py:13: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.310470915,"data":"  cny_data = yf.download('CNY=X', start='2014-06-01', progress=False)\n"}
+,{"stream_name":"stdout","time":19.83647914,"data":"CNY=X data fetched: 3047 rows from 2014-06-02 00:00:00 to 2026-02-14 00:00:00\n"}
+,{"stream_name":"stdout","time":19.83653612,"data":"Fetching GC=F (Gold Futures) for return computation...\n"}
+,{"stream_name":"stdout","time":19.83654267,"data":"GC=F data fetched: 2944 rows from 2014-06-02 00:00:00 to 2026-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":19.83654769,"data":"After alignment and NaN removal: 2934 rows (dropped 118 rows)\n"}
+,{"stream_name":"stdout","time":19.83655239,"data":"INFO: 7 periods with zero volatility (PBOC fixed rate)\n"}
+,{"stream_name":"stdout","time":19.83655731,"data":"After trimming to base_features range (\u003e= 2015-01-30 00:00:00): 2771 rows\n"}
+,{"stream_name":"stdout","time":19.83656356,"data":"\n"}
+,{"stream_name":"stdout","time":19.83656797,"data":"Data split:\n"}
+,{"stream_name":"stdout","time":19.83657261,"data":"  Train: 1939 rows (2015-01-30 00:00:00 to 2022-10-20 00:00:00)\n"}
+,{"stream_name":"stdout","time":19.83657751,"data":"  Val:   416 rows (2022-10-21 00:00:00 to 2024-06-18 00:00:00)\n"}
+,{"stream_name":"stdout","time":19.83658246,"data":"  Test:  416 rows (2024-06-20 00:00:00 to 2026-02-13 00:00:00)\n"}
+,{"stream_name":"stdout","time":19.83658792,"data":"\n"}
+,{"stream_name":"stdout","time":19.836625431,"data":"Summary statistics (full dataset):\n"}
+,{"stream_name":"stdout","time":19.8366292,"data":"  CNY/USD range: [6.1848, 7.3500]\n"}
+,{"stream_name":"stdout","time":19.83663268,"data":"  CNY return mean: 0.000073, std: 0.003003\n"}
+,{"stream_name":"stdout","time":19.836636591,"data":"  CNY return range: [-0.021354, 0.021428]\n"}
+,{"stream_name":"stdout","time":19.83664056,"data":"  CNY vol_5d mean: 0.002387, std: 0.001983\n"}
+,{"stream_name":"stdout","time":19.83664384,"data":"  Gold return mean: 0.000542, std: 0.010049\n"}
+,{"stream_name":"stdout","time":19.836647451,"data":"  CNY return autocorr(lag=1): -0.1447\n"}
+,{"stream_name":"stdout","time":19.836650931,"data":"\n"}
+,{"stream_name":"stdout","time":19.83665372,"data":"Data fetching complete!\n"}
+,{"stream_name":"stderr","time":19.83723539,"data":"/tmp/ipykernel_17/3270634921.py:33: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.837260781,"data":"  gc_data = yf.download('GC=F', start='2014-06-01', progress=False)\n"}
+,{"stream_name":"stderr","time":19.837265261,"data":"\n"}
+,{"stream_name":"stderr","time":19.837268441,"data":"/tmp/ipykernel_17/3270634921.py:33: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.83727139,"data":"  gc_data = yf.download('GC=F', start='2014-06-01', progress=False)\n"}
+,{"stream_name":"stdout","time":19.865761999,"data":"Feature generation functions defined.\n"}
+,{"stream_name":"stdout","time":19.890951158,"data":"Optuna objective function defined.\n"}
+,{"stream_name":"stderr","time":19.914281197,"data":"[I 2026-02-15 06:12:43,378] A new study created in memory with name: no-name-1c2bbb09-ff03-4629-a243-971e34c39107\n"}
+,{"stream_name":"stderr","time":19.914332307,"data":"\n"}
+,{"stream_name":"stderr","time":19.914336847,"data":"[I 2026-02-15 06:12:43,378] A new study created in memory with name: no-name-1c2bbb09-ff03-4629-a243-971e34c39107\n"}
+,{"stream_name":"stdout","time":19.925816186,"data":"\n"}
+,{"stream_name":"stdout","time":19.925869136,"data":"Starting Optuna HPO...\n"}
+,{"stream_name":"stdout","time":19.925874036,"data":"Total samples: 2771\n"}
+,{"stream_name":"stdout","time":19.925877406,"data":"Train size: 1939\n"}
+,{"stream_name":"stdout","time":19.925886896,"data":"Val range: [1939, 2355)\n"}
+,{"stream_name":"stderr","time":20.192268694,"data":"Model is not converging.  Current: 18231.59585357087 is not greater than 18231.834327308385. Delta is -0.23847373751414125\n"}
+,{"stream_name":"stderr","time":20.192321434,"data":"\n"}
+,{"stream_name":"stderr","time":20.192325314,"data":"Model is not converging.  Current: 18231.59585357087 is not greater than 18231.834327308385. Delta is -0.23847373751414125\n"}
+,{"stream_name":"stderr","time":20.371037846,"data":"Model is not converging.  Current: 18220.0459218736 is not greater than 18220.66745838525. Delta is -0.6215365116513567\n"}
+,{"stream_name":"stderr","time":20.371084506,"data":"\n"}
+,{"stream_name":"stderr","time":20.371254836,"data":"Model is not converging.  Current: 18220.0459218736 is not greater than 18220.66745838525. Delta is -0.6215365116513567\n"}
+,{"stream_name":"stdout","time":20.384322836,"data":"  HMM seed 42 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":20.674030603,"data":"  HMM seed 456 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":20.674064792,"data":"  HMM seed 789 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stderr","time":20.759587499,"data":"Model is not converging.  Current: 18217.919243670553 is not greater than 18218.020401843794. Delta is -0.10115817324185628\n"}
+,{"stream_name":"stderr","time":20.759670809,"data":"\n"}
+,{"stream_name":"stderr","time":20.762369579,"data":"Model is not converging.  Current: 18217.919243670553 is not greater than 18218.020401843794. Delta is -0.10115817324185628\n"}
+,{"stream_name":"stdout","time":20.991989929,"data":"[I 2026-02-15 06:12:44,256] Trial 0 finished with value: 1.6021809689024242 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'vol_short_window': 5, 'vol_baseline_window': 60, 'momentum_baseline_window': 60}. Best is trial 0 with value: 1.6021809689024242.\n"}
+,{"stream_name":"stderr","time":21.087706684,"data":"Model is not converging.  Current: 18407.883456046256 is not greater than 18408.11298608873. Delta is -0.22953004247392528\n"}
+,{"stream_name":"stderr","time":21.087757274,"data":"\n"}
+,{"stream_name":"stderr","time":21.089328004,"data":"Model is not converging.  Current: 18407.883456046256 is not greater than 18408.11298608873. Delta is -0.22953004247392528\n"}
+,{"stream_name":"stderr","time":21.287438545,"data":"Model is not converging.  Current: 18309.458528115083 is not greater than 18313.356549237946. Delta is -3.8980211228627013\n"}
+,{"stream_name":"stderr","time":21.287489035,"data":"\n"}
+,{"stream_name":"stderr","time":21.290383355,"data":"Model is not converging.  Current: 18309.458528115083 is not greater than 18313.356549237946. Delta is -3.8980211228627013\n"}
+,{"stream_name":"stderr","time":21.358714442,"data":"Model is not converging.  Current: 18407.851442226518 is not greater than 18408.164396398577. Delta is -0.3129541720591078\n"}
+,{"stream_name":"stderr","time":21.358766112,"data":"\n"}
+,{"stream_name":"stderr","time":21.358769952,"data":"Model is not converging.  Current: 18407.851442226518 is not greater than 18408.164396398577. Delta is -0.3129541720591078\n"}
+,{"stream_name":"stderr","time":21.435224168,"data":"Model is not converging.  Current: 17603.446445952562 is not greater than 17610.21417577318. Delta is -6.767729820618115\n"}
+,{"stream_name":"stderr","time":21.435292438,"data":"\n"}
+,{"stream_name":"stderr","time":21.435296538,"data":"Model is not converging.  Current: 17603.446445952562 is not greater than 17610.21417577318. Delta is -6.767729820618115\n"}
+,{"stream_name":"stderr","time":21.504084235,"data":"Model is not converging.  Current: 18314.081616710457 is not greater than 18318.954949835417. Delta is -4.873333124960482\n"}
+,{"stream_name":"stderr","time":21.504130585,"data":"\n"}
+,{"stream_name":"stderr","time":21.504135105,"data":"Model is not converging.  Current: 18314.081616710457 is not greater than 18318.954949835417. Delta is -4.873333124960482\n"}
+,{"stream_name":"stderr","time":21.536204424,"data":"Model is not converging.  Current: 18303.410153677112 is not greater than 18318.230735646768. Delta is -14.820581969655905\n"}
+,{"stream_name":"stderr","time":21.536242644,"data":"\n"}
+,{"stream_name":"stderr","time":21.536247414,"data":"Model is not converging.  Current: 18303.410153677112 is not greater than 18318.230735646768. Delta is -14.820581969655905\n"}
+,{"stream_name":"stderr","time":21.573804522,"data":"Model is not converging.  Current: 18307.0158690165 is not greater than 18316.917544635115. Delta is -9.901675618613808\n"}
+,{"stream_name":"stderr","time":21.573834752,"data":"\n"}
+,{"stream_name":"stderr","time":21.573838002,"data":"Model is not converging.  Current: 18307.0158690165 is not greater than 18316.917544635115. Delta is -9.901675618613808\n"}
+,{"stream_name":"stdout","time":21.580234812,"data":"[I 2026-02-15 06:12:44,844] Trial 1 finished with value: 1.5712419028995797 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 20, 'vol_baseline_window': 60, 'momentum_baseline_window': 60}. Best is trial 0 with value: 1.6021809689024242.\n"}
+,{"stream_name":"stderr","time":21.639649279,"data":"Model is not converging.  Current: 18307.735899480518 is not greater than 18317.444293766643. Delta is -9.70839428612453\n"}
+,{"stream_name":"stderr","time":21.639701959,"data":"\n"}
+,{"stream_name":"stderr","time":21.639706709,"data":"Model is not converging.  Current: 18307.735899480518 is not greater than 18317.444293766643. Delta is -9.70839428612453\n"}
+,{"stream_name":"stdout","time":21.84967289,"data":"  Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":21.84971196,"data":"[I 2026-02-15 06:12:45,110] Trial 2 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'vol_short_window': 20, 'vol_baseline_window': 120, 'momentum_baseline_window': 60}. Best is trial 0 with value: 1.6021809689024242.\n"}
+,{"stream_name":"stderr","time":21.944778896,"data":"Model is not converging.  Current: 18299.445182890846 is not greater than 18299.5281095194. Delta is -0.08292662855456001\n"}
+,{"stream_name":"stderr","time":21.944833236,"data":"\n"}
+,{"stream_name":"stderr","time":21.947401895,"data":"Model is not converging.  Current: 18299.445182890846 is not greater than 18299.5281095194. Delta is -0.08292662855456001\n"}
+,{"stream_name":"stderr","time":22.07974183,"data":"Model is not converging.  Current: 18299.418994016916 is not greater than 18299.818588932023. Delta is -0.39959491510671796\n"}
+,{"stream_name":"stderr","time":22.07978075,"data":"\n"}
+,{"stream_name":"stderr","time":22.082398989,"data":"Model is not converging.  Current: 18299.418994016916 is not greater than 18299.818588932023. Delta is -0.39959491510671796\n"}
+,{"stream_name":"stdout","time":22.153839956,"data":"  HMM seed 42 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stderr","time":22.245611082,"data":"Model is not converging.  Current: 18306.073197931142 is not greater than 18306.080267488822. Delta is -0.0070695576796424575\n"}
+,{"stream_name":"stderr","time":22.245649992,"data":"\n"}
+,{"stream_name":"stderr","time":22.248397562,"data":"Model is not converging.  Current: 18306.073197931142 is not greater than 18306.080267488822. Delta is -0.0070695576796424575\n"}
+,{"stream_name":"stderr","time":22.432652052999998,"data":"Model is not converging.  Current: 18298.41809963342 is not greater than 18298.463771344403. Delta is -0.04567171098096878\n"}
+,{"stream_name":"stderr","time":22.432693124,"data":"\n"}
+,{"stream_name":"stderr","time":22.432706484,"data":"Model is not converging.  Current: 18298.41809963342 is not greater than 18298.463771344403. Delta is -0.04567171098096878\n"}
+,{"stream_name":"stderr","time":22.756735089,"data":"Model is not converging.  Current: 17603.446445952562 is not greater than 17610.21417577318. Delta is -6.767729820618115\n"}
+,{"stream_name":"stderr","time":22.756772609,"data":"\n"}
+,{"stream_name":"stderr","time":22.756777069,"data":"Model is not converging.  Current: 17603.446445952562 is not greater than 17610.21417577318. Delta is -6.767729820618115\n"}
+,{"stream_name":"stderr","time":22.804468897,"data":"Model is not converging.  Current: 18314.081616710457 is not greater than 18318.954949835417. Delta is -4.873333124960482\n"}
+,{"stream_name":"stderr","time":22.804518497,"data":"\n"}
+,{"stream_name":"stderr","time":22.804522757,"data":"Model is not converging.  Current: 18314.081616710457 is not greater than 18318.954949835417. Delta is -4.873333124960482\n"}
+,{"stream_name":"stdout","time":22.809022527,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":22.809111597,"data":"[I 2026-02-15 06:12:46,090] Trial 3 finished with value: 1.0285553185932454 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 120, 'momentum_baseline_window': 120}. Best is trial 0 with value: 1.6021809689024242.\n"}
+,{"stream_name":"stderr","time":22.836262565,"data":"Model is not converging.  Current: 18303.410153677112 is not greater than 18318.230735646768. Delta is -14.820581969655905\n"}
+,{"stream_name":"stderr","time":22.836300306,"data":"\n"}
+,{"stream_name":"stderr","time":22.836304956,"data":"Model is not converging.  Current: 18303.410153677112 is not greater than 18318.230735646768. Delta is -14.820581969655905\n"}
+,{"stream_name":"stderr","time":22.873789414,"data":"Model is not converging.  Current: 18307.0158690165 is not greater than 18316.917544635115. Delta is -9.901675618613808\n"}
+,{"stream_name":"stderr","time":22.873828114,"data":"\n"}
+,{"stream_name":"stderr","time":22.873832684,"data":"Model is not converging.  Current: 18307.0158690165 is not greater than 18316.917544635115. Delta is -9.901675618613808\n"}
+,{"stream_name":"stderr","time":22.933118231,"data":"Model is not converging.  Current: 18307.735899480518 is not greater than 18317.444293766643. Delta is -9.70839428612453\n"}
+,{"stream_name":"stderr","time":22.933154071,"data":"\n"}
+,{"stream_name":"stderr","time":22.933158851,"data":"Model is not converging.  Current: 18307.735899480518 is not greater than 18317.444293766643. Delta is -9.70839428612453\n"}
+,{"stream_name":"stdout","time":23.139471642,"data":"  Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":23.139508042,"data":"[I 2026-02-15 06:12:46,402] Trial 4 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'vol_short_window': 20, 'vol_baseline_window': 120, 'momentum_baseline_window': 60}. Best is trial 0 with value: 1.6021809689024242.\n"}
+,{"stream_name":"stderr","time":23.150241081,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":23.150273572,"data":"\n"}
+,{"stream_name":"stderr","time":23.150323812,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":23.200133239,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":23.200167669,"data":"\n"}
+,{"stream_name":"stderr","time":23.202391259,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":23.305057674,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":23.305121365,"data":"\n"}
+,{"stream_name":"stderr","time":23.305126174,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":23.466278357,"data":"Model is not converging.  Current: 17493.68227982495 is not greater than 17503.112323970145. Delta is -9.430044145196007\n"}
+,{"stream_name":"stderr","time":23.466312977,"data":"\n"}
+,{"stream_name":"stderr","time":23.469288767,"data":"Model is not converging.  Current: 17493.68227982495 is not greater than 17503.112323970145. Delta is -9.430044145196007\n"}
+,{"stream_name":"stderr","time":23.552275074,"data":"Model is not converging.  Current: 18114.722171628484 is not greater than 18125.031804843777. Delta is -10.309633215292706\n"}
+,{"stream_name":"stderr","time":23.552362393,"data":"\n"}
+,{"stream_name":"stderr","time":23.552368463,"data":"Model is not converging.  Current: 18114.722171628484 is not greater than 18125.031804843777. Delta is -10.309633215292706\n"}
+,{"stream_name":"stderr","time":23.585269902,"data":"Model is not converging.  Current: 18108.894925049775 is not greater than 18128.479080729852. Delta is -19.584155680076947\n"}
+,{"stream_name":"stderr","time":23.585308492,"data":"\n"}
+,{"stream_name":"stderr","time":23.585313512,"data":"Model is not converging.  Current: 18108.894925049775 is not greater than 18128.479080729852. Delta is -19.584155680076947\n"}
+,{"stream_name":"stdout","time":23.587448732,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":23.587501572,"data":"[I 2026-02-15 06:12:46,868] Trial 5 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":23.62929003,"data":"Model is not converging.  Current: 18112.009236135356 is not greater than 18118.670274106553. Delta is -6.661037971196492\n"}
+,{"stream_name":"stderr","time":23.6293442,"data":"\n"}
+,{"stream_name":"stderr","time":23.62934754,"data":"Model is not converging.  Current: 18112.009236135356 is not greater than 18118.670274106553. Delta is -6.661037971196492\n"}
+,{"stream_name":"stderr","time":23.693061337,"data":"Model is not converging.  Current: 18108.306503571097 is not greater than 18116.207303697927. Delta is -7.9008001268302905\n"}
+,{"stream_name":"stderr","time":23.693115977,"data":"\n"}
+,{"stream_name":"stderr","time":23.693121607,"data":"Model is not converging.  Current: 18108.306503571097 is not greater than 18116.207303697927. Delta is -7.9008001268302905\n"}
+,{"stream_name":"stderr","time":23.730889675,"data":"Model is not converging.  Current: 17493.68227982495 is not greater than 17503.112323970145. Delta is -9.430044145196007\n"}
+,{"stream_name":"stderr","time":23.730930655,"data":"\n"}
+,{"stream_name":"stderr","time":23.730935565,"data":"Model is not converging.  Current: 17493.68227982495 is not greater than 17503.112323970145. Delta is -9.430044145196007\n"}
+,{"stream_name":"stderr","time":23.784303343,"data":"Model is not converging.  Current: 18114.722171628484 is not greater than 18125.031804843777. Delta is -10.309633215292706\n"}
+,{"stream_name":"stderr","time":23.784341823,"data":"\n"}
+,{"stream_name":"stderr","time":23.784347283,"data":"Model is not converging.  Current: 18114.722171628484 is not greater than 18125.031804843777. Delta is -10.309633215292706\n"}
+,{"stream_name":"stderr","time":23.816615101,"data":"Model is not converging.  Current: 18108.894925049775 is not greater than 18128.479080729852. Delta is -19.584155680076947\n"}
+,{"stream_name":"stderr","time":23.816663952,"data":"\n"}
+,{"stream_name":"stderr","time":23.816669101,"data":"Model is not converging.  Current: 18108.894925049775 is not greater than 18128.479080729852. Delta is -19.584155680076947\n"}
+,{"stream_name":"stderr","time":23.861351679,"data":"Model is not converging.  Current: 18112.009236135356 is not greater than 18118.670274106553. Delta is -6.661037971196492\n"}
+,{"stream_name":"stderr","time":23.861394519,"data":"\n"}
+,{"stream_name":"stderr","time":23.86139951,"data":"Model is not converging.  Current: 18112.009236135356 is not greater than 18118.670274106553. Delta is -6.661037971196492\n"}
+,{"stream_name":"stdout","time":23.898800618,"data":"  Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":23.898840628,"data":"[I 2026-02-15 06:12:47,162] Trial 6 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'vol_short_window': 5, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":23.924326217,"data":"Model is not converging.  Current: 18108.306503571097 is not greater than 18116.207303697927. Delta is -7.9008001268302905\n"}
+,{"stream_name":"stderr","time":23.924378507,"data":"\n"}
+,{"stream_name":"stderr","time":23.924382687,"data":"Model is not converging.  Current: 18108.306503571097 is not greater than 18116.207303697927. Delta is -7.9008001268302905\n"}
+,{"stream_name":"stderr","time":23.953756575,"data":"Model is not converging.  Current: 18310.202067791644 is not greater than 18316.97579287836. Delta is -6.7737250867139664\n"}
+,{"stream_name":"stderr","time":23.953793505,"data":"\n"}
+,{"stream_name":"stderr","time":23.953798335,"data":"Model is not converging.  Current: 18310.202067791644 is not greater than 18316.97579287836. Delta is -6.7737250867139664\n"}
+,{"stream_name":"stderr","time":23.978868194,"data":"Model is not converging.  Current: 18311.236767263446 is not greater than 18324.764571526357. Delta is -13.52780426291065\n"}
+,{"stream_name":"stderr","time":23.978908434,"data":"\n"}
+,{"stream_name":"stderr","time":23.978914584,"data":"Model is not converging.  Current: 18311.236767263446 is not greater than 18324.764571526357. Delta is -13.52780426291065\n"}
+,{"stream_name":"stderr","time":24.001453643,"data":"Model is not converging.  Current: 18316.685003634495 is not greater than 18320.73621139298. Delta is -4.051207758486271\n"}
+,{"stream_name":"stderr","time":24.001492053,"data":"\n"}
+,{"stream_name":"stderr","time":24.001497833,"data":"Model is not converging.  Current: 18316.685003634495 is not greater than 18320.73621139298. Delta is -4.051207758486271\n"}
+,{"stream_name":"stderr","time":24.021812882,"data":"Model is not converging.  Current: 18281.72385368451 is not greater than 18281.989424409974. Delta is -0.26557072546347626\n"}
+,{"stream_name":"stderr","time":24.021863822,"data":"\n"}
+,{"stream_name":"stderr","time":24.021867872,"data":"Model is not converging.  Current: 18281.72385368451 is not greater than 18281.989424409974. Delta is -0.26557072546347626\n"}
+,{"stream_name":"stderr","time":24.049357231,"data":"Model is not converging.  Current: 18308.940266528647 is not greater than 18320.853251044653. Delta is -11.912984516005963\n"}
+,{"stream_name":"stderr","time":24.049409771,"data":"\n"}
+,{"stream_name":"stderr","time":24.049414991,"data":"Model is not converging.  Current: 18308.940266528647 is not greater than 18320.853251044653. Delta is -11.912984516005963\n"}
+,{"stream_name":"stdout","time":24.130704317,"data":"  Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":24.130765037,"data":"[I 2026-02-15 06:12:47,393] Trial 7 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'vol_short_window': 5, 'vol_baseline_window': 120, 'momentum_baseline_window': 60}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stdout","time":24.130771948,"data":"  Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":24.130775457,"data":"[I 2026-02-15 06:12:47,518] Trial 8 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'vol_short_window': 20, 'vol_baseline_window': 120, 'momentum_baseline_window': 60}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":24.170010146,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":24.170063326,"data":"\n"}
+,{"stream_name":"stderr","time":24.170414056,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":24.255671872,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":24.255723662,"data":"\n"}
+,{"stream_name":"stderr","time":24.258390112,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":24.342352408,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":24.342404008,"data":"\n"}
+,{"stream_name":"stderr","time":24.345357688,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":24.565247398,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":24.565290138,"data":"\n"}
+,{"stream_name":"stderr","time":24.566339587999998,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stdout","time":24.618698246,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":24.618736626,"data":"[I 2026-02-15 06:12:47,896] Trial 9 finished with value: 1.548630408052143 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 120, 'momentum_baseline_window': 60}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":24.677881273,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":24.677922663,"data":"\n"}
+,{"stream_name":"stderr","time":24.677927783,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":24.823031666,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":24.823068346,"data":"\n"}
+,{"stream_name":"stderr","time":24.823073646,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":25.165895891,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":25.165941411,"data":"[I 2026-02-15 06:12:48,444] Trial 10 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":25.253777107,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":25.253826947,"data":"\n"}
+,{"stream_name":"stderr","time":25.253832747,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":25.310112445,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":25.310149054,"data":"\n"}
+,{"stream_name":"stderr","time":25.310153545,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":25.452925548,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":25.452961578,"data":"\n"}
+,{"stream_name":"stderr","time":25.454354218,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":25.779638024,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":25.779695624,"data":"[I 2026-02-15 06:12:49,057] Trial 11 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":25.783440393,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":25.783467203,"data":"\n"}
+,{"stream_name":"stderr","time":25.783470353,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":25.934422166,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":25.934466106,"data":"\n"}
+,{"stream_name":"stderr","time":25.934469886,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":26.018666773,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":26.018699523,"data":"\n"}
+,{"stream_name":"stderr","time":26.018703373,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":26.29588498,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":26.29592021,"data":"[I 2026-02-15 06:12:49,571] Trial 12 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":26.344121298,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":26.344170598,"data":"\n"}
+,{"stream_name":"stderr","time":26.344174378,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":26.479197282,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":26.479231242,"data":"\n"}
+,{"stream_name":"stderr","time":26.479254692,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":26.575026058,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":26.575094338,"data":"\n"}
+,{"stream_name":"stderr","time":26.575101028,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":26.944203191,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":26.944253481,"data":"[I 2026-02-15 06:12:50,223] Trial 13 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":27.074950665,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":27.074986075,"data":"\n"}
+,{"stream_name":"stderr","time":27.075136155,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":27.120670703,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":27.120708823,"data":"\n"}
+,{"stream_name":"stderr","time":27.121345293,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":27.164711051,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":27.164750571,"data":"\n"}
+,{"stream_name":"stderr","time":27.167390791,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":27.440510889,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":27.440553079,"data":"[I 2026-02-15 06:12:50,717] Trial 14 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":27.555521924,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":27.555573644,"data":"\n"}
+,{"stream_name":"stderr","time":27.555577994,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":27.603355812,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":27.603402532,"data":"\n"}
+,{"stream_name":"stderr","time":27.604354512,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":27.65077017,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":27.650851459,"data":"\n"}
+,{"stream_name":"stderr","time":27.65335058,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":27.866604680000002,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":27.8666799,"data":"\n"}
+,{"stream_name":"stderr","time":27.8666841,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":27.914029958,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":27.914082018,"data":"\n"}
+,{"stream_name":"stderr","time":27.915316058,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stdout","time":27.924700577,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":27.924743527,"data":"[I 2026-02-15 06:12:51,204] Trial 15 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":27.963394036,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":27.963449816,"data":"\n"}
+,{"stream_name":"stderr","time":27.963454036,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":28.180162346,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":28.180214196,"data":"\n"}
+,{"stream_name":"stderr","time":28.183394166,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":28.225952334,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":28.225989724,"data":"\n"}
+,{"stream_name":"stderr","time":28.226289754,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stdout","time":28.235128263,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":28.235197343,"data":"[I 2026-02-15 06:12:51,513] Trial 16 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":28.334057149,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":28.334095099,"data":"\n"}
+,{"stream_name":"stderr","time":28.335342179,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":28.629040546,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":28.629102675,"data":"\n"}
+,{"stream_name":"stderr","time":28.631364095,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stdout","time":28.673280874,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":28.673316694,"data":"[I 2026-02-15 06:12:51,949] Trial 17 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":28.769641889,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":28.769680429,"data":"\n"}
+,{"stream_name":"stderr","time":28.773372439,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":28.899047774,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":28.899083223,"data":"\n"}
+,{"stream_name":"stderr","time":28.899086954,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":29.267835177,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":29.267871007,"data":"[I 2026-02-15 06:12:52,544] Trial 18 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":29.398375931,"data":"Model is not converging.  Current: 18229.84166119009 is not greater than 18229.954355384252. Delta is -0.11269419416203164\n"}
+,{"stream_name":"stderr","time":29.398423161,"data":"\n"}
+,{"stream_name":"stderr","time":29.401340131,"data":"Model is not converging.  Current: 18229.84166119009 is not greater than 18229.954355384252. Delta is -0.11269419416203164\n"}
+,{"stream_name":"stderr","time":29.536939945,"data":"Model is not converging.  Current: 18099.916839057605 is not greater than 18112.652205711252. Delta is -12.735366653647361\n"}
+,{"stream_name":"stderr","time":29.536995095,"data":"\n"}
+,{"stream_name":"stderr","time":29.536999215,"data":"Model is not converging.  Current: 18099.916839057605 is not greater than 18112.652205711252. Delta is -12.735366653647361\n"}
+,{"stream_name":"stderr","time":29.604941222,"data":"Model is not converging.  Current: 18230.969317352774 is not greater than 18231.485301788707. Delta is -0.5159844359332055\n"}
+,{"stream_name":"stderr","time":29.604976662,"data":"\n"}
+,{"stream_name":"stderr","time":29.608367011,"data":"Model is not converging.  Current: 18230.969317352774 is not greater than 18231.485301788707. Delta is -0.5159844359332055\n"}
+,{"stream_name":"stderr","time":29.755863595,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":29.755899205,"data":"\n"}
+,{"stream_name":"stderr","time":29.755902935,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":29.804583703,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":29.804655993,"data":"\n"}
+,{"stream_name":"stderr","time":29.804660443,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stdout","time":29.826168092,"data":"[I 2026-02-15 06:12:53,091] Trial 19 finished with value: 1.5858946136087164 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 5, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":29.845729063,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":29.845763552,"data":"\n"}
+,{"stream_name":"stderr","time":29.845787183,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":30.10063914,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":30.10069745,"data":"\n"}
+,{"stream_name":"stderr","time":30.10070268,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stdout","time":30.128495006,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":30.128566756,"data":"[I 2026-02-15 06:12:53,407] Trial 20 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":30.229539575,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":30.229596125,"data":"\n"}
+,{"stream_name":"stderr","time":30.229601425,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":30.284003486,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":30.284090886,"data":"\n"}
+,{"stream_name":"stderr","time":30.285554247,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":30.570336062,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":30.570393272,"data":"[I 2026-02-15 06:12:53,846] Trial 21 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":30.586483431,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":30.586524141,"data":"\n"}
+,{"stream_name":"stderr","time":30.586528721,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":30.633777738,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":30.633861878,"data":"\n"}
+,{"stream_name":"stderr","time":30.633865329,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":30.709372402,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":30.709428402,"data":"\n"}
+,{"stream_name":"stderr","time":30.709432022,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":31.056814673,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":31.056856913,"data":"[I 2026-02-15 06:12:54,332] Trial 22 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":31.103770761,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":31.103834121,"data":"\n"}
+,{"stream_name":"stderr","time":31.103839431,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":31.253534587,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":31.253569617,"data":"\n"}
+,{"stream_name":"stderr","time":31.253573307,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":31.302037035,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":31.302075715,"data":"\n"}
+,{"stream_name":"stderr","time":31.302079445,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":31.577454205,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":31.577507985,"data":"\n"}
+,{"stream_name":"stderr","time":31.577512555,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":31.636944439,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":31.636980089,"data":"\n"}
+,{"stream_name":"stderr","time":31.636983939,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stdout","time":31.637623589,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":31.63763878,"data":"[I 2026-02-15 06:12:54,914] Trial 23 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":31.678092843,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":31.678130193,"data":"\n"}
+,{"stream_name":"stderr","time":31.678133653,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":31.947851829,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":31.947926149,"data":"[I 2026-02-15 06:12:55,224] Trial 24 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":32.051532519,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":32.051587889,"data":"\n"}
+,{"stream_name":"stderr","time":32.051592149,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":32.102157508,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":32.102228259,"data":"\n"}
+,{"stream_name":"stderr","time":32.102231879,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":32.149359916,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":32.149400006,"data":"\n"}
+,{"stream_name":"stderr","time":32.152388768,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":32.315787272,"data":"Model is not converging.  Current: 18227.20891434311 is not greater than 18232.98209075222. Delta is -5.773176409107691\n"}
+,{"stream_name":"stderr","time":32.315823642,"data":"\n"}
+,{"stream_name":"stderr","time":32.318366713,"data":"Model is not converging.  Current: 18227.20891434311 is not greater than 18232.98209075222. Delta is -5.773176409107691\n"}
+,{"stream_name":"stderr","time":32.354348384,"data":"Model is not converging.  Current: 18230.628400311856 is not greater than 18242.76487320359. Delta is -12.13647289173241\n"}
+,{"stream_name":"stderr","time":32.354404524,"data":"\n"}
+,{"stream_name":"stderr","time":32.354408284,"data":"Model is not converging.  Current: 18230.628400311856 is not greater than 18242.76487320359. Delta is -12.13647289173241\n"}
+,{"stream_name":"stderr","time":32.39802444,"data":"Model is not converging.  Current: 18235.430591801225 is not greater than 18237.815658274445. Delta is -2.385066473219922\n"}
+,{"stream_name":"stderr","time":32.39808783,"data":"\n"}
+,{"stream_name":"stderr","time":32.39809373,"data":"Model is not converging.  Current: 18235.430591801225 is not greater than 18237.815658274445. Delta is -2.385066473219922\n"}
+,{"stream_name":"stderr","time":32.418017321,"data":"Model is not converging.  Current: 18200.625069737627 is not greater than 18201.070489583908. Delta is -0.4454198462808563\n"}
+,{"stream_name":"stderr","time":32.418054561,"data":"\n"}
+,{"stream_name":"stderr","time":32.418059001,"data":"Model is not converging.  Current: 18200.625069737627 is not greater than 18201.070489583908. Delta is -0.4454198462808563\n"}
+,{"stream_name":"stderr","time":32.45081644,"data":"Model is not converging.  Current: 18228.763689276457 is not greater than 18239.384511416247. Delta is -10.620822139790107\n"}
+,{"stream_name":"stderr","time":32.45085903,"data":"\n"}
+,{"stream_name":"stderr","time":32.45086424,"data":"Model is not converging.  Current: 18228.763689276457 is not greater than 18239.384511416247. Delta is -10.620822139790107\n"}
+,{"stream_name":"stdout","time":32.460477556,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":32.460532336,"data":"[I 2026-02-15 06:12:55,736] Trial 25 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stdout","time":32.460538186,"data":"  Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":32.460541986,"data":"[I 2026-02-15 06:12:55,919] Trial 26 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":32.581887166,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":32.581940406,"data":"\n"}
+,{"stream_name":"stderr","time":32.581943966,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":32.677107391,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":32.677163751,"data":"\n"}
+,{"stream_name":"stderr","time":32.677168141,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":32.724048458,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":32.724084849,"data":"\n"}
+,{"stream_name":"stderr","time":32.724088449,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":32.924281914,"data":"Model is not converging.  Current: 18407.883456046256 is not greater than 18408.11298608873. Delta is -0.22953004247392528\n"}
+,{"stream_name":"stderr","time":32.924368534,"data":"\n"}
+,{"stream_name":"stderr","time":32.924373114,"data":"Model is not converging.  Current: 18407.883456046256 is not greater than 18408.11298608873. Delta is -0.22953004247392528\n"}
+,{"stream_name":"stdout","time":32.990585173,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":32.990621623,"data":"[I 2026-02-15 06:12:56,268] Trial 27 finished with value: 1.6241489808778795 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 10, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":33.100262096,"data":"Model is not converging.  Current: 18309.458528115083 is not greater than 18313.356549237946. Delta is -3.8980211228627013\n"}
+,{"stream_name":"stderr","time":33.100300226,"data":"\n"}
+,{"stream_name":"stderr","time":33.102368467,"data":"Model is not converging.  Current: 18309.458528115083 is not greater than 18313.356549237946. Delta is -3.8980211228627013\n"}
+,{"stream_name":"stderr","time":33.173845639,"data":"Model is not converging.  Current: 18407.851442226518 is not greater than 18408.164396398577. Delta is -0.3129541720591078\n"}
+,{"stream_name":"stderr","time":33.173882579,"data":"\n"}
+,{"stream_name":"stderr","time":33.173956839,"data":"Model is not converging.  Current: 18407.851442226518 is not greater than 18408.164396398577. Delta is -0.3129541720591078\n"}
+,{"stream_name":"stdout","time":33.390738014,"data":"[I 2026-02-15 06:12:56,654] Trial 28 finished with value: 1.582938011787315 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'vol_short_window': 20, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stderr","time":33.467787419,"data":"Model is not converging.  Current: 18231.59585357087 is not greater than 18231.834327308385. Delta is -0.23847373751414125\n"}
+,{"stream_name":"stderr","time":33.467837009,"data":"\n"}
+,{"stream_name":"stderr","time":33.467841239,"data":"Model is not converging.  Current: 18231.59585357087 is not greater than 18231.834327308385. Delta is -0.23847373751414125\n"}
+,{"stream_name":"stderr","time":33.649701334,"data":"Model is not converging.  Current: 18220.0459218736 is not greater than 18220.66745838525. Delta is -0.6215365116513567\n"}
+,{"stream_name":"stderr","time":33.649738604,"data":"\n"}
+,{"stream_name":"stderr","time":33.652318696,"data":"Model is not converging.  Current: 18220.0459218736 is not greater than 18220.66745838525. Delta is -0.6215365116513567\n"}
+,{"stream_name":"stdout","time":33.670947187,"data":"  HMM seed 42 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":33.965760097,"data":"  HMM seed 456 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":33.965795327,"data":"  HMM seed 789 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stderr","time":34.150880275,"data":"Model is not converging.  Current: 18217.919243670553 is not greater than 18218.020401843794. Delta is -0.10115817324185628\n"}
+,{"stream_name":"stderr","time":34.150931355,"data":"\n"}
+,{"stream_name":"stderr","time":34.152725705,"data":"Model is not converging.  Current: 18217.919243670553 is not greater than 18218.020401843794. Delta is -0.10115817324185628\n"}
+,{"stream_name":"stdout","time":34.175418159,"data":"[I 2026-02-15 06:12:57,635] Trial 29 finished with value: 1.6138770777901597 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'vol_short_window': 5, 'vol_baseline_window': 60, 'momentum_baseline_window': 120}. Best is trial 5 with value: 1.6241489808778795.\n"}
+,{"stream_name":"stdout","time":34.175481359,"data":"\n"}
+,{"stream_name":"stdout","time":34.175485339,"data":"Optuna HPO complete!\n"}
+,{"stream_name":"stdout","time":34.175488169,"data":"Completed trials: 30\n"}
+,{"stream_name":"stdout","time":34.175491199,"data":"Best MI sum: 1.624149\n"}
+,{"stream_name":"stdout","time":34.175493839,"data":"Best parameters:\n"}
+,{"stream_name":"stdout","time":34.175496889,"data":"  hmm_n_components: 2\n"}
+,{"stream_name":"stdout","time":34.175499429,"data":"  hmm_covariance_type: full\n"}
+,{"stream_name":"stdout","time":34.175502429,"data":"  vol_short_window: 10\n"}
+,{"stream_name":"stdout","time":34.175504989,"data":"  vol_baseline_window: 60\n"}
+,{"stream_name":"stdout","time":34.175507889,"data":"  momentum_baseline_window: 120\n"}
+,{"stream_name":"stdout","time":34.372013532,"data":"\n"}
+,{"stream_name":"stdout","time":34.372076152,"data":"Generating final features with best parameters...\n"}
+,{"stream_name":"stdout","time":34.372128302,"data":"Fitting HMM (2 states, full covariance)...\n"}
+,{"stream_name":"stderr","time":34.466542137,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":34.466600917,"data":"\n"}
+,{"stream_name":"stderr","time":34.466764577,"data":"Model is not converging.  Current: 18299.690019014026 is not greater than 18299.96461275527. Delta is -0.27459374124373426\n"}
+,{"stream_name":"stderr","time":34.516978266,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":34.517042976,"data":"\n"}
+,{"stream_name":"stderr","time":34.518270807,"data":"Model is not converging.  Current: 18298.692585348177 is not greater than 18298.865085808276. Delta is -0.1725004600993998\n"}
+,{"stream_name":"stderr","time":34.561965202,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stderr","time":34.562046562,"data":"\n"}
+,{"stream_name":"stderr","time":34.562164723,"data":"Model is not converging.  Current: 18232.145501503117 is not greater than 18237.778720173646. Delta is -5.633218670529459\n"}
+,{"stream_name":"stdout","time":34.682321182,"data":"  HMM seed 0 failed: 'covars' must be symmetric, positive-definite\n"}
+,{"stream_name":"stdout","time":34.682374572,"data":"Computing momentum z-score (5d momentum, 120d baseline)...\n"}
+,{"stream_name":"stdout","time":34.682378402,"data":"Computing volatility regime z-score (10d vol, 60d baseline)...\n"}
+,{"stream_name":"stdout","time":34.682381382,"data":"\n"}
+,{"stream_name":"stdout","time":34.682384472,"data":"Output shape: (2771, 3)\n"}
+,{"stream_name":"stdout","time":34.682387602,"data":"Output columns: ['cny_regime_prob', 'cny_momentum_z', 'cny_vol_regime_z']\n"}
+,{"stream_name":"stdout","time":34.682390412,"data":"\n"}
+,{"stream_name":"stdout","time":34.682393002,"data":"Output summary:\n"}
+,{"stream_name":"stdout","time":34.682395772,"data":"       cny_regime_prob  cny_momentum_z  cny_vol_regime_z\n"}
+,{"stream_name":"stdout","time":34.682398682,"data":"count     2.762000e+03     2648.000000       2703.000000\n"}
+,{"stream_name":"stdout","time":34.682401392,"data":"mean      3.251404e-02       -0.014303          0.023343\n"}
+,{"stream_name":"stdout","time":34.682404082,"data":"std       1.636598e-01        1.041318          1.184844\n"}
+,{"stream_name":"stdout","time":34.682406792,"data":"min       3.903338e-12       -4.000000         -2.893427\n"}
+,{"stream_name":"stdout","time":34.682409532,"data":"25%       1.681701e-04       -0.564596         -0.845453\n"}
+,{"stream_name":"stdout","time":34.682412202,"data":"50%       1.979040e-04       -0.005427         -0.205568\n"}
+,{"stream_name":"stdout","time":34.682414922,"data":"75%       3.467956e-04        0.496865          0.688326\n"}
+,{"stream_name":"stdout","time":34.682417552,"data":"max       1.000000e+00        4.000000          4.000000\n"}
+,{"stream_name":"stdout","time":34.682420242,"data":"\n"}
+,{"stream_name":"stdout","time":34.682422742,"data":"NaN counts:\n"}
+,{"stream_name":"stdout","time":34.682425252,"data":"cny_regime_prob       9\n"}
+,{"stream_name":"stdout","time":34.682427932,"data":"cny_momentum_z      123\n"}
+,{"stream_name":"stdout","time":34.682430552,"data":"cny_vol_regime_z     68\n"}
+,{"stream_name":"stdout","time":34.682433062,"data":"dtype: int64\n"}
+,{"stream_name":"stdout","time":34.682435692,"data":"\n"}
+,{"stream_name":"stdout","time":34.682466992,"data":"Standard deviations:\n"}
+,{"stream_name":"stdout","time":34.682469972,"data":"cny_regime_prob     0.163660\n"}
+,{"stream_name":"stdout","time":34.682472602,"data":"cny_momentum_z      1.041318\n"}
+,{"stream_name":"stdout","time":34.682475242,"data":"cny_vol_regime_z    1.184844\n"}
+,{"stream_name":"stdout","time":34.682477892,"data":"dtype: float64\n"}
+,{"stream_name":"stdout","time":34.766586371,"data":"\n"}
+,{"stream_name":"stdout","time":34.766642821,"data":"Autocorrelations (lag 1):\n"}
+,{"stream_name":"stdout","time":34.766648901,"data":"  cny_regime_prob: 0.6394\n"}
+,{"stream_name":"stdout","time":34.766652671,"data":"  cny_momentum_z: 0.7367\n"}
+,{"stream_name":"stdout","time":34.766656041,"data":"  cny_vol_regime_z: 0.9206\n"}
+,{"stream_name":"stdout","time":34.766659241,"data":"\n"}
+,{"stream_name":"stdout","time":34.766662661,"data":"Mutual Information (validation set):\n"}
+,{"stream_name":"stdout","time":34.766666041,"data":"  cny_regime_prob: 0.531771\n"}
+,{"stream_name":"stdout","time":34.766669021,"data":"  cny_momentum_z: 0.547718\n"}
+,{"stream_name":"stdout","time":34.766672181,"data":"  cny_vol_regime_z: 0.544660\n"}
+,{"stream_name":"stdout","time":34.766675291,"data":"  Total: 1.624149\n"}
+,{"stream_name":"stdout","time":34.766678221,"data":"\n"}
+,{"stream_name":"stdout","time":34.766681471,"data":"Metrics computed.\n"}
+,{"stream_name":"stdout","time":34.83464335,"data":"\n"}
+,{"stream_name":"stdout","time":34.83473345,"data":"Saving results...\n"}
+,{"stream_name":"stdout","time":34.83474134,"data":"  Saved: submodel_output.csv\n"}
+,{"stream_name":"stdout","time":34.83474537,"data":"  Saved: model_params.json\n"}
+,{"stream_name":"stdout","time":34.83474853,"data":"  Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":34.83475231,"data":"\n"}
+,{"stream_name":"stdout","time":34.83475614,"data":"=== Training Complete! ===\n"}
+,{"stream_name":"stdout","time":34.83476021,"data":"Finished: 2026-02-15T06:12:58.299782\n"}
+,{"stream_name":"stdout","time":34.83476467,"data":"\n"}
+,{"stream_name":"stdout","time":34.8347684,"data":"Output files:\n"}
+,{"stream_name":"stdout","time":34.83477248,"data":"  - submodel_output.csv (2771 rows x 3 columns)\n"}
+,{"stream_name":"stdout","time":34.83477636,"data":"  - model_params.json (HMM parameters)\n"}
+,{"stream_name":"stdout","time":34.83478062,"data":"  - training_result.json (full training report)\n"}
+,{"stream_name":"stderr","time":38.15105716,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":38.1511277,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":38.320026048,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":38.320083948,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":38.9295776,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":38.92963796,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":39.01451673,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":39.341110088,"data":"[NbConvertApp] Writing 82103 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":42.456876692,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":42.456921962,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":42.484032898,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":43.475540172,"data":"[NbConvertApp] Writing 419832 bytes to __results__.html\n"}
+]
