@@ -47,42 +47,42 @@ main (protected, production-ready milestones only)
 
 ---
 
-## コミットメッセージ規約
+## コミットメッセージ規約（日本語）
 
 ### developブランチ
 
-**現行ルールを継続:**
+**現行ルールを継続（英語のままOK、説明部分は日本語推奨）:**
 ```bash
 entrance: {feature} attempt {N}
 research: {feature} attempt {N}
 design: {feature} attempt {N}
 data: {feature} attempt {N}
 datacheck: {feature} attempt {N} - {PASS/REJECT}
-model: {feature} attempt {N} - notebook generated
-kaggle: {feature} attempt {N} - {submitted/results fetched}
+model: {feature} attempt {N} - Notebook生成完了
+kaggle: {feature} attempt {N} - {送信完了/結果取得完了}
 eval: {feature} attempt {N} - gate{N} {pass/fail}
-refactor: {description}
-cleanup: {description}
-state: {description}
+リファクタ: {説明}
+整理: {説明}
+状態: {説明}
 ```
 
 ### mainブランチ
 
-**マージコミットのみ（Conventional Commits準拠）:**
+**マージコミットのみ（日本語、簡潔に）:**
 ```bash
-feat: complete {feature} submodel (Gate 3 PASS, metrics)
-feat: complete meta-model (final metrics)
-feat: add {feature_name} (automation, tools, etc.)
-refactor: {major_refactoring_description}
-docs: {documentation_updates}
+機能: {feature}サブモデル完了（Gate 3 PASS、メトリクス）
+機能: メタモデル完了（最終メトリクス）
+機能: {機能名}追加
+リファクタ: {大規模変更の説明}
+ドキュメント: {更新内容}
 ```
 
 **例:**
 ```bash
-feat: complete etf_flow submodel (Gate 3 PASS, Sharpe +0.377, MAE -0.0436)
-feat: complete vix submodel (Gate 3 PASS, DA +0.96%, Sharpe +0.289)
-feat: add auto-resume script for Kaggle training
-refactor: restructure project directories for CLAUDE.md compliance
+機能: etf_flowサブモデル完了（Gate 3 PASS、Sharpe +0.377、MAE -0.0436）
+機能: vixサブモデル完了（Gate 3 PASS、DA +0.96%、Sharpe +0.289）
+機能: Kaggleトレーニング後の自動再開スクリプト追加
+リファクタ: CLAUDE.md準拠のプロジェクト構造再構築
 ```
 
 ---
