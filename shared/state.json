@@ -1,10 +1,10 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "inflation_expectation",
   "current_attempt": 1,
-  "resume_from": "researcher",
-  "datachecker_status": null,
+  "resume_from": "evaluator",
+  "datachecker_status": "PASS",
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [
@@ -19,9 +19,9 @@
     "yield_curve",
     "etf_flow"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
-  "last_updated": "2026-02-15T17:00:00",
+  "kaggle_kernel": "bigbigzabuton/gold-inflation-expectation-submodel-attempt-1",
+  "submitted_at": "2026-02-15T13:10:00",
+  "last_updated": "2026-02-15T13:10:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
