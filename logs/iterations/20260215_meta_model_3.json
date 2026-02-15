@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-02-15T21:30:00",
+  "feature": "meta_model",
+  "attempt": 3,
+  "phase": "3_meta_model",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
+  "kaggle_version": 10,
+  "agent": "evaluator",
+  "action": "gate_evaluation_complete",
+  "decision": "attempt+1",
+  "attempt_consumed": true,
+  "next_attempt": 4,
+  "resume_from": "architect",
+  "evaluation_summary": {
+    "targets_passed": "2/4",
+    "da": {"value": 0.5330, "target": 0.56, "passed": false},
+    "hcda": {"value": 0.5921, "target": 0.60, "passed": false},
+    "mae": {"value": 0.7173, "target": 0.75, "passed": true},
+    "sharpe": {"value": 1.2201, "target": 0.80, "passed": true}
+  },
+  "vs_previous_attempt": {
+    "da_delta_pp": -3.96,
+    "hcda_delta_pp": 3.95,
+    "mae_delta": 0.0296,
+    "sharpe_delta": -0.3634,
+    "overfitting_worsened": true,
+    "train_test_gap_pp": 25.96,
+    "regression": true
+  },
+  "key_findings": [
+    "predictions.csv contained stale Attempt 2 data; test_predictions.csv is authoritative",
+    "5-model ensemble caused severe overfitting (train-test gap 25.96pp vs 5.54pp in Att 2)",
+    "HCDA improved +3.95pp but at cost of DA -3.96pp (net negative)",
+    "Re-ranking had zero effect on test set",
+    "DA dropped below naive always-up baseline (53.30% vs 56.73%)",
+    "Model capacity increase (max_depth 2->3) was the wrong approach"
+  ],
+  "improvement_plan": "Revert to Attempt 2 architecture, add post-hoc isotonic regression calibration for HCDA"
+}

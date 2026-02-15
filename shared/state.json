@@ -2,8 +2,8 @@
   "status": "in_progress",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 3,
-  "resume_from": "evaluator",
+  "current_attempt": 4,
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
@@ -21,7 +21,7 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2-v2",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
   "submitted_at": "2026-02-16T02:00:00",
   "baseline_metrics": {
     "test_mae": 0.7139,
@@ -314,8 +314,34 @@
         "HCDA_55.26%_misses_60%_target_by_4.74pp"
       ],
       "improvement_plan": "Improve HCDA via prediction magnitude calibration, asymmetric UP/DOWN confidence thresholds, regime-dependent confidence gating"
+    },
+    "attempt_3": {
+      "decision": "attempt+1",
+      "test_da": 0.5330,
+      "test_hcda": 0.5921,
+      "test_mae": 0.7173,
+      "test_sharpe": 1.2201,
+      "train_test_da_gap_pp": 25.96,
+      "targets_passed": "2/4",
+      "primary_successes": [
+        "HCDA_59.21%_improved_from_55.26%_+3.95pp",
+        "HCDA_gap_narrowed_from_4.74pp_to_0.79pp",
+        "high_conf_UP_DA_60.00%_passes_threshold",
+        "top_10pct_HCDA_60.53%_passes_threshold"
+      ],
+      "primary_failures": [
+        "DA_53.30%_regressed_from_57.26%_below_naive_56.73%",
+        "MAE_0.7173%_regressed_from_0.6877%_still_passes",
+        "Sharpe_1.22_regressed_from_1.58_still_passes",
+        "severe_overfitting_train_test_gap_25.96pp_vs_5.54pp",
+        "ensemble_added_capacity_not_generalization",
+        "reranking_zero_effect",
+        "train_DA_79.26%_memorization"
+      ],
+      "improvement_plan": "Revert to single-model (Attempt 2 architecture), post-hoc isotonic regression for HCDA calibration, consider feature selection to reduce noise",
+      "data_note": "predictions.csv was stale (Attempt 2 data). Evaluation used test_predictions.csv."
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T20:55:07.819068"
+  "last_updated": "2026-02-15T21:30:00"
 }
