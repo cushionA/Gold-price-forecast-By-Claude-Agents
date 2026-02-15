@@ -3,8 +3,8 @@
   "phase": "2_submodel_loop",
   "current_feature": "cny_demand",
   "current_attempt": 1,
-  "resume_from": "datachecker",
-  "datachecker_status": null,
+  "resume_from": "builder_model",
+  "datachecker_status": "passed",
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [
