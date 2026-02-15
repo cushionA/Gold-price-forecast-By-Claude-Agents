@@ -1,9 +1,9 @@
 {
-  "status": "completed",
+  "status": "in_progress",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 5,
-  "resume_from": null,
+  "current_attempt": 6,
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",

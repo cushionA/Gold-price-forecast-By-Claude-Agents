@@ -1,136 +1,134 @@
 {
   "task_type": "meta_model",
   "feature": "meta_model",
-  "attempt": 5,
+  "attempt": 6,
   "phase": "phase3_meta_model",
-  "source": "entrance",
+  "source": "user_directed_improvement",
 
-  "objective": "Integrate the newly completed options_risk_regime_prob feature into the meta-model and re-optimize XGBoost hyperparameters from scratch via Optuna to close the DA gap (55.35% -> 56%+) and fundamentally fix the HCDA problem (42.86% -> 60%+). Attempt 4's calibration approach catastrophically failed: isotonic regression promoted low-accuracy predictions (40% DA) and demoted high-accuracy predictions (60.3% DA). The path forward is NOT post-hoc calibration but rather improving the base model itself so that prediction magnitude naturally correlates with directional accuracy.",
+  "objective": "Lightweight improvement of attempt 5 through (1) Shapley-based confidence scoring to fix inverted confidence ordering, and (2) calibrated output scaling to address prediction magnitude mismatch. Target: HCDA >= 60% and MAE <= 0.85% without major architectural changes.",
 
-  "previous_feedback": {
-    "attempt_history_summary": {
-      "attempt_1": "All 4 targets missed. Catastrophic overfitting (train-test DA gap 40pp). Root cause: custom directional MAE loss + 39 non-stationary features + data pipeline bug.",
-      "attempt_2": "Best attempt. 3/4 targets passed (DA 57.26%, MAE 0.6877%, Sharpe 1.5835). Only HCDA missed at 55.26% vs 60% target. Clean architecture: single XGBoost, reg:squarederror, 22 features, 80 Optuna trials. Overfitting controlled (5.54pp gap).",
-      "attempt_3": "2/4 targets. HCDA improved to 59.21% (+3.95pp) but DA regressed to 53.30% and overfitting surged (25.96pp gap). Ensemble approach added capacity not generalization. Abandoned.",
-      "attempt_4": "1/4 targets. Isotonic calibration disaster. Froze attempt 2 base model, added logistic regression confidence model. Calibration promoted wrong predictions (40% DA) into high-confidence set, demoted correct predictions (60.3% DA). HCDA collapsed to 42.86%. DA also regressed to 55.35%. Only Sharpe (1.63) passed."
-    },
-    "attempt_4_calibration_postmortem": {
-      "root_cause": "The confidence model (logistic regression with polynomial features) trained on 378 validation samples was unable to generalize to the test period. CV HCDA on validation was 65.45% but test HCDA was 42.86% -- a 22.6pp gap indicating severe overfitting of the calibration layer despite 5-fold CV. The confidence model learned validation-period-specific patterns that reversed in the test period.",
-      "promoted_predictions_da": "40.0% (n=40) -- these should have been 60%+ to help HCDA",
-      "demoted_predictions_da": "60.3% (n=58) -- these were the actually good predictions that got removed",
-      "overlap_with_standard": "21.6% -- calibration completely reshuffled the high-confidence set",
-      "lesson": "Post-hoc calibration on 378 samples is fundamentally insufficient. With only ~75 high-confidence samples in the test set, the calibration needs to be nearly perfect to improve HCDA. Any noise in the confidence model destroys the selection. The correct approach is to improve the base model so that |prediction| naturally correlates with accuracy."
-    },
-    "attempt_2_hcda_profile": {
-      "top_10pct_da": "60.53% (n=38) -- PASSES 60% target",
-      "top_15pct_da": "59.65% (n=57)",
-      "top_20pct_da": "55.26% (n=76) -- FAILS 60% target",
-      "top_25pct_da": "57.89% (n=95)",
-      "analysis": "The 15-20th percentile band has ~42% accuracy (worse than random) while the 20-25th band has ~68% accuracy. The model is 'confidently wrong' on certain patterns in the 15-20th band. Adding options_market regime information may help the model avoid these confidently-wrong predictions by providing options-derived risk sentiment context."
-    },
-    "feature_expansion_rationale": "Attempt 4 evaluator decided feature_expansion over attempt+1 because: (1) calibration approach exhausted, (2) base model quality at 22 features is near ceiling, (3) options_risk_regime_prob ranked #2 in individual feature importance (7.55%) during submodel evaluation and provides genuinely new information about options market risk regimes not captured by any existing feature."
-  },
-
-  "requirements": {
-    "architecture": "Single XGBoost model with reg:squarederror. NO ensemble. NO post-hoc calibration layer.",
-    "feature_set": "23 features total: 5 base features (real_rate_change, dxy_change, vix, yield_spread_change, inflation_exp_change) + 17 existing submodel features + 1 new feature (options_risk_regime_prob). The cny_demand features remain excluded (DA -2.06%, Sharpe -0.593 degradation in Phase 2).",
-    "new_feature_integration": "options_risk_regime_prob from data/submodel_outputs/options_market.csv. Single column, HMM 3-state regime probability [0,1]. NaN imputation: 0.5 (maximum uncertainty, consistent with other regime_prob features).",
-    "hyperparameter_optimization": "Full Optuna re-search (NOT frozen attempt 2 HP). The addition of a 23rd feature changes the optimal regularization balance. Attempt 2's colsample_bytree=0.371 sampled ~8 of 22 features per tree; with 23 features this becomes ~8.5, and the optimal ratio may shift. Re-search also allows Optuna to find HP that better leverage the new options regime signal.",
-    "hcda_strategy": "Improve HCDA through base model quality, NOT calibration. Three mechanisms: (1) The options_risk_regime_prob feature may help the model avoid confidently-wrong predictions in the 15-20th percentile band by providing risk regime context. If the model was wrong because it lacked options sentiment information, adding it should correct the magnitude-accuracy relationship. (2) Re-optimize confidence_threshold via Optuna to find the natural cutoff where model accuracy is highest. (3) Include HCDA as an explicit Optuna objective component (10% weight, same as attempt 2) to ensure HP optimization accounts for high-confidence prediction quality.",
-    "data_pipeline": "Must include options_market.csv in the merge pipeline. Date normalization required. Verify options_market.csv date column format and apply appropriate parsing. Use left join from base features as in attempt 2.",
-    "optuna_config": {
-      "n_trials": 100,
-      "rationale": "More trials than attempt 2 (80) to explore the expanded feature space. Options_risk_regime_prob may interact with existing regime features (vix_regime_prob, tech_trend_regime_prob, etc.) in ways that require different regularization than 22-feature optimum. 100 trials provides better coverage while remaining within time budget.",
-      "search_space_adjustments": [
-        "colsample_bytree: [0.3, 0.7] (widened upper bound from 0.6 to allow more features per tree given 23 total)",
-        "max_depth: [2, 5] (widened upper bound from 4 to 5 to allow deeper trees that can capture regime interactions)",
-        "n_estimators: [100, 1000] (widened from [100, 800] to allow more boosting rounds)",
-        "Other parameters: same ranges as attempt 2"
-      ]
-    },
-    "evaluation_requirements": {
-      "primary_targets": {
-        "DA": "> 56% on test set",
-        "HCDA": "> 60% on test set (top 20% by |prediction|, standard formula, NO calibration)",
-        "MAE": "< 0.75% on test set",
-        "Sharpe": "> 0.8 on test set (position-change cost, 5bps)"
-      },
-      "secondary_diagnostics": [
-        "Train-test DA gap < 10pp",
-        "Model DA > naive always-up DA (56.73%)",
-        "options_risk_regime_prob feature importance (should be top-10 given rank #2 in submodel eval)",
-        "HCDA at multiple thresholds (10%, 15%, 20%, 25%, 30%)",
-        "Quarterly DA breakdown (check for regime-dependent performance)",
-        "Comparison with attempt 2 and attempt 4 on all metrics"
+  "previous_attempt_results": {
+    "attempt_5": {
+      "test_da": "56.77%",
+      "test_hcda": "57.61%",
+      "test_mae": "0.9521%",
+      "test_sharpe": 1.8343,
+      "targets_passed": "2/4",
+      "key_issues": [
+        "HCDA 2.39pp below 60% target",
+        "Confidence ordering inverted: Decile 3 (77.8% DA) > Decile 1 (57.8% DA)",
+        "Prediction scale 20x smaller than actuals (std 0.070 vs 1.369)",
+        "Val DA 49.23% below random (overfitting indicator)"
       ]
     }
   },
 
-  "research_questions": [
-    "What is the optimal Optuna objective weight distribution for a 4-target problem where HCDA has been the persistent bottleneck? Should HCDA weight increase from 10% to 20-30%?",
-    "Can feature interaction terms (e.g., options_risk_regime_prob * vix_regime_prob, options_risk_regime_prob * tech_trend_regime_prob) improve the model's ability to distinguish genuine high-confidence situations from false ones?",
-    "Is there academic or empirical evidence that options market regime information (SKEW/GVZ-based) improves gold return prediction quality specifically in the high-confidence subset?",
-    "Should the confidence_threshold be searched independently or can Optuna's HCDA component naturally find the right balance? What threshold ranges are reasonable given attempt 2's prediction distribution (std ~0.12%)?",
-    "Would adding rolling-window feature engineering (e.g., 5-day average of options_risk_regime_prob, regime persistence duration) provide useful temporal context without introducing noise?"
+  "improvement_strategy": "lightweight_modifications",
+
+  "proposed_fixes": [
+    {
+      "issue": "Inverted confidence ordering",
+      "root_cause": "Using |prediction| as confidence score assumes model calibration which XGBoost lacks",
+      "solution": "Compute TreeSHAP values on validation set to measure feature contribution uncertainty. High SHAP variance = low confidence. Use SHAP-based confidence to select top 20% instead of |prediction|.",
+      "implementation": "After training XGBoost, compute shap.TreeExplainer on val set. Confidence = 1 / (1 + std(SHAP values)). Select HC set by this score.",
+      "expected_improvement": "HCDA +1-3pp (potentially 59-61%)",
+      "complexity": "Low (shap library already available)"
+    },
+    {
+      "issue": "Prediction scale mismatch (MAE inflation)",
+      "root_cause": "XGBoost reg:squarederror optimizes for MSE, which penalizes large errors quadratically, leading to conservative predictions",
+      "solution": "Post-training calibration: compute val_std_actual / val_std_pred scaling factor. Multiply test predictions by this factor before MAE calculation.",
+      "implementation": "scale_factor = np.std(y_val_actual) / np.std(y_val_pred). y_test_pred_scaled = y_test_pred * scale_factor.",
+      "expected_improvement": "MAE -0.10 to -0.20% (0.95% -> 0.75-0.85%)",
+      "complexity": "Very low (single multiplication)"
+    },
+    {
+      "issue": "Val DA 49.23% below random",
+      "root_cause": "Weak early stopping / overfitting to train patterns that don't generalize",
+      "solution": "Strengthen early stopping rounds (50 -> 100) and increase min_child_weight search range",
+      "implementation": "Adjust Optuna search space: min_child_weight [12, 25] (was [1, 20])",
+      "expected_improvement": "More stable val-test consistency",
+      "complexity": "Very low (HP range adjustment)"
+    }
+  ],
+
+  "requirements": {
+    "architecture": "Single XGBoost reg:squarederror (same as attempt 5). Add post-training SHAP and scaling layers.",
+    "feature_set": "Same 23 features as attempt 5 (no changes)",
+    "data_pipeline": "Reuse attempt 5 data loading (no changes)",
+    "hyperparameter_optimization": {
+      "n_trials": 100,
+      "search_space_modifications": [
+        "min_child_weight: [12, 25] (strengthened from [1, 20])",
+        "early_stopping_rounds: 100 (was 50)",
+        "Other params: same as attempt 5"
+      ],
+      "objective_weights": "Same as attempt 5 (HCDA 20%, DA 30%, MAE 10%, Sharpe 40%)"
+    },
+    "new_components": [
+      "TreeSHAP confidence scoring on validation set",
+      "Variance-based scaling factor calibration",
+      "HCDA computed using SHAP confidence instead of |prediction|"
+    ]
+  },
+
+  "evaluation_requirements": {
+    "primary_targets": {
+      "DA": "> 56%",
+      "HCDA": "> 60% (using SHAP confidence scoring)",
+      "MAE": "< 0.75% (stretch) or < 0.85% (acceptable improvement)",
+      "Sharpe": "> 0.8"
+    },
+    "comparison_baselines": [
+      "Attempt 5 (current best)",
+      "Attempt 2 (best overall 3/4)"
+    ],
+    "diagnostic_outputs": [
+      "SHAP confidence vs |prediction| confidence comparison",
+      "Decile analysis with both scoring methods",
+      "Pre/post scaling MAE comparison",
+      "Feature importance (should match attempt 5 closely)"
+    ]
+  },
+
+  "success_criteria": [
+    "HCDA >= 60% OR +2pp improvement from attempt 5",
+    "MAE <= 0.85%",
+    "DA >= 56%",
+    "Sharpe >= 1.5",
+    "Train-test DA gap < 10pp"
   ],
 
   "constraints": [
-    "Single XGBoost model only -- NO ensemble, NO stacking, NO post-hoc calibration",
-    "HCDA computed by standard formula: DA on top 20% by |prediction| -- NO alternative confidence columns",
-    "Data split frozen: train 70% / val 15% / test 15% time-series order, same dates as all previous attempts",
-    "NaN imputation: domain-specific (regime_prob -> 0.5, z-scores -> 0.0, signals -> 0.0)",
-    "Sharpe formula: position-change cost only (5bps), matching CLAUDE.md spec",
-    "Direction accuracy: exclude zeros (np.sign(0) = 0 problem)",
-    "Self-contained Kaggle Notebook using unified kernel bigbigzabuton/gold-model-training",
-    "No future information leakage",
-    "23 features total (5 base + 18 submodel). Do NOT re-include cny_demand features or yc_regime_prob",
-    "Must fetch options_market data inside notebook (SKEW via yfinance ^SKEW, GVZ via FRED GVZCLS) and regenerate options_risk_regime_prob, OR embed pre-computed submodel output"
+    "Keep XGBoost architecture (no Transformer yet)",
+    "No multi-country expansion (save for future)",
+    "Reuse existing 23 features (no new feature engineering)",
+    "Target Kaggle runtime < 45 min (SHAP adds ~10-15 min)",
+    "Self-contained Kaggle Notebook"
   ],
 
-  "success_hypothesis": "Adding options_risk_regime_prob (rank #2 feature at 7.55% importance, MAE improvement 15.6x threshold) as a 23rd feature + full Optuna re-search with 100 trials will: (1) recover DA > 56% by providing options-derived risk context that reduces confidently-wrong predictions, (2) achieve HCDA > 60% because the additional regime signal helps the model produce larger |predictions| on genuinely predictable days (when options/VIX/technical regimes align) and smaller |predictions| on noisy days (when regimes conflict), (3) maintain MAE < 0.75% and Sharpe > 0.8 as these were already comfortably passing in attempts 2 and 4.",
-
   "risk_assessment": {
-    "primary_risk": "Adding a 23rd feature may not fundamentally change the HCDA problem. The 15-20th percentile band's 42% accuracy in attempt 2 may be caused by factors unrelated to options market information. In this case, HCDA remains near 55% and we need to consider: (a) accepting 3/4 targets as final result, (b) architecture change away from XGBoost, (c) feature engineering approaches.",
-    "secondary_risk": "Re-running Optuna may find different HP that regress DA below 56%. Attempt 2's DA 57.26% had only 1.26pp margin. With a different random seed and 23 features, the optimum may shift unfavorably. Mitigation: keep attempt 2 best_params as fallback; if new Optuna result is worse on DA, evaluate both.",
-    "mitigation": "Include attempt 2 best_params (with options_risk_regime_prob added) as a guaranteed baseline in the evaluation. If Optuna's best trial underperforms attempt 2 + options_market on any of the 3 previously-passing targets, prefer the stable baseline."
+    "primary_risk": "SHAP confidence may not correlate with prediction accuracy any better than |prediction|. The inverted ordering may be fundamental to XGBoost's behavior on this problem.",
+    "mitigation": "Compute both confidence scores and compare correlation with actual accuracy. If SHAP doesn't improve, fall back to attempt 5 results.",
+    "secondary_risk": "Scaling factor may overfit to validation period volatility and degrade test MAE.",
+    "mitigation": "Use conservative scaling (e.g., 0.7 * scale_factor) or clip to max 2.0x to prevent extreme adjustments."
   },
 
-  "feature_list": {
-    "base_features": [
-      "real_rate_change",
-      "dxy_change",
-      "vix",
-      "yield_spread_change",
-      "inflation_exp_change"
-    ],
-    "submodel_features": [
-      "vix_regime_probability",
-      "vix_mean_reversion_z",
-      "vix_persistence",
-      "tech_trend_regime_prob",
-      "tech_mean_reversion_z",
-      "tech_volatility_regime",
-      "xasset_regime_prob",
-      "xasset_recession_signal",
-      "xasset_divergence",
-      "yc_spread_velocity_z",
-      "yc_curvature_z",
-      "etf_regime_prob",
-      "etf_capital_intensity",
-      "etf_pv_divergence",
-      "ie_regime_prob",
-      "ie_anchoring_z",
-      "ie_gold_sensitivity_z",
-      "options_risk_regime_prob"
-    ],
-    "total_features": 23,
-    "new_in_attempt_5": ["options_risk_regime_prob"],
-    "excluded": ["cny_regime_prob", "cny_momentum_z", "cny_vol_regime_z", "yc_regime_prob"]
+  "research_questions": [
+    "Does SHAP value variance correlate with prediction accuracy better than |prediction|?",
+    "What is the optimal scaling factor computation method (std ratio vs quantile matching)?",
+    "Should confidence threshold remain at 80th percentile or adjust based on SHAP distribution?"
+  ],
+
+  "expected_runtime": {
+    "optuna_trials": "~25 min (100 trials)",
+    "shap_computation": "~10-15 min (TreeExplainer on val set)",
+    "total": "~40-45 min"
   },
 
-  "resume_from": "researcher",
-  "research_needed": true,
+  "resume_from": "architect",
+  "research_needed": false,
 
-  "created_at": "2026-02-16T13:00:00",
-  "created_by": "entrance"
+  "created_at": "2026-02-16T13:10:00",
+  "created_by": "orchestrator"
 }
