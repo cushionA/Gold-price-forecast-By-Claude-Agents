@@ -226,6 +226,12 @@ class KaggleMonitor:
         print(f"Max wait time: {self.max_wait.total_seconds() / 3600:.1f} hours")
         print("=" * 70)
 
+        # 初回待機時間（Kaggle kernelの起動を待つ）
+        initial_wait = 60  # 60秒
+        print(f"\n[{datetime.now()}] Waiting {initial_wait}s for kernel to start...")
+        time.sleep(initial_wait)
+        print(f"[{datetime.now()}] Initial wait complete, starting monitoring")
+
         start_time = datetime.now()
         check_count = 0
 
