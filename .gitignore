@@ -89,6 +89,9 @@ docs/data/*_summary.md
 temp_*/
 **/temp_*/
 
+# アーカイブ（古いファイルの保管場所、Gitで追跡不要）
+archive/
+
 # Git LFS を使う場合のマーカー（将来用）
 # *.pt filter=lfs diff=lfs merge=lfs -text
 
