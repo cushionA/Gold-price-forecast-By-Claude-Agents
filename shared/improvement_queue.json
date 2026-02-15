@@ -1,41 +1,19 @@
 {
-  "feature": "meta_model",
-  "attempt_3_postmortem": {
-    "what_was_tried": "5-model ensemble (seeds 42/137/256/389/512), confidence-based re-ranking with alpha=0.7975, HCDA weight increased to 25% in Optuna objective, max_depth increased from 2 to 3, n_estimators increased from 247 to 300",
-    "what_worked": "HCDA improved from 55.26% to 59.21% (+3.95pp). Prediction magnitude spread increased (std ratio 0.41 vs 0.19). High-conf UP predictions reached 60% accuracy.",
-    "what_failed": "DA regressed catastrophically from 57.26% to 53.30% (below naive 56.73%). Overfitting exploded (train-test gap 5.54pp -> 25.96pp). Re-ranking had zero effect. Net result: 2/4 targets (down from 3/4).",
-    "root_cause": "Ensemble with relaxed regularization (max_depth 3 vs 2) increased model capacity absorbed by training memorization, not generalization. The HCDA improvement came at the cost of DA because wider prediction magnitudes created more wrong directional calls.",
-    "key_lesson": "DO NOT increase model capacity. Attempt 2's regularization level was near-optimal. HCDA must be improved through post-processing, not through training-time changes."
-  },
+  "feature": "options_market",
   "items": [
     {
       "priority": 1,
-      "type": "revert_and_calibrate",
-      "description": "Revert to Attempt 2's single-model architecture (max_depth=2, n_estimators=~247, learning_rate=0.025, min_child_weight=14, reg_lambda=4.76, reg_alpha=3.65, subsample=0.478, colsample=0.371) as the base. This recovers 3/4 passing targets. Then add a post-hoc confidence calibration layer: (a) Train isotonic regression on validation set mapping |prediction| -> empirical P(correct direction), (b) Use calibrated probabilities to select high-confidence subset, (c) This decouples DA optimization from HCDA optimization.",
-      "reason": "Attempt 2 had DA=57.26%, Sharpe=1.58, MAE=0.688% (all passing). The ONLY issue was HCDA=55.26%. Post-hoc calibration can improve HCDA without affecting the base model's predictions.",
-      "resume_from": "architect",
-      "research_needed": false,
-      "constraints": [
-        "max_depth MUST be 2 (not 3)",
-        "Single model (no ensemble)",
-        "reg:squarederror objective",
-        "DO NOT change Optuna objective weights - use Attempt 2's weights",
-        "Calibration is POST-HOC only, applied after model training"
-      ]
-    },
-    {
-      "priority": 2,
-      "type": "feature_selection",
-      "description": "Run forward feature selection on top of Attempt 2 architecture. Start with the top-5 features by importance (tech_trend_regime_prob, real_rate_change, ie_regime_prob, yield_spread_change, xasset_regime_prob) and add features one at a time, keeping only those that improve validation DA. This may reduce the 22 features to 10-15 and reduce noise.",
-      "reason": "With 22 features and max_depth=2, XGBoost may be splitting on noisy features. Feature selection could improve both DA and HCDA by reducing noise dimensions.",
+      "type": "output_dimensionality_reduction",
+      "description": "Reduce output from 3 columns to 1-2. options_risk_regime_prob ranked #2/22 in feature importance (5.70%) and has the highest individual MI (0.031). Consider: (1) output only regime_prob as single column, or (2) PCA to compress 3 columns into 1 principal component, preserving maximum variance while reducing noise. The 3-column output introduced noise that degraded DA in all 5 folds.",
+      "reason": "Gate 2 PASS (MI +17.12%, VIF 2.12, stability 0.146) confirms information exists. Gate 3 FAIL with DA degraded in 0/5 folds improved and Sharpe degraded by -0.234. Pattern matches real_rate attempts 4-5 where more output columns gave XGBoost more noise to overfit on.",
       "resume_from": "architect",
       "research_needed": false
     },
     {
-      "priority": 3,
-      "type": "hcda_threshold_optimization",
-      "description": "Instead of using the standard top-20% threshold, optimize the HCDA threshold on validation set. The model may have a natural confidence boundary that does not align with the 80th percentile. Also consider using calibrated confidence (from item 1) to define the high-confidence subset.",
-      "reason": "Attempt 2 showed HCDA=60.53% at top-10% but only 55.26% at top-20%. There may be an optimal threshold between 10-20% that achieves 60% HCDA on a larger sample.",
+      "priority": 2,
+      "type": "feature_engineering",
+      "description": "If single-column output still fails Gate 3, consider alternative feature engineering: (1) interaction term between SKEW z-score and GVZ regime, (2) time-lagged features to capture lead-lag between options sentiment and gold moves, (3) conditional features activated only during high-volatility regimes.",
+      "reason": "Backup plan if dimensionality reduction alone is insufficient.",
       "resume_from": "architect",
       "research_needed": false
     }

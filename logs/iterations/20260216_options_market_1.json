@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-02-16T12:00:00",
+  "feature": "options_market",
+  "attempt": 1,
+  "gate1_passed": true,
+  "gate2_passed": true,
+  "gate3_passed": false,
+  "overall_passed": false,
+  "decision": "attempt+1",
+  "key_metrics": {
+    "mi_increase": 0.1712,
+    "max_vif_submodel": 2.12,
+    "max_stability_std": 0.1462,
+    "gate3_da_delta": -0.0105,
+    "gate3_mae_delta": 0.018,
+    "gate3_sharpe_delta": -0.234
+  },
+  "improvement_plan": "Reduce output dimensionality from 3 to 1-2 columns. regime_prob ranked #2 in feature importance. Compress tail_risk_z and skew_momentum_z via PCA or drop entirely.",
+  "resume_from": "architect"
+}

@@ -1,13 +1,13 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_feature_expansion",
   "current_feature": "options_market",
-  "current_attempt": 1,
-  "resume_from": "orchestrator_kaggle_submit",
+  "current_attempt": 2,
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
-  "datachecker_status": "PASS",
-  "builder_model_status": "COMPLETE",
+  "datachecker_status": null,
+  "builder_model_status": null,
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [],
@@ -275,6 +275,30 @@
         ],
         "note": "HMM 2-state regime detection on CNY/USD dynamics + momentum z-score + volatility regime z-score. Gate 3 PASS via MAE (-0.0658, 6.6x threshold, 3/5 folds). Weakest Gate 3 pass: DA degrades -2.06% and Sharpe degrades -0.593 (worst of any passing submodel). CNY features may attenuate prediction magnitudes while adding directional noise. Monitor in meta-model."
       }
+    },
+    "options_market": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": false,
+        "decision": "attempt+1",
+        "primary_successes": [
+          "gate2_mi_increase=+17.12%",
+          "gate2_vif_max=2.12_excellent",
+          "gate2_stability_max=0.146_all_pass",
+          "regime_prob_rank2_5.70pct_importance",
+          "30_optuna_trials"
+        ],
+        "primary_failures": [
+          "gate3_da_delta=-1.05%_all_5_folds_degraded",
+          "gate3_mae_delta=+0.018",
+          "gate3_sharpe_delta=-0.234",
+          "da_improved_0_of_5_folds",
+          "mae_improved_2_of_5_folds",
+          "sharpe_improved_1_of_5_folds"
+        ],
+        "note": "HMM 3-state on SKEW/GVZ with 3 output columns. Gate 1/2 PASS convincingly but Gate 3 FAIL on all criteria. Information exists (MI +17.12%) but 3-column output adds noise. options_risk_regime_prob ranked #2/22 (5.70%) but tail_risk_z and skew_momentum_z may be noise. Reducing to 1-2 columns for attempt 2."
+      }
     }
   },
   "meta_model_history": {
@@ -367,6 +391,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T01:30:08.168266",
+  "last_updated": "2026-02-16T12:00:00",
   "current_submodel": "options_market"
 }
