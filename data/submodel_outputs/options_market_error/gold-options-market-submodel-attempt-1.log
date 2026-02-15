@@ -1,0 +1,45 @@
+[{"stream_name":"stderr","time":8.998835095,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.998999051,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.999011368,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.999014334,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.737698711,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.73773538,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.737741297,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.73774616,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.205320211,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":13.842122958000001,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 3.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.044657975,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 3.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":16.302663361,"data":"Installation complete.\n"}
+,{"stream_name":"stderr","time":17.853072031,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":17.853103901,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":17.85311117,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":17.853197088,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":17.853239967,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":17.853449688,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":17.853724681,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":17.853736291,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":17.8537419,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":17.853747224,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":17.853752159,"data":"ModuleNotFoundError                       Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":17.853757493,"data":"/tmp/ipykernel_17/4189704075.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":17.853763223,"data":"      1 import numpy as np\n"}
+,{"stream_name":"stderr","time":17.85376802,"data":"      2 import pandas as pd\n"}
+,{"stream_name":"stderr","time":17.853773043,"data":"----\u003e 3 from fredapi import Fred\n"}
+,{"stream_name":"stderr","time":17.853777971,"data":"      4 import yfinance as yf\n"}
+,{"stream_name":"stderr","time":17.853783069,"data":"      5 from hmmlearn.hmm import GaussianHMM\n"}
+,{"stream_name":"stderr","time":17.853788139,"data":"\n"}
+,{"stream_name":"stderr","time":17.853792642,"data":"ModuleNotFoundError: No module named 'fredapi'\n"}
+,{"stream_name":"stderr","time":17.853813495,"data":"\n"}
+,{"stream_name":"stderr","time":20.537075444,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20.537109559,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":20.718735331,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":20.71876718,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":21.507355994,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":21.507400706,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":21.544162349,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":21.922063137,"data":"[NbConvertApp] Writing 27493 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":24.951006584,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":24.951047928,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":24.980500307,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":26.056789147,"data":"[NbConvertApp] Writing 355449 bytes to __results__.html\n"}
+]

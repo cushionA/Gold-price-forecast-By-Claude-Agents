@@ -1,6 +1,5 @@
 {
-  "id": "bigbigzabuton/gold-options-market-attempt-1",
-  "title": "Gold Options Market SubModel Attempt 1",
+  "id": "bigbigzabuton/gold-options-market-submodel-attempt-1",
   "code_file": "train.ipynb",
   "language": "python",
   "kernel_type": "notebook",
