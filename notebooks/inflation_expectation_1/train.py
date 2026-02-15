@@ -39,18 +39,8 @@ def fetch_and_preprocess():
         subprocess.run(["pip", "install", "yfinance"], check=True)
         import yfinance as yf
 
-    # Get FRED API key from Kaggle Secrets
-    try:
-        from kaggle_secrets import UserSecretsClient
-        api_key = UserSecretsClient().get_secret("FRED_API_KEY")
-    except Exception:
-        # Fallback to environment variable (for local testing)
-        api_key = os.environ.get('FRED_API_KEY')
-        if api_key is None:
-            raise RuntimeError(
-                "FRED_API_KEY not found. "
-                "Kaggle: register in Secrets / Local: set in environment"
-            )
+    # FRED API key (embedded for Kaggle execution)
+    api_key = "3ffb68facdf6321e180e380c00e909c8"
 
     fred = Fred(api_key=api_key)
 
