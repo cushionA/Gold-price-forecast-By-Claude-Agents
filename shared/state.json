@@ -3,8 +3,9 @@
   "phase": "2_submodel_loop",
   "current_feature": "cny_demand",
   "current_attempt": 1,
-  "resume_from": "builder_model",
+  "resume_from": "orchestrator",
   "datachecker_status": "passed",
+  "builder_model_status": "completed",
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [
@@ -21,7 +22,7 @@
   ],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-15T18:00:00",
+  "last_updated": "2026-02-15T18:30:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
