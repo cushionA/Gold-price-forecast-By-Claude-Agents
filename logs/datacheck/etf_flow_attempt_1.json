@@ -1,0 +1,87 @@
+{
+  "feature": "etf_flow",
+  "attempt": 1,
+  "timestamp": "2026-02-15T11:30:19.550437",
+  "data_file": "data/processed/etf_flow/features_input.csv",
+  "steps": [
+    {
+      "step": "file_check",
+      "issues": [
+        "OK: data/processed/etf_flow/features_input.csv exists"
+      ]
+    },
+    {
+      "step": "basic_stats",
+      "issues": [
+        "OK: Row count is 2522 rows",
+        "OK: gld_close valid (std=3.67e+01)",
+        "WARNING: gld_volume has extreme values (min=1.44e+06, max=4.91e+07)",
+        "OK: gc_close valid (std=4.10e+02)",
+        "OK: gld_returns valid (std=8.88e-03)",
+        "OK: gold_return valid (std=9.23e-03)",
+        "WARNING: dollar_volume has extreme values (min=1.76e+08, max=9.07e+09)",
+        "WARNING: volume_ma20 has extreme values (min=4.17e+06, max=2.44e+07)",
+        "OK: log_volume_ratio valid (std=3.71e-01)",
+        "OK: vol_changes valid (std=5.18e-01)"
+      ]
+    },
+    {
+      "step": "missing_values",
+      "issues": [
+        "OK: Date is complete",
+        "OK: gld_close is complete",
+        "OK: gld_volume is complete",
+        "OK: gc_close is complete",
+        "OK: gld_returns is complete",
+        "OK: gold_return is complete",
+        "OK: dollar_volume is complete",
+        "OK: volume_ma20 is complete",
+        "OK: log_volume_ratio is complete",
+        "OK: vol_changes is complete"
+      ]
+    },
+    {
+      "step": "future_leak",
+      "issues": [
+        "CRITICAL: gld_returns vs gold_return corr=0.894 (potential leak)"
+      ]
+    },
+    {
+      "step": "temporal",
+      "issues": [
+        "OK: Dates are monotonically increasing",
+        "OK: No duplicate dates",
+        "OK: No gaps > 7 days",
+        "OK: Date range matches design (2015-01-30 to 2025-02-12)"
+      ]
+    },
+    {
+      "step": "correlation_check",
+      "issues": [
+        "OK: All expected columns present",
+        "OK: log_volume_ratio autocorr(lag1)=0.3696 (design expected 0.37)",
+        "OK: gld_volume vs gld_close corr=0.018",
+        "OK: dollar_volume correctly computed"
+      ]
+    },
+    {
+      "step": "output_format",
+      "issues": [
+        "OK: No NaN values in any column",
+        "OK: Shape=(2522, 10)",
+        "OK: Sample rows: 2522"
+      ]
+    }
+  ],
+  "critical_issues": [
+    "gld_returns vs gold_return corr=0.894 (potential leak)"
+  ],
+  "warnings": [
+    "gld_volume has extreme values (min=1.44e+06, max=4.91e+07)",
+    "dollar_volume has extreme values (min=1.76e+08, max=9.07e+09)",
+    "volume_ma20 has extreme values (min=4.17e+06, max=2.44e+07)"
+  ],
+  "action": "REJECT",
+  "reason": "CRITICAL issues detected. Return to builder_data.",
+  "overall_passed": false
+}
