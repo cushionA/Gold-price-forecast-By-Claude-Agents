@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 3,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
@@ -21,8 +21,8 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-3",
+  "submitted_at": "2026-02-16T01:30:00",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
