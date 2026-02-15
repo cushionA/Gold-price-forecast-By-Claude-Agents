@@ -1,10 +1,10 @@
 {
-  "status": "in_progress",
+  "status": "waiting_user_input",
   "phase": "2_submodel_loop",
   "current_feature": "etf_flow",
   "current_attempt": 1,
-  "resume_from": "researcher",
-  "datachecker_status": null,
+  "resume_from": "builder_model",
+  "datachecker_status": "PASS (high correlation accepted as legitimate)",
   "feature_queue": [
     "etf_flow",
     "inflation_expectation",
@@ -19,9 +19,9 @@
   ],
   "kaggle_kernel": null,
   "submitted_at": null,
-  "last_updated": "2026-02-15T12:00:00",
-  "error_context": null,
-  "user_action_required": false,
+  "last_updated": "2026-02-15T14:30:00",
+  "error_context": "Kaggle API authentication failed (401 Unauthorized). Credentials in ~/.kaggle/kaggle.json appear invalid or expired. User must regenerate API token from https://www.kaggle.com/settings -> API -> Create New Token",
+  "user_action_required": true,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
