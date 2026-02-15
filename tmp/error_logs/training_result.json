@@ -1,8 +1,0 @@
-{
-  "feature": "dxy",
-  "attempt": 1,
-  "timestamp": "2026-02-14T10:36:21.114181",
-  "status": "error",
-  "error": "'str' object is not callable",
-  "traceback": "Traceback (most recent call last):\n  File \"/kaggle/src/script.py\", line 332, in <module>\n    raw_data = fetch_data()\n               ^^^^^^^^^^^^\n  File \"/kaggle/src/script.py\", line 58, in fetch_data\n    dfs[name] = df['Close'].rename(name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py\", line 5767, in rename\n    return super()._rename(\n           ^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/generic.py\", line 1132, in _rename\n    new_index = ax._transform_index(f, level=level)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/pandas/core/indexes/base.py\", line 6537, in _transform_index\n    items = [func(x) for x in self]\n             ^^^^^^^\nTypeError: 'str' object is not callable\n"
-}

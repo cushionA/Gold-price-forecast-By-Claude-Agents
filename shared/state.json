@@ -1,12 +1,11 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
-  "current_feature": "etf_flow",
+  "current_feature": "inflation_expectation",
   "current_attempt": 1,
-  "resume_from": "evaluator",
-  "datachecker_status": "PASS (high correlation accepted as legitimate)",
+  "resume_from": "entrance",
+  "datachecker_status": null,
   "feature_queue": [
-    "etf_flow",
     "inflation_expectation",
     "cny_demand"
   ],
@@ -15,11 +14,12 @@
     "vix",
     "technical",
     "cross_asset",
-    "yield_curve"
+    "yield_curve",
+    "etf_flow"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-etf-flow-submodel-attempt-1",
-  "submitted_at": "2026-02-15T14:35:00",
-  "last_updated": "2026-02-15T14:40:00",
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": "2026-02-15T15:30:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
@@ -201,6 +201,29 @@
           "gate3_sharpe_delta=-0.089"
         ],
         "note": "HMM 2-state yield curve model. yc_regime_prob is constant (HMM collapsed to 1 state) - excluded from meta-model. Only yc_spread_velocity_z and yc_curvature_z are usable. Gate 3 PASS via MAE (-0.0693, 6.9x threshold, 4/5 folds). MI=0.37% but nonlinear contribution confirmed by ablation."
+      }
+    },
+    "etf_flow": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_sharpe_delta=+0.377_7.5x_threshold",
+          "gate3_mae_delta=-0.0436_4.4x_threshold",
+          "sharpe_improved_3_of_5_folds",
+          "mae_improved_4_of_5_folds",
+          "etf_regime_prob_rank9_importance_3.52pct",
+          "dual_gate3_pass_sharpe_and_mae"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=1.58%_below_5%",
+          "gate2_vif_regime_prob=12.47_above_10",
+          "gate2_stability=0.1617_above_0.15",
+          "gate3_da_delta=+0.45pct_below_threshold"
+        ],
+        "note": "2D HMM (3-state) on [log_volume_ratio, gold_return] + dollar volume z-score + PV divergence z-score. Gate 3 PASS on both Sharpe (+0.377, strongest of all submodels) and MAE (-0.0436, 4.4x threshold). Only submodel to pass two Gate 3 criteria simultaneously. etf_regime_prob VIF=12.47 (exceeds 10) but Gate 3 confirms value."
       }
     }
   }

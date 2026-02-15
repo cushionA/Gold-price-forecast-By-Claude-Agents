@@ -85,5 +85,21 @@
     "reason": "Gate 3 PASS via MAE criterion (-0.0693, 6.9x threshold, 4/5 folds). HMM 2-state yield curve model with spread velocity z-score and curvature z-score. yc_regime_prob excluded (constant, HMM collapsed to single state). Gate 1 FAIL (constant column), Gate 2 FAIL (MI +0.37%), but Gate 3 MAE improvement is convincing and consistent.",
     "excluded_columns": ["yc_regime_prob"],
     "exclusion_reason": "HMM regime_prob is constant (std=1.07e-11). 2-component HMM collapsed to single state."
+  },
+  "etf_flow": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0045,
+      "sharpe_delta": 0.3767,
+      "mae_delta": -0.0436
+    },
+    "output_columns": ["etf_regime_prob", "etf_capital_intensity", "etf_pv_divergence"],
+    "output_path": "data/submodel_outputs/etf_flow.csv",
+    "model_path": null,
+    "completed_at": "2026-02-15T15:30:00",
+    "reason": "Gate 3 PASS via Sharpe (+0.377, 7.5x threshold, 3/5 folds) and MAE (-0.0436, 4.4x threshold, 4/5 folds). 2D HMM regime detection on [log_volume_ratio, gold_return] + dollar volume z-score + PV divergence z-score. Strongest Sharpe improvement of any submodel. etf_regime_prob ranked #9/33 in feature importance. VIF warning: etf_regime_prob VIF=12.47 exceeds 10 threshold but Gate 3 confirms value.",
+    "vif_warning": "etf_regime_prob VIF=12.47. Monitor in meta-model."
   }
 }

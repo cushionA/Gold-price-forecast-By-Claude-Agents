@@ -1,0 +1,39 @@
+{
+  "feature": "etf_flow",
+  "attempt": 1,
+  "timestamp": "2026-02-15T15:30:00",
+  "architecture": "2D HMM (3-state) + Dollar Volume Z-Score (50d) + PV Divergence Z-Score (3d corr / 80d baseline)",
+  "training_platform": "Kaggle",
+  "kaggle_kernel": "bigbigzabuton/gold-etf-flow-submodel-attempt-1",
+  "output_columns": ["etf_regime_prob", "etf_capital_intensity", "etf_pv_divergence"],
+  "output_shape": [2838, 3],
+  "gate1": {
+    "passed": true,
+    "overfit": "N/A (HMM + deterministic)",
+    "all_nan": 0,
+    "constant_columns": 0,
+    "max_autocorr": 0.5577
+  },
+  "gate2": {
+    "passed": false,
+    "mi_increase_pct": 1.58,
+    "max_vif_submodel": 12.47,
+    "max_stability_std": 0.1617
+  },
+  "gate3": {
+    "passed": true,
+    "da_delta": 0.0045,
+    "sharpe_delta": 0.3767,
+    "mae_delta": -0.0436,
+    "da_pass": false,
+    "sharpe_pass": true,
+    "mae_pass": true,
+    "folds_da_improved": "2/5",
+    "folds_mae_improved": "4/5",
+    "folds_sharpe_improved": "3/5"
+  },
+  "decision": "completed",
+  "attempt_consumed": false,
+  "next_action": "Proceed to inflation_expectation (Feature #8)",
+  "notes": "Strongest Sharpe improvement of any submodel (+0.377 vs VIX +0.289). Only submodel to pass both Sharpe and MAE thresholds. etf_regime_prob VIF=12.47 exceeds 10 but Gate 3 confirms value. All 3 output columns retained for meta-model."
+}
