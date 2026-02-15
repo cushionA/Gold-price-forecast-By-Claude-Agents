@@ -23,7 +23,7 @@
     "options_market"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-model-training-meta-model",
-  "submitted_at": "2026-02-16T03:23:31.592142",
+  "submitted_at": "2026-02-16T03:26:39.444015",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -414,6 +414,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T03:23:31.592721",
+  "last_updated": "2026-02-16T03:26:39.444467",
   "current_submodel": "meta_model"
 }
