@@ -22,8 +22,8 @@
     "cny_demand",
     "options_market"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-6",
-  "submitted_at": "2026-02-16T04:03:17.856992",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training-meta-model",
+  "submitted_at": "2026-02-16T04:10:11.889253",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -395,6 +395,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T04:03:17.857268",
+  "last_updated": "2026-02-16T04:10:11.889477",
   "current_submodel": "meta_model"
 }
