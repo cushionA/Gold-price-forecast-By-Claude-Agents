@@ -405,9 +405,10 @@ Orchestrator (Sonnet)
    a. Local environment variables (.env → auto-loaded via python-dotenv):
       - FRED_API_KEY → set in .env?
       - KAGGLE_USERNAME → set in .env?
-      - KAGGLE_API_TOKEN → set in .env?
+      - KAGGLE_KEY → set in .env? (new API format, not kaggle.json)
    b. Kaggle CLI authentication:
-      - KAGGLE_API_TOKEN is set and kaggle kernels list succeeds?
+      - KAGGLE_KEY is set and kaggle kernels list succeeds?
+      - Note: New Kaggle API uses KAGGLE_KEY env var (not kaggle.json file)
    c. Kaggle Secrets (required for API calls inside Kaggle Notebooks):
       - https://www.kaggle.com/settings → Secrets → FRED_API_KEY registered?
       - * User must configure this in browser
@@ -786,7 +787,7 @@ All agents must follow this policy to avoid creating unnecessary files.
 |-----|---------|------|-------|----------------------|
 | yfinance | Price data | None | — | — |
 | fredapi | Economic indicators | FRED_API_KEY | .env | Kaggle Secrets |
-| kaggle CLI | Training submission/retrieval | KAGGLE_API_TOKEN | .env | — (CLI is local only) |
+| kaggle CLI | Training submission/retrieval | KAGGLE_KEY | .env | — (CLI is local only) |
 | CNN Fear & Greed | Risk indicator | None | — | — |
 | CBOE Put/Call | Risk indicator | None | — | — |
 | GPR Index | Geopolitical indicator | None | — | — |
@@ -794,7 +795,8 @@ All agents must follow this policy to avoid creating unnecessary files.
 ### Credential Management Principles
 
 - Local: .env file (gitignored) → auto-loaded via python-dotenv
-- Kaggle CLI: KAGGLE_API_TOKEN env var (via .env)
+- Kaggle CLI: KAGGLE_USERNAME + KAGGLE_KEY env vars (via .env, new API format)
+- Note: Old kaggle.json format is deprecated. Use environment variables only.
 - Kaggle Notebook: Kaggle Secrets (configured in browser)
 - Inside train.py: os.environ['FRED_API_KEY'] (fail immediately with KeyError)
 - **Never use hardcoded values or fallback defaults**
