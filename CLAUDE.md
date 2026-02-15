@@ -642,10 +642,28 @@ Direction accuracy +0.5%, Sharpe +0.05 (after transaction costs), MAE -0.01%
 
 ## Git Persistence
 
+### Branch Strategy
+
+**develop branch (daily work):**
+- All agent cycles: entrance → researcher → ... → evaluator
+- Trials, debugging, file organization
+- Orchestrator auto-commits after each agent
+
+**main branch (milestones only):**
+- Submodel completion (Gate 3 PASS)
+- Meta-model completion
+- Environment setup completion
+- Critical feature additions
+
 ### Commit Rules
 
-Orchestrator runs `git add -A && git commit && git push` after each agent completes:
+**On develop branch** (orchestrator runs after each agent):
 
+```bash
+git add -A && git commit && git push origin develop
+```
+
+Commit messages:
 ```
 entrance done     → "entrance: {feature} attempt {N}"
 researcher done   → "research: {feature} attempt {N}"
@@ -656,7 +674,29 @@ builder_model done → "model: {feature} attempt {N} - notebook generated"
 kaggle submit     → "kaggle: {feature} attempt {N} - submitted"
 kaggle fetch      → "kaggle: {feature} attempt {N} - results fetched"
 evaluator done    → "eval: {feature} attempt {N} - gate{N} {pass/fail}"
+cleanup/refactor  → "cleanup: {description}" or "refactor: {description}"
 ```
+
+**On main branch** (manual or automated on Gate 3 PASS):
+
+```bash
+git checkout main
+git merge develop --no-ff -m "feat: complete {feature} submodel (metrics)"
+git push origin main
+git checkout develop
+```
+
+Merge commit messages (Conventional Commits):
+```
+feat: complete {feature} submodel (Gate 3 PASS, Sharpe +X.XX, MAE -X.XX)
+feat: complete meta-model (DA=XX%, Sharpe=X.XX)
+feat: add {feature_name}
+refactor: {major_refactoring}
+```
+
+**Current branch:** Check `shared/state.json` → `git_branch` field
+
+See `docs/knowledge/GIT_WORKFLOW.md` for detailed workflow.
 
 ---
 
