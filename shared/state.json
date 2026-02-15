@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "error",
   "phase": "2_submodel_loop",
   "current_feature": "etf_flow",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "datachecker_status": "PASS (high correlation accepted as legitimate)",
   "feature_queue": [
     "etf_flow",
@@ -19,8 +19,8 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-etf-flow-submodel-attempt-1",
   "submitted_at": "2026-02-15T14:35:00",
-  "last_updated": "2026-02-15T14:35:00",
-  "error_context": null,
+  "last_updated": "2026-02-15T11:56:05.141821",
+  "error_context": "No error log available",
   "user_action_required": false,
   "baseline_metrics": {
     "test_mae": 0.7139,
