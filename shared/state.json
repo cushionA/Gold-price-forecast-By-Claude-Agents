@@ -1,5 +1,5 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "2_feature_expansion",
   "current_feature": "options_market",
   "current_attempt": 1,
@@ -21,8 +21,8 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2-v2",
-  "submitted_at": "2026-02-15T22:10:11.531090",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
+  "submitted_at": "2026-02-15T23:40:42.216087",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -367,6 +367,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T23:33:36.648744",
+  "last_updated": "2026-02-15T23:40:42.216491",
   "current_submodel": "options_market"
 }
