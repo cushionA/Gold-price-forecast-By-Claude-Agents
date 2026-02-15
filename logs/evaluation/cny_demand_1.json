@@ -1,0 +1,134 @@
+{
+  "feature": "cny_demand",
+  "attempt": 1,
+  "timestamp": "2026-02-15T19:00:00",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {
+        "value": "N/A (HMM unsupervised)",
+        "passed": true,
+        "note": "HMM is unsupervised. No train/val loss ratio. MI-based HPO objective with 30 Optuna trials."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true
+      },
+      "autocorr_cny_regime_prob": {
+        "value": 0.639381,
+        "passed": true
+      },
+      "autocorr_cny_momentum_z": {
+        "value": 0.736701,
+        "passed": true
+      },
+      "autocorr_cny_vol_regime_z": {
+        "value": 0.920554,
+        "passed": true
+      },
+      "hpo_coverage": {
+        "value": 30,
+        "passed": true,
+        "note": "30 Optuna trials completed (>= 10 threshold)"
+      },
+      "nan_pct_cny_regime_prob": {
+        "value": 0.32,
+        "passed": true
+      },
+      "nan_pct_cny_momentum_z": {
+        "value": 4.44,
+        "passed": true
+      },
+      "nan_pct_cny_vol_regime_z": {
+        "value": 2.45,
+        "passed": true
+      }
+    }
+  },
+  "gate2": {
+    "passed": false,
+    "checks": {
+      "mi": {
+        "base": 0.314237,
+        "extended": 0.314510,
+        "increase": 0.0009,
+        "passed": false,
+        "note": "MI increase 0.09%, far below 5% threshold. Submodel MI contributions near zero for momentum_z and vol_regime_z."
+      },
+      "vif": {
+        "submodel_vifs": {
+          "cny_regime_prob": 1.262,
+          "cny_momentum_z": 1.073,
+          "cny_vol_regime_z": 1.109
+        },
+        "max": 1.262,
+        "passed": true,
+        "note": "Excellent VIF. Submodel features are nearly orthogonal to base features."
+      },
+      "stability": {
+        "cny_regime_prob": 0.142701,
+        "cny_momentum_z": 0.135048,
+        "cny_vol_regime_z": 0.117473,
+        "max_std": 0.142701,
+        "passed": true,
+        "note": "All columns below 0.15 threshold. Stable correlation with gold returns over time."
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": -0.0206,
+        "passed": false,
+        "note": "DA degrades -2.06%. Worst of any passing submodel. DA worsened in 4/5 folds."
+      },
+      "sharpe": {
+        "delta": -0.5934,
+        "passed": false,
+        "note": "Sharpe degrades -0.593. Worst of any passing submodel. Sharpe worsened in 4/5 folds."
+      },
+      "mae": {
+        "delta": -0.0658,
+        "passed": true,
+        "note": "MAE improves -0.0658 (6.6x threshold). Improved in 3/5 folds (folds 1, 4, 5)."
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.4885,
+      "mae": 1.2417,
+      "sharpe": 0.1609
+    },
+    "extended": {
+      "direction_accuracy": 0.4679,
+      "mae": 1.1759,
+      "sharpe": -0.4326
+    },
+    "fold_details": [
+      {"fold": 1, "da_delta": 0.0076, "mae_delta": -0.3103, "sharpe_delta": -0.1522},
+      {"fold": 2, "da_delta": -0.0076, "mae_delta": 0.0799, "sharpe_delta": -1.3475},
+      {"fold": 3, "da_delta": -0.0628, "mae_delta": 0.1715, "sharpe_delta": -0.9841},
+      {"fold": 4, "da_delta": -0.0276, "mae_delta": -0.0488, "sharpe_delta": -0.7737},
+      {"fold": 5, "da_delta": -0.0125, "mae_delta": -0.2215, "sharpe_delta": 0.2903}
+    ],
+    "feature_importance": {
+      "cny_momentum_z": {"rank": 4, "importance": 0.0557, "pct": "5.57%"},
+      "cny_regime_prob": {"rank": 13, "importance": 0.0481, "pct": "4.81%"},
+      "cny_vol_regime_z": {"rank": 18, "importance": 0.0405, "pct": "4.05%"}
+    },
+    "warnings": [
+      "DA degradation (-2.06%) is the worst of any MAE-passing submodel",
+      "Sharpe degradation (-0.593) is the worst of any MAE-passing submodel",
+      "CNY features may attenuate prediction magnitudes (improving MAE) while adding noise to directional signals",
+      "Monitor closely during meta-model integration; consider excluding if meta-model DA degrades"
+    ]
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "decision_rationale": "Gate 3 PASS via MAE criterion (-0.0658, 6.6x threshold, 3/5 folds). Despite significant DA and Sharpe degradation, the evaluation rules specify that any single Gate 3 criterion is sufficient. This is the final submodel (9/9). Warnings issued for meta-model integration."
+}
