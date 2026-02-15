@@ -22,7 +22,7 @@
     "cny_demand"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2-v2",
-  "submitted_at": "2026-02-15T21:57:36.613407",
+  "submitted_at": "2026-02-15T22:02:15.501078",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -343,5 +343,5 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T21:57:36.613846"
+  "last_updated": "2026-02-15T22:02:15.501375"
 }
