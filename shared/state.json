@@ -1,14 +1,13 @@
 {
-  "status": "in_progress",
+  "status": "error",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 2,
-  "resume_from": "evaluator",
-  "error_context": null,
+  "resume_from": "builder_model",
+  "error_context": "No error log available",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "completed",
-  "status": "waiting_training",
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [],
@@ -24,8 +23,6 @@
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2",
   "submitted_at": "2026-02-15T23:45:00",
-  "error_context": null,
-  "user_action_required": false,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -298,5 +295,6 @@
       "improvement_plan": "Drop price-level features (11), drop CNY features (4), use reg:squarederror, fix data pipeline, align Sharpe formula, strengthen regularization"
     }
   },
-  "kaggle_version": 10
+  "kaggle_version": 10,
+  "last_updated": "2026-02-15T18:50:28.560491"
 }
