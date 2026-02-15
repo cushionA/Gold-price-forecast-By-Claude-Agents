@@ -1,0 +1,95 @@
+Meta-Model Attempt 5 - Kaggle Notebook Generation Summary
+Generated: 2026-02-16
+
+FILES CREATED:
+1. kernel-metadata.json (293 bytes)
+   - Kaggle kernel configuration
+   - Uses existing kernel ID: bigbigzabuton/gold-model-training
+   - enable_gpu: false (CPU sufficient for XGBoost on 1765 samples)
+   - enable_internet: true (for data fetching)
+
+2. train.ipynb (46KB, 25 cells)
+   - Self-contained Jupyter Notebook
+   - All data fetching via APIs (yfinance, fredapi)
+   - 23 features (22 from Attempt 2 + options_risk_regime_prob)
+   - Single XGBoost with reg:squarederror
+   - Optuna HPO: 100 trials, 2-hour timeout
+   - Fallback: Attempt 2 best_params on 23 features
+   - Comprehensive evaluation and diagnostics
+
+KEY SPECIFICATIONS:
+
+Features (23 total):
+  - Base features (5): real_rate_change, dxy_change, vix, yield_spread_change, inflation_exp_change
+  - VIX submodel (3): vix_regime_probability, vix_mean_reversion_z, vix_persistence
+  - Technical submodel (3): tech_trend_regime_prob, tech_mean_reversion_z, tech_volatility_regime
+  - Cross-asset submodel (3): xasset_regime_prob, xasset_recession_signal, xasset_divergence
+  - Yield curve submodel (2): yc_spread_velocity_z, yc_curvature_z
+  - ETF flow submodel (3): etf_regime_prob, etf_capital_intensity, etf_pv_divergence
+  - Inflation expectation submodel (3): ie_regime_prob, ie_anchoring_z, ie_gold_sensitivity_z
+  - Options market submodel (1): options_risk_regime_prob [NEW]
+
+Optuna Configuration:
+  - Trials: 100 (increased from 80 in Attempt 2)
+  - Timeout: 7200 sec (2 hours)
+  - Objective weights: 40% Sharpe + 30% DA + 10% MAE + 20% HCDA (changed from 50/30/10/10)
+  - Confidence threshold: FIXED at 80th percentile (NOT optimized)
+
+Hyperparameter Search Space (8 parameters):
+  - max_depth: [2, 5] (widened from [2, 4])
+  - min_child_weight: [1, 20] (widened from [10, 30])
+  - subsample: [0.6, 0.95] (shifted from [0.4, 0.7])
+  - colsample_bytree: [0.2, 0.7] (widened from [0.3, 0.6])
+  - reg_lambda: [0.1, 10.0] (log, shifted from [3.0, 20.0])
+  - reg_alpha: [1e-8, 10.0] (log, lower bound reduced from 1.0)
+  - learning_rate: [0.001, 0.05] (log, widened from [0.005, 0.03])
+  - n_estimators: [100, 1000] (widened from [100, 800])
+
+Removed from Attempt 2:
+  - gamma parameter (simplified search space)
+  - confidence_threshold from Optuna (fixed at 80th percentile)
+
+Data Pipeline:
+  - CRITICAL: options_market.csv has timezone-aware dates (requires utc=True)
+  - CRITICAL: technical.csv also has timezone-aware dates (requires utc=True)
+  - NaN imputation: regime_prob -> 0.5, z-scores -> 0.0, signals -> 0.0, continuous -> median
+  - Split: 70/15/15 (train/val/test, time-series order)
+  - Expected samples: 2522 total, 1765 train, 378 val, 379 test
+
+Fallback Strategy:
+  - Train with Attempt 2 best_params on 23 features
+  - Compare Optuna best vs fallback on composite objective
+  - Select better configuration for final model
+
+Output Files (saved to Kaggle output):
+  - predictions.csv: Full dataset predictions
+  - test_predictions.csv: Test set only
+  - submodel_output.csv: Pipeline compatibility
+  - model.json: Saved XGBoost model
+  - training_result.json: Complete metrics and analysis
+
+Target Metrics (test set):
+  - DA > 56%
+  - HCDA > 60% (primary goal of Attempt 5)
+  - MAE < 0.75%
+  - Sharpe > 0.8
+
+Estimated Execution Time: 40-60 minutes
+  - Optuna: 100 trials * ~25 sec/trial = ~42 min
+  - Fallback + diagnostics: ~5 min
+  - Data fetching: ~3 min
+
+VALIDATION STATUS:
+  ✓ kernel-metadata.json: Valid JSON
+  ✓ train.ipynb: Valid Jupyter Notebook (25 cells)
+  ✓ All critical timezone-aware date handling included
+  ✓ All NaN imputation rules specified
+  ✓ Fallback evaluation implemented
+  ✓ Comprehensive diagnostics included
+
+CRITICAL IMPLEMENTATION NOTES:
+1. options_market.csv date normalization uses utc=True (same as technical.csv)
+2. Confidence threshold is FIXED at 80th percentile (not an Optuna parameter)
+3. Optuna weights are 40/30/10/20 (Sharpe/DA/MAE/HCDA)
+4. Fallback comparison is mandatory (not optional)
+5. HCDA diagnostic includes multiple thresholds (70%, 75%, 80%, 85%, 90%)
