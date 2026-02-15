@@ -1,9 +1,9 @@
 {
   "status": "in_progress",
   "phase": "phase3_meta_model",
-  "current_feature": "options_market",
-  "current_attempt": 2,
-  "resume_from": "entrance",
+  "current_feature": "meta_model",
+  "current_attempt": 5,
+  "resume_from": "researcher",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -414,6 +414,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T12:00:00",
-  "current_submodel": "options_market"
+  "last_updated": "2026-02-16T13:00:00",
+  "current_submodel": "meta_model"
 }
