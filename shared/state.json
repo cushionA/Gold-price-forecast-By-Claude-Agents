@@ -1,10 +1,10 @@
 {
-  "status": "waiting_training",
+  "status": "error",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 3,
-  "resume_from": "evaluator",
-  "error_context": null,
+  "resume_from": "builder_model",
+  "error_context": "No error log available",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
@@ -317,5 +317,5 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T22:00:00"
+  "last_updated": "2026-02-15T20:06:46.165615"
 }

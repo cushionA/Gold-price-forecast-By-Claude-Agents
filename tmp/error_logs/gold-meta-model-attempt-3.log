@@ -1,0 +1,79 @@
+[{"stream_name":"stderr","time":10.498229468,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.498291655,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.498299897,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.498304975,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.400254842,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.400294545,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.400300678,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.400305686,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":17.195031947,"data":"Training started: 2026-02-15T11:05:36.003226\n"}
+,{"stream_name":"stdout","time":17.195069726,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":17.195075499,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stderr","time":17.866445148,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":17.866476182,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":17.866483229,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":17.866579267,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":17.866727969,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":17.866857766,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":17.867483943,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":17.867508086,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":17.867513761,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":17.86751898,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":17.867523923,"data":"FileNotFoundError                         Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":17.867527355,"data":"/tmp/ipykernel_17/2267822324.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":17.867531104,"data":"      3 # ============================================================\n"}
+,{"stream_name":"stderr","time":17.867535387,"data":"      4 # Reuse Attempt 2 datasets from Kaggle dataset\n"}
+,{"stream_name":"stderr","time":17.867539977,"data":"----\u003e 5 train_df = pd.read_csv('/kaggle/input/gold-prediction-complete/meta_model_attempt_2_train.csv', index_col=0, parse_dates=True)\n"}
+,{"stream_name":"stderr","time":17.867545233,"data":"      6 val_df = pd.read_csv('/kaggle/input/gold-prediction-complete/meta_model_attempt_2_val.csv', index_col=0, parse_dates=True)\n"}
+,{"stream_name":"stderr","time":17.867549985,"data":"      7 test_df = pd.read_csv('/kaggle/input/gold-prediction-complete/meta_model_attempt_2_test.csv', index_col=0, parse_dates=True)\n"}
+,{"stream_name":"stderr","time":17.867554867,"data":"\n"}
+,{"stream_name":"stderr","time":17.867561,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)\n"}
+,{"stream_name":"stderr","time":17.867591528,"data":"   1024     kwds.update(kwds_defaults)\n"}
+,{"stream_name":"stderr","time":17.867596795,"data":"   1025 \n"}
+,{"stream_name":"stderr","time":17.867601312,"data":"-\u003e 1026     return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":17.867606135,"data":"   1027 \n"}
+,{"stream_name":"stderr","time":17.86761037,"data":"   1028 \n"}
+,{"stream_name":"stderr","time":17.867614691,"data":"\n"}
+,{"stream_name":"stderr","time":17.867618982,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":17.867623948,"data":"    618 \n"}
+,{"stream_name":"stderr","time":17.86762692,"data":"    619     # Create the parser.\n"}
+,{"stream_name":"stderr","time":17.86763023,"data":"--\u003e 620     parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":17.867633418,"data":"    621 \n"}
+,{"stream_name":"stderr","time":17.867637158,"data":"    622     if chunksize or iterator:\n"}
+,{"stream_name":"stderr","time":17.867641622,"data":"\n"}
+,{"stream_name":"stderr","time":17.867647148,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in __init__(self, f, engine, **kwds)\n"}
+,{"stream_name":"stderr","time":17.867652155000002,"data":"   1618 \n"}
+,{"stream_name":"stderr","time":17.867656394,"data":"   1619         self.handles: IOHandles | None = None\n"}
+,{"stream_name":"stderr","time":17.867660911,"data":"-\u003e 1620         self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":17.86766563,"data":"   1621 \n"}
+,{"stream_name":"stderr","time":17.867669779,"data":"   1622     def close(self) -\u003e None:\n"}
+,{"stream_name":"stderr","time":17.867674489,"data":"\n"}
+,{"stream_name":"stderr","time":17.867678788,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _make_engine(self, f, engine)\n"}
+,{"stream_name":"stderr","time":17.867683713,"data":"   1878                 if \"b\" not in mode:\n"}
+,{"stream_name":"stderr","time":17.867688395,"data":"   1879                     mode += \"b\"\n"}
+,{"stream_name":"stderr","time":17.86769303,"data":"-\u003e 1880             self.handles = get_handle(\n"}
+,{"stream_name":"stderr","time":17.867697722,"data":"   1881                 f,\n"}
+,{"stream_name":"stderr","time":17.867702073,"data":"   1882                 mode,\n"}
+,{"stream_name":"stderr","time":17.86770661,"data":"\n"}
+,{"stream_name":"stderr","time":17.867710954,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/common.py in get_handle(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)\n"}
+,{"stream_name":"stderr","time":17.867715943,"data":"    871         if ioargs.encoding and \"b\" not in ioargs.mode:\n"}
+,{"stream_name":"stderr","time":17.867720636,"data":"    872             # Encoding\n"}
+,{"stream_name":"stderr","time":17.867724995,"data":"--\u003e 873             handle = open(\n"}
+,{"stream_name":"stderr","time":17.867733862,"data":"    874                 handle,\n"}
+,{"stream_name":"stderr","time":17.867738011,"data":"    875                 ioargs.mode,\n"}
+,{"stream_name":"stderr","time":17.867742612,"data":"\n"}
+,{"stream_name":"stderr","time":17.867746765,"data":"FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/input/gold-prediction-complete/meta_model_attempt_2_train.csv'\n"}
+,{"stream_name":"stderr","time":17.867751697,"data":"\n"}
+,{"stream_name":"stderr","time":20.911611917,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20.91165332,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":21.132825967,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":21.132856557,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":22.005034261,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":22.005080946,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":22.059957571,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":22.496353929,"data":"[NbConvertApp] Writing 37655 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":26.011989368,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.01203453,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.046912404,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":27.407225518,"data":"[NbConvertApp] Writing 376351 bytes to __results__.html\n"}
+]
