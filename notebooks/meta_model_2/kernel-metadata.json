@@ -1,5 +1,6 @@
 {
-  "id": "bigbigzabuton/gold-model-training",
+  "id": "bigbigzabuton/gold-meta-model-attempt-2",
+  "title": "Gold Meta-Model Training Attempt 2",
   "code_file": "train.ipynb",
   "language": "python",
   "kernel_type": "notebook",
