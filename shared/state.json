@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 4,
-  "resume_from": "architect",
+  "current_attempt": 1,
+  "resume_from": "entrance",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
@@ -340,8 +340,33 @@
       ],
       "improvement_plan": "Revert to single-model (Attempt 2 architecture), post-hoc isotonic regression for HCDA calibration, consider feature selection to reduce noise",
       "data_note": "predictions.csv was stale (Attempt 2 data). Evaluation used test_predictions.csv."
+    },
+    "attempt_4": {
+      "decision": "feature_expansion",
+      "test_da": 0.5535,
+      "test_hcda": 0.4286,
+      "test_mae": 0.6865,
+      "test_sharpe": 1.628,
+      "train_test_da_gap_pp": 6.28,
+      "targets_passed": "1/4",
+      "primary_successes": [
+        "Sharpe_1.63_passes_0.80_target",
+        "MAE_0.6865%_near_target_0.75%",
+        "overfitting_controlled_gap_6.28pp",
+        "data_pipeline_robust_API_based",
+        "calibration_model_trained_200_trials"
+      ],
+      "primary_failures": [
+        "DA_55.35%_misses_56%_by_0.65pp",
+        "HCDA_calibrated_42.86%_severe_regression_from_58.11%",
+        "calibration_backfired_promoted_low_accuracy_40%",
+        "calibration_demoted_high_accuracy_60.3%",
+        "DA_regressed_from_attempt_2_57.26%_to_55.35%"
+      ],
+      "improvement_plan": "Abandon calibration approach. Expand feature set with options_market, sentiment, commodity_ratios to improve base model capacity."
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T22:10:11.531405"
+  "last_updated": "2026-02-15T22:25:44.506925",
+  "current_submodel": "options_market"
 }
