@@ -1,0 +1,13 @@
+{
+  "id": "bigbigzabuton/gold-inflation-expectation-submodel-attempt-1",
+  "title": "Gold Inflation Expectation SubModel Attempt 1",
+  "code_file": "train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
