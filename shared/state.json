@@ -1,15 +1,14 @@
 {
   "status": "in_progress",
-  "phase": "2_submodel_loop",
+  "phase": "2_submodel_loop_complete",
   "current_feature": "cny_demand",
-  "current_attempt": 0,
-  "resume_from": "entrance",
-  "datachecker_status": null,
+  "current_attempt": 1,
+  "resume_from": "orchestrator",
+  "datachecker_status": "passed",
+  "builder_model_status": "completed",
   "git_branch": "develop",
   "git_workflow_enabled": true,
-  "feature_queue": [
-    "cny_demand"
-  ],
+  "feature_queue": [],
   "completed_features": [
     "dxy",
     "vix",
@@ -17,11 +16,12 @@
     "cross_asset",
     "yield_curve",
     "etf_flow",
-    "inflation_expectation"
+    "inflation_expectation",
+    "cny_demand"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
-  "last_updated": "2026-02-15T16:00:00",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
+  "submitted_at": "2026-02-15T15:12:30.365586",
+  "last_updated": "2026-02-15T19:00:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
@@ -29,6 +29,9 @@
     "test_direction_accuracy": 0.4354,
     "test_sharpe_ratio": -1.696
   },
+  "phase2_complete": true,
+  "phase2_summary": "All 9 features processed. 7 submodels completed (Gate 3 PASS), 1 auto-evaluated (dxy), 1 no further improvement (real_rate). Ready for Phase 3: Meta-Model Construction.",
+  "next_phase": "phase3_meta_model",
   "evaluation_history": {
     "real_rate": {
       "attempt_1": {
@@ -252,6 +255,28 @@
         ],
         "note": "2D HMM (3-state) on IE dynamics + anchoring z-score + gold sensitivity z-score. First submodel to pass all 3 gates. Gate 2 fully passes (MI +10.94%, VIF 2.25, stability 0.14). Gate 3 passes on DA (+0.57%) and Sharpe (+0.15). MAE degrades but DA and Sharpe improvements are consistent across majority of folds."
       }
+    },
+    "cny_demand": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_mae_delta=-0.0658_6.6x_threshold",
+          "mae_improved_3_of_5_folds",
+          "cny_momentum_z_rank4_5.57pct",
+          "vif_excellent_1.26",
+          "stability_all_pass_0.143"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=0.09%_below_5%",
+          "gate3_da_delta=-2.06%_worst_of_any_passing",
+          "gate3_sharpe_delta=-0.593_worst_of_any_passing"
+        ],
+        "note": "HMM 2-state regime detection on CNY/USD dynamics + momentum z-score + volatility regime z-score. Gate 3 PASS via MAE (-0.0658, 6.6x threshold, 3/5 folds). Weakest Gate 3 pass: DA degrades -2.06% and Sharpe degrades -0.593 (worst of any passing submodel). CNY features may attenuate prediction magnitudes while adding directional noise. Monitor in meta-model."
+      }
     }
-  }
+  },
+  "kaggle_version": 10
 }

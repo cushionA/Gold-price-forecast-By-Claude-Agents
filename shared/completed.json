@@ -116,5 +116,25 @@
     "model_path": null,
     "completed_at": "2026-02-15T16:00:00",
     "reason": "Gate 3 PASS via DA (+0.57%, 3/5 folds improved) and Sharpe (+0.1516, 3x threshold, 3/5 folds improved). First submodel to pass all three gates (Gate 1, 2, 3). 2D HMM (3-state) regime detection on inflation expectation dynamics + anchoring z-score + gold sensitivity z-score. MI increase +10.94% with excellent VIF (max 2.25) and stability (max 0.14). ie_gold_sensitivity_z ranked #8/22 in feature importance (5.38%)."
+  },
+  "cny_demand": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": -0.0206,
+      "sharpe_delta": -0.5934,
+      "mae_delta": -0.0658
+    },
+    "output_columns": ["cny_regime_prob", "cny_momentum_z", "cny_vol_regime_z"],
+    "output_path": "data/submodel_outputs/cny_demand.csv",
+    "model_path": null,
+    "completed_at": "2026-02-15T19:00:00",
+    "reason": "Gate 3 PASS via MAE criterion (-0.0658, 6.6x threshold, 3/5 folds). HMM 2-state regime detection on CNY/USD dynamics + momentum z-score + volatility regime z-score. Gate 2 MI fails (0.09%) but VIF excellent (1.26) and stability passes (0.143). Weakest Gate 3 pass: DA degrades -2.06% and Sharpe degrades -0.593 (worst of any passing submodel). CNY features may attenuate prediction magnitudes while adding directional noise. cny_momentum_z ranked #4/22 in feature importance (5.57%). Monitor closely in meta-model.",
+    "warnings": [
+      "DA degradation -2.06% is worst of any passing submodel",
+      "Sharpe degradation -0.593 is worst of any passing submodel",
+      "Consider meta-model ablation with/without cny_demand features"
+    ]
   }
 }

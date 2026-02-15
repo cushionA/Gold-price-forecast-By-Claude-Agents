@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-02-15T19:00:00",
+  "feature": "cny_demand",
+  "attempt": 1,
+  "gate1_passed": true,
+  "gate2_passed": false,
+  "gate3_passed": true,
+  "decision": "completed",
+  "gate3_passing_criteria": "mae",
+  "gate3_mae_delta": -0.0658,
+  "gate3_da_delta": -0.0206,
+  "gate3_sharpe_delta": -0.5934,
+  "warnings": [
+    "DA and Sharpe degradation worst of any passing submodel",
+    "Monitor in meta-model integration"
+  ],
+  "phase2_status": "COMPLETE - all 9 features processed",
+  "next_phase": "Phase 3: Meta-Model Construction"
+}

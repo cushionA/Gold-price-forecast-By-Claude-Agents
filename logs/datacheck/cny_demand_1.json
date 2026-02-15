@@ -1,0 +1,54 @@
+{
+  "feature": "cny_demand",
+  "attempt": 1,
+  "timestamp": "2026-02-15T14:39:51.161638",
+  "steps": [
+    {
+      "step": "file_check",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_stats",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "autocorrelation",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "vif_check",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "temporal_integrity",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "action": "PASS",
+  "overall_passed": true,
+  "data_shape": [
+    2771,
+    4
+  ],
+  "date_range": {
+    "start": "2015-01-30 00:00:00",
+    "end": "2026-02-13 00:00:00"
+  }
+}
