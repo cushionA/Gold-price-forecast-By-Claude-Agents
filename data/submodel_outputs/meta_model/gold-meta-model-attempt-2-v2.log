@@ -1,0 +1,461 @@
+[{"stream_name":"stderr","time":10.08777124,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.08786051,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.087865909,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.087869159,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.951434641,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.951476989,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.951482582,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.951486324,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.403286294,"data":"Training started: 2026-02-15T10:15:48.517319\n"}
+,{"stream_name":"stdout","time":16.403356159,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":16.403363494,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stdout","time":16.507819516,"data":"\n"}
+,{"stream_name":"stdout","time":16.507859993,"data":"=== Loading Data ===\n"}
+,{"stream_name":"stdout","time":16.507866451,"data":"Train: (1765, 23)\n"}
+,{"stream_name":"stdout","time":16.507871058,"data":"Val:   (378, 23)\n"}
+,{"stream_name":"stdout","time":16.507874405,"data":"Test:  (379, 23)\n"}
+,{"stream_name":"stdout","time":16.507877649,"data":"\n"}
+,{"stream_name":"stdout","time":16.507881028,"data":"Train date range: 2015-02-02 00:00:00 to 2022-02-07 00:00:00\n"}
+,{"stream_name":"stdout","time":16.507884419,"data":"Val date range:   2022-02-08 00:00:00 to 2023-08-10 00:00:00\n"}
+,{"stream_name":"stdout","time":16.507887961,"data":"Test date range:  2023-08-11 00:00:00 to 2025-02-12 00:00:00\n"}
+,{"stream_name":"stdout","time":16.507891718,"data":"\n"}
+,{"stream_name":"stdout","time":16.507896982,"data":"Feature count: 22\n"}
+,{"stream_name":"stdout","time":16.507902108,"data":"Features: ['real_rate_change', 'dxy_change', 'vix', 'yield_spread_change', 'inflation_exp_change', 'vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence', 'tech_trend_regime_prob', 'tech_mean_reversion_z', 'tech_volatility_regime', 'xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence', 'yc_spread_velocity_z', 'yc_curvature_z', 'etf_regime_prob', 'etf_capital_intensity', 'etf_pv_divergence', 'ie_regime_prob', 'ie_anchoring_z', 'ie_gold_sensitivity_z']\n"}
+,{"stream_name":"stdout","time":16.507915802,"data":"\n"}
+,{"stream_name":"stdout","time":16.507920799,"data":"✓ Data loaded successfully\n"}
+,{"stream_name":"stdout","time":16.528607621,"data":"✓ Evaluation functions defined\n"}
+,{"stream_name":"stdout","time":16.549200045,"data":"✓ Optuna objective function defined\n"}
+,{"stream_name":"stderr","time":16.575914548,"data":"[I 2026-02-15 10:15:48,680] A new study created in memory with name: no-name-d74cb997-0da1-473e-9f24-f39b8fc81baf\n"}
+,{"stream_name":"stderr","time":16.576088735,"data":"\n"}
+,{"stream_name":"stderr","time":16.576108041,"data":"[I 2026-02-15 10:15:48,680] A new study created in memory with name: no-name-d74cb997-0da1-473e-9f24-f39b8fc81baf\n"}
+,{"stream_name":"stdout","time":16.58467896,"data":"\n"}
+,{"stream_name":"stdout","time":16.584715321,"data":"=== Starting Hyperparameter Optimization ===\n"}
+,{"stream_name":"stdout","time":16.584722214,"data":"Configuration:\n"}
+,{"stream_name":"stdout","time":16.584742941000002,"data":"  Trials: 80\n"}
+,{"stream_name":"stdout","time":16.584747295,"data":"  Objective: Weighted composite (50% Sharpe, 30% DA, 10% MAE, 10% HCDA) - overfitting penalty\n"}
+,{"stream_name":"stdout","time":16.58475142,"data":"  Pruner: MedianPruner\n"}
+,{"stream_name":"stdout","time":16.584755119,"data":"  Regularization: AGGRESSIVE (max_depth 2-4, high L1/L2, low subsample)\n"}
+,{"stream_name":"stdout","time":17.204474077,"data":"[I 2026-02-15 10:15:49,114] Trial 0 finished with value: 0.5035324599049135 and parameters: {'max_depth': 3, 'min_child_weight': 29, 'reg_lambda': 15.443897010793886, 'reg_alpha': 6.387926357773329, 'subsample': 0.44680559213273097, 'colsample_bytree': 0.3467983561008608, 'learning_rate': 0.001255111517297384, 'n_estimators': 447}. Best is trial 0 with value: 0.5035324599049135.\n"}
+,{"stream_name":"stdout","time":17.20451457,"data":"[I 2026-02-15 10:15:49,281] Trial 1 finished with value: 0.5504604620354978 and parameters: {'max_depth': 3, 'min_child_weight': 24, 'reg_lambda': 3.3499364030286416, 'reg_alpha': 9.72918866945795, 'subsample': 0.6497327922401265, 'colsample_bytree': 0.3637017332034828, 'learning_rate': 0.0020366442026830914, 'n_estimators': 173}. Best is trial 1 with value: 0.5504604620354978.\n"}
+,{"stream_name":"stdout","time":17.551469634,"data":"[I 2026-02-15 10:15:49,459] Trial 2 finished with value: 0.5272878274013324 and parameters: {'max_depth': 2, 'min_child_weight': 21, 'reg_lambda': 10.343065316915968, 'reg_alpha': 3.6210622617823773, 'subsample': 0.5835558684167138, 'colsample_bytree': 0.34184815819561254, 'learning_rate': 0.0031357757322577457, 'n_estimators': 246}. Best is trial 1 with value: 0.5504604620354978.\n"}
+,{"stream_name":"stdout","time":17.551529983000002,"data":"[I 2026-02-15 10:15:49,611] Trial 3 finished with value: 0.6663718373786166 and parameters: {'max_depth': 3, 'min_child_weight': 26, 'reg_lambda': 6.394454296692116, 'reg_alpha': 5.628109945722504, 'subsample': 0.5777243706586127, 'colsample_bytree': 0.3139351238159993, 'learning_rate': 0.010769622478263132, 'n_estimators': 168}. Best is trial 3 with value: 0.6663718373786166.\n"}
+,{"stream_name":"stdout","time":17.892688765,"data":"[I 2026-02-15 10:15:49,805] Trial 4 finished with value: 0.6722851136104072 and parameters: {'max_depth': 2, 'min_child_weight': 29, 'reg_lambda': 19.41574456226751, 'reg_alpha': 8.275576133048151, 'subsample': 0.4913841307520112, 'colsample_bytree': 0.32930163420191516, 'learning_rate': 0.01453755557616192, 'n_estimators': 276}. Best is trial 4 with value: 0.6722851136104072.\n"}
+,{"stream_name":"stdout","time":18.114092462,"data":"[I 2026-02-15 10:15:50,026] Trial 5 finished with value: 0.508017927836948 and parameters: {'max_depth': 2, 'min_child_weight': 20, 'reg_lambda': 3.5846048589587127, 'reg_alpha': 9.18388361870904, 'subsample': 0.4776339944800051, 'colsample_bytree': 0.49875668530619455, 'learning_rate': 0.003385226783451979, 'n_estimators': 308}. Best is trial 4 with value: 0.6722851136104072.\n"}
+,{"stream_name":"stdout","time":18.542534006,"data":"[I 2026-02-15 10:15:50,451] Trial 6 finished with value: 0.5269361862036672 and parameters: {'max_depth': 3, 'min_child_weight': 13, 'reg_lambda': 19.482938671997495, 'reg_alpha': 7.976195410250031, 'subsample': 0.6818496824692567, 'colsample_bytree': 0.5684482051282946, 'learning_rate': 0.010370844668954535, 'n_estimators': 469}. Best is trial 4 with value: 0.6722851136104072.\n"}
+,{"stream_name":"stdout","time":18.542572618,"data":"[I 2026-02-15 10:15:50,624] Trial 7 finished with value: 0.7695817386023762 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'reg_lambda': 3.768863911479147, 'reg_alpha': 3.927972976869379, 'subsample': 0.5166031869068446, 'colsample_bytree': 0.38140470953216876, 'learning_rate': 0.02558586885593425, 'n_estimators': 243}. Best is trial 7 with value: 0.7695817386023762.\n"}
+,{"stream_name":"stdout","time":18.893462186,"data":"[I 2026-02-15 10:15:50,803] Trial 8 finished with value: 0.7367738838574035 and parameters: {'max_depth': 2, 'min_child_weight': 21, 'reg_lambda': 5.395711824570965, 'reg_alpha': 8.219772826786357, 'subsample': 0.4223651931039313, 'colsample_bytree': 0.5960660809801552, 'learning_rate': 0.020512599422151365, 'n_estimators': 179}. Best is trial 7 with value: 0.7695817386023762.\n"}
+,{"stream_name":"stdout","time":18.893688016,"data":"[I 2026-02-15 10:15:50,949] Trial 9 finished with value: 0.6707480391386077 and parameters: {'max_depth': 2, 'min_child_weight': 27, 'reg_lambda': 15.01657484540949, 'reg_alpha': 7.561064512368886, 'subsample': 0.6313811040057837, 'colsample_bytree': 0.3222133955202271, 'learning_rate': 0.004064644058668376, 'n_estimators': 146}. Best is trial 7 with value: 0.7695817386023762.\n"}
+,{"stream_name":"stdout","time":19.581743649,"data":"[I 2026-02-15 10:15:51,490] Trial 10 finished with value: 0.21069089082063674 and parameters: {'max_depth': 4, 'min_child_weight': 10, 'reg_lambda': 9.268389136258655, 'reg_alpha': 1.1616568805333767, 'subsample': 0.5261212024553192, 'colsample_bytree': 0.4140878880755432, 'learning_rate': 0.04462645151697436, 'n_estimators': 371}. Best is trial 7 with value: 0.7695817386023762.\n"}
+,{"stream_name":"stdout","time":19.581783705,"data":"[I 2026-02-15 10:15:51,620] Trial 11 finished with value: 0.7806116750188148 and parameters: {'max_depth': 2, 'min_child_weight': 15, 'reg_lambda': 7.035165508966, 'reg_alpha': 3.6428035124413203, 'subsample': 0.41565342111226844, 'colsample_bytree': 0.460687279210647, 'learning_rate': 0.03217285971681968, 'n_estimators': 108}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":20.041404515,"data":"[I 2026-02-15 10:15:51,944] Trial 12 finished with value: 0.3374039450873205 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'reg_lambda': 7.538848240071279, 'reg_alpha': 3.778092494499088, 'subsample': 0.5193493264012876, 'colsample_bytree': 0.4583336679090096, 'learning_rate': 0.04920204798076836, 'n_estimators': 241}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":20.041440615,"data":"[I 2026-02-15 10:15:52,053] Trial 13 finished with value: 0.7290426904349876 and parameters: {'max_depth': 2, 'min_child_weight': 17, 'reg_lambda': 8.047692211371661, 'reg_alpha': 3.0442511048579055, 'subsample': 0.4185813835645637, 'colsample_bytree': 0.3997628788841411, 'learning_rate': 0.023774322820018172, 'n_estimators': 101}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":20.41672192,"data":"[I 2026-02-15 10:15:52,325] Trial 14 finished with value: 0.7790601255424513 and parameters: {'max_depth': 2, 'min_child_weight': 11, 'reg_lambda': 5.351072009042823, 'reg_alpha': 2.225218078135134, 'subsample': 0.4664170163348656, 'colsample_bytree': 0.4887583316036846, 'learning_rate': 0.02825748968964679, 'n_estimators': 344}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":20.78293692,"data":"[I 2026-02-15 10:15:52,694] Trial 15 finished with value: 0.7317186119666038 and parameters: {'max_depth': 3, 'min_child_weight': 10, 'reg_lambda': 12.499575911736343, 'reg_alpha': 1.8615419995366294, 'subsample': 0.4614307385366598, 'colsample_bytree': 0.5097352908746553, 'learning_rate': 0.00600599453276424, 'n_estimators': 364}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":21.09042627,"data":"[I 2026-02-15 10:15:52,999] Trial 16 finished with value: 0.7225642085883661 and parameters: {'max_depth': 2, 'min_child_weight': 17, 'reg_lambda': 11.797011441622816, 'reg_alpha': 2.4526751955972994, 'subsample': 0.40099078820096085, 'colsample_bytree': 0.4597783519919711, 'learning_rate': 0.034778464658344395, 'n_estimators': 389}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":21.494494959,"data":"[I 2026-02-15 10:15:53,407] Trial 17 finished with value: 0.5696918279809106 and parameters: {'max_depth': 4, 'min_child_weight': 13, 'reg_lambda': 5.8146748358062545, 'reg_alpha': 4.504861138164474, 'subsample': 0.44395377950085574, 'colsample_bytree': 0.5121583435699053, 'learning_rate': 0.013767371547063617, 'n_estimators': 333}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":21.806549871,"data":"[I 2026-02-15 10:15:53,711] Trial 18 finished with value: 0.6391572122636109 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 8.464897458579488, 'reg_alpha': 5.0040905937509965, 'subsample': 0.5620285060340782, 'colsample_bytree': 0.5441981116733495, 'learning_rate': 0.007269475641667436, 'n_estimators': 419}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":22.229017152,"data":"[I 2026-02-15 10:15:54,133] Trial 19 finished with value: 0.5448762396574722 and parameters: {'max_depth': 3, 'min_child_weight': 17, 'reg_lambda': 6.11619104883929, 'reg_alpha': 1.0064354098670432, 'subsample': 0.4997738018038329, 'colsample_bytree': 0.4416367725528144, 'learning_rate': 0.027954365649044303, 'n_estimators': 332}. Best is trial 11 with value: 0.7806116750188148.\n"}
+,{"stream_name":"stdout","time":22.229073346,"data":"[I 2026-02-15 10:15:54,277] Trial 20 finished with value: 0.7834534354511908 and parameters: {'max_depth': 3, 'min_child_weight': 15, 'reg_lambda': 10.207691385229976, 'reg_alpha': 2.6220261194641963, 'subsample': 0.46547981148922096, 'colsample_bytree': 0.48287073621363347, 'learning_rate': 0.017565238710433383, 'n_estimators': 120}. Best is trial 20 with value: 0.7834534354511908.\n"}
+,{"stream_name":"stdout","time":22.505610481,"data":"[I 2026-02-15 10:15:54,416] Trial 21 finished with value: 0.7843580569380229 and parameters: {'max_depth': 3, 'min_child_weight': 15, 'reg_lambda': 10.016462473523859, 'reg_alpha': 2.5140405926556704, 'subsample': 0.46126365888533155, 'colsample_bytree': 0.48228719881820487, 'learning_rate': 0.01675216316475005, 'n_estimators': 114}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":22.505645613,"data":"[I 2026-02-15 10:15:54,569] Trial 22 finished with value: 0.5903801918663913 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'reg_lambda': 10.37537159860957, 'reg_alpha': 2.9386085633166976, 'subsample': 0.43470924733226246, 'colsample_bytree': 0.43624892465471005, 'learning_rate': 0.017821320099367727, 'n_estimators': 100}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":22.832413815,"data":"[I 2026-02-15 10:15:54,742] Trial 23 finished with value: 0.7224581004372734 and parameters: {'max_depth': 3, 'min_child_weight': 19, 'reg_lambda': 14.818495339569228, 'reg_alpha': 1.8305204456451745, 'subsample': 0.41845196284615865, 'colsample_bytree': 0.4768791317266469, 'learning_rate': 0.009383845856913136, 'n_estimators': 141}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":23.063523463,"data":"[I 2026-02-15 10:15:54,969] Trial 24 finished with value: 0.6708761982687438 and parameters: {'max_depth': 3, 'min_child_weight': 19, 'reg_lambda': 13.005888648771819, 'reg_alpha': 3.1329742165728085, 'subsample': 0.4037059443668098, 'colsample_bytree': 0.5229852645359883, 'learning_rate': 0.0157212470485106, 'n_estimators': 207}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":23.063583969,"data":"[I 2026-02-15 10:15:55,117] Trial 25 finished with value: 0.41994021971644746 and parameters: {'max_depth': 3, 'min_child_weight': 15, 'reg_lambda': 10.105997647022784, 'reg_alpha': 4.461549960860443, 'subsample': 0.48292140525566046, 'colsample_bytree': 0.4225968885641249, 'learning_rate': 0.03255721766406586, 'n_estimators': 131}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":23.540654411,"data":"[I 2026-02-15 10:15:55,384] Trial 26 finished with value: 0.431897439642666 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'reg_lambda': 13.654626460659726, 'reg_alpha': 5.76859620434449, 'subsample': 0.4545670724727105, 'colsample_bytree': 0.5413004126130735, 'learning_rate': 0.039274595736579584, 'n_estimators': 205}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":23.54068741,"data":"[I 2026-02-15 10:15:55,523] Trial 27 finished with value: 0.7245742052450812 and parameters: {'max_depth': 3, 'min_child_weight': 23, 'reg_lambda': 10.954832842991136, 'reg_alpha': 2.5286750144087127, 'subsample': 0.5434081241488732, 'colsample_bytree': 0.4711978758273225, 'learning_rate': 0.019242744720592477, 'n_estimators': 121}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":24.000052816,"data":"[I 2026-02-15 10:15:55,903] Trial 28 finished with value: 0.6315012512790149 and parameters: {'max_depth': 4, 'min_child_weight': 14, 'reg_lambda': 7.149990456809484, 'reg_alpha': 6.526638192010719, 'subsample': 0.49621061812325223, 'colsample_bytree': 0.4817649169729298, 'learning_rate': 0.0076818335577916305, 'n_estimators': 191}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":24.000088537,"data":"[I 2026-02-15 10:15:56,078] Trial 29 finished with value: 0.6746432217140281 and parameters: {'max_depth': 3, 'min_child_weight': 12, 'reg_lambda': 9.169427635557746, 'reg_alpha': 1.6604544940138517, 'subsample': 0.4391245992875718, 'colsample_bytree': 0.532846094991721, 'learning_rate': 0.0056023894064156105, 'n_estimators': 156}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":24.322590952,"data":"[I 2026-02-15 10:15:56,228] Trial 30 finished with value: 0.5050751812620933 and parameters: {'max_depth': 3, 'min_child_weight': 15, 'reg_lambda': 9.116786440719382, 'reg_alpha': 4.268103064092377, 'subsample': 0.6097277358493547, 'colsample_bytree': 0.5662329713456791, 'learning_rate': 0.0011820144309592187, 'n_estimators': 119}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":24.625289025,"data":"[I 2026-02-15 10:15:56,539] Trial 31 finished with value: 0.6755385360913768 and parameters: {'max_depth': 2, 'min_child_weight': 11, 'reg_lambda': 4.77397329469626, 'reg_alpha': 2.354691060252753, 'subsample': 0.46162282530541915, 'colsample_bytree': 0.49236065264819445, 'learning_rate': 0.028770475074450644, 'n_estimators': 414}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":24.846656744,"data":"[I 2026-02-15 10:15:56,754] Trial 32 finished with value: 0.7608179899898162 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 17.277253755087425, 'reg_alpha': 3.4114531098781473, 'subsample': 0.46792920923767667, 'colsample_bytree': 0.4513372660082234, 'learning_rate': 0.012953648213992532, 'n_estimators': 270}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":25.077633714,"data":"[I 2026-02-15 10:15:56,987] Trial 33 finished with value: 0.6759086466462003 and parameters: {'max_depth': 3, 'min_child_weight': 14, 'reg_lambda': 7.090341991324897, 'reg_alpha': 2.1744912507513425, 'subsample': 0.43348223168450145, 'colsample_bytree': 0.4929015908130081, 'learning_rate': 0.02125540453440437, 'n_estimators': 222}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":25.077685332,"data":"[I 2026-02-15 10:15:57,137] Trial 34 finished with value: 0.5825277776753819 and parameters: {'max_depth': 2, 'min_child_weight': 16, 'reg_lambda': 5.21154028951062, 'reg_alpha': 2.7880947922469623, 'subsample': 0.44779238816744005, 'colsample_bytree': 0.42765672225898466, 'learning_rate': 0.0018195875347415164, 'n_estimators': 163}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":25.51244309,"data":"[I 2026-02-15 10:15:57,425] Trial 35 finished with value: 0.5401027903081042 and parameters: {'max_depth': 3, 'min_child_weight': 11, 'reg_lambda': 4.553174079161339, 'reg_alpha': 5.040703404463699, 'subsample': 0.506308699722473, 'colsample_bytree': 0.47093351630930924, 'learning_rate': 0.032690557169491916, 'n_estimators': 294}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":25.512496283,"data":"[I 2026-02-15 10:15:57,527] Trial 36 finished with value: 0.6628987676999787 and parameters: {'max_depth': 2, 'min_child_weight': 22, 'reg_lambda': 11.639214980980343, 'reg_alpha': 1.6000069312260747, 'subsample': 0.4705972324317036, 'colsample_bytree': 0.4020823838713969, 'learning_rate': 0.01241362352259623, 'n_estimators': 100}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":25.868530105,"data":"[I 2026-02-15 10:15:57,780] Trial 37 finished with value: 0.49025371489589575 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 3.071156139036925, 'reg_alpha': 3.4002617653015124, 'subsample': 0.5424892767948334, 'colsample_bytree': 0.5047160392430269, 'learning_rate': 0.01618567260172948, 'n_estimators': 331}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":25.868567626,"data":"[I 2026-02-15 10:15:57,923] Trial 38 finished with value: 0.6692137255138824 and parameters: {'max_depth': 2, 'min_child_weight': 19, 'reg_lambda': 9.940771443209487, 'reg_alpha': 3.8061811504343264, 'subsample': 0.484923464198033, 'colsample_bytree': 0.3008003883831844, 'learning_rate': 0.024449623039788912, 'n_estimators': 173}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":26.155462203,"data":"[I 2026-02-15 10:15:58,067] Trial 39 finished with value: 0.6320066104745972 and parameters: {'max_depth': 3, 'min_child_weight': 11, 'reg_lambda': 6.459357067015863, 'reg_alpha': 2.136087530349846, 'subsample': 0.6939535814198085, 'colsample_bytree': 0.4860151903158312, 'learning_rate': 0.03958437821369327, 'n_estimators': 126}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":26.47253117,"data":"[I 2026-02-15 10:15:58,386] Trial 40 finished with value: 0.66297040394681 and parameters: {'max_depth': 2, 'min_child_weight': 25, 'reg_lambda': 8.501211526383488, 'reg_alpha': 1.3433236944415752, 'subsample': 0.4231447239386802, 'colsample_bytree': 0.4649781257600153, 'learning_rate': 0.009265303142584976, 'n_estimators': 457}. Best is trial 21 with value: 0.7843580569380229.\n"}
+,{"stream_name":"stdout","time":26.472573195,"data":"[I 2026-02-15 10:15:58,574] Trial 41 finished with value: 0.7856845648609039 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'reg_lambda': 4.762195554424548, 'reg_alpha': 3.652778272058485, 'subsample': 0.47799134650094466, 'colsample_bytree': 0.37096197935138886, 'learning_rate': 0.025118736701354952, 'n_estimators': 247}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":26.863536651,"data":"[I 2026-02-15 10:15:58,770] Trial 42 finished with value: 0.753722768257082 and parameters: {'max_depth': 2, 'min_child_weight': 16, 'reg_lambda': 3.7830354790665726, 'reg_alpha': 2.6856592169334923, 'subsample': 0.4711917381493559, 'colsample_bytree': 0.34825800790205846, 'learning_rate': 0.02080630200842488, 'n_estimators': 269}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":27.200442838,"data":"[I 2026-02-15 10:15:59,113] Trial 43 finished with value: 0.7201790173848247 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 4.057366812174344, 'reg_alpha': 4.146636425958747, 'subsample': 0.485697024808767, 'colsample_bytree': 0.3712264391199054, 'learning_rate': 0.02968037784287947, 'n_estimators': 495}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":27.431469553,"data":"[I 2026-02-15 10:15:59,344] Trial 44 finished with value: 0.7852266366519667 and parameters: {'max_depth': 2, 'min_child_weight': 10, 'reg_lambda': 7.163020199413792, 'reg_alpha': 3.421196981809527, 'subsample': 0.45160613201547123, 'colsample_bytree': 0.44491255774713406, 'learning_rate': 0.023734124449771344, 'n_estimators': 307}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":27.660402454,"data":"[I 2026-02-15 10:15:59,564] Trial 45 finished with value: 0.6275389260017844 and parameters: {'max_depth': 2, 'min_child_weight': 15, 'reg_lambda': 7.742250082305448, 'reg_alpha': 4.848798984557358, 'subsample': 0.42621167371146385, 'colsample_bytree': 0.3476506541119233, 'learning_rate': 0.011330609963878892, 'n_estimators': 303}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":27.660435528,"data":"[I 2026-02-15 10:15:59,719] Trial 46 finished with value: 0.7559206101497107 and parameters: {'max_depth': 3, 'min_child_weight': 18, 'reg_lambda': 6.761087299446443, 'reg_alpha': 3.502910112587702, 'subsample': 0.41087885500294147, 'colsample_bytree': 0.40802738858479315, 'learning_rate': 0.023600450573014905, 'n_estimators': 148}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":28.023742621,"data":"[I 2026-02-15 10:15:59,935] Trial 47 finished with value: 0.7828586884614739 and parameters: {'max_depth': 2, 'min_child_weight': 10, 'reg_lambda': 10.977343178174358, 'reg_alpha': 5.535202145337998, 'subsample': 0.45354354926139145, 'colsample_bytree': 0.448055140298613, 'learning_rate': 0.040278968348882144, 'n_estimators': 253}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":28.230427797,"data":"[I 2026-02-15 10:16:00,144] Trial 48 finished with value: 0.7176507676306241 and parameters: {'max_depth': 2, 'min_child_weight': 10, 'reg_lambda': 10.9117449956908, 'reg_alpha': 6.916816454503532, 'subsample': 0.4526743993263772, 'colsample_bytree': 0.4394009258578388, 'learning_rate': 0.03837461671261849, 'n_estimators': 254}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":28.458557756,"data":"[I 2026-02-15 10:16:00,368] Trial 49 finished with value: 0.6758547921398302 and parameters: {'max_depth': 3, 'min_child_weight': 10, 'reg_lambda': 13.669327231716737, 'reg_alpha': 5.6635168935176186, 'subsample': 0.5092689736963344, 'colsample_bytree': 0.3893062128115215, 'learning_rate': 0.04967715825787948, 'n_estimators': 230}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":28.67851755,"data":"[I 2026-02-15 10:16:00,582] Trial 50 finished with value: 0.6174451012789517 and parameters: {'max_depth': 2, 'min_child_weight': 30, 'reg_lambda': 9.535305935740896, 'reg_alpha': 6.043997439922485, 'subsample': 0.5206556853048689, 'colsample_bytree': 0.3650046858166573, 'learning_rate': 0.01775126679918262, 'n_estimators': 289}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":28.678571739,"data":"[I 2026-02-15 10:16:00,751] Trial 51 finished with value: 0.7838380957136866 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 12.42919560188744, 'reg_alpha': 5.242972190804885, 'subsample': 0.44265149818109445, 'colsample_bytree': 0.4213416541662732, 'learning_rate': 0.04139030455537069, 'n_estimators': 187}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":29.023564451,"data":"[I 2026-02-15 10:16:00,934] Trial 52 finished with value: 0.784581937165001 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 12.309713028343126, 'reg_alpha': 5.294236693910597, 'subsample': 0.4528130582118567, 'colsample_bytree': 0.4196397400950973, 'learning_rate': 0.04347328071393159, 'n_estimators': 188}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":29.023604439,"data":"[I 2026-02-15 10:16:01,102] Trial 53 finished with value: 0.7842222242766024 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'reg_lambda': 12.368493044075468, 'reg_alpha': 5.242278769761353, 'subsample': 0.4776935190216835, 'colsample_bytree': 0.39055962026019564, 'learning_rate': 0.02535346231734167, 'n_estimators': 196}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":29.369433172,"data":"[I 2026-02-15 10:16:01,279] Trial 54 finished with value: 0.6690445721095024 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'reg_lambda': 12.515638042135802, 'reg_alpha': 5.123612963194619, 'subsample': 0.4776388642871408, 'colsample_bytree': 0.38413085128033064, 'learning_rate': 0.04459186364857417, 'n_estimators': 201}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":29.369483419,"data":"[I 2026-02-15 10:16:01,479] Trial 55 finished with value: 0.779874559298915 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 13.97089703030418, 'reg_alpha': 7.108799354833829, 'subsample': 0.44051877972978487, 'colsample_bytree': 0.4192541543566392, 'learning_rate': 0.02428481260647596, 'n_estimators': 235}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":29.731822339,"data":"[I 2026-02-15 10:16:01,642] Trial 56 finished with value: 0.7833389480935986 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 16.407093168372164, 'reg_alpha': 8.886524353010829, 'subsample': 0.49424595971342195, 'colsample_bytree': 0.39400738357400744, 'learning_rate': 0.03526755545844938, 'n_estimators': 190}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":29.73185272,"data":"[I 2026-02-15 10:16:01,828] Trial 57 finished with value: 0.6968432431608589 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'reg_lambda': 14.775277937211605, 'reg_alpha': 4.714654136197658, 'subsample': 0.4307175684128058, 'colsample_bytree': 0.4099369647575328, 'learning_rate': 0.02772770163848092, 'n_estimators': 213}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":30.084818827,"data":"[I 2026-02-15 10:16:01,996] Trial 58 finished with value: 0.732345781091311 and parameters: {'max_depth': 2, 'min_child_weight': 11, 'reg_lambda': 12.257152204509884, 'reg_alpha': 5.375342216866174, 'subsample': 0.5336529520878112, 'colsample_bytree': 0.374694023393022, 'learning_rate': 0.04539841471678204, 'n_estimators': 188}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":30.084873121,"data":"[I 2026-02-15 10:16:02,178] Trial 59 finished with value: 0.7817128564790203 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 12.05017306899545, 'reg_alpha': 6.408016618659269, 'subsample': 0.44771695178441506, 'colsample_bytree': 0.333659377421605, 'learning_rate': 0.03172374004551248, 'n_estimators': 221}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":30.421440742,"data":"[I 2026-02-15 10:16:02,328] Trial 60 finished with value: 0.619131490392007 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 12.98794004505455, 'reg_alpha': 6.026960451746311, 'subsample': 0.5937038346387509, 'colsample_bytree': 0.35753459061338994, 'learning_rate': 0.02062792834386848, 'n_estimators': 173}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":30.421474509,"data":"[I 2026-02-15 10:16:02,460] Trial 61 finished with value: 0.6787025812392763 and parameters: {'max_depth': 2, 'min_child_weight': 16, 'reg_lambda': 11.197277549808073, 'reg_alpha': 3.2246982761259915, 'subsample': 0.47838785457337, 'colsample_bytree': 0.42765408236577646, 'learning_rate': 0.01440924698489686, 'n_estimators': 136}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":30.70044287,"data":"[I 2026-02-15 10:16:02,606] Trial 62 finished with value: 0.48438719342465897 and parameters: {'max_depth': 2, 'min_child_weight': 15, 'reg_lambda': 12.918319086674721, 'reg_alpha': 4.188505948907344, 'subsample': 0.6581833424449685, 'colsample_bytree': 0.45238789084333886, 'learning_rate': 0.01681219246526997, 'n_estimators': 149}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":30.700495843,"data":"[I 2026-02-15 10:16:02,752] Trial 63 finished with value: 0.7283126362797842 and parameters: {'max_depth': 3, 'min_child_weight': 14, 'reg_lambda': 10.352920080307944, 'reg_alpha': 5.2843067716352135, 'subsample': 0.46067330411216123, 'colsample_bytree': 0.43882544873348683, 'learning_rate': 0.021954148646178284, 'n_estimators': 116}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":31.084406701,"data":"[I 2026-02-15 10:16:02,996] Trial 64 finished with value: 0.6745134678972338 and parameters: {'max_depth': 2, 'min_child_weight': 17, 'reg_lambda': 8.445042466302821, 'reg_alpha': 3.766504280692963, 'subsample': 0.5605118606733932, 'colsample_bytree': 0.39812919750761444, 'learning_rate': 0.026330754079479688, 'n_estimators': 316}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":31.307036754,"data":"[I 2026-02-15 10:16:03,220] Trial 65 finished with value: 0.520819961559822 and parameters: {'max_depth': 4, 'min_child_weight': 12, 'reg_lambda': 14.151437766644419, 'reg_alpha': 4.576111475235644, 'subsample': 0.460407354645525, 'colsample_bytree': 0.5184247993604539, 'learning_rate': 0.01879754248918424, 'n_estimators': 162}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":31.307074979,"data":"[I 2026-02-15 10:16:03,416] Trial 66 finished with value: 0.7262618291037454 and parameters: {'max_depth': 3, 'min_child_weight': 14, 'reg_lambda': 16.125136034392526, 'reg_alpha': 3.0615251340044374, 'subsample': 0.5024062502375761, 'colsample_bytree': 0.42899011223234484, 'learning_rate': 0.04520782072078794, 'n_estimators': 184}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":31.731598371,"data":"[I 2026-02-15 10:16:03,643] Trial 67 finished with value: 0.587947086706446 and parameters: {'max_depth': 2, 'min_child_weight': 11, 'reg_lambda': 11.705195023779044, 'reg_alpha': 6.097233447617749, 'subsample': 0.4090968243162829, 'colsample_bytree': 0.4124478435878341, 'learning_rate': 0.0041591821584356075, 'n_estimators': 276}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":31.952992811,"data":"[I 2026-02-15 10:16:03,863] Trial 68 finished with value: 0.7507292446871634 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 10.581004488693196, 'reg_alpha': 3.957648693695586, 'subsample': 0.4891591694062606, 'colsample_bytree': 0.4759251181970957, 'learning_rate': 0.03554144727885131, 'n_estimators': 243}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":32.302521617,"data":"[I 2026-02-15 10:16:04,213] Trial 69 finished with value: 0.5990953010838487 and parameters: {'max_depth': 3, 'min_child_weight': 15, 'reg_lambda': 13.3437296299695, 'reg_alpha': 2.5682735367002945, 'subsample': 0.4713277605203781, 'colsample_bytree': 0.3803556729890621, 'learning_rate': 0.015698221333183077, 'n_estimators': 260}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":32.557450202,"data":"[I 2026-02-15 10:16:04,463] Trial 70 finished with value: 0.42660126148646105 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'reg_lambda': 9.722089277865562, 'reg_alpha': 1.9824418128340766, 'subsample': 0.4417752155913137, 'colsample_bytree': 0.4640442688455406, 'learning_rate': 0.029649478135114742, 'n_estimators': 199}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":32.557486637,"data":"[I 2026-02-15 10:16:04,619] Trial 71 finished with value: 0.7654052964106333 and parameters: {'max_depth': 2, 'min_child_weight': 13, 'reg_lambda': 17.38473844931915, 'reg_alpha': 7.88316389542716, 'subsample': 0.4910311291712335, 'colsample_bytree': 0.3934197193781069, 'learning_rate': 0.03729820498510648, 'n_estimators': 181}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":32.855341488,"data":"[I 2026-02-15 10:16:04,767] Trial 72 finished with value: 0.7786120585312329 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 18.838860894430198, 'reg_alpha': 2.8589371436119118, 'subsample': 0.4954402135375575, 'colsample_bytree': 0.41768870518326573, 'learning_rate': 0.03249582810428873, 'n_estimators': 155}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":32.855375398,"data":"[I 2026-02-15 10:16:04,899] Trial 73 finished with value: 0.7821094648921871 and parameters: {'max_depth': 2, 'min_child_weight': 16, 'reg_lambda': 16.290331684820615, 'reg_alpha': 8.495014613778448, 'subsample': 0.5117618049025741, 'colsample_bytree': 0.36279148637492653, 'learning_rate': 0.042311833875079835, 'n_estimators': 137}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":33.171062151,"data":"[I 2026-02-15 10:16:05,085] Trial 74 finished with value: 0.782892154077271 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'reg_lambda': 8.722148146532849, 'reg_alpha': 6.7295315657387835, 'subsample': 0.45740091027017177, 'colsample_bytree': 0.401887676006788, 'learning_rate': 0.026047110333727794, 'n_estimators': 214}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":33.171099663,"data":"[I 2026-02-15 10:16:05,258] Trial 75 finished with value: 0.7851173224128057 and parameters: {'max_depth': 2, 'min_child_weight': 12, 'reg_lambda': 5.95638247489594, 'reg_alpha': 9.725907628169459, 'subsample': 0.47556742887083214, 'colsample_bytree': 0.4461256220715243, 'learning_rate': 0.01922659476194422, 'n_estimators': 195}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":33.469518199,"data":"[I 2026-02-15 10:16:05,378] Trial 76 finished with value: 0.7801832659269639 and parameters: {'max_depth': 2, 'min_child_weight': 11, 'reg_lambda': 4.891722095258363, 'reg_alpha': 9.775326813998728, 'subsample': 0.46708292667303897, 'colsample_bytree': 0.4496162470116546, 'learning_rate': 0.02311973599403433, 'n_estimators': 114}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":33.71443243,"data":"[I 2026-02-15 10:16:05,624] Trial 77 finished with value: 0.7694141720380626 and parameters: {'max_depth': 2, 'min_child_weight': 10, 'reg_lambda': 6.19032425001379, 'reg_alpha': 9.297001896283748, 'subsample': 0.4482158369377175, 'colsample_bytree': 0.4963987925284074, 'learning_rate': 0.011480177789450303, 'n_estimators': 288}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":34.050432524,"data":"[I 2026-02-15 10:16:05,962] Trial 78 finished with value: 0.6925594274486138 and parameters: {'max_depth': 3, 'min_child_weight': 12, 'reg_lambda': 5.925137271596208, 'reg_alpha': 4.329497233217548, 'subsample': 0.48071046462365685, 'colsample_bytree': 0.4315227199769582, 'learning_rate': 0.019173313946601257, 'n_estimators': 356}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":34.10039027,"data":"[I 2026-02-15 10:16:06,209] Trial 79 finished with value: 0.7173071730331324 and parameters: {'max_depth': 2, 'min_child_weight': 21, 'reg_lambda': 5.584701506152781, 'reg_alpha': 7.481859948078132, 'subsample': 0.4320295465948665, 'colsample_bytree': 0.45823693011942235, 'learning_rate': 0.01486779949952185, 'n_estimators': 316}. Best is trial 41 with value: 0.7856845648609039.\n"}
+,{"stream_name":"stdout","time":34.100451363,"data":"\n"}
+,{"stream_name":"stdout","time":34.100458206,"data":"=== Optimization Complete ===\n"}
+,{"stream_name":"stdout","time":34.100478193,"data":"Best composite score: 0.7857\n"}
+,{"stream_name":"stdout","time":34.100481563,"data":"\n"}
+,{"stream_name":"stdout","time":34.100483975,"data":"Best hyperparameters:\n"}
+,{"stream_name":"stdout","time":34.100486363,"data":"  max_depth: 2\n"}
+,{"stream_name":"stdout","time":34.100488723,"data":"  min_child_weight: 14\n"}
+,{"stream_name":"stdout","time":34.100491089,"data":"  reg_lambda: 4.762195554424548\n"}
+,{"stream_name":"stdout","time":34.100493615,"data":"  reg_alpha: 3.652778272058485\n"}
+,{"stream_name":"stdout","time":34.100496076,"data":"  subsample: 0.47799134650094466\n"}
+,{"stream_name":"stdout","time":34.100498413,"data":"  colsample_bytree: 0.37096197935138886\n"}
+,{"stream_name":"stdout","time":34.100501042,"data":"  learning_rate: 0.025118736701354952\n"}
+,{"stream_name":"stdout","time":34.100503539,"data":"  n_estimators: 247\n"}
+,{"stream_name":"stdout","time":34.100506025,"data":"\n"}
+,{"stream_name":"stdout","time":34.100508336,"data":"Best trial metrics:\n"}
+,{"stream_name":"stdout","time":34.100510618,"data":"  Val MAE: 0.7086%\n"}
+,{"stream_name":"stdout","time":34.10052768,"data":"  Val DA: 53.85%\n"}
+,{"stream_name":"stdout","time":34.100530502,"data":"  Val HCDA: 59.57%\n"}
+,{"stream_name":"stdout","time":34.100532922,"data":"  Val Sharpe: 2.208\n"}
+,{"stream_name":"stdout","time":34.100535297,"data":"  Train DA: 62.79%\n"}
+,{"stream_name":"stdout","time":34.100538013,"data":"  DA Gap: 8.95pp\n"}
+,{"stream_name":"stdout","time":34.100541485,"data":"  Overfitting Penalty: 0.0000\n"}
+,{"stream_name":"stdout","time":34.142407914,"data":"\n"}
+,{"stream_name":"stdout","time":34.142445939,"data":"=== Training Final Model ===\n"}
+,{"stream_name":"stdout","time":34.142450152,"data":"[0]\tvalidation_0-mae:0.64740\tvalidation_1-mae:0.70465\n"}
+,{"stream_name":"stdout","time":34.143274807,"data":"[1]\tvalidation_0-mae:0.64695\tvalidation_1-mae:0.70446\n"}
+,{"stream_name":"stdout","time":34.144195243,"data":"[2]\tvalidation_0-mae:0.64640\tvalidation_1-mae:0.70454\n"}
+,{"stream_name":"stdout","time":34.148204595,"data":"[3]\tvalidation_0-mae:0.64586\tvalidation_1-mae:0.70464\n"}
+,{"stream_name":"stdout","time":34.149168001,"data":"[4]\tvalidation_0-mae:0.64555\tvalidation_1-mae:0.70503\n"}
+,{"stream_name":"stdout","time":34.150012448,"data":"[5]\tvalidation_0-mae:0.64541\tvalidation_1-mae:0.70483\n"}
+,{"stream_name":"stdout","time":34.154167025,"data":"[6]\tvalidation_0-mae:0.64501\tvalidation_1-mae:0.70462\n"}
+,{"stream_name":"stdout","time":34.156611376,"data":"[7]\tvalidation_0-mae:0.64473\tvalidation_1-mae:0.70463\n"}
+,{"stream_name":"stdout","time":34.159151277,"data":"[8]\tvalidation_0-mae:0.64452\tvalidation_1-mae:0.70463\n"}
+,{"stream_name":"stdout","time":34.160128333,"data":"[9]\tvalidation_0-mae:0.64428\tvalidation_1-mae:0.70457\n"}
+,{"stream_name":"stdout","time":34.164192315,"data":"[10]\tvalidation_0-mae:0.64408\tvalidation_1-mae:0.70459\n"}
+,{"stream_name":"stdout","time":34.165182376,"data":"[11]\tvalidation_0-mae:0.64381\tvalidation_1-mae:0.70471\n"}
+,{"stream_name":"stdout","time":34.16924126,"data":"[12]\tvalidation_0-mae:0.64380\tvalidation_1-mae:0.70460\n"}
+,{"stream_name":"stdout","time":34.170243187,"data":"[13]\tvalidation_0-mae:0.64342\tvalidation_1-mae:0.70431\n"}
+,{"stream_name":"stdout","time":34.172914853,"data":"[14]\tvalidation_0-mae:0.64336\tvalidation_1-mae:0.70431\n"}
+,{"stream_name":"stdout","time":34.175608518,"data":"[15]\tvalidation_0-mae:0.64303\tvalidation_1-mae:0.70422\n"}
+,{"stream_name":"stdout","time":34.179323322,"data":"[16]\tvalidation_0-mae:0.64289\tvalidation_1-mae:0.70408\n"}
+,{"stream_name":"stdout","time":34.180374568,"data":"[17]\tvalidation_0-mae:0.64247\tvalidation_1-mae:0.70415\n"}
+,{"stream_name":"stdout","time":34.184357045,"data":"[18]\tvalidation_0-mae:0.64220\tvalidation_1-mae:0.70421\n"}
+,{"stream_name":"stdout","time":34.186830776,"data":"[19]\tvalidation_0-mae:0.64183\tvalidation_1-mae:0.70416\n"}
+,{"stream_name":"stdout","time":34.192404536,"data":"[20]\tvalidation_0-mae:0.64179\tvalidation_1-mae:0.70418\n"}
+,{"stream_name":"stdout","time":34.1935111,"data":"[21]\tvalidation_0-mae:0.64169\tvalidation_1-mae:0.70397\n"}
+,{"stream_name":"stdout","time":34.194777639,"data":"[22]\tvalidation_0-mae:0.64144\tvalidation_1-mae:0.70347\n"}
+,{"stream_name":"stdout","time":34.195887062,"data":"[23]\tvalidation_0-mae:0.64129\tvalidation_1-mae:0.70351\n"}
+,{"stream_name":"stdout","time":34.200365039,"data":"[24]\tvalidation_0-mae:0.64104\tvalidation_1-mae:0.70336\n"}
+,{"stream_name":"stdout","time":34.201362396,"data":"[25]\tvalidation_0-mae:0.64090\tvalidation_1-mae:0.70335\n"}
+,{"stream_name":"stdout","time":34.204098261,"data":"[26]\tvalidation_0-mae:0.64085\tvalidation_1-mae:0.70304\n"}
+,{"stream_name":"stdout","time":34.209405232,"data":"[27]\tvalidation_0-mae:0.64061\tvalidation_1-mae:0.70297\n"}
+,{"stream_name":"stdout","time":34.210333035,"data":"[28]\tvalidation_0-mae:0.64044\tvalidation_1-mae:0.70284\n"}
+,{"stream_name":"stdout","time":34.211220793,"data":"[29]\tvalidation_0-mae:0.64027\tvalidation_1-mae:0.70335\n"}
+,{"stream_name":"stdout","time":34.215295873,"data":"[30]\tvalidation_0-mae:0.63990\tvalidation_1-mae:0.70316\n"}
+,{"stream_name":"stdout","time":34.217871836,"data":"[31]\tvalidation_0-mae:0.63975\tvalidation_1-mae:0.70363\n"}
+,{"stream_name":"stdout","time":34.218837792,"data":"[32]\tvalidation_0-mae:0.63942\tvalidation_1-mae:0.70358\n"}
+,{"stream_name":"stdout","time":34.221611142,"data":"[33]\tvalidation_0-mae:0.63905\tvalidation_1-mae:0.70325\n"}
+,{"stream_name":"stdout","time":34.225331834,"data":"[34]\tvalidation_0-mae:0.63887\tvalidation_1-mae:0.70341\n"}
+,{"stream_name":"stdout","time":34.22786021,"data":"[35]\tvalidation_0-mae:0.63873\tvalidation_1-mae:0.70344\n"}
+,{"stream_name":"stdout","time":34.233647722,"data":"[36]\tvalidation_0-mae:0.63858\tvalidation_1-mae:0.70307\n"}
+,{"stream_name":"stdout","time":34.234709907,"data":"[37]\tvalidation_0-mae:0.63835\tvalidation_1-mae:0.70302\n"}
+,{"stream_name":"stdout","time":34.235662899,"data":"[38]\tvalidation_0-mae:0.63821\tvalidation_1-mae:0.70318\n"}
+,{"stream_name":"stdout","time":34.239155489,"data":"[39]\tvalidation_0-mae:0.63800\tvalidation_1-mae:0.70313\n"}
+,{"stream_name":"stdout","time":34.240114438,"data":"[40]\tvalidation_0-mae:0.63763\tvalidation_1-mae:0.70324\n"}
+,{"stream_name":"stdout","time":34.244233924,"data":"[41]\tvalidation_0-mae:0.63754\tvalidation_1-mae:0.70332\n"}
+,{"stream_name":"stdout","time":34.245263599,"data":"[42]\tvalidation_0-mae:0.63730\tvalidation_1-mae:0.70303\n"}
+,{"stream_name":"stdout","time":34.24873312,"data":"[43]\tvalidation_0-mae:0.63683\tvalidation_1-mae:0.70295\n"}
+,{"stream_name":"stdout","time":34.253218697,"data":"[44]\tvalidation_0-mae:0.63676\tvalidation_1-mae:0.70371\n"}
+,{"stream_name":"stdout","time":34.254211205,"data":"[45]\tvalidation_0-mae:0.63647\tvalidation_1-mae:0.70339\n"}
+,{"stream_name":"stdout","time":34.257041531,"data":"[46]\tvalidation_0-mae:0.63607\tvalidation_1-mae:0.70340\n"}
+,{"stream_name":"stdout","time":34.262779622,"data":"[47]\tvalidation_0-mae:0.63589\tvalidation_1-mae:0.70346\n"}
+,{"stream_name":"stdout","time":34.263776388,"data":"[48]\tvalidation_0-mae:0.63561\tvalidation_1-mae:0.70344\n"}
+,{"stream_name":"stdout","time":34.268269639,"data":"[49]\tvalidation_0-mae:0.63547\tvalidation_1-mae:0.70343\n"}
+,{"stream_name":"stdout","time":34.269329023,"data":"[50]\tvalidation_0-mae:0.63533\tvalidation_1-mae:0.70323\n"}
+,{"stream_name":"stdout","time":34.273412352,"data":"[51]\tvalidation_0-mae:0.63527\tvalidation_1-mae:0.70370\n"}
+,{"stream_name":"stdout","time":34.274443932,"data":"[52]\tvalidation_0-mae:0.63523\tvalidation_1-mae:0.70367\n"}
+,{"stream_name":"stdout","time":34.281519911,"data":"[53]\tvalidation_0-mae:0.63510\tvalidation_1-mae:0.70351\n"}
+,{"stream_name":"stdout","time":34.282756374,"data":"[54]\tvalidation_0-mae:0.63459\tvalidation_1-mae:0.70340\n"}
+,{"stream_name":"stdout","time":34.286436994,"data":"[55]\tvalidation_0-mae:0.63444\tvalidation_1-mae:0.70327\n"}
+,{"stream_name":"stdout","time":34.287487582,"data":"[56]\tvalidation_0-mae:0.63437\tvalidation_1-mae:0.70345\n"}
+,{"stream_name":"stdout","time":34.291376287,"data":"[57]\tvalidation_0-mae:0.63406\tvalidation_1-mae:0.70336\n"}
+,{"stream_name":"stdout","time":34.292355197,"data":"[58]\tvalidation_0-mae:0.63375\tvalidation_1-mae:0.70348\n"}
+,{"stream_name":"stdout","time":34.29635421,"data":"[59]\tvalidation_0-mae:0.63353\tvalidation_1-mae:0.70360\n"}
+,{"stream_name":"stdout","time":34.297357197,"data":"[60]\tvalidation_0-mae:0.63331\tvalidation_1-mae:0.70353\n"}
+,{"stream_name":"stdout","time":34.301366059,"data":"[61]\tvalidation_0-mae:0.63326\tvalidation_1-mae:0.70335\n"}
+,{"stream_name":"stdout","time":34.305506183,"data":"[62]\tvalidation_0-mae:0.63311\tvalidation_1-mae:0.70322\n"}
+,{"stream_name":"stdout","time":34.306872061,"data":"[63]\tvalidation_0-mae:0.63284\tvalidation_1-mae:0.70264\n"}
+,{"stream_name":"stdout","time":34.31134888,"data":"[64]\tvalidation_0-mae:0.63286\tvalidation_1-mae:0.70277\n"}
+,{"stream_name":"stdout","time":34.312511107,"data":"[65]\tvalidation_0-mae:0.63263\tvalidation_1-mae:0.70281\n"}
+,{"stream_name":"stdout","time":34.316320244,"data":"[66]\tvalidation_0-mae:0.63248\tvalidation_1-mae:0.70293\n"}
+,{"stream_name":"stdout","time":34.320240052,"data":"[67]\tvalidation_0-mae:0.63237\tvalidation_1-mae:0.70237\n"}
+,{"stream_name":"stdout","time":34.321188036,"data":"[68]\tvalidation_0-mae:0.63213\tvalidation_1-mae:0.70168\n"}
+,{"stream_name":"stdout","time":34.325215451,"data":"[69]\tvalidation_0-mae:0.63189\tvalidation_1-mae:0.70175\n"}
+,{"stream_name":"stdout","time":34.326503927,"data":"[70]\tvalidation_0-mae:0.63155\tvalidation_1-mae:0.70150\n"}
+,{"stream_name":"stdout","time":34.330669005,"data":"[71]\tvalidation_0-mae:0.63110\tvalidation_1-mae:0.70149\n"}
+,{"stream_name":"stdout","time":34.331796277,"data":"[72]\tvalidation_0-mae:0.63087\tvalidation_1-mae:0.70160\n"}
+,{"stream_name":"stdout","time":34.335196276,"data":"[73]\tvalidation_0-mae:0.63062\tvalidation_1-mae:0.70208\n"}
+,{"stream_name":"stdout","time":34.336165905,"data":"[74]\tvalidation_0-mae:0.63048\tvalidation_1-mae:0.70232\n"}
+,{"stream_name":"stdout","time":34.340190493,"data":"[75]\tvalidation_0-mae:0.63028\tvalidation_1-mae:0.70221\n"}
+,{"stream_name":"stdout","time":34.343089405,"data":"[76]\tvalidation_0-mae:0.63027\tvalidation_1-mae:0.70240\n"}
+,{"stream_name":"stdout","time":34.346237329,"data":"[77]\tvalidation_0-mae:0.63018\tvalidation_1-mae:0.70240\n"}
+,{"stream_name":"stdout","time":34.350185064,"data":"[78]\tvalidation_0-mae:0.62991\tvalidation_1-mae:0.70267\n"}
+,{"stream_name":"stdout","time":34.355310817,"data":"[79]\tvalidation_0-mae:0.62976\tvalidation_1-mae:0.70287\n"}
+,{"stream_name":"stdout","time":34.356389578,"data":"[80]\tvalidation_0-mae:0.62960\tvalidation_1-mae:0.70298\n"}
+,{"stream_name":"stdout","time":34.357358224,"data":"[81]\tvalidation_0-mae:0.62954\tvalidation_1-mae:0.70299\n"}
+,{"stream_name":"stdout","time":34.361045653,"data":"[82]\tvalidation_0-mae:0.62936\tvalidation_1-mae:0.70302\n"}
+,{"stream_name":"stdout","time":34.366148837,"data":"[83]\tvalidation_0-mae:0.62915\tvalidation_1-mae:0.70303\n"}
+,{"stream_name":"stdout","time":34.367099431,"data":"[84]\tvalidation_0-mae:0.62898\tvalidation_1-mae:0.70312\n"}
+,{"stream_name":"stdout","time":34.368023281,"data":"[85]\tvalidation_0-mae:0.62881\tvalidation_1-mae:0.70370\n"}
+,{"stream_name":"stdout","time":34.371528347,"data":"[86]\tvalidation_0-mae:0.62862\tvalidation_1-mae:0.70368\n"}
+,{"stream_name":"stdout","time":34.372871291,"data":"[87]\tvalidation_0-mae:0.62853\tvalidation_1-mae:0.70356\n"}
+,{"stream_name":"stdout","time":34.37644704,"data":"[88]\tvalidation_0-mae:0.62838\tvalidation_1-mae:0.70362\n"}
+,{"stream_name":"stdout","time":34.380324931,"data":"[89]\tvalidation_0-mae:0.62810\tvalidation_1-mae:0.70368\n"}
+,{"stream_name":"stdout","time":34.387304637,"data":"[90]\tvalidation_0-mae:0.62800\tvalidation_1-mae:0.70363\n"}
+,{"stream_name":"stdout","time":34.391190057,"data":"[91]\tvalidation_0-mae:0.62782\tvalidation_1-mae:0.70325\n"}
+,{"stream_name":"stdout","time":34.392203433,"data":"[92]\tvalidation_0-mae:0.62766\tvalidation_1-mae:0.70356\n"}
+,{"stream_name":"stdout","time":34.394699414,"data":"[93]\tvalidation_0-mae:0.62750\tvalidation_1-mae:0.70378\n"}
+,{"stream_name":"stdout","time":34.399682939,"data":"[94]\tvalidation_0-mae:0.62720\tvalidation_1-mae:0.70349\n"}
+,{"stream_name":"stdout","time":34.402114812,"data":"[95]\tvalidation_0-mae:0.62711\tvalidation_1-mae:0.70340\n"}
+,{"stream_name":"stdout","time":34.403120769,"data":"[96]\tvalidation_0-mae:0.62699\tvalidation_1-mae:0.70338\n"}
+,{"stream_name":"stdout","time":34.404004493,"data":"[97]\tvalidation_0-mae:0.62682\tvalidation_1-mae:0.70315\n"}
+,{"stream_name":"stdout","time":34.404926893,"data":"[98]\tvalidation_0-mae:0.62663\tvalidation_1-mae:0.70296\n"}
+,{"stream_name":"stdout","time":34.409159923,"data":"[99]\tvalidation_0-mae:0.62653\tvalidation_1-mae:0.70361\n"}
+,{"stream_name":"stdout","time":34.410564427,"data":"[100]\tvalidation_0-mae:0.62631\tvalidation_1-mae:0.70358\n"}
+,{"stream_name":"stdout","time":34.413264578,"data":"[101]\tvalidation_0-mae:0.62613\tvalidation_1-mae:0.70383\n"}
+,{"stream_name":"stdout","time":34.41591267,"data":"[102]\tvalidation_0-mae:0.62605\tvalidation_1-mae:0.70453\n"}
+,{"stream_name":"stdout","time":34.420312886,"data":"[103]\tvalidation_0-mae:0.62575\tvalidation_1-mae:0.70460\n"}
+,{"stream_name":"stdout","time":34.421360423,"data":"[104]\tvalidation_0-mae:0.62551\tvalidation_1-mae:0.70454\n"}
+,{"stream_name":"stdout","time":34.424082472,"data":"[105]\tvalidation_0-mae:0.62535\tvalidation_1-mae:0.70497\n"}
+,{"stream_name":"stdout","time":34.427997623,"data":"[106]\tvalidation_0-mae:0.62526\tvalidation_1-mae:0.70461\n"}
+,{"stream_name":"stdout","time":34.430399053,"data":"[107]\tvalidation_0-mae:0.62512\tvalidation_1-mae:0.70453\n"}
+,{"stream_name":"stdout","time":34.436168285,"data":"[108]\tvalidation_0-mae:0.62504\tvalidation_1-mae:0.70440\n"}
+,{"stream_name":"stdout","time":34.4370737,"data":"[109]\tvalidation_0-mae:0.62478\tvalidation_1-mae:0.70403\n"}
+,{"stream_name":"stdout","time":34.441253312,"data":"[110]\tvalidation_0-mae:0.62460\tvalidation_1-mae:0.70385\n"}
+,{"stream_name":"stdout","time":34.44327367,"data":"[111]\tvalidation_0-mae:0.62440\tvalidation_1-mae:0.70374\n"}
+,{"stream_name":"stdout","time":34.44717963,"data":"[112]\tvalidation_0-mae:0.62414\tvalidation_1-mae:0.70376\n"}
+,{"stream_name":"stdout","time":34.448122961,"data":"[113]\tvalidation_0-mae:0.62412\tvalidation_1-mae:0.70412\n"}
+,{"stream_name":"stdout","time":34.449123332,"data":"[114]\tvalidation_0-mae:0.62406\tvalidation_1-mae:0.70407\n"}
+,{"stream_name":"stdout","time":34.454166357,"data":"[115]\tvalidation_0-mae:0.62397\tvalidation_1-mae:0.70412\n"}
+,{"stream_name":"stdout","time":34.455125455,"data":"[116]\tvalidation_0-mae:0.62372\tvalidation_1-mae:0.70428\n"}
+,{"stream_name":"stdout","time":34.460619606,"data":"[117]\tvalidation_0-mae:0.62354\tvalidation_1-mae:0.70461\n"}
+,{"stream_name":"stdout","time":34.462639137,"data":"[118]\tvalidation_0-mae:0.62341\tvalidation_1-mae:0.70456\n"}
+,{"stream_name":"stdout","time":34.468842657,"data":"[119]\tvalidation_0-mae:0.62328\tvalidation_1-mae:0.70488\n"}
+,{"stream_name":"stdout","time":34.469823893,"data":"[120]\tvalidation_0-mae:0.62303\tvalidation_1-mae:0.70498\n"}
+,{"stream_name":"stdout","time":34.47206043,"data":"[121]\tvalidation_0-mae:0.62276\tvalidation_1-mae:0.70520\n"}
+,{"stream_name":"stdout","time":34.475021014,"data":"[122]\tvalidation_0-mae:0.62257\tvalidation_1-mae:0.70514\n"}
+,{"stream_name":"stdout","time":34.478055441,"data":"[123]\tvalidation_0-mae:0.62239\tvalidation_1-mae:0.70524\n"}
+,{"stream_name":"stdout","time":34.481288533,"data":"[124]\tvalidation_0-mae:0.62216\tvalidation_1-mae:0.70488\n"}
+,{"stream_name":"stdout","time":34.484296191,"data":"[125]\tvalidation_0-mae:0.62199\tvalidation_1-mae:0.70528\n"}
+,{"stream_name":"stdout","time":34.488539448,"data":"[126]\tvalidation_0-mae:0.62181\tvalidation_1-mae:0.70517\n"}
+,{"stream_name":"stdout","time":34.492937154,"data":"[127]\tvalidation_0-mae:0.62146\tvalidation_1-mae:0.70512\n"}
+,{"stream_name":"stdout","time":34.498271649,"data":"[128]\tvalidation_0-mae:0.62129\tvalidation_1-mae:0.70502\n"}
+,{"stream_name":"stdout","time":34.499229598,"data":"[129]\tvalidation_0-mae:0.62120\tvalidation_1-mae:0.70524\n"}
+,{"stream_name":"stdout","time":34.500931674,"data":"[130]\tvalidation_0-mae:0.62113\tvalidation_1-mae:0.70507\n"}
+,{"stream_name":"stdout","time":34.505204682,"data":"[131]\tvalidation_0-mae:0.62094\tvalidation_1-mae:0.70492\n"}
+,{"stream_name":"stdout","time":34.506154477,"data":"[132]\tvalidation_0-mae:0.62085\tvalidation_1-mae:0.70499\n"}
+,{"stream_name":"stdout","time":34.512336035,"data":"[133]\tvalidation_0-mae:0.62068\tvalidation_1-mae:0.70491\n"}
+,{"stream_name":"stdout","time":34.513195427,"data":"[134]\tvalidation_0-mae:0.62062\tvalidation_1-mae:0.70455\n"}
+,{"stream_name":"stdout","time":34.513991327,"data":"[135]\tvalidation_0-mae:0.62052\tvalidation_1-mae:0.70456\n"}
+,{"stream_name":"stdout","time":34.519112457,"data":"[136]\tvalidation_0-mae:0.62044\tvalidation_1-mae:0.70502\n"}
+,{"stream_name":"stdout","time":34.524306229,"data":"[137]\tvalidation_0-mae:0.62029\tvalidation_1-mae:0.70467\n"}
+,{"stream_name":"stdout","time":34.528362038,"data":"[138]\tvalidation_0-mae:0.62015\tvalidation_1-mae:0.70487\n"}
+,{"stream_name":"stdout","time":34.531068008,"data":"[139]\tvalidation_0-mae:0.62009\tvalidation_1-mae:0.70500\n"}
+,{"stream_name":"stdout","time":34.531085795,"data":"[140]\tvalidation_0-mae:0.61991\tvalidation_1-mae:0.70489\n"}
+,{"stream_name":"stdout","time":34.537388732,"data":"[141]\tvalidation_0-mae:0.61971\tvalidation_1-mae:0.70477\n"}
+,{"stream_name":"stdout","time":34.538265339,"data":"[142]\tvalidation_0-mae:0.61948\tvalidation_1-mae:0.70488\n"}
+,{"stream_name":"stdout","time":34.543425609,"data":"[143]\tvalidation_0-mae:0.61935\tvalidation_1-mae:0.70504\n"}
+,{"stream_name":"stdout","time":34.548077604,"data":"[144]\tvalidation_0-mae:0.61899\tvalidation_1-mae:0.70493\n"}
+,{"stream_name":"stdout","time":34.549464718,"data":"[145]\tvalidation_0-mae:0.61883\tvalidation_1-mae:0.70472\n"}
+,{"stream_name":"stdout","time":34.554471042,"data":"[146]\tvalidation_0-mae:0.61861\tvalidation_1-mae:0.70482\n"}
+,{"stream_name":"stdout","time":34.556447541,"data":"[147]\tvalidation_0-mae:0.61858\tvalidation_1-mae:0.70520\n"}
+,{"stream_name":"stdout","time":34.560509081,"data":"[148]\tvalidation_0-mae:0.61854\tvalidation_1-mae:0.70526\n"}
+,{"stream_name":"stdout","time":34.561550715,"data":"[149]\tvalidation_0-mae:0.61844\tvalidation_1-mae:0.70536\n"}
+,{"stream_name":"stdout","time":34.562374519,"data":"[150]\tvalidation_0-mae:0.61851\tvalidation_1-mae:0.70551\n"}
+,{"stream_name":"stdout","time":34.56628831,"data":"[151]\tvalidation_0-mae:0.61828\tvalidation_1-mae:0.70568\n"}
+,{"stream_name":"stdout","time":34.567240841,"data":"[152]\tvalidation_0-mae:0.61819\tvalidation_1-mae:0.70578\n"}
+,{"stream_name":"stdout","time":34.568148075,"data":"[153]\tvalidation_0-mae:0.61815\tvalidation_1-mae:0.70581\n"}
+,{"stream_name":"stdout","time":34.57097844,"data":"[154]\tvalidation_0-mae:0.61800\tvalidation_1-mae:0.70560\n"}
+,{"stream_name":"stdout","time":34.576105269,"data":"[155]\tvalidation_0-mae:0.61788\tvalidation_1-mae:0.70545\n"}
+,{"stream_name":"stdout","time":34.57736768,"data":"[156]\tvalidation_0-mae:0.61762\tvalidation_1-mae:0.70562\n"}
+,{"stream_name":"stdout","time":34.584353112,"data":"[157]\tvalidation_0-mae:0.61750\tvalidation_1-mae:0.70536\n"}
+,{"stream_name":"stdout","time":34.585259891,"data":"[158]\tvalidation_0-mae:0.61748\tvalidation_1-mae:0.70548\n"}
+,{"stream_name":"stdout","time":34.589213253,"data":"[159]\tvalidation_0-mae:0.61740\tvalidation_1-mae:0.70548\n"}
+,{"stream_name":"stdout","time":34.590261205,"data":"[160]\tvalidation_0-mae:0.61722\tvalidation_1-mae:0.70518\n"}
+,{"stream_name":"stdout","time":34.591137822,"data":"[161]\tvalidation_0-mae:0.61719\tvalidation_1-mae:0.70520\n"}
+,{"stream_name":"stdout","time":34.592227991,"data":"[162]\tvalidation_0-mae:0.61709\tvalidation_1-mae:0.70496\n"}
+,{"stream_name":"stdout","time":34.597343877,"data":"[163]\tvalidation_0-mae:0.61697\tvalidation_1-mae:0.70509\n"}
+,{"stream_name":"stdout","time":34.598177312,"data":"[164]\tvalidation_0-mae:0.61689\tvalidation_1-mae:0.70521\n"}
+,{"stream_name":"stdout","time":34.604524693,"data":"[165]\tvalidation_0-mae:0.61686\tvalidation_1-mae:0.70526\n"}
+,{"stream_name":"stdout","time":34.605622312,"data":"[166]\tvalidation_0-mae:0.61670\tvalidation_1-mae:0.70476\n"}
+,{"stream_name":"stdout","time":34.609876087,"data":"[167]\tvalidation_0-mae:0.61650\tvalidation_1-mae:0.70465\n"}
+,{"stream_name":"stdout","time":34.611668272,"data":"[168]\tvalidation_0-mae:0.61645\tvalidation_1-mae:0.70465\n"}
+,{"stream_name":"stdout","time":34.615795459,"data":"[169]\tvalidation_0-mae:0.61632\tvalidation_1-mae:0.70451\n"}
+,{"stream_name":"stdout","time":34.616646172,"data":"[170]\tvalidation_0-mae:0.61613\tvalidation_1-mae:0.70453\n"}
+,{"stream_name":"stdout","time":34.617472066,"data":"[171]\tvalidation_0-mae:0.61599\tvalidation_1-mae:0.70468\n"}
+,{"stream_name":"stdout","time":34.621048201,"data":"[172]\tvalidation_0-mae:0.61593\tvalidation_1-mae:0.70461\n"}
+,{"stream_name":"stdout","time":34.625147028,"data":"[173]\tvalidation_0-mae:0.61587\tvalidation_1-mae:0.70459\n"}
+,{"stream_name":"stdout","time":34.626754584,"data":"[174]\tvalidation_0-mae:0.61575\tvalidation_1-mae:0.70461\n"}
+,{"stream_name":"stdout","time":34.633237664,"data":"[175]\tvalidation_0-mae:0.61564\tvalidation_1-mae:0.70449\n"}
+,{"stream_name":"stdout","time":34.634586501,"data":"[176]\tvalidation_0-mae:0.61554\tvalidation_1-mae:0.70488\n"}
+,{"stream_name":"stdout","time":34.6390848,"data":"[177]\tvalidation_0-mae:0.61546\tvalidation_1-mae:0.70472\n"}
+,{"stream_name":"stdout","time":34.64014323,"data":"[178]\tvalidation_0-mae:0.61535\tvalidation_1-mae:0.70483\n"}
+,{"stream_name":"stdout","time":34.640938113,"data":"[179]\tvalidation_0-mae:0.61531\tvalidation_1-mae:0.70500\n"}
+,{"stream_name":"stdout","time":34.645210485,"data":"[180]\tvalidation_0-mae:0.61507\tvalidation_1-mae:0.70476\n"}
+,{"stream_name":"stdout","time":34.64602383,"data":"[181]\tvalidation_0-mae:0.61492\tvalidation_1-mae:0.70437\n"}
+,{"stream_name":"stdout","time":34.650094453,"data":"[182]\tvalidation_0-mae:0.61478\tvalidation_1-mae:0.70443\n"}
+,{"stream_name":"stdout","time":34.650881523,"data":"[183]\tvalidation_0-mae:0.61473\tvalidation_1-mae:0.70445\n"}
+,{"stream_name":"stdout","time":34.655103789,"data":"[184]\tvalidation_0-mae:0.61468\tvalidation_1-mae:0.70447\n"}
+,{"stream_name":"stdout","time":34.655905163,"data":"[185]\tvalidation_0-mae:0.61455\tvalidation_1-mae:0.70425\n"}
+,{"stream_name":"stdout","time":34.663430613,"data":"[186]\tvalidation_0-mae:0.61440\tvalidation_1-mae:0.70389\n"}
+,{"stream_name":"stdout","time":34.664488792,"data":"[187]\tvalidation_0-mae:0.61430\tvalidation_1-mae:0.70385\n"}
+,{"stream_name":"stdout","time":34.668680337,"data":"[188]\tvalidation_0-mae:0.61421\tvalidation_1-mae:0.70351\n"}
+,{"stream_name":"stdout","time":34.669599174,"data":"[189]\tvalidation_0-mae:0.61406\tvalidation_1-mae:0.70330\n"}
+,{"stream_name":"stdout","time":34.674450247,"data":"[190]\tvalidation_0-mae:0.61398\tvalidation_1-mae:0.70345\n"}
+,{"stream_name":"stdout","time":34.675388163,"data":"[191]\tvalidation_0-mae:0.61392\tvalidation_1-mae:0.70319\n"}
+,{"stream_name":"stdout","time":34.677753362,"data":"[192]\tvalidation_0-mae:0.61371\tvalidation_1-mae:0.70306\n"}
+,{"stream_name":"stdout","time":34.678624897,"data":"[193]\tvalidation_0-mae:0.61360\tvalidation_1-mae:0.70314\n"}
+,{"stream_name":"stdout","time":34.684219169,"data":"[194]\tvalidation_0-mae:0.61353\tvalidation_1-mae:0.70336\n"}
+,{"stream_name":"stdout","time":34.685029196,"data":"[195]\tvalidation_0-mae:0.61344\tvalidation_1-mae:0.70344\n"}
+,{"stream_name":"stdout","time":34.685800284,"data":"[196]\tvalidation_0-mae:0.61325\tvalidation_1-mae:0.70337\n"}
+,{"stream_name":"stdout","time":34.693066921,"data":"[197]\tvalidation_0-mae:0.61313\tvalidation_1-mae:0.70388\n"}
+,{"stream_name":"stdout","time":34.693859472,"data":"[198]\tvalidation_0-mae:0.61296\tvalidation_1-mae:0.70387\n"}
+,{"stream_name":"stdout","time":34.69830066,"data":"[199]\tvalidation_0-mae:0.61288\tvalidation_1-mae:0.70377\n"}
+,{"stream_name":"stdout","time":34.703400482,"data":"[200]\tvalidation_0-mae:0.61276\tvalidation_1-mae:0.70420\n"}
+,{"stream_name":"stdout","time":34.707865825,"data":"[201]\tvalidation_0-mae:0.61266\tvalidation_1-mae:0.70435\n"}
+,{"stream_name":"stdout","time":34.708798951,"data":"[202]\tvalidation_0-mae:0.61260\tvalidation_1-mae:0.70441\n"}
+,{"stream_name":"stdout","time":34.710411895,"data":"[203]\tvalidation_0-mae:0.61238\tvalidation_1-mae:0.70446\n"}
+,{"stream_name":"stdout","time":34.71443345,"data":"[204]\tvalidation_0-mae:0.61209\tvalidation_1-mae:0.70445\n"}
+,{"stream_name":"stdout","time":34.715450681,"data":"[205]\tvalidation_0-mae:0.61195\tvalidation_1-mae:0.70453\n"}
+,{"stream_name":"stdout","time":34.71915007,"data":"[206]\tvalidation_0-mae:0.61177\tvalidation_1-mae:0.70457\n"}
+,{"stream_name":"stdout","time":34.720045122,"data":"[207]\tvalidation_0-mae:0.61145\tvalidation_1-mae:0.70485\n"}
+,{"stream_name":"stdout","time":34.725021001,"data":"[208]\tvalidation_0-mae:0.61139\tvalidation_1-mae:0.70560\n"}
+,{"stream_name":"stdout","time":34.725798533,"data":"[209]\tvalidation_0-mae:0.61131\tvalidation_1-mae:0.70597\n"}
+,{"stream_name":"stdout","time":34.732191742,"data":"[210]\tvalidation_0-mae:0.61116\tvalidation_1-mae:0.70577\n"}
+,{"stream_name":"stdout","time":34.733830527,"data":"[211]\tvalidation_0-mae:0.61098\tvalidation_1-mae:0.70564\n"}
+,{"stream_name":"stdout","time":34.737930413,"data":"[212]\tvalidation_0-mae:0.61080\tvalidation_1-mae:0.70568\n"}
+,{"stream_name":"stdout","time":34.739647458,"data":"[213]\tvalidation_0-mae:0.61066\tvalidation_1-mae:0.70568\n"}
+,{"stream_name":"stdout","time":34.743789731,"data":"[214]\tvalidation_0-mae:0.61060\tvalidation_1-mae:0.70579\n"}
+,{"stream_name":"stdout","time":34.744728763,"data":"[215]\tvalidation_0-mae:0.61043\tvalidation_1-mae:0.70599\n"}
+,{"stream_name":"stdout","time":34.745499968,"data":"[216]\tvalidation_0-mae:0.61037\tvalidation_1-mae:0.70633\n"}
+,{"stream_name":"stdout","time":34.753385519,"data":"[217]\tvalidation_0-mae:0.61035\tvalidation_1-mae:0.70641\n"}
+,{"stream_name":"stdout","time":34.754408258,"data":"[218]\tvalidation_0-mae:0.61032\tvalidation_1-mae:0.70657\n"}
+,{"stream_name":"stdout","time":34.75527972,"data":"[219]\tvalidation_0-mae:0.61012\tvalidation_1-mae:0.70651\n"}
+,{"stream_name":"stdout","time":34.762405111,"data":"[220]\tvalidation_0-mae:0.61008\tvalidation_1-mae:0.70667\n"}
+,{"stream_name":"stdout","time":34.763122989,"data":"[221]\tvalidation_0-mae:0.60995\tvalidation_1-mae:0.70679\n"}
+,{"stream_name":"stdout","time":34.768306866,"data":"[222]\tvalidation_0-mae:0.60996\tvalidation_1-mae:0.70703\n"}
+,{"stream_name":"stdout","time":34.770068076,"data":"[223]\tvalidation_0-mae:0.60985\tvalidation_1-mae:0.70721\n"}
+,{"stream_name":"stdout","time":34.770080408,"data":"[224]\tvalidation_0-mae:0.60975\tvalidation_1-mae:0.70715\n"}
+,{"stream_name":"stdout","time":34.77618803,"data":"[225]\tvalidation_0-mae:0.60974\tvalidation_1-mae:0.70711\n"}
+,{"stream_name":"stdout","time":34.776940869,"data":"[226]\tvalidation_0-mae:0.60971\tvalidation_1-mae:0.70710\n"}
+,{"stream_name":"stdout","time":34.782256686,"data":"[227]\tvalidation_0-mae:0.60965\tvalidation_1-mae:0.70791\n"}
+,{"stream_name":"stdout","time":34.786286026,"data":"[228]\tvalidation_0-mae:0.60956\tvalidation_1-mae:0.70796\n"}
+,{"stream_name":"stdout","time":34.787297935,"data":"[229]\tvalidation_0-mae:0.60945\tvalidation_1-mae:0.70793\n"}
+,{"stream_name":"stdout","time":34.788134493,"data":"[230]\tvalidation_0-mae:0.60935\tvalidation_1-mae:0.70772\n"}
+,{"stream_name":"stdout","time":34.792924859,"data":"[231]\tvalidation_0-mae:0.60913\tvalidation_1-mae:0.70780\n"}
+,{"stream_name":"stdout","time":34.797247842,"data":"[232]\tvalidation_0-mae:0.60906\tvalidation_1-mae:0.70768\n"}
+,{"stream_name":"stdout","time":34.798159756,"data":"[233]\tvalidation_0-mae:0.60899\tvalidation_1-mae:0.70769\n"}
+,{"stream_name":"stdout","time":34.805260746,"data":"[234]\tvalidation_0-mae:0.60886\tvalidation_1-mae:0.70786\n"}
+,{"stream_name":"stdout","time":34.810100211,"data":"[235]\tvalidation_0-mae:0.60878\tvalidation_1-mae:0.70806\n"}
+,{"stream_name":"stdout","time":34.81140472,"data":"[236]\tvalidation_0-mae:0.60858\tvalidation_1-mae:0.70816\n"}
+,{"stream_name":"stdout","time":34.812996407,"data":"[237]\tvalidation_0-mae:0.60843\tvalidation_1-mae:0.70827\n"}
+,{"stream_name":"stdout","time":34.818196125,"data":"[238]\tvalidation_0-mae:0.60835\tvalidation_1-mae:0.70827\n"}
+,{"stream_name":"stdout","time":34.818985934,"data":"[239]\tvalidation_0-mae:0.60818\tvalidation_1-mae:0.70862\n"}
+,{"stream_name":"stdout","time":34.823253013,"data":"[240]\tvalidation_0-mae:0.60812\tvalidation_1-mae:0.70858\n"}
+,{"stream_name":"stdout","time":34.824002375,"data":"[241]\tvalidation_0-mae:0.60791\tvalidation_1-mae:0.70855\n"}
+,{"stream_name":"stdout","time":34.827970644,"data":"[242]\tvalidation_0-mae:0.60780\tvalidation_1-mae:0.70850\n"}
+,{"stream_name":"stdout","time":34.828942972,"data":"[243]\tvalidation_0-mae:0.60769\tvalidation_1-mae:0.70845\n"}
+,{"stream_name":"stdout","time":34.836304919,"data":"[244]\tvalidation_0-mae:0.60749\tvalidation_1-mae:0.70860\n"}
+,{"stream_name":"stdout","time":34.840507771,"data":"[245]\tvalidation_0-mae:0.60740\tvalidation_1-mae:0.70851\n"}
+,{"stream_name":"stdout","time":34.8418024,"data":"[246]\tvalidation_0-mae:0.60737\tvalidation_1-mae:0.70857\n"}
+,{"stream_name":"stdout","time":34.848823627,"data":"\n"}
+,{"stream_name":"stdout","time":34.848861771,"data":"✓ Final model trained\n"}
+,{"stream_name":"stdout","time":34.907049471,"data":"\n"}
+,{"stream_name":"stdout","time":34.907105052,"data":"=== Final Evaluation ===\n"}
+,{"stream_name":"stdout","time":34.916807635,"data":"\n"}
+,{"stream_name":"stdout","time":34.916845477,"data":"TRAIN Metrics:\n"}
+,{"stream_name":"stdout","time":34.916850787,"data":"  MAE: 0.6074%\n"}
+,{"stream_name":"stdout","time":34.916854689,"data":"  Direction Accuracy: 62.79%\n"}
+,{"stream_name":"stdout","time":34.916858654,"data":"  High-Confidence DA: 73.47%\n"}
+,{"stream_name":"stdout","time":34.916862447,"data":"  Sharpe Ratio: 5.131\n"}
+,{"stream_name":"stdout","time":34.916866566,"data":"\n"}
+,{"stream_name":"stdout","time":34.91686977,"data":"VAL Metrics:\n"}
+,{"stream_name":"stdout","time":34.916873333,"data":"  MAE: 0.7086%\n"}
+,{"stream_name":"stdout","time":34.916882233,"data":"  Direction Accuracy: 53.85%\n"}
+,{"stream_name":"stdout","time":34.916885788,"data":"  High-Confidence DA: 59.57%\n"}
+,{"stream_name":"stdout","time":34.91688924,"data":"  Sharpe Ratio: 2.208\n"}
+,{"stream_name":"stdout","time":34.918018307,"data":"\n"}
+,{"stream_name":"stdout","time":34.918047022,"data":"TEST Metrics:\n"}
+,{"stream_name":"stdout","time":34.91805259,"data":"  MAE: 0.6877%\n"}
+,{"stream_name":"stdout","time":34.918056931,"data":"  Direction Accuracy: 57.26%\n"}
+,{"stream_name":"stdout","time":34.918060515,"data":"  High-Confidence DA: 57.89%\n"}
+,{"stream_name":"stdout","time":34.918063616,"data":"  Sharpe Ratio: 1.583\n"}
+,{"stream_name":"stdout","time":34.918066199,"data":"\n"}
+,{"stream_name":"stdout","time":34.918068699,"data":"=== Overfitting Analysis ===\n"}
+,{"stream_name":"stdout","time":34.918072379,"data":"Train-Val DA Gap: 8.95pp\n"}
+,{"stream_name":"stdout","time":34.918076309,"data":"Train-Val Sharpe Gap: 2.922\n"}
+,{"stream_name":"stdout","time":34.918080327,"data":"Train-Val MAE Gap: -0.1012%\n"}
+,{"stream_name":"stdout","time":34.965195703,"data":"\n"}
+,{"stream_name":"stdout","time":34.96522281,"data":"=== Feature Importance (Top 15) ===\n"}
+,{"stream_name":"stdout","time":34.972442707,"data":"               feature  importance\n"}
+,{"stream_name":"stdout","time":34.972476596,"data":"tech_trend_regime_prob    0.071951\n"}
+,{"stream_name":"stdout","time":34.972480347,"data":"      real_rate_change    0.067477\n"}
+,{"stream_name":"stdout","time":34.972482943,"data":"        ie_regime_prob    0.058843\n"}
+,{"stream_name":"stdout","time":34.972485796,"data":"   yield_spread_change    0.056271\n"}
+,{"stream_name":"stdout","time":34.972488312,"data":"    xasset_regime_prob    0.054423\n"}
+,{"stream_name":"stdout","time":34.972490872,"data":"                   vix    0.052698\n"}
+,{"stream_name":"stdout","time":34.972494863,"data":"  inflation_exp_change    0.050378\n"}
+,{"stream_name":"stdout","time":34.972499587,"data":" tech_mean_reversion_z    0.047816\n"}
+,{"stream_name":"stdout","time":34.972503833,"data":"       etf_regime_prob    0.045003\n"}
+,{"stream_name":"stdout","time":34.97250748,"data":"  yc_spread_velocity_z    0.043945\n"}
+,{"stream_name":"stdout","time":34.972511622,"data":" ie_gold_sensitivity_z    0.041914\n"}
+,{"stream_name":"stdout","time":34.972515142,"data":"        ie_anchoring_z    0.041856\n"}
+,{"stream_name":"stdout","time":34.972519378,"data":"     xasset_divergence    0.041035\n"}
+,{"stream_name":"stdout","time":34.972523148,"data":"     etf_pv_divergence    0.040824\n"}
+,{"stream_name":"stdout","time":34.972527486,"data":" etf_capital_intensity    0.040712\n"}
+,{"stream_name":"stdout","time":35.022143346,"data":"\n"}
+,{"stream_name":"stdout","time":35.022174268,"data":"=== Saving Results ===\n"}
+,{"stream_name":"stdout","time":35.035795792,"data":"✓ Model saved to model.json\n"}
+,{"stream_name":"stdout","time":35.04389082,"data":"✓ Predictions saved to predictions.csv\n"}
+,{"stream_name":"stdout","time":35.043937974,"data":"✓ Feature importance saved to feature_importance.csv\n"}
+,{"stream_name":"stdout","time":35.043944082,"data":"✓ Training results saved to training_result.json\n"}
+,{"stream_name":"stdout","time":35.04397203,"data":"\n"}
+,{"stream_name":"stdout","time":35.043975971,"data":"=== Training Complete ===\n"}
+,{"stream_name":"stdout","time":35.043980228,"data":"Finished: 2026-02-15T10:16:07.158414\n"}
+,{"stream_name":"stdout","time":35.043984546,"data":"\n"}
+,{"stream_name":"stdout","time":35.043998159,"data":"Final Test Metrics:\n"}
+,{"stream_name":"stdout","time":35.044002466,"data":"  Direction Accuracy: 57.26%\n"}
+,{"stream_name":"stdout","time":35.044006418,"data":"  High-Confidence DA: 57.89%\n"}
+,{"stream_name":"stdout","time":35.044032732,"data":"  MAE: 0.6877%\n"}
+,{"stream_name":"stdout","time":35.044035953,"data":"  Sharpe Ratio: 1.583\n"}
+,{"stream_name":"stderr","time":38.72059074,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":38.72063566,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":38.924257586,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":38.924295462,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":39.724910187,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":39.724973477,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":39.76952356,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":40.244016779,"data":"[NbConvertApp] Writing 90048 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":43.498503782,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":43.498546854,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":43.529941643,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":44.663655884,"data":"[NbConvertApp] Writing 406127 bytes to __results__.html\n"}
+]

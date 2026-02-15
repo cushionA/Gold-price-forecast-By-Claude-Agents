@@ -1,9 +1,9 @@
 {
-  "status": "error",
+  "status": "in_progress",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 2,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": "No error log available",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -296,5 +296,5 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T19:14:35.146270"
+  "last_updated": "2026-02-15T19:19:08.229312"
 }
