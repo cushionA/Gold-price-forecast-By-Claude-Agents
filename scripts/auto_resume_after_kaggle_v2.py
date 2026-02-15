@@ -25,7 +25,7 @@ class KaggleMonitorV2:
     def __init__(self, project_root=None):
         self.project_root = Path(project_root) if project_root else Path.cwd()
         self.state_file = self.project_root / 'shared' / 'state.json'
-        self.check_interval = 300  # 5分
+        self.check_interval = 60  # 5分
         self.max_wait = timedelta(hours=3)
 
     def load_state(self):

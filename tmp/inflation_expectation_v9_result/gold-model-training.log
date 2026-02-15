@@ -1,0 +1,469 @@
+[{"stream_name":"stderr","time":9.585657761,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.585759853999999,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.585769955,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.58577316,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.385603317,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.385657111,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.385662956000001,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.385666951,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.140719181,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":13.140892212,"data":"Inflation Expectation SubModel Training - Attempt 1\n"}
+,{"stream_name":"stdout","time":13.140897708,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":13.14090237,"data":"\n"}
+,{"stream_name":"stdout","time":13.140924925,"data":"[1/5] Fetching and preprocessing data...\n"}
+,{"stream_name":"stdout","time":15.639613005,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":15.657733354,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":15.677432256,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":15.7181795,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":15.719703264,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":15.72183261,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":15.723032686,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":15.733942755,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":15.743438862,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":15.842113552,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":15.842162121,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":15.842168319,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":15.842172334,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":15.842196542,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":15.842215714,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":15.842219055,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":15.842222045,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":15.842225192,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":18.030327995,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.063610823,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.235312374,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.235348045,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":19.587532856,"data":"Fetching T10YIE from FRED...\n"}
+,{"stream_name":"stdout","time":20.175133437,"data":"Fetching GC=F from Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":20.176337804,"data":"/tmp/ipykernel_17/3615483664.py:61: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":20.176373007,"data":"  gc = yf.download('GC=F', start='2014-06-01', progress=False)\n"}
+,{"stream_name":"stderr","time":20.176378691,"data":"\n"}
+,{"stream_name":"stderr","time":20.176382891,"data":"/tmp/ipykernel_17/3615483664.py:61: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":20.176387431,"data":"  gc = yf.download('GC=F', start='2014-06-01', progress=False)\n"}
+,{"stream_name":"stdout","time":20.712066988,"data":"\n"}
+,{"stream_name":"stdout","time":20.71209458,"data":"Data fetched successfully:\n"}
+,{"stream_name":"stdout","time":20.712100026,"data":"  Total rows: 2924\n"}
+,{"stream_name":"stdout","time":20.712104335,"data":"  Date range: 2014-06-30 to 2026-02-13\n"}
+,{"stream_name":"stdout","time":20.712109558,"data":"  Train: 2046 rows\n"}
+,{"stream_name":"stdout","time":20.712113838,"data":"  Val: 439 rows\n"}
+,{"stream_name":"stdout","time":20.712118133,"data":"  Test: 439 rows\n"}
+,{"stream_name":"stdout","time":20.712122331,"data":"\n"}
+,{"stream_name":"stdout","time":20.712126301,"data":"T10YIE statistics:\n"}
+,{"stream_name":"stdout","time":20.712130426,"data":"  Range: 0.500% to 3.020%\n"}
+,{"stream_name":"stdout","time":20.7121349,"data":"  Mean: 2.021%\n"}
+,{"stream_name":"stdout","time":20.712143664,"data":"  Std: 0.370%\n"}
+,{"stream_name":"stdout","time":20.712147976,"data":"\n"}
+,{"stream_name":"stdout","time":20.712151996,"data":"ie_change statistics:\n"}
+,{"stream_name":"stdout","time":20.712155975,"data":"  Mean: 0.000000\n"}
+,{"stream_name":"stdout","time":20.712160024,"data":"  Std: 0.030076\n"}
+,{"stream_name":"stdout","time":20.712164093,"data":"  Range: -0.320000 to 0.250000\n"}
+,{"stream_name":"stdout","time":20.712168272,"data":"\n"}
+,{"stream_name":"stdout","time":20.712172261,"data":"ie_vol_5d statistics:\n"}
+,{"stream_name":"stdout","time":20.712176286000002,"data":"  Mean: 0.025179\n"}
+,{"stream_name":"stdout","time":20.71218046,"data":"  Std: 0.016107\n"}
+,{"stream_name":"stdout","time":20.712184498,"data":"  Range: 0.000000 to 0.168671\n"}
+,{"stream_name":"stdout","time":20.712188992,"data":"\n"}
+,{"stream_name":"stdout","time":20.712205009,"data":"[2/5] Running Optuna hyperparameter optimization...\n"}
+,{"stream_name":"stderr","time":23.369910435,"data":"[I 2026-02-15 04:54:42,206] A new study created in memory with name: no-name-aa03e388-4cfc-4817-a6b9-c79967c31d95\n"}
+,{"stream_name":"stderr","time":23.369962662,"data":"\n"}
+,{"stream_name":"stderr","time":23.369970294,"data":"[I 2026-02-15 04:54:42,206] A new study created in memory with name: no-name-aa03e388-4cfc-4817-a6b9-c79967c31d95\n"}
+,{"stream_name":"stdout","time":24.845664472,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":24.863865504,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":24.892373115,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":24.895387537,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":24.903122902,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":24.926822037,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":24.928444714,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":24.952299361,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":24.978908739,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 6.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.048678612,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":25.048719292,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":25.048727835,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":25.048734507,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":25.048741138,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":25.048747569,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":25.048755002,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":25.048761291,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":25.048767171,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 6.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.243272031,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":27.344688593,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":27.446633123,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":27.446697033,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stderr","time":28.155299333,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":28.155345452,"data":"\n"}
+,{"stream_name":"stderr","time":28.15535033,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":28.958669482,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":28.958711648,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":28.958718788,"data":"\n"}
+,{"stream_name":"stderr","time":28.961754157,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":28.961787722,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":29.125712686,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":29.125750998,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":29.125757122,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":29.125769555,"data":"[I 2026-02-15 04:54:47,797] Trial 0 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":29.391210465,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":29.391253411,"data":"\n"}
+,{"stream_name":"stderr","time":29.391260226,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":31.306725217,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":31.30677143,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":31.30677849,"data":"\n"}
+,{"stream_name":"stderr","time":31.306783837,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":31.306789913,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":31.479916657,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":31.479994707,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":31.480005427,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":31.48009312,"data":"[I 2026-02-15 04:54:50,143] Trial 1 finished with value: 0.0352134670075841 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'anchoring_vol_window': 20, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 60}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stdout","time":31.824654751,"data":"HMM training complete: 2 components, covariance=diag, best log-likelihood=11072.99\n"}
+,{"stream_name":"stdout","time":31.824694228,"data":"Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":31.824702209,"data":"[I 2026-02-15 04:54:50,463] Trial 2 finished with value: -inf and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'anchoring_vol_window': 10, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 60}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":31.918073682,"data":"Model is not converging.  Current: 11073.514818278894 is not greater than 11073.797255129355. Delta is -0.2824368504607264\n"}
+,{"stream_name":"stderr","time":31.918112011,"data":"\n"}
+,{"stream_name":"stderr","time":31.918118247,"data":"Model is not converging.  Current: 11073.514818278894 is not greater than 11073.797255129355. Delta is -0.2824368504607264\n"}
+,{"stream_name":"stdout","time":32.224453253,"data":"HMM training complete: 2 components, covariance=diag, best log-likelihood=11073.31\n"}
+,{"stream_name":"stdout","time":32.224496716,"data":"Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":32.22450154,"data":"[I 2026-02-15 04:54:50,860] Trial 3 finished with value: -inf and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":32.629278075,"data":"Model is not converging.  Current: 11072.340170533149 is not greater than 11072.35785374984. Delta is -0.01768321669078432\n"}
+,{"stream_name":"stderr","time":32.629589876,"data":"\n"}
+,{"stream_name":"stderr","time":32.631145138,"data":"Model is not converging.  Current: 11072.340170533149 is not greater than 11072.35785374984. Delta is -0.01768321669078432\n"}
+,{"stream_name":"stderr","time":32.811196082,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":32.811239797,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":32.811246149,"data":"\n"}
+,{"stream_name":"stderr","time":32.811251491,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":32.811257212,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":32.986630668,"data":"HMM training complete: 2 components, covariance=full, best log-likelihood=11072.16\n"}
+,{"stream_name":"stdout","time":32.986689932,"data":"State variances (ie_change dimension): [0.002787354487587345, 0.0004346397090017285]\n"}
+,{"stream_name":"stdout","time":32.986695502,"data":"High-variance state identified: 0 (variance: 0.002787)\n"}
+,{"stream_name":"stdout","time":32.986699088,"data":"[I 2026-02-15 04:54:51,650] Trial 4 finished with value: 0.00917417793683084 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'anchoring_vol_window': 20, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 60}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stdout","time":34.204249047,"data":"HMM training complete: 3 components, covariance=diag, best log-likelihood=11639.29\n"}
+,{"stream_name":"stdout","time":34.204291032,"data":"Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":34.204297567,"data":"[I 2026-02-15 04:54:52,836] Trial 5 finished with value: -inf and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 60}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":34.362037716,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":34.362090702,"data":"\n"}
+,{"stream_name":"stderr","time":34.362096903,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":35.080675603,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":35.080713646,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":35.08072004,"data":"\n"}
+,{"stream_name":"stderr","time":35.080725248,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":35.080731215,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":35.25591033,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":35.255949952,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":35.255956825,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":35.25596275,"data":"[I 2026-02-15 04:54:53,919] Trial 6 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":35.466294561,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":35.466331749,"data":"\n"}
+,{"stream_name":"stderr","time":35.466337945,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":37.43392648,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":37.433965484,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":37.433972637,"data":"\n"}
+,{"stream_name":"stderr","time":37.433979115,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":37.434014972,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":37.608303926,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":37.608362491,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":37.608368773,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":37.60837371,"data":"[I 2026-02-15 04:54:56,270] Trial 7 finished with value: 0.026039289070753258 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 60}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":37.836835246,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":37.837940847,"data":"\n"}
+,{"stream_name":"stderr","time":37.839489025,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":41.62121491,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":41.621273745,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":41.621281527,"data":"\n"}
+,{"stream_name":"stderr","time":41.621286876,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":41.621297159,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":41.801415567,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":41.801442944,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":41.801449344,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":41.80147468,"data":"[I 2026-02-15 04:55:00,458] Trial 8 finished with value: 0.026039289070753258 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":42.167598243,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":42.167635655,"data":"\n"}
+,{"stream_name":"stderr","time":42.168081832,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":42.939321136,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":42.939402427,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":42.939588648,"data":"\n"}
+,{"stream_name":"stderr","time":42.939618045,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":42.939624223,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":43.112849605,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":43.112892126,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":43.112898307,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":43.112904962,"data":"[I 2026-02-15 04:55:01,777] Trial 9 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":43.253230928,"data":"Model is not converging.  Current: 11073.514818278894 is not greater than 11073.797255129355. Delta is -0.2824368504607264\n"}
+,{"stream_name":"stderr","time":43.253280615,"data":"\n"}
+,{"stream_name":"stderr","time":43.253287277,"data":"Model is not converging.  Current: 11073.514818278894 is not greater than 11073.797255129355. Delta is -0.2824368504607264\n"}
+,{"stream_name":"stdout","time":43.906434207,"data":"HMM training complete: 2 components, covariance=diag, best log-likelihood=11073.31\n"}
+,{"stream_name":"stdout","time":43.906618931,"data":"Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":43.90663195,"data":"[I 2026-02-15 04:55:02,539] Trial 10 finished with value: -inf and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'anchoring_vol_window': 10, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":44.067633812,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":44.06767011,"data":"\n"}
+,{"stream_name":"stderr","time":44.067675013,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":44.794994255,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":44.797625431,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":44.797659087,"data":"\n"}
+,{"stream_name":"stderr","time":44.797664694,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":44.797670383,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":44.975292267,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":44.975348283,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":44.975353978,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":44.975377738,"data":"[I 2026-02-15 04:55:03,633] Trial 11 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":45.186485609,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":45.186523337,"data":"\n"}
+,{"stream_name":"stderr","time":45.186528158,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":46.084050876,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":46.084087293,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":46.084092575,"data":"\n"}
+,{"stream_name":"stderr","time":46.084096718,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":46.084101959,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":46.265204681,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":46.265260078,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":46.265265309,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":46.265269506,"data":"[I 2026-02-15 04:55:04,923] Trial 12 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":46.516775695,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":46.516815976,"data":"\n"}
+,{"stream_name":"stderr","time":46.516822162,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":47.389045285,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":47.38908786,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":47.389094426,"data":"\n"}
+,{"stream_name":"stderr","time":47.389099787,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":47.389105748,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":47.557919702,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":47.557973004,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":47.557999378,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":47.558004045,"data":"[I 2026-02-15 04:55:06,223] Trial 13 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":47.836244753,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":47.836281375,"data":"\n"}
+,{"stream_name":"stderr","time":47.836286669,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":48.710214935,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":48.710258544,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":48.710265311,"data":"\n"}
+,{"stream_name":"stderr","time":48.710269419,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":48.7102745,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":48.886395278,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":48.886433938,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":48.886439809,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":48.886444644,"data":"[I 2026-02-15 04:55:07,549] Trial 14 finished with value: 0.028547106060305305 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 20, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":49.088111128,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":49.088159337,"data":"\n"}
+,{"stream_name":"stderr","time":49.088165536,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":49.898181398,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":49.898216795,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":49.898222749,"data":"\n"}
+,{"stream_name":"stderr","time":49.898227024,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":49.898232629,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":50.072423837,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":50.072479164,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":50.072486492,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":50.072491678,"data":"[I 2026-02-15 04:55:08,736] Trial 15 finished with value: 0.026039289070753258 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 10, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":50.291403858,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":50.291437221,"data":"\n"}
+,{"stream_name":"stderr","time":50.29174254,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":54.460039282,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":54.460097344,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":54.460106744,"data":"\n"}
+,{"stream_name":"stderr","time":54.460112147,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":54.460118117,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":54.63813708,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":54.638178882,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":54.638185766,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":54.638191675,"data":"[I 2026-02-15 04:55:13,298] Trial 16 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":54.906335378,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":54.906373648,"data":"\n"}
+,{"stream_name":"stderr","time":54.906379853,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":55.806405064,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":55.806466269,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":55.806473003,"data":"\n"}
+,{"stream_name":"stderr","time":55.806478638,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":55.806484569,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":55.97730521,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":55.977345643,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":55.97735192,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":55.977356775,"data":"[I 2026-02-15 04:55:14,643] Trial 17 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stdout","time":56.277033627,"data":"HMM training complete: 2 components, covariance=diag, best log-likelihood=11072.99\n"}
+,{"stream_name":"stdout","time":56.277080854,"data":"Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":56.277086154,"data":"[I 2026-02-15 04:55:14,913] Trial 18 finished with value: -inf and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'anchoring_vol_window': 20, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":56.451445333,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":56.451483329,"data":"\n"}
+,{"stream_name":"stderr","time":56.453748958,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":57.251678526,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":57.251717648,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":57.251723645,"data":"\n"}
+,{"stream_name":"stderr","time":57.255797218,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":57.255862451,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":57.428175615,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":57.428211041,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":57.428217237,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":57.428222955,"data":"[I 2026-02-15 04:55:16,090] Trial 19 finished with value: 0.026039289070753258 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 10, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":57.639806402,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":57.639871296,"data":"\n"}
+,{"stream_name":"stderr","time":57.639876437,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":61.72631872,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":61.726370592,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":61.726380257,"data":"\n"}
+,{"stream_name":"stderr","time":61.726579036,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":61.726592754,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":61.898897756,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":61.898941434,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":61.898949504,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":61.898955344,"data":"[I 2026-02-15 04:55:20,561] Trial 20 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":62.221680828,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":62.221731136,"data":"\n"}
+,{"stream_name":"stderr","time":62.22173989,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":63.0719865,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":63.072030134,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":63.072036556,"data":"\n"}
+,{"stream_name":"stderr","time":63.072041876,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":63.072047656,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":63.249236534,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":63.249303401,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":63.249311207,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":63.249320046,"data":"[I 2026-02-15 04:55:21,911] Trial 21 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":63.542212934,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":63.542280015,"data":"\n"}
+,{"stream_name":"stderr","time":63.542287187,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":64.262813839,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":64.262851297,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":64.262856612,"data":"\n"}
+,{"stream_name":"stderr","time":64.26286066,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":64.262865564,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":64.443260995,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":64.443303632,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":64.443309927,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":64.443314436,"data":"[I 2026-02-15 04:55:23,102] Trial 22 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":64.72833108,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":64.728375261,"data":"\n"}
+,{"stream_name":"stderr","time":64.730706242,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":65.554593049,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":65.554629843,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":65.554635167,"data":"\n"}
+,{"stream_name":"stderr","time":65.556718844,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":65.556755699,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":65.738147365,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":65.738188254,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":65.73819446,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":65.738199051,"data":"[I 2026-02-15 04:55:24,394] Trial 23 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":66.01316969,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":66.013229168,"data":"\n"}
+,{"stream_name":"stderr","time":66.015715713,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":66.873884238,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":66.8739392,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":66.873948076,"data":"\n"}
+,{"stream_name":"stderr","time":66.876722546,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":66.876750652,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":67.048683814,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":67.048723603,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":67.048730835,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":67.048737154,"data":"[I 2026-02-15 04:55:25,713] Trial 24 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":67.32526668,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":67.325334676,"data":"\n"}
+,{"stream_name":"stderr","time":67.325342274,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":68.055816252,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":68.055858068,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":68.055866745,"data":"\n"}
+,{"stream_name":"stderr","time":68.055872365,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":68.055878554,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":68.228829713,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":68.228871477,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":68.228880058,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":68.22888676,"data":"[I 2026-02-15 04:55:26,892] Trial 25 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stdout","time":68.565144308,"data":"HMM training complete: 2 components, covariance=diag, best log-likelihood=11072.99\n"}
+,{"stream_name":"stdout","time":68.565185719,"data":"Trial failed: only length-1 arrays can be converted to Python scalars\n"}
+,{"stream_name":"stdout","time":68.56519676,"data":"[I 2026-02-15 04:55:27,197] Trial 26 finished with value: -inf and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":68.725535249,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":68.725599112,"data":"\n"}
+,{"stream_name":"stderr","time":68.725608228,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":69.531307864,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":69.531367801,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":69.531373251,"data":"\n"}
+,{"stream_name":"stderr","time":69.531377334,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":69.531381964,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":69.701884567,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":69.701925403,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":69.701930727,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":69.701935499,"data":"[I 2026-02-15 04:55:28,365] Trial 27 finished with value: 0.057274232704002115 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":69.982472326,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":69.982506964,"data":"\n"}
+,{"stream_name":"stderr","time":69.982528708,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":74.321464827,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":74.321513567,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":74.321527058,"data":"\n"}
+,{"stream_name":"stderr","time":74.321553901,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":74.321599482,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":74.473037492,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":74.473082893,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":74.473089711,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":74.473094836,"data":"[I 2026-02-15 04:55:33,137] Trial 28 finished with value: 0.028547106060305305 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'anchoring_vol_window': 20, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stderr","time":74.706370519,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":74.706408314,"data":"\n"}
+,{"stream_name":"stderr","time":74.708698565,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":75.510440379,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":75.510477377,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":75.510482938,"data":"\n"}
+,{"stream_name":"stderr","time":75.512682009,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":75.51269754,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":75.687011474,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":75.687052048,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":75.687057994,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":75.687062104,"data":"[I 2026-02-15 04:55:34,347] Trial 29 finished with value: 0.03736559197862044 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 10, 'anchoring_baseline_window': 60, 'sensitivity_baseline_window': 90}. Best is trial 0 with value: 0.057274232704002115.\n"}
+,{"stream_name":"stdout","time":75.687068093,"data":"\n"}
+,{"stream_name":"stdout","time":75.687072148,"data":"Optuna optimization complete:\n"}
+,{"stream_name":"stdout","time":75.687076221,"data":"  Best MI sum: 0.057274\n"}
+,{"stream_name":"stdout","time":75.68708039,"data":"  Best params: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'anchoring_vol_window': 5, 'anchoring_baseline_window': 120, 'sensitivity_baseline_window': 40}\n"}
+,{"stream_name":"stdout","time":75.6870852,"data":"  Trials completed: 30\n"}
+,{"stream_name":"stdout","time":75.687090111,"data":"\n"}
+,{"stream_name":"stdout","time":75.687094074,"data":"[3/5] Generating features with best hyperparameters...\n"}
+,{"stream_name":"stderr","time":75.964292594,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stderr","time":75.964353974,"data":"\n"}
+,{"stream_name":"stderr","time":75.966733517,"data":"Model is not converging.  Current: 11157.460797361031 is not greater than 11157.470471029006. Delta is -0.009673667975221178\n"}
+,{"stream_name":"stdout","time":76.94114111,"data":"HMM training complete: 3 components, covariance=full, best log-likelihood=11634.34\n"}
+,{"stream_name":"stdout","time":76.941218033,"data":"State variances (ie_change dimension): [0.0008944187362951589, 0.0047001803064566795, 0.0002776065397779387]\n"}
+,{"stream_name":"stdout","time":76.941226456,"data":"High-variance state identified: 1 (variance: 0.004700)\n"}
+,{"stream_name":"stdout","time":76.94123134,"data":"\n"}
+,{"stream_name":"stdout","time":76.941234967,"data":"Feature generation complete:\n"}
+,{"stream_name":"stdout","time":76.941239151,"data":"  Output shape: (2924, 3)\n"}
+,{"stream_name":"stdout","time":76.94124308,"data":"  Columns: ['ie_regime_prob', 'ie_anchoring_z', 'ie_gold_sensitivity_z']\n"}
+,{"stream_name":"stdout","time":76.9412476,"data":"  Date range: 2014-06-30 to 2026-02-13\n"}
+,{"stream_name":"stdout","time":76.941251909,"data":"\n"}
+,{"stream_name":"stdout","time":76.941256705,"data":"Feature statistics:\n"}
+,{"stream_name":"stdout","time":76.941260677,"data":"  ie_regime_prob:\n"}
+,{"stream_name":"stdout","time":76.941264611,"data":"    Mean: 0.0974, Std: 0.2815\n"}
+,{"stream_name":"stdout","time":76.941268527,"data":"    Range: [0.0000, 1.0000]\n"}
+,{"stream_name":"stdout","time":76.941272556,"data":"  ie_anchoring_z:\n"}
+,{"stream_name":"stdout","time":76.941276613,"data":"    Mean: 0.0016, Std: 1.0439\n"}
+,{"stream_name":"stdout","time":76.941280375,"data":"    Range: [-2.3449, 4.0000]\n"}
+,{"stream_name":"stdout","time":76.941284152,"data":"  ie_gold_sensitivity_z:\n"}
+,{"stream_name":"stdout","time":76.941288256,"data":"    Mean: 0.0165, Std: 1.0174\n"}
+,{"stream_name":"stdout","time":76.941292256,"data":"    Range: [-3.6867, 3.5369]\n"}
+,{"stream_name":"stdout","time":76.941302215,"data":"\n"}
+,{"stream_name":"stdout","time":76.941306243,"data":"[4/5] Computing evaluation metrics...\n"}
+,{"stream_name":"stdout","time":76.941310119,"data":"\n"}
+,{"stream_name":"stdout","time":76.941314083,"data":"Metrics computed:\n"}
+,{"stream_name":"stdout","time":76.941318361,"data":"  MI individual: {'ie_regime_prob': np.float64(0.005800758183530874), 'ie_anchoring_z': np.float64(0.022476325285044396), 'ie_gold_sensitivity_z': np.float64(0.006524039405269022)}\n"}
+,{"stream_name":"stdout","time":76.941323189,"data":"  MI sum: 0.034801\n"}
+,{"stream_name":"stdout","time":76.94132709,"data":"  Autocorrelation: {'ie_regime_prob': np.float64(0.9248665001330916), 'ie_anchoring_z': np.float64(0.8301256253990774), 'ie_gold_sensitivity_z': np.float64(0.7042852149871831)}\n"}
+,{"stream_name":"stdout","time":76.94133215,"data":"\n"}
+,{"stream_name":"stdout","time":76.941335944,"data":"[5/5] Saving results...\n"}
+,{"stream_name":"stdout","time":76.941340149,"data":"  Saved: submodel_output.csv (2924 rows, 3 columns)\n"}
+,{"stream_name":"stdout","time":76.941344049,"data":"  Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":76.941348108,"data":"\n"}
+,{"stream_name":"stdout","time":76.941351757,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":76.941355859,"data":"Training complete!\n"}
+,{"stream_name":"stdout","time":76.94135989,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":76.941363988,"data":"\n"}
+,{"stream_name":"stdout","time":76.941385365,"data":"Final MI sum: 0.034801\n"}
+,{"stream_name":"stdout","time":76.941389692,"data":"Output shape: (2924, 3)\n"}
+,{"stream_name":"stdout","time":76.941393855,"data":"Columns: ['ie_regime_prob', 'ie_anchoring_z', 'ie_gold_sensitivity_z']\n"}
+,{"stream_name":"stderr","time":76.942196703,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":76.942232702,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":76.942238339,"data":"\n"}
+,{"stream_name":"stderr","time":76.942242945,"data":"/tmp/ipykernel_17/3615483664.py:239: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":76.942248992,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stderr","time":80.392346119,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":80.392395796,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":80.605399856,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":80.605434292,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":81.420325214,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":81.420365346,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":81.46334082,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":81.892089239,"data":"[NbConvertApp] Writing 78426 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":85.118732144,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":85.118775723,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":85.149616026,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":86.286269439,"data":"[NbConvertApp] Writing 418535 bytes to __results__.html\n"}
+]

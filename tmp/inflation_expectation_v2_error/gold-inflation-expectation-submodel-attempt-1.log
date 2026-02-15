@@ -1,0 +1,70 @@
+[{"stream_name":"stdout","time":2.737407602,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":2.73749906,"data":"Inflation Expectation SubModel Training - Attempt 1\n"}
+,{"stream_name":"stdout","time":2.737506544,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":2.737511086,"data":"\n"}
+,{"stream_name":"stdout","time":2.737515134,"data":"[1/5] Fetching and preprocessing data...\n"}
+,{"stream_name":"stdout","time":6.6145930459999995,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":6.656738893,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":6.675909296,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":6.716189549,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":6.717986799,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":6.720204865,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":6.721514338,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":6.7318657,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":6.748222578,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":9.087956448,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":9.121462642,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stderr","time":10.624627377,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10.624692336,"data":"  File \"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py\", line 46, in make_post_request\n"}
+,{"stream_name":"stderr","time":10.624699434,"data":"    with urllib.request.urlopen(req, timeout=timeout) as response:\n"}
+,{"stream_name":"stderr","time":10.624756916,"data":"         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.62477766,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 215, in urlopen\n"}
+,{"stream_name":"stderr","time":10.626107592,"data":"    return opener.open(url, data, timeout)\n"}
+,{"stream_name":"stderr","time":10.626145262,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.626151639,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 521, in open\n"}
+,{"stream_name":"stderr","time":10.626748947,"data":"    response = meth(req, response)\n"}
+,{"stream_name":"stderr","time":10.626764311,"data":"               ^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.626769788,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 630, in http_response\n"}
+,{"stream_name":"stderr","time":10.627218372,"data":"    response = self.parent.error(\n"}
+,{"stream_name":"stderr","time":10.627240017,"data":"               ^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.62724576,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 559, in error\n"}
+,{"stream_name":"stderr","time":10.627648141,"data":"    return self._call_chain(*args)\n"}
+,{"stream_name":"stderr","time":10.627658575,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.627681181,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 492, in _call_chain\n"}
+,{"stream_name":"stderr","time":10.62795904,"data":"    result = func(*args)\n"}
+,{"stream_name":"stderr","time":10.627980005,"data":"             ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.627985268,"data":"  File \"/usr/lib/python3.12/urllib/request.py\", line 639, in http_error_default\n"}
+,{"stream_name":"stderr","time":10.628368123,"data":"    raise HTTPError(req.full_url, code, msg, hdrs, fp)\n"}
+,{"stream_name":"stderr","time":10.628399122,"data":"urllib.error.HTTPError: HTTP Error 400: Bad Request\n"}
+,{"stream_name":"stderr","time":10.628405266,"data":"\n"}
+,{"stream_name":"stderr","time":10.628422604,"data":"The above exception was the direct cause of the following exception:\n"}
+,{"stream_name":"stderr","time":10.628427418,"data":"\n"}
+,{"stream_name":"stderr","time":10.628431413,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10.628519279,"data":"  File \"/kaggle/src/script.py\", line 45, in fetch_and_preprocess\n"}
+,{"stream_name":"stderr","time":10.628655281,"data":"    api_key = UserSecretsClient().get_secret(\"FRED_API_KEY\")\n"}
+,{"stream_name":"stderr","time":10.629203148,"data":"              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.629220102,"data":"  File \"/usr/local/lib/python3.12/dist-packages/kaggle_secrets.py\", line 64, in get_secret\n"}
+,{"stream_name":"stderr","time":10.629225442,"data":"    response_json = self.web_client.make_post_request(request_body, self.GET_USER_SECRET_BY_LABEL_ENDPOINT)\n"}
+,{"stream_name":"stderr","time":10.629236068,"data":"                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.629239351,"data":"  File \"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py\", line 58, in make_post_request\n"}
+,{"stream_name":"stderr","time":10.629423594,"data":"    raise ConnectionError(\n"}
+,{"stream_name":"stderr","time":10.62943649,"data":"ConnectionError: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stderr","time":10.629441473,"data":"\n"}
+,{"stream_name":"stderr","time":10.629446033,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":10.629450805,"data":"\n"}
+,{"stream_name":"stderr","time":10.629455422,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10.629459636,"data":"  File \"/kaggle/src/script.py\", line 545, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":10.629731766999999,"data":"    train_df, val_df, test_df, full_df = fetch_and_preprocess()\n"}
+,{"stream_name":"stderr","time":10.629815833,"data":"                                         ^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10.629892911,"data":"  File \"/kaggle/src/script.py\", line 50, in fetch_and_preprocess\n"}
+,{"stream_name":"stderr","time":10.63002905,"data":"    raise RuntimeError(\n"}
+,{"stream_name":"stderr","time":10.630125969,"data":"RuntimeError: FRED_API_KEY not found. Kaggle: register in Secrets / Local: set in environment\n"}
+,{"stream_name":"stderr","time":13.142880274,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":13.142935514,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":13.480167375,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":13.480197769,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":14.413595787,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":14.4136391,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":14.467214712,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":16.07016232,"data":"[NbConvertApp] Writing 366738 bytes to __results__.html\n"}
+]

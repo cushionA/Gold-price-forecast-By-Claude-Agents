@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-02-15T16:00:00",
+  "feature": "inflation_expectation",
+  "attempt": 1,
+  "phase": "evaluation",
+  "gate1": {
+    "passed": true,
+    "details": "All checks pass. No NaN, no constant columns, all autocorr < 0.99. Warnings: ie_regime_prob near-zero in 78.8% of rows."
+  },
+  "gate2": {
+    "passed": true,
+    "mi_increase_pct": 10.94,
+    "max_vif_submodel": 2.25,
+    "max_stability_std": 0.1447,
+    "details": "First submodel to pass all 3 Gate 2 criteria. MI +10.94% exceeds 5% threshold. VIF max 2.25 (excellent). Stability max 0.1447 (within 0.15)."
+  },
+  "gate3": {
+    "passed": true,
+    "da_delta": 0.0057,
+    "sharpe_delta": 0.1516,
+    "mae_delta": 0.0526,
+    "criteria_passed": ["direction_accuracy", "sharpe"],
+    "criteria_failed": ["mae"],
+    "details": "DA +0.57% (3/5 folds improved). Sharpe +0.1516 (3/5 folds improved). MAE +0.0526 (degraded, only 2/5 folds improved)."
+  },
+  "decision": "completed",
+  "next_action": "Proceed to cny_demand (last remaining feature in queue)",
+  "attempt_consumed": false,
+  "reason": "Gate 3 PASS - no attempt consumed on success"
+}

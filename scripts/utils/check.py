@@ -1,9 +1,22 @@
 import os, subprocess, json
-os.environ['KAGGLE_API_TOKEN'] = 'KGAT_357794ad87b13a4ecd000b7ff9ac57ea'
+from pathlib import Path
+
+# Load environment variables from .env
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+# Set UTF-8 encoding
 os.environ['PYTHONUTF8'] = '1'
 
+# Find project root (where shared/ directory is)
+project_root = Path(__file__).parent.parent.parent
+state_path = project_root / 'shared' / 'state.json'
+
 # Read state.json to get current kernel
-with open('shared/state.json') as f:
+with open(state_path) as f:
     state = json.load(f)
 
 kernel_id = state.get('kaggle_kernel', 'bigbigzabuton/gold-vix-1')
