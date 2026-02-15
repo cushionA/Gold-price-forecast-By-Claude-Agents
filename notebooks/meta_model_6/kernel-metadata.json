@@ -1,0 +1,13 @@
+{
+  "id": "bigbigzabuton/gold-model-training",
+  "title": "Gold Meta-Model Training - Attempt 6",
+  "code_file": "train.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["bigbigzabuton/gold-prediction-complete"],
+  "competition_sources": [],
+  "kernel_sources": []
+}
