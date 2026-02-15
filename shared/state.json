@@ -22,7 +22,7 @@
     "cny_demand"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-options-market-submodel-attempt-1",
-  "submitted_at": "2026-02-16T00:37:03.192862",
+  "submitted_at": "2026-02-16T00:59:27.111967",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -367,6 +367,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T00:37:03.193238",
+  "last_updated": "2026-02-16T00:59:27.112269",
   "current_submodel": "options_market"
 }
