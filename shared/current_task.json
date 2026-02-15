@@ -1,277 +1,245 @@
 {
-  "feature": "inflation_expectation",
+  "feature": "cny_demand",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
+  "timestamp": "2026-02-15T17:00:00",
 
-  "objective": "Extract latent inflation expectation dynamics -- IE change regime (rising/stable/falling expectations), IE volatility state (anchored vs unanchored expectations), and IE-gold sensitivity regime (whether inflation expectations are currently driving gold) -- from the FRED T10YIE (10-Year Breakeven Inflation Rate) daily series. The base feature already contains inflation_expectation_inflation_expectation (the raw T10YIE LEVEL), which is the #1 most important feature in the baseline model at 9.4% importance. The raw level tells the meta-model WHERE inflation expectations are. But it does NOT convey: (a) whether the current change dynamics constitute a sustained REGIME shift vs noise (is the market repricing inflation expectations systematically, or is today's move random?), (b) whether inflation expectations are ANCHORED (low volatility, stable) or UNANCHORED (high volatility, unstable) -- a critical distinction for central bank credibility and gold demand, (c) whether IE changes are currently correlated with gold returns (active inflation-hedge demand) or decoupled (gold driven by other factors). These three dimensions of IE DYNAMICS provide context that the raw level cannot.",
-
-  "requirements": "Build a submodel that captures three orthogonal dimensions of inflation expectation dynamics: (1) IE CHANGE REGIME -- Is the market in a rising-expectations (reflationary), stable, or falling-expectations (disinflationary) regime? Use an HMM on a 2D vector of [IE_daily_change, IE_change_volatility_short] where IE_daily_change captures the direction and magnitude and IE_change_volatility_short (e.g., 5-day rolling std of IE changes) captures local instability. The 2D input allows the HMM to distinguish a sustained directional move (high change + low vol = trending) from chaotic repricing (high change + high vol = regime transition). Empirical finding: IE rising days show gold_next mean +0.088% vs falling days -0.031% -- a 12bps directional asymmetry that the HMM should capture as distinct regimes. (2) IE ANCHORING Z-SCORE -- How anchored or unanchored are inflation expectations relative to recent history? Use the rolling standard deviation of IE daily changes (20-day window), z-scored against a longer baseline (120-day). When z-score is high, expectations are unanchored (volatile), which historically corresponds to higher gold volatility (gold std 1.10% vs 0.80% in low-vol IE periods). This captures central bank credibility perception. CRITICAL: raw 20d rolling volatility has autocorrelation 0.97 -- the z-scoring against 120d baseline reduces this, but must verify empirically that it drops below 0.99. If not, use the CHANGE in 20d volatility rather than the level. (3) IE-GOLD SENSITIVITY -- Is inflation expectation currently driving gold prices, or is gold driven by other factors (USD, risk sentiment)? Use the rolling correlation between IE daily changes and same-day gold returns over a short window (5-day), z-scored against a 60-day baseline. When correlation is high, inflation-hedge demand is active. When correlation is low or negative, other drivers dominate. Measured autocorrelation: 5-day rolling corr = 0.75 (acceptable). This feature is unique -- no existing submodel captures the TIME-VARYING SENSITIVITY between a specific macro driver and gold. Output exactly 3 daily features.",
+  "requirements": "CNY/USD為替レートの変動レジーム・モメンタム文脈・ボラティリティ状態を捕捉するサブモデル。中国は世界の金需要の約30%を占め、CNY/USDは上海金プレミアムの無料代理指標。managed float特有のレジーム構造（安定管理期・段階的調整期・急変動期）をHMMで検出し、DXYサブモデルと直交する中国固有の需要文脈を抽出する。9サブモデル中最後のサブモデルであり、completion後はPhase 3（メタモデル構築）に移行する。",
 
   "theoretical_background": {
-    "why_inflation_expectations_matter_for_gold": "Gold is traditionally considered an inflation hedge. The 10-Year Breakeven Inflation Rate (T10YIE = DGS10 - DFII10) represents the market's consensus expectation of average CPI inflation over the next 10 years. When T10YIE rises, the market expects higher future inflation, increasing demand for real assets like gold. When T10YIE falls, disinflationary expectations reduce the inflation-hedge premium in gold. T10YIE is the #1 most important base feature at 9.4% importance, confirming its relevance. However, the raw LEVEL is already captured. The submodel must extract DYNAMICS (regime, anchoring, sensitivity) that the level alone cannot convey.",
-    "fisher_identity_and_vif_risk": "CRITICAL: T10YIE = DGS10 - DFII10 exactly (measured correlation 1.0000). This means the IE level is a PERFECT LINEAR COMBINATION of the nominal yield (DGS10, in base features) and the real rate (DFII10, in base features). Any submodel feature that correlates with IE LEVELS will create severe VIF with yield_curve_dgs10 and real_rate_real_rate. The mitigation: all submodel features must operate on CHANGES, REGIMES, or VOLATILITY of IE -- never on levels. Empirical verification: corr(IE_change_z60, real_rate_change_z60) = -0.044 (orthogonal). corr(IE_change_z60, DGS10_change_z60) = 0.514 (moderate but manageable because z-scoring decorrelates from levels).",
-    "anchored_vs_unanchored_expectations": "Central bank credibility is measured by the anchoring of inflation expectations. When T10YIE volatility is low and stable, expectations are 'anchored' -- the market trusts the central bank's inflation target. When T10YIE volatility spikes, expectations are 'unanchored' -- the market loses confidence in the inflation target. This distinction matters for gold: unanchored expectations create uncertainty about real returns on nominal assets, increasing gold's relative attractiveness. The 2020 COVID period saw T10YIE crash to 0.50% (from 1.65%) then surge to 2.76% by 2021 -- extreme unanchoring that coincided with gold's rally to all-time highs.",
-    "time_varying_ie_gold_sensitivity": "The relationship between IE and gold is not constant. During 'inflation-scare' periods (2021-2022), rising IE directly drove gold higher. During 'risk-off' periods (March 2020), gold rallied despite falling IE because safe-haven demand dominated. During 'Fed-tightening' periods (late 2022-2023), rising real rates dominated despite stable IE. Capturing WHEN IE is driving gold (high IE-gold correlation) vs when other factors dominate (low correlation) provides the meta-model with a dynamic weighting signal.",
-    "what_base_features_provide": "One column: inflation_expectation_inflation_expectation (T10YIE level). Range 0.50 to 3.02, mean 1.995. Autocorrelation 0.997 (highly persistent level). The raw level is the #1 baseline feature at 9.4% importance. But the level has near-zero correlation with next-day gold return (corr = -0.015). The CHANGE has higher correlation (corr = +0.092). This 6x difference between level and change correlation confirms that IE dynamics (not levels) drive the gold relationship.",
-    "what_submodel_adds": "Three dimensions of IE dynamics that the raw level cannot convey: (1) REGIME STATE -- classifies current IE change dynamics into distinct states (rising/stable/falling). A +0.03 daily IE change has different implications if it occurs in a sustained rising regime (reflationary trend) vs a volatile regime (noise). (2) ANCHORING STATE -- measures whether IE is currently stable (anchored) or volatile (unanchored). Gold volatility is 38% higher when IE is unanchored (1.10% vs 0.80%). (3) SENSITIVITY STATE -- measures whether IE changes are currently correlated with gold returns. When correlation is high, IE is the dominant gold driver. When low, other factors dominate. This allows the meta-model to dynamically weight the IE level based on whether it is currently 'active' as a gold driver.",
-    "relationship_to_existing_submodels": {
-      "real_rate_submodel": "FAILED after 5 attempts due to monthly-to-daily frequency mismatch. T10YIE is daily from FRED (no interpolation needed). Fisher identity: T10YIE + DFII10 = DGS10. Despite this algebraic relationship at the LEVEL, IE changes and real rate changes are nearly orthogonal (corr = -0.044 after z-scoring). IE dynamics capture inflation expectation repricing, while real rate dynamics (had they worked) would capture real yield repricing. These are independent market processes.",
-      "yield_curve_submodel": "Yield curve captures the DGS10-DGS2 spread dynamics (steepening/flattening). IE captures the DGS10-DFII10 decomposition dynamics (inflation expectations vs real yields). These are orthogonal decompositions of the same nominal yield: spread = DGS10-DGS2 (maturity structure), IE = DGS10-DFII10 (inflation component). corr(IE_change_z, yield_curve outputs) < 0.12 measured.",
-      "vix_submodel": "VIX captures market-wide risk sentiment regime. IE captures inflation expectation regime. These are distinct macro factors with low correlation (corr(IE_change_z, vix_outputs) < 0.15). However, during extreme events (2020), both VIX and IE moved dramatically -- the HMM may detect overlapping 'crisis' regimes.",
-      "etf_flow_submodel": "ETF flow captures investor demand dynamics through volume patterns. IE captures macro expectation dynamics. Different information domains. Low expected correlation.",
-      "technical_submodel": "Technical captures gold price dynamics (trend, mean-reversion, volatility). IE captures macro input dynamics. No overlap."
-    }
-  },
-
-  "data_strategy": {
-    "primary_data": {
-      "source": "FRED",
-      "series_id": "T10YIE",
-      "description": "10-Year Breakeven Inflation Rate (T10YIE = DGS10 - DFII10)",
-      "frequency": "daily",
-      "delay": "1 day (published next business day)",
-      "note": "Already in base_features as inflation_expectation_inflation_expectation. The submodel re-fetches from FRED to compute dynamics (changes, volatility, etc.) that are not in base_features."
-    },
-    "supplementary_candidates": [
-      {
-        "source": "FRED",
-        "series_id": "T5YIE",
-        "description": "5-Year Breakeven Inflation Rate",
-        "purpose": "Shorter-horizon inflation expectations. The T5YIE vs T10YIE spread captures the market's view on long-term vs medium-term inflation. A widening spread (T10YIE > T5YIE) suggests long-term inflation concerns. However, T5YIE and T10YIE are highly correlated (likely > 0.95). Researcher should verify correlation and whether the spread adds information beyond T10YIE alone.",
-        "risk": "High correlation with T10YIE may make the spread uninformative. VIF risk."
-      },
-      {
-        "source": "FRED",
-        "series_id": "T5YIFR",
-        "description": "5-Year, 5-Year Forward Inflation Expectation Rate",
-        "purpose": "Captures long-term inflation expectations (5-10 years ahead), stripping out near-term inflation noise. More closely related to 'anchoring' of expectations. Less volatile than T10YIE. Used by the Fed as a key indicator of long-run inflation expectations.",
-        "risk": "May be too smooth (high autocorrelation). Researcher should verify daily availability and correlation with T10YIE."
-      },
-      {
-        "source": "FRED",
-        "series_id": "MICH",
-        "description": "University of Michigan Inflation Expectations (1-year ahead, consumer survey)",
-        "purpose": "Consumer-based inflation expectations vs market-based (T10YIE). Captures 'main street' inflation sentiment. Divergence between MICH and T10YIE may signal institutional vs consumer disagreement.",
-        "risk": "MONTHLY frequency. Cannot be used in daily pipeline without interpolation, which failed for real_rate. REJECT unless researcher finds a daily proxy."
-      }
+    "why_cny_matters_for_gold": [
+      "中国は世界の金需要の約30%（宝飾品・投資・中央銀行備蓄）を占める最大の需要国",
+      "CNY安（元安/ドル高）→ 中国の金購買力低下 → 需要減退圧力",
+      "CNY高（元高/ドル安）→ 中国の金購買力増加 → 需要増加圧力",
+      "上海金プレミアム（Shanghai Gold Premium）が理想的指標だが無料データソースなし",
+      "CNY/USD為替レートは中国の金需要圧力・資本フロー・政策スタンスの複合代理指標",
+      "PBOC（中国人民銀行）の為替介入パターン自体が政策レジーム情報を含む"
     ],
-    "multi_country_assessment": {
-      "availability": "Multi-country breakeven inflation rates are NOT readily available from FRED at daily frequency. UK (FRED: T10YIEUK) exists but may be monthly. Euro area has no direct breakeven series on FRED. Japan has extremely low breakeven rates (near zero), making them uninformative.",
-      "decision": "US-only design. This is consistent with all successful submodels (VIX, technical, cross_asset, yield_curve, etf_flow) which used US-only data. Multi-country data failed for real_rate due to monthly frequency.",
-      "researcher_task": "Verify T10YIEUK daily availability on FRED. If daily with reasonable coverage, it could provide a valuable second data point for the HMM. If monthly, reject."
-    },
-    "expected_samples": "~2523 daily observations (matching base_features date range 2015-01-30 to 2025-02-12)"
-  },
-
-  "research_questions": [
-    "What is the optimal HMM input specification for detecting inflation expectation regimes? Candidates: (a) 1D HMM on IE_daily_change -- simplest, captures directional regime only. (b) 2D HMM on [IE_daily_change, IE_change_vol_5d] -- captures direction + stability, distinguishing trending from chaotic periods. (c) 2D HMM on [IE_daily_change, gold_daily_return] -- captures IE-gold co-movement regime directly. (d) 2D HMM on [IE_daily_change, real_rate_daily_change] -- captures the decomposition of nominal yield changes into IE vs real rate components. Which dimensionality and input combination produces the most informative regime detection for gold return prediction? What number of HMM states (2 vs 3) best captures rising/stable/falling expectations? Empirically measure MI of each candidate's regime_prob with gold_return_next, and measure autocorrelation. Note: measured IE_daily_change autocorrelation is 0.072 (excellent), so HMM input should be well-behaved.",
-    "Is the 5-Year, 5-Year Forward Inflation Expectation Rate (T5YIFR from FRED) available at daily frequency with sufficient coverage (2015-2025)? What is its correlation with T10YIE at both level and change? If corr(T5YIFR_change, T10YIE_change) < 0.7, the T10YIE-T5YIFR spread could capture the 'term structure of inflation expectations' -- a potentially unique signal. If correlation is > 0.9, the spread is uninformative. Also verify T5YIE daily availability and its correlation with T10YIE.",
-    "What academic evidence supports the concept of 'anchored vs unanchored' inflation expectations, and how does the anchoring state relate to gold prices? Key questions: (a) How do central banks define 'anchored' expectations? (b) Is there published research on T10YIE volatility as a measure of anchoring? (c) Does the literature support the finding that gold volatility increases during unanchored periods? (d) What rolling window is standard for measuring IE volatility (5d, 10d, 20d)? We measured: gold std = 1.10% when IE vol is high (Q4) vs 0.80% when low (Q1) -- a 38% difference.",
-    "What is the empirical evidence for time-varying inflation-hedge effectiveness of gold? Specifically: (a) Does the gold-IE correlation vary over time, and if so, what drives the variation? (b) Academic studies on 'conditional inflation hedging' -- does gold hedge inflation better in some regimes than others? (c) What rolling window is appropriate for measuring IE-gold correlation (5d, 10d, 20d)? We measured: 5d autocorrelation = 0.75 (acceptable), 10d = 0.89 (borderline). (d) Is there a threshold effect where IE-gold correlation flips sign (e.g., moderate IE supports gold but extreme IE triggers risk-off)?",
-    "How should IE volatility be normalized to achieve autocorrelation below 0.99? The raw 20-day rolling std of IE changes has autocorrelation 0.97 (borderline). Options: (a) Z-score against 120-day rolling window -- may reduce to ~0.90-0.95. (b) First difference of rolling volatility -- removes persistence but may be too noisy. (c) Log-ratio of short-term vol to long-term vol (e.g., vol_5d / vol_60d) -- captures relative volatility regime. (d) Rank percentile over 120-day window -- bounded, reduces autocorrelation. Which normalization achieves autocorrelation < 0.95 while preserving the gold-volatility relationship?",
-    "What VIF risk exists between the proposed IE submodel features and the Fisher-identity-related base features (real_rate_real_rate, yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread)? Fisher identity: T10YIE + DFII10 = DGS10. At the LEVEL, IE is a perfect linear combination. But we measured: corr(IE_change_z60, real_rate_change_z60) = -0.044, corr(IE_change_z60, DGS10_change_z60) = 0.514. The 0.514 correlation with DGS10 changes is moderate. Will a z-scored IE change feature have VIF < 10 against the full base feature set including DGS10 and yield_spread? What about the HMM regime_prob? Researcher must compute VIF empirically.",
-    "Is the UK 10-Year Breakeven Inflation Rate (T10YIEUK on FRED or similar) available at daily frequency from 2015 to 2025? If so, what is the correlation between US and UK breakeven inflation changes? Multi-country IE data could enrich the HMM training (more samples for regime detection) following the cross_asset multi-country pattern. However, if only monthly data is available, it must be REJECTED (real_rate monthly interpolation failed).",
-    "What is the relationship between T10YIE changes and gold returns across different macro regimes? Specifically: (a) During QE periods (2015-2018, 2020-2021), does the IE-gold relationship strengthen (both respond to monetary stimulus)? (b) During tightening periods (2022-2023), does the relationship weaken (real rates dominate)? (c) During crisis periods (March 2020), does IE crash while gold rises (safe-haven decoupling)? This regime-dependent sensitivity is the theoretical basis for the IE-gold sensitivity feature. Researcher should identify 3-4 distinct macro regimes and measure IE-gold correlation within each.",
-    "Are there any free data sources for inflation swap rates or CPI futures that could supplement T10YIE? Inflation swaps provide a purer measure of inflation expectations (no liquidity premium). Zero-coupon inflation swap rates are published by some central banks. If available with daily frequency and < 5-day delay, they could replace T10YIE as the primary input. However, this is likely unavailable from free sources (Bloomberg-only). Researcher should confirm unavailability to document the constraint."
-  ],
-
-  "candidate_approaches": {
-    "approach_A_hmm_2d_ie_dynamics": {
-      "description": "HMM on 2D [IE_daily_change, IE_change_vol_5d] for IE regime detection, plus IE anchoring z-score (20d vol z-scored against 120d baseline), plus IE-gold rolling correlation (5d) z-score. Follows the proven HMM + deterministic pattern.",
-      "output": ["ie_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"],
-      "pros": "Follows proven HMM pattern from all 6 successful submodels. 2D HMM captures direction + stability, distinguishing trending from volatile periods. Anchoring z-score is theoretically grounded in central bank credibility literature. IE-gold sensitivity captures time-varying inflation hedging. All three dimensions are orthogonal: regime (which state), anchoring (how stable), sensitivity (how gold-relevant).",
-      "cons": "IE anchoring z-score may inherit high autocorrelation from underlying 20d vol (measured 0.97). Must verify z-scoring sufficiently reduces this. IE-gold sensitivity (5d rolling corr) has autocorrelation 0.75 -- acceptable but higher than ideal.",
-      "preferred": true,
-      "reasoning": "Most aligned with successful submodel pattern. IE is the #1 base feature, so enriching it with dynamics has the highest potential payoff. 2D HMM input [change, vol] is novel (previous HMMs used [value, return] pairs) and captures the anchoring concept directly in the regime detection."
-    },
-    "approach_B_hmm_2d_ie_gold_comovement": {
-      "description": "HMM on 2D [IE_daily_change, gold_daily_return] for direct IE-gold co-movement regime detection, plus IE change z-score (60d), plus IE acceleration z-score (change of change). Directly models the IE-gold relationship.",
-      "output": ["ie_gold_regime_prob", "ie_change_z", "ie_acceleration_z"],
-      "pros": "HMM directly detects when IE and gold move together vs apart -- the core theoretical insight. IE change z-score has autocorrelation 0.04 (excellent). IE acceleration z-score has autocorrelation -0.45 (excellent, mean-reverting).",
-      "cons": "Using gold_return as HMM input is risky: the submodel must NOT predict gold. Using gold returns as input might create information leakage if the HMM learns to classify 'gold up' vs 'gold down' days rather than genuine IE-gold co-movement regimes. Also, MI of simple change-z and acceleration-z is 0.0000 with gold_return_next -- they may be too noisy without regime context.",
-      "risk": "Gold return as HMM input may violate the 'submodel does NOT predict gold' principle. Architect must evaluate this carefully."
-    },
-    "approach_C_deterministic_only": {
-      "description": "Entirely deterministic: IE change z-score (60d window), IE change volatility ratio (5d/60d), IE momentum cross (5d change vs 20d change normalized). No HMM.",
-      "output": ["ie_change_z", "ie_vol_ratio", "ie_momentum_cross"],
-      "pros": "No overfitting risk. All features have measured autocorrelation well below 0.99. IE change z-score autocorr = 0.04, momentum cross autocorr = 0.79. Very fast computation. No training required.",
-      "cons": "No regime detection. MI of individual candidates is 0.0000 against gold_return_next -- suggesting linear features alone cannot extract useful information. All successful submodels used HMM, which captures nonlinear regime information. This approach is likely to fail Gate 2 (MI < 5%).",
-      "risk": "High probability of Gate 2 failure. Retained as a fallback if HMM approaches have implementation issues."
-    },
-    "approach_D_multi_input_hmm_with_t5yifr": {
-      "description": "HMM on 2D [T10YIE_change, T5YIFR_change] for inflation expectation term structure regime detection, plus T10YIE anchoring z-score, plus IE-gold sensitivity z-score. Uses the term structure of inflation expectations.",
-      "output": ["ie_term_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"],
-      "pros": "Term structure of inflation expectations (T10YIE vs T5YIFR) captures whether long-run vs medium-run expectations are diverging -- a powerful signal for structural inflation regime shifts. T5YIFR is the Fed's preferred measure of long-run anchoring.",
-      "cons": "Depends on T5YIFR being available at daily frequency from FRED (researcher must verify). T5YIFR and T10YIE may be too correlated (both derived from TIPS market), making the 2D HMM inputs redundant. If T5YIFR is monthly, this approach is invalid.",
-      "risk": "Conditional on data availability. Researcher must verify T5YIFR daily availability before architect can proceed with this approach."
-    }
-  },
-
-  "constraints": [
-    "All data must be daily frequency from FRED. T10YIE is daily with 1-day delay. No data with > 5 day delay permitted. Monthly data (MICH, multi-country IE) is REJECTED based on real_rate failure precedent.",
-    "Submodel does NOT predict gold prices -- it extracts inflation expectation dynamics (regime, anchoring, sensitivity) that provide context for how IE state affects gold's response to other factors.",
-    "Output must be exactly 3 columns. The proven 3-feature compact pattern from all 6 successful submodels is the standard. real_rate attempt 5 used 7 features and produced the worst Gate 3 degradation.",
-    "CRITICAL FISHER IDENTITY VIF CONSTRAINT: T10YIE = DGS10 - DFII10 exactly (correlation 1.0000 confirmed). Any feature that correlates with IE LEVELS will create severe VIF with yield_curve_dgs10 (base feature) and real_rate_real_rate (base feature). ALL submodel features MUST operate on CHANGES, REGIMES, or VOLATILITY -- NEVER on IE levels or level z-scores. IE level z-score (120d) has autocorrelation 0.978 and would also fail Gate 1.",
-    "VIF < 10 against all existing base features AND submodel outputs. Key risks: (a) IE change z-score vs DGS10 change -- measured corr 0.514 at z-score level, must verify VIF formally. (b) IE regime_prob vs vix_regime_prob -- both capture regime dynamics, corr must stay below VIF threshold. (c) IE anchoring z-score vs ie_vol indicators if any exist. Measured correlations of IE candidates with all existing submodel outputs: all below 0.15 (excellent).",
-    "Autocorrelation < 0.99 for ALL output columns. Measured candidates: IE change z-score = 0.04 (excellent), IE acceleration z-score = -0.47 (excellent), IE-gold 5d rolling corr = 0.75 (acceptable), IE 20d vol raw = 0.97 (BORDERLINE). The IE volatility/anchoring feature MUST be normalized (z-scored, ratio, or differenced) to reduce autocorrelation below 0.95.",
-    "Features must be computable at inference time without lookahead bias -- all rolling windows backward-looking, HMM fit on training set only, z-score statistics computed from training window only.",
-    "No monthly data interpolation. The real_rate submodel failed across 5 attempts because monthly-to-daily interpolation created step functions. T10YIE is natively daily, but any supplementary series (MICH, multi-country IE) that is monthly MUST be rejected.",
-    "Dollar-value normalization is NOT needed (unlike ETF flow). T10YIE is already a percentage rate. No price drift confound exists.",
-    "Avoid features that duplicate information from the yield_curve submodel. Yield_curve captures DGS10-DGS2 spread dynamics. IE submodel captures the inflation component of DGS10 (= DGS10 - DFII10). These are orthogonal decompositions (slope vs composition) but must be verified empirically. corr(IE_change_z, yc_curvature_z) = 0.12, corr(IE_change_z, yc_spread_velocity_z) = not yet measured -- researcher must verify.",
-    "HMM input MUST NOT include gold_return directly as a primary dimension unless architect confirms this does not violate the 'submodel does not predict gold' principle. Using gold_return as HMM input risks learning to classify 'gold up' vs 'gold down' days rather than genuine IE dynamics. If gold_return is used, it must be as a SECONDARY input to condition IE regime detection, not as the primary signal."
-  ],
-
-  "output_schema": {
-    "target_columns": 3,
-    "candidate_columns": [
-      "ie_regime_prob: Probability of being in a specific IE change regime (e.g., 'rising expectations' = sustained positive IE changes + low volatility, 'stable' = near-zero changes, 'volatile/unanchored' = large changes + high volatility). From HMM on [IE_daily_change, IE_change_vol_5d]. Range [0, 1].",
-      "ie_anchoring_z: Z-score of IE change volatility (20d rolling std of IE daily changes) against a 120d rolling baseline. Captures whether inflation expectations are anchored (z < 0, low vol relative to history) or unanchored (z > 0, high vol). Related to central bank credibility. Range approximately [-3, +4]. MUST have autocorrelation < 0.99 after z-scoring.",
-      "ie_gold_sensitivity_z: Z-score of rolling 5-day correlation between IE daily changes and same-day gold returns, against a 60-day baseline. Captures whether IE is currently an active driver of gold (high correlation) or decoupled (low correlation). This is a TIME-VARYING SENSITIVITY measure unique among all submodels. Range approximately [-3, +3]. Measured autocorrelation 0.75 for raw 5d rolling corr."
+    "why_submodel_needed": [
+      "base_featuresのcny_demand_cny_usd（レベル値）は重要度ランク7（5.31%）だが、レジーム情報を含まない",
+      "CNY/USDのレベル値だけでは、管理相場（managed float）の介入レジームを区別できない",
+      "同じCNY/USDレベルでも、安定期（PBOC tight band）と変動期（band widening/devaluation）では金需要への影響が異なる",
+      "DXYサブモデルは米ドルの広範な強弱を捕捉するが、中国固有の政策・需要要因は含まない",
+      "CNYの日次変動パターン（managed floatの特徴的な非対称性・クラスタリング）はHMMで捕捉可能"
     ],
-    "properties": [
-      "All daily frequency from FRED T10YIE, no interpolation needed",
-      "No NaN values after warmup period (max ~120 days for longest rolling baseline window)",
-      "VIF < 10 against inflation_expectation_inflation_expectation (level), real_rate_real_rate, yield_curve_dgs10, yield_curve_dgs2, yield_curve_yield_spread base features",
-      "VIF < 10 against all existing submodel outputs (vix, technical, cross_asset, yield_curve, etf_flow)",
-      "Each feature captures a DIFFERENT dimension: regime (which IE state), anchoring (how stable), sensitivity (how gold-relevant)",
-      "Features encode IE DYNAMICS that the raw IE level cannot convey",
-      "NO LEVEL-BASED FEATURES due to Fisher identity VIF constraint"
+    "context_information_to_extract": [
+      "cny_regime_prob: PBOC為替管理レジーム（安定管理期/段階的調整期/急変動期）の確率",
+      "cny_momentum_z: CNY変動の持続性・方向性（z-score正規化）",
+      "cny_vol_regime_z: CNYボラティリティの構造変化（安定期対比の異常度）"
     ]
   },
 
-  "success_hypothesis": "Inflation expectation dynamics (IE change regime, anchoring state, IE-gold sensitivity) will provide the meta-model with macro expectation context that improves MAE by at least -0.01% (Gate 3 threshold). IE is the #1 base feature at 9.4% importance, so enriching it with dynamics has the highest potential payoff of any remaining submodel. The key insight: identical IE levels have very different gold implications depending on dynamics. An IE of 2.3% that is rising steadily (reflationary regime) supports gold differently than 2.3% that is falling rapidly (disinflationary shock) or 2.3% that is stable (anchored expectations). The 12bps directional asymmetry (rising IE: +0.088% vs falling: -0.031%) provides a measurable edge. The proven HMM + deterministic pattern (successful in 6/6 completed submodels) provides the template. Primary success path is MAE improvement, following the pattern of technical (-0.182), cross_asset (-0.087), yield_curve (-0.069), etf_flow (-0.044).",
-
-  "success_criteria": {
-    "gate1": {
-      "overfit_ratio": "< 1.5 (for HMM component, N/A for deterministic features)",
-      "no_constant_output": true,
-      "autocorrelation": "< 0.99 for all output columns. Primary risk: ie_anchoring_z (based on rolling volatility with raw autocorr 0.97). Z-scoring against 120d baseline must reduce this below 0.99. Fallback: use change-in-volatility or vol-ratio instead."
-    },
-    "gate2": {
-      "mi_increase": "> 5% (sum-based, total MI of all features including submodel outputs vs without)",
-      "vif": "< 10 for all submodel output columns. Key VIF risk: Fisher identity means IE level features would have infinite VIF with DGS10 + real_rate. All features use changes/regimes/volatility to avoid this.",
-      "rolling_correlation_std": "< 0.15"
-    },
-    "gate3": {
-      "direction_accuracy_delta": "> +0.5%",
-      "or_sharpe_delta": "> +0.05",
-      "or_mae_delta": "< -0.01%",
-      "note": "Any ONE of three criteria. MAE is the most reliably achieved: technical (-0.182), cross_asset (-0.087), yield_curve (-0.069), etf_flow (-0.044). Trend suggests diminishing marginal MAE improvement with each additional submodel. -0.01% to -0.03% is a realistic target for the 7th submodel."
-    }
+  "base_feature_analysis": {
+    "column_name": "cny_demand_cny_usd",
+    "baseline_importance_rank": 7,
+    "baseline_importance_pct": 5.31,
+    "data_source": "Yahoo Finance CNY=X",
+    "frequency": "Daily",
+    "convention": "USD/CNY（値が大きいほどドル高/元安）",
+    "date_range": "2015-01-30 to 2025-02-12",
+    "row_count": 2523,
+    "key_properties": [
+      "管理変動相場（managed float）: PBOCが日次fixing rateを設定、市場は+/-2%のバンド内で取引",
+      "レベルは非定常（トレンドあり）: 2015年は約6.2、2019年は約7.1、2023年は約7.3",
+      "変化率（リターン）は概ね定常だが、介入時に非対称分布",
+      "DXY（ドルインデックス）と負の部分相関：CNY安=ドル高だがEUR/JPYと異なる動き",
+      "2015年8月のCNY切り下げ（一夜で約2%）は特異なレジーム転換イベント"
+    ]
   },
 
-  "lessons_from_previous_features": {
-    "real_rate_failure": {
-      "root_cause": "Monthly-to-daily frequency mismatch across 5 attempts. Step functions from forward-fill degraded MAE.",
-      "lesson_applied": "T10YIE is natively daily from FRED. No interpolation needed. No monthly supplementary data allowed."
+  "completed_submodels_context": {
+    "total_completed": 7,
+    "total_output_columns": 20,
+    "successful_patterns": {
+      "all_used_hmm": true,
+      "hmm_states": "2-3 states (3 states most common)",
+      "hmm_dimensions": "2D inputs (most common)",
+      "output_pattern": "regime_prob + 2 z-score features (3 outputs per submodel)",
+      "gate3_primary_criterion": "MAE improvement most consistent (5/7 passed MAE)"
     },
-    "compact_3_feature_pattern": {
-      "observation": "All 6 completed submodels used 2-3 output columns. real_rate attempt 5 used 7 columns and failed hardest.",
-      "lesson_applied": "Exactly 3 output columns."
-    },
-    "hmm_regime_pattern": {
-      "observation": "HMM regime detection is the backbone of all successful submodels. VIX: 1D. Technical: 2D [returns, GK_vol]. Cross_asset: 3D. Yield_curve: 2D [DGS10_chg, DGS2_chg]. ETF_flow: 2D [log_vol_ratio, gold_return].",
-      "lesson_applied": "Use 2D HMM on [IE_daily_change, IE_change_vol_5d] for IE regime. Novel input pair captures direction + stability."
-    },
-    "autocorrelation_design": {
-      "observation": "Cross_asset required first-differencing to solve autocorrelation. Yield_curve curvature z-score had autocorrelation -0.15 (excellent). ETF flow PV divergence used 5d window to keep autocorrelation at 0.75.",
-      "lesson_applied": "IE change z-score has autocorrelation 0.04 (excellent). IE acceleration has -0.47. Only IE volatility z-score needs careful normalization to stay below 0.99."
-    },
-    "vif_discipline": {
-      "observation": "Fisher identity creates unique VIF risk for IE: T10YIE + DFII10 = DGS10 exactly. Level-based features would have infinite VIF.",
-      "lesson_applied": "ALL features use changes, regimes, or volatility. Never levels. Measured: corr(IE_change_z, real_rate_change_z) = -0.044 (orthogonal despite Fisher identity at levels)."
-    },
-    "gate3_mae_achievability": {
-      "observation": "MAE improvement trend: technical (-0.182) > cross_asset (-0.087) > yield_curve (-0.069) > etf_flow (-0.044). Diminishing returns but still above -0.01% threshold.",
-      "lesson_applied": "Realistic target is MAE improvement of -0.01% to -0.03%. IE as #1 base feature has strong potential to exceed this."
-    },
-    "mi_test_unreliability": {
-      "observation": "MI of simple IE change z-score and acceleration z-score is 0.0000 against gold_return_next. But successful submodels (VIX, technical, cross_asset) also had low individual MI that only became significant through HMM regime detection.",
-      "lesson_applied": "Do not expect simple features to show MI. HMM regime detection is necessary to extract nonlinear information. Gate 2 MI test should be evaluated after HMM, not on raw candidates."
-    },
-    "gate2_stability_precedent": {
-      "observation": "VIX, technical, cross_asset, etf_flow all had Gate 2 stability marginally fail for regime_prob. This is accepted precedent.",
-      "lesson_applied": "Expect ie_regime_prob stability to be marginal. This is acceptable given precedent."
-    }
-  },
-
-  "preliminary_empirical_findings": {
-    "ie_feature_importance": "#1 in baseline at 9.4%. Strongest single predictor.",
-    "ie_level_range": "0.50 (March 2020 COVID crash) to 3.02 (April 2022 inflation peak). Mean 1.995.",
-    "ie_level_autocorrelation": "0.9966 (extremely persistent level). Submodel MUST use changes/dynamics, not levels.",
-    "ie_change_direction_vs_gold": {
-      "rising_ie": "N=1076, gold_next mean=+0.088%, std=0.959%",
-      "falling_ie": "N=1011, gold_next mean=-0.031%, std=0.907%",
-      "flat_ie": "N=435, gold_next mean=+0.069%, std=0.851%",
-      "directional_asymmetry": "12bps (0.088 - (-0.031) = 0.119%). Statistically meaningful over 2500 obs."
-    },
-    "ie_change_spikes_vs_gold": {
-      "spike_up_z_gt_2": "N=49, gold_next mean=+0.396%. 10x normal mean.",
-      "spike_down_z_lt_neg2": "N=62, gold_next mean=-0.031%.",
-      "rising_z_gt_1": "N=368, gold_next mean=+0.166%.",
-      "falling_z_lt_neg1": "N=364, gold_next mean=-0.021%."
-    },
-    "ie_volatility_and_gold_volatility": {
-      "high_ie_vol_q4": "gold_next std=1.10%",
-      "low_ie_vol_q1": "gold_next std=0.80%",
-      "ratio": "1.38x higher gold volatility when IE is unanchored"
-    },
-    "fisher_identity_confirmed": "corr(DGS10, real_rate + IE) = 1.0000. Residual mean=0.0000, std=0.0000.",
-    "decorrelation_via_z_scoring": {
-      "ie_change_z_vs_real_rate_change_z": "-0.044 (orthogonal)",
-      "ie_change_z_vs_dgs10_change_z": "0.514 (moderate)",
-      "ie_candidates_vs_all_submodel_outputs": "all below 0.15"
-    },
-    "autocorrelation_candidates": {
-      "ie_change_z_60d": 0.04,
-      "ie_change_z_20d": 0.03,
-      "ie_vol_z_20d_120d": "~0.95 estimated (raw vol autocorr 0.97)",
-      "ie_acceleration_z": -0.47,
-      "ie_gold_corr_5d": 0.75,
-      "ie_gold_corr_10d": 0.89,
-      "ie_level_z_120d": 0.978,
-      "ie_momentum_cross_5d_20d": 0.79
-    },
-    "structural_regimes_over_time": {
-      "2015_2016": "Low IE (1.57-1.69). Commodity bust, deflationary fears.",
-      "2017_2018": "Rising IE (1.87-2.08). Reflation trade, synchronized global growth.",
-      "2019": "Falling IE (1.74). Trade war fears, growth slowdown.",
-      "2020": "Crash then surge (0.50 to 1.99). COVID shock then massive stimulus.",
-      "2021": "High IE (2.36). Inflation surge, 'transitory' debate.",
-      "2022": "Peak IE (2.52, max 3.02). Inflation peak, Fed tightening begins.",
-      "2023_2024": "Stabilizing IE (2.27-2.28). Disinflation, soft landing narrative.",
-      "2025": "Slightly elevated (2.41). Tariff/fiscal uncertainty."
+    "diminishing_returns_pattern": {
+      "description": "MAE改善は逓減傾向: technical(-0.182) > cross_asset(-0.087) > yield_curve(-0.069) > etf_flow(-0.044)",
+      "implication": "8番目のサブモデルとして、MAE改善は-0.01%から-0.03%が現実的目標",
+      "counter_argument": "cny_demand_cny_usdはrank7（5.31%）であり、中国固有の金需要情報は他サブモデルが捕捉していない独自チャネル"
     }
   },
 
   "vif_risk_analysis": {
-    "critical_concern": "Fisher identity: T10YIE + DFII10 = DGS10 EXACTLY. This means any IE LEVEL feature has infinite VIF with {real_rate_real_rate, yield_curve_dgs10}. The mitigation is absolute: NO LEVEL FEATURES. Only changes, regimes, and volatility.",
-    "base_feature_correlations_measured": {
-      "ie_level_vs_copper": "0.858 (very high -- both track global reflation)",
-      "ie_level_vs_sp500": "0.705 (high -- both track growth optimism)",
-      "ie_level_vs_silver": "0.584",
-      "ie_level_vs_dgs10": "0.563 (Fisher component)",
-      "ie_level_vs_dgs2": "0.532",
-      "ie_level_vs_gld_prices": "0.520",
-      "ie_level_vs_yield_spread": "-0.361",
-      "ie_level_vs_dxy": "0.327",
-      "ie_level_vs_volume_ma20": "-0.341",
-      "NOTE": "ALL of these are LEVEL correlations. Z-scored CHANGE features are dramatically less correlated."
-    },
-    "submodel_output_correlations_measured": {
-      "ie_candidates_vs_vix_regime_prob": "< 0.15",
-      "ie_candidates_vs_vix_mean_reversion_z": "< 0.15",
-      "ie_candidates_vs_tech_all": "< 0.15",
-      "ie_candidates_vs_xasset_regime_prob": "< 0.15 (xasset_regime_prob vs IE level = -0.24 but vs IE candidates < 0.15)",
-      "ie_candidates_vs_yc_all": "< 0.15",
-      "ie_candidates_vs_etf_all": "< 0.15",
-      "overall_assessment": "VIF risk with existing submodel outputs is LOW. The Fisher identity VIF risk is confined to LEVEL features, which are prohibited by constraint #4."
-    },
-    "mitigation_strategy": "All features operate on DYNAMICS of IE, never on levels. (1) HMM regime prob classifies the CHANGE dynamics (direction + volatility), not the level. (2) Anchoring z-score measures VOLATILITY of changes, not the change level. (3) IE-gold sensitivity measures CORRELATION (dimensionless), not IE level. This structural design ensures orthogonality with level-based base features and the Fisher identity."
+    "primary_concern": "DXYサブモデル出力（dxy_regime_prob, dxy_divergence_z, dxy_vol_z）との相関。CNY/USDはドルの裏側であり、特にdxy_vol_zとcny_vol_regime_zの相関が高くなるリスク",
+    "mitigating_factors": [
+      "DXYはEUR(57.6%)+JPY(13.6%)+GBP(11.9%)+CAD(9.1%)+SEK(4.2%)+CHF(3.6%)の加重平均であり、CNYは含まれない",
+      "CNYはmanaged floatであり、自由変動するDXY構成通貨とは異なる変動パターン",
+      "CNY変動にはPBOC介入・中国固有の経済イベント（不動産危機、貿易紛争等）が反映される",
+      "変化率ベースのz-score特徴量はレベル相関を大幅に低減する"
+    ],
+    "empirical_checks_for_architect": [
+      "corr(CNY_return, DXY_return)の実測値",
+      "corr(CNY_vol_z, dxy_vol_z)の実測値",
+      "提案3特徴量のVIF（既存20サブモデル出力+9ベース特徴量の全セットに対して）",
+      "VIF > 10の特徴量がある場合の対処戦略"
+    ]
   },
 
-  "previous_feedback": null,
+  "research_questions": [
+    {
+      "id": "RQ1",
+      "question": "CNY/USDのHMM最適入力仕様は何か？候補を評価せよ: (a) 1D CNY_return, (b) 2D [CNY_return, CNY_vol_5d], (c) 2D [CNY_return, CNY_fixing_gap], (d) 2D [CNY_return, onshore_offshore_spread]。managed float特有の構造を捕捉する最適な次元と入力変数を特定すること。",
+      "context": "全7成功サブモデルが2D以上のHMMを使用。CNYはmanaged floatであり、自由変動通貨と異なるHMM入力が最適な可能性。fixing_gapはPBOC daily fixingと前日終値の差で介入意図を反映。onshore-offshore spreadはCNY-CNH差で政策tension指標。"
+    },
+    {
+      "id": "RQ2",
+      "question": "Yahoo Finance CNY=Xの具体的なデータ品質を調査せよ。(a) 2015-2025の日次データカバレッジ率、(b) 欠損パターン（中国の祝日、取引停止等）、(c) onshore(CNY)とoffshore(CNH)のどちらが反映されているか、(d) CNH=Xデータの利用可能性と品質。",
+      "context": "CNYはonshore（中国国内）とoffshore（香港等）の二重市場構造。Yahoo FinanceのCNY=Xがどちらを反映しているか確認が必要。CNH=X（offshore）が利用可能であればCNY-CNHスプレッドを特徴量にできる。"
+    },
+    {
+      "id": "RQ3",
+      "question": "PBOCの為替管理レジームを学術的にどう分類できるか？(a) 管理変動相場の理論的枠組み、(b) PBOC daily fixingメカニズムの詳細、(c) 2015年8月改革（中間価格形成メカニズム変更）の内容、(d) 2015-2025の主要レジーム転換イベント一覧。",
+      "context": "CNYの変動パターンはPBOCの政策レジームに強く依存。2015年8月の為替改革は構造的ブレークポイント。HMMの状態数と解釈にはこの歴史的文脈が必要。"
+    },
+    {
+      "id": "RQ4",
+      "question": "CNY/USDと金価格の関係に関する学術的実証研究を調査せよ。(a) CNY切り下げ時の金価格への影響（2015年8月、2019年8月等）、(b) 上海金プレミアムとCNY/USDの関係、(c) 中国の金輸入量とCNY/USDの関係、(d) PBOC金備蓄購入パターン（2022年以降の大幅増加）。",
+      "context": "中国の金需要チャネルは複数: 宝飾品消費、投資需要、中央銀行備蓄。各チャネルがCNY/USDにどう反応するかは異なる可能性。"
+    },
+    {
+      "id": "RQ5",
+      "question": "CNY/USDのボラティリティ正規化に最適な手法は何か？候補: (a) Z-score (20d vol / 120d baseline), (b) Log-ratio (vol_5d / vol_60d), (c) Rank percentile (120d window), (d) GARCH conditional volatility。managed floatの非対称ボラティリティ（元安方向の変動が大きい傾向）への対処法も検討せよ。",
+      "context": "CNYはmanaged floatのため、ボラティリティに構造的非対称性がある。先行サブモデルではz-scoreが標準だが、autocorrelation制約（<0.99）を満たす必要あり。"
+    },
+    {
+      "id": "RQ6",
+      "question": "DXYサブモデル出力とCNYサブモデル出力のVIFリスクをどう管理するか？(a) corr(CNY_return, DXY_return)の学術的な期待値、(b) managed float vs free floatの相関構造の違い、(c) VIF > 10の場合の対処法（特徴量除外、残差抽出、PCA圧縮等）、(d) DXY構成通貨にCNYが含まれないことの定量的意味。",
+      "context": "DXYの6構成通貨にCNYは含まれない。しかしグローバルなドル強弱は全通貨に影響。managed float特性によりCNY-DXY相関は非線形。"
+    },
+    {
+      "id": "RQ7",
+      "question": "CNY/USD以外に中国の金需要を代理する無料日次データソースはあるか？候補: (a) 上海金取引所（SGE）価格のYahoo Financeでの利用可能性、(b) USDCNH（offshore CNY=X）の日次データ、(c) Hang Seng Index（^HSI）の日次データ、(d) その他の中国関連指標。",
+      "context": "CNY/USDは間接的な代理指標。より直接的な指標があればHMM入力次元増加または補助特徴量に使用可能。全て無料・日次・5日以内遅延制約を満たす必要あり。"
+    },
+    {
+      "id": "RQ8",
+      "question": "CNY/USDの変動パターンにおけるモメンタム/平均回帰特性を調査せよ。(a) CNY returnのautocorrelation構造（lag 1-20）、(b) managed floatにおける平均回帰メカニズム（PBOCバンド内での回帰vs バンド自体のトレンド）、(c) z-scoreの最適rolling window（5d/10d/20d）。",
+      "context": "CNYのモメンタム特性はmanaged floatにより自由変動通貨と異なる。PBOCがバンドを設定するため、バンド境界付近で平均回帰が強制される。一方バンド自体が段階的に移動（trend）。"
+    },
+    {
+      "id": "RQ9",
+      "question": "2015-2025のCNY/USDの主要レジーム期間と各期間における金価格の挙動を整理せよ。具体的に: (a) 2015年8月切り下げ, (b) 2016-2017安定期, (c) 2018-2019米中貿易戦争, (d) 2020 COVID, (e) 2022-2023元安局面, (f) 2024-2025直近。各期間のCNY水準・ボラティリティ・金価格方向を記録。",
+      "context": "HMMの状態解釈とバリデーションには歴史的レジーム知識が必要。各期間でCNY-金関係がどう変化するか把握することでサブモデル出力の妥当性を評価。"
+    },
+    {
+      "id": "RQ10",
+      "question": "CNYサブモデルの出力として最適な3特徴量の組み合わせは何か？成功パターン（regime_prob + 2つのz-score）を踏まえ評価: (a) cny_regime_prob + cny_momentum_z + cny_vol_regime_z, (b) cny_regime_prob + cny_fixing_deviation_z + cny_onshore_offshore_z, (c) cny_regime_prob + cny_gold_sensitivity_z + cny_momentum_z。VIFリスク・autocorrelationリスク・情報直交性を評価。",
+      "context": "inflation_expectation成功パターン: ie_regime_prob + ie_anchoring_z + ie_gold_sensitivity_z（VIF max 2.25）。DXYとの相関最小化かつ中国固有情報の最大化が目標。"
+    }
+  ],
 
-  "created_at": "2026-02-15T17:00:00"
+  "candidate_approaches": [
+    {
+      "id": "A",
+      "name": "2D HMM [CNY_return, CNY_vol_5d] + momentum z + vol regime z",
+      "description": "成功サブモデルの標準パターンに準拠。CNY日次リターンと5日ボラティリティの2D入力でHMMレジーム検出。モメンタムz-scoreとボラティリティレジームz-scoreを補助特徴量として追加。",
+      "hmm_input": "[CNY_daily_return, CNY_vol_5d]",
+      "hmm_states": "3 (安定管理期/段階的調整期/急変動期)",
+      "outputs": ["cny_regime_prob", "cny_momentum_z", "cny_vol_regime_z"],
+      "recommended": true,
+      "risk_level": "LOW"
+    },
+    {
+      "id": "B",
+      "name": "2D HMM [CNY_return, fixing_gap] + onshore-offshore z",
+      "description": "PBOC daily fixingと市場レートの乖離をHMM入力に使用。中国固有の介入シグナルを活用。",
+      "hmm_input": "[CNY_daily_return, CNY_fixing_gap]",
+      "hmm_states": "3",
+      "outputs": ["cny_regime_prob", "cny_fixing_deviation_z", "cny_onshore_offshore_z"],
+      "recommended": false,
+      "risk_level": "HIGH",
+      "note": "fixing rate/CNH=Xデータの無料日次利用可能性をRQ2/RQ7で確認後に判断"
+    },
+    {
+      "id": "C",
+      "name": "2D HMM [CNY_return, gold_return] + CNY-gold sensitivity z",
+      "description": "CNYリターンとゴールドリターンの同時HMMでCNY-金の共変動レジームを検出。",
+      "hmm_input": "[CNY_return, gold_return]",
+      "hmm_states": "2-3",
+      "outputs": ["cny_regime_prob", "cny_gold_sensitivity_z", "cny_momentum_z"],
+      "recommended": false,
+      "risk_level": "HIGH",
+      "note": "gold_returnをHMM入力に使用は金予測原則に抵触するリスク。inflation_expectationではgold_returnをHMM入力に使わず成功。"
+    },
+    {
+      "id": "D",
+      "name": "3D HMM [CNY_return, CNY_vol_5d, HSI_return] + China stress z",
+      "description": "ハンセン指数リターンを3次元目に追加し中国経済ストレス全体のレジームを検出。",
+      "hmm_input": "[CNY_return, CNY_vol_5d, HSI_return]",
+      "hmm_states": "3",
+      "outputs": ["cny_regime_prob", "cny_china_stress_z", "cny_momentum_z"],
+      "recommended": false,
+      "risk_level": "MEDIUM",
+      "note": "Approach A失敗時のAttempt 2候補。HSIデータの追加取得が必要。"
+    }
+  ],
+
+  "constraints": [
+    "C1: 5日以上遅延するデータは使用禁止（CNY=Xは日次1日遅延で適合）",
+    "C2: サブモデルは金相場を直接予測しない（gold_returnをHMM入力に使用しない）",
+    "C3: 全出力特徴量のVIF < 10（DXYサブモデル出力との相関に特に注意）",
+    "C4: 全出力特徴量のautocorrelation < 0.99",
+    "C5: 日次データのみ使用。月次データの補間禁止",
+    "C6: 有料データソース・新規APIキーを要する処理は禁止",
+    "C7: 出力は3列以内のfloat64 DataFrame（dateインデックス、2523行に整列）",
+    "C8: CNY/USDのレベル値を出力特徴量に含めない（base_featuresと重複）",
+    "C9: 中国（CNY/USD）単一国データで設計（EM通貨の追加なし）",
+    "C10: HMMレジーム検出を必ず含む（全7成功サブモデルがHMM使用）",
+    "C11: 訓練はKaggle Notebook上で実行（統一Notebook使用、FRED_API_KEYはKaggle Secrets）"
+  ],
+
+  "success_hypothesis": "CNY/USDの変動レジーム・モメンタム文脈・ボラティリティ状態をHMMで捕捉し、Gate 3基準のいずれか（DA +0.5%、Sharpe +0.05、MAE -0.01%）を達成する。8番目のサブモデルとして逓減傾向を踏まえ、MAE改善-0.01%から-0.03%が最も現実的な目標。cny_demand_cny_usdのbaseline importance rank 7（5.31%）は、レジーム文脈の追加により情報利得が見込める水準。",
+
+  "success_criteria": {
+    "gate1": {
+      "overfit_ratio": "<1.5",
+      "autocorrelation": "<0.99 for all output columns",
+      "no_constant_columns": true,
+      "no_all_nan": true
+    },
+    "gate2": {
+      "mi_increase": ">5% (sum-based)",
+      "vif": "<10 for all output columns",
+      "stability": "rolling correlation std < 0.15"
+    },
+    "gate3_any_one": {
+      "direction_accuracy_delta": "+0.5%",
+      "sharpe_delta": "+0.05",
+      "mae_delta": "-0.01%"
+    }
+  },
+
+  "expected_challenges": [
+    {
+      "challenge": "DXYサブモデルとのVIF衝突",
+      "severity": "HIGH",
+      "mitigation": "変化率z-scoreでレベル相関回避。VIF>10の場合は残差アプローチ（CNY_return - beta*DXY_return）またはPCA圧縮。前例: etf_regime_prob VIF=12.47でGate 3通過。"
+    },
+    {
+      "challenge": "8番目のサブモデルとしての逓減効果",
+      "severity": "MEDIUM",
+      "mitigation": "MAE -0.01%を最低目標に設定。cny_demand rank7の直接的な金需要情報は他サブモデルが捕捉していない独自チャネル。"
+    },
+    {
+      "challenge": "managed floatのHMM収束問題",
+      "severity": "MEDIUM",
+      "mitigation": "Optuna HPOで状態数（2-4）とcovariance type（full/diag/tied）を探索。"
+    },
+    {
+      "challenge": "CNY=Xデータ品質（中国祝日の欠損等）",
+      "severity": "LOW",
+      "mitigation": "前方充填（forward-fill、最大3日）。春節・国慶節の長期欠損パターンを事前確認。"
+    }
+  ],
+
+  "previous_feedback": null,
+  "previous_attempts": null,
+
+  "scope_note": "9サブモデル中最後のサブモデル。completion後はPhase 3（メタモデル構築）に移行。成功・失敗問わず1-2 attemptで結論を出す方針。完璧を追求するよりメタモデル構築への移行を優先。"
 }
