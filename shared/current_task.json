@@ -1,113 +1,205 @@
 {
-  "task_type": "meta_model",
-  "feature": "meta_model",
-  "attempt": 3,
-  "phase": "phase3_meta_model",
-  "source": "evaluator",
-  "objective": "Improve meta-model HCDA from 55.26% to >60% (the sole failing metric). All other targets already pass: DA=57.26% (>56%), MAE=0.6877% (<0.75%), Sharpe=1.5835 (>0.80). Focus on prediction magnitude calibration and asymmetric confidence improvement.",
+  "task_type": "submodel",
+  "feature": "options_market",
+  "attempt": 1,
+  "phase": "phase2_feature_expansion",
+  "source": "entrance",
 
-  "requirements": "Retain the Attempt 2 architecture (XGBoost reg:squarederror, 22 stationary features, same data pipeline). Do NOT change the core model structure that achieved 3/4 targets. Focus narrowly on improving HCDA through: (1) prediction magnitude calibration to create better high/low confidence separation, (2) addressing asymmetric UP/DOWN accuracy (UP=61.8%, DOWN=53.9%), (3) increasing HCDA weight in Optuna objective from 10% to 30%.",
+  "objective": "Build an options market sentiment submodel that extracts latent risk perception patterns from CBOE options data (Put/Call Ratio, SKEW Index, Gold Volatility Index). This captures IMPLIED risk premia and tail risk sentiment -- complementary to the existing VIX submodel which captures REALIZED volatility regime/mean-reversion/persistence. The options_market submodel provides forward-looking market positioning information that VIX alone cannot express.",
 
-  "inputs": {
-    "base_features": "data/processed/base_features.csv",
-    "submodel_outputs": [
-      "data/submodel_outputs/vix.csv",
-      "data/submodel_outputs/technical.csv",
-      "data/submodel_outputs/cross_asset.csv",
-      "data/submodel_outputs/yield_curve.csv",
-      "data/submodel_outputs/etf_flow.csv",
-      "data/submodel_outputs/inflation_expectation.csv"
+  "requirements": "Extract 3-4 contextual features from options market indicators that capture: (1) risk regime state from multi-indicator options data, (2) tail risk perception deviation from historical norms, (3) rate of change in hedging demand, and optionally (4) divergence between options sentiment and gold returns. All outputs must be stationary, daily frequency, and provide information gain beyond existing 22 features. Architecture should follow the proven HMM + z-score + momentum pattern that succeeded in 7/8 completed submodels.",
+
+  "theoretical_background": {
+    "why_options_matter_for_gold": [
+      "Gold is the ultimate safe-haven asset. When equity options markets price elevated downside risk (high P/C ratio, high SKEW), investors shift to gold as protection.",
+      "The CBOE Put/Call Ratio captures aggregate hedging demand: >1.0 indicates more puts than calls (fear), <1.0 indicates greed. This is a POSITIONING indicator, not a volatility measure.",
+      "SKEW Index measures perceived tail risk of S&P 500 returns. Values >135 indicate elevated left-tail risk perception. This is theoretically linked to gold demand via the safe-haven channel.",
+      "GVZCLS (Gold Volatility Index) measures implied volatility of GLD options. High GVZ relative to VIX indicates gold-specific uncertainty distinct from broad market fear.",
+      "Academic literature confirms gold's safe-haven activation is regime-dependent: gold acts as safe haven during extreme bear markets but not during moderate downturns. Options data captures this extremity threshold better than VIX alone."
     ],
-    "submodel_columns": {
-      "vix": ["vix_regime_probability", "vix_mean_reversion_z", "vix_persistence"],
-      "technical": ["tech_trend_regime_prob", "tech_mean_reversion_z", "tech_volatility_regime"],
-      "cross_asset": ["xasset_regime_prob", "xasset_recession_signal", "xasset_divergence"],
-      "yield_curve": ["yc_spread_velocity_z", "yc_curvature_z"],
-      "etf_flow": ["etf_regime_prob", "etf_capital_intensity", "etf_pv_divergence"],
-      "inflation_expectation": ["ie_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"]
-    },
-    "excluded_submodels": ["real_rate", "dxy", "cny_demand"],
-    "excluded_columns": ["yc_regime_prob"],
-    "target": "data/processed/target.csv"
-  },
-
-  "research_questions": [
-    "Q1: How to calibrate XGBoost prediction magnitudes to improve HCDA? Options: Platt scaling, isotonic regression, temperature scaling on validation set. Which approach preserves DA and Sharpe while improving confidence separation?",
-    "Q2: Why is DOWN-direction accuracy (53.9%) much weaker than UP-direction (61.8%)? Is this due to the bullish market regime in the test period, or a structural model weakness?",
-    "Q3: At top-10% confidence (N=38), HCDA is 60.53%. At top-20% (N=76), it drops to 55.26%. What makes the 15th-20th percentile predictions less accurate? Can feature engineering or interaction terms improve this band?",
-    "Q4: Should the Optuna objective use HCDA directly (risky: small sample size in top-20% = 70 val samples) or a proxy metric (e.g., correlation between |prediction| and correctness)?"
-  ],
-
-  "constraints": [
-    "Data split frozen: 70/15/15 (time-series order, no shuffle)",
-    "No future information leakage",
-    "Self-contained Kaggle Notebook (all code in single notebook)",
-    "Optuna HP optimization with minimum 50 trials",
-    "NO raw price-level features or CNY features",
-    "Use standard reg:squarederror (NO custom loss)",
-    "Train-test DA gap MUST remain < 10pp",
-    "MUST NOT regress on passing metrics: DA must stay >56%, MAE <0.75%, Sharpe >0.80",
-    "Prediction magnitude calibration should be applied post-hoc on validation set"
-  ],
-
-  "known_issues": {
-    "attempt2_hcda_failure": "HCDA 55.26% vs target 60%. Model has genuine skill at top-10% (60.53%) but prediction magnitudes are compressed (pred_std=0.167, 18.7% of actual_std=0.896), making the top-20% threshold non-discriminating.",
-    "attempt2_directional_asymmetry": "UP predictions 61.8% accurate vs DOWN predictions 53.9%. Down-side confidence weaker, drags combined HCDA below target.",
-    "attempt2_hcda_overfitting": "Train HCDA 73.47% vs Test HCDA 55.26% (18.21pp gap). HCDA is more prone to overfitting than DA because of smaller sample size (N=76 top-20%).",
-    "attempt2_quarterly_variance": "DA ranges from 51.6% (2024Q3) to 65.6% (2024Q4). Model performance varies with market regime."
-  },
-
-  "previous_feedback": {
-    "attempt": 2,
-    "result": "PARTIAL SUCCESS - 3/4 targets met",
-    "passed_metrics": {
-      "direction_accuracy": {"value": 0.5726, "target": 0.56, "status": "PASS"},
-      "mae": {"value": 0.6877, "target": 0.75, "status": "PASS"},
-      "sharpe_ratio": {"value": 1.5835, "target": 0.80, "status": "PASS"}
-    },
-    "failed_metrics": {
-      "high_confidence_da": {"value": 0.5526, "target": 0.60, "gap": -0.0474, "status": "FAIL"}
-    },
-    "improvement_actions": [
-      "PRIORITY 1: Add post-hoc prediction calibration (Platt/isotonic) to widen magnitude spread",
-      "PRIORITY 2: Address UP/DOWN asymmetry (61.8% vs 53.9%) via sample weighting or regime-aware thresholds",
-      "PRIORITY 3: Increase HCDA weight in Optuna objective from 10% to 30%",
-      "CAUTION: Do NOT compromise passing metrics (DA, MAE, Sharpe)"
+    "why_not_covered_by_existing_features": [
+      "VIX submodel captures realized volatility dynamics (regime, mean-reversion, persistence of VIX itself). It does NOT capture: (a) directional positioning (puts vs calls), (b) tail risk perception (SKEW), (c) gold-specific implied vol (GVZ).",
+      "Cross-asset submodel captures correlation regimes between gold/silver/copper/S&P. It does NOT capture options market positioning or implied tail risk.",
+      "No existing submodel captures the PUT/CALL ratio, which is a direct measure of institutional hedging activity -- the mechanism through which fear translates to gold demand.",
+      "SKEW index provides information about the SHAPE of the implied return distribution (skewness), while VIX captures only the LEVEL of expected volatility. These are mathematically distinct moments."
     ],
-    "model_config": {
-      "architecture": "XGBoost reg:squarederror",
-      "n_features": 22,
-      "train_samples": 1765,
-      "best_params": {
-        "max_depth": 2,
-        "min_child_weight": 14,
-        "reg_lambda": 4.76,
-        "reg_alpha": 3.65,
-        "subsample": 0.478,
-        "colsample_bytree": 0.371,
-        "learning_rate": 0.025,
-        "n_estimators": 247
-      },
-      "optuna_trials": 80,
-      "optuna_weights": "Sharpe 50%, DA 30%, MAE 10%, HCDA 10%"
-    },
-    "hcda_analysis": {
-      "top_10pct": {"n": 38, "hcda": 0.6053},
-      "top_15pct": {"n": 57, "hcda": 0.5965},
-      "top_20pct": {"n": 76, "hcda": 0.5526},
-      "top_25pct": {"n": 95, "hcda": 0.5789},
-      "top_30pct": {"n": 114, "hcda": 0.5789}
+    "complementarity_with_vix_submodel": {
+      "vix_captures": "Volatility level regime (calm/elevated/crisis), distance from equilibrium (z-score), temporal persistence (autocorrelation)",
+      "options_market_captures": "Directional positioning (P/C ratio), tail risk shape (SKEW), gold-specific implied vol (GVZ), hedging momentum (rate of change)",
+      "joint_information": "VIX at 25 with P/C ratio at 0.8 (greed) vs VIX at 25 with P/C ratio at 1.3 (extreme hedging) have very different implications for gold. Similarly, VIX at 20 with SKEW at 120 (low tail risk) vs VIX at 20 with SKEW at 145 (extreme tail risk) signal different gold demand environments."
     }
   },
 
-  "success_criteria": "Test set must achieve ALL of: DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8 (after 5bps costs on position changes). Train-test DA gap < 10pp. No regression on currently passing metrics.",
+  "data_sources": {
+    "primary": [
+      {
+        "name": "CBOE Equity Put/Call Ratio",
+        "ticker": "^CPCE",
+        "source": "Yahoo Finance (yfinance)",
+        "frequency": "Daily",
+        "expected_range": "2014-01-01 to present",
+        "interpretation": ">1.0 = fear (more puts), <1.0 = greed (more calls). Extreme: >1.2 panic, <0.6 complacency",
+        "note": "NOT available on FRED. Yahoo Finance only. Verify actual ticker availability via yfinance.",
+        "delay": "0 days (market close data)"
+      },
+      {
+        "name": "CBOE SKEW Index",
+        "ticker": "^SKEW",
+        "source": "Yahoo Finance (yfinance)",
+        "frequency": "Daily",
+        "expected_range": "2014-01-01 to present (confirmed on Yahoo Finance)",
+        "interpretation": ">135 = elevated tail risk, 100 = no tail risk. Typical range 115-145.",
+        "note": "Confirmed available on Yahoo Finance with historical data.",
+        "delay": "0 days (market close data)"
+      },
+      {
+        "name": "CBOE Gold ETF Volatility Index (GVZ)",
+        "ticker_fred": "GVZCLS",
+        "ticker_yahoo": "^GVZ",
+        "source": "FRED (primary) or Yahoo Finance (fallback)",
+        "frequency": "Daily",
+        "expected_range": "2008-06-03 to present (confirmed on FRED)",
+        "interpretation": "Gold-specific implied volatility. High GVZ = gold uncertainty. GVZ/VIX ratio captures gold-specific risk premium.",
+        "note": "Available on FRED since 2008. Daily close. Use FRED_API_KEY in Kaggle Secrets.",
+        "delay": "0-1 days (FRED update delay)"
+      }
+    ],
+    "alternative_tickers_to_verify": [
+      "^CPC (CBOE Total Put/Call Ratio - includes index options, may be different from ^CPCE)",
+      "^PCCE (equity-only put/call ratio on some platforms)",
+      "VXVCLS (FRED: VIX 3-month, already available but not used in VIX submodel)"
+    ],
+    "data_availability_risks": [
+      "^CPCE may not be available via yfinance. Researcher must verify. If unavailable, alternatives: (a) web scraping CBOE daily files, (b) proxy from ^CPC total P/C ratio, (c) FRED may have added new series since last check.",
+      "^SKEW confirmed available on Yahoo Finance but data may have gaps or start date later than expected.",
+      "GVZCLS confirmed on FRED (2008-present). Reliable backup via ^GVZ on Yahoo Finance."
+    ]
+  },
 
-  "expected_artifacts": [
-    "docs/design/meta_model_attempt_3.md",
-    "notebooks/meta_model_3/train.ipynb",
-    "logs/evaluation/meta_model_attempt_3_summary.md"
+  "target_outputs": {
+    "output_columns": [
+      {
+        "name": "options_risk_regime_prob",
+        "description": "Probability of being in the high-risk/fear regime based on multi-indicator HMM on P/C ratio and SKEW dynamics",
+        "range": "[0, 1]",
+        "expected_correlation_with_vix_regime": "0.3-0.5 (correlated but capturing different information -- positioning vs volatility level)"
+      },
+      {
+        "name": "options_tail_risk_z",
+        "description": "Standardized SKEW deviation from rolling historical mean. Captures how unusual current tail risk perception is relative to recent history.",
+        "range": "[-4, +4] (clipped)",
+        "expected_correlation_with_vix_zscore": "0.2-0.4 (SKEW z-score captures distribution shape, VIX z-score captures volatility level)"
+      },
+      {
+        "name": "options_pc_momentum",
+        "description": "Rate of change (momentum) in the put/call ratio. Captures acceleration/deceleration of hedging demand. Rolling 5-day or 10-day change, normalized.",
+        "range": "[-3, +3] (z-scored)",
+        "expected_correlation_with_vix_persistence": "0.1-0.3 (P/C momentum is about positioning flow, VIX persistence is about vol clustering)"
+      },
+      {
+        "name": "options_gvz_premium_z",
+        "description": "Z-score of GVZ/VIX ratio. High values = gold-specific uncertainty premium above general market fear. Low values = gold vol underpriced relative to equity vol.",
+        "range": "[-4, +4] (clipped)",
+        "expected_correlation_with_base_vix": "Low (<0.2) because the ratio removes the common VIX component"
+      }
+    ],
+    "total_columns": "3-4 (architect to decide whether gvz_premium_z adds sufficient orthogonal information or should be dropped)"
+  },
+
+  "research_questions": [
+    "Q1: Is ^CPCE (CBOE Equity Put/Call Ratio) available via yfinance? If not, what alternative tickers work? Test ^CPC, ^PCCE, or direct CBOE CSV download. Document actual data availability and date range.",
+    "Q2: What is the empirical correlation between daily P/C ratio changes and next-day gold returns? Is the relationship contemporaneous, lagged, or regime-dependent? Test on our 2015-2025 sample.",
+    "Q3: What is the measured correlation between SKEW index and VIX? Academic literature suggests low correlation (~0.1-0.3) because SKEW captures distribution shape while VIX captures level. Verify on our sample to confirm orthogonality.",
+    "Q4: Is a 2D HMM on [P/C ratio changes, SKEW changes] more informative than separate indicators? The VIX/Technical/Cross-Asset/ETF-Flow submodels all used 2D HMM successfully. Would adding GVZ as a 3rd HMM dimension improve regime detection or add noise?",
+    "Q5: What is the GVZ/VIX ratio's time-series behavior? Is it stationary or trending? What rolling window is appropriate for z-scoring? Does the ratio have predictive power for gold returns?",
+    "Q6: How do successful submodels in this project handle the HMM state labeling problem? Review VIX, Technical, Cross-Asset, ETF-Flow designs to extract the common pattern (sort by emission variance, output P(highest-variance state)).",
+    "Q7: Is there academic evidence that options market sentiment indicators (P/C ratio, SKEW) are leading indicators for gold price movements? What is the typical lead time if any?",
+    "Q8: What are the known limitations of P/C ratio as a sentiment indicator? (e.g., structural shorts from market makers, index option vs equity option distinction, hedging vs directional positioning)"
   ],
 
-  "created_at": "2026-02-15T22:00:00",
-  "created_by": "evaluator"
+  "architecture_guidelines": {
+    "recommended_approach": "HMM-based regime detection (proven in 7/8 completed submodels) combined with z-score and momentum features. Follow the Technical/Cross-Asset/ETF-Flow pattern: 2D HMM input -> regime probability + 2-3 derived features.",
+    "hmm_input_candidates": [
+      "Option A: 2D HMM on [P/C ratio daily change, SKEW daily change]",
+      "Option B: 2D HMM on [P/C ratio level (smoothed), GVZ/VIX ratio change]",
+      "Option C: 1D HMM on P/C ratio changes + separate deterministic features from SKEW and GVZ"
+    ],
+    "deterministic_feature_candidates": [
+      "SKEW rolling z-score (tail risk deviation from norm)",
+      "P/C ratio rolling momentum (5d or 10d change, z-scored)",
+      "GVZ/VIX ratio z-score (gold-specific risk premium)",
+      "P/C ratio mean-reversion signal (distance from 20d rolling mean)"
+    ],
+    "do_not": [
+      "Do NOT predict gold prices or returns from options data",
+      "Do NOT use raw levels of P/C ratio or SKEW as features (non-stationary risk)",
+      "Do NOT include VIX as an HMM input (would create collinearity with VIX submodel)",
+      "Do NOT use >4 output columns (lesson from real_rate attempt 5: 7 features = noise)"
+    ]
+  },
+
+  "constraints": [
+    "5-day maximum data delay (all three sources: P/C, SKEW, GVZ are daily with 0-1 day delay -- PASS)",
+    "Submodel must NOT predict gold prices (extract latent risk perception patterns only)",
+    "Data date range: must align with base_features (2015-01-30 to 2025-02-12, ~2523 rows)",
+    "Data split frozen: train/val/test = 70/15/15 (time-series order, no shuffle)",
+    "HMM must fit on training data only; rolling features use backward-looking windows only",
+    "No future information leakage",
+    "Self-contained Kaggle Notebook (all data fetching + model + evaluation in single notebook)",
+    "Output must be stationary (all changes/z-scores/probabilities, no raw levels)",
+    "Must complement VIX submodel without duplicating it (VIF with vix_regime_probability must be <10)",
+    "Use hmmlearn GaussianHMM (proven in project, install via pip in notebook)",
+    "Optuna HPO with 30 trials minimum (fast: HMM + deterministic features, each trial <10s)"
+  ],
+
+  "success_hypothesis": "Options market risk perception features add +0.5% direction accuracy or +0.05 Sharpe or -0.01% MAE to the meta-model. Hypothesis: P/C ratio momentum and SKEW tail risk capture the MECHANISM of safe-haven flows (hedging demand -> gold demand) that the VIX level alone cannot distinguish.",
+
+  "gate_expectations": {
+    "gate1_standalone": {
+      "expected": "PASS",
+      "rationale": "HMM regime probability naturally bounded [0,1]. Z-scores clipped [-4,4]. Momentum z-scored. No constant-output risk if P/C and SKEW have meaningful daily variation. Autocorrelation expected 0.7-0.95 (well below 0.99 threshold due to daily frequency of options data)."
+    },
+    "gate2_information_gain": {
+      "expected": "PASS with moderate MI",
+      "rationale": "Options sentiment captures positioning (directional) information orthogonal to VIX (volatility level). GVZ/VIX ratio removes common variance. MI increase expected 5-15% (conservative vs inflation_expectation's 10.94%). VIF with VIX submodel outputs expected <5 if using changes/z-scores rather than levels.",
+      "risk": "If P/C ratio is too noisy daily, MI may be low. Mitigation: use 3-day or 5-day smoothed P/C."
+    },
+    "gate3_ablation": {
+      "expected": "MODERATE probability of pass",
+      "rationale": "Options data is a distinct information source from all existing features. P/C ratio captures institutional flow patterns not present in any current feature. However, gold-specific options data (GVZ) may have limited incremental value if VIX already captures the volatility environment well.",
+      "confidence": "6/10 (lower than VIX's 7/10 because P/C ratio-gold relationship is indirect: P/C -> equity risk sentiment -> safe-haven rotation -> gold)"
+    }
+  },
+
+  "lessons_from_completed_submodels": {
+    "pattern_to_follow": "2D HMM on daily-frequency changes -> regime probability + 2 deterministic z-score/momentum features. This pattern produced Gate 3 PASS in VIX (DA+0.96%), Technical (MAE-0.1824), Cross-Asset (DA+0.76%, MAE-0.087), ETF-Flow (Sharpe+0.377, MAE-0.044), Inflation (DA+0.57%, Sharpe+0.15).",
+    "pattern_to_avoid": [
+      "Do NOT use >4 output columns (real_rate attempt 5: 7 features gave XGBoost noise to overfit on)",
+      "Do NOT use monthly or low-frequency data (real_rate: monthly-to-daily mismatch is fundamental failure)",
+      "Do NOT include HMM regime_prob if it collapses to constant (yield_curve: HMM collapsed to 1 state, regime_prob excluded)",
+      "Do NOT assume VIF will be low for ratio-based features without measurement (VIX: VIX/VIX3M ratio had 0.69 correlation with VIX level, was rejected)"
+    ],
+    "meta_model_context": {
+      "current_feature_count": 22,
+      "target_feature_count": "25-26 (add 3-4 from options_market)",
+      "meta_model_architecture": "XGBoost reg:squarederror with max_depth=2",
+      "meta_model_best_result": "Attempt 2: DA=57.26%, HCDA=55.26%, MAE=0.688%, Sharpe=1.58 (3/4 targets)",
+      "meta_model_weakness": "HCDA is the sole failing metric (55.26% vs 60% target). New features should ideally help distinguish high-confidence predictions, not just improve average DA."
+    }
+  },
+
+  "previous_feedback": null,
+
+  "expected_artifacts": [
+    "docs/research/options_market_research.md",
+    "docs/design/options_market_attempt_1.md",
+    "data/processed/options_market_features_input.csv",
+    "notebooks/options_market_1/train.ipynb",
+    "notebooks/options_market_1/kernel-metadata.json",
+    "data/submodel_outputs/options_market.csv",
+    "logs/evaluation/options_market_attempt_1_summary.md"
+  ],
+
+  "created_at": "2026-02-15T23:00:00",
+  "created_by": "entrance"
 }
