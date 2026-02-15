@@ -1,0 +1,81 @@
+[{"stream_name":"stderr","time":10.073163714,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.073243397,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.073250086,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.073255464,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.926392493,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.926434457,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.926440234,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.926445092,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.703200948,"data":"Training started: 2026-02-15T10:13:57.420670\n"}
+,{"stream_name":"stdout","time":16.703290131,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":16.703298537,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stdout","time":16.835762366,"data":"\n"}
+,{"stream_name":"stdout","time":16.835811074,"data":"=== Loading Data ===\n"}
+,{"stream_name":"stdout","time":16.83583592,"data":"Train: (1765, 23)\n"}
+,{"stream_name":"stdout","time":16.8358428,"data":"Val:   (378, 23)\n"}
+,{"stream_name":"stdout","time":16.835849532,"data":"Test:  (379, 23)\n"}
+,{"stream_name":"stdout","time":16.835855809999998,"data":"\n"}
+,{"stream_name":"stdout","time":16.835861079,"data":"Train date range: 2015-02-02 00:00:00 to 2022-02-07 00:00:00\n"}
+,{"stream_name":"stdout","time":16.835866451,"data":"Val date range:   2022-02-08 00:00:00 to 2023-08-10 00:00:00\n"}
+,{"stream_name":"stdout","time":16.835871884,"data":"Test date range:  2023-08-11 00:00:00 to 2025-02-12 00:00:00\n"}
+,{"stream_name":"stderr","time":17.571074728,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":17.57110205,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":17.571110441,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":17.571267024,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":17.571292246,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":17.571850615,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":17.572491264,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":17.572508703,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":17.572514866,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":17.572520811,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":17.572526491,"data":"KeyError                                  Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":17.572532202,"data":"/tmp/ipykernel_17/745449199.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":17.572538393,"data":"     19 TARGET_COL = 'target_next_day_return'\n"}
+,{"stream_name":"stderr","time":17.572543948,"data":"     20 \n"}
+,{"stream_name":"stderr","time":17.572566133,"data":"---\u003e 21 X_train = train_df.drop(columns=[TARGET_COL])\n"}
+,{"stream_name":"stderr","time":17.57259818,"data":"     22 y_train = train_df[TARGET_COL]\n"}
+,{"stream_name":"stderr","time":17.572602684,"data":"     23 \n"}
+,{"stream_name":"stderr","time":17.572607198,"data":"\n"}
+,{"stream_name":"stderr","time":17.572611843,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py in drop(self, labels, axis, index, columns, level, inplace, errors)\n"}
+,{"stream_name":"stderr","time":17.572617051,"data":"   5579                 weight  1.0     0.8\n"}
+,{"stream_name":"stderr","time":17.572621429,"data":"   5580         \"\"\"\n"}
+,{"stream_name":"stderr","time":17.572625743,"data":"-\u003e 5581         return super().drop(\n"}
+,{"stream_name":"stderr","time":17.572630737,"data":"   5582             labels=labels,\n"}
+,{"stream_name":"stderr","time":17.572634903,"data":"   5583             axis=axis,\n"}
+,{"stream_name":"stderr","time":17.572639235,"data":"\n"}
+,{"stream_name":"stderr","time":17.57264336,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/generic.py in drop(self, labels, axis, index, columns, level, inplace, errors)\n"}
+,{"stream_name":"stderr","time":17.572648571,"data":"   4786         for axis, labels in axes.items():\n"}
+,{"stream_name":"stderr","time":17.572653047,"data":"   4787             if labels is not None:\n"}
+,{"stream_name":"stderr","time":17.572657403,"data":"-\u003e 4788                 obj = obj._drop_axis(labels, axis, level=level, errors=errors)\n"}
+,{"stream_name":"stderr","time":17.572662249,"data":"   4789 \n"}
+,{"stream_name":"stderr","time":17.572666659,"data":"   4790         if inplace:\n"}
+,{"stream_name":"stderr","time":17.572671006,"data":"\n"}
+,{"stream_name":"stderr","time":17.572675246,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/generic.py in _drop_axis(self, labels, axis, level, errors, only_slice)\n"}
+,{"stream_name":"stderr","time":17.572680165,"data":"   4828                 new_axis = axis.drop(labels, level=level, errors=errors)\n"}
+,{"stream_name":"stderr","time":17.57268506,"data":"   4829             else:\n"}
+,{"stream_name":"stderr","time":17.572689907,"data":"-\u003e 4830                 new_axis = axis.drop(labels, errors=errors)\n"}
+,{"stream_name":"stderr","time":17.572694491,"data":"   4831             indexer = axis.get_indexer(new_axis)\n"}
+,{"stream_name":"stderr","time":17.572699194,"data":"   4832 \n"}
+,{"stream_name":"stderr","time":17.572703203,"data":"\n"}
+,{"stream_name":"stderr","time":17.572707188,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/indexes/base.py in drop(self, labels, errors)\n"}
+,{"stream_name":"stderr","time":17.572711862,"data":"   7068         if mask.any():\n"}
+,{"stream_name":"stderr","time":17.572716542,"data":"   7069             if errors != \"ignore\":\n"}
+,{"stream_name":"stderr","time":17.572721623,"data":"-\u003e 7070                 raise KeyError(f\"{labels[mask].tolist()} not found in axis\")\n"}
+,{"stream_name":"stderr","time":17.572726778,"data":"   7071             indexer = indexer[~mask]\n"}
+,{"stream_name":"stderr","time":17.572731235,"data":"   7072         return self.delete(indexer)\n"}
+,{"stream_name":"stderr","time":17.57273551,"data":"\n"}
+,{"stream_name":"stderr","time":17.57273959,"data":"KeyError: \"['target_next_day_return'] not found in axis\"\n"}
+,{"stream_name":"stderr","time":17.57274404,"data":"\n"}
+,{"stream_name":"stderr","time":20.450217066,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20.450273852,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":20.659855622,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":20.659907755,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":21.518021682,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":21.518061705,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":21.558554562,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":21.952555476,"data":"[NbConvertApp] Writing 29692 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":25.309599781,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":25.309674093,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":25.342371618,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":26.461614751,"data":"[NbConvertApp] Writing 348263 bytes to __results__.html\n"}
+]
