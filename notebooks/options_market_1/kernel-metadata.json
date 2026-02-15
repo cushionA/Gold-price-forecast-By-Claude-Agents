@@ -1,6 +1,5 @@
 {
-  "id": "bigbigzabuton/gold-model-training",
-  "title": "Gold Model Training - Options Market",
+  "id": "bigbigzabuton/gold-model-training-options-market",
   "code_file": "train.ipynb",
   "language": "python",
   "kernel_type": "notebook",
