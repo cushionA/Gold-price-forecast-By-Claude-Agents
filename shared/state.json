@@ -1,14 +1,13 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "2_submodel_loop",
-  "current_feature": "inflation_expectation",
-  "current_attempt": 1,
-  "resume_from": "evaluator",
-  "datachecker_status": "PASS",
+  "current_feature": "cny_demand",
+  "current_attempt": 0,
+  "resume_from": "entrance",
+  "datachecker_status": null,
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [
-    "inflation_expectation",
     "cny_demand"
   ],
   "completed_features": [
@@ -17,11 +16,12 @@
     "technical",
     "cross_asset",
     "yield_curve",
-    "etf_flow"
+    "etf_flow",
+    "inflation_expectation"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-model-training",
-  "submitted_at": "2026-02-15T13:30:00",
-  "last_updated": "2026-02-15T13:30:00",
+  "kaggle_kernel": null,
+  "submitted_at": null,
+  "last_updated": "2026-02-15T16:00:00",
   "error_context": null,
   "user_action_required": false,
   "baseline_metrics": {
@@ -226,6 +226,31 @@
           "gate3_da_delta=+0.45pct_below_threshold"
         ],
         "note": "2D HMM (3-state) on [log_volume_ratio, gold_return] + dollar volume z-score + PV divergence z-score. Gate 3 PASS on both Sharpe (+0.377, strongest of all submodels) and MAE (-0.0436, 4.4x threshold). Only submodel to pass two Gate 3 criteria simultaneously. etf_regime_prob VIF=12.47 (exceeds 10) but Gate 3 confirms value."
+      }
+    },
+    "inflation_expectation": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate1_all_checks_pass",
+          "gate2_mi_increase=+10.94%",
+          "gate2_vif_max=2.25_excellent",
+          "gate2_stability_max=0.14_all_pass",
+          "gate3_da_delta=+0.57%",
+          "gate3_sharpe_delta=+0.1516_3x_threshold",
+          "ie_gold_sensitivity_z_rank8_5.38pct",
+          "ie_regime_prob_rank10_5.04pct",
+          "first_submodel_all_3_gates_pass"
+        ],
+        "primary_failures": [
+          "gate3_mae_delta=+0.0526_degraded",
+          "gate3_fold2_and_fold5_degraded",
+          "ie_regime_prob_78pct_near_zero"
+        ],
+        "note": "2D HMM (3-state) on IE dynamics + anchoring z-score + gold sensitivity z-score. First submodel to pass all 3 gates. Gate 2 fully passes (MI +10.94%, VIF 2.25, stability 0.14). Gate 3 passes on DA (+0.57%) and Sharpe (+0.15). MAE degrades but DA and Sharpe improvements are consistent across majority of folds."
       }
     }
   }

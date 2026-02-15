@@ -1,0 +1,148 @@
+{
+  "feature": "inflation_expectation",
+  "attempt": 1,
+  "timestamp": "2026-02-15T16:00:00",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {
+        "value": null,
+        "passed": true,
+        "note": "HMM is unsupervised (no train/val loss ratio). Optuna optimized MI directly. No overfit ratio applicable."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true,
+        "note": "0 NaN values in any column"
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "note": "std: ie_regime_prob=0.2815, ie_anchoring_z=1.0439, ie_gold_sensitivity_z=1.0174. All well above 1e-10."
+      },
+      "autocorr_ie_regime_prob": {
+        "value": 0.9249,
+        "passed": true,
+        "note": "Below 0.99 threshold"
+      },
+      "autocorr_ie_anchoring_z": {
+        "value": 0.8301,
+        "passed": true,
+        "note": "Below 0.99 threshold"
+      },
+      "autocorr_ie_gold_sensitivity_z": {
+        "value": 0.7043,
+        "passed": true,
+        "note": "Below 0.99 threshold"
+      }
+    },
+    "warnings": [
+      "ie_regime_prob has extreme range: 1.92e-251 to 1.0. Values < 0.001 in 2303/2924 rows (78.8%). Effective regime switching is sparse.",
+      "ie_anchoring_z has 119 exact zeros (4.1%) at start of series (warm-up period for vol_window=5 + baseline_window=120).",
+      "ie_gold_sensitivity_z has 123 exact zeros (4.2%) at start of series (warm-up period)."
+    ]
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base": 0.309536,
+        "extended": 0.343413,
+        "increase": 0.1094,
+        "passed": true,
+        "note": "MI sum increase +10.94% exceeds 5% threshold. ie_gold_sensitivity_z contributes most (MI=0.0228), ie_regime_prob contributes (MI=0.0090), ie_anchoring_z contributes 0."
+      },
+      "vif": {
+        "max": 2.2518,
+        "passed": true,
+        "details": {
+          "ie_regime_prob": 2.2518,
+          "ie_anchoring_z": 1.6263,
+          "ie_gold_sensitivity_z": 1.0118
+        },
+        "note": "All submodel VIFs well below 10. Very low multicollinearity."
+      },
+      "stability": {
+        "max_std": 0.1447,
+        "passed": true,
+        "details": {
+          "ie_regime_prob": 0.1243,
+          "ie_anchoring_z": 0.1447,
+          "ie_gold_sensitivity_z": 0.1191
+        },
+        "note": "All columns below 0.15 threshold. ie_anchoring_z is closest at 0.1447 but within bounds."
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": 0.0057,
+        "passed": true,
+        "note": "+0.57% exceeds +0.5% threshold. Improved in 3/5 folds, 2/5 exceeded threshold."
+      },
+      "sharpe": {
+        "delta": 0.1516,
+        "passed": true,
+        "note": "+0.1516 exceeds +0.05 threshold (3x). Improved in 3/5 folds, 3/5 exceeded threshold."
+      },
+      "mae": {
+        "delta": 0.0526,
+        "passed": false,
+        "note": "+0.0526 (degradation). MAE improved in only 2/5 folds."
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.4778,
+      "mae": 1.1218,
+      "sharpe": -0.2725
+    },
+    "extended": {
+      "direction_accuracy": 0.4835,
+      "mae": 1.1745,
+      "sharpe": -0.1208
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "base": {"da": 0.4952, "sharpe": 0.0422, "mae": 0.8544},
+        "ext": {"da": 0.4976, "sharpe": 0.6242, "mae": 0.9576},
+        "delta": {"da": 0.0024, "sharpe": 0.5820, "mae": 0.1032}
+      },
+      {
+        "fold": 2,
+        "base": {"da": 0.4928, "sharpe": 0.3438, "mae": 0.7739},
+        "ext": {"da": 0.4663, "sharpe": -0.7959, "mae": 0.8147},
+        "delta": {"da": -0.0264, "sharpe": -1.1397, "mae": 0.0409}
+      },
+      {
+        "fold": 3,
+        "base": {"da": 0.4545, "sharpe": -0.1209, "mae": 1.3027},
+        "ext": {"da": 0.4856, "sharpe": 1.0313, "mae": 1.2208},
+        "delta": {"da": 0.0311, "sharpe": 1.1522, "mae": -0.0819}
+      },
+      {
+        "fold": 4,
+        "base": {"da": 0.5012, "sharpe": -0.0851, "mae": 1.3759},
+        "ext": {"da": 0.5274, "sharpe": 0.4758, "mae": 1.2026},
+        "delta": {"da": 0.0263, "sharpe": 0.5608, "mae": -0.1733}
+      },
+      {
+        "fold": 5,
+        "base": {"da": 0.4452, "sharpe": -1.5424, "mae": 1.3024},
+        "ext": {"da": 0.4405, "sharpe": -1.9395, "mae": 1.6767},
+        "delta": {"da": -0.0048, "sharpe": -0.3971, "mae": 0.3742}
+      }
+    ],
+    "feature_importance": {
+      "ie_gold_sensitivity_z": {"rank": 8, "importance": 0.0538, "pct": "5.38%"},
+      "ie_regime_prob": {"rank": 10, "importance": 0.0504, "pct": "5.04%"},
+      "ie_anchoring_z": {"rank": 14, "importance": 0.0457, "pct": "4.57%"}
+    }
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "summary": "inflation_expectation submodel passes Gate 1 (clean output), Gate 2 (MI +10.94%, VIF max 2.25, stability 0.14), and Gate 3 (DA +0.57%, Sharpe +0.15). This is the first submodel to pass all three gates simultaneously. 2D HMM regime detection + anchoring z-score + gold sensitivity z-score architecture captures genuine inflation expectation dynamics relevant to gold returns."
+}

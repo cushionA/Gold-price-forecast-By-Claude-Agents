@@ -101,5 +101,20 @@
     "completed_at": "2026-02-15T15:30:00",
     "reason": "Gate 3 PASS via Sharpe (+0.377, 7.5x threshold, 3/5 folds) and MAE (-0.0436, 4.4x threshold, 4/5 folds). 2D HMM regime detection on [log_volume_ratio, gold_return] + dollar volume z-score + PV divergence z-score. Strongest Sharpe improvement of any submodel. etf_regime_prob ranked #9/33 in feature importance. VIF warning: etf_regime_prob VIF=12.47 exceeds 10 threshold but Gate 3 confirms value.",
     "vif_warning": "etf_regime_prob VIF=12.47. Monitor in meta-model."
+  },
+  "inflation_expectation": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0057,
+      "sharpe_delta": 0.1516,
+      "mae_delta": 0.0526
+    },
+    "output_columns": ["ie_regime_prob", "ie_anchoring_z", "ie_gold_sensitivity_z"],
+    "output_path": "data/submodel_outputs/inflation_expectation.csv",
+    "model_path": null,
+    "completed_at": "2026-02-15T16:00:00",
+    "reason": "Gate 3 PASS via DA (+0.57%, 3/5 folds improved) and Sharpe (+0.1516, 3x threshold, 3/5 folds improved). First submodel to pass all three gates (Gate 1, 2, 3). 2D HMM (3-state) regime detection on inflation expectation dynamics + anchoring z-score + gold sensitivity z-score. MI increase +10.94% with excellent VIF (max 2.25) and stability (max 0.14). ie_gold_sensitivity_z ranked #8/22 in feature importance (5.38%)."
   }
 }
