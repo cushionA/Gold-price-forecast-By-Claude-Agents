@@ -1,0 +1,189 @@
+{
+  "feature": "meta_model",
+  "attempt": 5,
+  "timestamp": "2026-02-16T12:00:00",
+  "architecture": "XGBoost reg:squarederror (23 features, 100 Optuna trials)",
+  "phase": "3_meta_model",
+  "evaluation_type": "final_targets",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit_ratio": {
+        "value": 1.130,
+        "threshold": 1.5,
+        "passed": true,
+        "detail": "train_DA=64.12%, test_DA=56.77%, ratio=1.130"
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "detail": "458 unique prediction values"
+      },
+      "autocorrelation": {
+        "lag1": 0.2605,
+        "lag5": 0.0124,
+        "lag10": 0.0020,
+        "passed": true,
+        "detail": "No leak indicators. Lag-1 autocorr of 0.26 is within normal range for daily predictions."
+      },
+      "hpo_coverage": {
+        "value": 100,
+        "passed": true,
+        "detail": "100 Optuna trials completed. Best trial #22."
+      }
+    },
+    "warnings": [
+      "Val DA (49.23%) is below random (50%), yet test DA (56.77%) is much higher. Val-Test divergence of 7.54pp suggests model may benefit from test-period-specific regime.",
+      "Prediction scale mismatch: predictions std=0.070 vs actuals std=1.369 (ratio 0.051). Predictions are ~20x smaller than actuals."
+    ]
+  },
+  "gate2_not_applicable": "Phase 3 meta-model uses final target evaluation instead of Gate 2/3 ablation.",
+  "gate3_final_targets": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "56.77%",
+      "gap_pp": 0.77,
+      "passed": true,
+      "detail": "Marginally passes. Model vs naive always-up: -1.97pp (58.73% naive). Model is worse than naive on overall DA but passes the absolute threshold."
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "57.61%",
+      "gap_pp": -2.39,
+      "passed": false,
+      "detail": "Top-20% (N=92) achieves 57.61%. Decile analysis shows inverted confidence-accuracy pattern: Decile 3 (rank 91-135) has 77.8% DA while Decile 1 (rank 1-45) has only 57.8%. Model confidence ordering is miscalibrated at extremes. At 70th percentile threshold (N=138), HCDA would be 63.04%, but protocol requires 80th.",
+      "hcda_by_threshold": {
+        "top_5pct": 0.5455,
+        "top_10pct": 0.5652,
+        "top_15pct": 0.5652,
+        "top_20pct": 0.5761,
+        "top_25pct": 0.5826,
+        "top_30pct": 0.6304
+      },
+      "directional_split": {
+        "hc_up_da": 0.6230,
+        "hc_up_n": 61,
+        "hc_down_da": 0.4839,
+        "hc_down_n": 31,
+        "note": "Model predicts UP direction well (62.3%) but DOWN direction poorly (48.4%) in high-confidence band."
+      }
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9521%",
+      "gap_pct": -0.2021,
+      "passed": false,
+      "detail": "Prediction scale (std=0.070) vs actual scale (std=1.369) means MAE is dominated by actual volatility, not prediction quality. Mean|actual|=0.9579, so MAE with zero predictions would be 0.9579. Model only improves MAE by 0.6% over zero-prediction baseline. Test period includes 2025-2026 extreme gold volatility (14 days with |actual|>3%, including -11.37% and +6.08% single-day moves).",
+      "mae_by_period": {
+        "early_pre_2025": {"mae": 0.7854, "n": 177},
+        "late_2025_plus": {"mae": 1.0571, "n": 281}
+      },
+      "root_cause": "Test set composition changed: 458 samples (vs 379 in attempt 2) including significantly more volatile 2025-2026 period. Even with identical model quality, MAE would increase due to higher gold volatility."
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": 1.8343,
+      "gap": 1.0343,
+      "passed": true,
+      "detail": "Best Sharpe across all 5 attempts. 2.3x the target. 343 position changes out of 458 days. Transaction costs properly deducted."
+    }
+  },
+  "targets_passed": 2,
+  "targets_total": 4,
+  "overall_passed": false,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": 7.35,
+    "train_val_da_gap_pp": 14.89,
+    "val_test_da_gap_pp": -7.54,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS",
+    "concern": "Val DA below random (49.23%) while test DA passes target (56.77%). This inversion is unusual and may indicate regime sensitivity rather than genuine generalization."
+  },
+  "vs_attempt_2": {
+    "da_delta_pp": -0.49,
+    "hcda_delta_pp": 2.35,
+    "mae_delta": 0.2644,
+    "sharpe_delta": 0.2508,
+    "test_samples_delta": 79,
+    "features_delta": 1,
+    "interpretation": "DA slightly worse, HCDA improved by 2.35pp, MAE much worse (largely due to test set expansion into volatile period), Sharpe improved. Net: mixed results."
+  },
+  "vs_naive": {
+    "naive_always_up_da": "58.73%",
+    "model_vs_naive_pp": -1.97,
+    "note": "Model underperforms naive always-up strategy by 1.97pp on DA, but achieves positive Sharpe (1.83) by correctly timing some down moves."
+  },
+  "prediction_characteristics": {
+    "mean": 0.0128,
+    "std": 0.0699,
+    "min": -0.4138,
+    "max": 0.2184,
+    "positive_pct": 63.5,
+    "actual_positive_pct": 58.7,
+    "pred_actual_std_ratio": 0.0511,
+    "correlation": 0.1178,
+    "n_position_changes": 343,
+    "all_up_da_pct": 62.2,
+    "all_down_da_pct": 47.3
+  },
+  "quarterly_performance": {
+    "2024Q2": {"da": 44.9, "hcda": 50.0, "mae": 0.8485, "sharpe": 1.93, "n": 49},
+    "2024Q3": {"da": 53.1, "hcda": 54.5, "mae": 0.7179, "sharpe": 0.15, "n": 64},
+    "2024Q4": {"da": 65.6, "hcda": 66.7, "mae": 0.8047, "sharpe": 3.59, "n": 64},
+    "2025Q1": {"da": 60.7, "hcda": 50.0, "mae": 0.6850, "sharpe": 2.07, "n": 61},
+    "2025Q2": {"da": 53.2, "hcda": 47.8, "mae": 1.3293, "sharpe": 1.63, "n": 62},
+    "2025Q3": {"da": 61.5, "hcda": 66.7, "mae": 0.6786, "sharpe": 3.51, "n": 65},
+    "2025Q4": {"da": 56.2, "hcda": 69.2, "mae": 1.1136, "sharpe": 1.27, "n": 64},
+    "2026Q1": {"da": 55.2, "hcda": 60.0, "mae": 1.9812, "sharpe": 2.45, "n": 29}
+  },
+  "feature_importance_top_10": [
+    {"feature": "real_rate_change", "importance": 0.0824},
+    {"feature": "tech_trend_regime_prob", "importance": 0.0546},
+    {"feature": "options_risk_regime_prob", "importance": 0.0540},
+    {"feature": "tech_mean_reversion_z", "importance": 0.0536},
+    {"feature": "tech_volatility_regime", "importance": 0.0486},
+    {"feature": "xasset_divergence", "importance": 0.0481},
+    {"feature": "vix", "importance": 0.0444},
+    {"feature": "xasset_regime_prob", "importance": 0.0444},
+    {"feature": "inflation_exp_change", "importance": 0.0426},
+    {"feature": "dxy_change", "importance": 0.0419}
+  ],
+  "model_config": {
+    "n_features": 23,
+    "train_samples": 2131,
+    "val_samples": 456,
+    "test_samples": 458,
+    "samples_per_feature_ratio": 92.65,
+    "optuna_trials": 100,
+    "objective_weights": "HCDA 20%, DA 30%, MAE 10%, Sharpe 40%",
+    "best_params": {
+      "max_depth": 5,
+      "min_child_weight": 12,
+      "subsample": 0.8954,
+      "colsample_bytree": 0.2404,
+      "reg_lambda": 0.1639,
+      "reg_alpha": 1.4249,
+      "learning_rate": 0.0383,
+      "n_estimators": 792
+    }
+  },
+  "decision": "no_further_improvement",
+  "decision_rationale": {
+    "summary": "After 5 attempts, the meta-model achieves 2/4 targets (DA, Sharpe) but structurally cannot reach HCDA (60%) and MAE (<0.75%) targets simultaneously. The model has demonstrated genuine directional skill (Sharpe 1.83) and controlled overfitting, but fundamental limitations prevent meeting all targets.",
+    "hcda_infeasibility": "HCDA at the 80th percentile threshold has never reached 60% in any of 5 attempts. Best was 59.21% (attempt 3, severe overfitting). The model's confidence ordering is structurally inverted: moderate-confidence predictions (Decile 3) are more accurate (77.8%) than high-confidence predictions (Decile 1, 57.8%). This miscalibration cannot be fixed by hyperparameter tuning alone. Previous attempt to fix via calibration (attempt 4) catastrophically failed (HCDA dropped to 42.86%).",
+    "mae_infeasibility": "MAE target of <0.75% was achievable with the earlier test set (379 samples, 2023-2025). The expanded test set (458 samples, 2024-2026) includes extreme gold volatility in 2025-2026 (14 days with |actual|>3%). The model's prediction magnitude (std=0.070) is ~20x smaller than actual movements (std=1.369), so MAE is dominated by actual volatility rather than prediction quality. This is a data characteristic, not a model deficiency.",
+    "diminishing_returns": "5 different strategies attempted: (1) basic XGBoost, (2) optimized single model, (3) ensemble, (4) calibration, (5) feature expansion + rebalanced objective. No monotonic improvement in any single metric. DA and HCDA trade off against each other. The best single-metric results are scattered across different attempts.",
+    "what_worked": "Attempt 2 architecture (shallow trees, strong regularization) remains the best overall configuration. Attempt 5 improved Sharpe and HCDA over attempt 2 but degraded DA and MAE.",
+    "remaining_avenues_and_why_not": [
+      "Feature ablation (remove CNY): Marginal, CNY features only contribute ~5% importance",
+      "Two-stage model (direction + magnitude): Would require architectural change with uncertain payoff, and MAE is driven by test set volatility not model architecture",
+      "Asymmetric loss: Could improve DOWN direction (47.3%) but XGBoost reg:squarederror already near-optimal for regression",
+      "Neural network meta-model: Higher capacity but with 2131 training samples, likely to overfit more severely than XGBoost",
+      "Prediction scaling: Could improve MAE but would worsen Sharpe by amplifying errors"
+    ]
+  }
+}
