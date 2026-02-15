@@ -1,0 +1,91 @@
+=== Meta-Model Input Data Summary ===
+Generated: 2026-02-15T16:14:39.528879
+
+1. DATASET OVERVIEW
+   Total rows: 2395
+   Total columns: 39
+   Date range: 2015-07-28 00:00:00 to 2025-02-12 00:00:00
+   Expected rows: 2523 (base features)
+   Rows dropped: 123 (4.88%)
+
+2. FEATURE BREAKDOWN
+   Base features: 14
+   Submodel features: 25
+   Total: 39
+
+3. SUBMODEL CONTRIBUTIONS
+   vix                      : 4 features - ['vix_vix', 'vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence']
+   technical                : 3 features - ['tech_trend_regime_prob', 'tech_mean_reversion_z', 'tech_volatility_regime']
+   cross_asset              : 3 features - ['xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence']
+   yield_curve              : 2 features - ['yc_spread_velocity_z', 'yc_curvature_z']
+   etf_flow                 : 6 features - ['etf_flow_gld_volume', 'etf_flow_gld_close', 'etf_flow_volume_ma20', 'etf_regime_prob', 'etf_capital_intensity', 'etf_pv_divergence']
+   inflation_expectation    : 3 features - ['ie_regime_prob', 'ie_anchoring_z', 'ie_gold_sensitivity_z']
+   cny_demand               : 4 features - ['cny_demand_cny_usd', 'cny_regime_prob', 'cny_momentum_z', 'cny_vol_regime_z']
+
+4. MISSING VALUE SUMMARY
+   No missing values
+
+5. BASIC STATISTICS (selected features)
+       real_rate_real_rate      dxy_dxy      vix_vix  vix_regime_probability  tech_trend_regime_prob  etf_regime_prob  ie_regime_prob  cny_regime_prob
+count          2395.000000  2395.000000  2395.000000             2395.000000            2.395000e+03     2.395000e+03    2.395000e+03      2395.000000
+mean              0.523954    98.332919    18.454217                0.152293            3.331689e-03     6.365823e-01    1.102957e-01         0.037448
+std               0.937294     5.086147     7.395945                0.200984            4.879151e-02     3.772009e-01    2.973416e-01         0.175234
+min              -1.190000    88.589996     9.140000                0.062821            4.469675e-09     3.745656e-17    9.792795e-11         0.000151
+25%               0.040000    94.540001    13.400000                0.065176            1.119649e-08     2.598991e-01    1.237106e-07         0.000168
+50%               0.500000    97.389999    16.560000                0.075937            2.629297e-08     8.167878e-01    1.348205e-04         0.000204
+75%               1.150000   102.360001    21.580000                0.119626            1.437178e-07     9.795049e-01    7.149824e-04         0.000404
+max               2.520000   114.110001    82.690000                1.000000            9.560012e-01     9.999999e-01    1.000000e+00         1.000000
+
+6. DATA SPLITS (70/15/15)
+   Train: 1676 rows (70.0%)
+   Val:   359 rows (15.0%)
+   Test:  360 rows (15.0%)
+
+7. TARGET ALIGNMENT
+   Target variable: gold_return_next
+   Target rows: 2395
+   Target NaN: 0
+   Target mean: 0.043922
+   Target std:  0.923068
+   Target range: [-4.978726, 5.947668]
+
+8. COLUMN NAMES
+    1. real_rate_real_rate
+    2. dxy_dxy
+    3. vix_vix
+    4. technical_gld_open
+    5. technical_gld_high
+    6. technical_gld_low
+    7. technical_gld_close
+    8. technical_gld_volume
+    9. cross_asset_silver_close
+   10. cross_asset_copper_close
+   11. cross_asset_sp500_close
+   12. yield_curve_dgs10
+   13. yield_curve_dgs2
+   14. yield_curve_yield_spread
+   15. etf_flow_gld_volume
+   16. etf_flow_gld_close
+   17. etf_flow_volume_ma20
+   18. inflation_expectation_inflation_expectation
+   19. cny_demand_cny_usd
+   20. vix_regime_probability
+   21. vix_mean_reversion_z
+   22. vix_persistence
+   23. tech_trend_regime_prob
+   24. tech_mean_reversion_z
+   25. tech_volatility_regime
+   26. xasset_regime_prob
+   27. xasset_recession_signal
+   28. xasset_divergence
+   29. yc_spread_velocity_z
+   30. yc_curvature_z
+   31. etf_regime_prob
+   32. etf_capital_intensity
+   33. etf_pv_divergence
+   34. ie_regime_prob
+   35. ie_anchoring_z
+   36. ie_gold_sensitivity_z
+   37. cny_regime_prob
+   38. cny_momentum_z
+   39. cny_vol_regime_z
