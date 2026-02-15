@@ -3,49 +3,25 @@
   "items": [
     {
       "priority": 1,
-      "type": "data_pipeline_fix",
-      "description": "Fix data pipeline to retain ~2000+ training samples instead of 964. Handle timezone mismatches in submodel CSVs and implement NaN imputation for early-period rows (fill regime_prob with 0.5, z-scores with 0, binary signals with 0).",
-      "reason": "Attempt 1 lost 45.4% of data (2523->1378 rows) due to inner join + dropna. 964 training samples is insufficient for 39 features.",
-      "resume_from": "builder_model",
+      "type": "prediction_calibration",
+      "description": "Increase prediction magnitude spread to improve HCDA separation. Current prediction std (0.167) is only 18.7% of actual std (0.896). Options: (a) Post-hoc Platt scaling / isotonic regression calibration on validation set, (b) Add magnitude-aware term to Optuna objective that penalizes excessive prediction compression, (c) Reduce regularization slightly to allow wider prediction range while monitoring overfitting gap.",
+      "reason": "HCDA at top-20% is 55.26% but top-10% is 60.53%. The prediction magnitude is too compressed, making the 80th percentile threshold non-discriminating. Better magnitude calibration would push the HCDA above 60%.",
+      "resume_from": "architect",
       "research_needed": false
     },
     {
       "priority": 2,
-      "type": "feature_selection",
-      "description": "Drop all 11 non-stationary price-level base features (gld_open/high/low/close, silver_close, copper_close, sp500_close, gld_volume, etf_flow_gld_close, etf_flow_volume_ma20, etf_flow_gld_volume) and all 4 CNY features. Reduce from 39 to ~24 features.",
-      "reason": "Price-level features dominated top-5 importance but cause regime-dependent overfitting. CNY features degraded DA -2.06% and Sharpe -0.593 in Phase 2.",
+      "type": "confidence_asymmetry",
+      "description": "Address asymmetric directional accuracy. UP predictions achieve 61.8% accuracy vs DOWN predictions at 53.9%. Consider: (a) Separate confidence thresholds for UP vs DOWN, (b) Regime-aware confidence gating where HCDA thresholds adapt to VIX regime or trend regime probability, (c) Weight DOWN-direction training samples more heavily.",
+      "reason": "The model is significantly better at calling bullish moves than bearish ones. DOWN-direction high-confidence predictions drag the combined HCDA below 60%.",
       "resume_from": "architect",
-      "research_needed": true
+      "research_needed": false
     },
     {
       "priority": 3,
-      "type": "loss_function_change",
-      "description": "Replace directional-weighted MAE (penalty=4.52) with standard reg:squarederror. The custom loss caused 94.3% train DA memorization with only 46.9% val DA.",
-      "reason": "Directional penalty amplified overfitting to training directions. Model memorized rather than learned.",
-      "resume_from": "architect",
-      "research_needed": false
-    },
-    {
-      "priority": 4,
-      "type": "regularization_strengthening",
-      "description": "Expand regularization ranges: lambda [3,20], alpha [1,10], max_depth [2,4], min_child_weight [10,30], subsample [0.4,0.7], colsample [0.3,0.6].",
-      "reason": "Attempt 1 regularization was too weak. Optuna selected lambda=1.56, alpha=0.25 (lower ends). Need stronger constraints with 24 features.",
-      "resume_from": "architect",
-      "research_needed": false
-    },
-    {
-      "priority": 5,
-      "type": "sharpe_formula_alignment",
-      "description": "Align Sharpe calculation to CLAUDE.md evaluator spec: cost on position changes only, not daily. Formula: trades = np.abs(np.diff(positions, prepend=0)); ret = positions * actual - trades * cost.",
-      "reason": "Training notebook used daily cost (Sharpe=0.428). CLAUDE.md formula gives Sharpe=1.027. Alignment to CLAUDE.md is economically more realistic.",
-      "resume_from": "builder_model",
-      "research_needed": false
-    },
-    {
-      "priority": 6,
-      "type": "optuna_objective_reweight",
-      "description": "Change Optuna composite weights to: Sharpe 50%, DA 30%, MAE 10%, HC-DA 10%. Remove directional_penalty from search space.",
-      "reason": "Current weights (Sharpe 40%, DA 25%, HC-DA 20%, MAE 15%) over-weighted HC-DA which is hard to optimize directly. Sharpe and DA are the binding constraints.",
+      "type": "optuna_objective_tuning",
+      "description": "Increase HCDA weight in Optuna composite objective. Current: Sharpe 50%, DA 30%, MAE 10%, HCDA 10%. Proposed: Sharpe 35%, DA 25%, MAE 10%, HCDA 30%. Also consider adding an overfitting penalty for HCDA (train-val HCDA gap > 15pp triggers penalty).",
+      "reason": "HCDA was the lowest-weighted metric in the composite objective (10%) but is the only failing target. Increasing its weight in optimization should directly improve this metric.",
       "resume_from": "architect",
       "research_needed": false
     }

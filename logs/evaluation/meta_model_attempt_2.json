@@ -1,0 +1,123 @@
+{
+  "feature": "meta_model",
+  "attempt": 2,
+  "timestamp": "2026-02-15T19:30:00",
+  "architecture": "XGBoost reg:squarederror",
+  "phase": "3_meta_model",
+  "evaluation_type": "final_targets",
+  "metrics": {
+    "test": {
+      "direction_accuracy": 0.5726,
+      "high_confidence_da": 0.5526,
+      "mae": 0.6877,
+      "sharpe_ratio": 1.5835,
+      "sharpe_formula": "CLAUDE.md position-change cost only"
+    },
+    "train": {
+      "direction_accuracy": 0.6279,
+      "high_confidence_da": 0.7347,
+      "mae": 0.6074,
+      "sharpe_ratio": 5.1307
+    },
+    "val": {
+      "direction_accuracy": 0.5385,
+      "high_confidence_da": 0.5957,
+      "mae": 0.7086,
+      "sharpe_ratio": 2.2084
+    }
+  },
+  "target_evaluation": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "57.26%",
+      "gap": "+1.26pp",
+      "passed": true
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "55.26%",
+      "gap": "-4.74pp",
+      "passed": false
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.6877%",
+      "gap": "-0.0623%",
+      "passed": true
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": "1.5835",
+      "gap": "+0.7835",
+      "passed": true
+    }
+  },
+  "targets_passed": 3,
+  "targets_total": 4,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": 5.54,
+    "train_val_da_gap_pp": 8.95,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS",
+    "attempt1_gap_pp": 40.15,
+    "gap_reduction_pp": 34.61
+  },
+  "vs_attempt_1": {
+    "da_delta_pp": 3.16,
+    "hcda_delta_pp": 0.96,
+    "mae_delta": -0.2903,
+    "sharpe_delta": 1.1555,
+    "train_da_reduction_pp": -31.51,
+    "all_metrics_improved": true
+  },
+  "vs_naive": {
+    "naive_always_up_da": "56.73%",
+    "model_vs_naive_pp": 0.53
+  },
+  "prediction_characteristics": {
+    "pred_actual_std_ratio": 0.1867,
+    "pred_actual_correlation": 0.0751,
+    "positive_pred_pct": 57.8,
+    "positive_actual_pct": 56.7,
+    "n_position_changes": 139,
+    "trade_frequency_pct": 36.7
+  },
+  "hcda_analysis": {
+    "top_30pct_da": 0.5789,
+    "top_25pct_da": 0.5789,
+    "top_20pct_da": 0.5526,
+    "top_15pct_da": 0.5965,
+    "top_10pct_da": 0.6053,
+    "note": "HCDA at top-10% (N=38) is 60.53% which would pass target. At top-20% (N=76) it drops to 55.26% due to small/noisy predictions in the 15-20th percentile band. The model has genuine high-confidence skill but the 80th percentile threshold catches some borderline predictions."
+  },
+  "quarterly_performance": {
+    "2023Q3": {"da": 54.3, "mae": 0.4769, "sharpe": 1.54, "n": 35},
+    "2023Q4": {"da": 57.1, "mae": 0.6454, "sharpe": 1.13, "n": 63},
+    "2024Q1": {"da": 63.9, "mae": 0.5516, "sharpe": 3.07, "n": 61},
+    "2024Q2": {"da": 52.4, "mae": 0.8639, "sharpe": 1.26, "n": 63},
+    "2024Q3": {"da": 51.6, "mae": 0.7128, "sharpe": 1.50, "n": 64},
+    "2024Q4": {"da": 65.6, "mae": 0.7841, "sharpe": 2.48, "n": 64},
+    "2025Q1": {"da": 51.7, "mae": 0.6691, "sharpe": -0.99, "n": 29}
+  },
+  "model_config": {
+    "n_features": 22,
+    "train_samples": 1765,
+    "val_samples": 378,
+    "test_samples": 379,
+    "samples_per_feature_ratio": 80.2,
+    "optuna_trials": 80,
+    "best_params": {
+      "max_depth": 2,
+      "min_child_weight": 14,
+      "reg_lambda": 4.76,
+      "reg_alpha": 3.65,
+      "subsample": 0.478,
+      "colsample_bytree": 0.371,
+      "learning_rate": 0.025,
+      "n_estimators": 247
+    }
+  },
+  "decision": "partial_success",
+  "overall_passed": false,
+  "failed_targets": ["high_confidence_da"]
+}

@@ -2,12 +2,12 @@
   "status": "in_progress",
   "phase": "3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 2,
-  "resume_from": "evaluator",
+  "current_attempt": 3,
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
-  "datachecker_status": "PASS",
-  "builder_model_status": "completed",
+  "datachecker_status": null,
+  "builder_model_status": null,
   "git_branch": "develop",
   "git_workflow_enabled": true,
   "feature_queue": [],
@@ -21,8 +21,8 @@
     "inflation_expectation",
     "cny_demand"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-2-v2",
-  "submitted_at": "2026-02-16T01:00:00",
+  "kaggle_kernel": null,
+  "submitted_at": null,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -293,8 +293,29 @@
         "directional_penalty_caused_memorization"
       ],
       "improvement_plan": "Drop price-level features (11), drop CNY features (4), use reg:squarederror, fix data pipeline, align Sharpe formula, strengthen regularization"
+    },
+    "attempt_2": {
+      "decision": "attempt+1",
+      "test_da": 0.5726,
+      "test_hcda": 0.5526,
+      "test_mae": 0.6877,
+      "test_sharpe": 1.5835,
+      "train_test_da_gap_pp": 5.54,
+      "targets_passed": "3/4",
+      "primary_successes": [
+        "DA_57.26%_passes_56%_target",
+        "MAE_0.6877%_passes_0.75%_target",
+        "Sharpe_1.5835_passes_0.80_target",
+        "overfitting_resolved_gap_5.54pp_from_40.15pp",
+        "all_metrics_improved_vs_attempt_1",
+        "data_pipeline_fixed_1765_train_samples"
+      ],
+      "primary_failures": [
+        "HCDA_55.26%_misses_60%_target_by_4.74pp"
+      ],
+      "improvement_plan": "Improve HCDA via prediction magnitude calibration, asymmetric UP/DOWN confidence thresholds, regime-dependent confidence gating"
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-15T19:21:11.557191"
+  "last_updated": "2026-02-15T22:00:00"
 }

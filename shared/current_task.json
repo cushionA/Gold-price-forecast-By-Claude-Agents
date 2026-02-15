@@ -1,12 +1,12 @@
 {
   "task_type": "meta_model",
   "feature": "meta_model",
-  "attempt": 2,
+  "attempt": 3,
   "phase": "phase3_meta_model",
   "source": "evaluator",
-  "objective": "Build a regression meta-model integrating stationary base features + submodel outputs (excluding CNY and price-level features) to predict next-day gold return (%). Must simultaneously achieve DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8.",
+  "objective": "Improve meta-model HCDA from 55.26% to >60% (the sole failing metric). All other targets already pass: DA=57.26% (>56%), MAE=0.6877% (<0.75%), Sharpe=1.5835 (>0.80). Focus on prediction magnitude calibration and asymmetric confidence improvement.",
 
-  "requirements": "Meta-model must use ONLY stationary/bounded features. All raw price-level base features (gld_open/high/low/close, silver_close, copper_close, sp500_close, volumes) and CNY features must be excluded. Use standard reg:squarederror loss (no custom directional penalty). Apply aggressive regularization to prevent overfitting (target: train-test DA gap < 10pp). Fix data pipeline to retain ~2000+ training samples. Align Sharpe formula to CLAUDE.md specification (cost on position changes only, not daily).",
+  "requirements": "Retain the Attempt 2 architecture (XGBoost reg:squarederror, 22 stationary features, same data pipeline). Do NOT change the core model structure that achieved 3/4 targets. Focus narrowly on improving HCDA through: (1) prediction magnitude calibration to create better high/low confidence separation, (2) addressing asymmetric UP/DOWN accuracy (UP=61.8%, DOWN=53.9%), (3) increasing HCDA weight in Optuna objective from 10% to 30%.",
 
   "inputs": {
     "base_features": "data/processed/base_features.csv",
@@ -32,70 +32,80 @@
   },
 
   "research_questions": [
-    "Q1: Given the Attempt 1 failure with 94.3% train DA / 46.9% val DA, what specific regularization settings for XGBoost achieve train-test DA gap < 10pp on financial return prediction with ~1700 training samples and 24 features?",
-    "Q2: With standard reg:squarederror loss, how should the Optuna objective be structured to simultaneously optimize DA and Sharpe? Should DA be measured directly in the objective, or does it emerge naturally from accurate return predictions?",
-    "Q3: Which base features are stationary and should be retained? Candidates: real_rate, dxy, vix, yield_spread, dgs10, dgs2, inflation_expectation. Should rates be converted to changes rather than levels?",
-    "Q4: Should the Sharpe formula use cost on every day or only on position changes? The CLAUDE.md evaluator spec uses position-change cost, but src/evaluation.py uses daily cost. Which should the training notebook match?",
-    "Q5: What data imputation strategy should be used for early-period rows where some submodel outputs are NaN? Options: (a) forward-fill, (b) fill with unconditional mean, (c) fill with 0.5 for regime_prob and 0 for z-scores, (d) drop rows. Current approach (d) lost 45% of data."
+    "Q1: How to calibrate XGBoost prediction magnitudes to improve HCDA? Options: Platt scaling, isotonic regression, temperature scaling on validation set. Which approach preserves DA and Sharpe while improving confidence separation?",
+    "Q2: Why is DOWN-direction accuracy (53.9%) much weaker than UP-direction (61.8%)? Is this due to the bullish market regime in the test period, or a structural model weakness?",
+    "Q3: At top-10% confidence (N=38), HCDA is 60.53%. At top-20% (N=76), it drops to 55.26%. What makes the 15th-20th percentile predictions less accurate? Can feature engineering or interaction terms improve this band?",
+    "Q4: Should the Optuna objective use HCDA directly (risky: small sample size in top-20% = 70 val samples) or a proxy metric (e.g., correlation between |prediction| and correctness)?"
   ],
 
   "constraints": [
     "Data split frozen: 70/15/15 (time-series order, no shuffle)",
     "No future information leakage",
-    "5-day data delay maximum",
     "Self-contained Kaggle Notebook (all code in single notebook)",
     "Optuna HP optimization with minimum 50 trials",
-    "Meta-model does NOT predict gold prices (it predicts gold returns)",
-    "NO raw price-level features (gld_open/high/low/close, silver_close, copper_close, sp500_close, volumes, volume_ma20)",
-    "NO CNY demand features (cny_regime_prob, cny_momentum_z, cny_vol_regime_z, cny_demand_cny_usd)",
-    "NO custom directional-weighted MAE loss -- use standard reg:squarederror",
-    "Train-test DA gap MUST be < 10pp (Attempt 1 had 40pp gap)",
-    "Sharpe formula must use cost on position changes only (matching CLAUDE.md evaluator spec)"
+    "NO raw price-level features or CNY features",
+    "Use standard reg:squarederror (NO custom loss)",
+    "Train-test DA gap MUST remain < 10pp",
+    "MUST NOT regress on passing metrics: DA must stay >56%, MAE <0.75%, Sharpe >0.80",
+    "Prediction magnitude calibration should be applied post-hoc on validation set"
   ],
 
   "known_issues": {
-    "attempt1_overfitting": "Train DA 94.3% vs Val DA 46.9% (47pp gap). Caused by directional-weighted MAE with penalty=4.52 and non-stationary price-level features.",
-    "attempt1_data_loss": "Notebook inner join + dropna reduced 2523 rows to 1378 (45.4% loss). Must fix timezone handling and NaN imputation.",
-    "attempt1_magnitude_suppression": "Predictions std = 0.062% vs actual std = 1.307% (4.7% ratio). Custom loss caused model to make tiny conservative predictions.",
-    "attempt1_worse_than_naive": "Model DA 54.1% < naive always-up DA 59.9% on test set.",
-    "sharpe_formula_discrepancy": "Training notebook deducts 5bps daily (Sharpe=0.428). CLAUDE.md formula deducts on trades only (Sharpe=1.027). Must align to CLAUDE.md."
+    "attempt2_hcda_failure": "HCDA 55.26% vs target 60%. Model has genuine skill at top-10% (60.53%) but prediction magnitudes are compressed (pred_std=0.167, 18.7% of actual_std=0.896), making the top-20% threshold non-discriminating.",
+    "attempt2_directional_asymmetry": "UP predictions 61.8% accurate vs DOWN predictions 53.9%. Down-side confidence weaker, drags combined HCDA below target.",
+    "attempt2_hcda_overfitting": "Train HCDA 73.47% vs Test HCDA 55.26% (18.21pp gap). HCDA is more prone to overfitting than DA because of smaller sample size (N=76 top-20%).",
+    "attempt2_quarterly_variance": "DA ranges from 51.6% (2024Q3) to 65.6% (2024Q4). Model performance varies with market regime."
   },
 
   "previous_feedback": {
-    "attempt": 1,
-    "result": "FAIL - all 4 targets missed",
-    "root_causes": [
-      "Directional-weighted MAE with penalty=4.52 caused catastrophic overfitting (train DA 94.3%, val DA 46.9%)",
-      "Non-stationary price-level features dominated importance (top 5) causing regime-dependent overfitting",
-      "Data pipeline lost 45.4% of rows (964 train instead of ~1700+)",
-      "CNY features added directional noise (DA -2.06%, Sharpe -0.593 in Phase 2 ablation)",
-      "Sharpe formula inconsistency between training and evaluation"
-    ],
+    "attempt": 2,
+    "result": "PARTIAL SUCCESS - 3/4 targets met",
+    "passed_metrics": {
+      "direction_accuracy": {"value": 0.5726, "target": 0.56, "status": "PASS"},
+      "mae": {"value": 0.6877, "target": 0.75, "status": "PASS"},
+      "sharpe_ratio": {"value": 1.5835, "target": 0.80, "status": "PASS"}
+    },
+    "failed_metrics": {
+      "high_confidence_da": {"value": 0.5526, "target": 0.60, "gap": -0.0474, "status": "FAIL"}
+    },
     "improvement_actions": [
-      "MANDATORY: Drop directional-weighted MAE, use reg:squarederror",
-      "MANDATORY: Drop all 11 non-stationary price-level base features",
-      "MANDATORY: Drop all 4 CNY features",
-      "MANDATORY: Fix data pipeline to retain ~2000+ training samples",
-      "MANDATORY: Align Sharpe to CLAUDE.md (cost on trades only)",
-      "MANDATORY: Strengthen regularization (lambda [3,20], alpha [1,10], max_depth [2,4], min_child_weight [10,30])"
+      "PRIORITY 1: Add post-hoc prediction calibration (Platt/isotonic) to widen magnitude spread",
+      "PRIORITY 2: Address UP/DOWN asymmetry (61.8% vs 53.9%) via sample weighting or regime-aware thresholds",
+      "PRIORITY 3: Increase HCDA weight in Optuna objective from 10% to 30%",
+      "CAUTION: Do NOT compromise passing metrics (DA, MAE, Sharpe)"
     ],
-    "metrics": {
-      "test_da": 0.541,
-      "test_hcda": 0.543,
-      "test_mae": 0.978,
-      "test_sharpe": 0.428,
-      "train_test_da_gap": 40.15,
-      "naive_always_up_da": 0.599
+    "model_config": {
+      "architecture": "XGBoost reg:squarederror",
+      "n_features": 22,
+      "train_samples": 1765,
+      "best_params": {
+        "max_depth": 2,
+        "min_child_weight": 14,
+        "reg_lambda": 4.76,
+        "reg_alpha": 3.65,
+        "subsample": 0.478,
+        "colsample_bytree": 0.371,
+        "learning_rate": 0.025,
+        "n_estimators": 247
+      },
+      "optuna_trials": 80,
+      "optuna_weights": "Sharpe 50%, DA 30%, MAE 10%, HCDA 10%"
+    },
+    "hcda_analysis": {
+      "top_10pct": {"n": 38, "hcda": 0.6053},
+      "top_15pct": {"n": 57, "hcda": 0.5965},
+      "top_20pct": {"n": 76, "hcda": 0.5526},
+      "top_25pct": {"n": 95, "hcda": 0.5789},
+      "top_30pct": {"n": 114, "hcda": 0.5789}
     }
   },
 
-  "success_criteria": "Test set must achieve ALL of: DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8 (after 5bps costs on position changes). Train-test DA gap < 10pp.",
+  "success_criteria": "Test set must achieve ALL of: DA > 56%, HC-DA > 60%, MAE < 0.75%, Sharpe > 0.8 (after 5bps costs on position changes). Train-test DA gap < 10pp. No regression on currently passing metrics.",
 
   "expected_artifacts": [
-    "docs/research/meta_model_attempt_2.md",
-    "docs/design/meta_model_attempt_2.md",
-    "notebooks/meta_model_2/train.ipynb",
-    "logs/evaluation/meta_model_attempt_2_summary.md"
+    "docs/design/meta_model_attempt_3.md",
+    "notebooks/meta_model_3/train.ipynb",
+    "logs/evaluation/meta_model_attempt_3_summary.md"
   ],
 
   "created_at": "2026-02-15T22:00:00",
