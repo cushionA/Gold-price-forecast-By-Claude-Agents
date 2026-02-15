@@ -1,0 +1,46 @@
+{
+  "feature": "options_market",
+  "attempt": 1,
+  "timestamp": "2026-02-15T23:32:49.989957",
+  "steps": [
+    {
+      "step": "file_existence",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_statistics",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "value_ranges",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "timeseries_properties",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "reproducibility",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "action": "PASS",
+  "overall_passed": true
+}
