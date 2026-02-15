@@ -190,7 +190,7 @@ class KaggleSubmissionHandler:
         print(f"Kernel URL: https://www.kaggle.com/code/{kernel_id}")
 
         if auto_mode:
-            print(f"\n🤖 Full Auto Mode:")
+            print(f"\n[Full Auto Mode]")
             print(f"  - Monitor checks every 1 minute for up to 3 hours")
             print(f"  - Evaluator runs automatically when training completes")
             print(f"  - Next action is decided automatically (retry / next feature / done)")
@@ -200,7 +200,7 @@ class KaggleSubmissionHandler:
             print(f"  - Turn off your PC (monitoring stops, but Kaggle continues)")
             print(f"  - When monitor completes, check state.json for next action")
         else:
-            print(f"\n👤 Manual Mode:")
+            print(f"\n[Manual Mode]")
             print(f"  - Training is running on Kaggle")
             print(f"  - When complete, run: 'Resume from where we left off'")
             print(f"  - Or manually fetch results and evaluate")
@@ -225,11 +225,11 @@ class KaggleSubmissionHandler:
         success = self.submit_to_kaggle(notebook_path, feature, attempt, auto_mode=auto_mode)
 
         if success and auto_mode:
-            print(f"\n🤖 Exiting orchestrator session (full-auto mode)...")
+            print(f"\n[AUTO] Exiting orchestrator session (full-auto mode)...")
             print(f"(Auto-resume will handle the rest)")
             sys.exit(0)  # 正常終了
         elif success:
-            print(f"\n👤 Submission complete (manual mode)")
+            print(f"\n[MANUAL] Submission complete (manual mode)")
             print(f"Say 'Resume from where we left off' when training completes")
             return True
         else:
