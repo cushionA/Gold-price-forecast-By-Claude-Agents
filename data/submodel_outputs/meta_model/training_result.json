@@ -1,60 +1,68 @@
 {
   "feature": "meta_model",
-  "attempt": 2,
-  "timestamp": "2026-02-15T10:16:07.157538",
-  "architecture": "XGBoost Regression (reg:squarederror)",
+  "attempt": 3,
+  "timestamp": "2026-02-15T11:50:18.668922",
+  "architecture": "5-model XGBoost ensemble with confidence-based re-ranking",
+  "ensemble_seeds": [
+    42,
+    137,
+    256,
+    389,
+    512
+  ],
+  "alpha_confidence": 0.7975490147085735,
   "best_params": {
-    "max_depth": 2,
-    "min_child_weight": 14,
-    "reg_lambda": 4.762195554424548,
-    "reg_alpha": 3.652778272058485,
-    "subsample": 0.47799134650094466,
-    "colsample_bytree": 0.37096197935138886,
-    "learning_rate": 0.025118736701354952,
-    "n_estimators": 247,
-    "objective": "reg:squarederror",
-    "eval_metric": "mae",
-    "random_state": 42,
-    "n_jobs": -1,
-    "verbosity": 0
+    "n_estimators": 300,
+    "max_depth": 3,
+    "learning_rate": 0.09688412330411864,
+    "min_child_weight": 11,
+    "subsample": 0.7451637657174383,
+    "colsample_bytree": 0.7239221949309819,
+    "reg_lambda": 7.575547815844361,
+    "reg_alpha": 2.8853674625116805,
+    "gamma": 0.41895983130029674
   },
-  "optuna_config": {
-    "n_trials": 80,
-    "best_composite_score": 0.7856845648609039,
-    "direction": "maximize",
-    "objective": "Weighted composite (50% Sharpe, 30% DA, 10% MAE, 10% HCDA) - overfitting penalty"
+  "optuna": {
+    "n_trials_completed": 80,
+    "best_objective_value": 1.250837171162193,
+    "optimization_time": 85.70210900000001
   },
   "metrics": {
     "train": {
-      "mae": 0.6073702545602809,
-      "direction_accuracy": 0.627920227920228,
-      "high_confidence_da": 0.7346938775510204,
-      "sharpe_ratio": 5.13065143812625
+      "mae": 0.42741138051230587,
+      "direction_accuracy": 0.7925925925925926,
+      "sharpe_ratio": 11.037461019161993,
+      "hcda_standard": 0.9688385269121813,
+      "hcda_reranked": 0.9688385269121813
     },
     "val": {
-      "mae": 0.7085672952532809,
-      "direction_accuracy": 0.5384615384615384,
-      "high_confidence_da": 0.5957446808510638,
-      "sharpe_ratio": 2.208379332377285
+      "mae": 0.7459282257877485,
+      "direction_accuracy": 0.5809018567639257,
+      "sharpe_ratio": 3.2234942587770274,
+      "hcda_standard": 0.5333333333333333,
+      "hcda_reranked": 0.5333333333333333
     },
     "test": {
-      "mae": 0.6876783814058544,
-      "direction_accuracy": 0.5725593667546174,
-      "high_confidence_da": 0.5789473684210527,
-      "sharpe_ratio": 1.5834927423322986
+      "mae": 0.7172519027475013,
+      "direction_accuracy": 0.5329815303430079,
+      "sharpe_ratio": 1.2215340195581357,
+      "hcda_standard": 0.5921052631578947,
+      "hcda_reranked": 0.5921052631578947
     }
   },
-  "overfitting_analysis": {
-    "train_val_da_gap_pp": 8.945868945868952,
-    "train_val_sharpe_gap": 2.922272105748965,
-    "train_val_mae_gap": -0.10119704069299995
+  "targets_met": {
+    "direction_accuracy": "False",
+    "hcda_reranked": "False",
+    "mae": true,
+    "sharpe_ratio": "True",
+    "all_targets_met": false
   },
   "data_info": {
     "train_samples": 1765,
     "val_samples": 378,
     "test_samples": 379,
     "n_features": 22,
-    "feature_names": [
+    "feature_cols": [
       "real_rate_change",
       "dxy_change",
       "vix",
