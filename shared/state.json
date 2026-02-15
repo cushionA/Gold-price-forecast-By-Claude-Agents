@@ -1,9 +1,9 @@
 {
-  "status": "waiting_user_input",
+  "status": "waiting_training",
   "phase": "2_submodel_loop",
   "current_feature": "inflation_expectation",
   "current_attempt": 1,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "datachecker_status": "PASS",
   "git_branch": "develop",
   "git_workflow_enabled": true,
@@ -20,10 +20,10 @@
     "etf_flow"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-inflation-expectation-submodel-attempt-1",
-  "submitted_at": "2026-02-15T13:10:00",
-  "last_updated": "2026-02-15T13:15:00",
-  "error_context": "Kaggle Secrets未設定: FRED_API_KEY が Kaggle Secrets に登録されていません。https://www.kaggle.com/settings → Secrets → FRED_API_KEY を登録する必要があります。",
-  "user_action_required": true,
+  "submitted_at": "2026-02-15T13:20:00",
+  "last_updated": "2026-02-15T13:20:00",
+  "error_context": null,
+  "user_action_required": false,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
