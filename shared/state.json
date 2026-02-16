@@ -37,7 +37,7 @@
     "temporal_context"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-7",
-  "submitted_at": "2026-02-16T22:41:10.627968",
+  "submitted_at": "2026-02-16T22:47:33.459044",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -409,7 +409,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T22:41:10.638358",
+  "last_updated": "2026-02-16T22:47:33.470030",
   "current_submodel": null,
   "error_type": "unknown"
 }
