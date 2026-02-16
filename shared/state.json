@@ -1,14 +1,14 @@
 {
-  "status": "completed",
-  "phase": "phase3_meta_model",
-  "current_feature": "meta_model",
-  "current_attempt": 7,
-  "resume_from": null,
+  "status": "waiting_training",
+  "phase": "phase3_weekly_meta_model",
+  "current_feature": "meta_model_weekly",
+  "current_attempt": 1,
+  "resume_from": "evaluator",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
-  "builder_model_status": "notebook_generated",
-  "evaluator_status": "completed_3_of_4_targets",
+  "builder_model_status": "in_progress",
+  "evaluator_status": null,
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -37,8 +37,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-7",
-  "submitted_at": "2026-02-16T23:12:16.606652",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-weekly-1",
+  "submitted_at": "2026-02-17T01:04:35.350162",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -439,7 +439,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T00:00:00",
+  "last_updated": "2026-02-17T01:04:35.350177",
   "current_submodel": null,
   "error_type": null
 }
