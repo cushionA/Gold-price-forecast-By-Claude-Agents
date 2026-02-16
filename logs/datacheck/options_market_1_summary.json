@@ -1,0 +1,129 @@
+{
+  "metadata": {
+    "feature": "options_market",
+    "attempt": 1,
+    "created_at": "2026-02-15T23:29:36.855012",
+    "builder_data": "completed",
+    "fetch_script": "src/fetch_options_market.py"
+  },
+  "data_sources": {
+    "SKEW": {
+      "source": "Yahoo Finance",
+      "ticker": "^SKEW",
+      "description": "CBOE SKEW Index (tail risk indicator)"
+    },
+    "GVZ": {
+      "source": "FRED",
+      "ticker": "GVZCLS",
+      "description": "CBOE Gold Volatility Index",
+      "fallback": "Yahoo Finance ^GVZ"
+    }
+  },
+  "data_quality": {
+    "total_rows": 2802,
+    "date_range": {
+      "start": "2014-10-01",
+      "end": "2026-02-12",
+      "days": 2802
+    },
+    "alignment_with_target": {
+      "target_rows": 2542,
+      "merged_rows": 2484,
+      "coverage_pct": 97.72
+    },
+    "missing_values": {
+      "total": 2,
+      "percentage": 0.02
+    },
+    "validation_checks": {
+      "date_continuity": "PASS (max gap 5 days)",
+      "value_ranges": "PASS (100% in expected ranges)",
+      "extreme_outliers": "PASS (0 changes > thresholds)",
+      "stationarity": "PASS (both changes stationary, p<0.0001)",
+      "cross_correlation": "PASS (r=-0.0215, good for 2D HMM)",
+      "autocorrelation": "PASS (levels AC < 0.99)"
+    }
+  },
+  "statistics": {
+    "skew_close": {
+      "mean": 134.42,
+      "std": 12.13,
+      "min": 110.34,
+      "max": 183.12,
+      "autocorr_lag1": 0.9481
+    },
+    "gvz_close": {
+      "mean": 16.48,
+      "std": 4.46,
+      "min": 8.88,
+      "max": 48.98,
+      "autocorr_lag1": 0.9742
+    },
+    "skew_change": {
+      "mean": 0.0069,
+      "std": 3.9056,
+      "autocorr_lag1": -0.2038
+    },
+    "gvz_change": {
+      "mean": 0.0041,
+      "std": 1.0119,
+      "autocorr_lag1": -0.0507
+    },
+    "change_correlation": -0.0399
+  },
+  "gold_return_correlation": {
+    "skew_level": -0.0017,
+    "gvz_level": -0.0026,
+    "skew_change": -0.0109,
+    "gvz_change": -0.02,
+    "note": "Weak linear correlation expected; HMM will extract nonlinear regime patterns"
+  },
+  "data_split": {
+    "train": {
+      "rows": 1961,
+      "percentage": 70.0
+    },
+    "val": {
+      "rows": 420,
+      "percentage": 15.0
+    },
+    "test": {
+      "rows": 420,
+      "percentage": 15.0
+    }
+  },
+  "features_prepared": {
+    "base_columns": [
+      "skew_close",
+      "gvz_close",
+      "skew_change",
+      "gvz_change"
+    ],
+    "note": "Z-scores and momentum features will be computed during model training with Optuna-selected windows"
+  },
+  "next_steps": {
+    "datachecker": "Validate data quality with 7-step standardized check",
+    "builder_model": "Generate Kaggle Notebook with 2D HMM + z-score + momentum features",
+    "hpo_params": {
+      "hmm_n_components": [
+        2,
+        3
+      ],
+      "hmm_n_init": [
+        3,
+        5,
+        10
+      ],
+      "skew_zscore_window": [
+        40,
+        60,
+        90
+      ],
+      "skew_momentum_window": [
+        5,
+        10,
+        15
+      ]
+    }
+  }
+}

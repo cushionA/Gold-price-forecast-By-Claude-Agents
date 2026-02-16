@@ -1,0 +1,217 @@
+================================================================================
+                        BUILDER_MODEL HANDOFF
+================================================================================
+
+FROM:     Builder Model Agent (Sonnet)
+TO:       Orchestrator
+DATE:     2026-02-15T23:40:00
+STATUS:   READY - Kaggle notebook generated and committed
+
+================================================================================
+                        NOTEBOOK SUMMARY
+================================================================================
+
+Feature:          options_market
+Attempt:          1
+Notebook Path:    notebooks/options_market_1/
+
+Files Generated:
+  - train.ipynb (718 lines, self-contained Jupyter notebook)
+  - kernel-metadata.json (Kaggle API config)
+  - NOTEBOOK_SUMMARY.md (documentation)
+
+Git Commit:       4a658d1 - "model: options_market attempt 1 - notebook generated"
+Git Branch:       develop
+Git Status:       Pushed to remote
+
+================================================================================
+                        NOTEBOOK ARCHITECTURE
+================================================================================
+
+Component 1: 2D HMM Regime Detection
+  - Input: [SKEW daily changes, GVZ daily changes]
+  - Model: hmmlearn.hmm.GaussianHMM
+  - States: {2, 3} (Optuna selects)
+  - Output: options_risk_regime_prob [0, 1]
+
+Component 2: SKEW Tail Risk Z-Score
+  - Input: SKEW closing levels
+  - Window: {40, 60, 90} days (Optuna selects)
+  - Output: options_tail_risk_z [-4, +4]
+
+Component 3: SKEW Momentum Z-Score
+  - Input: SKEW closing levels
+  - Momentum Window: {5, 10, 15} days (Optuna selects)
+  - Output: options_skew_momentum_z [-4, +4]
+
+Total Output: 3 columns (within 2-4 recommended range)
+
+================================================================================
+                        KAGGLE CONFIGURATION
+================================================================================
+
+Notebook ID:      bigbigzabuton/gold-model-training (unified for all submodels)
+Code File:        train.ipynb
+GPU:              false (CPU-only, no neural network)
+Internet:         true (for yfinance + FRED API calls)
+Private:          true
+
+Estimated Runtime: 3-5 minutes
+  - Data fetch: ~30 seconds
+  - Optuna HPO (30 trials): ~2.5 minutes
+  - Final output: ~30 seconds
+
+Dependencies:
+  - hmmlearn (auto-installed via pip at notebook start)
+  - yfinance (pre-installed on Kaggle)
+  - fredapi (pre-installed on Kaggle)
+  - pandas, numpy, sklearn (pre-installed)
+
+API Keys Required:
+  - FRED_API_KEY (must be configured in Kaggle Secrets)
+
+================================================================================
+                        HYPERPARAMETER OPTIMIZATION
+================================================================================
+
+Algorithm:        Optuna with TPESampler
+Objective:        Maximize MI sum of 3 outputs vs validation target
+Trials:           30
+Timeout:          300 seconds (5 minutes)
+Random Seed:      42
+
+Search Space:
+  - hmm_n_components: {2, 3}
+  - hmm_n_init: {3, 5, 10}
+  - skew_zscore_window: {40, 60, 90}
+  - skew_momentum_window: {5, 10, 15}
+
+Total combinations: 2 * 3 * 3 * 3 = 54
+30 trials with TPE sampler provides good coverage.
+
+================================================================================
+                        DATA SOURCES
+================================================================================
+
+SKEW Index:
+  - Source: Yahoo Finance (^SKEW)
+  - Date Range: 2014-10-01 to 2026-02-15
+  - Expected Rows: ~2,800
+  - Status: CONFIRMED (datachecker verified)
+
+GVZ (Gold Vol):
+  - Primary Source: FRED (GVZCLS)
+  - Fallback Source: Yahoo Finance (^GVZ)
+  - Date Range: 2014-10-01 to 2026-02-15
+  - Expected Rows: ~2,800
+  - Status: CONFIRMED (datachecker verified)
+
+Data Split: train/val/test = 70/15/15 (time-series order)
+  - Train: ~1,960 rows
+  - Val: ~420 rows
+  - Test: ~420 rows
+
+================================================================================
+                        OUTPUT FILES (Kaggle)
+================================================================================
+
+1. submodel_output.csv
+   - Columns: options_risk_regime_prob, options_tail_risk_z, options_skew_momentum_z
+   - Index: date
+   - Format: CSV with header
+   - Expected Rows: ~2,800
+
+2. training_result.json
+   - best_params (Optuna result)
+   - optuna_trials_completed
+   - optuna_best_value
+   - output_shape, output_columns
+   - data_info (train/val/test split)
+   - autocorrelation_metrics
+   - output_statistics
+
+3. (Optional) model.pt
+   - Not generated (HMM state not saved, can be regenerated from params)
+
+================================================================================
+                        VALIDATION CHECKS PASSED
+================================================================================
+
+✓ Notebook JSON syntax valid
+✓ kernel-metadata.json syntax valid
+✓ Self-contained (no external file dependencies)
+✓ Data fetching code embedded from src/fetch_options_market.py
+✓ Reproducibility ensured (random_state=42, seed=42)
+✓ No lookahead bias (HMM fit on train only, rolling windows backward-looking)
+✓ API key handling (Kaggle Secrets, no hardcoded values)
+✓ Output format matches design spec (3 columns, correct names)
+
+================================================================================
+                        WHAT'S NEXT (ORCHESTRATOR)
+================================================================================
+
+1. Submit Notebook to Kaggle:
+   cd notebooks/options_market_1/
+   kaggle kernels push -p .
+
+2. Monitor Submission:
+   kaggle kernels status bigbigzabuton/gold-model-training
+
+3. Update state.json:
+   {
+     "status": "waiting_training",
+     "resume_from": "evaluator",
+     "kaggle_kernel": "bigbigzabuton/gold-model-training",
+     "submitted_at": "2026-02-15T23:40:00",
+     "current_feature": "options_market",
+     "current_attempt": 1
+   }
+
+4. Commit & Push State:
+   git add shared/state.json
+   git commit -m "kaggle: options_market attempt 1 - submitted"
+   git push origin develop
+
+5. Wait for Kaggle Completion:
+   - Auto-mode: scripts/auto_resume_after_kaggle.py monitors automatically
+   - Manual-mode: User says "Resume from where we left off" when ready
+
+6. Fetch Results (after completion):
+   kaggle kernels output bigbigzabuton/gold-model-training -p data/submodel_outputs/options_market/
+
+7. Pass to Evaluator:
+   - evaluator reads submodel_output.csv and training_result.json
+   - runs Gates 1, 2, 3
+   - decides next action (PASS → next feature, FAIL → attempt+1)
+
+================================================================================
+                        DESIGN CONFIDENCE
+================================================================================
+
+Gate 1 (Standalone Quality):    9/10 (high confidence)
+Gate 2 (Information Gain):      5/10 (highest-risk gate)
+Gate 3 (Ablation):              5/10 (moderate confidence)
+
+Overall Gate 3 Pass Probability: 5/10
+
+Risk Factors:
+  - No P/C ratio (core hypothesis weakened)
+  - All raw correlations with gold return < 0.06
+  - SKEW described as "very noisy" in academic literature
+
+Why Worth Attempting:
+  - SKEW and GVZ are genuinely new information sources
+  - HMM may capture nonlinear patterns invisible to raw correlation
+  - Multiple submodels (VIX, Yield Curve, CNY) passed Gate 3 despite failing Gate 2
+  - 2D HMM + z-score + momentum pattern has strong track record (5 successful submodels)
+
+================================================================================
+                        STATUS: READY FOR KAGGLE ✓
+================================================================================
+
+Notebook generation complete. All files committed and pushed to remote.
+Ready for Kaggle submission.
+
+Proceed with orchestrator Kaggle submission workflow.
+
+================================================================================

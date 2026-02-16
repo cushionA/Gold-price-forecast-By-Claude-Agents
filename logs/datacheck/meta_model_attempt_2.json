@@ -1,0 +1,77 @@
+{
+  "feature": "meta_model",
+  "attempt": 2,
+  "timestamp": "2026-02-15T18:13:24.405586",
+  "steps": [
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "anomalies",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leakage",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "data_alignment",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "feature_count",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "sample_count",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "correlations",
+      "issues": [],
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "decision": "PASS",
+  "overall_passed": true,
+  "samples": {
+    "train": 1765,
+    "val": 378,
+    "test": 379,
+    "total": 2522
+  },
+  "features": 22,
+  "feature_list": [
+    "dxy_change",
+    "etf_capital_intensity",
+    "etf_pv_divergence",
+    "etf_regime_prob",
+    "ie_anchoring_z",
+    "ie_gold_sensitivity_z",
+    "ie_regime_prob",
+    "inflation_exp_change",
+    "real_rate_change",
+    "tech_mean_reversion_z",
+    "tech_trend_regime_prob",
+    "tech_volatility_regime",
+    "vix",
+    "vix_mean_reversion_z",
+    "vix_persistence",
+    "vix_regime_probability",
+    "xasset_divergence",
+    "xasset_recession_signal",
+    "xasset_regime_prob",
+    "yc_curvature_z",
+    "yc_spread_velocity_z",
+    "yield_spread_change"
+  ]
+}

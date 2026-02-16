@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-02-16T12:00:00",
+  "feature": "options_market",
+  "attempt": 2,
+  "gate1_passed": true,
+  "gate2_passed": false,
+  "gate3_passed": true,
+  "overall_passed": true,
+  "decision": "completed",
+  "key_metrics": {
+    "gate2_mi_increase": "4.96%",
+    "gate2_vif_submodel": 2.13,
+    "gate2_stability": 0.1555,
+    "gate3_da_delta": -0.0024,
+    "gate3_mae_delta": -0.1562,
+    "gate3_sharpe_delta": -0.1413,
+    "feature_importance_rank": 2,
+    "feature_importance_pct": 7.55
+  },
+  "improvement_from_attempt_1": {
+    "da_folds_improved": "0/5 -> 3/5",
+    "mae_folds_improved": "2/5 -> 4/5",
+    "key_change": "Reduced from 3 output columns to 1 (options_risk_regime_prob only)"
+  },
+  "next_action": "Resume Phase 3 meta-model with expanded feature set including options_risk_regime_prob"
+}

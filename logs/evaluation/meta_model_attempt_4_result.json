@@ -1,0 +1,127 @@
+{
+  "feature": "meta_model",
+  "attempt": 4,
+  "timestamp": "2026-02-15T13:10:58.073286",
+  "architecture": "XGBoost (frozen Attempt 2 HP) + Logistic Regression Calibration",
+  "phase": "3_meta_model",
+  "base_model_config": {
+    "params": {
+      "objective": "reg:squarederror",
+      "max_depth": 2,
+      "min_child_weight": 14,
+      "reg_lambda": 4.76,
+      "reg_alpha": 3.65,
+      "subsample": 0.478,
+      "colsample_bytree": 0.371,
+      "learning_rate": 0.025,
+      "gamma": 0.5,
+      "tree_method": "hist",
+      "eval_metric": "rmse",
+      "verbosity": 0,
+      "seed": 42
+    },
+    "n_estimators": 102,
+    "n_features": 22,
+    "train_samples": 1742,
+    "val_samples": 373,
+    "test_samples": 374
+  },
+  "calibration_config": {
+    "optuna_trials": 200,
+    "best_params": {
+      "calib_degree": 2,
+      "calib_C": 0.12336245991553757,
+      "calib_feature_set": 1,
+      "calib_threshold_pct": 15
+    },
+    "cv_hcda_mean": 0.6545454545454545,
+    "cv_hcda_std": 0.06803013430498078
+  },
+  "metrics": {
+    "train": {
+      "direction_accuracy": 0.6162723600692441,
+      "high_confidence_da": 0.7550432276657061,
+      "mae": 0.6173974922815779,
+      "sharpe_ratio": 4.024038907278251
+    },
+    "val": {
+      "direction_accuracy": 0.543010752688172,
+      "high_confidence_da": 0.5616438356164384,
+      "mae": 0.7102610152895912,
+      "sharpe_ratio": 1.5710085330422188
+    },
+    "test": {
+      "direction_accuracy": 0.553475935828877,
+      "high_confidence_da_standard": 0.581081081081081,
+      "high_confidence_da_calibrated": 0.42857142857142855,
+      "mae": 0.6865073200637015,
+      "sharpe_ratio": 1.6279985947587008,
+      "sharpe_formula": "CLAUDE.md position-change cost only"
+    }
+  },
+  "target_evaluation": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "55.35%",
+      "gap": "-0.65pp",
+      "passed": false
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "42.86%",
+      "gap": "-17.14pp",
+      "passed": false
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.6865%",
+      "gap": "-0.6790%",
+      "passed": false
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": "1.63",
+      "gap": "+0.83",
+      "passed": true
+    }
+  },
+  "targets_passed": 1,
+  "targets_total": 4,
+  "overall_passed": false,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": 6.279642424036713,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS"
+  },
+  "calibration_analysis": {
+    "n_promoted": 40,
+    "n_demoted": 58,
+    "promoted_da": 0.4,
+    "demoted_da": 0.603448275862069,
+    "overlap_with_standard": 0.21621621621621623,
+    "confidence_model_degree": 2,
+    "confidence_model_C": 0.12336245991553757,
+    "confidence_model_feature_set": 1,
+    "cv_hcda_mean": 0.6545454545454545,
+    "cv_hcda_std": 0.06803013430498078,
+    "top_coefficients": {
+      "f1 f5": -0.11334233939030981,
+      "f2": 0.06836888737237823,
+      "f3 f5": -0.06737819893745664,
+      "f3 f7": 0.05045880931748613,
+      "f7": 0.046259339788627535,
+      "f1": -0.041268019178064635,
+      "f2 f7": -0.03717305130344716,
+      "f1 f2": -0.03434345907669515,
+      "f6 f7": -0.03311507960427828,
+      "f4 f7": -0.03219950733560948
+    }
+  },
+  "vs_attempt_2": {
+    "da_delta_pp": -1.9124064171123,
+    "hcda_standard_delta_pp": 2.848108108108105,
+    "hcda_calibrated_delta_pp": -12.402857142857144,
+    "mae_delta": -0.0011926799362984575,
+    "sharpe_delta": 0.04449859475870088
+  }
+}

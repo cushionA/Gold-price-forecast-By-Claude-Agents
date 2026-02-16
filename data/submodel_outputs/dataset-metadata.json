@@ -1,0 +1,55 @@
+{
+  "title": "Gold Prediction - Submodel Outputs",
+  "id": "bigbigzabuton/gold-prediction-submodels",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "keywords": [
+    "finance",
+    "gold",
+    "time series",
+    "machine learning",
+    "feature engineering"
+  ],
+  "description": "Pre-computed submodel outputs for gold price prediction model. Includes regime probabilities, mean reversion indicators, and volatility features from 9 different submodels. Used as input features for meta-model training.",
+  "resources": [
+    {
+      "path": "vix.csv",
+      "description": "VIX submodel outputs (regime_probability, mean_reversion_z)"
+    },
+    {
+      "path": "technical.csv",
+      "description": "Technical indicators submodel outputs (trend_regime_prob, mean_reversion_z, volatility_regime)"
+    },
+    {
+      "path": "cross_asset.csv",
+      "description": "Cross-asset correlation submodel outputs (regime_prob, divergence)"
+    },
+    {
+      "path": "etf_flow.csv",
+      "description": "ETF flow submodel outputs (regime_prob)"
+    },
+    {
+      "path": "options_market.csv",
+      "description": "Options market submodel outputs (risk_regime_prob)"
+    },
+    {
+      "path": "yield_curve.csv",
+      "description": "Yield curve submodel outputs (regime_prob, steepness_z)"
+    },
+    {
+      "path": "inflation_expectation.csv",
+      "description": "Inflation expectation submodel outputs (regime_prob, acceleration_z)"
+    },
+    {
+      "path": "cny_demand.csv",
+      "description": "CNY demand proxy submodel outputs (momentum_z, divergence_z)"
+    },
+    {
+      "path": "real_rate.csv",
+      "description": "Real interest rate submodel outputs (placeholder, no_further_improvement status)"
+    }
+  ]
+}

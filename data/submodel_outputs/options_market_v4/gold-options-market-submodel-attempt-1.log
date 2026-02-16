@@ -1,0 +1,41 @@
+[{"stream_name":"stderr","time":9.296875577,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.296954329,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.296964797,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.296969962,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.099287699,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.099325303,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.099332238,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.099337335,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.603215959,"data":"Installing dependencies...\n"}
+,{"stream_name":"stdout","time":14.34527927,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 6.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.547722223,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 6.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":17.069682288,"data":"Installation complete.\n"}
+,{"stream_name":"stdout","time":22.238071193,"data":"All imports successful.\n"}
+,{"stream_name":"stderr","time":23.005782131,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":23.00580667,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":23.005813048,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":23.005902468,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":23.005999597,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":23.006191117,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":23.006443188,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":23.006450577,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":23.006456053,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":23.00646076,"data":"  File \"/tmp/ipykernel_17/4213898336.py\", line 54\n"}
+,{"stream_name":"stderr","time":23.006465515,"data":"    print(\"\n"}
+,{"stream_name":"stderr","time":23.00647011,"data":"          ^\n"}
+,{"stream_name":"stderr","time":23.00647439,"data":"SyntaxError: unterminated string literal (detected at line 54)\n"}
+,{"stream_name":"stderr","time":23.006479161,"data":"\n"}
+,{"stream_name":"stderr","time":23.00648339,"data":"\n"}
+,{"stream_name":"stderr","time":25.633262135,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":25.633299518,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":25.840038855,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":25.840103224,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":26.648212371,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.648248829,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.707460514,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":27.123212944,"data":"[NbConvertApp] Writing 25377 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":30.362014294,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":30.362064377,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":30.392461006,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":31.539382536,"data":"[NbConvertApp] Writing 348738 bytes to __results__.html\n"}
+]

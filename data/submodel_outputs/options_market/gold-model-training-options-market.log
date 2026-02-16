@@ -1,0 +1,171 @@
+[{"stream_name":"stderr","time":8.931165939,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.931223688,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.931228262,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.931231468,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.658043456,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.658084425,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.658089953,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.658093852,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.434281405,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":13.495756402,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":13.520912265,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.523663551,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":13.53097812,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":13.554035461,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":13.555544995,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":13.595287242,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":13.636392698,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 4.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":13.637242417,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":13.637266885,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":13.637272077,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.637276786,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":13.637281179,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":13.637285023,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":13.637289748,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":13.637307846,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":13.838604927,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 4.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.828845067,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":15.921871148,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":16.031816994,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":16.031850807,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":21.082636035,"data":"Fetching data...\n"}
+,{"stream_name":"stdout","time":21.573639441,"data":"SKEW data: 2553 rows\n"}
+,{"stream_name":"stdout","time":21.573688083,"data":"GVZ data: 2610 rows\n"}
+,{"stream_name":"stdout","time":21.680399624,"data":"Gold data: 2608 rows\n"}
+,{"stream_name":"stdout","time":21.680436029,"data":"Aligned data: 2607 rows\n"}
+,{"stream_name":"stdout","time":21.680441472,"data":"Date range: 2014-10-01 00:00:00-04:00 to 2025-02-14 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":21.680446093,"data":"SKEW range: [110.34, 180.09]\n"}
+,{"stream_name":"stdout","time":21.68045039,"data":"GVZ range: [8.88, 48.98]\n"}
+,{"stream_name":"stdout","time":21.697549893,"data":"After computing changes: 2606 rows\n"}
+,{"stream_name":"stdout","time":21.697582316,"data":"SKEW change range: [-22.81, 24.75]\n"}
+,{"stream_name":"stdout","time":21.697587802,"data":"GVZ change range: [-9.50, 7.25]\n"}
+,{"stream_name":"stdout","time":21.712351988,"data":"Train: 1824 rows\n"}
+,{"stream_name":"stdout","time":21.712390972,"data":"Val: 390 rows\n"}
+,{"stream_name":"stdout","time":21.7123959,"data":"Test: 392 rows\n"}
+,{"stream_name":"stdout","time":21.729583105,"data":"Feature generation functions defined.\n"}
+,{"stream_name":"stdout","time":21.746817177,"data":"Optuna objective defined.\n"}
+,{"stream_name":"stderr","time":21.760955764,"data":"[I 2026-02-15 16:30:31,279] A new study created in memory with name: no-name-0401fb4d-402d-45c9-a381-f4253c2ea404\n"}
+,{"stream_name":"stderr","time":21.760989347,"data":"\n"}
+,{"stream_name":"stderr","time":21.760994665,"data":"[I 2026-02-15 16:30:31,279] A new study created in memory with name: no-name-0401fb4d-402d-45c9-a381-f4253c2ea404\n"}
+,{"stream_name":"stdout","time":21.875895265,"data":"Running Optuna HPO...\n"}
+,{"stream_name":"stderr","time":22.169143657,"data":"[I 2026-02-15 16:30:31,687] Trial 0 finished with value: 1.641352490709766 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 1.641352490709766.\n"}
+,{"stream_name":"stderr","time":22.169199497,"data":"\n"}
+,{"stream_name":"stderr","time":22.16920492,"data":"[I 2026-02-15 16:30:31,687] Trial 0 finished with value: 1.641352490709766 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 0 with value: 1.641352490709766.\n"}
+,{"stream_name":"stderr","time":22.579518391,"data":"[I 2026-02-15 16:30:32,098] Trial 1 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 1.641352490709766.\n"}
+,{"stream_name":"stderr","time":22.579553563,"data":"\n"}
+,{"stream_name":"stderr","time":22.5795584,"data":"[I 2026-02-15 16:30:32,098] Trial 1 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 0 with value: 1.641352490709766.\n"}
+,{"stream_name":"stderr","time":22.929709084,"data":"[I 2026-02-15 16:30:32,448] Trial 2 finished with value: 1.5947417863559825 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 1.641352490709766.\n"}
+,{"stream_name":"stderr","time":22.929762171,"data":"\n"}
+,{"stream_name":"stderr","time":22.929768239,"data":"[I 2026-02-15 16:30:32,448] Trial 2 finished with value: 1.5947417863559825 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 0 with value: 1.641352490709766.\n"}
+,{"stream_name":"stderr","time":23.337647457,"data":"[I 2026-02-15 16:30:32,856] Trial 3 finished with value: 1.681016560224312 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 3 with value: 1.681016560224312.\n"}
+,{"stream_name":"stderr","time":23.337700328,"data":"\n"}
+,{"stream_name":"stderr","time":23.337705635,"data":"[I 2026-02-15 16:30:32,856] Trial 3 finished with value: 1.681016560224312 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 3 with value: 1.681016560224312.\n"}
+,{"stream_name":"stderr","time":23.698677345,"data":"[I 2026-02-15 16:30:33,217] Trial 4 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":23.698718902,"data":"\n"}
+,{"stream_name":"stderr","time":23.698725162,"data":"[I 2026-02-15 16:30:33,217] Trial 4 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":24.051246128,"data":"[I 2026-02-15 16:30:33,569] Trial 5 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":24.051302057,"data":"\n"}
+,{"stream_name":"stderr","time":24.051307335,"data":"[I 2026-02-15 16:30:33,569] Trial 5 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":24.280794647,"data":"[I 2026-02-15 16:30:33,799] Trial 6 finished with value: 1.6196239928376215 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":24.280830231,"data":"\n"}
+,{"stream_name":"stderr","time":24.280834916,"data":"[I 2026-02-15 16:30:33,799] Trial 6 finished with value: 1.6196239928376215 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":24.636277605,"data":"[I 2026-02-15 16:30:34,153] Trial 7 finished with value: 1.681016560224312 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":24.636335902,"data":"\n"}
+,{"stream_name":"stderr","time":24.636341344,"data":"[I 2026-02-15 16:30:34,153] Trial 7 finished with value: 1.681016560224312 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.046788159,"data":"[I 2026-02-15 16:30:34,565] Trial 8 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.046853303,"data":"\n"}
+,{"stream_name":"stderr","time":25.046858878,"data":"[I 2026-02-15 16:30:34,565] Trial 8 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.472299676,"data":"[I 2026-02-15 16:30:34,988] Trial 9 finished with value: 1.681016560224312 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.472336612,"data":"\n"}
+,{"stream_name":"stderr","time":25.472341125,"data":"[I 2026-02-15 16:30:34,988] Trial 9 finished with value: 1.681016560224312 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.696374014,"data":"[I 2026-02-15 16:30:35,215] Trial 10 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.696411965,"data":"\n"}
+,{"stream_name":"stderr","time":25.696416953,"data":"[I 2026-02-15 16:30:35,215] Trial 10 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.857683667,"data":"[I 2026-02-15 16:30:35,373] Trial 11 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":25.857719339,"data":"\n"}
+,{"stream_name":"stderr","time":25.857723758,"data":"[I 2026-02-15 16:30:35,373] Trial 11 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.082220833,"data":"[I 2026-02-15 16:30:35,600] Trial 12 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.082260498,"data":"\n"}
+,{"stream_name":"stderr","time":26.0822655,"data":"[I 2026-02-15 16:30:35,600] Trial 12 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.278967422,"data":"[I 2026-02-15 16:30:35,797] Trial 13 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.279002677,"data":"\n"}
+,{"stream_name":"stderr","time":26.279024278,"data":"[I 2026-02-15 16:30:35,797] Trial 13 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.472408632,"data":"[I 2026-02-15 16:30:35,989] Trial 14 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.472461977,"data":"\n"}
+,{"stream_name":"stderr","time":26.47246689,"data":"[I 2026-02-15 16:30:35,989] Trial 14 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.689459417,"data":"[I 2026-02-15 16:30:36,208] Trial 15 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.689596445,"data":"\n"}
+,{"stream_name":"stderr","time":26.689603394,"data":"[I 2026-02-15 16:30:36,208] Trial 15 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.854296187,"data":"[I 2026-02-15 16:30:36,370] Trial 16 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":26.854329987,"data":"\n"}
+,{"stream_name":"stderr","time":26.854335884,"data":"[I 2026-02-15 16:30:36,370] Trial 16 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.018262048,"data":"[I 2026-02-15 16:30:36,537] Trial 17 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.018316247,"data":"\n"}
+,{"stream_name":"stderr","time":27.019780082,"data":"[I 2026-02-15 16:30:36,537] Trial 17 finished with value: 1.7058987667059509 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.441993582,"data":"[I 2026-02-15 16:30:36,960] Trial 18 finished with value: 1.641352490709766 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.442030641,"data":"\n"}
+,{"stream_name":"stderr","time":27.443805739,"data":"[I 2026-02-15 16:30:36,960] Trial 18 finished with value: 1.641352490709766 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 15}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.604999425,"data":"[I 2026-02-15 16:30:37,123] Trial 19 finished with value: 1.617881438614079 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.605036059,"data":"\n"}
+,{"stream_name":"stderr","time":27.607801266,"data":"[I 2026-02-15 16:30:37,123] Trial 19 finished with value: 1.617881438614079 and parameters: {'hmm_n_components': 2, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.965304094,"data":"[I 2026-02-15 16:30:37,483] Trial 20 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":27.965341032,"data":"\n"}
+,{"stream_name":"stderr","time":27.965345584,"data":"[I 2026-02-15 16:30:37,483] Trial 20 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":28.377949032,"data":"[I 2026-02-15 16:30:37,896] Trial 21 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":28.377985941,"data":"\n"}
+,{"stream_name":"stderr","time":28.377990435,"data":"[I 2026-02-15 16:30:37,896] Trial 21 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":28.800603107,"data":"[I 2026-02-15 16:30:38,319] Trial 22 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":28.800680084,"data":"\n"}
+,{"stream_name":"stderr","time":28.802853092,"data":"[I 2026-02-15 16:30:38,319] Trial 22 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":29.159492194,"data":"[I 2026-02-15 16:30:38,678] Trial 23 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":29.159533249,"data":"\n"}
+,{"stream_name":"stderr","time":29.159539332,"data":"[I 2026-02-15 16:30:38,678] Trial 23 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":29.517222302,"data":"[I 2026-02-15 16:30:39,033] Trial 24 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":29.517257641,"data":"\n"}
+,{"stream_name":"stderr","time":29.517262043,"data":"[I 2026-02-15 16:30:39,033] Trial 24 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":29.869256245,"data":"[I 2026-02-15 16:30:39,388] Trial 25 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":29.86930266,"data":"\n"}
+,{"stream_name":"stderr","time":29.871790376,"data":"[I 2026-02-15 16:30:39,388] Trial 25 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":30.227830383,"data":"[I 2026-02-15 16:30:39,743] Trial 26 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":30.227866359,"data":"\n"}
+,{"stream_name":"stderr","time":30.227871132,"data":"[I 2026-02-15 16:30:39,743] Trial 26 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":30.633208451,"data":"[I 2026-02-15 16:30:40,149] Trial 27 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":30.633246516,"data":"\n"}
+,{"stream_name":"stderr","time":30.633251693,"data":"[I 2026-02-15 16:30:40,149] Trial 27 finished with value: 1.7276272645780955 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":31.065676714,"data":"[I 2026-02-15 16:30:40,584] Trial 28 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":31.065713082,"data":"\n"}
+,{"stream_name":"stderr","time":31.066172421,"data":"[I 2026-02-15 16:30:40,584] Trial 28 finished with value: 1.6396099364862236 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 60, 'skew_momentum_window': 5}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":31.516956443,"data":"[I 2026-02-15 16:30:41,034] Trial 29 finished with value: 1.5947417863559825 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stderr","time":31.516992236,"data":"\n"}
+,{"stream_name":"stderr","time":31.517867201,"data":"[I 2026-02-15 16:30:41,034] Trial 29 finished with value: 1.5947417863559825 and parameters: {'hmm_n_components': 3, 'skew_zscore_window': 90, 'skew_momentum_window': 15}. Best is trial 4 with value: 1.7276272645780955.\n"}
+,{"stream_name":"stdout","time":31.519358501,"data":"Best trial: 4\n"}
+,{"stream_name":"stdout","time":31.519376714,"data":"Best value: 1.727627\n"}
+,{"stream_name":"stdout","time":31.519385989,"data":"Best params: {'hmm_n_components': 3, 'skew_zscore_window': 40, 'skew_momentum_window': 10}\n"}
+,{"stream_name":"stdout","time":31.721083356,"data":"Generating final output with best params...\n"}
+,{"stream_name":"stdout","time":31.897113795,"data":"Output shape: (2606, 3)\n"}
+,{"stream_name":"stdout","time":31.897154232,"data":"Output columns: ['options_risk_regime_prob', 'options_tail_risk_z', 'options_skew_momentum_z']\n"}
+,{"stream_name":"stdout","time":31.897159262,"data":"NaN counts: {'options_risk_regime_prob': 0, 'options_tail_risk_z': 39, 'options_skew_momentum_z': 69}\n"}
+,{"stream_name":"stderr","time":31.900080513,"data":"/tmp/ipykernel_17/417355821.py:31: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":31.900121439,"data":"  output = output.fillna(method='ffill')\n"}
+,{"stream_name":"stderr","time":31.900126565,"data":"\n"}
+,{"stream_name":"stderr","time":31.901134333999998,"data":"/tmp/ipykernel_17/417355821.py:31: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":31.901166298,"data":"  output = output.fillna(method='ffill')\n"}
+,{"stream_name":"stdout","time":31.947968174,"data":"Computing metrics...\n"}
+,{"stream_name":"stdout","time":31.948005054,"data":"Autocorrelation (lag 1): {'options_risk_regime_prob': np.float64(0.8733386306545293), 'options_tail_risk_z': np.float64(0.8514766584420995), 'options_skew_momentum_z': np.float64(0.8130428622134763)}\n"}
+,{"stream_name":"stdout","time":31.948011075,"data":"MI scores (validation): {'options_risk_regime_prob': np.float64(0.5244329259658325), 'options_tail_risk_z': np.float64(0.5868965897795544), 'options_skew_momentum_z': np.float64(0.6162977488327086)}\n"}
+,{"stream_name":"stdout","time":32.036423572,"data":"Saving results...\n"}
+,{"stream_name":"stdout","time":32.036453807,"data":"=== Training complete! ===\n"}
+,{"stream_name":"stdout","time":32.036458364,"data":"Finished: 2026-02-15T16:30:41.555183\n"}
+,{"stream_name":"stderr","time":35.187768115,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":35.187807355,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":35.372999438,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":35.373028885,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":36.125772321,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":36.125809342,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":36.162578867,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":36.54964468,"data":"[NbConvertApp] Writing 30881 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":39.519938483,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":39.519976299,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":39.548348947,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":40.600684132,"data":"[NbConvertApp] Writing 338821 bytes to __results__.html\n"}
+]

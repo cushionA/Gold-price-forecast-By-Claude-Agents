@@ -1,0 +1,110 @@
+[{"stream_name":"stderr","time":9.35201747,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.352097673,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.352102932,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.35210635,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.198626881,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.198677754,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.198684347,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.198689278,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.519115509,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":14.538550975,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":14.56656222,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.570916372,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":14.57933238,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":14.60601491,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":14.607992372,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":14.635979363,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":14.659482436,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 8.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.723099498,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":14.723147888,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":14.723155685,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.723162752,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":14.723169853,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":14.723176663,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":14.723183951,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":14.723217121,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":14.723222778,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 166.0/166.0 kB 8.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":17.221124912,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":17.329771904,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":17.424213007,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":17.424280437,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":22.843553678,"data":"Fetching data...\n"}
+,{"stream_name":"stderr","time":22.844742916,"data":"/tmp/ipykernel_17/1439729060.py:5: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":22.84476738,"data":"  skew_data = yf.download('^SKEW', start='2014-10-01', end='2025-02-15', progress=False)\n"}
+,{"stream_name":"stderr","time":22.844774615,"data":"\n"}
+,{"stream_name":"stderr","time":22.844780981,"data":"/tmp/ipykernel_17/1439729060.py:5: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":22.844787187,"data":"  skew_data = yf.download('^SKEW', start='2014-10-01', end='2025-02-15', progress=False)\n"}
+,{"stream_name":"stdout","time":23.809061018,"data":"SKEW data: 2553 rows\n"}
+,{"stream_name":"stderr","time":23.810296828,"data":"/tmp/ipykernel_17/1439729060.py:10: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":23.81032562,"data":"  gvz_data = yf.download('^GVZ', start='2014-10-01', end='2025-02-15', progress=False)\n"}
+,{"stream_name":"stderr","time":23.810330866,"data":"\n"}
+,{"stream_name":"stderr","time":23.810334929,"data":"/tmp/ipykernel_17/1439729060.py:10: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":23.810339069,"data":"  gvz_data = yf.download('^GVZ', start='2014-10-01', end='2025-02-15', progress=False)\n"}
+,{"stream_name":"stdout","time":24.201873181,"data":"GVZ data: 2610 rows\n"}
+,{"stream_name":"stderr","time":24.202910863,"data":"/tmp/ipykernel_17/1439729060.py:15: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":24.202938703,"data":"  gold_data = yf.download('GC=F', start='2014-10-01', end='2025-02-15', progress=False)\n"}
+,{"stream_name":"stderr","time":24.202945777,"data":"\n"}
+,{"stream_name":"stderr","time":24.202951516,"data":"/tmp/ipykernel_17/1439729060.py:15: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":24.202957935,"data":"  gold_data = yf.download('GC=F', start='2014-10-01', end='2025-02-15', progress=False)\n"}
+,{"stream_name":"stdout","time":24.483573393,"data":"Gold data: 2608 rows\n"}
+,{"stream_name":"stderr","time":25.422761199,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":25.422797805,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":25.422805702,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":25.422892655,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":25.42297482,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":25.423145097,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":25.423619868,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":25.423637094,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":25.423642875,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":25.42364735,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":25.423651935,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":25.423656062,"data":"/tmp/ipykernel_17/1439729060.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":25.423661272,"data":"     20 \n"}
+,{"stream_name":"stderr","time":25.42366559,"data":"     21 # Align on common dates\n"}
+,{"stream_name":"stderr","time":25.42367036,"data":"---\u003e 22 df = pd.DataFrame({\n"}
+,{"stream_name":"stderr","time":25.423674872,"data":"     23     'skew': skew_close,\n"}
+,{"stream_name":"stderr","time":25.423679255,"data":"     24     'gvz': gvz_close,\n"}
+,{"stream_name":"stderr","time":25.423683502,"data":"\n"}
+,{"stream_name":"stderr","time":25.423687381,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py in __init__(self, data, index, columns, dtype, copy)\n"}
+,{"stream_name":"stderr","time":25.423692512,"data":"    776         elif isinstance(data, dict):\n"}
+,{"stream_name":"stderr","time":25.423697568,"data":"    777             # GH#38939 de facto copy defaults to False only in non-dict cases\n"}
+,{"stream_name":"stderr","time":25.42370228,"data":"--\u003e 778             mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)\n"}
+,{"stream_name":"stderr","time":25.423706787,"data":"    779         elif isinstance(data, ma.MaskedArray):\n"}
+,{"stream_name":"stderr","time":25.423711562,"data":"    780             from numpy.ma import mrecords\n"}
+,{"stream_name":"stderr","time":25.423715851,"data":"\n"}
+,{"stream_name":"stderr","time":25.423720032,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py in dict_to_mgr(data, index, columns, dtype, typ, copy)\n"}
+,{"stream_name":"stderr","time":25.423724844,"data":"    501             arrays = [x.copy() if hasattr(x, \"dtype\") else x for x in arrays]\n"}
+,{"stream_name":"stderr","time":25.423730197,"data":"    502 \n"}
+,{"stream_name":"stderr","time":25.423734242,"data":"--\u003e 503     return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)\n"}
+,{"stream_name":"stderr","time":25.423739131,"data":"    504 \n"}
+,{"stream_name":"stderr","time":25.423743721,"data":"    505 \n"}
+,{"stream_name":"stderr","time":25.423748544,"data":"\n"}
+,{"stream_name":"stderr","time":25.42375323,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py in arrays_to_mgr(arrays, columns, index, dtype, verify_integrity, typ, consolidate)\n"}
+,{"stream_name":"stderr","time":25.423758494,"data":"    112         # figure out the index, if necessary\n"}
+,{"stream_name":"stderr","time":25.423763102,"data":"    113         if index is None:\n"}
+,{"stream_name":"stderr","time":25.423767912,"data":"--\u003e 114             index = _extract_index(arrays)\n"}
+,{"stream_name":"stderr","time":25.423773078,"data":"    115         else:\n"}
+,{"stream_name":"stderr","time":25.423778251,"data":"    116             index = ensure_index(index)\n"}
+,{"stream_name":"stderr","time":25.423792078,"data":"\n"}
+,{"stream_name":"stderr","time":25.423796562,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/internals/construction.py in _extract_index(data)\n"}
+,{"stream_name":"stderr","time":25.423801257,"data":"    665 \n"}
+,{"stream_name":"stderr","time":25.423806641,"data":"    666     if not indexes and not raw_lengths:\n"}
+,{"stream_name":"stderr","time":25.423811421,"data":"--\u003e 667         raise ValueError(\"If using all scalar values, you must pass an index\")\n"}
+,{"stream_name":"stderr","time":25.423816998,"data":"    668 \n"}
+,{"stream_name":"stderr","time":25.423821552,"data":"    669     if have_series:\n"}
+,{"stream_name":"stderr","time":25.423826777,"data":"\n"}
+,{"stream_name":"stderr","time":25.423831247,"data":"ValueError: If using all scalar values, you must pass an index\n"}
+,{"stream_name":"stderr","time":25.423836684,"data":"\n"}
+,{"stream_name":"stderr","time":28.358442868,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":28.358503941,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":28.575149866,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":28.575199347,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":29.396183257,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":29.396268668,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":29.438167054,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":29.882638167,"data":"[NbConvertApp] Writing 26589 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":33.542978557,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":33.543031908,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":33.575477067,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":34.815038644,"data":"[NbConvertApp] Writing 336234 bytes to __results__.html\n"}
+]

@@ -1,0 +1,39 @@
+{
+  "feature": "options_market",
+  "attempt": 1,
+  "timestamp": "2026-02-15T16:30:41.552865",
+  "best_params": {
+    "hmm_n_components": 3,
+    "skew_zscore_window": 40,
+    "skew_momentum_window": 10
+  },
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 1.7276272645780955,
+  "output_shape": [
+    2606,
+    3
+  ],
+  "output_columns": [
+    "options_risk_regime_prob",
+    "options_tail_risk_z",
+    "options_skew_momentum_z"
+  ],
+  "data_info": {
+    "train_samples": 1824,
+    "val_samples": 390,
+    "test_samples": 392,
+    "full_samples": 2606
+  },
+  "metrics": {
+    "autocorr_lag1": {
+      "options_risk_regime_prob": 0.8733386306545293,
+      "options_tail_risk_z": 0.8514766584420995,
+      "options_skew_momentum_z": 0.8130428622134763
+    },
+    "mi_scores_validation": {
+      "options_risk_regime_prob": 0.5244329259658325,
+      "options_tail_risk_z": 0.5868965897795544,
+      "options_skew_momentum_z": 0.6162977488327086
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "step_1_missing_values": {
+    "issues": [
+      "PASS: No NaN or infinite values in feature columns",
+      "PASS: Target has 0 NaN values"
+    ],
+    "passed": true
+  },
+  "step_2_anomalies": {
+    "outlier_columns": {
+      "vix_vix": "14",
+      "technical_gld_volume": "8",
+      "etf_flow_gld_volume": "8",
+      "etf_flow_volume_ma20": "6",
+      "tech_trend_regime_prob": "11",
+      "xasset_regime_prob": "42",
+      "xasset_recession_signal": "3",
+      "etf_capital_intensity": "2",
+      "cny_regime_prob": "67"
+    },
+    "issues": [
+      "WARNING: Column 'cny_regime_prob' has 67 outliers (z>5, 2.80%)",
+      "WARNING: Column 'xasset_regime_prob' has 42 outliers (z>5, 1.75%)",
+      "WARNING: Column 'vix_vix' has 14 outliers (z>5, 0.58%)",
+      "WARNING: Column 'tech_trend_regime_prob' has 11 outliers (z>5, 0.46%)",
+      "WARNING: Column 'technical_gld_volume' has 8 outliers (z>5, 0.33%)"
+    ],
+    "passed": true
+  },
+  "step_3_future_leakage": {
+    "issues": [
+      "PASS: Date index is monotonically increasing",
+      "PASS: No duplicate dates (2395 unique dates)",
+      "WARNING: Column 'real_rate_real_rate' has high lag-1 autocorr (0.9986)",
+      "WARNING: Column 'dxy_dxy' has high lag-1 autocorr (0.9965)",
+      "WARNING: Column 'technical_gld_open' has high lag-1 autocorr (0.9992)"
+    ],
+    "passed": true
+  },
+  "step_4_correlation": {
+    "vif_summary": [
+      {
+        "feature": "real_rate_real_rate",
+        "VIF": Infinity
+      },
+      {
+        "feature": "technical_gld_close",
+        "VIF": Infinity
+      },
+      {
+        "feature": "etf_flow_gld_volume",
+        "VIF": Infinity
+      },
+      {
+        "feature": "yield_curve_dgs10",
+        "VIF": Infinity
+      },
+      {
+        "feature": "yield_curve_dgs2",
+        "VIF": Infinity
+      },
+      {
+        "feature": "yield_curve_yield_spread",
+        "VIF": Infinity
+      },
+      {
+        "feature": "technical_gld_volume",
+        "VIF": Infinity
+      },
+      {
+        "feature": "inflation_expectation_inflation_expectation",
+        "VIF": Infinity
+      },
+      {
+        "feature": "etf_flow_gld_close",
+        "VIF": Infinity
+      },
+      {
+        "feature": "technical_gld_high",
+        "VIF": 346845.9892543772
+      }
+    ],
+    "high_vif_features": [
+      "real_rate_real_rate",
+      "technical_gld_close",
+      "etf_flow_gld_volume",
+      "yield_curve_dgs10",
+      "yield_curve_dgs2",
+      "yield_curve_yield_spread",
+      "technical_gld_volume",
+      "inflation_expectation_inflation_expectation",
+      "etf_flow_gld_close",
+      "technical_gld_high",
+      "technical_gld_low",
+      "technical_gld_open",
+      "dxy_dxy",
+      "cny_demand_cny_usd",
+      "cross_asset_sp500_close",
+      "cross_asset_silver_close",
+      "cross_asset_copper_close",
+      "etf_flow_volume_ma20",
+      "vix_vix",
+      "etf_regime_prob"
+    ],
+    "issues": [
+      "WARNING: 20 features with VIF > 10 (multicollinearity)",
+      "  - real_rate_real_rate: VIF=inf",
+      "  - technical_gld_close: VIF=inf",
+      "  - etf_flow_gld_volume: VIF=inf",
+      "  - yield_curve_dgs10: VIF=inf",
+      "  - yield_curve_dgs2: VIF=inf",
+      "  - yield_curve_yield_spread: VIF=inf",
+      "  - technical_gld_volume: VIF=inf",
+      "  - inflation_expectation_inflation_expectation: VIF=inf",
+      "  - etf_flow_gld_close: VIF=inf",
+      "  - technical_gld_high: VIF=346845.99",
+      "  - technical_gld_low: VIF=314011.67",
+      "  - technical_gld_open: VIF=170386.46",
+      "  - dxy_dxy: VIF=1707.32",
+      "  - cny_demand_cny_usd: VIF=1399.38",
+      "  - cross_asset_sp500_close: VIF=415.13",
+      "  - cross_asset_silver_close: VIF=346.74",
+      "  - cross_asset_copper_close: VIF=309.82",
+      "  - etf_flow_volume_ma20: VIF=33.84",
+      "  - vix_vix: VIF=30.42",
+      "  - etf_regime_prob: VIF=12.70",
+      "NOTE: etf_regime_prob VIF=12.70 (architect-approved)"
+    ],
+    "passed": true
+  },
+  "step_5_data_integrity": {
+    "n_rows": 2395,
+    "n_cols": 39,
+    "date_range": [
+      "2015-07-28 00:00:00",
+      "2025-02-12 00:00:00"
+    ],
+    "expected_splits": {
+      "train": 1676,
+      "val": 359,
+      "test": 360
+    },
+    "issues": [
+      "PASS: Row count 2395 matches expected (~2395)",
+      "PASS: Column count 39 matches expected 39",
+      "INFO: Date range: 2015-07-28 to 2025-02-12",
+      "INFO: Expected splits: train=1676, val=359, test=360"
+    ],
+    "passed": true
+  },
+  "step_6_target_alignment": {
+    "target_column": "gold_return_next",
+    "target_shape": [
+      2542,
+      1
+    ],
+    "target_stats": {
+      "mean": 0.03979793485659791,
+      "std": 0.923911322324304,
+      "min": -4.978726104970077,
+      "max": 5.947667592334072
+    },
+    "issues": [
+      "WARNING: Target rows 2542 vs feature rows 2395",
+      "INFO: Target 'gold_return_next' - mean=0.0398, std=0.9239, range=[-4.9787, 5.9477]",
+      "PASS: Target column 'gold_return_next' confirmed as next-day return",
+      "PASS: Date alignment 100.0%"
+    ],
+    "passed": true
+  },
+  "step_7_final_verdict": {
+    "verdict": "PASS",
+    "critical_issues_count": 0,
+    "warning_issues_count": 10,
+    "critical_issues": [],
+    "warnings": [
+      "step_2_anomalies: WARNING: Column 'cny_regime_prob' has 67 outliers (z>5, 2.80%)",
+      "step_2_anomalies: WARNING: Column 'xasset_regime_prob' has 42 outliers (z>5, 1.75%)",
+      "step_2_anomalies: WARNING: Column 'vix_vix' has 14 outliers (z>5, 0.58%)",
+      "step_2_anomalies: WARNING: Column 'tech_trend_regime_prob' has 11 outliers (z>5, 0.46%)",
+      "step_2_anomalies: WARNING: Column 'technical_gld_volume' has 8 outliers (z>5, 0.33%)",
+      "step_3_future_leakage: WARNING: Column 'real_rate_real_rate' has high lag-1 autocorr (0.9986)",
+      "step_3_future_leakage: WARNING: Column 'dxy_dxy' has high lag-1 autocorr (0.9965)",
+      "step_3_future_leakage: WARNING: Column 'technical_gld_open' has high lag-1 autocorr (0.9992)",
+      "step_4_correlation: WARNING: 20 features with VIF > 10 (multicollinearity)",
+      "step_6_target_alignment: WARNING: Target rows 2542 vs feature rows 2395"
+    ]
+  },
+  "timestamp": "2026-02-15T16:17:38.908854",
+  "dataset": "meta_model_input",
+  "feature_name": "meta_model",
+  "attempt": 1
+}

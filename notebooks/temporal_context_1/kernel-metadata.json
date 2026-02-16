@@ -1,0 +1,13 @@
+{
+  "id": "bigbigzabuton/gold-temporal-context-transformer-attempt-1",
+  "title": "Gold Temporal Context Transformer - Attempt 1",
+  "code_file": "train.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"],
+  "competition_sources": [],
+  "kernel_sources": []
+}

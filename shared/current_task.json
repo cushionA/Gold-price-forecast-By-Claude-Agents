@@ -1,245 +1,207 @@
 {
-  "feature": "cny_demand",
+  "feature": "temporal_context",
   "attempt": 1,
   "source": "entrance",
   "phase": "phase2_submodel",
-  "timestamp": "2026-02-15T17:00:00",
 
-  "requirements": "CNY/USD為替レートの変動レジーム・モメンタム文脈・ボラティリティ状態を捕捉するサブモデル。中国は世界の金需要の約30%を占め、CNY/USDは上海金プレミアムの無料代理指標。managed float特有のレジーム構造（安定管理期・段階的調整期・急変動期）をHMMで検出し、DXYサブモデルと直交する中国固有の需要文脈を抽出する。9サブモデル中最後のサブモデルであり、completion後はPhase 3（メタモデル構築）に移行する。",
+  "summary": "Transformerベースの時系列文脈サブモデル。既存23特徴量のうち文脈依存性の高い特徴量群の過去ウィンドウを処理し、XGBoostが単一時点からは捕捉できないクロス時間・クロス特徴量の相互作用パターンを抽出する。",
 
-  "theoretical_background": {
-    "why_cny_matters_for_gold": [
-      "中国は世界の金需要の約30%（宝飾品・投資・中央銀行備蓄）を占める最大の需要国",
-      "CNY安（元安/ドル高）→ 中国の金購買力低下 → 需要減退圧力",
-      "CNY高（元高/ドル安）→ 中国の金購買力増加 → 需要増加圧力",
-      "上海金プレミアム（Shanghai Gold Premium）が理想的指標だが無料データソースなし",
-      "CNY/USD為替レートは中国の金需要圧力・資本フロー・政策スタンスの複合代理指標",
-      "PBOC（中国人民銀行）の為替介入パターン自体が政策レジーム情報を含む"
-    ],
-    "why_submodel_needed": [
-      "base_featuresのcny_demand_cny_usd（レベル値）は重要度ランク7（5.31%）だが、レジーム情報を含まない",
-      "CNY/USDのレベル値だけでは、管理相場（managed float）の介入レジームを区別できない",
-      "同じCNY/USDレベルでも、安定期（PBOC tight band）と変動期（band widening/devaluation）では金需要への影響が異なる",
-      "DXYサブモデルは米ドルの広範な強弱を捕捉するが、中国固有の政策・需要要因は含まない",
-      "CNYの日次変動パターン（managed floatの特徴的な非対称性・クラスタリング）はHMMで捕捉可能"
-    ],
-    "context_information_to_extract": [
-      "cny_regime_prob: PBOC為替管理レジーム（安定管理期/段階的調整期/急変動期）の確率",
-      "cny_momentum_z: CNY変動の持続性・方向性（z-score正規化）",
-      "cny_vol_regime_z: CNYボラティリティの構造変化（安定期対比の異常度）"
-    ]
-  },
+  "requirements": "meta_modelの23特徴量のうち、時系列文脈が最も重要な特徴量群（base features 5個 + 選択的submodel outputs）の過去N日ウィンドウを入力とし、Transformer self-attentionにより多時点間の関係性を捕捉する。出力は1-3個の低次元の文脈埋め込み特徴量。既存HMM/統計的サブモデルとの差別化は、固定ウィンドウ・固定状態数の制約を超えた適応的な時系列パターン認識にある。",
 
-  "base_feature_analysis": {
-    "column_name": "cny_demand_cny_usd",
-    "baseline_importance_rank": 7,
-    "baseline_importance_pct": 5.31,
-    "data_source": "Yahoo Finance CNY=X",
-    "frequency": "Daily",
-    "convention": "USD/CNY（値が大きいほどドル高/元安）",
-    "date_range": "2015-01-30 to 2025-02-12",
-    "row_count": 2523,
-    "key_properties": [
-      "管理変動相場（managed float）: PBOCが日次fixing rateを設定、市場は+/-2%のバンド内で取引",
-      "レベルは非定常（トレンドあり）: 2015年は約6.2、2019年は約7.1、2023年は約7.3",
-      "変化率（リターン）は概ね定常だが、介入時に非対称分布",
-      "DXY（ドルインデックス）と負の部分相関：CNY安=ドル高だがEUR/JPYと異なる動き",
-      "2015年8月のCNY切り下げ（一夜で約2%）は特異なレジーム転換イベント"
-    ]
-  },
+  "background_analysis": {
+    "current_meta_model_limitation": "XGBoostは各行（各日）を独立に処理する。既存サブモデルはHMM regime_prob, rolling z-score, persistence等で一部の時系列情報を圧縮しているが、(1) 固定ウィンドウ長（20d/60d）に制約される、(2) 特徴量間の時系列相互作用を捉えられない、(3) HMMの状態数が2-3に固定されレジーム遷移の複雑なダイナミクスを表現できない。",
 
-  "completed_submodels_context": {
-    "total_completed": 7,
-    "total_output_columns": 20,
-    "successful_patterns": {
-      "all_used_hmm": true,
-      "hmm_states": "2-3 states (3 states most common)",
-      "hmm_dimensions": "2D inputs (most common)",
-      "output_pattern": "regime_prob + 2 z-score features (3 outputs per submodel)",
-      "gate3_primary_criterion": "MAE improvement most consistent (5/7 passed MAE)"
+    "feature_context_dependency_ranking": {
+      "high_dependency": [
+        {
+          "feature": "cross_asset (xasset_regime_prob, xasset_recession_signal, xasset_divergence)",
+          "reason": "金・銀・銅の相関構造は時間的に進化する。相関の崩壊・回復は数日から数週間かけて進行し、その遷移パターンが金の将来リターンに影響する。現在のHMM 3-stateは静的なスナップショットのみで遷移速度・方向を捉えられない。Gate 3でDA +0.76%、MAE -0.0866と強い結果だが、遷移ダイナミクスの追加でさらなる改善余地がある。",
+          "current_submodel": "Deterministic HMM 3-state on [gold, silver, copper] daily returns",
+          "gate3_mae_delta": -0.0866,
+          "feature_importance_rank": "xasset_divergence #6, xasset_regime_prob #8"
+        },
+        {
+          "feature": "vix (vix_regime_probability, vix_mean_reversion_z, vix_persistence)",
+          "reason": "VIXスパイクの形状（急騰→段階的減衰 vs 徐々に上昇→急落）は金への影響が異なる。現在のHMMは瞬間的なレジームのみで、スパイクの進行段階・減衰速度を区別できない。vix_persistenceは20d固定ウィンドウの自己相関のみで、適応的なパターン認識ではない。",
+          "current_submodel": "HMM 2-3 state on log-VIX changes + rolling z-score + autocorrelation",
+          "gate3_da_delta": "+0.96%",
+          "feature_importance_rank": "vix #7"
+        },
+        {
+          "feature": "technical (tech_trend_regime_prob, tech_mean_reversion_z, tech_volatility_regime)",
+          "reason": "金のモメンタム/ミーンリバージョン遷移は可変長で発生する。20d z-scoreでは10日で完了するミーンリバージョンも30日かけて進む遷移も同じ扱い。ボラティリティ・クラスタリングのパターンも時間的文脈に依存する。",
+          "current_submodel": "HMM on [returns, GK_vol] + 20d z-score + daily GK vol z-score",
+          "gate3_mae_delta": -0.1824,
+          "feature_importance_rank": "tech_trend_regime_prob #2, tech_mean_reversion_z #4, tech_volatility_regime #5"
+        }
+      ],
+      "medium_dependency": [
+        {
+          "feature": "etf_flow (etf_regime_prob, etf_capital_intensity, etf_pv_divergence)",
+          "reason": "ETFフローの蓄積パターン（数日にわたる持続的流入/流出）は重要だが、現在のHMMで一定程度捕捉済み。Sharpe +0.377と最も強いSharpe改善サブモデル。",
+          "gate3_sharpe_delta": "+0.377"
+        },
+        {
+          "feature": "options_market (options_risk_regime_prob)",
+          "reason": "オプション市場のセンチメント変化は数日かけて展開する。単一カラム出力で情報量が限定的だが、feature importance #3。",
+          "feature_importance_rank": "#3"
+        }
+      ],
+      "low_dependency": [
+        {
+          "feature": "base features (real_rate_change, dxy_change, yield_spread_change, inflation_exp_change)",
+          "reason": "日次変化量は本質的にステートレス。ただしこれらの変化の累積パターン（3日連続の金利上昇等）は文脈情報を持つ。base featuresそのものではなくbase features + high-dependency submodel outputsの組み合わせのウィンドウを処理すべき。"
+        },
+        {
+          "feature": "yield_curve, inflation_expectation, cny_demand",
+          "reason": "マクロ特徴量は長期的な傾向が支配的で、日次Transformerの短期ウィンドウ（5-20日）からの追加情報は限定的。既存z-score/regime_probで十分に圧縮されている。"
+        }
+      ]
     },
-    "diminishing_returns_pattern": {
-      "description": "MAE改善は逓減傾向: technical(-0.182) > cross_asset(-0.087) > yield_curve(-0.069) > etf_flow(-0.044)",
-      "implication": "8番目のサブモデルとして、MAE改善は-0.01%から-0.03%が現実的目標",
-      "counter_argument": "cny_demand_cny_usdはrank7（5.31%）であり、中国固有の金需要情報は他サブモデルが捕捉していない独自チャネル"
-    }
+
+    "transformer_vs_hmm_differentiation": {
+      "hmm_limitations": [
+        "状態数が固定（2-3）: 複雑な市場レジームの連続体を離散的にしか表現できない",
+        "マルコフ性: 現在の状態は直前の状態のみに依存し、より長期の文脈を無視",
+        "単一特徴量: 各HMMは1つの特徴量群のみを処理し、特徴量間の時系列相互作用を捉えられない",
+        "固定emission分布: ガウス仮定により非正規な市場ダイナミクスを見逃す"
+      ],
+      "transformer_advantages": [
+        "Self-attention: ウィンドウ内の任意の2時点間の関係を直接モデリング",
+        "可変長パターン: 固定ウィンドウではなく、attentionが重要な時点に自動的に集中",
+        "クロス特徴量: 複数特徴量の時系列を同時に処理し、時間的相互作用を捕捉",
+        "連続的表現: 離散的なレジームではなく連続的な埋め込みベクトルを出力",
+        "非線形パターン: HMMのガウスemissionでは捕捉できない複雑な分布パターンを学習可能"
+      ]
+    },
+
+    "why_not_replace_meta_model": "XGBoostメタモデルをTransformerに置き換えるのではなく、サブモデルとしてTransformerを追加する理由: (1) XGBoostは2131サンプルで安定した学習が可能だが、Transformerメタモデルは過学習リスクが高い、(2) 既存のサブモデル体系（HMM regime + z-score + 統計量）との補完関係を維持できる、(3) Transformerサブモデルの出力は1-3次元に圧縮されるため、XGBoostの特徴量数を大幅に増やさない、(4) Gate 1/2/3評価フレームワークが使える"
   },
 
-  "vif_risk_analysis": {
-    "primary_concern": "DXYサブモデル出力（dxy_regime_prob, dxy_divergence_z, dxy_vol_z）との相関。CNY/USDはドルの裏側であり、特にdxy_vol_zとcny_vol_regime_zの相関が高くなるリスク",
-    "mitigating_factors": [
-      "DXYはEUR(57.6%)+JPY(13.6%)+GBP(11.9%)+CAD(9.1%)+SEK(4.2%)+CHF(3.6%)の加重平均であり、CNYは含まれない",
-      "CNYはmanaged floatであり、自由変動するDXY構成通貨とは異なる変動パターン",
-      "CNY変動にはPBOC介入・中国固有の経済イベント（不動産危機、貿易紛争等）が反映される",
-      "変化率ベースのz-score特徴量はレベル相関を大幅に低減する"
-    ],
-    "empirical_checks_for_architect": [
-      "corr(CNY_return, DXY_return)の実測値",
-      "corr(CNY_vol_z, dxy_vol_z)の実測値",
-      "提案3特徴量のVIF（既存20サブモデル出力+9ベース特徴量の全セットに対して）",
-      "VIF > 10の特徴量がある場合の対処戦略"
-    ]
+  "proposed_approach": {
+    "architecture": "Temporal Context Transformer",
+    "input_features": {
+      "primary_candidates": [
+        "real_rate_change (base)",
+        "dxy_change (base)",
+        "vix (base)",
+        "yield_spread_change (base)",
+        "inflation_exp_change (base)",
+        "vix_regime_probability",
+        "vix_mean_reversion_z",
+        "tech_trend_regime_prob",
+        "tech_mean_reversion_z",
+        "tech_volatility_regime",
+        "xasset_regime_prob",
+        "xasset_divergence",
+        "etf_regime_prob",
+        "options_risk_regime_prob"
+      ],
+      "total_input_dim": "14 (5 base + 9 selected submodel outputs)",
+      "selection_rationale": "高文脈依存性の特徴量を選択。yield_curve, inflation_expectation, cny_demandのsubmodel出力は除外（低文脈依存性、マクロ長期傾向が支配的）。persistence, capital_intensity等の補助的特徴量も除外（VIFリスクと情報冗長性のため）。"
+    },
+    "window_size": "researcher/architectが決定。候補: 5日、10日、20日。Optuna探索可能にする。短すぎると文脈不足、長すぎると学習困難。",
+    "output": {
+      "n_features": "1-3 (architectが決定)",
+      "format": "連続値の文脈埋め込みベクトル。日次。",
+      "interpretation": "XGBoostに提供される「時系列文脈スコア」。例: temporal_context_1 = 複数特徴量の同期的変動度合い、temporal_context_2 = レジーム遷移の加速/減速"
+    },
+    "training_approach": {
+      "method": "教師なし or 自己教師あり（サブモデルは金相場を予測しない原則に従う）",
+      "candidates": [
+        "自己教師あり: 過去ウィンドウから次時点の特徴量ベクトルを予測（masked token prediction的アプローチ）",
+        "教師なし: Transformer Autoencoder（入力ウィンドウの再構成、ボトルネック層を文脈特徴量として使用）",
+        "半教師あり: 再構成損失 + 補助タスク（次時点特徴量予測）の組み合わせ"
+      ],
+      "recommendation_for_researcher": "自己教師ありアプローチを優先調査。理由: (1) 再構成損失は安定した学習を保証、(2) ボトルネック層が自然に低次元文脈表現を生成、(3) 金相場予測を含まないため原則に準拠"
+    }
   },
 
   "research_questions": [
-    {
-      "id": "RQ1",
-      "question": "CNY/USDのHMM最適入力仕様は何か？候補を評価せよ: (a) 1D CNY_return, (b) 2D [CNY_return, CNY_vol_5d], (c) 2D [CNY_return, CNY_fixing_gap], (d) 2D [CNY_return, onshore_offshore_spread]。managed float特有の構造を捕捉する最適な次元と入力変数を特定すること。",
-      "context": "全7成功サブモデルが2D以上のHMMを使用。CNYはmanaged floatであり、自由変動通貨と異なるHMM入力が最適な可能性。fixing_gapはPBOC daily fixingと前日終値の差で介入意図を反映。onshore-offshore spreadはCNY-CNH差で政策tension指標。"
-    },
-    {
-      "id": "RQ2",
-      "question": "Yahoo Finance CNY=Xの具体的なデータ品質を調査せよ。(a) 2015-2025の日次データカバレッジ率、(b) 欠損パターン（中国の祝日、取引停止等）、(c) onshore(CNY)とoffshore(CNH)のどちらが反映されているか、(d) CNH=Xデータの利用可能性と品質。",
-      "context": "CNYはonshore（中国国内）とoffshore（香港等）の二重市場構造。Yahoo FinanceのCNY=Xがどちらを反映しているか確認が必要。CNH=X（offshore）が利用可能であればCNY-CNHスプレッドを特徴量にできる。"
-    },
-    {
-      "id": "RQ3",
-      "question": "PBOCの為替管理レジームを学術的にどう分類できるか？(a) 管理変動相場の理論的枠組み、(b) PBOC daily fixingメカニズムの詳細、(c) 2015年8月改革（中間価格形成メカニズム変更）の内容、(d) 2015-2025の主要レジーム転換イベント一覧。",
-      "context": "CNYの変動パターンはPBOCの政策レジームに強く依存。2015年8月の為替改革は構造的ブレークポイント。HMMの状態数と解釈にはこの歴史的文脈が必要。"
-    },
-    {
-      "id": "RQ4",
-      "question": "CNY/USDと金価格の関係に関する学術的実証研究を調査せよ。(a) CNY切り下げ時の金価格への影響（2015年8月、2019年8月等）、(b) 上海金プレミアムとCNY/USDの関係、(c) 中国の金輸入量とCNY/USDの関係、(d) PBOC金備蓄購入パターン（2022年以降の大幅増加）。",
-      "context": "中国の金需要チャネルは複数: 宝飾品消費、投資需要、中央銀行備蓄。各チャネルがCNY/USDにどう反応するかは異なる可能性。"
-    },
-    {
-      "id": "RQ5",
-      "question": "CNY/USDのボラティリティ正規化に最適な手法は何か？候補: (a) Z-score (20d vol / 120d baseline), (b) Log-ratio (vol_5d / vol_60d), (c) Rank percentile (120d window), (d) GARCH conditional volatility。managed floatの非対称ボラティリティ（元安方向の変動が大きい傾向）への対処法も検討せよ。",
-      "context": "CNYはmanaged floatのため、ボラティリティに構造的非対称性がある。先行サブモデルではz-scoreが標準だが、autocorrelation制約（<0.99）を満たす必要あり。"
-    },
-    {
-      "id": "RQ6",
-      "question": "DXYサブモデル出力とCNYサブモデル出力のVIFリスクをどう管理するか？(a) corr(CNY_return, DXY_return)の学術的な期待値、(b) managed float vs free floatの相関構造の違い、(c) VIF > 10の場合の対処法（特徴量除外、残差抽出、PCA圧縮等）、(d) DXY構成通貨にCNYが含まれないことの定量的意味。",
-      "context": "DXYの6構成通貨にCNYは含まれない。しかしグローバルなドル強弱は全通貨に影響。managed float特性によりCNY-DXY相関は非線形。"
-    },
-    {
-      "id": "RQ7",
-      "question": "CNY/USD以外に中国の金需要を代理する無料日次データソースはあるか？候補: (a) 上海金取引所（SGE）価格のYahoo Financeでの利用可能性、(b) USDCNH（offshore CNY=X）の日次データ、(c) Hang Seng Index（^HSI）の日次データ、(d) その他の中国関連指標。",
-      "context": "CNY/USDは間接的な代理指標。より直接的な指標があればHMM入力次元増加または補助特徴量に使用可能。全て無料・日次・5日以内遅延制約を満たす必要あり。"
-    },
-    {
-      "id": "RQ8",
-      "question": "CNY/USDの変動パターンにおけるモメンタム/平均回帰特性を調査せよ。(a) CNY returnのautocorrelation構造（lag 1-20）、(b) managed floatにおける平均回帰メカニズム（PBOCバンド内での回帰vs バンド自体のトレンド）、(c) z-scoreの最適rolling window（5d/10d/20d）。",
-      "context": "CNYのモメンタム特性はmanaged floatにより自由変動通貨と異なる。PBOCがバンドを設定するため、バンド境界付近で平均回帰が強制される。一方バンド自体が段階的に移動（trend）。"
-    },
-    {
-      "id": "RQ9",
-      "question": "2015-2025のCNY/USDの主要レジーム期間と各期間における金価格の挙動を整理せよ。具体的に: (a) 2015年8月切り下げ, (b) 2016-2017安定期, (c) 2018-2019米中貿易戦争, (d) 2020 COVID, (e) 2022-2023元安局面, (f) 2024-2025直近。各期間のCNY水準・ボラティリティ・金価格方向を記録。",
-      "context": "HMMの状態解釈とバリデーションには歴史的レジーム知識が必要。各期間でCNY-金関係がどう変化するか把握することでサブモデル出力の妥当性を評価。"
-    },
-    {
-      "id": "RQ10",
-      "question": "CNYサブモデルの出力として最適な3特徴量の組み合わせは何か？成功パターン（regime_prob + 2つのz-score）を踏まえ評価: (a) cny_regime_prob + cny_momentum_z + cny_vol_regime_z, (b) cny_regime_prob + cny_fixing_deviation_z + cny_onshore_offshore_z, (c) cny_regime_prob + cny_gold_sensitivity_z + cny_momentum_z。VIFリスク・autocorrelationリスク・情報直交性を評価。",
-      "context": "inflation_expectation成功パターン: ie_regime_prob + ie_anchoring_z + ie_gold_sensitivity_z（VIF max 2.25）。DXYとの相関最小化かつ中国固有情報の最大化が目標。"
-    }
-  ],
-
-  "candidate_approaches": [
-    {
-      "id": "A",
-      "name": "2D HMM [CNY_return, CNY_vol_5d] + momentum z + vol regime z",
-      "description": "成功サブモデルの標準パターンに準拠。CNY日次リターンと5日ボラティリティの2D入力でHMMレジーム検出。モメンタムz-scoreとボラティリティレジームz-scoreを補助特徴量として追加。",
-      "hmm_input": "[CNY_daily_return, CNY_vol_5d]",
-      "hmm_states": "3 (安定管理期/段階的調整期/急変動期)",
-      "outputs": ["cny_regime_prob", "cny_momentum_z", "cny_vol_regime_z"],
-      "recommended": true,
-      "risk_level": "LOW"
-    },
-    {
-      "id": "B",
-      "name": "2D HMM [CNY_return, fixing_gap] + onshore-offshore z",
-      "description": "PBOC daily fixingと市場レートの乖離をHMM入力に使用。中国固有の介入シグナルを活用。",
-      "hmm_input": "[CNY_daily_return, CNY_fixing_gap]",
-      "hmm_states": "3",
-      "outputs": ["cny_regime_prob", "cny_fixing_deviation_z", "cny_onshore_offshore_z"],
-      "recommended": false,
-      "risk_level": "HIGH",
-      "note": "fixing rate/CNH=Xデータの無料日次利用可能性をRQ2/RQ7で確認後に判断"
-    },
-    {
-      "id": "C",
-      "name": "2D HMM [CNY_return, gold_return] + CNY-gold sensitivity z",
-      "description": "CNYリターンとゴールドリターンの同時HMMでCNY-金の共変動レジームを検出。",
-      "hmm_input": "[CNY_return, gold_return]",
-      "hmm_states": "2-3",
-      "outputs": ["cny_regime_prob", "cny_gold_sensitivity_z", "cny_momentum_z"],
-      "recommended": false,
-      "risk_level": "HIGH",
-      "note": "gold_returnをHMM入力に使用は金予測原則に抵触するリスク。inflation_expectationではgold_returnをHMM入力に使わず成功。"
-    },
-    {
-      "id": "D",
-      "name": "3D HMM [CNY_return, CNY_vol_5d, HSI_return] + China stress z",
-      "description": "ハンセン指数リターンを3次元目に追加し中国経済ストレス全体のレジームを検出。",
-      "hmm_input": "[CNY_return, CNY_vol_5d, HSI_return]",
-      "hmm_states": "3",
-      "outputs": ["cny_regime_prob", "cny_china_stress_z", "cny_momentum_z"],
-      "recommended": false,
-      "risk_level": "MEDIUM",
-      "note": "Approach A失敗時のAttempt 2候補。HSIデータの追加取得が必要。"
-    }
+    "時系列Transformer Autoencoder（TAE）のアーキテクチャ設計: 金融時系列に適した注意機構の選択肢は？（vanilla self-attention vs causal attention vs sparse attention）",
+    "ウィンドウサイズの決定方法: 金融日次データにおける最適なコンテキストウィンドウ長に関する実証研究は？5日、10日、20日の理論的根拠は？",
+    "Transformerの学習安定化: 2000-3000サンプルの小規模データセットでTransformerを安定的に学習させる手法は？（事前学習、データ拡張、正則化戦略）",
+    "Position Encoding: 金融時系列に適した位置エンコーディングは？（固定 sinusoidal vs 学習可能 vs 相対位置エンコーディング）",
+    "出力次元の決定: Autoencoderのボトルネック次元を1-3に設定する際の情報量保持と過学習防止のトレードオフに関する指針は？",
+    "既存手法との比較: 時系列文脈抽出において、Transformer Autoencoder vs Temporal Convolutional Network (TCN) vs LSTM Autoencoder の性能比較研究は？小規模データでの優位性は？",
+    "多変量時系列におけるchannel-independent vs channel-dependent Transformerの選択基準は？PatchTST等の最新アーキテクチャとの比較は？",
+    "学習目標の設計: masked token prediction vs full reconstruction vs contrastive learning -- 金融時系列の文脈抽出に最適な自己教師あり目標は？"
   ],
 
   "constraints": [
-    "C1: 5日以上遅延するデータは使用禁止（CNY=Xは日次1日遅延で適合）",
-    "C2: サブモデルは金相場を直接予測しない（gold_returnをHMM入力に使用しない）",
-    "C3: 全出力特徴量のVIF < 10（DXYサブモデル出力との相関に特に注意）",
-    "C4: 全出力特徴量のautocorrelation < 0.99",
-    "C5: 日次データのみ使用。月次データの補間禁止",
-    "C6: 有料データソース・新規APIキーを要する処理は禁止",
-    "C7: 出力は3列以内のfloat64 DataFrame（dateインデックス、2523行に整列）",
-    "C8: CNY/USDのレベル値を出力特徴量に含めない（base_featuresと重複）",
-    "C9: 中国（CNY/USD）単一国データで設計（EM通貨の追加なし）",
-    "C10: HMMレジーム検出を必ず含む（全7成功サブモデルがHMM使用）",
-    "C11: 訓練はKaggle Notebook上で実行（統一Notebook使用、FRED_API_KEYはKaggle Secrets）"
+    "サブモデルは金相場を予測しない（自己教師あり/教師なしアプローチのみ）",
+    "5日以上遅延するデータは使用禁止（全データは日次で利用可能なので該当なし）",
+    "出力は1-3カラム以内（Gate 2 VIF制約、real_rate attempt 5で7カラムが失敗した教訓）",
+    "出力の自己相関 < 0.99（Gate 1制約）",
+    "Kaggle GPU環境で30分以内に学習完了（Optuna 20-30 trials）",
+    "PyTorchで実装（CLAUDE.md準拠）",
+    "既存サブモデル出力（HMM regime_prob等）を入力として使用可能だが、それらを単にコピーするだけの出力は禁止（情報利得が必要）",
+    "学習データ2131サンプルでTransformerが過学習しないための正則化必須（Dropout, LayerNorm, weight decay, 小モデルサイズ）",
+    "base_features.csvとsubmodel_outputs/*.csvの既存データパイプラインを再利用",
+    "入力特徴量はbase_features + submodel_outputsから選択（新規データ取得不要）"
   ],
 
-  "success_hypothesis": "CNY/USDの変動レジーム・モメンタム文脈・ボラティリティ状態をHMMで捕捉し、Gate 3基準のいずれか（DA +0.5%、Sharpe +0.05、MAE -0.01%）を達成する。8番目のサブモデルとして逓減傾向を踏まえ、MAE改善-0.01%から-0.03%が最も現実的な目標。cny_demand_cny_usdのbaseline importance rank 7（5.31%）は、レジーム文脈の追加により情報利得が見込める水準。",
+  "success_hypothesis": "時系列文脈特徴量（1-3次元）を追加することで、meta_modelの方向精度（DA）を+0.5%以上改善する。根拠: (1) XGBoostは各行独立処理のため、複数日にわたるレジーム遷移パターンを捉えられない、(2) 既存submodelのregime_prob等は瞬間スナップショットで遷移速度・方向を表現しない、(3) meta_model attempt 5でtech_trend_regime_prob(#2), options_risk_regime_prob(#3), tech_mean_reversion_z(#4)が上位feature importanceであり、これらの時系列パターンは更に有用な情報を含む可能性がある。",
 
-  "success_criteria": {
-    "gate1": {
-      "overfit_ratio": "<1.5",
-      "autocorrelation": "<0.99 for all output columns",
-      "no_constant_columns": true,
-      "no_all_nan": true
+  "risk_assessment": {
+    "primary_risk": {
+      "description": "2131サンプルでTransformerが過学習し、有意義な文脈特徴量を生成できない",
+      "probability": "30-40%",
+      "mitigation": "極小モデル（1-2層、32-64次元、2-4ヘッド）、強いDropout(0.3-0.5)、weight decay、early stopping。real_rate attempt 2-3でのTransformer/GRU経験を活かす。"
     },
-    "gate2": {
-      "mi_increase": ">5% (sum-based)",
-      "vif": "<10 for all output columns",
-      "stability": "rolling correlation std < 0.15"
+    "secondary_risk": {
+      "description": "Transformer出力がHMM regime_probと高相関で独立情報が不足（Gate 2 MI < 5%、VIF > 10）",
+      "probability": "25-35%",
+      "mitigation": "入力にsubmodel outputsを含めるが、出力がそれらと直交するようにcorrelation regularization損失を追加する方向を検討。出力がregime_probの単なるスムージングにならないよう、masked prediction等の複雑な学習目標を採用。"
     },
-    "gate3_any_one": {
-      "direction_accuracy_delta": "+0.5%",
-      "sharpe_delta": "+0.05",
-      "mae_delta": "-0.01%"
+    "tertiary_risk": {
+      "description": "Gate 3で既存submodel outputsとの冗長性により、XGBoostに追加価値を提供できない",
+      "probability": "20-30%",
+      "mitigation": "出力を1カラムに絞り、最もDA/Sharpe改善に寄与する次元のみを使用。real_rate/options_marketの教訓: 少ないカラム数が安定した改善をもたらす。"
     }
   },
 
-  "expected_challenges": [
-    {
-      "challenge": "DXYサブモデルとのVIF衝突",
-      "severity": "HIGH",
-      "mitigation": "変化率z-scoreでレベル相関回避。VIF>10の場合は残差アプローチ（CNY_return - beta*DXY_return）またはPCA圧縮。前例: etf_regime_prob VIF=12.47でGate 3通過。"
+  "previous_feedback": {
+    "real_rate_transformer_attempt_3": {
+      "result": "Gate 1 PASS, Gate 2 PASS (MI +23.8%), Gate 3 FAIL (DA marginal miss -0.48%, MAE degradation)",
+      "lessons": [
+        "multi-country Transformerは過学習を解決した（overfit 1.28）",
+        "MI +23.8%は高い情報利得だが、forward-fillされたstep functionがMAEを悪化",
+        "月次データ→日次補間が根本的な問題だった（今回は全て日次データで問題なし）",
+        "30 Optuna trialsで十分な探索が可能だった"
+      ]
     },
-    {
-      "challenge": "8番目のサブモデルとしての逓減効果",
-      "severity": "MEDIUM",
-      "mitigation": "MAE -0.01%を最低目標に設定。cny_demand rank7の直接的な金需要情報は他サブモデルが捕捉していない独自チャネル。"
+    "real_rate_attempts_overall": {
+      "key_learning": "Gate 2は常にPASS（MI +10-39%）だがGate 3は常にFAIL。月次マクロ→日次の周波数ミスマッチが根本原因。今回は全入力が日次なのでこの問題は解消。",
+      "relevance": "temporal_contextサブモデルは全入力が日次であるため、real_rateの根本的失敗原因は該当しない。"
     },
-    {
-      "challenge": "managed floatのHMM収束問題",
-      "severity": "MEDIUM",
-      "mitigation": "Optuna HPOで状態数（2-4）とcovariance type（full/diag/tied）を探索。"
+    "submodel_output_column_count": {
+      "key_learning": "出力カラム数が多いほどXGBoostにノイズを与える（real_rate 7カラム→Gate 3全失敗、options_market 3カラム→Gate 3失敗、1カラムに絞ると成功）。1-2カラムが最適。",
+      "recommendation": "temporal_context出力は1-2カラムに厳格に制限"
     },
-    {
-      "challenge": "CNY=Xデータ品質（中国祝日の欠損等）",
-      "severity": "LOW",
-      "mitigation": "前方充填（forward-fill、最大3日）。春節・国慶節の長期欠損パターンを事前確認。"
+    "hmm_success_pattern": {
+      "key_learning": "Gate 3をPASSした8サブモデル全てがHMM regime_probを使用。MAE改善が最も安定した指標（DA/Sharpeは変動が大きい）。",
+      "implication": "Transformer出力もregime-like（連続的な状態確率）の形式が望ましい。0-1正規化されたスコアが最も安定。"
     }
-  ],
+  },
 
-  "previous_feedback": null,
-  "previous_attempts": null,
+  "meta_model_attempt_6_context": {
+    "status": "Kaggle training中（submitted 2026-02-16T04:38:48）",
+    "changes": "SHAP confidence scoring, OLS output scaling, 強化正則化",
+    "expected_outcome": "HCDA改善が主目標。DA/Sharpeは維持。MAEは改善困難。",
+    "relevance_to_this_task": "attempt 6の結果に依存せずtemporal_contextサブモデルの設計・開発を並行して進める。attempt 6完了後にtemporal_contextを組み込んだattempt 7を構築する。"
+  },
 
-  "scope_note": "9サブモデル中最後のサブモデル。completion後はPhase 3（メタモデル構築）に移行。成功・失敗問わず1-2 attemptで結論を出す方針。完璧を追求するよりメタモデル構築への移行を優先。"
+  "execution_plan": {
+    "step_1": "researcher: 上記research_questionsを調査",
+    "step_2": "architect: fact-check → アーキテクチャ設計（入力特徴量選択、ウィンドウサイズ、モデルサイズ、学習目標、HP探索空間）",
+    "step_3": "builder_data: 既存データパイプラインから入力ウィンドウデータセット生成",
+    "step_4": "datachecker: 7-step check",
+    "step_5": "builder_model: self-contained Kaggle Notebook生成",
+    "step_6": "Kaggle submission → training",
+    "step_7": "evaluator: Gate 1/2/3評価"
+  },
+
+  "created_at": "2026-02-16T14:00:00",
+  "created_by": "entrance"
 }

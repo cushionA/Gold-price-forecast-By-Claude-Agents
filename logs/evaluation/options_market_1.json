@@ -1,0 +1,127 @@
+{
+  "feature": "options_market",
+  "attempt": 1,
+  "timestamp": "2026-02-16T12:00:00",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {"value": "N/A (HMM unsupervised)", "passed": true, "note": "HMM model uses Optuna MI-based objective, no train/val loss ratio applicable"},
+      "no_all_nan": {"value": [], "passed": true},
+      "no_zero_var": {"value": [], "passed": true},
+      "autocorr_options_risk_regime_prob": {"value": 0.8949, "passed": true},
+      "autocorr_options_tail_risk_z": {"value": 0.8240, "passed": true},
+      "autocorr_options_skew_momentum_z": {"value": 0.7654, "passed": true}
+    },
+    "notes": {
+      "nan_counts": {
+        "options_risk_regime_prob": 0,
+        "options_tail_risk_z": 39,
+        "options_skew_momentum_z": 69
+      },
+      "std_devs": {
+        "options_risk_regime_prob": 0.3239,
+        "options_tail_risk_z": 1.2043,
+        "options_skew_momentum_z": 1.0589
+      },
+      "value_ranges": {
+        "options_risk_regime_prob": [0.0, 1.0],
+        "options_tail_risk_z": [-3.1006, 4.0],
+        "options_skew_momentum_z": [-3.6293, 4.0]
+      },
+      "optuna_trials": 30,
+      "optuna_best_value": 1.7276
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base": 0.3097,
+        "extended": 0.3627,
+        "increase": 0.1712,
+        "passed": true
+      },
+      "vif": {
+        "options_risk_regime_prob": 1.87,
+        "options_tail_risk_z": 2.12,
+        "options_skew_momentum_z": 1.94,
+        "max": 2.12,
+        "passed": true
+      },
+      "stability": {
+        "options_risk_regime_prob": 0.1462,
+        "options_tail_risk_z": 0.1262,
+        "options_skew_momentum_z": 0.1256,
+        "max_std": 0.1462,
+        "passed": true
+      }
+    }
+  },
+  "gate3": {
+    "passed": false,
+    "checks": {
+      "direction": {"delta": -0.0105, "passed": false},
+      "sharpe": {"delta": -0.234, "passed": false},
+      "mae": {"delta": 0.018, "passed": false}
+    },
+    "baseline": {
+      "direction_accuracy": 0.4931,
+      "mae": 0.8886,
+      "sharpe": 0.262
+    },
+    "extended": {
+      "direction_accuracy": 0.4826,
+      "mae": 0.9065,
+      "sharpe": 0.028
+    },
+    "fold_details": {
+      "fold_1": {
+        "base": {"da": 0.5072, "mae": 0.7657, "sharpe": 0.761},
+        "ext": {"da": 0.4904, "mae": 0.8463, "sharpe": -0.249},
+        "delta": {"da": -0.0167, "mae": 0.0806, "sharpe": -1.010}
+      },
+      "fold_2": {
+        "base": {"da": 0.5024, "mae": 0.5860, "sharpe": 0.254},
+        "ext": {"da": 0.4928, "mae": 0.5994, "sharpe": 0.157},
+        "delta": {"da": -0.0096, "mae": 0.0134, "sharpe": -0.097}
+      },
+      "fold_3": {
+        "base": {"da": 0.4737, "mae": 1.0326, "sharpe": 0.718},
+        "ext": {"da": 0.4617, "mae": 1.0651, "sharpe": 0.712},
+        "delta": {"da": -0.0120, "mae": 0.0325, "sharpe": -0.006}
+      },
+      "fold_4": {
+        "base": {"da": 0.5227, "mae": 0.9141, "sharpe": 0.273},
+        "ext": {"da": 0.5155, "mae": 0.8959, "sharpe": 0.374},
+        "delta": {"da": -0.0072, "mae": -0.0182, "sharpe": 0.101}
+      },
+      "fold_5": {
+        "base": {"da": 0.4595, "mae": 1.1443, "sharpe": -0.698},
+        "ext": {"da": 0.4524, "mae": 1.1259, "sharpe": -0.855},
+        "delta": {"da": -0.0071, "mae": -0.0184, "sharpe": -0.157}
+      }
+    },
+    "fold_improvement_counts": {
+      "da_improved": 0,
+      "mae_improved": 2,
+      "sharpe_improved": 1
+    },
+    "feature_importance": {
+      "options_risk_regime_prob": {"value": 0.0570, "rank": 2},
+      "options_tail_risk_z": {"value": 0.0424, "rank": 13},
+      "options_skew_momentum_z": {"value": 0.0418, "rank": 15}
+    }
+  },
+  "overall_passed": false,
+  "final_gate_reached": 3,
+  "decision": "attempt+1",
+  "decision_rationale": "Gate 1 and Gate 2 both PASS convincingly (MI +17.12%, VIF excellent at 2.12, stability 0.146). Gate 3 FAIL on all three criteria. However, options_risk_regime_prob ranks #2 in feature importance (5.70%), indicating the model does use the information. The problem appears to be that 3 additional features give XGBoost extra noise to overfit on, degrading DA in all 5 folds. Improvement direction: reduce dimensionality (PCA or single-column output) or use a more parsimonious feature set.",
+  "improvement_plan": {
+    "priority": 1,
+    "type": "output_dimensionality_reduction",
+    "description": "Reduce from 3 output columns to 1-2. options_risk_regime_prob ranked highest (#2 overall). Consider: (1) output only regime_prob, or (2) PCA to compress 3 columns into 1-2 principal components, reducing noise while preserving information.",
+    "reason": "Gate 2 PASS (MI +17.12%) confirms information exists. Gate 3 FAIL with DA degraded in 0/5 folds suggests the 3-column output adds noise. Feature importance shows regime_prob is most valuable (5.70%), while tail_risk_z and skew_momentum_z are mid-ranked. Reducing dimensionality should preserve the signal while reducing overfitting risk.",
+    "resume_from": "architect",
+    "research_needed": false
+  }
+}

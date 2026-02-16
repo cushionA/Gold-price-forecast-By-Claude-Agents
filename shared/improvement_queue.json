@@ -1,0 +1,21 @@
+{
+  "feature": "options_market",
+  "items": [
+    {
+      "priority": 1,
+      "type": "output_dimensionality_reduction",
+      "description": "Reduce output from 3 columns to 1-2. options_risk_regime_prob ranked #2/22 in feature importance (5.70%) and has the highest individual MI (0.031). Consider: (1) output only regime_prob as single column, or (2) PCA to compress 3 columns into 1 principal component, preserving maximum variance while reducing noise. The 3-column output introduced noise that degraded DA in all 5 folds.",
+      "reason": "Gate 2 PASS (MI +17.12%, VIF 2.12, stability 0.146) confirms information exists. Gate 3 FAIL with DA degraded in 0/5 folds improved and Sharpe degraded by -0.234. Pattern matches real_rate attempts 4-5 where more output columns gave XGBoost more noise to overfit on.",
+      "resume_from": "architect",
+      "research_needed": false
+    },
+    {
+      "priority": 2,
+      "type": "feature_engineering",
+      "description": "If single-column output still fails Gate 3, consider alternative feature engineering: (1) interaction term between SKEW z-score and GVZ regime, (2) time-lagged features to capture lead-lag between options sentiment and gold moves, (3) conditional features activated only during high-volatility regimes.",
+      "reason": "Backup plan if dimensionality reduction alone is insufficient.",
+      "resume_from": "architect",
+      "research_needed": false
+    }
+  ]
+}
