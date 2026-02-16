@@ -1,10 +1,10 @@
 {
-  "status": "waiting_training",
+  "status": "error",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 6,
-  "resume_from": "builder_data",
-  "error_context": null,
+  "resume_from": "builder_model",
+  "error_context": "No error log available",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
@@ -406,6 +406,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T20:56:29.184415",
-  "current_submodel": "temporal_context"
+  "last_updated": "2026-02-16T21:14:28.989199",
+  "current_submodel": "temporal_context",
+  "error_type": "unknown"
 }
