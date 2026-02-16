@@ -132,86 +132,61 @@ git push origin main
 
 ---
 
-## Kaggle Operations
+## Kaggle Operations (`scripts/kaggle_ops.py`)
 
-### Loading .env (for Kaggle CLI)
-
-The kaggle CLI reads the `KAGGLE_API_TOKEN` environment variable.
-When executing from bash, you must manually load `.env`:
-
-```bash
-# Load .env as environment variables (python-dotenv only works inside Python)
-set -a && source .env && set +a
-```
-
-**Execute this before ALL kaggle CLI commands.**
-If the orchestrator calls kaggle CLI via Python, `load_dotenv()` can be used instead.
+全Kaggle操作は `scripts/kaggle_ops.py` (Python API v2.0.0) を使用する。
+bash CLIは使わない。認証は `.env` から自動ロードされる。
 
 ### Submission
 
-```bash
-# Load .env
-set -a && source .env && set +a
+```python
+from scripts.kaggle_ops import submit_and_monitor
 
 # builder_model has already generated notebooks/{feature}_{attempt}/
-kaggle kernels push -p "notebooks/${FEATURE}_${ATTEMPT}/"
-
-# Update state.json
-python3 -c "
-import json
-from datetime import datetime
-with open('shared/state.json') as f:
-    state = json.load(f)
-state['status'] = 'waiting_training'
-state['resume_from'] = 'evaluator'
-state['kaggle_kernel'] = '${KAGGLE_USERNAME}/gold-${FEATURE}-${ATTEMPT}'
-state['submitted_at'] = datetime.now().isoformat()
-with open('shared/state.json', 'w') as f:
-    json.dump(state, f, indent=2)
-"
-
-git add -A && git commit -m "kaggle: ${FEATURE} attempt ${ATTEMPT} - submitted" && git push origin main
-echo "✅ Kaggle submission complete. You can shut down your PC."
+# submit_and_monitor: push + state.json更新 + git commit & push + バックグラウンド監視開始
+result = submit_and_monitor(
+    folder=f"notebooks/{feature}_{attempt}/",
+    feature=feature,
+    attempt=attempt,
+)
+# → state.json: status="waiting_training"
+# → Background monitor starts (polls every 60s, max 3h)
+# → User can shut down PC
 ```
 
 ### Result Fetching (on resume)
 
+```python
+from scripts.kaggle_ops import monitor
+
+# state.json の status が "waiting_training" なら自動的にカーネルIDを取得してチェック
+result = monitor(once=True)
+
+if result.success and result.data.get("status") == "complete":
+    # 結果はすでにダウンロード済み (data/submodel_outputs/{feature}/)
+    # state.json は "in_progress", resume_from="evaluator" に更新済み
+    # → evaluator を呼ぶ
+    pass
+elif result.data.get("status") in ("running", "queued"):
+    # まだ実行中 → ユーザーに通知して待つ
+    pass
+elif result.data.get("status") == "error":
+    # エラー種別が state.json の error_type に記録済み
+    # → builder_model に修正を依頼
+    pass
+```
+
+### CLI Alternative
+
 ```bash
-# Load .env
-set -a && source .env && set +a
+# Submit + background monitor
+python scripts/kaggle_ops.py submit notebooks/{feature}_{attempt}/ {feature} {attempt} --monitor
 
-KERNEL_ID=$(python3 -c "import json; print(json.load(open('shared/state.json'))['kaggle_kernel'])")
-STATUS=$(kaggle kernels status "${KERNEL_ID}" 2>&1)
+# Single status check
+python scripts/kaggle_ops.py monitor --once
 
-case "${STATUS}" in
-  *complete*)
-    echo "✅ Training complete. Fetching results."
-    python3 -c "
-import kaggle_runner as kr
-import json
-state = json.load(open('shared/state.json'))
-result = kr.fetch_results(
-    '${KERNEL_ID}',
-    state['current_feature'],
-    state['current_attempt']
-)
-print(json.dumps(result, indent=2))
-"
-    ;;
-  *running*|*queued*)
-    echo "⏳ Training still in progress. Please resume later."
-    exit 0
-    ;;
-  *error*|*fail*)
-    echo "❌ Training error. Fetching logs."
-    python3 -c "
-import kaggle_runner as kr
-log = kr.fetch_error_log('${KERNEL_ID}')
-print(log)
-"
-    # → Ask builder_model to fix the script (no attempt consumed)
-    ;;
-esac
+# Continuous monitoring (blocking)
+python scripts/kaggle_ops.py monitor
 ```
 
 ---
