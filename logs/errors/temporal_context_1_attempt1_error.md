@@ -127,3 +127,65 @@ https://www.kaggle.com/code/bigbigzabuton/gold-temporal-context-transformer-atte
 
 ## Next Action
 Auto-monitor will check every 1 minute for completion → Evaluator will run automatically
+
+---
+
+## SECOND ERROR: Missing Kaggle Dataset
+
+### Date
+2026-02-16 21:21:22
+
+### Error Type
+**Missing Dataset Configuration**
+
+### Description
+Resubmitted notebook failed immediately (within 1 minute) due to missing Kaggle Dataset.
+
+### Root Cause
+Notebook tries to load submodel outputs from `/kaggle/input/gold-prediction-complete/` but:
+1. This dataset does not exist
+2. `kernel-metadata.json` has empty `dataset_sources: []`
+3. Submodel output CSV files are only available locally in `data/submodel_outputs/`
+
+### Code Location
+Cell 4, lines ~84-125 in train.ipynb:
+```python
+submodel_path = "/kaggle/input/gold-prediction-complete/"
+vix_sub = pd.read_csv(submodel_path + "vix.csv")
+tech_sub = pd.read_csv(submodel_path + "technical.csv")
+# ... etc
+```
+
+### Required Files (9 submodel outputs)
+- vix.csv
+- technical.csv
+- cross_asset.csv
+- etf_flow.csv
+- options_market.csv
+- yield_curve.csv (not used in temporal_context but may be referenced)
+- inflation_expectation.csv (not used)
+- cny_demand.csv (not used)
+- dxy.csv (not used)
+
+### Fix Options
+
+**Option 1: Create Kaggle Dataset** (Recommended)
+1. Upload `data/submodel_outputs/*.csv` to Kaggle as a new Dataset
+2. Name it `gold-prediction-submodels` or similar
+3. Add to kernel-metadata.json:
+   ```json
+   "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"]
+   ```
+
+**Option 2: Embed Data in Notebook**
+- Convert CSV files to inline data (not practical for large files)
+- Use base64 encoding (increases notebook size significantly)
+
+**Option 3: Fetch from GitHub**
+- Download CSV files from GitHub repository during notebook execution
+- Requires `enable_internet: true` (already set)
+- Adds dependency on GitHub availability
+
+### Status
+- ⏸️ Waiting for decision on fix approach
+- 📋 Error documented in checklist
