@@ -200,7 +200,7 @@ git checkout develop
 
 ### 3. orchestratorスクリプト更新
 
-`scripts/orchestrator_kaggle_handler.py` 等でブランチを意識した動作に変更
+`scripts/kaggle_ops.py` でブランチを意識した動作に変更
 
 ---
 
@@ -218,13 +218,13 @@ git checkout develop
 
 ⚠️ **PCシャットダウン可能性:**
 Kaggleトレーニング中にPCを閉じる場合、`git push origin develop`は完了している必要あり。
-→ `orchestrator_kaggle_handler.py`がKaggle送信前に必ずpushすること。
+→ `kaggle_ops.py` の `submit()` がKaggle送信前に必ずgit commit & pushする。
 
 ⚠️ **コンフリクト対策:**
 developで長時間作業後、mainにマージ前に`git pull origin main`で同期確認。
 
-⚠️ **auto_resume_after_kaggle.py:**
-バックグラウンド実行時、developブランチでcommit&pushするよう修正必要。
+⚠️ **kaggle_ops.py monitor:**
+バックグラウンド実行時、developブランチでcommit&pushする。
 
 ---
 

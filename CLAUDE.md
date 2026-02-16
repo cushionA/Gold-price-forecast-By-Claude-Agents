@@ -205,213 +205,107 @@ if __name__ == "__main__":
     print("Training complete!")
 ```
 
-### Kaggle API Commands
+### Kaggle Operations (`scripts/kaggle_ops.py`)
 
-After builder_model generates the training script, the orchestrator executes:
+All Kaggle operations use Python API v2.0.0 via a single unified module.
+Includes Windows cp932 encoding fix (builtins.open monkey-patch).
+
+#### Basic Operations
+
+```python
+from scripts.kaggle_ops import notebook_push, kernel_status, kernel_output
+from scripts.kaggle_ops import dataset_create, dataset_update
+
+# 1. Push notebook (new or update, auto-detected by Kaggle)
+result = notebook_push("notebooks/real_rate_1/")
+
+# 2. Check kernel status
+result = kernel_status("bigbigzabuton/gold-real-rate-1")
+# result.data["status"] → "queued" / "running" / "complete" / "error"
+
+# 3. Download kernel output
+result = kernel_output("bigbigzabuton/gold-real-rate-1", "data/outputs/")
+
+# 4. Create new dataset
+result = dataset_create("data/submodel_outputs/")
+
+# 5. Update existing dataset (new version)
+result = dataset_update("data/dataset_upload_clean/", "v3: added temporal_context")
+```
+
+#### Workflow Operations
+
+```python
+from scripts.kaggle_ops import submit, submit_and_monitor, monitor
+
+# Submit: push + state.json update + git commit & push
+result = submit("notebooks/real_rate_1/", feature="real_rate", attempt=1)
+
+# Submit + start background monitor
+result = submit_and_monitor("notebooks/real_rate_1/", feature="real_rate", attempt=1)
+
+# Monitor: poll until complete, then download results + update state + git commit
+result = monitor()  # reads kernel_id from state.json
+```
+
+#### CLI
 
 ```bash
-# 1. Submit training Notebook
-kaggle kernels push -p notebooks/{feature}_{attempt}/
+# Basic operations
+python scripts/kaggle_ops.py notebook-push notebooks/real_rate_1/
+python scripts/kaggle_ops.py kernel-status bigbigzabuton/gold-real-rate-1
+python scripts/kaggle_ops.py kernel-output bigbigzabuton/gold-real-rate-1 data/outputs/
+python scripts/kaggle_ops.py dataset-create data/submodel_outputs/
+python scripts/kaggle_ops.py dataset-update data/dataset_upload_clean/ "v3: notes"
 
-# 2. Check status
-kaggle kernels status {KAGGLE_USERNAME}/gold-{feature}-{attempt}
-# → "running" / "complete" / "error"
+# Workflow: submit + state + git
+python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1
 
-# 3. Fetch results (after complete)
-kaggle kernels output {KAGGLE_USERNAME}/gold-{feature}-{attempt} \
-  -p data/submodel_outputs/{feature}/
+# Workflow: submit + background monitor
+python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1 --monitor
 
-# 4. Place fetched files in designated paths
-mv data/submodel_outputs/{feature}/submodel_output.csv \
-   data/submodel_outputs/{feature}.csv
-mv data/submodel_outputs/{feature}/model.pt \
-   models/submodels/{feature}/model.pt
-cp data/submodel_outputs/{feature}/training_result.json \
-   logs/training/{feature}_{attempt}.json
+# Workflow: monitor (reads from state.json)
+python scripts/kaggle_ops.py monitor
+python scripts/kaggle_ops.py monitor --once          # single check
+python scripts/kaggle_ops.py monitor --interval 120  # check every 2 min
 ```
 
-### Training Wait State Management
-
-Update state.json after submitting training so the PC can be shut down:
-
-```json
-{
-  "status": "waiting_training",
-  "resume_from": "evaluator",
-  "kaggle_kernel": "{KAGGLE_USERNAME}/gold-{feature}-{attempt}",
-  "submitted_at": "2025-01-22T10:00:00",
-  "current_feature": "real_rate",
-  "current_attempt": 1
-}
-```
-
-Orchestrator behavior on resume:
-
-```
-1. git pull
-2. Read state.json → status == "waiting_training"
-3. Check training completion via kaggle kernels status
-   → "running" → Notify user "Training still in progress"
-   → "error" → Fetch error log, return to builder_model
-   → "complete" → Fetch results and pass to evaluator
-```
-
-### Full Automation System
-
-The project supports two execution modes:
-
-#### 🤖 Full Auto Mode (Default)
-
-**Orchestrator automatically starts background monitoring after Kaggle submission.**
-
-```python
-# Auto-started by orchestrator_kaggle_handler.py
-# Features:
-- Checks kernel status every 1 minute (max 3 hours)
-- Downloads results when complete
-- Commits & pushes to Git
-- Automatically runs evaluator (inline, no Claude Code restart)
-- Decides next action (attempt+1 / next feature / done)
-- Error handling: auto-retry (network) / auto-skip (OOM)
-- state.json auto-update for seamless resume
-```
-
-Orchestrator usage:
-```python
-from scripts.orchestrator_kaggle_handler import KaggleSubmissionHandler
-
-handler = KaggleSubmissionHandler()
-# Full auto mode (default)
-handler.submit_and_exit(
-    notebook_path='notebooks/real_rate_1/',
-    feature='real_rate',
-    attempt=1,
-    auto_mode=True  # ← default
-)
-# → Submits to Kaggle
-# → Starts auto_resume_after_kaggle.py in background
-# → Exits orchestrator (PC can be closed)
-```
-
-Manual script start (if needed):
-```bash
-python scripts/auto_resume_after_kaggle.py
-```
-
-#### 👤 Manual Mode
-
-**User manually evaluates results after Kaggle completes.**
-
-Orchestrator usage:
-```python
-handler.submit_and_exit(
-    notebook_path='notebooks/real_rate_1/',
-    feature='real_rate',
-    attempt=1,
-    auto_mode=False  # ← manual mode
-)
-# → Submits to Kaggle
-# → NO background monitoring
-# → User says "Resume from where we left off" when ready
-```
-
-#### Command-line Usage
-
-```bash
-# Full auto mode (default)
-python scripts/orchestrator_kaggle_handler.py notebooks/real_rate_1/ real_rate 1
-
-# Manual mode (no auto-monitoring)
-python scripts/orchestrator_kaggle_handler.py notebooks/real_rate_1/ real_rate 1 --manual
-
-# Manual monitoring start (if auto-start failed)
-python scripts/auto_resume_after_kaggle.py
-```
-
-#### Auto-Clean & Resume (`scripts/auto_clean_and_resume.py`)
-
-Cleans context and resumes after evaluation:
-
-```python
-from scripts.auto_clean_and_resume import AutoCleanResume
-
-handler = AutoCleanResume()
-handler.execute_and_exit(
-    feature='real_rate',
-    attempt=1,
-    decision='attempt+1'  # or 'no_further_improvement', 'success'
-)
-# → Commits evaluation results
-# → Cleans Claude Code context
-# → Launches new session with fresh context
-# → Exits current session
-```
-
-#### Full Automation Flow (🤖 Auto Mode)
+#### Execution Flow
 
 ```
 [PC on] builder_model: Generate Kaggle Notebook
   ↓
-orchestrator: KaggleSubmissionHandler.submit_and_exit(auto_mode=True)
-  - kaggle kernels push
-  - Start auto_resume_after_kaggle.py (background)
+orchestrator: submit_and_monitor()
+  - Python API: kernels_push
+  - state.json → "waiting_training"
   - git commit & push
-  - exit(0)  ← orchestrator terminates
+  - Start background monitor
   ↓
-[PC off OK] auto_resume_after_kaggle.py monitors every 1 min
+[PC off OK] monitor polls every 1 min (max 3 hours)
   ↓
-[Kaggle complete] auto_resume_after_kaggle.py detects completion
-  - kaggle kernels output (download results)
-  - git commit & push
-  - run_evaluator_inline() (NO Claude Code restart)
-  - Gate 1/2/3 evaluation
-  - handle_evaluation_decision()
-    → success: move to next feature
-    → attempt+1: set resume_from=architect
-    → no_further_improvement: move to next feature
-  - state.json auto-update
+[Kaggle complete] monitor detects completion
+  - Python API: kernels_output (download results)
+  - state.json → "in_progress", resume_from="evaluator"
   - git commit & push
   ↓
 [Continue] User says "Resume from where we left off"
   - orchestrator reads state.json
-  - resumes from designated agent (architect/entrance)
+  - evaluator runs Gate 1/2/3 (Claude Code agent, not inline)
+  - evaluator decides next action
   ↓
 [Loop continues with fresh context]
 ```
 
-#### Manual Flow (👤 Manual Mode)
+#### Error Handling
 
-```
-[PC on] builder_model: Generate Kaggle Notebook
-  ↓
-orchestrator: KaggleSubmissionHandler.submit_and_exit(auto_mode=False)
-  - kaggle kernels push
-  - git commit & push
-  - NO background monitoring
-  ↓
-[Wait] User checks Kaggle web UI
-  ↓
-[Kaggle complete] User says "Resume from where we left off"
-  - orchestrator fetches results
-  - evaluator runs (Gate 1/2/3)
-  - user reviews and continues manually
-```
+Monitor auto-classifies errors:
+- `network_timeout` → state resume_from=builder_model (retry same code)
+- `oom` → state resume_from=builder_model (reduce model size)
+- `pandas_compat` → state resume_from=builder_model (fix deprecated API)
+- `dataset_missing` → state resume_from=builder_model (fix dataset ref)
+- `unknown` → state resume_from=builder_model (manual investigation)
 
-#### Benefits
-
-✅ **Zero manual intervention** in auto mode
-✅ **PC can be closed** during Kaggle training (monitor runs in background)
-✅ **Memory efficient** (context cleared after each evaluation)
-✅ **Error resilient** (3-hour timeout, error notifications)
-✅ **Git persistence** (all state saved, resumable anytime)
-
-#### Configuration
-
-No additional configuration needed. Scripts auto-detect:
-- Project root from script location
-- Kaggle kernel ID from state.json
-- Feature/attempt from state.json
-- Resume point from state.json
+All errors update state.json with `error_type` and `error_context` fields.
 
 ---
 

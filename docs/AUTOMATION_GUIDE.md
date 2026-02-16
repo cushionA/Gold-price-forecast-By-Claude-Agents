@@ -1,320 +1,232 @@
-# Automation Guide: Auto vs Manual Mode
+# Automation Guide: Kaggle Training Workflow
 
 ## Overview
 
-This project supports two execution modes for Kaggle training workflows:
-
-- 🤖 **Full Auto Mode** (default): Fully automated evaluation and loop control
-- 👤 **Manual Mode**: User-controlled evaluation and decision-making
+Kaggle学習ワークフローの自動化ガイド。
+全操作は `scripts/kaggle_ops.py` (Python API v2.0.0) に統一。
 
 ---
 
-## 🤖 Full Auto Mode (Recommended)
+## Workflow
 
-### Features
+```
+[PC on] builder_model: Generate Kaggle Notebook
+  ↓
+orchestrator: submit_and_monitor()
+  - Python API: kernels_push
+  - state.json → "waiting_training"
+  - git commit & push
+  - Start background monitor (detached process)
+  ↓
+[PC off OK] monitor polls every 60s (max 3 hours)
+  ↓
+[Kaggle complete] monitor detects completion
+  - Python API: kernels_output (download results)
+  - state.json → "in_progress", resume_from="evaluator"
+  - git commit & push
+  ↓
+[PC on] User says "Resume from where we left off"
+  - orchestrator reads state.json
+  - evaluator runs Gate 1/2/3 (Claude Code agent)
+  - evaluator decides next action
+  ↓
+[Loop continues with fresh context]
+```
 
-✅ Background monitoring (1-minute intervals, max 3 hours)
-✅ Automatic evaluator execution (no Claude Code restart)
-✅ Automatic decision-making (attempt+1 / next feature / done)
-✅ Intelligent error handling (auto-retry / auto-skip)
-✅ Git persistence (state.json auto-update)
-✅ PC can be closed during Kaggle training
+---
 
-### Usage in Orchestrator
+## Usage
+
+### Python API
 
 ```python
-from scripts.orchestrator_kaggle_handler import KaggleSubmissionHandler
+from scripts.kaggle_ops import submit_and_monitor, submit, monitor
 
-handler = KaggleSubmissionHandler()
-handler.submit_and_exit(
-    notebook_path='notebooks/real_rate_1/',
-    feature='real_rate',
+# Submit + background monitor (recommended)
+result = submit_and_monitor(
+    folder="notebooks/real_rate_1/",
+    feature="real_rate",
     attempt=1,
-    auto_mode=True  # ← Full auto mode (default)
+)
+
+# Submit only (no background monitor)
+result = submit(
+    folder="notebooks/real_rate_1/",
+    feature="real_rate",
+    attempt=1,
+)
+
+# Manual monitoring (reads kernel_id from state.json)
+result = monitor()             # blocking: poll until complete/error
+result = monitor(once=True)    # single check and return
+```
+
+### CLI
+
+```bash
+# Submit + background monitor
+python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1 --monitor
+
+# Submit only
+python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1
+
+# Monitor (blocking)
+python scripts/kaggle_ops.py monitor
+
+# Single status check
+python scripts/kaggle_ops.py monitor --once
+
+# Check interval and timeout
+python scripts/kaggle_ops.py monitor --interval 120 --max-hours 5
+```
+
+### Basic Operations
+
+```bash
+# Notebook push (low-level)
+python scripts/kaggle_ops.py notebook-push notebooks/real_rate_1/
+
+# Kernel status
+python scripts/kaggle_ops.py kernel-status bigbigzabuton/gold-real-rate-1
+
+# Download kernel output
+python scripts/kaggle_ops.py kernel-output bigbigzabuton/gold-real-rate-1 data/outputs/
+
+# Create dataset
+python scripts/kaggle_ops.py dataset-create data/submodel_outputs/
+
+# Update dataset (new version)
+python scripts/kaggle_ops.py dataset-update data/dataset_upload_clean/ "v3: added file"
+```
+
+---
+
+## Error Handling
+
+monitor が自動的にエラーを分類し、state.json に記録する。
+
+| Error Type | Pattern | Action |
+|------------|---------|--------|
+| `network_timeout` | connection, timeout | resume_from=builder_model (retry) |
+| `oom` | memory, killed | resume_from=builder_model (reduce model) |
+| `pandas_compat` | fillna, append | resume_from=builder_model (fix deprecated API) |
+| `missing_dep` | cannot import | resume_from=builder_model (add dependency) |
+| `dataset_missing` | no such file | resume_from=builder_model (fix dataset ref) |
+| `yfinance` | multiindex | resume_from=builder_model (fix data fetch) |
+| `unknown` | (other) | resume_from=builder_model (manual review) |
+
+エラー時の state.json:
+```json
+{
+  "status": "in_progress",
+  "resume_from": "builder_model",
+  "error_type": "pandas_compat",
+  "error_context": "... error message ..."
+}
+```
+
+---
+
+## State Management
+
+### submit_and_monitor() 実行後
+
+```json
+{
+  "status": "waiting_training",
+  "resume_from": "evaluator",
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-1",
+  "submitted_at": "2026-02-16T10:00:00",
+  "current_feature": "real_rate",
+  "current_attempt": 1
+}
+```
+
+### monitor 完了後 (success)
+
+```json
+{
+  "status": "in_progress",
+  "resume_from": "evaluator",
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-1"
+}
+```
+
+### monitor 完了後 (error)
+
+```json
+{
+  "status": "in_progress",
+  "resume_from": "builder_model",
+  "error_type": "pandas_compat",
+  "error_context": "..."
+}
+```
+
+---
+
+## Evaluator Execution
+
+monitor 完了後の evaluator 実行は **Claude Code エージェント** が担当する。
+自動インライン実行は行わない。
+
+```
+1. monitor completes → state.json updated → git push
+2. User says "Resume from where we left off"
+3. orchestrator reads state.json (resume_from="evaluator")
+4. @evaluator agent runs Gate 1/2/3
+5. evaluator decides: PASS / attempt+1 / no_further_improvement
+6. state.json updated → git push
+7. Next iteration or next feature
+```
+
+---
+
+## Technical Details
+
+### Windows cp932 Encoding Fix
+
+Kaggle Python API v2.0.0 は `open(file, "w")` を encoding 指定なしで使用する。
+Windows では cp932 がデフォルトとなり、Unicode文字でクラッシュする。
+`kaggle_ops.py` は `builtins.open` をパッチして UTF-8 をデフォルトにする。
+
+### Authentication
+
+`.env` から自動ロード:
+- `KAGGLE_API_TOKEN` → Python API が必要とする `KAGGLE_KEY` に自動マッピング
+- `KAGGLE_USERNAME` → kernel ID の構築に使用
+
+### Background Monitor (Windows)
+
+```python
+subprocess.Popen(
+    [sys.executable, script, "monitor"],
+    creationflags=subprocess.CREATE_NEW_CONSOLE | subprocess.DETACHED_PROCESS,
 )
 ```
 
-### Command-line
-
-```bash
-# Full auto mode (default)
-python scripts/orchestrator_kaggle_handler.py notebooks/real_rate_1/ real_rate 1
-
-# Same as above (auto_mode=True is default)
-python scripts/orchestrator_kaggle_handler.py notebooks/real_rate_1/ real_rate 1 --no-exit
-```
-
-### Workflow
-
-```
-1. builder_model generates Kaggle Notebook
-   ↓
-2. orchestrator calls handler.submit_and_exit(auto_mode=True)
-   - Submits to Kaggle
-   - Starts auto_resume_after_kaggle.py in background
-   - Exits orchestrator
-   ↓
-3. auto_resume_after_kaggle.py monitors every 1 minute
-   - Status check: kaggle kernels status <kernel_id>
-   ↓
-4. When training completes:
-   - Downloads results: kaggle kernels output
-   - Git commit & push
-   - Runs evaluator INLINE (no Claude restart)
-   - Gate 1 → Gate 2 → Gate 3 evaluation
-   ↓
-5. Automatic decision:
-   - Gate 3 PASS → mark completed, move to next feature
-   - Gate 3 FAIL → set resume_from=architect, increment attempt
-   - No improvement → move to next feature
-   ↓
-6. state.json updated, git commit & push
-   ↓
-7. User says "Resume from where we left off"
-   - orchestrator reads state.json
-   - Resumes from designated agent
-```
-
-### Error Handling
-
-| Error Type | Action |
-|------------|--------|
-| `network_timeout` | Auto-retry (resubmit same notebook) |
-| `yfinance_multiindex` | Set resume_from=builder_model (code fix needed) |
-| `pandas_api_change` | Set resume_from=builder_model (code fix needed) |
-| `out_of_memory` | Skip to next feature (OOM is fatal) |
-| `unknown` | Set resume_from=builder_model (manual review) |
-
----
-
-## 👤 Manual Mode
-
-### Features
-
-✅ User controls evaluation timing
-✅ Manual review of results before decisions
-✅ No background processes
-✅ Suitable for debugging or custom workflows
-
-### Usage in Orchestrator
-
-```python
-from scripts.orchestrator_kaggle_handler import KaggleSubmissionHandler
-
-handler = KaggleSubmissionHandler()
-handler.submit_and_exit(
-    notebook_path='notebooks/real_rate_1/',
-    feature='real_rate',
-    attempt=1,
-    auto_mode=False  # ← Manual mode
-)
-```
-
-### Command-line
-
-```bash
-# Manual mode
-python scripts/orchestrator_kaggle_handler.py notebooks/real_rate_1/ real_rate 1 --manual
-```
-
-### Workflow
-
-```
-1. builder_model generates Kaggle Notebook
-   ↓
-2. orchestrator calls handler.submit_and_exit(auto_mode=False)
-   - Submits to Kaggle
-   - NO background monitoring
-   - Prints kernel URL
-   ↓
-3. User manually checks Kaggle web UI
-   - Wait for "complete" status
-   ↓
-4. User says "Resume from where we left off"
-   - orchestrator fetches results
-   - evaluator runs (Gate 1/2/3)
-   ↓
-5. User reviews evaluation results
-   - Decide next action manually
-   - Continue or adjust strategy
-```
-
----
-
-## Comparison
-
-| Feature | Auto Mode | Manual Mode |
-|---------|-----------|-------------|
-| Background monitoring | ✅ Yes (1-min intervals) | ❌ No |
-| Evaluator auto-run | ✅ Yes (inline) | ❌ No (user triggers) |
-| Decision-making | ✅ Automatic | 👤 Manual |
-| Error handling | ✅ Intelligent (7 types) | 👤 Manual review |
-| PC can be closed | ✅ Yes (monitoring continues) | ⚠️ No effect (no monitor) |
-| Git persistence | ✅ Auto commit/push | 👤 User commits |
-| Best for | Production loops | Debugging, custom flows |
-
----
-
-## Switching Modes
-
-You can switch between modes at any time:
-
-```python
-# Start with auto mode
-handler.submit_and_exit(..., auto_mode=True)
-
-# Later, if auto-monitor fails, manually resume:
-# 1. Check state.json → status="waiting_training"
-# 2. Manually run: python scripts/auto_resume_after_kaggle.py
-# Or manually fetch and evaluate
-
-# Start next submission with manual mode
-handler.submit_and_exit(..., auto_mode=False)
-```
+PC シャットダウン後もプロセスは継続する（ただし再起動時は終了）。
 
 ---
 
 ## Troubleshooting
 
-### Auto mode not starting
+### Monitor が起動しない
 
-**Symptom**: Notebook submitted but no background monitor
-
-**Solution**:
 ```bash
-# Check if monitor is running
-ps aux | grep auto_resume  # Unix
-tasklist | findstr python  # Windows
-
-# Manually start if needed
-python scripts/auto_resume_after_kaggle.py
+# 手動で起動
+python scripts/kaggle_ops.py monitor
 ```
 
-### Monitor timeout (3 hours)
+### 3時間タイムアウト
 
-**Symptom**: state.json shows `status="timeout"`
-
-**Solution**:
 ```bash
-# Check Kaggle web UI for actual status
-# If still running, wait and manually fetch:
-python scripts/kaggle_fetch_results.py <kernel_id>
-
-# If complete, resume:
-# Say "Resume from where we left off"
+# Kaggle Web UI でステータス確認
+# まだ実行中なら、タイムアウトを延長して再実行
+python scripts/kaggle_ops.py monitor --max-hours 6
 ```
 
-### Evaluator decision unclear
+### 409 Conflict エラー
 
-**Symptom**: Not sure why auto-evaluator chose attempt+1
-
-**Solution**:
-```bash
-# Check evaluation log
-cat logs/evaluation/<feature>_<attempt>_auto.json
-
-# Review Gate 1/2/3 failures
-# Adjust improvement plan in current_task.json if needed
-```
-
----
-
-## Best Practices
-
-### Use Auto Mode When:
-- ✅ Running production submodel loops
-- ✅ Overnight or multi-day training
-- ✅ Consistent failure patterns (auto-retry helps)
-- ✅ You want unattended operation
-
-### Use Manual Mode When:
-- 👤 Debugging new architectures
-- 👤 Testing experimental features
-- 👤 Need to review each result carefully
-- 👤 Custom evaluation criteria
-
-### Hybrid Approach:
-```python
-# Phase 2 (submodels): Auto mode for speed
-handler.submit_and_exit(..., auto_mode=True)
-
-# Phase 3 (meta-model): Manual mode for careful tuning
-handler.submit_and_exit(..., auto_mode=False)
-```
-
----
-
-## Implementation Details
-
-### Auto Mode Internals
-
-1. **Monitor Script**: `scripts/auto_resume_after_kaggle.py`
-   - Class: `KaggleMonitor`
-   - Check interval: 60 seconds
-   - Max wait: 3 hours
-   - Background process (detached)
-
-2. **Evaluator Inline**: `KaggleMonitor.run_evaluator_inline()`
-   - Simplified Gate 1/2/3 logic
-   - Reads `training_result.json`
-   - Writes `logs/evaluation/<feature>_<attempt>_auto.json`
-   - No Claude Code restart required
-
-3. **Decision Handler**: `KaggleMonitor.handle_evaluation_decision()`
-   - Reads evaluation result
-   - Updates state.json
-   - Git commit & push
-   - Sets next action (resume_from)
-
-### Manual Mode Internals
-
-1. **Submission Only**: `orchestrator_kaggle_handler.py`
-   - Submits to Kaggle
-   - Updates state.json to `waiting_training`
-   - Git commit & push
-   - Prints kernel URL
-   - NO background process
-
-2. **User Triggers Resume**:
-   - User says "Resume from where we left off"
-   - orchestrator detects `status="waiting_training"`
-   - Calls `kaggle kernels output` to fetch results
-   - Launches evaluator agent (full Claude Code session)
-
----
-
-## Migration from Old System
-
-If you're upgrading from the old `auto_resume_after_kaggle_v2.py`:
-
-**Old system**:
-```python
-# v2 script (deprecated)
-handler.submit_and_exit(...)  # Always auto mode
-```
-
-**New system**:
-```python
-# Explicit mode selection
-handler.submit_and_exit(..., auto_mode=True)   # Auto
-handler.submit_and_exit(..., auto_mode=False)  # Manual
-```
-
-**What changed**:
-- ✅ Single script: `auto_resume_after_kaggle.py` (v2 removed)
-- ✅ Mode selection: `auto_mode` parameter
-- ✅ Faster checks: 60s → 60s (was 300s in v1)
-- ✅ Better errors: 7 error types with auto-actions
-- ✅ No v2 suffix: Clean naming
-
----
-
-## Summary
-
-- **Default = Auto Mode** → Use unless you need control
-- **Manual Mode** → Use for debugging or custom flows
-- **Switch anytime** → Just change `auto_mode` parameter
-- **State persists** → state.json tracks everything
-- **Git is source of truth** → Always commit & push
-
-Choose the mode that fits your workflow, and enjoy automated or manual control as needed!
+既存カーネルが running/queued の場合に発生。
+Kaggle Web UI で既存カーネルを削除してから再提出。

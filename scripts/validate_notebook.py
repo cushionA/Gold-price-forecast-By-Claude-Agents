@@ -12,6 +12,7 @@ import ast
 import re
 import os
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import List, Tuple, Dict, Any
 
@@ -26,6 +27,12 @@ class NotebookValidator:
         (r'\w+\.SPLIT\(\)', '.split()', 'Method should be lowercase: .split() - found variable.SPLIT() instead'),
         (r'\w+\.STRIP\(\)', '.strip()', 'Method should be lowercase: .strip() - found variable.STRIP() instead'),
         (r'\w+\.REPLACE\(', '.replace(', 'Method should be lowercase: .replace() - found variable.REPLACE( instead'),
+    ]
+
+    # Deprecated pandas 2.x patterns (ERROR - will crash on Kaggle)
+    DEPRECATED_PANDAS = [
+        (r'\.fillna\s*\(\s*method\s*=', 'pandas 2.x: Use .ffill() or .bfill() instead of .fillna(method=...)'),
+        (r'\.ix\s*\[', 'pandas 2.x: Use .loc[] or .iloc[] instead of .ix[]'),
     ]
 
     # Known compatibility issues
@@ -79,6 +86,15 @@ class NotebookValidator:
 
             # 7. Undefined variables (basic)
             self._check_undefined_variables()
+
+            # 8. Deprecated pandas patterns (ERROR)
+            self._check_deprecated_pandas()
+
+            # 9. Optuna dynamic parameter space (WARNING)
+            self._check_optuna_dynamic_params()
+
+            # 10. yfinance empty data check (WARNING)
+            self._check_yfinance_validation()
 
         return self.errors, self.warnings
 
@@ -226,6 +242,22 @@ class NotebookValidator:
         if metadata.get('enable_gpu') and 'cuda' not in self._get_full_source().lower():
             self.warnings.append("GPU enabled but no CUDA/GPU code detected")
 
+        # Check dataset_sources (required for notebooks using /kaggle/input/)
+        full_source = self._get_full_source()
+        dataset_sources = metadata.get('dataset_sources', [])
+        has_kaggle_input = '/kaggle/input/' in full_source
+
+        if has_kaggle_input and not dataset_sources:
+            self.errors.append(
+                "Notebook references /kaggle/input/ but dataset_sources is empty in kernel-metadata.json"
+            )
+
+        if has_kaggle_input and not any('gold-prediction-submodels' in ds for ds in dataset_sources):
+            self.warnings.append(
+                "dataset_sources missing 'bigbigzabuton/gold-prediction-submodels' - "
+                "required for submodel/meta-model notebooks"
+            )
+
         if not self.errors and not any('kernel-metadata' in w for w in self.warnings):
             print("   [OK] kernel-metadata.json is valid")
         elif self.warnings:
@@ -282,6 +314,80 @@ class NotebookValidator:
 
         if not any('undefined' in w.lower() for w in self.warnings):
             print("   [OK] No obvious undefined variables")
+
+    def _check_deprecated_pandas(self):
+        """Check for pandas 2.x deprecated patterns (ERROR)"""
+        print("\n7. Checking for deprecated pandas patterns...")
+
+        found = []
+
+        for cell_idx, cell in enumerate(self.notebook.get('cells', [])):
+            if cell.get('cell_type') == 'code':
+                source = ''.join(cell.get('source', []))
+
+                for pattern, message in self.DEPRECATED_PANDAS:
+                    for match in re.finditer(pattern, source):
+                        line_num = source[:match.start()].count('\n') + 1
+                        found.append(
+                            f"Cell {cell_idx}, line {line_num}: {message}"
+                        )
+
+        if found:
+            self.errors.extend(found)
+            print(f"   [FAIL] Found {len(found)} deprecated pandas patterns")
+        else:
+            print("   [OK] No deprecated pandas patterns")
+
+    def _check_optuna_dynamic_params(self):
+        """Check for Optuna dynamic parameter space issues (WARNING)"""
+        print("\n8. Checking Optuna parameter space...")
+
+        full_source = self._get_full_source()
+
+        # Find all suggest_categorical calls and extract parameter names
+        param_names = re.findall(
+            r"suggest_categorical\s*\(\s*['\"](\w+)['\"]", full_source
+        )
+
+        dupes = {name: cnt for name, cnt in Counter(param_names).items() if cnt > 1}
+
+        if dupes:
+            for name, cnt in dupes.items():
+                self.warnings.append(
+                    f"Optuna: suggest_categorical('{name}') called {cnt} times - "
+                    "may cause dynamic value space error. Flatten into single call."
+                )
+            print(f"   [WARN]  Found {len(dupes)} duplicate suggest_categorical params")
+        else:
+            print("   [OK] No Optuna parameter space issues")
+
+    def _check_yfinance_validation(self):
+        """Check that yf.download() results are validated (WARNING)"""
+        print("\n9. Checking yfinance data validation...")
+
+        found = []
+
+        for cell_idx, cell in enumerate(self.notebook.get('cells', [])):
+            if cell.get('cell_type') == 'code':
+                source = ''.join(cell.get('source', []))
+
+                # Find yf.download() calls
+                for match in re.finditer(r'yf\.download\s*\(', source):
+                    line_num = source[:match.start()].count('\n') + 1
+                    # Check if there's an .empty check within the next 10 lines
+                    remaining = source[match.start():]
+                    next_lines = '\n'.join(remaining.split('\n')[:10])
+                    if '.empty' not in next_lines and 'len(' not in next_lines:
+                        found.append(
+                            f"Cell {cell_idx}, line {line_num}: "
+                            "yf.download() without .empty check - add validation for empty data"
+                        )
+
+        if found:
+            self.warnings.extend(found)
+            print(f"   [WARN]  Found {len(found)} unvalidated yf.download() calls")
+        else:
+            print("   [OK] yfinance calls properly validated (or none found)")
 
     def _get_full_source(self) -> str:
         """Get concatenated source code from all cells"""

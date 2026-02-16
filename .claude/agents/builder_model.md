@@ -391,12 +391,40 @@ except ImportError:
     subprocess.run(["pip", "install", "fredapi"], check=True)
     from fredapi import Fred
 
-# === APIキー取得（Kaggle Secrets必須、フォールバックなし） ===
-from kaggle_secrets import UserSecretsClient
-secrets = UserSecretsClient()
-FRED_API_KEY = secrets.get_secret("FRED_API_KEY")
+# === APIキー取得（環境変数から、フォールバックなし） ===
+FRED_API_KEY = os.environ['FRED_API_KEY']
 # 未設定なら KeyError で即座に失敗する（ハードコード禁止）
+# ※ kaggle_secrets.UserSecretsClient() は接続タイムアウトリスクがあるため使用禁止
 ```
+
+## エラーチェックリスト（過去の教訓）
+
+以下は過去のKaggle提出で発生したエラーのパターン。コード生成時に必ず確認すること。
+
+### pandas 2.x 互換性（CRITICAL）
+- `.fillna(method='ffill')` → `.ffill()` を使う
+- `.fillna(method='bfill')` → `.bfill()` を使う
+- `df.append(other)` → `pd.concat([df, other])` を使う
+- `df.ix[...]` → `df.loc[...]` or `df.iloc[...]` を使う
+
+### Optuna パラメータ空間
+- 条件分岐内で同一パラメータの suggest_categorical の choices を変えない
+  → 有効な組み合わせをタプルで1つの suggest_categorical にフラット化する
+- `trial.suggest_categorical('n_heads', [2])` のように1要素のみは避ける
+  → 固定値として直接代入するか、有効な組み合わせをフラット化する
+
+### yfinance データ取得
+- `yf.download()` の結果は必ず `.empty` チェックを入れる
+- 信頼性の低いティッカー（DX-Y.NYB等）はFRED代替を優先する
+
+### Kaggle Dataset参照
+- kernel-metadata.json の dataset_sources に `"bigbigzabuton/gold-prediction-submodels"` を必ず含める
+- ノートブック内のパスは `/kaggle/input/gold-prediction-submodels/` を使用する
+
+### FRED API
+- `os.environ['FRED_API_KEY']` で取得する（KeyErrorで即失敗）
+- `kaggle_secrets.UserSecretsClient()` は使わない（接続タイムアウトのリスクあり）
+- ハードコード、デフォルト値のフォールバックは禁止
 
 ## 行動規範
 
