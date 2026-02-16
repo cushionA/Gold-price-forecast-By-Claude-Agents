@@ -15,6 +15,7 @@
       "Bash(kaggle kernels list:*)",
       "WebSearch"
     ],
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "bypassPermissions",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": 1
   }
 }
