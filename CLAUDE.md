@@ -116,20 +116,29 @@ notebooks/
 
 ### kernel-metadata.json
 
+**CRITICAL: All notebooks MUST include the submodel dataset reference**
+
 ```json
 {
-  "id": "bigbigzabuton/gold-model-training",
+  "id": "bigbigzabuton/gold-{feature}-{attempt}",
+  "title": "Gold {Feature} Model - Attempt {attempt}",
   "code_file": "train.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,
   "enable_gpu": true,
   "enable_internet": true,
-  "dataset_sources": [],
+  "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"],
   "competition_sources": [],
   "kernel_sources": []
 }
 ```
+
+**Notes**:
+- `dataset_sources` MUST include `"bigbigzabuton/gold-prediction-submodels"` for all submodels and meta-models
+- This dataset contains all pre-computed submodel outputs (vix.csv, technical.csv, etc.)
+- Kaggle mounts this at `/kaggle/input/gold-prediction-submodels/`
+- Missing this dataset will cause immediate runtime failure
 
 ### train.ipynb Design Principles
 
