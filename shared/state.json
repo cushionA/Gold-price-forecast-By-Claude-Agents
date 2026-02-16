@@ -33,8 +33,8 @@
     "cny_demand",
     "options_market"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-model-training-meta-model",
-  "submitted_at": "2026-02-16T04:38:48.553383",
+  "kaggle_kernel": "bigbigzabuton/gold-temporal-context-transformer-attempt-1",
+  "submitted_at": "2026-02-16T20:56:29.183966",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -406,6 +406,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T15:30:00.000000",
+  "last_updated": "2026-02-16T20:56:29.184415",
   "current_submodel": "temporal_context"
 }
