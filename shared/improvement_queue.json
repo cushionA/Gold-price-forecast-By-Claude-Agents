@@ -1,84 +1,68 @@
 {
   "feature": "meta_model_weekly",
-  "attempt": 2,
+  "attempt": 3,
   "items": [
     {
       "priority": 1,
-      "type": "target_construction",
-      "description": "Switch to non-overlapping training: use every 5th row for training targets to eliminate target autocorrelation",
-      "reason": "Root cause: overlapping 5-day targets share 4/5 days with neighbors, causing XGBoost to learn the moving average (constant positive) instead of conditional variation. Non-overlapping targets (~426 training samples) provide independent observations.",
+      "type": "training_data_strategy",
+      "description": "Restore overlapping training with sample weighting or TSCV for HPO. The 91 non-overlapping val samples are too noisy (DA SE ~5pp). Options: (A) Train on overlapping 2129 samples with sample_weight that downweights overlapping targets, val on overlapping 456 samples for HPO, evaluate final model on non-overlapping test. (B) Time-series cross-validation with 3-5 folds of non-overlapping targets for more robust HPO signals. (C) Hybrid: train overlapping, HPO via average of 5 non-overlapping offsets (offset 0..4) on val set.",
+      "reason": "Optuna reported +6.52pp val skill but actual final val skill was -3.26pp. 91 samples insufficient for reliable optimization. This is the #1 bottleneck.",
       "resume_from": "architect",
-      "research_needed": false,
-      "implementation_notes": [
-        "Option A: Subsample every 5th row from training data only (test remains overlapping for evaluation)",
-        "Option B: Use all rows for training but weight loss by inversely proportional to overlap count",
-        "Option A preferred for simplicity; 426 samples is still viable for XGBoost with 24 features (17.8:1 ratio)"
-      ]
+      "research_needed": false
     },
     {
       "priority": 2,
-      "type": "objective_function",
-      "description": "Add naive-aware DA scoring to Optuna objective: penalize models whose DA matches naive always-up",
-      "reason": "Current objective rewards any positive prediction because train set is 54% positive. Model converges to always-up which maximizes naive-biased DA + Sharpe. Objective must measure skill above naive, not raw DA.",
+      "type": "objective_redesign",
+      "description": "Switch from reg:squarederror to binary:logistic for direction prediction, or use a custom objective that penalizes wrong-sign predictions more heavily. The regression-to-direction evaluation mismatch means the model optimizes magnitude (poorly) and we evaluate sign (also poorly).",
+      "reason": "Model's negative predictions are only 38.2% correct. A classification model would directly optimize for sign accuracy. Weekly return magnitude prediction is essentially hopeless (MAE 2.12% vs zero-pred 2.15%), so focusing on direction is more productive.",
       "resume_from": "architect",
-      "research_needed": false,
-      "implementation_notes": [
-        "Compute naive_da = fraction of positive val returns",
-        "da_component = max(0, (val_da - naive_da) * 100) / 15.0  (skill above naive, not raw DA)",
-        "Add penalty: if model_da == naive_da within 0.1pp, apply -0.1 to objective",
-        "Sharpe component should also measure excess over buy-and-hold, not raw"
-      ]
+      "research_needed": false
     },
     {
       "priority": 3,
-      "type": "hyperparameter_space",
-      "description": "Widen regularization ranges to allow more model expressiveness for weekly targets",
-      "reason": "max_depth=2, min_child_weight=21 with strong lambda/alpha produces near-constant output on noisy weekly targets. Need wider range to explore more expressive models.",
+      "type": "decision_threshold",
+      "description": "If staying with regression, use an adaptive decision threshold instead of sign(prediction). The model's mean prediction is ~0.098 (positive bias from gold uptrend). threshold = model_mean would produce 50/50 direction calls. Or: only trade (deviate from buy-and-hold) when |pred - model_mean| exceeds a confidence threshold.",
+      "reason": "Currently sign(0.04) = positive, but 0.04 is actually a below-average prediction for this model. An adaptive threshold would correctly identify this as a relatively bearish signal.",
       "resume_from": "architect",
-      "research_needed": false,
-      "implementation_notes": [
-        "max_depth: [2, 6] (was [2, 4])",
-        "min_child_weight: [5, 25] (was [12, 25])",
-        "reg_lambda: [0.1, 15.0] (was [1.0, 15.0])",
-        "reg_alpha: [0.01, 10.0] (was [0.5, 10.0])",
-        "IMPORTANT: only widen if non-overlapping targets are used (otherwise risk overfitting)"
-      ]
+      "research_needed": false
     },
     {
       "priority": 4,
-      "type": "feature_engineering",
-      "description": "Center target by subtracting training mean to remove positive bias",
-      "reason": "Mean weekly return ~0.5% positive creates systematic bias toward positive predictions. Centering removes this, forcing model to learn deviations from mean.",
-      "resume_from": "architect",
-      "research_needed": false,
-      "implementation_notes": [
-        "y_train_centered = y_train - y_train.mean()",
-        "y_val_centered = y_val - y_train.mean()",
-        "Add back mean at prediction time for MAE/Sharpe evaluation",
-        "Direction accuracy unaffected by centering if model learns relative magnitudes"
-      ]
-    },
-    {
-      "priority": 5,
-      "type": "evaluation_method",
-      "description": "Use non-overlapping Sharpe (Approach B, sqrt(52)) as primary in Optuna objective",
-      "reason": "Approach A (daily returns, sqrt(252)) inflates Sharpe for always-long due to autocorrelated intra-week returns. Approach B on non-overlapping periods is more honest.",
-      "resume_from": "architect",
-      "research_needed": false
+      "type": "mae_target_revision",
+      "description": "Propose revising weekly MAE target to 2.0% or a relative metric. Zero-prediction MAE = 2.15%, median |weekly return| = 1.77%. Target of 1.70% requires explaining >21% of weekly variance, which daily model achieves only 12% for daily variance.",
+      "reason": "MAE 1.70% may be structurally infeasible. This should be a decision for the orchestrator/user.",
+      "resume_from": "evaluator"
     }
   ],
   "previous_feedback": {
-    "attempt": 1,
-    "gate1_passed": false,
-    "gate3_nominal_passed": "3/4",
+    "attempt": 2,
+    "gate1_passed": true,
+    "gate3_nominal_passed": "2/4",
     "gate3_substantive_passed": "0/4",
-    "root_cause": "Model collapsed to trivial always-positive prediction due to overlapping targets + excessive regularization + biased objective function",
+    "substantive_skill_tests": "3/5 (trade_activity, balance, variation pass; da_above_naive, diversity fail)",
+    "root_cause": "Model produces genuine conditional variation (collapse fixed) but negative predictions are wrong 62% of the time, actively harming DA. 91 non-overlapping val samples too noisy for reliable Optuna HPO -- val skill +6.52pp did not generalize to test (-2.84pp). Regression-to-direction evaluation mismatch.",
     "key_evidence": [
-      "100% positive predictions, only 10 unique values out of 457 test samples",
-      "DA = naive always-up DA in all splits (0.00pp delta)",
-      "0 trades during entire test period",
-      "All top-5 Optuna trials have identical val_da = 53.07% = naive",
-      "Bootstrap confidence near 1.0 for all predictions (5 models are nearly identical)"
+      "DA 63.24% is 2.84pp BELOW naive (66.08%) -- worse than Attempt 1's 0.00pp",
+      "Negative predictions: 55 made, only 21 correct (38.2%), need >50% to beat naive",
+      "Net contribution of negative predictions: -13 (21 correct - 34 false negatives)",
+      "HCDA 79.35% = exact naive rate on HC subset (bootstrap selects uptrend periods)",
+      "Sharpe A dropped from 2.03 to 0.71 because trades destroy value",
+      "Optuna best val skill +6.52pp, final val skill -3.26pp (91-sample noise)",
+      "18 unique predictions (improved from 10 but still coarse)",
+      "Quarterly skill inconsistent: positive in 3/8 quarters, negative in 5/8"
+    ],
+    "what_worked_in_attempt_2": [
+      "Non-overlapping training fixed constant-output collapse (std 0.005 -> 0.104)",
+      "Trade-activity gate produced 66 position changes (from 0)",
+      "Constant-output penalty prevented degenerate solutions",
+      "Naive-aware objective explored varied parameter space (top-5 DA: 53-59%, not all identical)",
+      "OLS alpha improved from 2.76 to reasonable 0.85"
+    ],
+    "what_failed_in_attempt_2": [
+      "91 non-overlapping val samples too noisy for reliable HPO",
+      "Regression objective (MSE) does not directly optimize for direction",
+      "sign(prediction) as direction signal loses information when model mean is far from zero",
+      "Model's conditional variation is noise, not signal, on test set"
     ]
   }
 }

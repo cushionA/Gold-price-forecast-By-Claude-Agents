@@ -2,13 +2,13 @@
   "status": "in_progress",
   "phase": "phase3_weekly_meta_model",
   "current_feature": "meta_model_weekly",
-  "current_attempt": 2,
+  "current_attempt": 3,
   "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "fail_trivial_always_positive",
+  "evaluator_status": "fail_da_below_naive_neg_pred_harmful",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -458,10 +458,40 @@
       "primary_successes": [],
       "improvement_plan": "Non-overlapping training targets + naive-aware objective + relaxed regularization + centered targets",
       "note": "Model collapsed to trivial always-positive predictor. All nominal target passes (DA, HCDA, Sharpe) are artifacts of gold uptrend test period. Zero model skill demonstrated."
+    },
+    "attempt_2": {
+      "decision": "attempt+1",
+      "test_da": 0.6324,
+      "test_hcda": 0.7935,
+      "test_mae": 2.125,
+      "test_sharpe_a": 0.7054,
+      "test_sharpe_b": 0.9869,
+      "train_test_da_gap_pp": -6.67,
+      "da_vs_naive_pp": -2.84,
+      "targets_passed_nominal": "2/4",
+      "targets_passed_substantive": "0/4",
+      "substantive_skill_tests": "3/5 (trade_activity, balance, variation pass; da_above_naive, diversity fail)",
+      "primary_failures": [
+        "DA_2.84pp_below_naive_66.08%",
+        "negative_predictions_38.2%_correct_need_50%",
+        "Sharpe_A_0.71_below_0.80_target",
+        "MAE_2.125%_exceeds_1.70%_target",
+        "HCDA_79.35%_equals_naive_on_HC_subset",
+        "only_18_unique_predictions"
+      ],
+      "primary_successes": [
+        "prediction_collapse_fixed_std_0.005_to_0.104",
+        "66_position_changes_from_0",
+        "positive_pct_100%_to_88%",
+        "OLS_alpha_2.76_to_0.85_reasonable",
+        "Optuna_top5_varied_DA_53-59%"
+      ],
+      "improvement_plan": "Fix HPO validation (91 samples too noisy), consider classification objective, calibrate negative prediction threshold",
+      "note": "Constant-output collapse FIXED. Model produces genuine variation. But variation is net-harmful: negative predictions wrong 62% of time. DA skill -2.84pp (worse than Attempt 1's 0.00pp). Sharpe A dropped 2.03 to 0.71 due to harmful trades. Moved from 'no skill, no harm' to 'some variation, net harmful'."
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T12:00:00.000000",
+  "last_updated": "2026-02-17T15:00:00.000000",
   "current_submodel": null,
   "error_type": null
 }

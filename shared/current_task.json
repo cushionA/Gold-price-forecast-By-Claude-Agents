@@ -1,84 +1,93 @@
 {
   "feature": "meta_model_weekly",
-  "attempt": 2,
+  "attempt": 3,
   "source": "evaluator",
   "phase": "phase3_weekly_meta_model",
 
-  "summary": "Weekly meta-model attempt 2. Attempt 1 collapsed to trivial always-positive prediction (DA = naive, 0 trades). Must fundamentally fix training methodology: non-overlapping targets, naive-aware objective, relaxed regularization, centered targets.",
+  "summary": "Weekly meta-model attempt 3. Attempt 2 fixed constant-output collapse but model's conditional variation does not generalize: DA -2.84pp below naive, negative predictions wrong 62%. Two fundamental problems: (1) 91 non-overlapping val samples too noisy for HPO, (2) regression objective does not optimize for direction. Need hybrid training strategy and classification/threshold approach.",
 
-  "requirements": "Redesign weekly meta-model training to prevent constant-output collapse. Primary changes: (1) train on non-overlapping 5-day periods, (2) Optuna objective must measure skill above naive, (3) wider HP ranges for expressiveness, (4) center targets to remove positive bias. Same 24 features and XGBoost architecture.",
+  "requirements": "Redesign weekly meta-model to address val-set noise and regression-to-direction mismatch. Three strategic options (architect to choose): (A) Hybrid overlapping training with multi-offset non-overlapping validation, (B) Binary classification (logistic) instead of regression, (C) Regression with adaptive decision threshold. Same 24 features. XGBoost architecture retained but objective may change.",
 
   "previous_feedback": {
-    "attempt_1_result": "FAIL -- 0/4 substantive targets passed",
-    "root_cause": "Model collapsed to trivial always-positive prediction",
-    "key_evidence": [
-      "100% positive predictions, only 10 unique values out of 457 test samples",
-      "DA = naive always-up DA in all splits (0.00pp delta on val and test)",
-      "0 trades during entire test period",
-      "All top-5 Optuna trials have identical val_da = 53.07% = naive",
-      "Bootstrap confidence near 1.0 for all predictions (5 nearly identical models)",
-      "OLS alpha = 2.76 (predictions 3x too small even after scaling)"
-    ],
-    "root_cause_analysis": [
-      "Overlapping 5-day targets share 4/5 days with neighbors -> massive target autocorrelation",
-      "XGBoost with strong regularization (max_depth=2, mcw=21) converges to unconditional mean",
-      "Composite objective rewards positive predictions (train ~54% positive)",
-      "Sharpe component rewards always-long during historical positive drift"
-    ]
+    "attempt_1_result": "FAIL -- 0/4 substantive. Trivial always-positive prediction. DA = naive.",
+    "attempt_2_result": "FAIL -- 0/4 substantive. Collapse fixed but variation is net-harmful.",
+    "attempt_2_detailed": {
+      "what_worked": [
+        "Non-overlapping training fixed constant output (std 0.005 -> 0.104)",
+        "Trade-activity gate produced 66 position changes (from 0)",
+        "Constant-output penalty prevented degenerate solutions",
+        "Optuna explored varied parameter space (top-5 DA: 53-59%)"
+      ],
+      "what_failed": [
+        "DA 63.24% is 2.84pp BELOW naive (66.08%) -- model WORSE than doing nothing",
+        "Negative predictions: 55 made, only 21 correct (38.2%). Need >50% to beat naive",
+        "Net contribution of negatives: -13 (21 correct - 34 false negatives)",
+        "HCDA 79.35% = naive on HC subset (bootstrap selects uptrend periods)",
+        "Sharpe A: 0.71 (below 0.80 target; dropped from 2.03 due to harmful trades)",
+        "Optuna best val skill +6.52pp did NOT generalize (final val skill -3.26pp)",
+        "91 non-overlapping val samples: DA standard error ~5pp, unreliable for HPO"
+      ],
+      "metrics": {
+        "test_da": 0.6324,
+        "test_hcda_bootstrap": 0.7935,
+        "test_mae": 2.125,
+        "test_sharpe_a": 0.7054,
+        "da_vs_naive_pp": -2.84,
+        "unique_predictions": 18,
+        "position_changes": 66,
+        "positive_pct": 87.96
+      }
+    }
   },
 
   "required_changes": {
-    "priority_1_non_overlapping_training": {
-      "description": "Train on non-overlapping 5-day periods only (every 5th row)",
-      "rationale": "Eliminates target autocorrelation. ~426 training samples is still viable for XGBoost with 24 features (17.8:1 ratio). The daily model succeeded with 2129 samples; 426 is smaller but XGBoost handles small datasets well with proper regularization.",
-      "implementation": "train_idx = np.arange(0, n_train, 5); X_train = X_train_all[train_idx]; y_train = y_train_all[train_idx]",
-      "val_test_handling": "Validation/test can remain overlapping for evaluation (more data points for metric stability). Non-overlapping test metrics reported separately as secondary diagnostic."
+    "priority_1_hpo_validation_fix": {
+      "description": "Fix the core HPO reliability problem: 91 non-overlapping val samples are too noisy",
+      "options": [
+        "Option A (recommended): Train on overlapping 2129 samples. HPO uses average DA skill across 5 non-overlapping val offsets (offset 0,1,2,3,4 from val set, each ~91 samples). This gives 5 independent estimates per trial, reducing noise by sqrt(5).",
+        "Option B: Time-series cross-validation on non-overlapping train data (3-fold TSCV on 425 samples). More robust but very few samples per fold (~142 train, ~142 val).",
+        "Option C: Train on non-overlapping 425, validate on OVERLAPPING 456 val samples. Overlapping val introduces autocorrelation in metrics but has lower variance."
+      ],
+      "key_constraint": "Whatever approach, the final evaluation on test must compare DA against naive on the same test set. Non-overlapping test metrics as secondary."
     },
-    "priority_2_naive_aware_objective": {
-      "description": "Optuna objective must penalize naive-matching and measure skill above baseline",
-      "rationale": "Current objective rewards raw DA. Since majority of returns are positive, always-up maximizes raw DA. Objective must measure DA minus naive DA.",
-      "implementation": [
-        "naive_da_val = (y_val > 0).mean()",
-        "da_skill = max(0, val_da - naive_da_val)",
-        "da_norm = np.clip(da_skill * 100 / 15.0, 0.0, 1.0)",
-        "Add penalty: if da_skill < 0.001: objective -= 0.15",
-        "Sharpe: measure excess return over buy-and-hold, not raw strategy return"
-      ]
+    "priority_2_classification_or_threshold": {
+      "description": "Address regression-to-direction evaluation mismatch",
+      "options": [
+        "Option A: binary:logistic with y = (return > 0). Directly optimizes for direction accuracy. Lose magnitude information but magnitude prediction is hopeless anyway (MAE 2.12% vs zero-pred 2.15%).",
+        "Option B: Regression (reg:squarederror) with adaptive threshold. Instead of sign(pred), use sign(pred - threshold) where threshold = val_mean_pred. This turns below-average predictions into short signals.",
+        "Option C: Custom asymmetric loss that penalizes wrong-sign predictions 3x more than same-sign magnitude errors."
+      ],
+      "recommended": "Option A (classification) is cleanest. The weekly model's value proposition is direction, not magnitude. Classification removes an entire failure mode."
     },
-    "priority_3_relaxed_regularization": {
-      "description": "Wider HP ranges for weekly targets",
-      "new_ranges": {
-        "max_depth": "[2, 6] (was [2, 4])",
-        "min_child_weight": "[5, 25] (was [12, 25])",
-        "reg_lambda": "[0.1, 15.0] (was [1.0, 15.0])",
-        "reg_alpha": "[0.01, 10.0] (was [0.5, 10.0])"
-      },
-      "caution": "Only safe because non-overlapping targets reduce overfitting risk"
+    "priority_3_sharpe_strategy": {
+      "description": "If model cannot beat naive on direction, consider a 'selective trading' strategy",
+      "rationale": "Instead of always taking a position based on sign(pred), only deviate from buy-and-hold when model confidence exceeds a threshold. Default = long (buy-and-hold). Go short/flat only when model is highly confident about a decline. This preserves the buy-and-hold Sharpe and only adds trades that the model is confident about.",
+      "implementation": "position = 1 (default long). If pred < threshold_short: position = -1. If pred < threshold_flat: position = 0. Thresholds calibrated on val set."
     },
-    "priority_4_centered_targets": {
-      "description": "Subtract training mean from targets",
-      "implementation": "train_mean = y_train.mean(); y_centered = y - train_mean; add back at prediction time"
+    "priority_4_mae_decision": {
+      "description": "Decide whether to retain 1.70% MAE target for weekly model",
+      "context": "Zero-prediction MAE = 2.15%. Median |weekly return| = 1.77%. Target requires explaining 21% of weekly variance. Daily model explains ~12% of daily variance. Weekly target is likely infeasible.",
+      "recommendation": "Either (1) drop MAE from weekly targets (focus on direction and Sharpe), or (2) revise to 2.0%, or (3) use relative metric MAE/zero-pred-MAE < 0.85."
     }
   },
 
   "constraints": [
-    "Same 24 features (5 base + 19 submodel outputs) as attempt 1",
-    "Same XGBoost architecture (reg:squarederror)",
+    "Same 24 features (5 base + 19 submodel outputs)",
+    "XGBoost architecture (objective may change to binary:logistic)",
     "Same Kaggle dataset (bigbigzabuton/gold-prediction-submodels)",
-    "Same data split (70/15/15 time-series)",
-    "Bootstrap ensemble (5 models) retained but check diversity",
-    "OLS scaling retained but verify alpha is reasonable",
-    "Must produce both positive and negative predictions",
-    "Must have non-trivial number of trades (position changes > 5 in test)",
-    "DA on validation must exceed naive by at least 1pp to be considered valid"
+    "Same data split boundaries (70/15/15 time-series)",
+    "Bootstrap ensemble retained for HCDA computation",
+    "Test set remains overlapping 457 samples for comparability",
+    "Must demonstrate DA > naive on test (not just nominal > 56%)",
+    "Attempt budget: this is attempt 3 of 5 maximum"
   ],
 
   "success_criteria": {
-    "minimum": "DA > naive + 1pp on both val and test. At least 10 trades in test period.",
-    "target": "3/4 weekly targets (DA > 56%, HCDA > 60%, MAE < 1.70%, Sharpe > 0.80) with substantive skill above naive",
-    "validation": "Model must produce meaningful prediction variation (std > 0.1 on centered predictions)"
+    "minimum": "DA > naive + 0.5pp on test. At least 10 trades. Negative predictions >50% correct.",
+    "target": "3/4 weekly targets (DA>56%, HCDA>60%, MAE or revised, Sharpe>0.80) with substantive skill above naive",
+    "stretch": "DA > naive + 2pp. Consistent quarterly skill (positive in >50% of quarters)."
   },
 
-  "created_at": "2026-02-17T12:00:00",
+  "created_at": "2026-02-17T15:00:00",
   "created_by": "evaluator"
 }
