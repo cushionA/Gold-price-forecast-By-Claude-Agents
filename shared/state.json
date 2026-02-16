@@ -1,14 +1,14 @@
 {
   "status": "in_progress",
-  "phase": "phase3_weekly_meta_model",
-  "current_feature": "meta_model_weekly",
-  "current_attempt": 3,
+  "phase": "phase3_meta_model",
+  "current_feature": "meta_model",
+  "current_attempt": 8,
   "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "fail_da_below_naive_neg_pred_harmful",
+  "evaluator_status": null,
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
