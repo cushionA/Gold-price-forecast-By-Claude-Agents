@@ -1,68 +1,67 @@
 {
-  "feature": "meta_model_weekly",
-  "attempt": 3,
+  "feature": "meta_model",
+  "attempt": 9,
   "items": [
     {
       "priority": 1,
-      "type": "training_data_strategy",
-      "description": "Restore overlapping training with sample weighting or TSCV for HPO. The 91 non-overlapping val samples are too noisy (DA SE ~5pp). Options: (A) Train on overlapping 2129 samples with sample_weight that downweights overlapping targets, val on overlapping 456 samples for HPO, evaluate final model on non-overlapping test. (B) Time-series cross-validation with 3-5 folds of non-overlapping targets for more robust HPO signals. (C) Hybrid: train overlapping, HPO via average of 5 non-overlapping offsets (offset 0..4) on val set.",
-      "reason": "Optuna reported +6.52pp val skill but actual final val skill was -3.26pp. 91 samples insufficient for reliable optimization. This is the #1 bottleneck.",
+      "type": "architecture_revert",
+      "description": "Revert to single XGBoost architecture from attempt 7. Use the same 24 base features (no regime features). The stacking approach was a proven failure -- Ridge meta-learner collapsed predictions to constant. Single XGBoost with attempt 7 hyperparameter strategy (100 Optuna trials, max_depth 3-6, reg:squarederror) is the validated foundation.",
+      "reason": "Attempt 7 single XGB: DA 60.04%, HCDA 64.13%, Sharpe 2.46. Attempt 8 stacking: DA 58.73% (=naive), HCDA 61.96%, Sharpe 2.06. Stacking was strictly worse on all metrics. Do not repeat.",
       "resume_from": "architect",
       "research_needed": false
     },
     {
       "priority": 2,
-      "type": "objective_redesign",
-      "description": "Switch from reg:squarederror to binary:logistic for direction prediction, or use a custom objective that penalizes wrong-sign predictions more heavily. The regression-to-direction evaluation mismatch means the model optimizes magnitude (poorly) and we evaluate sign (also poorly).",
-      "reason": "Model's negative predictions are only 38.2% correct. A classification model would directly optimize for sign accuracy. Weekly return magnitude prediction is essentially hopeless (MAE 2.12% vs zero-pred 2.15%), so focusing on direction is more productive.",
+      "type": "loss_function",
+      "description": "Replace reg:squarederror with a custom directional-aware loss function. Penalize wrong-direction predictions 2x more heavily than correct-direction errors. This directly targets the DA metric and should help the model learn when gold will decline (the key skill that differentiates from naive always-up). Implementation: custom XGBoost objective with gradient/hessian that weights sign-mismatched errors higher.",
+      "reason": "Attempt 7 DA=60.04% beats naive by only 1.31pp. The model predicts 87.3% positive but actual positive rate is only 58.7%. Model needs to learn negative returns better. An asymmetric loss that heavily penalizes predicting positive when actual is negative should improve negative-day DA without destroying positive-day DA.",
       "resume_from": "architect",
       "research_needed": false
     },
     {
       "priority": 3,
-      "type": "decision_threshold",
-      "description": "If staying with regression, use an adaptive decision threshold instead of sign(prediction). The model's mean prediction is ~0.098 (positive bias from gold uptrend). threshold = model_mean would produce 50/50 direction calls. Or: only trade (deviate from buy-and-hold) when |pred - model_mean| exceeds a confidence threshold.",
-      "reason": "Currently sign(0.04) = positive, but 0.04 is actually a below-average prediction for this model. An adaptive threshold would correctly identify this as a relatively bearish signal.",
+      "type": "feature_engineering",
+      "description": "Add 4-6 continuous interaction features (NOT binary regime indicators). Examples: real_rate_change * vix_level, dxy_change * yc_curvature_z, inflation_exp_change * xasset_recession_signal. These capture how feature effects vary with market conditions using continuous values (not sparse binary flags). Keep total feature count under 30 to avoid curse of dimensionality.",
+      "reason": "Attempt 8 binary regime features failed catastrophically: high-vol active in 0% of samples, 5/6 had zero importance. Continuous interactions provide information across ALL samples instead of only during rare regime activations. The key is multiplicative interactions between base features and submodel regime indicators.",
       "resume_from": "architect",
       "research_needed": false
     },
     {
       "priority": 4,
-      "type": "mae_target_revision",
-      "description": "Propose revising weekly MAE target to 2.0% or a relative metric. Zero-prediction MAE = 2.15%, median |weekly return| = 1.77%. Target of 1.70% requires explaining >21% of weekly variance, which daily model achieves only 12% for daily variance.",
-      "reason": "MAE 1.70% may be structurally infeasible. This should be a decision for the orchestrator/user.",
-      "resume_from": "evaluator"
+      "type": "hpo_strategy",
+      "description": "Use multi-objective Optuna (DA + Sharpe as dual objectives) with NSGA-II sampler. Select from Pareto front: choose the trial that maximizes DA while maintaining Sharpe > 1.5. This allows principled exploration of the DA-Sharpe tradeoff space instead of a single composite score.",
+      "reason": "Attempt 7 used composite objective. Attempt 8's 280-trial HPO found suboptimal base models (DA 50-52%). Multi-objective Optuna may find trials with higher DA at acceptable Sharpe cost.",
+      "resume_from": "architect",
+      "research_needed": false
     }
   ],
   "previous_feedback": {
-    "attempt": 2,
-    "gate1_passed": true,
-    "gate3_nominal_passed": "2/4",
+    "attempt": 8,
+    "gate1_passed": false,
+    "gate3_nominal_passed": "3/4",
     "gate3_substantive_passed": "0/4",
-    "substantive_skill_tests": "3/5 (trade_activity, balance, variation pass; da_above_naive, diversity fail)",
-    "root_cause": "Model produces genuine conditional variation (collapse fixed) but negative predictions are wrong 62% of the time, actively harming DA. 91 non-overlapping val samples too noisy for reliable Optuna HPO -- val skill +6.52pp did not generalize to test (-2.84pp). Regression-to-direction evaluation mismatch.",
+    "root_cause": "Ridge meta-learner with alpha=90.37 collapsed stacking predictions to near-constant output (std=0.000107, 100% positive). Ridge intercept dominated; all base model coefficients near-zero. Model has zero skill beyond naive always-up strategy.",
     "key_evidence": [
-      "DA 63.24% is 2.84pp BELOW naive (66.08%) -- worse than Attempt 1's 0.00pp",
-      "Negative predictions: 55 made, only 21 correct (38.2%), need >50% to beat naive",
-      "Net contribution of negative predictions: -13 (21 correct - 34 false negatives)",
-      "HCDA 79.35% = exact naive rate on HC subset (bootstrap selects uptrend periods)",
-      "Sharpe A dropped from 2.03 to 0.71 because trades destroy value",
-      "Optuna best val skill +6.52pp, final val skill -3.26pp (91-sample noise)",
-      "18 unique predictions (improved from 10 but still coarse)",
-      "Quarterly skill inconsistent: positive in 3/8 quarters, negative in 5/8"
+      "Prediction std 0.000107 (211x smaller than attempt 7's 0.0226)",
+      "100% positive predictions (vs 87.3% in attempt 7)",
+      "DA exactly equals naive: 58.73% = 58.73%, delta = 0.0pp",
+      "Ridge alpha 90.37 (extreme regularization), coefficients: XGB=0.0004, LGBM=0.006, CB=0.005",
+      "Base models all near coin-flip: XGB 52.09%, LGBM 50.77%, CB 52.53%",
+      "5 of 6 regime features had zero importance",
+      "High-vol regime active in 0.0% of samples (threshold too aggressive)",
+      "Base model correlation high: XGB-LGBM r=0.775, XGB-CB r=0.570, LGBM-CB r=0.733"
     ],
-    "what_worked_in_attempt_2": [
-      "Non-overlapping training fixed constant-output collapse (std 0.005 -> 0.104)",
-      "Trade-activity gate produced 66 position changes (from 0)",
-      "Constant-output penalty prevented degenerate solutions",
-      "Naive-aware objective explored varied parameter space (top-5 DA: 53-59%, not all identical)",
-      "OLS alpha improved from 2.76 to reasonable 0.85"
+    "what_failed_in_attempt_8": [
+      "Stacking architecture: base models too correlated for ensemble benefit",
+      "Ridge meta-learner: extreme L2 penalty collapsed signal",
+      "Binary regime features: sparse activation (0% high-vol, 0.4% trend) rendered useless",
+      "Feature expansion from 24 to 30: added noise without information"
     ],
-    "what_failed_in_attempt_2": [
-      "91 non-overlapping val samples too noisy for reliable HPO",
-      "Regression objective (MSE) does not directly optimize for direction",
-      "sign(prediction) as direction signal loses information when model mean is far from zero",
-      "Model's conditional variation is noise, not signal, on test set"
+    "anti_patterns": [
+      "DO NOT use stacking/ensemble meta-learners (Ridge collapse proven)",
+      "DO NOT use binary regime indicators with sparse activation (<5%)",
+      "DO NOT try prediction calibration (proven failure in attempts 3-4)",
+      "DO NOT expand features beyond 28 (curse of dimensionality with 2132 training samples)"
     ]
   }
 }

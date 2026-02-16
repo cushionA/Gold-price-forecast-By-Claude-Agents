@@ -2,13 +2,13 @@
   "status": "in_progress",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 8,
-  "resume_from": "evaluator",
+  "current_attempt": 9,
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": null,
+  "evaluator_status": "attempt_8_fail_trivial_predictor",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -408,10 +408,33 @@
         "MAE_0.9429%_above_0.75%_target_structurally_infeasible"
       ],
       "note": "Best meta-model. 3/4 targets met (DA, HCDA, Sharpe). MAE target structurally infeasible with expanded 2025-2026 test set. Design doc success criteria satisfied."
+    },
+    "attempt_8": {
+      "decision": "attempt+1",
+      "test_da": 0.5873,
+      "test_hcda": 0.6196,
+      "test_mae": 0.9424,
+      "test_sharpe": 2.064,
+      "train_test_da_gap_pp": -7.08,
+      "targets_passed_nominal": "3/4",
+      "targets_passed_substantive": "0/4",
+      "primary_failures": [
+        "Ridge_meta_learner_prediction_collapse_std_0.0001",
+        "DA_equals_naive_0.00pp_delta_zero_skill",
+        "100%_positive_predictions_trivial",
+        "5_of_6_regime_features_zero_importance",
+        "all_base_models_near_coin_flip_DA"
+      ],
+      "primary_successes": [
+        "280_optuna_trials_extensive_HPO",
+        "no_overfitting_test_outperforms_train"
+      ],
+      "improvement_plan": "Revert to single XGBoost (attempt 7 arch), replace binary regime features with continuous interactions, try asymmetric loss for DA",
+      "note": "Stacking (XGB+LGBM+CatBoost) with Ridge meta-learner collapsed to trivial constant predictor. Ridge alpha=90.37 shrunk all coefficients to near-zero. All nominal target passes are artifacts of always-positive prediction in bull market. Strictly worse than attempt 7 on all meaningful metrics."
     }
   },
   "final_result": {
-    "status": "completed",
+    "status": "in_progress_attempt_9",
     "best_attempt_overall": 7,
     "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy.",
     "final_attempt_results": {
@@ -491,7 +514,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T08:21:01.689526",
+  "last_updated": "2026-02-17T12:00:00.000000",
   "current_submodel": null,
   "error_type": null
 }
