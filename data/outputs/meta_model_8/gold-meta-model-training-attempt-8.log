@@ -1,0 +1,121 @@
+[{"stream_name":"stderr","time":10.464868979,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.465018758,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.465038047,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.465043836,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.404152253,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.404204545,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.404209853,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.404213085,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":24.170783221,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":24.17084435,"data":"LightGBM version: 4.6.0\n"}
+,{"stream_name":"stdout","time":24.170852701,"data":"CatBoost version: 1.2.8\n"}
+,{"stream_name":"stdout","time":24.170858267,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stdout","time":24.170863735,"data":"Started: 2026-02-16T23:13:39.671601\n"}
+,{"stream_name":"stdout","time":24.203160276,"data":"Features defined: 30 features (24 base + 6 regime)\n"}
+,{"stream_name":"stdout","time":24.374913646,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":24.375034816,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":24.375045285,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":27.668585978,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":27.725154327,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":27.746229149,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":27.792025248,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":27.793850948,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":27.796056985,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":27.797198766,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":27.807906244,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":27.828171089,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":27.870971182,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":27.871013301,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":27.871020698,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":27.871026503,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":27.871057301,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":27.871061224,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":27.871064238,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":27.871067153,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":27.871070262,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":30.233848855,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":30.270930182,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":30.436456848,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":30.436487909,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":30.436494216,"data":"✓ FRED API initialized\n"}
+,{"stream_name":"stdout","time":30.436500915,"data":"\n"}
+,{"stream_name":"stdout","time":30.436506184,"data":"Fetching gold price (GC=F)...\n"}
+,{"stream_name":"stdout","time":31.211908721,"data":"  Gold: 3047 rows\n"}
+,{"stream_name":"stdout","time":31.21197913,"data":"\n"}
+,{"stream_name":"stdout","time":31.211990372,"data":"Fetching base features...\n"}
+,{"stream_name":"stdout","time":31.212000312,"data":"  Fetching real rate (DFII10)...\n"}
+,{"stream_name":"stdout","time":32.565766461,"data":"  Fetching DXY (DX-Y.NYB)...\n"}
+,{"stream_name":"stdout","time":32.876241107,"data":"  Fetching VIX (VIXCLS)...\n"}
+,{"stream_name":"stdout","time":33.481370714,"data":"  Fetching yield curve (DGS10, DGS2)...\n"}
+,{"stream_name":"stdout","time":34.642339402,"data":"  Fetching inflation expectation (T10YIE)...\n"}
+,{"stream_name":"stdout","time":34.986043666,"data":"  Base features: 3047 rows, 6 columns\n"}
+,{"stream_name":"stdout","time":34.986083225,"data":"\n"}
+,{"stream_name":"stdout","time":34.986089944,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
+,{"stream_name":"stderr","time":36.232870555,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":36.232905822,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":36.232913712,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":36.233058371,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":36.233090116,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":36.233260217,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":36.233855951,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":36.233883824,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":36.233891197,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":36.233904824,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":36.233926302,"data":"FileNotFoundError                         Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":36.23392941,"data":"/tmp/ipykernel_17/3705046982.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":36.233932621,"data":"    137 for feature, spec in submodel_files.items():\n"}
+,{"stream_name":"stderr","time":36.233935399,"data":"    138     # Load CSV\n"}
+,{"stream_name":"stderr","time":36.233969788,"data":"--\u003e 139     df = pd.read_csv(spec['path'])\n"}
+,{"stream_name":"stderr","time":36.233978294,"data":"    140 \n"}
+,{"stream_name":"stderr","time":36.233982518,"data":"    141     # Normalize date column\n"}
+,{"stream_name":"stderr","time":36.233986615,"data":"\n"}
+,{"stream_name":"stderr","time":36.234002281,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)\n"}
+,{"stream_name":"stderr","time":36.234009495,"data":"   1024     kwds.update(kwds_defaults)\n"}
+,{"stream_name":"stderr","time":36.234012382,"data":"   1025 \n"}
+,{"stream_name":"stderr","time":36.234015024,"data":"-\u003e 1026     return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":36.234017897,"data":"   1027 \n"}
+,{"stream_name":"stderr","time":36.234020553,"data":"   1028 \n"}
+,{"stream_name":"stderr","time":36.234023182,"data":"\n"}
+,{"stream_name":"stderr","time":36.234025856,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":36.234028813,"data":"    618 \n"}
+,{"stream_name":"stderr","time":36.234031455,"data":"    619     # Create the parser.\n"}
+,{"stream_name":"stderr","time":36.234034301,"data":"--\u003e 620     parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":36.234037138,"data":"    621 \n"}
+,{"stream_name":"stderr","time":36.234039795,"data":"    622     if chunksize or iterator:\n"}
+,{"stream_name":"stderr","time":36.234042563,"data":"\n"}
+,{"stream_name":"stderr","time":36.234045294,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in __init__(self, f, engine, **kwds)\n"}
+,{"stream_name":"stderr","time":36.234048233,"data":"   1618 \n"}
+,{"stream_name":"stderr","time":36.234050887,"data":"   1619         self.handles: IOHandles | None = None\n"}
+,{"stream_name":"stderr","time":36.234053689,"data":"-\u003e 1620         self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":36.23405661,"data":"   1621 \n"}
+,{"stream_name":"stderr","time":36.234059213,"data":"   1622     def close(self) -\u003e None:\n"}
+,{"stream_name":"stderr","time":36.234062034,"data":"\n"}
+,{"stream_name":"stderr","time":36.234064654,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _make_engine(self, f, engine)\n"}
+,{"stream_name":"stderr","time":36.234067537,"data":"   1878                 if \"b\" not in mode:\n"}
+,{"stream_name":"stderr","time":36.234075507,"data":"   1879                     mode += \"b\"\n"}
+,{"stream_name":"stderr","time":36.234078504,"data":"-\u003e 1880             self.handles = get_handle(\n"}
+,{"stream_name":"stderr","time":36.234081336,"data":"   1881                 f,\n"}
+,{"stream_name":"stderr","time":36.234084059,"data":"   1882                 mode,\n"}
+,{"stream_name":"stderr","time":36.234086783,"data":"\n"}
+,{"stream_name":"stderr","time":36.234089482,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/common.py in get_handle(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)\n"}
+,{"stream_name":"stderr","time":36.234092564,"data":"    871         if ioargs.encoding and \"b\" not in ioargs.mode:\n"}
+,{"stream_name":"stderr","time":36.234095446,"data":"    872             # Encoding\n"}
+,{"stream_name":"stderr","time":36.234098145,"data":"--\u003e 873             handle = open(\n"}
+,{"stream_name":"stderr","time":36.234100938,"data":"    874                 handle,\n"}
+,{"stream_name":"stderr","time":36.234103636,"data":"    875                 ioargs.mode,\n"}
+,{"stream_name":"stderr","time":36.234113357,"data":"\n"}
+,{"stream_name":"stderr","time":36.234116117,"data":"FileNotFoundError: [Errno 2] No such file or directory: '../input/gold-prediction-submodels/vix.csv'\n"}
+,{"stream_name":"stderr","time":36.234119024,"data":"\n"}
+,{"stream_name":"stderr","time":38.883914198,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":38.883974766,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":39.093532775,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":39.093564691,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":39.915182447,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":39.915229398,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":39.955915884,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":40.366710774,"data":"[NbConvertApp] Writing 86049 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":43.727485568,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":43.727540891,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":43.758351938,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":45.110378023,"data":"[NbConvertApp] Writing 570038 bytes to __results__.html\n"}
+]
