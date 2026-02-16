@@ -186,6 +186,42 @@ tech_sub = pd.read_csv(submodel_path + "technical.csv")
 - Requires `enable_internet: true` (already set)
 - Adds dependency on GitHub availability
 
+### Resolution Applied
+
+**Date**: 2026-02-16 21:26
+
+**Method Chosen**: Option 1 - Create Kaggle Dataset
+
+**Actions Taken**:
+1. ✅ Updated CLAUDE.md with permanent rule to always include `dataset_sources: ["bigbigzabuton/gold-prediction-submodels"]`
+2. ✅ Fixed kernel-metadata.json to include dataset reference
+3. ✅ Fixed train.ipynb dataset path: `/kaggle/input/gold-prediction-complete/` → `/kaggle/input/gold-prediction-submodels/`
+4. ✅ Created `data/submodel_outputs/dataset-metadata.json` for Kaggle Dataset creation
+5. ⏸️ **Manual action required**: Upload Kaggle Dataset via Web UI
+
+**Kaggle Dataset Upload Instructions** (for user):
+1. Go to https://www.kaggle.com/datasets
+2. Click "New Dataset"
+3. Upload all 9 CSV files from `data/submodel_outputs/`:
+   - vix.csv
+   - technical.csv
+   - cross_asset.csv
+   - etf_flow.csv
+   - options_market.csv
+   - yield_curve.csv
+   - inflation_expectation.csv
+   - cny_demand.csv
+   - real_rate.csv
+4. Set Dataset slug: `gold-prediction-submodels`
+5. Make it **Private**
+6. Save and publish
+
+**After Dataset Creation**:
+- Resubmit temporal_context_1 notebook to Kaggle
+- All future submodels/meta-models will automatically use this dataset
+
 ### Status
-- ⏸️ Waiting for decision on fix approach
-- 📋 Error documented in checklist
+- ✅ Code fixed and validated
+- ✅ CLAUDE.md updated with permanent rules
+- ✅ Documented in checklist
+- ⏸️ Awaiting Kaggle Dataset upload by user
