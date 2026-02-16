@@ -1,0 +1,129 @@
+[{"stream_name":"stderr","time":6.848548792,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.848608813,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.8486144,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.848618089,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.441011187,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.441042169,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.441049136,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.441051835,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.221973922,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":11.222018601,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stdout","time":11.222023152,"data":"Started: 2026-02-16T16:18:28.868477\n"}
+,{"stream_name":"stdout","time":11.245201849,"data":"Features defined: 24 features\n"}
+,{"stream_name":"stdout","time":11.427022564,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.427078989,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":11.427083451,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.45411729,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":14.470878267,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":14.484556769,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":14.514540748,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.515658628,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":14.517352269,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.518436487,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.526497735,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":14.534136971,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":14.656158584,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":14.656193431,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":14.656198297,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":14.656203787,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.656207154,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":14.656220387,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.656223209,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.656225697,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":14.656228331,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":16.371485766,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":16.395032336,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":16.573526041,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":16.573550266,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":16.573554714,"data":"Dataset not at standard paths. Searching /kaggle/input/...\n"}
+,{"stream_name":"stdout","time":16.573558582,"data":"Dataset not mounted. Downloading via Python Kaggle API...\n"}
+,{"stream_name":"stdout","time":17.133969276,"data":"  Python API download failed: Could not find kaggle.json. Make sure it's located in /root/.config/kaggle. Or use the environment method. See setup instructions at https://github.com/Kaggle/kaggle-api/\n"}
+,{"stream_name":"stdout","time":20.223951389,"data":"Please provide your Kaggle credentials to download this dataset. Learn more: http://bit.ly/kaggle-creds\n"}
+,{"stream_name":"stderr","time":20.869190024,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":20.869224536,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":20.869230866,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":20.869264532,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":20.869334412,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":20.869513554,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":20.869919856,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":20.869933497,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":20.869937823,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":20.869941757,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":20.869945451,"data":"OSError                                   Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":20.869949146,"data":"/tmp/ipykernel_24/3149397269.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":20.869953176,"data":"     45     try:\n"}
+,{"stream_name":"stderr","time":20.869956723,"data":"---\u003e 46         from kaggle.api.kaggle_api_extended import KaggleApi\n"}
+,{"stream_name":"stderr","time":20.869960447,"data":"     47         api = KaggleApi()\n"}
+,{"stream_name":"stderr","time":20.869963973,"data":"\n"}
+,{"stream_name":"stderr","time":20.869967364,"data":"/usr/local/lib/python3.12/dist-packages/kaggle/__init__.py in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":20.869983046,"data":"      5 api = KaggleApi()\n"}
+,{"stream_name":"stderr","time":20.869987022,"data":"----\u003e 6 api.authenticate()\n"}
+,{"stream_name":"stderr","time":20.869991486,"data":"\n"}
+,{"stream_name":"stderr","time":20.869995284,"data":"/usr/local/lib/python3.12/dist-packages/kaggle/api/kaggle_api_extended.py in authenticate(self)\n"}
+,{"stream_name":"stderr","time":20.869999886,"data":"    433       else:\n"}
+,{"stream_name":"stderr","time":20.87000426,"data":"--\u003e 434         raise IOError('Could not find {}. Make sure it\\'s located in'\n"}
+,{"stream_name":"stderr","time":20.870008851,"data":"    435                       ' {}. Or use the environment method. See setup'\n"}
+,{"stream_name":"stderr","time":20.87001267,"data":"\n"}
+,{"stream_name":"stderr","time":20.870016215,"data":"OSError: Could not find kaggle.json. Make sure it's located in /root/.config/kaggle. Or use the environment method. See setup instructions at https://github.com/Kaggle/kaggle-api/\n"}
+,{"stream_name":"stderr","time":20.870020211,"data":"\n"}
+,{"stream_name":"stderr","time":20.870023578,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":20.870027255,"data":"\n"}
+,{"stream_name":"stderr","time":20.870030578,"data":"StdinNotImplementedError                  Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":20.870034166,"data":"/tmp/ipykernel_24/3149397269.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":20.870037843,"data":"     62             import opendatasets as od\n"}
+,{"stream_name":"stderr","time":20.87004148,"data":"---\u003e 63             od.download('https://www.kaggle.com/datasets/bigbigzabuton/gold-prediction-submodels',\n"}
+,{"stream_name":"stderr","time":20.87004521,"data":"     64                        data_dir='/tmp/')\n"}
+,{"stream_name":"stderr","time":20.870048697,"data":"\n"}
+,{"stream_name":"stderr","time":20.870052098,"data":"/usr/local/lib/python3.12/dist-packages/opendatasets/__init__.py in download(dataset_id_or_url, data_dir, force, dry_run, **kwargs)\n"}
+,{"stream_name":"stderr","time":20.870055865,"data":"     12     if is_kaggle_url(dataset_id_or_url):\n"}
+,{"stream_name":"stderr","time":20.870059354,"data":"---\u003e 13         return download_kaggle_dataset(dataset_id_or_url, data_dir=data_dir, force=force, dry_run=dry_run)\n"}
+,{"stream_name":"stderr","time":20.870063616,"data":"     14 \n"}
+,{"stream_name":"stderr","time":20.870066907000002,"data":"\n"}
+,{"stream_name":"stderr","time":20.870069232,"data":"/usr/local/lib/python3.12/dist-packages/opendatasets/utils/kaggle_api.py in download_kaggle_dataset(dataset_url, data_dir, force, dry_run)\n"}
+,{"stream_name":"stderr","time":20.87007198,"data":"     45         print(\"Please provide your Kaggle credentials to download this dataset. Learn more: http://bit.ly/kaggle-creds\")\n"}
+,{"stream_name":"stderr","time":20.870076953999998,"data":"---\u003e 46         os.environ['KAGGLE_USERNAME'] = click.prompt(\"Your Kaggle username\")\n"}
+,{"stream_name":"stderr","time":20.870081486,"data":"     47         os.environ['KAGGLE_KEY'] = _get_kaggle_key()\n"}
+,{"stream_name":"stderr","time":20.870085574,"data":"\n"}
+,{"stream_name":"stderr","time":20.870089687,"data":"/usr/local/lib/python3.12/dist-packages/click/termui.py in prompt(text, default, hide_input, confirmation_prompt, type, value_proc, prompt_suffix, show_default, err, show_choices)\n"}
+,{"stream_name":"stderr","time":20.870094633,"data":"    170         while True:\n"}
+,{"stream_name":"stderr","time":20.87010377,"data":"--\u003e 171             value = prompt_func(prompt)\n"}
+,{"stream_name":"stderr","time":20.870107626,"data":"    172             if value:\n"}
+,{"stream_name":"stderr","time":20.870111103,"data":"\n"}
+,{"stream_name":"stderr","time":20.870114472,"data":"/usr/local/lib/python3.12/dist-packages/click/termui.py in prompt_func(text)\n"}
+,{"stream_name":"stderr","time":20.870118322,"data":"    146             # readline causes backspace to clear the whole line.\n"}
+,{"stream_name":"stderr","time":20.870121989,"data":"--\u003e 147             return f(text[-1:])\n"}
+,{"stream_name":"stderr","time":20.870125584,"data":"    148         except (KeyboardInterrupt, EOFError):\n"}
+,{"stream_name":"stderr","time":20.870129154,"data":"\n"}
+,{"stream_name":"stderr","time":20.870132488,"data":"/usr/local/lib/python3.12/dist-packages/ipykernel/kernelbase.py in raw_input(self, prompt)\n"}
+,{"stream_name":"stderr","time":20.870136185,"data":"   1173         if not self._allow_stdin:\n"}
+,{"stream_name":"stderr","time":20.870139689,"data":"-\u003e 1174             raise StdinNotImplementedError(\n"}
+,{"stream_name":"stderr","time":20.870143248,"data":"   1175                 \"raw_input was called, but this frontend does not support input requests.\"\n"}
+,{"stream_name":"stderr","time":20.870147048,"data":"\n"}
+,{"stream_name":"stderr","time":20.870150664,"data":"StdinNotImplementedError: raw_input was called, but this frontend does not support input requests.\n"}
+,{"stream_name":"stderr","time":20.870154914,"data":"\n"}
+,{"stream_name":"stderr","time":20.870157347,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":20.870159773,"data":"\n"}
+,{"stream_name":"stderr","time":20.870162468,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":20.870166185,"data":"/tmp/ipykernel_24/3149397269.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":20.870170174,"data":"     65             DATASET_DIR = '/tmp/gold-prediction-submodels'\n"}
+,{"stream_name":"stderr","time":20.87017448,"data":"     66         except Exception as e2:\n"}
+,{"stream_name":"stderr","time":20.870178952,"data":"---\u003e 67             raise RuntimeError(\n"}
+,{"stream_name":"stderr","time":20.87018383,"data":"     68                 f\"Cannot access dataset. Mount path not found, API download failed ({e}), \"\n"}
+,{"stream_name":"stderr","time":20.870188436,"data":"     69                 f\"opendatasets failed ({e2}). \"\n"}
+,{"stream_name":"stderr","time":20.870192158000002,"data":"\n"}
+,{"stream_name":"stderr","time":20.870196079,"data":"RuntimeError: Cannot access dataset. Mount path not found, API download failed (Could not find kaggle.json. Make sure it's located in /root/.config/kaggle. Or use the environment method. See setup instructions at https://github.com/Kaggle/kaggle-api/), opendatasets failed (raw_input was called, but this frontend does not support input requests.). Please add 'bigbigzabuton/gold-prediction-submodels' as a dataset source in kernel settings.\n"}
+,{"stream_name":"stderr","time":20.870201759,"data":"\n"}
+,{"stream_name":"stderr","time":22.727009468,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.727038407,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":22.873967076,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":22.873991852,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23.485610652,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":23.485643988,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":23.51434996,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":23.815749038,"data":"[NbConvertApp] Writing 82099 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":26.164264916,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.164298663,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.190449556,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":27.152832958,"data":"[NbConvertApp] Writing 544444 bytes to __results__.html\n"}
+,{"stream_name":"stdout","time":28.913786329,"data":"Your Kaggle username:"}
+]

@@ -1,14 +1,14 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase3_weekly_meta_model",
   "current_feature": "meta_model_weekly",
-  "current_attempt": 1,
-  "resume_from": "evaluator",
+  "current_attempt": 2,
+  "resume_from": "architect",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
-  "builder_model_status": "in_progress",
-  "evaluator_status": null,
+  "builder_model_status": null,
+  "evaluator_status": "fail_trivial_always_positive",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -37,8 +37,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-weekly-1",
-  "submitted_at": "2026-02-17T01:04:35.350162",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-weekly",
+  "submitted_at": "2026-02-17T10:30:00.000000",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -438,8 +438,30 @@
       "mae_delta": "+0.255 (different test set)"
     }
   },
+  "meta_model_weekly_history": {
+    "attempt_1": {
+      "decision": "attempt+1",
+      "test_da": 0.6608,
+      "test_hcda": 0.6848,
+      "test_mae": 2.0696,
+      "test_sharpe": 2.0257,
+      "train_test_da_gap_pp": -12.32,
+      "targets_passed_nominal": "3/4",
+      "targets_passed_substantive": "0/4",
+      "primary_failures": [
+        "trivial_always_positive_prediction",
+        "DA_equals_naive_0.00pp_delta",
+        "only_10_unique_predictions_out_of_457",
+        "zero_trades_in_test",
+        "MAE_2.07%_exceeds_1.70%_target"
+      ],
+      "primary_successes": [],
+      "improvement_plan": "Non-overlapping training targets + naive-aware objective + relaxed regularization + centered targets",
+      "note": "Model collapsed to trivial always-positive predictor. All nominal target passes (DA, HCDA, Sharpe) are artifacts of gold uptrend test period. Zero model skill demonstrated."
+    }
+  },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T01:04:35.350177",
+  "last_updated": "2026-02-17T12:00:00.000000",
   "current_submodel": null,
   "error_type": null
 }

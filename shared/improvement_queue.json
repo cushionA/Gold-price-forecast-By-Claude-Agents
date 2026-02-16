@@ -1,21 +1,84 @@
 {
-  "feature": "options_market",
+  "feature": "meta_model_weekly",
+  "attempt": 2,
   "items": [
     {
       "priority": 1,
-      "type": "output_dimensionality_reduction",
-      "description": "Reduce output from 3 columns to 1-2. options_risk_regime_prob ranked #2/22 in feature importance (5.70%) and has the highest individual MI (0.031). Consider: (1) output only regime_prob as single column, or (2) PCA to compress 3 columns into 1 principal component, preserving maximum variance while reducing noise. The 3-column output introduced noise that degraded DA in all 5 folds.",
-      "reason": "Gate 2 PASS (MI +17.12%, VIF 2.12, stability 0.146) confirms information exists. Gate 3 FAIL with DA degraded in 0/5 folds improved and Sharpe degraded by -0.234. Pattern matches real_rate attempts 4-5 where more output columns gave XGBoost more noise to overfit on.",
+      "type": "target_construction",
+      "description": "Switch to non-overlapping training: use every 5th row for training targets to eliminate target autocorrelation",
+      "reason": "Root cause: overlapping 5-day targets share 4/5 days with neighbors, causing XGBoost to learn the moving average (constant positive) instead of conditional variation. Non-overlapping targets (~426 training samples) provide independent observations.",
       "resume_from": "architect",
-      "research_needed": false
+      "research_needed": false,
+      "implementation_notes": [
+        "Option A: Subsample every 5th row from training data only (test remains overlapping for evaluation)",
+        "Option B: Use all rows for training but weight loss by inversely proportional to overlap count",
+        "Option A preferred for simplicity; 426 samples is still viable for XGBoost with 24 features (17.8:1 ratio)"
+      ]
     },
     {
       "priority": 2,
+      "type": "objective_function",
+      "description": "Add naive-aware DA scoring to Optuna objective: penalize models whose DA matches naive always-up",
+      "reason": "Current objective rewards any positive prediction because train set is 54% positive. Model converges to always-up which maximizes naive-biased DA + Sharpe. Objective must measure skill above naive, not raw DA.",
+      "resume_from": "architect",
+      "research_needed": false,
+      "implementation_notes": [
+        "Compute naive_da = fraction of positive val returns",
+        "da_component = max(0, (val_da - naive_da) * 100) / 15.0  (skill above naive, not raw DA)",
+        "Add penalty: if model_da == naive_da within 0.1pp, apply -0.1 to objective",
+        "Sharpe component should also measure excess over buy-and-hold, not raw"
+      ]
+    },
+    {
+      "priority": 3,
+      "type": "hyperparameter_space",
+      "description": "Widen regularization ranges to allow more model expressiveness for weekly targets",
+      "reason": "max_depth=2, min_child_weight=21 with strong lambda/alpha produces near-constant output on noisy weekly targets. Need wider range to explore more expressive models.",
+      "resume_from": "architect",
+      "research_needed": false,
+      "implementation_notes": [
+        "max_depth: [2, 6] (was [2, 4])",
+        "min_child_weight: [5, 25] (was [12, 25])",
+        "reg_lambda: [0.1, 15.0] (was [1.0, 15.0])",
+        "reg_alpha: [0.01, 10.0] (was [0.5, 10.0])",
+        "IMPORTANT: only widen if non-overlapping targets are used (otherwise risk overfitting)"
+      ]
+    },
+    {
+      "priority": 4,
       "type": "feature_engineering",
-      "description": "If single-column output still fails Gate 3, consider alternative feature engineering: (1) interaction term between SKEW z-score and GVZ regime, (2) time-lagged features to capture lead-lag between options sentiment and gold moves, (3) conditional features activated only during high-volatility regimes.",
-      "reason": "Backup plan if dimensionality reduction alone is insufficient.",
+      "description": "Center target by subtracting training mean to remove positive bias",
+      "reason": "Mean weekly return ~0.5% positive creates systematic bias toward positive predictions. Centering removes this, forcing model to learn deviations from mean.",
+      "resume_from": "architect",
+      "research_needed": false,
+      "implementation_notes": [
+        "y_train_centered = y_train - y_train.mean()",
+        "y_val_centered = y_val - y_train.mean()",
+        "Add back mean at prediction time for MAE/Sharpe evaluation",
+        "Direction accuracy unaffected by centering if model learns relative magnitudes"
+      ]
+    },
+    {
+      "priority": 5,
+      "type": "evaluation_method",
+      "description": "Use non-overlapping Sharpe (Approach B, sqrt(52)) as primary in Optuna objective",
+      "reason": "Approach A (daily returns, sqrt(252)) inflates Sharpe for always-long due to autocorrelated intra-week returns. Approach B on non-overlapping periods is more honest.",
       "resume_from": "architect",
       "research_needed": false
     }
-  ]
+  ],
+  "previous_feedback": {
+    "attempt": 1,
+    "gate1_passed": false,
+    "gate3_nominal_passed": "3/4",
+    "gate3_substantive_passed": "0/4",
+    "root_cause": "Model collapsed to trivial always-positive prediction due to overlapping targets + excessive regularization + biased objective function",
+    "key_evidence": [
+      "100% positive predictions, only 10 unique values out of 457 test samples",
+      "DA = naive always-up DA in all splits (0.00pp delta)",
+      "0 trades during entire test period",
+      "All top-5 Optuna trials have identical val_da = 53.07% = naive",
+      "Bootstrap confidence near 1.0 for all predictions (5 models are nearly identical)"
+    ]
+  }
 }
