@@ -12,10 +12,12 @@
     "feature": "temporal_context",
     "attempt": 1,
     "phase": "phase2_submodel",
+    "status": "completed",
     "architect_status": "completed",
     "builder_data_status": "completed",
     "builder_model_status": "fixed_parameter_extraction",
-    "resume_from": "kaggle_submission",
+    "evaluator_status": "gate3_pass_all_criteria",
+    "resume_from": null,
     "design_doc": "docs/design/temporal_context_transformer_1.md",
     "notebook_path": "notebooks/temporal_context_1/"
   },

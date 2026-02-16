@@ -1,0 +1,91 @@
+{
+  "feature": "temporal_context",
+  "attempt": 1,
+  "timestamp": "2026-02-16T23:30:00",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {"value": 1.2155, "passed": true},
+      "no_all_nan": {"value": [], "passed": true},
+      "no_zero_var": {"value": [], "passed": true},
+      "no_inf": {"value": 0, "passed": true},
+      "autocorr_temporal_context_score": {"value": 0.970034, "passed": true},
+      "hpo_coverage": {"value": 30, "passed": true}
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base": 0.262671,
+        "extended": 0.283807,
+        "increase": 0.080467,
+        "increase_pct": 8.05,
+        "passed": true
+      },
+      "vif": {
+        "max_submodel_vif": 2.9753,
+        "submodel_vifs": {"temporal_context_score": 2.9753},
+        "passed": true,
+        "note": "Overall max VIF is Inf due to collinear base features (e.g., gld_open/high/low/close). Submodel VIF is clean."
+      },
+      "stability": {
+        "stds": {"temporal_context_score": 0.128573},
+        "max_std": 0.128573,
+        "passed": true
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": 0.00584,
+        "passed": true,
+        "improved_folds": 3,
+        "note": "+0.58%, exceeds +0.5% threshold. Improved in 3/5 folds."
+      },
+      "sharpe": {
+        "delta": 0.1132,
+        "passed": true,
+        "improved_folds": 2,
+        "note": "+0.1132, exceeds +0.05 threshold. Improved in 2/5 folds (but Fold 4 contributes strongly)."
+      },
+      "mae": {
+        "delta": -0.158049,
+        "passed": true,
+        "improved_folds": 5,
+        "note": "-0.158, exceeds -0.01 threshold by 15.8x. Improved in ALL 5/5 folds. Strongest signal."
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.504739,
+      "mae": 1.328234,
+      "sharpe": 0.298513
+    },
+    "extended": {
+      "direction_accuracy": 0.510579,
+      "mae": 1.170184,
+      "sharpe": 0.411753
+    },
+    "fold_details": {
+      "fold_1": {"da_delta": 0.0025, "sharpe_delta": -0.2234, "mae_delta": -0.05329},
+      "fold_2": {"da_delta": -0.0123, "sharpe_delta": -0.2116, "mae_delta": -0.02858},
+      "fold_3": {"da_delta": -0.0098, "sharpe_delta": -0.4155, "mae_delta": -0.01628},
+      "fold_4": {"da_delta": 0.0367, "sharpe_delta": 1.1172, "mae_delta": -0.48119},
+      "fold_5": {"da_delta": 0.0122, "sharpe_delta": 0.2996, "mae_delta": -0.21091}
+    },
+    "feature_importance": {
+      "temporal_context_score": {
+        "rank": 10,
+        "total_features": 20,
+        "importance": 0.051739,
+        "importance_pct": 5.17
+      }
+    }
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "decision_rationale": "All 3 gates PASS. Gate 3 passes ALL three criteria: DA (+0.58%), Sharpe (+0.1132), MAE (-0.158, 15.8x threshold). MAE improves in 5/5 folds - the strongest consistency signal. This is the second submodel (after inflation_expectation) to pass all 3 gates. temporal_context_score ranks #10/20 in feature importance (5.17%), indicating meaningful but not dominant contribution."
+}
