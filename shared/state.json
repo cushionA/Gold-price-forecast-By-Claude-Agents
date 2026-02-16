@@ -14,7 +14,7 @@
     "phase": "phase2_submodel",
     "architect_status": "completed",
     "builder_data_status": "completed",
-    "builder_model_status": "fixed_optuna_dynamic_params",
+    "builder_model_status": "fixed_parameter_extraction",
     "resume_from": "kaggle_submission",
     "design_doc": "docs/design/temporal_context_transformer_1.md",
     "notebook_path": "notebooks/temporal_context_1/"
