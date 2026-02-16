@@ -1,0 +1,57 @@
+{
+  "feature": "temporal_context",
+  "attempt": 1,
+  "timestamp": "2026-02-16T13:03:25.539830",
+  "best_params": {
+    "window_size": 5,
+    "model_config": [
+      24,
+      2
+    ],
+    "n_layers": 2,
+    "ffn_ratio": 2,
+    "dropout": 0.1859949117832711,
+    "mask_ratio": 0.25781092999383726,
+    "learning_rate": 0.0029106784096168594,
+    "weight_decay": 0.0776777624335982,
+    "patience": 10
+  },
+  "metrics": {
+    "train_loss": 0.972819860234405,
+    "val_loss": 1.1824338535467784,
+    "overfit_ratio": 1.2154705118173872,
+    "epochs_trained": 15
+  },
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 1.1587079068024952,
+  "model_param_count": 11007,
+  "output_shape": [
+    2461,
+    2
+  ],
+  "output_columns": [
+    "date",
+    "temporal_context_score"
+  ],
+  "output_statistics": {
+    "mean": 0.2872069776058197,
+    "std": 0.363935649394989,
+    "min": 0.006609889212995768,
+    "max": 0.9999359846115112,
+    "median": 0.0761227160692215
+  },
+  "data_info": {
+    "train_samples": 1725,
+    "val_samples": 370,
+    "test_samples": 370,
+    "full_samples": 2465,
+    "window_size": 5,
+    "windowed_samples": 2461
+  },
+  "quality_checks": {
+    "nan_count": 0,
+    "inf_count": 0,
+    "is_constant": false,
+    "in_range_0_1": true
+  }
+}
