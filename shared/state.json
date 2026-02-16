@@ -37,7 +37,7 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-model-training-meta-model",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-8",
   "submitted_at": "2026-02-17T08:13:09.870232",
   "baseline_metrics": {
     "test_mae": 0.7139,
