@@ -1,5 +1,5 @@
 {
-  "status": "error",
+  "status": "waiting_training",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 7,
@@ -36,8 +36,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-model-training-meta-model",
-  "submitted_at": "2026-02-16T22:25:51.472927",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-7",
+  "submitted_at": "2026-02-16T22:41:10.627968",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -409,7 +409,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T22:26:01.936534",
+  "last_updated": "2026-02-16T22:41:10.638358",
   "current_submodel": null,
   "error_type": "unknown"
 }
