@@ -34,7 +34,7 @@
     "options_market"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-temporal-context-transformer-attempt-1",
-  "submitted_at": "2026-02-16T21:46:35.619706",
+  "submitted_at": "2026-02-16T22:00:22.458410",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -406,7 +406,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T21:46:35.620131",
+  "last_updated": "2026-02-16T22:00:22.458866",
   "current_submodel": "temporal_context",
   "error_type": "unknown"
 }
