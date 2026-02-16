@@ -1,5 +1,5 @@
 {
-  "status": "error",
+  "status": "waiting_training",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 6,
@@ -34,7 +34,7 @@
     "options_market"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-temporal-context-transformer-attempt-1",
-  "submitted_at": "2026-02-16T21:31:04.014387",
+  "submitted_at": "2026-02-16T21:36:35.553615",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -406,7 +406,7 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-16T21:31:13.977772",
+  "last_updated": "2026-02-16T21:36:35.553949",
   "current_submodel": "temporal_context",
   "error_type": "unknown"
 }
