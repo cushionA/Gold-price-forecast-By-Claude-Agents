@@ -1,14 +1,15 @@
 {
   "status": "in_progress",
-  "phase": "phase3_meta_model",
-  "current_feature": "meta_model",
-  "current_attempt": 9,
-  "resume_from": "orchestrator",
+  "phase": "phase2_submodel",
+  "current_feature": "real_rate",
+  "current_attempt": 6,
+  "resume_from": "researcher",
   "error_context": null,
-  "user_action_required": true,
+  "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "attempt_9_fail_trivial_predictor_no_further_improvement_recommended",
+  "evaluator_status": null,
+  "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -552,6 +553,6 @@
   },
   "kaggle_version": 10,
   "last_updated": "2026-02-17T14:00:00.000000",
-  "current_submodel": null,
+  "current_submodel": "real_rate",
   "error_type": null
 }

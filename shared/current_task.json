@@ -1,93 +1,130 @@
 {
-  "feature": "meta_model_weekly",
-  "attempt": 3,
-  "source": "evaluator",
-  "phase": "phase3_weekly_meta_model",
+  "feature": "real_rate",
+  "attempt": 6,
+  "source": "entrance",
+  "phase": "phase2_submodel",
 
-  "summary": "Weekly meta-model attempt 3. Attempt 2 fixed constant-output collapse but model's conditional variation does not generalize: DA -2.84pp below naive, negative predictions wrong 62%. Two fundamental problems: (1) 91 non-overlapping val samples too noisy for HPO, (2) regression objective does not optimize for direction. Need hybrid training strategy and classification/threshold approach.",
+  "summary": "Real rate submodel attempt 6. Complete strategy pivot: abandon multi-country monthly data, use US-only daily rate structure dynamics from 4 FRED series (DFII10, DGS10, DGS2, T10YIE). Extract 2-3 deterministic windowed-statistics columns capturing structural relationships between the 4 rate series that are NOT already in the meta-model's 24 features.",
 
-  "requirements": "Redesign weekly meta-model to address val-set noise and regression-to-direction mismatch. Three strategic options (architect to choose): (A) Hybrid overlapping training with multi-offset non-overlapping validation, (B) Binary classification (logistic) instead of regression, (C) Regression with adaptive decision threshold. Same 24 features. XGBoost architecture retained but objective may change.",
+  "requirements": "Build a deterministic (no ML) submodel that computes 2-3 daily features from the structural dynamics between DFII10, DGS10, DGS2, and T10YIE. These must capture information absent from the existing meta-model features (real_rate_change, yield_spread_change, yc_curvature_z, yc_spread_velocity_z, inflation_exp_change, ie_regime_prob, ie_anchoring_z, ie_gold_sensitivity_z). The output must be purely windowed statistics -- no ML training, no monthly data, no interpolation.",
 
-  "previous_feedback": {
-    "attempt_1_result": "FAIL -- 0/4 substantive. Trivial always-positive prediction. DA = naive.",
-    "attempt_2_result": "FAIL -- 0/4 substantive. Collapse fixed but variation is net-harmful.",
-    "attempt_2_detailed": {
-      "what_worked": [
-        "Non-overlapping training fixed constant output (std 0.005 -> 0.104)",
-        "Trade-activity gate produced 66 position changes (from 0)",
-        "Constant-output penalty prevented degenerate solutions",
-        "Optuna explored varied parameter space (top-5 DA: 53-59%)"
-      ],
-      "what_failed": [
-        "DA 63.24% is 2.84pp BELOW naive (66.08%) -- model WORSE than doing nothing",
-        "Negative predictions: 55 made, only 21 correct (38.2%). Need >50% to beat naive",
-        "Net contribution of negatives: -13 (21 correct - 34 false negatives)",
-        "HCDA 79.35% = naive on HC subset (bootstrap selects uptrend periods)",
-        "Sharpe A: 0.71 (below 0.80 target; dropped from 2.03 due to harmful trades)",
-        "Optuna best val skill +6.52pp did NOT generalize (final val skill -3.26pp)",
-        "91 non-overlapping val samples: DA standard error ~5pp, unreliable for HPO"
-      ],
-      "metrics": {
-        "test_da": 0.6324,
-        "test_hcda_bootstrap": 0.7935,
-        "test_mae": 2.125,
-        "test_sharpe_a": 0.7054,
-        "da_vs_naive_pp": -2.84,
-        "unique_predictions": 18,
-        "position_changes": 66,
-        "positive_pct": 87.96
-      }
+  "approach": "US Daily Rate Structure Dynamics",
+
+  "data_sources": {
+    "DFII10": "10Y TIPS real yield (daily, FRED)",
+    "DGS10": "10Y nominal yield (daily, FRED)",
+    "DGS2": "2Y nominal yield (daily, FRED)",
+    "T10YIE": "10Y breakeven inflation rate (daily, FRED)"
+  },
+
+  "candidate_output_columns": {
+    "description": "Researcher and architect must select 2-3 from the following candidates. Final selection based on VIF analysis and theoretical justification.",
+    "candidate_1_nominal_real_divergence": {
+      "concept": "When DGS10 and DFII10 move in opposite directions, it signals inflation-expectation-driven vs real-rate-driven market dynamics. This is a CROSS-DERIVATIVE that neither real_rate_change nor inflation_exp_change captures individually.",
+      "sketch": "sign(delta_DGS10) != sign(delta_DFII10) frequency over rolling window, or correlation between DGS10 and DFII10 changes over rolling window",
+      "why_new": "Existing features capture individual changes. This captures the DIVERGENCE pattern -- whether the nominal-real decomposition is stable or shifting. High divergence periods may coincide with inflation uncertainty, which gold reacts to."
+    },
+    "candidate_2_rate_coherence": {
+      "concept": "How synchronized all 4 series move together. When all 4 move in the same direction with similar magnitude, the bond market is macro-driven (single factor). When they diverge, idiosyncratic factors dominate.",
+      "sketch": "Average pairwise correlation of daily changes over rolling window, or first PCA eigenvalue ratio (explained variance of PC1)",
+      "why_new": "No existing feature measures cross-series coherence. Individual features track each series separately. Coherence is a 2nd-order structural property of the rate complex."
+    },
+    "candidate_3_rate_volatility_regime": {
+      "concept": "Bond market turbulence distinct from equity volatility (VIX). Realized volatility of DFII10 changes relative to its own long-term average.",
+      "sketch": "Rolling std of DFII10 daily changes, z-scored against expanding mean and std",
+      "why_new": "VIX captures equity vol. vix_persistence captures VIX momentum. But bond market vol is a distinct signal. Fed meeting days, Treasury auctions, and inflation data releases create rate vol spikes that do not appear in VIX."
+    },
+    "candidate_4_real_rate_momentum_persistence": {
+      "concept": "Whether current real rate trends tend to continue or mean-revert. Hurst exponent or autocorrelation of DFII10 daily changes over rolling window.",
+      "sketch": "Rolling autocorrelation of DFII10 changes (lag-1 to lag-5 average), or rolling Hurst exponent",
+      "why_new": "real_rate_change is a point estimate. This captures the PERSISTENCE property -- trending vs mean-reverting regimes. Similar concept to vix_persistence but for the rate market, which has fundamentally different dynamics."
     }
   },
 
-  "required_changes": {
-    "priority_1_hpo_validation_fix": {
-      "description": "Fix the core HPO reliability problem: 91 non-overlapping val samples are too noisy",
-      "options": [
-        "Option A (recommended): Train on overlapping 2129 samples. HPO uses average DA skill across 5 non-overlapping val offsets (offset 0,1,2,3,4 from val set, each ~91 samples). This gives 5 independent estimates per trial, reducing noise by sqrt(5).",
-        "Option B: Time-series cross-validation on non-overlapping train data (3-fold TSCV on 425 samples). More robust but very few samples per fold (~142 train, ~142 val).",
-        "Option C: Train on non-overlapping 425, validate on OVERLAPPING 456 val samples. Overlapping val introduces autocorrelation in metrics but has lower variance."
-      ],
-      "key_constraint": "Whatever approach, the final evaluation on test must compare DA against naive on the same test set. Non-overlapping test metrics as secondary."
-    },
-    "priority_2_classification_or_threshold": {
-      "description": "Address regression-to-direction evaluation mismatch",
-      "options": [
-        "Option A: binary:logistic with y = (return > 0). Directly optimizes for direction accuracy. Lose magnitude information but magnitude prediction is hopeless anyway (MAE 2.12% vs zero-pred 2.15%).",
-        "Option B: Regression (reg:squarederror) with adaptive threshold. Instead of sign(pred), use sign(pred - threshold) where threshold = val_mean_pred. This turns below-average predictions into short signals.",
-        "Option C: Custom asymmetric loss that penalizes wrong-sign predictions 3x more than same-sign magnitude errors."
-      ],
-      "recommended": "Option A (classification) is cleanest. The weekly model's value proposition is direction, not magnitude. Classification removes an entire failure mode."
-    },
-    "priority_3_sharpe_strategy": {
-      "description": "If model cannot beat naive on direction, consider a 'selective trading' strategy",
-      "rationale": "Instead of always taking a position based on sign(pred), only deviate from buy-and-hold when model confidence exceeds a threshold. Default = long (buy-and-hold). Go short/flat only when model is highly confident about a decline. This preserves the buy-and-hold Sharpe and only adds trades that the model is confident about.",
-      "implementation": "position = 1 (default long). If pred < threshold_short: position = -1. If pred < threshold_flat: position = 0. Thresholds calibrated on val set."
-    },
-    "priority_4_mae_decision": {
-      "description": "Decide whether to retain 1.70% MAE target for weekly model",
-      "context": "Zero-prediction MAE = 2.15%. Median |weekly return| = 1.77%. Target requires explaining 21% of weekly variance. Daily model explains ~12% of daily variance. Weekly target is likely infeasible.",
-      "recommendation": "Either (1) drop MAE from weekly targets (focus on direction and Sharpe), or (2) revise to 2.0%, or (3) use relative metric MAE/zero-pred-MAE < 0.85."
-    }
+  "existing_meta_model_features_to_avoid_duplicating": {
+    "base_features": [
+      "real_rate_change (DFII10 daily change)",
+      "dxy_change (DXY daily change)",
+      "vix (VIX level)",
+      "yield_spread_change (DGS10-DGS2 daily change)",
+      "inflation_exp_change (T10YIE daily change)"
+    ],
+    "yield_curve_submodel": [
+      "yc_spread_velocity_z (spread change velocity z-score)",
+      "yc_curvature_z (yield curve curvature z-score)"
+    ],
+    "inflation_expectation_submodel": [
+      "ie_regime_prob (HMM regime on IE dynamics)",
+      "ie_anchoring_z (anchoring z-score)",
+      "ie_gold_sensitivity_z (gold-IE sensitivity)"
+    ],
+    "vix_submodel": [
+      "vix_regime_probability, vix_mean_reversion_z, vix_persistence"
+    ]
   },
 
-  "constraints": [
-    "Same 24 features (5 base + 19 submodel outputs)",
-    "XGBoost architecture (objective may change to binary:logistic)",
-    "Same Kaggle dataset (bigbigzabuton/gold-prediction-submodels)",
-    "Same data split boundaries (70/15/15 time-series)",
-    "Bootstrap ensemble retained for HCDA computation",
-    "Test set remains overlapping 457 samples for comparability",
-    "Must demonstrate DA > naive on test (not just nominal > 56%)",
-    "Attempt budget: this is attempt 3 of 5 maximum"
+  "research_questions": [
+    "What is the optimal rolling window size for measuring nominal-real divergence? Does 20-day (1 month) or 60-day (1 quarter) capture more meaningful regime shifts? What does academic literature say about the half-life of inflation expectation shocks?",
+    "Is the first principal component eigenvalue ratio of {DFII10, DGS10, DGS2, T10YIE} daily changes a valid measure of rate market coherence? Are there better alternatives (e.g., RV-weighted average pairwise correlation)?",
+    "Does realized volatility of DFII10 carry predictive information for gold beyond what VIX already provides? Specifically, are there periods where bond vol spikes WITHOUT equity vol spikes, and do these periods correlate with gold movements?",
+    "What is the empirical autocorrelation structure of DFII10 daily changes? Is there evidence of momentum or mean-reversion at daily frequency? Does the Hurst exponent of real rate changes vary over time in a meaningful way?",
+    "Which 2 of the 4 candidate features are most likely to pass VIF < 10 against the existing 24 meta-model features? Nominal-real divergence may correlate with ie_anchoring_z. Rate coherence may correlate with yc_curvature_z. Identify the 2-3 least correlated candidates.",
+    "What z-scoring method is most appropriate for these features to ensure stationarity? Expanding-window z-score vs fixed-window z-score vs rolling-window z-score? What prevents look-ahead bias in each approach?"
   ],
 
-  "success_criteria": {
-    "minimum": "DA > naive + 0.5pp on test. At least 10 trades. Negative predictions >50% correct.",
-    "target": "3/4 weekly targets (DA>56%, HCDA>60%, MAE or revised, Sharpe>0.80) with substantive skill above naive",
-    "stretch": "DA > naive + 2pp. Consistent quarterly skill (positive in >50% of quarters)."
+  "constraints": [
+    "Use ONLY daily-frequency data from FRED (DFII10, DGS10, DGS2, T10YIE). NO monthly data, NO multi-country data.",
+    "Output exactly 2-3 columns. NOT more. Attempt 5 used 7 columns and gave XGBoost the most noise to overfit on.",
+    "Purely deterministic computation (rolling statistics). No ML model training needed. This avoids Gate 1 overfit issues from attempts 1-2.",
+    "No forward-fill of monthly data. No spline interpolation. No synthetic daily values. All values computed directly from daily inputs.",
+    "Must pass VIF < 10 against ALL existing 24 meta-model features. Particular risk: correlation with yc_curvature_z, ie_anchoring_z, yc_spread_velocity_z.",
+    "5-day data delay rule: all FRED series used (DFII10, DGS10, DGS2, T10YIE) are published with 1-day lag. Safe.",
+    "Submodel does NOT predict gold prices. It describes structural dynamics of the rate complex.",
+    "Rolling windows must use ONLY past data (no centered windows). Causal computation only.",
+    "All outputs must be z-scored or normalized to prevent scale-dependent artifacts in XGBoost."
+  ],
+
+  "anti_patterns_from_previous_attempts": {
+    "attempt_1_lesson": "US-only MLP overfitted (ratio 2.69). Avoid any ML model with trainable parameters for this feature -- deterministic approach is correct.",
+    "attempt_2_lesson": "GRU failed to converge on rate data. Neural networks are overkill for rate dynamics extraction.",
+    "attempt_3_lesson": "Multi-country monthly Transformer passed Gate 2 (MI +23.8%) but forward-fill step function degraded MAE. Monthly-to-daily bridge is the core problem.",
+    "attempt_4_lesson": "PCA + cubic spline interpolation also failed. Interpolated daily values are synthetic noise, not real information.",
+    "attempt_5_lesson": "Markov Regime + CUSUM had highest MI (+39.3%) but worst Gate 3 degradation (DA -2.53%). MORE columns = MORE noise for XGBoost to overfit on. Keep output dimensionality minimal (2-3 columns max).",
+    "cross_attempt_lesson": "MI increase is a necessary but NOT sufficient condition. All 5 attempts passed Gate 2 MI threshold but none passed Gate 3. The information must be in a form that XGBoost can USE without overfitting."
   },
 
-  "created_at": "2026-02-17T15:00:00",
-  "created_by": "evaluator"
+  "what_is_new_vs_attempts_1_to_5": [
+    "Daily-only data: no monthly data, no interpolation, no frequency mismatch problem",
+    "Structural relationships between 4 rate series, not just single-series dynamics",
+    "Deterministic computation: no ML model, no overfit risk, no convergence issues",
+    "Minimal output: 2-3 columns vs 2-7 in previous attempts",
+    "Focus on 2nd-order properties (divergence, coherence, persistence) not 1st-order (level, change)"
+  ],
+
+  "success_hypothesis": "By extracting 2-3 structural dynamics features from daily rate data -- measuring cross-series divergence, coherence, or persistence -- we provide the meta-model with 2nd-order rate complex information that complements existing 1st-order features. Expected: Gate 2 MI +5-15% (moderate, not extreme), Gate 3 DA +0.5% or MAE -0.01% (any one criterion).",
+
+  "output_specification": {
+    "format": "CSV with date column + 2-3 feature columns",
+    "naming_convention": "rr_{concept}_z (e.g., rr_divergence_z, rr_coherence_z, rr_bond_vol_z)",
+    "value_range": "z-scored (mean ~0, std ~1) via expanding-window normalization",
+    "expected_rows": "~2500 (matching base_features date range 2015-01-30 to 2025-02-12)",
+    "nan_handling": "First ~60 rows may be NaN due to rolling window warmup. These will be imputed with 0 (z-score neutral) in meta-model."
+  },
+
+  "previous_feedback": {
+    "attempts_1_to_5_summary": "All 5 attempts used multi-country monthly data or US-only ML models. Gate 2 consistently passed (MI +10-39%) but Gate 3 consistently failed. Root cause: monthly-to-daily frequency mismatch for multi-country approaches, and overfit/convergence for ML approaches.",
+    "attempt_5_detail": "Markov Regime + CUSUM: MI +39.3% (highest ever) but DA -2.53% (worst ever). 7 output columns ranked 12th-26th in feature importance. XGBoost assigned minimal importance, confirming noise.",
+    "evaluator_declaration": "no_further_improvement declared after attempt 5. Attempt 6 reopens with fundamentally different strategy (daily-only, deterministic, structural dynamics)."
+  },
+
+  "meta_model_context": {
+    "current_best": "Attempt 7: DA 60.04%, HCDA 64.13%, Sharpe 2.46, MAE 0.94%",
+    "targets_passed": "3/4 (DA, HCDA, Sharpe). MAE structurally infeasible.",
+    "n_features": 24,
+    "top_3_features": ["yc_curvature_z (8.68%)", "xasset_recession_signal (7.80%)", "temporal_context_score (5.78%)"],
+    "real_rate_change_importance": "Base feature real_rate_change is already in the meta-model but its importance rank is not in top 3. A good real_rate submodel could elevate rate-related information."
+  },
+
+  "created_at": "2026-02-17T20:00:00",
+  "created_by": "entrance"
 }
