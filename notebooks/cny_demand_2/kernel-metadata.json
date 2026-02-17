@@ -1,6 +1,6 @@
 {
-  "id": "bigbigzabuton/gold-model-training",
-  "title": "Gold Model Training",
+  "id": "bigbigzabuton/gold-cny-demand-attempt-2",
+  "title": "Gold CNY Demand SubModel Attempt 2",
   "code_file": "train.ipynb",
   "language": "python",
   "kernel_type": "notebook",

@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel",
-  "current_feature": "real_rate",
-  "current_attempt": 6,
-  "resume_from": null,
+  "current_feature": "cny_demand",
+  "current_attempt": 2,
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -38,8 +38,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-real-rate-model-attempt-6",
-  "submitted_at": "2026-02-17T20:53:51.304210",
+  "kaggle_kernel": "bigbigzabuton/gold-cny-demand-attempt-2",
+  "submitted_at": "2026-02-17T22:15:58.690568",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -573,6 +573,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T20:56:06.058719",
+  "last_updated": "2026-02-17T22:15:58.690581",
   "error_type": "unknown"
 }
