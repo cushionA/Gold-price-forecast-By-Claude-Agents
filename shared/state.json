@@ -549,7 +549,32 @@
         "DA_58.52%_still_above_56%_target",
         "Sharpe_2.00_still_above_0.80_target"
       ],
-      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor — genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
+      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor \u2014 genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
+    },
+    "attempt_11": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5568,
+      "test_hcda": 0.5978,
+      "test_mae": 0.9497,
+      "test_sharpe": 1.52,
+      "train_test_da_gap_pp": 9.31,
+      "targets_passed": "1/4",
+      "primary_failures": [
+        "DA_55.68%_misses_56%_target_by_0.32pp",
+        "HCDA_59.78%_misses_60%_target_by_0.22pp",
+        "MAE_0.9497%_above_0.75%_target",
+        "all_metrics_regressed_from_attempt_7",
+        "DA_regressed_-4.36pp_from_attempt_7",
+        "HCDA_regressed_-4.35pp_from_attempt_7",
+        "Sharpe_regressed_-0.94_from_attempt_7"
+      ],
+      "primary_successes": [
+        "Sharpe_1.52_above_0.80_target",
+        "dxy_regime_prob_ranked_9_of_27",
+        "100_optuna_trials_completed",
+        "no_prediction_collapse"
+      ],
+      "note": "Added 3 DXY HMM features (27 total). All metrics regressed from attempt 7. DA dropped 4.36pp below target. HCDA dropped 4.35pp below target. Same pattern as attempts 8-10: additional features introduce noise that degrades the model. Attempt 7 (24 features) confirmed as final meta-model. 4 consecutive attempts (8,9,10,11) all regressed."
     }
   },
   "final_result": {
@@ -560,7 +585,8 @@
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
       "attempt_10": "+cny_demand_spread_z (25 features) -- regressed on all metrics (DA -1.52pp, HCDA -5.43pp, Sharpe -0.47)",
-      "conclusion": "Attempt 7 confirmed as final meta-model. 3 consecutive attempts (8,9,10) all regressed."
+      "conclusion": "Attempt 7 confirmed as final meta-model. 4 consecutive attempts (8,9,10,11) all regressed.",
+      "attempt_11": "+3 DXY features (27 total) -- regressed on all metrics (DA -4.36pp, HCDA -4.35pp, Sharpe -0.94)"
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
@@ -639,6 +665,6 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-18T00:27:04.442214",
+  "last_updated": "2026-02-18T00:31:28.756676",
   "error_type": ""
 }
