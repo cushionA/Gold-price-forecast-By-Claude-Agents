@@ -1,14 +1,14 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel",
   "current_feature": "cny_demand",
   "current_attempt": 2,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "gate3_fail_no_further_improvement",
+  "evaluator_status": "gate3_pass_da_and_sharpe",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -290,6 +290,26 @@
           "gate3_sharpe_delta=-0.593_worst_of_any_passing"
         ],
         "note": "Weakest Gate 3 pass. Gate 3 PASS via MAE (-0.0658, 6.6x threshold)."
+      },
+      "attempt_2": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_da_delta=+1.53%_5_of_5_folds",
+          "gate3_sharpe_delta=+0.217_5_of_5_folds",
+          "reverses_attempt_1_da_degradation",
+          "reverses_attempt_1_sharpe_degradation",
+          "VIF_1.14_excellent_orthogonality",
+          "stability_0.134_below_0.15"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=-0.13%_below_5%",
+          "gate3_mae_delta=-0.0008_below_0.01_threshold",
+          "low_feature_importance_rank_22.4_of_25"
+        ],
+        "note": "Dramatic improvement over attempt 1. Deterministic CNY-CNH spread z-score. Gate 3 PASS via DA (+1.53pp, 3.1x threshold, 5/5 folds) and Sharpe (+0.217, 4.3x threshold, 5/5 folds). Reverses attempt 1's DA degradation (-2.06%) and Sharpe degradation (-0.593). Should replace attempt 1 output in Kaggle dataset."
       }
     },
     "options_market": {
@@ -573,6 +593,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T22:15:58.690581",
+  "last_updated": "2026-02-17T22:30:00.000000",
   "error_type": "unknown"
 }
