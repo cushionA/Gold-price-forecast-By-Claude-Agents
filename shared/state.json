@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel",
   "current_feature": "dxy",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -526,7 +526,7 @@
         "DA_58.52%_still_above_56%_target",
         "Sharpe_2.00_still_above_0.80_target"
       ],
-      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor \u2014 genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
+      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor — genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
     }
   },
   "final_result": {
@@ -616,6 +616,6 @@
     }
   },
   "kaggle_version": 2,
-  "last_updated": "2026-02-17T23:53:07.083015",
-  "error_type": ""
+  "last_updated": "2026-02-17T23:53:33.959240",
+  "error_type": "unknown"
 }
