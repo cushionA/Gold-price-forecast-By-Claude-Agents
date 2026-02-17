@@ -3,11 +3,11 @@
   "phase": "phase2_submodel",
   "current_feature": "real_rate",
   "current_attempt": 6,
-  "resume_from": "builder_model",
+  "resume_from": "orchestrator",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",
-  "builder_model_status": null,
+  "builder_model_status": "notebook_generated",
   "evaluator_status": null,
   "current_submodel": "real_rate",
   "parallel_submodel": {
