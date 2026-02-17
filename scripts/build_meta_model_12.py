@@ -111,6 +111,7 @@ print("FETCHING DATA FROM APIs")
 print("="*60)
 
 import yfinance as yf
+import os, glob
 
 try:
     from fredapi import Fred
@@ -119,10 +120,41 @@ except ImportError:
     subprocess.run(["pip", "install", "fredapi"], check=True)
     from fredapi import Fred
 
-import os
 FRED_API_KEY = os.environ.get('FRED_API_KEY', '3ffb68facdf6321e180e380c00e909c8')
 fred = Fred(api_key=FRED_API_KEY)
 print("FRED API initialized")
+
+# === Discover dataset mount path (handles API v2 path variations) ===
+CANDIDATE_PATHS = [
+    '../input/gold-prediction-submodels/',
+    '/kaggle/input/gold-prediction-submodels/',
+    '/kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/',
+    '../input/datasets/bigbigzabuton/gold-prediction-submodels/',
+]
+
+DATASET_BASE = None
+for cp in CANDIDATE_PATHS:
+    test_file = os.path.join(cp, 'vix.csv')
+    if os.path.exists(test_file):
+        DATASET_BASE = cp
+        print(f"Dataset found at: {DATASET_BASE}")
+        break
+
+if DATASET_BASE is None:
+    # Try to find by glob
+    found = glob.glob('/kaggle/input/**/vix.csv', recursive=True)
+    if found:
+        DATASET_BASE = os.path.dirname(found[0]) + '/'
+        print(f"Dataset found via glob: {DATASET_BASE}")
+    else:
+        # List available inputs for debugging
+        print("ERROR: Dataset not found!")
+        print("Available paths under /kaggle/input/:")
+        for root, dirs, files in os.walk('/kaggle/input/', topdown=True):
+            level = root.replace('/kaggle/input/', '').count(os.sep)
+            if level < 3:
+                print(f"  {root}: {files[:5]}")
+        raise FileNotFoundError("Cannot find gold-prediction-submodels dataset")
 
 print("\\nFetching gold price (GC=F)...")
 gold = yf.download('GC=F', start='2014-01-01', end='2026-02-20', progress=False)
@@ -174,42 +206,42 @@ print("\\nLoading submodel outputs from Kaggle Dataset...")
 
 submodel_files = {
     'vix': {
-        'path': '../input/gold-prediction-submodels/vix.csv',
+        'path': DATASET_BASE + 'vix.csv',
         'columns': ['vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence'],
         'date_col': 'date', 'tz_aware': False,
     },
     'technical': {
-        'path': '../input/gold-prediction-submodels/technical.csv',
+        'path': DATASET_BASE + 'technical.csv',
         'columns': ['tech_trend_regime_prob', 'tech_mean_reversion_z', 'tech_volatility_regime'],
         'date_col': 'date', 'tz_aware': True,
     },
     'cross_asset': {
-        'path': '../input/gold-prediction-submodels/cross_asset.csv',
+        'path': DATASET_BASE + 'cross_asset.csv',
         'columns': ['xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence'],
         'date_col': 'Date', 'tz_aware': False,
     },
     'yield_curve': {
-        'path': '../input/gold-prediction-submodels/yield_curve.csv',
+        'path': DATASET_BASE + 'yield_curve.csv',
         'columns': ['yc_spread_velocity_z', 'yc_curvature_z'],
         'date_col': 'index', 'tz_aware': False,
     },
     'etf_flow': {
-        'path': '../input/gold-prediction-submodels/etf_flow.csv',
+        'path': DATASET_BASE + 'etf_flow.csv',
         'columns': ['etf_regime_prob', 'etf_capital_intensity', 'etf_pv_divergence'],
         'date_col': 'Date', 'tz_aware': False,
     },
     'inflation_expectation': {
-        'path': '../input/gold-prediction-submodels/inflation_expectation.csv',
+        'path': DATASET_BASE + 'inflation_expectation.csv',
         'columns': ['ie_regime_prob', 'ie_anchoring_z', 'ie_gold_sensitivity_z'],
         'date_col': 'Unnamed: 0', 'tz_aware': False,
     },
     'options_market': {
-        'path': '../input/gold-prediction-submodels/options_market.csv',
+        'path': DATASET_BASE + 'options_market.csv',
         'columns': ['options_risk_regime_prob'],
         'date_col': 'Date', 'tz_aware': True,
     },
     'temporal_context': {
-        'path': '../input/gold-prediction-submodels/temporal_context.csv',
+        'path': DATASET_BASE + 'temporal_context.csv',
         'columns': ['temporal_context_score'],
         'date_col': 'date', 'tz_aware': False,
     },
