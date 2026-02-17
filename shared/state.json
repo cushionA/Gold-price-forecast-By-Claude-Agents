@@ -575,18 +575,45 @@
         "no_prediction_collapse"
       ],
       "note": "Added 3 DXY HMM features (27 total). All metrics regressed from attempt 7. DA dropped 4.36pp below target. HCDA dropped 4.35pp below target. Same pattern as attempts 8-10: additional features introduce noise that degrades the model. Attempt 7 (24 features) confirmed as final meta-model. 4 consecutive attempts (8,9,10,11) all regressed."
+    },
+    "attempt_12": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5546,
+      "test_hcda": 0.5978,
+      "test_mae": 0.9532,
+      "test_sharpe": 1.134,
+      "train_test_da_gap_pp": 6.13,
+      "targets_passed": "1/4",
+      "primary_failures": [
+        "DA_55.46%_misses_56%_target_by_0.54pp",
+        "HCDA_59.78%_misses_60%_target_by_0.22pp",
+        "MAE_0.9532%_above_0.75%_target",
+        "all_metrics_regressed_from_attempt_7",
+        "DA_regressed_-4.58pp_from_attempt_7",
+        "HCDA_regressed_-4.35pp_from_attempt_7",
+        "Sharpe_regressed_-1.33_from_attempt_7",
+        "positive_pct_50.4%_lost_directional_bias"
+      ],
+      "primary_successes": [
+        "Sharpe_1.13_above_0.80_target",
+        "100_optuna_trials_completed",
+        "no_prediction_collapse",
+        "higher_samples_per_feature_118:1"
+      ],
+      "note": "Feature pruning experiment: 24->18 features (removed bottom 6 by gain-weighted importance, 4.91% total). Optuna found max_depth=4 (vs attempt 7's 2), compensating for fewer features with deeper trees. All metrics regressed. Positive prediction pct dropped from 87.3% to 50.4%, losing directional bias. 5 consecutive attempts (8-12) all regressed from attempt 7. Pruning hypothesis REJECTED: low-importance features were contributing useful regularization through feature competition."
     }
   },
   "final_result": {
     "status": "completed_attempt_7_confirmed_final",
     "best_attempt_overall": 7,
-    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8 and 9 both regressed (trivial predictor). No further improvement possible.",
+    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8-12 all regressed. No further improvement possible.",
     "improvement_attempts_summary": {
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
       "attempt_10": "+cny_demand_spread_z (25 features) -- regressed on all metrics (DA -1.52pp, HCDA -5.43pp, Sharpe -0.47)",
-      "conclusion": "Attempt 7 confirmed as final meta-model. 4 consecutive attempts (8,9,10,11) all regressed.",
-      "attempt_11": "+3 DXY features (27 total) -- regressed on all metrics (DA -4.36pp, HCDA -4.35pp, Sharpe -0.94)"
+      "attempt_11": "+3 DXY features (27 total) -- regressed on all metrics (DA -4.36pp, HCDA -4.35pp, Sharpe -0.94)",
+      "attempt_12": "Feature pruning 24->18 -- regressed on all metrics (DA -4.58pp, HCDA -4.35pp, Sharpe -1.33)",
+      "conclusion": "Attempt 7 confirmed as final meta-model. 5 consecutive attempts (8-12) all regressed."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
