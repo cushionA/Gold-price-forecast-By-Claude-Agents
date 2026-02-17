@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel",
   "current_feature": "real_rate",
   "current_attempt": 6,
-  "resume_from": "orchestrator",
+  "resume_from": "evaluator",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",
