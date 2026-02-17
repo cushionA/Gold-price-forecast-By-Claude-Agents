@@ -3,12 +3,12 @@
   "phase": "phase2_submodel",
   "current_feature": "real_rate",
   "current_attempt": 6,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "notebook_generated",
-  "evaluator_status": null,
+  "evaluator_status": "gate3_fail_no_further_improvement",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -126,6 +126,27 @@
           "stability_0.132"
         ],
         "note": "Markov Regime + CUSUM State Features. Highest MI (+39.3%) but worst Gate 3 degradation. 7 state features gave XGBoost more noise to overfit on. 5 attempts exhausted. Proceeding to dxy."
+      },
+      "attempt_6": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": false,
+        "decision": "no_further_improvement",
+        "primary_failures": [
+          "gate2_mi_increase=1.95pct_below_5pct",
+          "gate3_da_delta=-0.574pct",
+          "gate3_sharpe_delta=-0.249",
+          "gate3_mae_delta=-0.00074_below_0.01_threshold"
+        ],
+        "primary_successes": [
+          "gate1_all_pass",
+          "autocorr_bond_vol_0.899_below_0.95",
+          "autocorr_momentum_0.769_below_0.95",
+          "VIF_max_1.18",
+          "cross_correlation_0.065_nearly_orthogonal",
+          "stability_0.139_below_0.15"
+        ],
+        "note": "Deterministic bond vol regime + momentum persistence. US-only daily DFII10 data. Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). 6 consecutive Gate 3 failures across fundamentally different approaches. Information in DFII10 derivatives beyond raw daily change is redundant with existing submodel features. No_further_improvement permanent."
       }
     },
     "vix": {

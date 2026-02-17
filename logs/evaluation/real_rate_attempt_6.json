@@ -1,0 +1,254 @@
+{
+  "feature": "real_rate",
+  "attempt": 6,
+  "timestamp": "2026-02-17T21:01:29.244558",
+  "method": "deterministic_bond_vol_momentum_zscore",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {
+        "value": "N/A (deterministic)",
+        "passed": true,
+        "detail": "No ML model, no trainable parameters. Overfit ratio not applicable."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true
+      },
+      "std_rr_bond_vol_z": {
+        "value": 1.1672935868656606,
+        "passed": true
+      },
+      "std_rr_momentum_z": {
+        "value": 1.2112177586866941,
+        "passed": true
+      },
+      "autocorr_rr_bond_vol_z": {
+        "value": 0.8989289934531743,
+        "passed_0.95": true,
+        "passed_0.99": true,
+        "passed": true
+      },
+      "autocorr_rr_momentum_z": {
+        "value": 0.7694776537543877,
+        "passed_0.95": true,
+        "passed_0.99": true,
+        "passed": true
+      },
+      "no_nan": {
+        "value": 0,
+        "passed": true
+      },
+      "row_count": {
+        "expected": 2523,
+        "actual": 2523,
+        "passed": true
+      },
+      "hpo_coverage": {
+        "trials": 36,
+        "total_combinations": 36,
+        "passed": true,
+        "detail": "Exhaustive search: 36/36 combinations evaluated"
+      },
+      "look_ahead": {
+        "value": "shift(1) used in z-score computation",
+        "passed": true,
+        "detail": "Design doc confirms shift(1) prevents look-ahead bias. Verified in notebook."
+      }
+    }
+  },
+  "gate2": {
+    "passed": false,
+    "checks": {
+      "mi": {
+        "base_sum": 0.3095358631861336,
+        "extended_sum": 0.3155649800216924,
+        "increase_pct": 1.947792663361129,
+        "threshold_pct": 5.0,
+        "passed": false
+      },
+      "vif": {
+        "new_features_vif": {
+          "rr_bond_vol_z": 1.1762785114854466,
+          "rr_momentum_z": 1.0275324277229965
+        },
+        "max_vif_new": 1.1762785114854466,
+        "max_vif_all": 10.056773134054186,
+        "threshold": 10.0,
+        "passed": true
+      },
+      "stability": {
+        "per_feature_std": {
+          "rr_bond_vol_z": 0.12334312750116085,
+          "rr_momentum_z": 0.13931970060402757
+        },
+        "max_std": 0.13931970060402757,
+        "threshold": 0.15,
+        "passed": true
+      }
+    }
+  },
+  "gate3": {
+    "passed": false,
+    "checks": {
+      "direction": {
+        "delta": -0.005742977085302137,
+        "threshold": 0.005,
+        "passed": false
+      },
+      "sharpe": {
+        "delta": -0.24878974890782024,
+        "threshold": 0.05,
+        "passed": false
+      },
+      "mae": {
+        "delta": -0.0007439577303349765,
+        "threshold": -0.01,
+        "passed": false
+      }
+    },
+    "baseline_avg": {
+      "direction_accuracy": 0.5460920649400427,
+      "mae": 0.6489698577115861,
+      "sharpe": 1.2430725839933023
+    },
+    "extended_avg": {
+      "direction_accuracy": 0.5403490878547406,
+      "mae": 0.6482258999812511,
+      "sharpe": 0.9942828350854821
+    },
+    "baseline_std": {
+      "direction_accuracy": 0.029073688506302032,
+      "mae": 0.11704926150385167,
+      "sharpe": 0.8086340920614776
+    },
+    "extended_std": {
+      "direction_accuracy": 0.02997975678332131,
+      "mae": 0.11566702759999636,
+      "sharpe": 0.989453954996239
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "baseline": {
+          "direction_accuracy": 0.5023923444976076,
+          "mae": 0.5277710157932785,
+          "sharpe": -0.21187455233883926
+        },
+        "extended": {
+          "direction_accuracy": 0.5287081339712919,
+          "mae": 0.5302652761701565,
+          "sharpe": -0.06395391602525498
+        },
+        "delta": {
+          "direction_accuracy": 0.026315789473684292,
+          "sharpe": 0.14792063631358426,
+          "mae": 0.0024942603768780547
+        }
+      },
+      {
+        "fold": 2,
+        "baseline": {
+          "direction_accuracy": 0.5216346153846154,
+          "mae": 0.5132520355314022,
+          "sharpe": 0.9655768017429567
+        },
+        "extended": {
+          "direction_accuracy": 0.4951923076923077,
+          "mae": 0.5132484125819897,
+          "sharpe": -0.1420684146966199
+        },
+        "delta": {
+          "direction_accuracy": -0.02644230769230771,
+          "sharpe": -1.1076452164395767,
+          "mae": -3.622949412473986e-06
+        }
+      },
+      {
+        "fold": 3,
+        "baseline": {
+          "direction_accuracy": 0.5717703349282297,
+          "mae": 0.8246491449790374,
+          "sharpe": 1.9781764748938724
+        },
+        "extended": {
+          "direction_accuracy": 0.5813397129186603,
+          "mae": 0.8234453429306633,
+          "sharpe": 2.379215154924935
+        },
+        "delta": {
+          "direction_accuracy": 0.009569377990430561,
+          "sharpe": 0.4010386800310626,
+          "mae": -0.001203802048374114
+        }
+      },
+      {
+        "fold": 4,
+        "baseline": {
+          "direction_accuracy": 0.5584725536992841,
+          "mae": 0.7143997722286153,
+          "sharpe": 1.879310439117253
+        },
+        "extended": {
+          "direction_accuracy": 0.5322195704057279,
+          "mae": 0.7098747778647431,
+          "sharpe": 1.0540543254758208
+        },
+        "delta": {
+          "direction_accuracy": -0.026252983293556187,
+          "sharpe": -0.8252561136414323,
+          "mae": -0.0045249943638722145
+        }
+      },
+      {
+        "fold": 5,
+        "baseline": {
+          "direction_accuracy": 0.5761904761904761,
+          "mae": 0.6647773200255975,
+          "sharpe": 1.604173756551269
+        },
+        "extended": {
+          "direction_accuracy": 0.5642857142857143,
+          "mae": 0.6642956903587028,
+          "sharpe": 1.744167025748529
+        },
+        "delta": {
+          "direction_accuracy": -0.011904761904761862,
+          "sharpe": 0.13999326919726007,
+          "mae": -0.00048162966689468956
+        }
+      }
+    ],
+    "folds_improved": {
+      "direction_accuracy": 2,
+      "sharpe": 3,
+      "mae": 4
+    }
+  },
+  "overall_passed": false,
+  "final_gate_reached": 3,
+  "decision": "no_further_improvement",
+  "decision_detail": "Gate 3 FAIL on attempt 6. After 5 previous failures (all Gate 3), plus this 6th attempt with a fundamentally different approach, declare no_further_improvement permanently. Real rate dynamics are adequately captured by base features.",
+  "training_result_summary": {
+    "best_params": {
+      "vol_window": 10,
+      "vol_zscore_window": 60,
+      "autocorr_window": 10,
+      "autocorr_zscore_window": 30
+    },
+    "validation_mi_sum": 1.2045741775718872,
+    "autocorrelation": {
+      "rr_bond_vol_z": 0.8989289934531742,
+      "rr_momentum_z": 0.7694776537543878
+    },
+    "cross_correlation": 0.06465251613069792,
+    "output_shape": [
+      2523,
+      2
+    ]
+  }
+}

@@ -1,14 +1,18 @@
 {
   "real_rate": {
     "status": "no_further_improvement",
-    "final_attempt": 5,
+    "final_attempt": 6,
     "final_gate_reached": 3,
-    "gate3_scores": null,
+    "gate3_scores": {
+      "direction_accuracy_delta": -0.00574,
+      "sharpe_delta": -0.249,
+      "mae_delta": -0.00074
+    },
     "output_columns": [],
     "output_path": null,
     "model_path": null,
-    "completed_at": "2026-02-14T18:31:38",
-    "reason": "5 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures). Gate 2 consistently passes (MI +10-39%) but Gate 3 consistently fails. Root cause: monthly macro regime information cannot improve daily gold return prediction when base features already contain the direct real rate level. Base real_rate feature retained."
+    "completed_at": "2026-02-17T21:00:00",
+    "reason": "6 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures, DeterministicBondVolMomentum). Attempt 6 used US-only daily DFII10 with deterministic rolling statistics (bond vol z-score + momentum persistence z-score). Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). All 6 approaches fail Gate 3 despite varying MI increases (2-39%). Information in DFII10 derivatives beyond raw daily change (real_rate_change base feature) is redundant with existing submodel features. No further approaches remain."
   },
   "dxy": {
     "status": "completed",
