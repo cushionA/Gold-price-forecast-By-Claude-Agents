@@ -108,7 +108,7 @@ def preprocess_data(df):
     print(f"Date range: {returns.index[0]} to {returns.index[-1]}")
 
     # Forward-fill gaps up to 3 days
-    returns = returns.fillna(method='ffill', limit=3)
+    returns = returns.ffill(limit=3)
 
     # Drop any remaining NaN
     returns = returns.dropna()

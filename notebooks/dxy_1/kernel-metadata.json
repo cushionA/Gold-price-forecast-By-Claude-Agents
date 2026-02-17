@@ -1,13 +1,13 @@
 {
-  "id": "bigbigzabuton/gold-dxy-1",
-  "title": "gold-dxy-1",
-  "code_file": "train.py",
+  "id": "bigbigzabuton/gold-model-training",
+  "title": "Gold DXY Model - Attempt 1",
+  "code_file": "train.ipynb",
   "language": "python",
-  "kernel_type": "script",
+  "kernel_type": "notebook",
   "is_private": true,
   "enable_gpu": false,
   "enable_internet": true,
-  "dataset_sources": ["bigbigzabuton/gold-price-target"],
+  "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"],
   "competition_sources": [],
   "kernel_sources": []
 }
