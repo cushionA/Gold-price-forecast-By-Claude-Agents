@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel",
   "current_feature": "meta_model",
   "current_attempt": 10,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -593,6 +593,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T22:41:46.654674",
+  "last_updated": "2026-02-17T22:43:59.642612",
   "error_type": "unknown"
 }
