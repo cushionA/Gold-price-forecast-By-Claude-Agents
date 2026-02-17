@@ -3,7 +3,7 @@
   "phase": "phase2_submodel",
   "current_feature": "real_rate",
   "current_attempt": 6,
-  "resume_from": "builder_data",
+  "resume_from": "datachecker",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": null,
