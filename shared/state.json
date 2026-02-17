@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel",
   "current_feature": "dxy",
   "current_attempt": 1,
@@ -616,6 +616,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T23:46:03.696129",
+  "last_updated": "2026-02-17T23:46:21.609372",
   "error_type": "unknown"
 }
