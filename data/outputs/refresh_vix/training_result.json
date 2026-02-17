@@ -1,0 +1,47 @@
+{
+  "feature": "vix",
+  "attempt": 1,
+  "timestamp": "2026-02-17T16:18:44.285966",
+  "best_params": {
+    "hmm_n_components": 2,
+    "hmm_covariance_type": "diag",
+    "hmm_n_init": 3,
+    "zscore_window": 40,
+    "autocorr_window": 30
+  },
+  "metrics": {
+    "mi_test": {
+      "vix_regime_probability": 0.5145113172289271,
+      "vix_mean_reversion_z": 0.4816426655643975,
+      "vix_persistence": 0.5001330516722389
+    },
+    "mi_total_test": 1.4962870344655634,
+    "autocorrelation": {
+      "vix_regime_probability": 0.14964959412479575,
+      "vix_mean_reversion_z": 0.8587346290088534,
+      "vix_persistence": 0.9256900993849182
+    },
+    "optuna_best_value": 1.5778878172099169,
+    "optuna_trials_completed": 30
+  },
+  "output_shape": [
+    2858,
+    4
+  ],
+  "output_columns": [
+    "date",
+    "vix_regime_probability",
+    "vix_mean_reversion_z",
+    "vix_persistence"
+  ],
+  "data_info": {
+    "train_samples": 2000,
+    "val_samples": 428,
+    "test_samples": 430,
+    "full_samples": 2858,
+    "date_range": {
+      "start": "2014-10-02T00:00:00.000000000",
+      "end": "2026-02-13T00:00:00.000000000"
+    }
+  }
+}

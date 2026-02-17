@@ -1,0 +1,185 @@
+{
+  "feature": "classifier",
+  "attempt": 1,
+  "timestamp": "2026-02-18T02:50:51.449646",
+  "architecture": "XGBoost binary:logistic",
+  "n_features": 18,
+  "features": [
+    "rv_ratio_10_30",
+    "rv_ratio_10_30_z",
+    "gvz_level_z",
+    "gvz_vix_ratio",
+    "intraday_range_ratio",
+    "risk_off_score",
+    "gold_silver_ratio_change",
+    "equity_gold_beta_20d",
+    "gold_copper_ratio_change",
+    "rate_surprise",
+    "rate_surprise_signed",
+    "dxy_acceleration",
+    "gld_volume_z",
+    "volume_return_sign",
+    "momentum_divergence",
+    "distance_from_20d_high",
+    "day_of_week",
+    "month_of_year"
+  ],
+  "best_params": {
+    "max_depth": 5,
+    "min_child_weight": 11,
+    "subsample": 0.8875438147700905,
+    "colsample_bytree": 0.3074548586030489,
+    "reg_lambda": 6.284416671154728,
+    "reg_alpha": 1.3819043835237794,
+    "learning_rate": 0.0028263122790846856,
+    "n_estimators": 100,
+    "scale_pos_weight": 0.809922162230641,
+    "use_focal": false
+  },
+  "optuna_trials_completed": 100,
+  "optuna_best_value": 0.5670248556251498,
+  "standalone_metrics": {
+    "train": {
+      "balanced_acc": 0.5,
+      "down_recall": 1.0,
+      "down_precision": 0.4857556735876388,
+      "f1_down": 0.6538836529086773,
+      "up_recall": 0.0,
+      "up_precision": 0.0,
+      "roc_auc": 0.800299144102521
+    },
+    "val": {
+      "balanced_acc": 0.5,
+      "down_recall": 1.0,
+      "down_precision": 0.4752252252252252,
+      "f1_down": 0.6442748091603053,
+      "up_recall": 0.0,
+      "up_precision": 0.0,
+      "roc_auc": 0.5033155014950268
+    },
+    "test": {
+      "balanced_acc": 0.5,
+      "down_recall": 1.0,
+      "down_precision": 0.4099099099099099,
+      "f1_down": 0.5814696485623003,
+      "up_recall": 0.0,
+      "up_precision": 0.0,
+      "roc_auc": 0.5496812347957387
+    }
+  },
+  "ensemble_metrics": {
+    "optimal_threshold": 0.55,
+    "note": "Full ensemble evaluation pending regression model integration"
+  },
+  "feature_importance": {
+    "ranked": [
+      {
+        "feature": "rate_surprise_signed",
+        "gain_pct": 9.51513876737214
+      },
+      {
+        "feature": "gold_silver_ratio_change",
+        "gain_pct": 7.978699768655742
+      },
+      {
+        "feature": "gvz_vix_ratio",
+        "gain_pct": 6.399373591849218
+      },
+      {
+        "feature": "rate_surprise",
+        "gain_pct": 6.286796262655241
+      },
+      {
+        "feature": "intraday_range_ratio",
+        "gain_pct": 5.899964215984589
+      },
+      {
+        "feature": "risk_off_score",
+        "gain_pct": 5.836325838420328
+      },
+      {
+        "feature": "volume_return_sign",
+        "gain_pct": 5.637812114330104
+      },
+      {
+        "feature": "gvz_level_z",
+        "gain_pct": 5.531877441234902
+      },
+      {
+        "feature": "distance_from_20d_high",
+        "gain_pct": 5.483775689637823
+      },
+      {
+        "feature": "dxy_acceleration",
+        "gain_pct": 5.480642941128601
+      },
+      {
+        "feature": "rv_ratio_10_30",
+        "gain_pct": 5.190328696885717
+      },
+      {
+        "feature": "rv_ratio_10_30_z",
+        "gain_pct": 5.090963576215695
+      },
+      {
+        "feature": "momentum_divergence",
+        "gain_pct": 4.643994678257439
+      },
+      {
+        "feature": "equity_gold_beta_20d",
+        "gain_pct": 4.478780375932522
+      },
+      {
+        "feature": "gold_copper_ratio_change",
+        "gain_pct": 4.344445624088366
+      },
+      {
+        "feature": "month_of_year",
+        "gain_pct": 4.163473056633011
+      },
+      {
+        "feature": "gld_volume_z",
+        "gain_pct": 4.050677347675237
+      },
+      {
+        "feature": "day_of_week",
+        "gain_pct": 3.986930013043325
+      }
+    ],
+    "top5": [
+      "rate_surprise_signed",
+      "gold_silver_ratio_change",
+      "gvz_vix_ratio",
+      "rate_surprise",
+      "intraday_range_ratio"
+    ],
+    "bottom3": [
+      "month_of_year",
+      "gld_volume_z",
+      "day_of_week"
+    ]
+  },
+  "class_balance": {
+    "train_up_pct": 51.424432641236116,
+    "train_down_pct": 48.575567358763884,
+    "val_up_pct": 52.47747747747748,
+    "val_down_pct": 47.52252252252252,
+    "test_up_pct": 59.009009009009006,
+    "test_down_pct": 40.990990990990994
+  },
+  "p_down_distribution": {
+    "mean": 0.538277268409729,
+    "std": 0.007059602066874504,
+    "min": 0.5170499086380005,
+    "max": 0.5590839385986328
+  },
+  "data_info": {
+    "train_samples": 2071,
+    "val_samples": 444,
+    "test_samples": 444,
+    "full_samples": 2959,
+    "train_date_range": "2014-05-12 00:00:00 to 2022-08-04 00:00:00",
+    "val_date_range": "2022-08-05 00:00:00 to 2024-05-10 00:00:00",
+    "test_date_range": "2024-05-13 00:00:00 to 2026-02-17 00:00:00"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "feature": "classifier",
-  "attempt": 1,
-  "source": "entrance",
+  "attempt": 2,
+  "source": "evaluator",
   "phase": "classifier_model",
 
   "summary": "Build a standalone binary classification model (UP/DOWN) using NEW features specifically designed for DOWN detection, then ensemble it with the existing regression meta-model (attempt 7). The regression model has 96% bullish bias -- it almost always predicts UP. In 2026 YTD, it correctly predicted 21/31 days overall but caught only 1/10 down days. A classification XGBoost using the SAME 24 features failed completely (P(UP) always 0.46-0.51, zero discrimination). The problem is that the existing 24 features do not contain enough DOWN-specific information. We need features that capture momentum exhaustion, volatility regime shifts, cross-asset stress, and reversal signals.",
@@ -343,7 +343,68 @@
     "top_3_features_regression": ["yc_curvature_z (8.68%)", "xasset_recession_signal (7.80%)", "temporal_context_score (5.78%)"]
   },
 
-  "previous_feedback": null,
-  "created_at": "2026-02-18T12:00:00",
-  "created_by": "entrance"
+  "previous_feedback": {
+    "attempt": 1,
+    "evaluator_verdict": "FAIL - TRIVIAL ALL-DOWN PREDICTOR",
+    "gate1_passed": false,
+    "gate2_passed": "SKIPPED",
+    "overall_passed": false,
+
+    "critical_problem": "Model predicts ALL 2959 samples as DOWN (100%). P(DOWN) range [0.517, 0.559] with std=0.007. This is a degenerate trivial predictor with ZERO classification skill.",
+
+    "root_causes": {
+      "primary": "Optuna objective function exploit: composite (40% F1_DOWN + 30% AUC + 30% balanced_acc) has trivial floor of 0.562 for all-DOWN. Optuna best=0.567, barely above trivial.",
+      "secondary": "Extreme over-regularization: learning_rate=0.003, reg_lambda=6.28, reg_alpha=1.38, n_estimators=100. Effective learning=0.3 steps.",
+      "tertiary": "scale_pos_weight=0.81 down-weights UP class, amplifying all-DOWN incentive.",
+      "quaternary": "Early stopping on logloss allows convergence to constant output."
+    },
+
+    "mandatory_changes_for_attempt_2": [
+      {
+        "priority": 1,
+        "change": "Replace Optuna objective with Matthews Correlation Coefficient (MCC). MCC=0 for ANY trivial predictor. Formula: (TP*TN - FP*FN) / sqrt((TP+FP)(TP+FN)(TN+FP)(TN+FN)). Add trivial-prediction guard: if minority_pct < 15% or pred_std < 0.03, return -1.0."
+      },
+      {
+        "priority": 2,
+        "change": "Relax HP bounds: learning_rate [0.01, 0.15], n_estimators [200, 800], reg_lambda [0.1, 3.0], reg_alpha [0.0, 1.0], min_child_weight [3, 15]."
+      },
+      {
+        "priority": 3,
+        "change": "Fix scale_pos_weight to [0.9, 2.0] or class ratio. Change early stopping metric from logloss to auc."
+      },
+      {
+        "priority": 4,
+        "change": "Drop rate_surprise (unsigned). Keep rate_surprise_signed which subsumes it."
+      }
+    ],
+
+    "anti_patterns": [
+      "DO NOT use F1_DOWN in Optuna objective (exploitable by all-DOWN prediction)",
+      "DO NOT allow learning_rate < 0.01",
+      "DO NOT allow reg_lambda > 3.0 or reg_alpha > 1.0",
+      "DO NOT allow scale_pos_weight < 0.9",
+      "DO NOT use logloss for early stopping (use auc instead)"
+    ],
+
+    "what_might_still_work": [
+      "The 18 features have NOT been properly tested -- model was prevented from learning by the objective exploit + over-regularization",
+      "Train AUC=0.80 proves features contain in-sample information",
+      "Test AUC=0.55 suggests weak but non-zero out-of-sample signal",
+      "Feature importance is well-distributed (no single feature dominance)",
+      "MCC-based objective + relaxed regularization should produce non-trivial predictions"
+    ],
+
+    "attempt_1_results": {
+      "train_auc": 0.80,
+      "val_auc": 0.503,
+      "test_auc": 0.550,
+      "balanced_acc": 0.50,
+      "predictions_down_pct": 100.0,
+      "p_down_std": 0.007,
+      "optuna_best_value": 0.567,
+      "optuna_trivial_floor": 0.562
+    }
+  },
+  "created_at": "2026-02-18T14:00:00",
+  "created_by": "evaluator"
 }

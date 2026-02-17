@@ -1,0 +1,43 @@
+{
+  "feature": "cross_asset",
+  "attempt": 2,
+  "timestamp": "2026-02-18T01:28:32.924760",
+  "best_params": {
+    "method": "deterministic_hmm",
+    "hmm_n_components": 3,
+    "hmm_n_restarts": 10,
+    "zscore_window": 90,
+    "div_window": 20,
+    "note": "Pre-computed features, no HP optimization"
+  },
+  "metrics": {
+    "mi_individual": {
+      "xasset_regime_prob": 0.5121524046848489,
+      "xasset_recession_signal": 0.5222148689880133,
+      "xasset_divergence": 0.48712654232480657
+    },
+    "mi_sum": 1.5214938159976688,
+    "autocorr": {
+      "xasset_regime_prob": 0.871047251703859,
+      "xasset_recession_signal": -0.02455427200825497,
+      "xasset_divergence": -0.02623098592039048
+    },
+    "overfit_ratio": null
+  },
+  "optuna_trials_completed": 0,
+  "optuna_best_value": 1.5214938159976688,
+  "output_shape": [
+    2774,
+    3
+  ],
+  "output_columns": [
+    "xasset_regime_prob",
+    "xasset_recession_signal",
+    "xasset_divergence"
+  ],
+  "data_info": {
+    "train_samples": 1941,
+    "val_samples": 416,
+    "test_samples": 417
+  }
+}

@@ -1,0 +1,216 @@
+[{"stream_name":"stdout","time":1.209934837,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":6.258804162,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 6.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.725911517,"data":"=== Gold SubModel Training: yield_curve attempt 1 ===\n"}
+,{"stream_name":"stdout","time":14.725939311,"data":"Started: 2026-02-17T16:17:35.658775\n"}
+,{"stream_name":"stdout","time":18.853513229,"data":"Fetching Treasury yields from Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":18.854004668,"data":"/kaggle/src/script.py:54: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":18.854045916,"data":"  tnx = yf.download('^TNX', start=start_date, progress=False)  # 10-year\n"}
+,{"stream_name":"stderr","time":19.287690495,"data":"/kaggle/src/script.py:55: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.287731772,"data":"  irx_or_2y = yf.download('^IRX', start=start_date, progress=False)  # 13-week (proxy for short end)\n"}
+,{"stream_name":"stderr","time":19.485588025,"data":"/kaggle/src/script.py:56: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.485631347,"data":"  fvx = yf.download('^FVX', start=start_date, progress=False)  # 5-year\n"}
+,{"stream_name":"stdout","time":19.650900666,"data":"Raw data fetched: 2860 rows from 2014-10-01 00:00:00 to 2026-02-17 00:00:00\n"}
+,{"stream_name":"stdout","time":19.652132369,"data":"After dropping NaN: 2860 rows (dropped 0 rows)\n"}
+,{"stream_name":"stdout","time":19.661240816,"data":"After preprocessing: 2859 rows\n"}
+,{"stream_name":"stdout","time":19.66127783,"data":"Date range: 2014-10-02 00:00:00 to 2026-02-17 00:00:00\n"}
+,{"stream_name":"stdout","time":19.661284509,"data":"\n"}
+,{"stream_name":"stdout","time":19.661290538,"data":"Fetching GLD for target variable...\n"}
+,{"stream_name":"stderr","time":19.661548278,"data":"/kaggle/src/script.py:112: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":19.661561605,"data":"  gld = yf.download(\"GLD\", start=\"2015-01-01\", progress=False)\n"}
+,{"stream_name":"stdout","time":19.86309449,"data":"Gold target: 2796 rows\n"}
+,{"stream_name":"stdout","time":19.863353309,"data":"Date range: 2015-01-02 00:00:00 to 2026-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":19.872707029,"data":"\n"}
+,{"stream_name":"stdout","time":19.872756267,"data":"Aligned data: 2795 rows\n"}
+,{"stream_name":"stdout","time":19.872968504,"data":"\n"}
+,{"stream_name":"stdout","time":19.872997982,"data":"Data: 2795 aligned rows\n"}
+,{"stream_name":"stdout","time":19.873005121,"data":"Train: 1956 rows\n"}
+,{"stream_name":"stdout","time":19.873010999999998,"data":"Val: 419 rows\n"}
+,{"stream_name":"stdout","time":19.87301671,"data":"Test: 420 rows\n"}
+,{"stream_name":"stdout","time":19.873022507,"data":"\n"}
+,{"stream_name":"stdout","time":19.87302806,"data":"Running Optuna HPO...\n"}
+,{"stream_name":"stderr","time":19.87408002,"data":"[I 2026-02-17 16:17:40,806] A new study created in memory with name: no-name-799ab3c1-edcf-4ea2-94f3-27f1204cd175\n"}
+,{"stream_name":"stderr","time":20.697959905,"data":"Model is not converging.  Current: 20208.59286095373 is not greater than 20212.11848612699. Delta is -3.525625173260778\n"}
+,{"stream_name":"stderr","time":21.652308908,"data":"Model is not converging.  Current: 20900.4835296846 is not greater than 20900.504950675484. Delta is -0.021420990884507773\n"}
+,{"stream_name":"stderr","time":21.966993847,"data":"[I 2026-02-17 16:17:42,899] Trial 0 finished with value: 1.5187965933095233 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'velocity_change_window': 10, 'velocity_zscore_window': 120, 'curvature_zscore_window': 30}. Best is trial 0 with value: 1.5187965933095233.\n"}
+,{"stream_name":"stderr","time":22.135737125,"data":"Model is not converging.  Current: 19740.994899019974 is not greater than 19744.82559132095. Delta is -3.830692300976807\n"}
+,{"stream_name":"stderr","time":22.252407271,"data":"Model is not converging.  Current: 19741.033074299135 is not greater than 19745.91196295347. Delta is -4.878888654333423\n"}
+,{"stream_name":"stderr","time":22.293203457,"data":"Model is not converging.  Current: 19740.959579630642 is not greater than 19743.566131384345. Delta is -2.606551753702661\n"}
+,{"stream_name":"stderr","time":22.349507123,"data":"Model is not converging.  Current: 19740.992985283945 is not greater than 19744.77560886037. Delta is -3.7826235764259764\n"}
+,{"stream_name":"stderr","time":22.373142755,"data":"[I 2026-02-17 16:17:43,305] Trial 1 finished with value: 1.5723633720411174 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'velocity_change_window': 10, 'velocity_zscore_window': 60, 'curvature_zscore_window': 90}. Best is trial 1 with value: 1.5723633720411174.\n"}
+,{"stream_name":"stderr","time":23.136911059,"data":"[I 2026-02-17 16:17:44,069] Trial 2 finished with value: 0.9845960793642451 and parameters: {'hmm_n_components': 4, 'hmm_covariance_type': 'full', 'velocity_change_window': 5, 'velocity_zscore_window': 120, 'curvature_zscore_window': 60}. Best is trial 1 with value: 1.5723633720411174.\n"}
+,{"stream_name":"stderr","time":23.239346155,"data":"Model is not converging.  Current: 19741.112062413016 is not greater than 19757.423383567882. Delta is -16.311321154866164\n"}
+,{"stream_name":"stderr","time":23.295070089,"data":"Model is not converging.  Current: 19741.003203924687 is not greater than 19746.70618622627. Delta is -5.702982301583688\n"}
+,{"stream_name":"stderr","time":23.410301799,"data":"Model is not converging.  Current: 19740.96132844376 is not greater than 19742.66719216837. Delta is -1.705863724611845\n"}
+,{"stream_name":"stderr","time":23.516733491,"data":"[I 2026-02-17 16:17:44,449] Trial 3 finished with value: 1.5961691885861964 and parameters: {'hmm_n_components': 4, 'hmm_covariance_type': 'diag', 'velocity_change_window': 10, 'velocity_zscore_window': 120, 'curvature_zscore_window': 90}. Best is trial 3 with value: 1.5961691885861964.\n"}
+,{"stream_name":"stderr","time":23.691973858,"data":"Model is not converging.  Current: 20208.59286095373 is not greater than 20212.11848612699. Delta is -3.525625173260778\n"}
+,{"stream_name":"stderr","time":24.47669657,"data":"Model is not converging.  Current: 20900.4835296846 is not greater than 20900.504950675484. Delta is -0.021420990884507773\n"}
+,{"stream_name":"stderr","time":24.840122795,"data":"[I 2026-02-17 16:17:45,772] Trial 4 finished with value: 1.5147417236962681 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'velocity_change_window': 3, 'velocity_zscore_window': 60, 'curvature_zscore_window': 30}. Best is trial 3 with value: 1.5961691885861964.\n"}
+,{"stream_name":"stderr","time":24.925535902,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":24.96542397,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":25.002057197,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":25.03047411,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":25.086023897,"data":"[I 2026-02-17 16:17:46,018] Trial 5 finished with value: 1.650046782822527 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 90}. Best is trial 5 with value: 1.650046782822527.\n"}
+,{"stream_name":"stderr","time":25.174952822,"data":"Model is not converging.  Current: 20893.593722378155 is not greater than 20893.604019283102. Delta is -0.01029690494760871\n"}
+,{"stream_name":"stderr","time":25.83735482,"data":"Model is not converging.  Current: 20542.981755822035 is not greater than 20545.0042064813. Delta is -2.0224506592639955\n"}
+,{"stream_name":"stderr","time":25.864214165,"data":"[I 2026-02-17 16:17:46,797] Trial 6 finished with value: 1.573715050575423 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'velocity_change_window': 3, 'velocity_zscore_window': 30, 'curvature_zscore_window': 90}. Best is trial 5 with value: 1.650046782822527.\n"}
+,{"stream_name":"stderr","time":25.974180715,"data":"Model is not converging.  Current: 20893.593722378155 is not greater than 20893.604019283102. Delta is -0.01029690494760871\n"}
+,{"stream_name":"stderr","time":26.514802764,"data":"Model is not converging.  Current: 20542.981755822035 is not greater than 20545.0042064813. Delta is -2.0224506592639955\n"}
+,{"stream_name":"stderr","time":26.541525513,"data":"[I 2026-02-17 16:17:47,474] Trial 7 finished with value: 1.6053868262279107 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'velocity_change_window': 5, 'velocity_zscore_window': 60, 'curvature_zscore_window': 120}. Best is trial 5 with value: 1.650046782822527.\n"}
+,{"stream_name":"stderr","time":26.811300988,"data":"Model is not converging.  Current: 20208.59286095373 is not greater than 20212.11848612699. Delta is -3.525625173260778\n"}
+,{"stream_name":"stderr","time":27.618667486,"data":"Model is not converging.  Current: 20900.4835296846 is not greater than 20900.504950675484. Delta is -0.021420990884507773\n"}
+,{"stream_name":"stderr","time":28.055414527,"data":"[I 2026-02-17 16:17:48,988] Trial 8 finished with value: 1.4627159664121578 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'velocity_change_window': 5, 'velocity_zscore_window': 120, 'curvature_zscore_window': 30}. Best is trial 5 with value: 1.650046782822527.\n"}
+,{"stream_name":"stderr","time":28.862521348,"data":"[I 2026-02-17 16:17:49,795] Trial 9 finished with value: 1.025174677153711 and parameters: {'hmm_n_components': 4, 'hmm_covariance_type': 'full', 'velocity_change_window': 5, 'velocity_zscore_window': 90, 'curvature_zscore_window': 60}. Best is trial 5 with value: 1.650046782822527.\n"}
+,{"stream_name":"stderr","time":28.944147038,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":28.987897966,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":29.024224315,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":29.052993717,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":29.108499782,"data":"[I 2026-02-17 16:17:50,041] Trial 10 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":29.149855514,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":29.180268833,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":29.21869905,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":29.250443315,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":29.30439451,"data":"[I 2026-02-17 16:17:50,237] Trial 11 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":29.349518695,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":29.380324089,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":29.416643958,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":29.447072174,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":29.499132686,"data":"[I 2026-02-17 16:17:50,431] Trial 12 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":29.540570567,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":29.57259097,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":29.613588637,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":29.646267031,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":29.706205369,"data":"[I 2026-02-17 16:17:50,638] Trial 13 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":29.751963395,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":29.78811633,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":29.827912278,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":29.858478037,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":29.911490984,"data":"[I 2026-02-17 16:17:50,844] Trial 14 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":29.952063111,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":29.982668641,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":30.022982436,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":30.052440381,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":30.107193286,"data":"[I 2026-02-17 16:17:51,039] Trial 15 finished with value: 1.592695403788674 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 3, 'velocity_zscore_window': 90, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":30.151612004,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":30.183958885,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":30.221668464,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":30.252621649,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":30.304831367,"data":"[I 2026-02-17 16:17:51,237] Trial 16 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":30.346316316,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":30.377045287,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":30.41520946,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":30.443493418,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":30.498005985,"data":"[I 2026-02-17 16:17:51,430] Trial 17 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":30.540488416,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":30.575293902,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":30.622394829,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":30.651272113,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":30.703093257,"data":"[I 2026-02-17 16:17:51,635] Trial 18 finished with value: 1.6203054178713323 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 10, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":30.755585736,"data":"Model is not converging.  Current: 19741.112062413016 is not greater than 19757.423383567882. Delta is -16.311321154866164\n"}
+,{"stream_name":"stderr","time":30.80658391,"data":"Model is not converging.  Current: 19741.003203924687 is not greater than 19746.70618622627. Delta is -5.702982301583688\n"}
+,{"stream_name":"stderr","time":30.932701008,"data":"Model is not converging.  Current: 19740.96132844376 is not greater than 19742.66719216837. Delta is -1.705863724611845\n"}
+,{"stream_name":"stderr","time":31.038224776,"data":"[I 2026-02-17 16:17:51,970] Trial 19 finished with value: 1.5626455759814883 and parameters: {'hmm_n_components': 4, 'hmm_covariance_type': 'diag', 'velocity_change_window': 3, 'velocity_zscore_window': 90, 'curvature_zscore_window': 60}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":31.085124864,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":31.118774712,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":31.15719991,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":31.187099203,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":31.257460681,"data":"[I 2026-02-17 16:17:52,190] Trial 20 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":31.316968063,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":31.348120723,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":31.384216286,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":31.412240595,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":31.465503465,"data":"[I 2026-02-17 16:17:52,398] Trial 21 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":31.508714623,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":31.539795426,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":31.577527864,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":31.607804996,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":31.660632442,"data":"[I 2026-02-17 16:17:52,593] Trial 22 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":31.702215268,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":31.734281931,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":31.773810244,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":31.803948478,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":31.859187055,"data":"[I 2026-02-17 16:17:52,791] Trial 23 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":31.901211343,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":31.933062381,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":31.970027708,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":31.998891121,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":32.051968938,"data":"[I 2026-02-17 16:17:52,984] Trial 24 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":32.096264972,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":32.128443406,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":32.165071167,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":32.19494323,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":32.24980966,"data":"[I 2026-02-17 16:17:53,182] Trial 25 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":32.291828989,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":32.325402626,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":32.363280962,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":32.393956125,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":32.448178496,"data":"[I 2026-02-17 16:17:53,380] Trial 26 finished with value: 1.6680464164352693 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":32.491594696,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":32.524050824,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":32.57856523,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":32.608340603,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stderr","time":32.660835553,"data":"[I 2026-02-17 16:17:53,593] Trial 27 finished with value: 1.5360764249283991 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 60, 'curvature_zscore_window': 30}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":32.741930211,"data":"Model is not converging.  Current: 19740.994899019974 is not greater than 19744.82559132095. Delta is -3.830692300976807\n"}
+,{"stream_name":"stderr","time":32.864087593,"data":"Model is not converging.  Current: 19741.033074299135 is not greater than 19745.91196295347. Delta is -4.878888654333423\n"}
+,{"stream_name":"stderr","time":32.905986326,"data":"Model is not converging.  Current: 19740.959579630642 is not greater than 19743.566131384345. Delta is -2.606551753702661\n"}
+,{"stream_name":"stderr","time":32.959609216,"data":"Model is not converging.  Current: 19740.992985283945 is not greater than 19744.77560886037. Delta is -3.7826235764259764\n"}
+,{"stream_name":"stderr","time":32.982361305,"data":"[I 2026-02-17 16:17:53,915] Trial 28 finished with value: 1.5752341221388408 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'velocity_change_window': 10, 'velocity_zscore_window': 90, 'curvature_zscore_window': 60}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stderr","time":33.030456167,"data":"Model is not converging.  Current: 19741.112062413016 is not greater than 19757.423383567882. Delta is -16.311321154866164\n"}
+,{"stream_name":"stderr","time":33.080506681,"data":"Model is not converging.  Current: 19741.003203924687 is not greater than 19746.70618622627. Delta is -5.702982301583688\n"}
+,{"stream_name":"stderr","time":33.198949001,"data":"Model is not converging.  Current: 19740.96132844376 is not greater than 19742.66719216837. Delta is -1.705863724611845\n"}
+,{"stream_name":"stderr","time":33.302507772,"data":"[I 2026-02-17 16:17:54,235] Trial 29 finished with value: 1.5472509624633017 and parameters: {'hmm_n_components': 4, 'hmm_covariance_type': 'diag', 'velocity_change_window': 3, 'velocity_zscore_window': 120, 'curvature_zscore_window': 30}. Best is trial 10 with value: 1.6680464164352693.\n"}
+,{"stream_name":"stdout","time":33.30252229,"data":"\n"}
+,{"stream_name":"stdout","time":33.302567196,"data":"Optuna complete:\n"}
+,{"stream_name":"stdout","time":33.302678023,"data":"  Best value (MI sum): 1.6680\n"}
+,{"stream_name":"stdout","time":33.303246137,"data":"  Best params: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'velocity_change_window': 5, 'velocity_zscore_window': 30, 'curvature_zscore_window': 120}\n"}
+,{"stream_name":"stdout","time":33.305997447,"data":"  Completed trials: 30\n"}
+,{"stream_name":"stdout","time":33.306032777,"data":"\n"}
+,{"stream_name":"stdout","time":33.306038494,"data":"Generating final submodel output...\n"}
+,{"stream_name":"stderr","time":33.345941035,"data":"Model is not converging.  Current: 19740.97057371833 is not greater than 19744.32944873427. Delta is -3.3588750159397023\n"}
+,{"stream_name":"stderr","time":33.378058839,"data":"Model is not converging.  Current: 19741.04581411919 is not greater than 19745.449201478055. Delta is -4.403387358866894\n"}
+,{"stream_name":"stderr","time":33.416470431,"data":"Model is not converging.  Current: 19742.79496051782 is not greater than 19747.54245491814. Delta is -4.747494400322466\n"}
+,{"stream_name":"stderr","time":33.446790255,"data":"Model is not converging.  Current: 19741.390822844784 is not greater than 19749.73741178113. Delta is -8.346588936346961\n"}
+,{"stream_name":"stdout","time":33.48863816,"data":"\n"}
+,{"stream_name":"stdout","time":33.488678156,"data":"Output shape: (2795, 3)\n"}
+,{"stream_name":"stdout","time":33.488684479,"data":"Output columns: ['yc_regime_prob', 'yc_spread_velocity_z', 'yc_curvature_z']\n"}
+,{"stream_name":"stdout","time":33.488731384,"data":"Date range: 2015-01-02 00:00:00 to 2026-02-13 00:00:00\n"}
+,{"stream_name":"stdout","time":33.488741893,"data":"\n"}
+,{"stream_name":"stdout","time":33.488746544,"data":"Output summary:\n"}
+,{"stream_name":"stdout","time":33.504979815,"data":"       yc_regime_prob  yc_spread_velocity_z  yc_curvature_z\n"}
+,{"stream_name":"stdout","time":33.505019464,"data":"count    2.795000e+03           2761.000000     2675.000000\n"}
+,{"stream_name":"stdout","time":33.505025587,"data":"mean     6.905353e-13             -0.002314        0.004749\n"}
+,{"stream_name":"stdout","time":33.505030305,"data":"std      1.086234e-11              1.084633        1.030471\n"}
+,{"stream_name":"stdout","time":33.505035584,"data":"min      1.285735e-15             -3.344345       -4.000000\n"}
+,{"stream_name":"stdout","time":33.505040839,"data":"25%      1.666214e-13             -0.751040       -0.526236\n"}
+,{"stream_name":"stdout","time":33.505045397,"data":"50%      1.699438e-13              0.005240        0.033236\n"}
+,{"stream_name":"stdout","time":33.505048477,"data":"75%      1.801642e-13              0.697041        0.582858\n"}
+,{"stream_name":"stdout","time":33.505051489,"data":"max      3.342805e-10              4.000000        4.000000\n"}
+,{"stream_name":"stdout","time":33.505054505,"data":"\n"}
+,{"stream_name":"stdout","time":33.505057475,"data":"Computing final metrics...\n"}
+,{"stream_name":"stdout","time":33.506340736,"data":"\n"}
+,{"stream_name":"stdout","time":33.506378144,"data":"Autocorrelation (lag 1, training set):\n"}
+,{"stream_name":"stdout","time":33.506384603,"data":"  yc_regime_prob: 0.1866\n"}
+,{"stream_name":"stdout","time":33.506389123,"data":"  yc_spread_velocity_z: 0.7552\n"}
+,{"stream_name":"stdout","time":33.506393381,"data":"  yc_curvature_z: 0.0231\n"}
+,{"stream_name":"stdout","time":33.518949766,"data":"\n"}
+,{"stream_name":"stdout","time":33.518988129,"data":"Mutual Information (validation set):\n"}
+,{"stream_name":"stdout","time":33.518994281,"data":"  yc_regime_prob: 0.5434\n"}
+,{"stream_name":"stdout","time":33.518999285,"data":"  yc_spread_velocity_z: 0.5683\n"}
+,{"stream_name":"stdout","time":33.519003649,"data":"  yc_curvature_z: 0.5563\n"}
+,{"stream_name":"stdout","time":33.519007828,"data":"  MI Sum: 1.6680\n"}
+,{"stream_name":"stdout","time":33.519012331,"data":"\n"}
+,{"stream_name":"stdout","time":33.519017103,"data":"Saving results...\n"}
+,{"stream_name":"stdout","time":33.557695645,"data":"\n"}
+,{"stream_name":"stdout","time":33.557729277,"data":"=== Training complete! ===\n"}
+,{"stream_name":"stdout","time":33.557735796,"data":"Finished: 2026-02-17T16:17:54.490547\n"}
+,{"stream_name":"stdout","time":33.55774047,"data":"Files saved:\n"}
+,{"stream_name":"stdout","time":33.557745178,"data":"  - submodel_output.csv\n"}
+,{"stream_name":"stdout","time":33.557749788,"data":"  - training_result.json\n"}
+,{"stream_name":"stderr","time":36.446275446,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":36.446318071,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":36.817590309,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":36.817623214,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":37.917334134,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":37.917374449,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":37.964521513,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":39.853246834,"data":"[NbConvertApp] Writing 351978 bytes to __results__.html\n"}
+]

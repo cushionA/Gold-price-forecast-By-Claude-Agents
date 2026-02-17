@@ -1,0 +1,50 @@
+{
+  "feature": "etf_flow",
+  "attempt": 1,
+  "timestamp": "2026-02-18T01:30:00.773945",
+  "best_params": {
+    "n_components": 4,
+    "n_restarts": 11,
+    "capital_window": 60,
+    "pv_corr_window": 10,
+    "pv_baseline_window": 40
+  },
+  "metrics": {
+    "mi_individual": {
+      "etf_regime_prob": 0.0,
+      "etf_capital_intensity": 0.002799788104043799,
+      "etf_pv_divergence": 0.0
+    },
+    "mi_sum": 0.002799788104043799,
+    "autocorr": {
+      "etf_regime_prob": 0.9421120865371836,
+      "etf_capital_intensity": 0.5019780752606541,
+      "etf_pv_divergence": 0.8831895881977129
+    },
+    "has_nan": {
+      "etf_regime_prob": false,
+      "etf_capital_intensity": false,
+      "etf_pv_divergence": false
+    },
+    "is_constant": {
+      "etf_regime_prob": false,
+      "etf_capital_intensity": false,
+      "etf_pv_divergence": false
+    }
+  },
+  "optuna_best_value": 0.107752477316152,
+  "output_shape": [
+    2839,
+    3
+  ],
+  "output_columns": [
+    "etf_regime_prob",
+    "etf_capital_intensity",
+    "etf_pv_divergence"
+  ],
+  "data_info": {
+    "train_samples": 1987,
+    "val_samples": 426,
+    "test_samples": 426
+  }
+}

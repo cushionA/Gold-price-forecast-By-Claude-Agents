@@ -1,0 +1,71 @@
+{
+  "feature": "dxy",
+  "attempt": 1,
+  "timestamp": "2026-02-17T15:03:07.594152",
+  "method": "GaussianHMM + Momentum Z-Score + Volatility Z-Score",
+  "best_params": {
+    "hmm_n_components": 3,
+    "hmm_covariance_type": "diag",
+    "hmm_n_init": 10,
+    "momentum_window": 15,
+    "vol_window": 15,
+    "expanding_warmup": 60
+  },
+  "metrics": {
+    "mi_individual": {
+      "dxy_regime_prob": 0.5066677450456779,
+      "dxy_momentum_z": 0.5369705361735184,
+      "dxy_vol_z": 0.5341035283467053
+    },
+    "mi_sum": 1.5777418095659015,
+    "autocorr": {
+      "dxy_regime_prob": 0.34472829983951364,
+      "dxy_momentum_z": 0.9229121778392482,
+      "dxy_vol_z": 0.9706335756774362
+    },
+    "is_constant": {
+      "dxy_regime_prob": false,
+      "dxy_momentum_z": false,
+      "dxy_vol_z": false
+    }
+  },
+  "optuna_best_value": 1.5777418095659017,
+  "optuna_trials_completed": 30,
+  "output_shape": [
+    2862,
+    3
+  ],
+  "output_columns": [
+    "dxy_regime_prob",
+    "dxy_momentum_z",
+    "dxy_vol_z"
+  ],
+  "data_info": {
+    "total_rows": 2862,
+    "train_rows": 2003,
+    "val_rows": 429,
+    "test_rows": 430,
+    "date_range_start": "2014-10-02",
+    "date_range_end": "2026-02-17"
+  },
+  "output_stats": {
+    "dxy_regime_prob": {
+      "mean": 0.0005824486860185956,
+      "std": 0.006290217266672029,
+      "min": 2.812500192448212e-05,
+      "max": 0.18416376787610275
+    },
+    "dxy_momentum_z": {
+      "mean": -0.1156059647484727,
+      "std": 0.929932412952243,
+      "min": -3.891794908691001,
+      "max": 3.20940114097474
+    },
+    "dxy_vol_z": {
+      "mean": -0.2228017037946111,
+      "std": 1.0272991630040007,
+      "min": -2.160873163314507,
+      "max": 4.0
+    }
+  }
+}

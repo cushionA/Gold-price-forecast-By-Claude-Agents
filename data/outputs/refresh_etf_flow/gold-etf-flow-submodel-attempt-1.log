@@ -1,0 +1,310 @@
+[{"stream_name":"stdout","time":2.780066295,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":2.78014765,"data":"ETF Flow SubModel Training - Attempt 1\n"}
+,{"stream_name":"stdout","time":2.780153706,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":2.7801774889999997,"data":"\n"}
+,{"stream_name":"stdout","time":2.7801842519999997,"data":"[1/5] Fetching and preprocessing data...\n"}
+,{"stream_name":"stderr","time":4.200996447,"data":"/kaggle/src/script.py:35: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":4.201057786,"data":"  gld = yf.download('GLD', start='2014-10-01', progress=False)\n"}
+,{"stream_name":"stderr","time":4.784277631,"data":"/kaggle/src/script.py:52: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":4.784315878,"data":"  gc = yf.download('GC=F', start='2014-10-01', progress=False)\n"}
+,{"stream_name":"stdout","time":5.311132157,"data":"Data fetched successfully:\n"}
+,{"stream_name":"stdout","time":5.311184408,"data":"  Total rows: 2839\n"}
+,{"stream_name":"stdout","time":5.311196225,"data":"  Date range: 2014-10-28 to 2026-02-17\n"}
+,{"stream_name":"stdout","time":5.311286191,"data":"  Train: 1987 rows\n"}
+,{"stream_name":"stdout","time":5.3113005,"data":"  Val: 426 rows\n"}
+,{"stream_name":"stdout","time":5.311306979,"data":"  Test: 426 rows\n"}
+,{"stream_name":"stdout","time":5.311499322,"data":"  GLD close range: $100.50 to $495.90\n"}
+,{"stream_name":"stdout","time":5.311649055,"data":"  Average daily volume: 8830813\n"}
+,{"stream_name":"stdout","time":5.311795166,"data":"\n"}
+,{"stream_name":"stdout","time":5.311816962,"data":"[2/5] Running Optuna hyperparameter optimization...\n"}
+,{"stream_name":"stderr","time":7.745847901,"data":"[I 2026-02-17 16:17:32,615] A new study created in memory with name: no-name-0e65b04a-0f48-4dd9-a5ca-12b78cad738d\n"}
+,{"stream_name":"stdout","time":11.455560527,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":11.513069935,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":11.537705559,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":11.540731651,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":11.548575478,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":11.573013658,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":11.574559846,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":11.607864725,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":11.651231203,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":13.882829339,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":13.974709572,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stderr","time":17.211571664,"data":"\r  0%|          | 0/20 [00:00\u003c?, ?it/s]Model is not converging.  Current: 5908.064706832198 is not greater than 5908.211698719342. Delta is -0.14699188714439515\n"}
+,{"stream_name":"stderr","time":18.23513519,"data":"Model is not converging.  Current: 5977.059066173472 is not greater than 5977.086286967104. Delta is -0.027220793631386186\n"}
+,{"stream_name":"stderr","time":18.812596812,"data":"Model is not converging.  Current: 5949.898257755103 is not greater than 5949.9679495252. Delta is -0.06969177009705163\n"}
+,{"stream_name":"stdout","time":20.651589898,"data":"HMM training complete: 3 components, best log-likelihood=5976.99\n"}
+,{"stream_name":"stdout","time":20.654323032,"data":"State returns: {0: np.float64(0.002735184009788886), 1: np.float64(0.0002385227584358836), 2: np.float64(-0.00030055198318094223)}\n"}
+,{"stream_name":"stdout","time":20.654528291,"data":"Accumulation state identified: 0 (mean return: 0.0027)\n"}
+,{"stream_name":"stderr","time":20.656947016,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":20.656968853,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":20.685378407,"data":"[I 2026-02-17 16:17:45,554] Trial 0 finished with value: 0.046593147912291855 and parameters: {'n_components': 3, 'n_restarts': 15, 'capital_window': 80, 'pv_corr_window': 7, 'pv_baseline_window': 40}. Best is trial 0 with value: 0.046593147912291855.\n"}
+,{"stream_name":"stderr","time":21.444405459,"data":"\r                                      \r\r  0%|          | 0/20 [00:12\u003c?, ?it/s]\rBest trial: 0. Best value: 0.0465931:   0%|          | 0/20 [00:12\u003c?, ?it/s]\rBest trial: 0. Best value: 0.0465931:   5%|▌         | 1/20 [00:12\u003c04:05, 12.94s/it]Model is not converging.  Current: 5909.093244943298 is not greater than 5909.329050728533. Delta is -0.2358057852352431\n"}
+,{"stream_name":"stderr","time":21.562573991,"data":"Model is not converging.  Current: 5908.564242572541 is not greater than 5908.68535276324. Delta is -0.12111019069925533\n"}
+,{"stream_name":"stdout","time":21.564125821,"data":"HMM training complete: 2 components, best log-likelihood=5908.41\n"}
+,{"stream_name":"stdout","time":21.5663883,"data":"State returns: {0: np.float64(0.0002653566363637496), 1: np.float64(0.0001786194489419886)}\n"}
+,{"stream_name":"stdout","time":21.566603478,"data":"Accumulation state identified: 0 (mean return: 0.0003)\n"}
+,{"stream_name":"stderr","time":21.568910191,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":21.56893255,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":21.588835316,"data":"[I 2026-02-17 16:17:46,458] Trial 1 finished with value: 0.0 and parameters: {'n_components': 2, 'n_restarts': 5, 'capital_window': 90, 'pv_corr_window': 7, 'pv_baseline_window': 80}. Best is trial 0 with value: 0.046593147912291855.\n"}
+,{"stream_name":"stderr","time":22.321295288,"data":"\r                                                                                    \r\rBest trial: 0. Best value: 0.0465931:   5%|▌         | 1/20 [00:13\u003c04:05, 12.94s/it]\rBest trial: 0. Best value: 0.0465931:   5%|▌         | 1/20 [00:13\u003c04:05, 12.94s/it]\rBest trial: 0. Best value: 0.0465931:  10%|█         | 2/20 [00:13\u003c01:45,  5.86s/it]Model is not converging.  Current: 5909.093244943298 is not greater than 5909.329050728533. Delta is -0.2358057852352431\n"}
+,{"stream_name":"stderr","time":22.432554617,"data":"Model is not converging.  Current: 5908.564242572541 is not greater than 5908.68535276324. Delta is -0.12111019069925533\n"}
+,{"stream_name":"stderr","time":22.550521934,"data":"Model is not converging.  Current: 5911.988941249903 is not greater than 5912.396722414184. Delta is -0.40778116428100475\n"}
+,{"stream_name":"stderr","time":22.654644101,"data":"Model is not converging.  Current: 5904.973092645189 is not greater than 5905.094731360712. Delta is -0.12163871552274941\n"}
+,{"stream_name":"stderr","time":22.774610776,"data":"Model is not converging.  Current: 5911.6248201455455 is not greater than 5911.853342554696. Delta is -0.2285224091501732\n"}
+,{"stream_name":"stderr","time":23.051023014,"data":"Model is not converging.  Current: 5909.245021886974 is not greater than 5909.481976598408. Delta is -0.23695471143400937\n"}
+,{"stream_name":"stderr","time":23.215408411,"data":"Model is not converging.  Current: 5908.29572473374 is not greater than 5908.532609237666. Delta is -0.23688450392637606\n"}
+,{"stream_name":"stderr","time":23.408673273,"data":"Model is not converging.  Current: 5907.090420455473 is not greater than 5907.459510592723. Delta is -0.3690901372501685\n"}
+,{"stream_name":"stderr","time":23.63746316,"data":"Model is not converging.  Current: 5910.738256238862 is not greater than 5911.035728444937. Delta is -0.29747220607532654\n"}
+,{"stream_name":"stderr","time":23.754479437,"data":"Model is not converging.  Current: 5909.689723150475 is not greater than 5909.915293530936. Delta is -0.22557038046033995\n"}
+,{"stream_name":"stdout","time":23.972026244,"data":"HMM training complete: 2 components, best log-likelihood=5911.19\n"}
+,{"stream_name":"stdout","time":23.974100825,"data":"State returns: {0: np.float64(0.0001858961174029141), 1: np.float64(0.00020258287969743667)}\n"}
+,{"stream_name":"stdout","time":23.974189007,"data":"Accumulation state identified: 1 (mean return: 0.0002)\n"}
+,{"stream_name":"stderr","time":23.976797554,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":23.976810426,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":23.997101471,"data":"[I 2026-02-17 16:17:48,866] Trial 2 finished with value: 0.011088406535791684 and parameters: {'n_components': 2, 'n_restarts': 15, 'capital_window': 80, 'pv_corr_window': 4, 'pv_baseline_window': 50}. Best is trial 0 with value: 0.046593147912291855.\n"}
+,{"stream_name":"stderr","time":24.830143875,"data":"\r                                                                                    \r\rBest trial: 0. Best value: 0.0465931:  10%|█         | 2/20 [00:16\u003c01:45,  5.86s/it]\rBest trial: 0. Best value: 0.0465931:  10%|█         | 2/20 [00:16\u003c01:45,  5.86s/it]\rBest trial: 0. Best value: 0.0465931:  15%|█▌        | 3/20 [00:16\u003c01:12,  4.28s/it]Model is not converging.  Current: 5909.093244943298 is not greater than 5909.329050728533. Delta is -0.2358057852352431\n"}
+,{"stream_name":"stderr","time":24.947015178,"data":"Model is not converging.  Current: 5908.564242572541 is not greater than 5908.68535276324. Delta is -0.12111019069925533\n"}
+,{"stream_name":"stderr","time":25.137210835,"data":"Model is not converging.  Current: 5911.988941249903 is not greater than 5912.396722414184. Delta is -0.40778116428100475\n"}
+,{"stream_name":"stderr","time":25.327688964,"data":"Model is not converging.  Current: 5904.973092645189 is not greater than 5905.094731360712. Delta is -0.12163871552274941\n"}
+,{"stream_name":"stderr","time":25.404449509,"data":"Model is not converging.  Current: 5911.6248201455455 is not greater than 5911.853342554696. Delta is -0.2285224091501732\n"}
+,{"stream_name":"stdout","time":25.405788754,"data":"HMM training complete: 2 components, best log-likelihood=5911.19\n"}
+,{"stream_name":"stdout","time":25.407915052,"data":"State returns: {0: np.float64(0.0001858961174029141), 1: np.float64(0.00020258287969743667)}\n"}
+,{"stream_name":"stdout","time":25.40802724,"data":"Accumulation state identified: 1 (mean return: 0.0002)\n"}
+,{"stream_name":"stderr","time":25.410149651,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":25.410165538,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":25.429186995,"data":"[I 2026-02-17 16:17:50,298] Trial 3 finished with value: 0.035586577887964044 and parameters: {'n_components': 2, 'n_restarts': 8, 'capital_window': 70, 'pv_corr_window': 6, 'pv_baseline_window': 50}. Best is trial 0 with value: 0.046593147912291855.\n"}
+,{"stream_name":"stdout","time":28.223598572,"data":"HMM training complete: 3 components, best log-likelihood=5971.17\n"}
+,{"stream_name":"stdout","time":28.226230375,"data":"State returns: {0: np.float64(0.0002317035508772861), 1: np.float64(0.0004508748593234288), 2: np.float64(9.984827079296212e-05)}\n"}
+,{"stream_name":"stdout","time":28.226406846,"data":"Accumulation state identified: 1 (mean return: 0.0005)\n"}
+,{"stream_name":"stderr","time":28.228808823,"data":"\r                                                                                    \r\rBest trial: 0. Best value: 0.0465931:  15%|█▌        | 3/20 [00:17\u003c01:12,  4.28s/it]\rBest trial: 0. Best value: 0.0465931:  15%|█▌        | 3/20 [00:17\u003c01:12,  4.28s/it]\rBest trial: 0. Best value: 0.0465931:  20%|██        | 4/20 [00:17\u003c00:50,  3.16s/it]/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":28.228831475,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":28.249167958,"data":"[I 2026-02-17 16:17:53,118] Trial 4 finished with value: 0.0363583062331565 and parameters: {'n_components': 3, 'n_restarts': 6, 'capital_window': 50, 'pv_corr_window': 5, 'pv_baseline_window': 60}. Best is trial 0 with value: 0.046593147912291855.\n"}
+,{"stream_name":"stderr","time":28.440792971,"data":"\r                                                                                    \r\rBest trial: 0. Best value: 0.0465931:  20%|██        | 4/20 [00:20\u003c00:50,  3.16s/it]\rBest trial: 0. Best value: 0.0465931:  20%|██        | 4/20 [00:20\u003c00:50,  3.16s/it]\rBest trial: 0. Best value: 0.0465931:  25%|██▌       | 5/20 [00:20\u003c00:45,  3.04s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":29.105748283,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":30.45949264,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":31.171775104,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":31.444674202,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stdout","time":31.446964366,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":31.449625849,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":31.449653052,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":31.452562406,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":31.452590916,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":31.472832583,"data":"[I 2026-02-17 16:17:56,342] Trial 5 finished with value: 0.07109131926446421 and parameters: {'n_components': 4, 'n_restarts': 7, 'capital_window': 70, 'pv_corr_window': 7, 'pv_baseline_window': 40}. Best is trial 5 with value: 0.07109131926446421.\n"}
+,{"stream_name":"stdout","time":34.19261799,"data":"HMM training complete: 3 components, best log-likelihood=5971.17\n"}
+,{"stream_name":"stdout","time":34.197006467,"data":"State returns: {0: np.float64(0.0002317035508772861), 1: np.float64(0.0004508748593234288), 2: np.float64(9.984827079296212e-05)}\n"}
+,{"stream_name":"stdout","time":34.197043244,"data":"Accumulation state identified: 1 (mean return: 0.0005)\n"}
+,{"stream_name":"stderr","time":34.197736261,"data":"\r                                                                                    \r\rBest trial: 0. Best value: 0.0465931:  25%|██▌       | 5/20 [00:23\u003c00:45,  3.04s/it]\rBest trial: 5. Best value: 0.0710913:  25%|██▌       | 5/20 [00:23\u003c00:45,  3.04s/it]\rBest trial: 5. Best value: 0.0710913:  30%|███       | 6/20 [00:23\u003c00:43,  3.10s/it]/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":34.19774908,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":34.217678196,"data":"[I 2026-02-17 16:17:59,087] Trial 6 finished with value: 0.0 and parameters: {'n_components': 3, 'n_restarts': 6, 'capital_window': 40, 'pv_corr_window': 10, 'pv_baseline_window': 90}. Best is trial 5 with value: 0.07109131926446421.\n"}
+,{"stream_name":"stderr","time":34.440715722,"data":"\r                                                                                    \r\rBest trial: 5. Best value: 0.0710913:  30%|███       | 6/20 [00:26\u003c00:43,  3.10s/it]\rBest trial: 5. Best value: 0.0710913:  30%|███       | 6/20 [00:26\u003c00:43,  3.10s/it]\rBest trial: 5. Best value: 0.0710913:  35%|███▌      | 7/20 [00:26\u003c00:38,  2.98s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":35.040078665,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":36.256801465,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":36.905217793,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":37.189411832,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":37.70501118,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stdout","time":37.707265397,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":37.709837696,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":37.709926408,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":37.712544188,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":37.712570494,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":37.733162753,"data":"[I 2026-02-17 16:18:02,602] Trial 7 finished with value: 0.0 and parameters: {'n_components': 4, 'n_restarts': 8, 'capital_window': 40, 'pv_corr_window': 8, 'pv_baseline_window': 60}. Best is trial 5 with value: 0.07109131926446421.\n"}
+,{"stream_name":"stderr","time":38.453065906,"data":"\r                                                                                    \r\rBest trial: 5. Best value: 0.0710913:  35%|███▌      | 7/20 [00:29\u003c00:38,  2.98s/it]\rBest trial: 5. Best value: 0.0710913:  35%|███▌      | 7/20 [00:29\u003c00:38,  2.98s/it]\rBest trial: 5. Best value: 0.0710913:  40%|████      | 8/20 [00:29\u003c00:37,  3.15s/it]Model is not converging.  Current: 5909.093244943298 is not greater than 5909.329050728533. Delta is -0.2358057852352431\n"}
+,{"stream_name":"stderr","time":38.568169841,"data":"Model is not converging.  Current: 5908.564242572541 is not greater than 5908.68535276324. Delta is -0.12111019069925533\n"}
+,{"stream_name":"stderr","time":38.69045711,"data":"Model is not converging.  Current: 5911.988941249903 is not greater than 5912.396722414184. Delta is -0.40778116428100475\n"}
+,{"stream_name":"stderr","time":38.792077107,"data":"Model is not converging.  Current: 5904.973092645189 is not greater than 5905.094731360712. Delta is -0.12163871552274941\n"}
+,{"stream_name":"stderr","time":38.866538522,"data":"Model is not converging.  Current: 5911.6248201455455 is not greater than 5911.853342554696. Delta is -0.2285224091501732\n"}
+,{"stream_name":"stderr","time":39.062060778,"data":"Model is not converging.  Current: 5909.245021886974 is not greater than 5909.481976598408. Delta is -0.23695471143400937\n"}
+,{"stream_name":"stdout","time":39.063433423,"data":"HMM training complete: 2 components, best log-likelihood=5911.19\n"}
+,{"stream_name":"stdout","time":39.065676756,"data":"State returns: {0: np.float64(0.0001858961174029141), 1: np.float64(0.00020258287969743667)}\n"}
+,{"stream_name":"stdout","time":39.065842134,"data":"Accumulation state identified: 1 (mean return: 0.0002)\n"}
+,{"stream_name":"stderr","time":39.068981752,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":39.069016757,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":39.086499737,"data":"[I 2026-02-17 16:18:03,956] Trial 8 finished with value: 0.06717862701957555 and parameters: {'n_components': 2, 'n_restarts': 10, 'capital_window': 40, 'pv_corr_window': 10, 'pv_baseline_window': 50}. Best is trial 5 with value: 0.07109131926446421.\n"}
+,{"stream_name":"stderr","time":42.190378872,"data":"\r                                                                                    \r\rBest trial: 5. Best value: 0.0710913:  40%|████      | 8/20 [00:31\u003c00:37,  3.15s/it]\rBest trial: 5. Best value: 0.0710913:  40%|████      | 8/20 [00:31\u003c00:37,  3.15s/it]\rBest trial: 5. Best value: 0.0710913:  45%|████▌     | 9/20 [00:31\u003c00:28,  2.59s/it]Model is not converging.  Current: 5908.064706832198 is not greater than 5908.211698719342. Delta is -0.14699188714439515\n"}
+,{"stream_name":"stdout","time":42.757962903,"data":"HMM training complete: 3 components, best log-likelihood=5971.17\n"}
+,{"stream_name":"stdout","time":42.760257427,"data":"State returns: {0: np.float64(0.0002317035508772861), 1: np.float64(0.0004508748593234288), 2: np.float64(9.984827079296212e-05)}\n"}
+,{"stream_name":"stdout","time":42.76037344,"data":"Accumulation state identified: 1 (mean return: 0.0005)\n"}
+,{"stream_name":"stderr","time":42.762805633,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":42.762821668,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":42.782044064,"data":"[I 2026-02-17 16:18:07,651] Trial 9 finished with value: 0.02449817135217236 and parameters: {'n_components': 3, 'n_restarts': 8, 'capital_window': 70, 'pv_corr_window': 7, 'pv_baseline_window': 50}. Best is trial 5 with value: 0.07109131926446421.\n"}
+,{"stream_name":"stderr","time":42.981460985,"data":"\r                                                                                    \r\rBest trial: 5. Best value: 0.0710913:  45%|████▌     | 9/20 [00:35\u003c00:28,  2.59s/it]\rBest trial: 5. Best value: 0.0710913:  45%|████▌     | 9/20 [00:35\u003c00:28,  2.59s/it]\rBest trial: 5. Best value: 0.0710913:  50%|█████     | 10/20 [00:35\u003c00:29,  2.93s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":43.603979326,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":44.903283924,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":45.49796851,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":45.783162869,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":46.26964613,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":46.506270798,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":47.278240619,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stderr","time":47.581880118,"data":"Model is not converging.  Current: 5994.928608334364 is not greater than 5994.973780092647. Delta is -0.045171758282776864\n"}
+,{"stream_name":"stdout","time":48.125791408,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":48.128432139,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":48.128515118,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":48.131143396,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":48.131153703,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":48.151003313,"data":"[I 2026-02-17 16:18:13,020] Trial 10 finished with value: 0.04491495461299211 and parameters: {'n_components': 4, 'n_restarts': 12, 'capital_window': 60, 'pv_corr_window': 3, 'pv_baseline_window': 70}. Best is trial 5 with value: 0.07109131926446421.\n"}
+,{"stream_name":"stderr","time":48.340713886,"data":"\r                                                                                     \r\rBest trial: 5. Best value: 0.0710913:  50%|█████     | 10/20 [00:40\u003c00:29,  2.93s/it]\rBest trial: 5. Best value: 0.0710913:  50%|█████     | 10/20 [00:40\u003c00:29,  2.93s/it]\rBest trial: 5. Best value: 0.0710913:  55%|█████▌    | 11/20 [00:40\u003c00:33,  3.68s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":48.885051924,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":50.155141271,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":50.748711679,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":51.081348226,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":51.613267798,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":51.872642694,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":52.733685277,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stderr","time":53.096761777,"data":"Model is not converging.  Current: 5994.928608334364 is not greater than 5994.973780092647. Delta is -0.045171758282776864\n"}
+,{"stream_name":"stdout","time":53.099194455,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":53.101990561,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":53.102041381,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":53.104929286,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":53.104940275,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":53.124960462,"data":"[I 2026-02-17 16:18:17,994] Trial 11 finished with value: 0.107752477316152 and parameters: {'n_components': 4, 'n_restarts': 11, 'capital_window': 60, 'pv_corr_window': 10, 'pv_baseline_window': 40}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":53.321310766,"data":"\r                                                                                     \r\rBest trial: 5. Best value: 0.0710913:  55%|█████▌    | 11/20 [00:45\u003c00:33,  3.68s/it]\rBest trial: 11. Best value: 0.107752:  55%|█████▌    | 11/20 [00:45\u003c00:33,  3.68s/it]\rBest trial: 11. Best value: 0.107752:  60%|██████    | 12/20 [00:45\u003c00:32,  4.07s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":53.920774042,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":55.140046684,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":55.771936923,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":56.071927549,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":56.627813771,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":56.867640326,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":57.649751461,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stderr","time":57.951930049,"data":"Model is not converging.  Current: 5994.928608334364 is not greater than 5994.973780092647. Delta is -0.045171758282776864\n"}
+,{"stream_name":"stdout","time":58.50664059,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":58.509419139,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":58.509505513,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":58.512372316,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":58.512386056,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":58.621140561,"data":"[I 2026-02-17 16:18:23,490] Trial 12 finished with value: 0.056245605288695266 and parameters: {'n_components': 4, 'n_restarts': 12, 'capital_window': 60, 'pv_corr_window': 9, 'pv_baseline_window': 40}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":58.755508822,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  60%|██████    | 12/20 [00:50\u003c00:32,  4.07s/it]\rBest trial: 11. Best value: 0.107752:  60%|██████    | 12/20 [00:50\u003c00:32,  4.07s/it]\rBest trial: 11. Best value: 0.107752:  65%|██████▌   | 13/20 [00:50\u003c00:31,  4.50s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":59.26494715,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":60.605167826,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":61.250829387,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":61.492223398,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":62.043617241,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":62.353480222,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":63.144458828,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stderr","time":63.521358618,"data":"Model is not converging.  Current: 5994.928608334364 is not greater than 5994.973780092647. Delta is -0.045171758282776864\n"}
+,{"stream_name":"stdout","time":63.524407343,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":63.527656029,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":63.527781124,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":63.530968316,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":63.530994528,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":63.551242328,"data":"[I 2026-02-17 16:18:28,420] Trial 13 finished with value: 0.056245605288695266 and parameters: {'n_components': 4, 'n_restarts': 11, 'capital_window': 60, 'pv_corr_window': 9, 'pv_baseline_window': 40}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":63.765982877,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  65%|██████▌   | 13/20 [00:55\u003c00:31,  4.50s/it]\rBest trial: 11. Best value: 0.107752:  65%|██████▌   | 13/20 [00:55\u003c00:31,  4.50s/it]\rBest trial: 11. Best value: 0.107752:  70%|███████   | 14/20 [00:55\u003c00:27,  4.63s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":64.340861042,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":65.651464534,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":66.291339814,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":66.508111871,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":67.0515769,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":67.368226585,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":68.213974438,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stderr","time":68.58182999,"data":"Model is not converging.  Current: 5994.928608334364 is not greater than 5994.973780092647. Delta is -0.045171758282776864\n"}
+,{"stream_name":"stderr","time":69.679164769,"data":"Model is not converging.  Current: 5984.64695753166 is not greater than 5984.652779916154. Delta is -0.005822384494422295\n"}
+,{"stream_name":"stdout","time":69.681372739,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":69.684154869,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":69.684263297,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":69.686937068,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":69.686961103,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":69.706796883,"data":"[I 2026-02-17 16:18:34,576] Trial 14 finished with value: 0.0363583062331565 and parameters: {'n_components': 4, 'n_restarts': 13, 'capital_window': 50, 'pv_corr_window': 5, 'pv_baseline_window': 40}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":69.931536611,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  70%|███████   | 14/20 [01:01\u003c00:27,  4.63s/it]\rBest trial: 11. Best value: 0.107752:  70%|███████   | 14/20 [01:01\u003c00:27,  4.63s/it]\rBest trial: 11. Best value: 0.107752:  75%|███████▌  | 15/20 [01:01\u003c00:25,  5.09s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":70.564336694,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":71.903699447,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":72.465039307,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":72.697815482,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":73.222300623,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":73.465838989,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stdout","time":73.468147732,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":73.470998672,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":73.471058941,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":73.473850649,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":73.473860367,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":73.494111306,"data":"[I 2026-02-17 16:18:38,363] Trial 15 finished with value: 0.0 and parameters: {'n_components': 4, 'n_restarts': 9, 'capital_window': 80, 'pv_corr_window': 8, 'pv_baseline_window': 70}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":73.679178496,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  75%|███████▌  | 15/20 [01:05\u003c00:25,  5.09s/it]\rBest trial: 11. Best value: 0.107752:  75%|███████▌  | 15/20 [01:05\u003c00:25,  5.09s/it]\rBest trial: 11. Best value: 0.107752:  80%|████████  | 16/20 [01:05\u003c00:18,  4.70s/it]Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":74.268737605,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":75.47705688,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":76.039763633,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":76.328630425,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":76.82637238,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":77.147352804,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":77.918366752,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stdout","time":77.920585086,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":77.923112918,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":77.923196216,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":77.925832566,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":77.92584545,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":77.94522633,"data":"[I 2026-02-17 16:18:42,815] Trial 16 finished with value: 0.02449817135217236 and parameters: {'n_components': 4, 'n_restarts': 10, 'capital_window': 70, 'pv_corr_window': 9, 'pv_baseline_window': 60}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":80.930441654,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  80%|████████  | 16/20 [01:10\u003c00:18,  4.70s/it]\rBest trial: 11. Best value: 0.107752:  80%|████████  | 16/20 [01:10\u003c00:18,  4.70s/it]\rBest trial: 11. Best value: 0.107752:  85%|████████▌ | 17/20 [01:10\u003c00:13,  4.62s/it]Model is not converging.  Current: 5908.064706832198 is not greater than 5908.211698719342. Delta is -0.14699188714439515\n"}
+,{"stream_name":"stdout","time":80.932304645,"data":"HMM training complete: 3 components, best log-likelihood=5971.17\n"}
+,{"stream_name":"stdout","time":80.934652536,"data":"State returns: {0: np.float64(0.0002317035508772861), 1: np.float64(0.0004508748593234288), 2: np.float64(9.984827079296212e-05)}\n"}
+,{"stream_name":"stdout","time":80.934746282,"data":"Accumulation state identified: 1 (mean return: 0.0005)\n"}
+,{"stream_name":"stderr","time":80.937030519,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":80.937039882,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":80.956614816,"data":"[I 2026-02-17 16:18:45,825] Trial 17 finished with value: 0.0950745975268692 and parameters: {'n_components': 3, 'n_restarts': 7, 'capital_window': 50, 'pv_corr_window': 6, 'pv_baseline_window': 40}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":84.046753719,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  85%|████████▌ | 17/20 [01:13\u003c00:13,  4.62s/it]\rBest trial: 11. Best value: 0.107752:  85%|████████▌ | 17/20 [01:13\u003c00:13,  4.62s/it]\rBest trial: 11. Best value: 0.107752:  90%|█████████ | 18/20 [01:13\u003c00:08,  4.14s/it]Model is not converging.  Current: 5908.064706832198 is not greater than 5908.211698719342. Delta is -0.14699188714439515\n"}
+,{"stream_name":"stderr","time":84.925947051,"data":"Model is not converging.  Current: 5977.059066173472 is not greater than 5977.086286967104. Delta is -0.027220793631386186\n"}
+,{"stream_name":"stderr","time":85.468226646,"data":"Model is not converging.  Current: 5949.898257755103 is not greater than 5949.9679495252. Delta is -0.06969177009705163\n"}
+,{"stream_name":"stdout","time":86.586343963,"data":"HMM training complete: 3 components, best log-likelihood=5976.99\n"}
+,{"stream_name":"stdout","time":86.588681588,"data":"State returns: {0: np.float64(0.002735184009788886), 1: np.float64(0.0002385227584358836), 2: np.float64(-0.00030055198318094223)}\n"}
+,{"stream_name":"stdout","time":86.588712002,"data":"Accumulation state identified: 0 (mean return: 0.0027)\n"}
+,{"stream_name":"stderr","time":86.591177826,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":86.591205077,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":86.611473731,"data":"[I 2026-02-17 16:18:51,481] Trial 18 finished with value: 0.08429983547312148 and parameters: {'n_components': 3, 'n_restarts': 13, 'capital_window': 50, 'pv_corr_window': 5, 'pv_baseline_window': 50}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":89.627186502,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  90%|█████████ | 18/20 [01:18\u003c00:08,  4.14s/it]\rBest trial: 11. Best value: 0.107752:  90%|█████████ | 18/20 [01:18\u003c00:08,  4.14s/it]\rBest trial: 11. Best value: 0.107752:  95%|█████████▌| 19/20 [01:18\u003c00:04,  4.59s/it]Model is not converging.  Current: 5908.064706832198 is not greater than 5908.211698719342. Delta is -0.14699188714439515\n"}
+,{"stream_name":"stderr","time":90.589040959,"data":"Model is not converging.  Current: 5977.059066173472 is not greater than 5977.086286967104. Delta is -0.027220793631386186\n"}
+,{"stream_name":"stdout","time":90.590972908,"data":"HMM training complete: 3 components, best log-likelihood=5976.99\n"}
+,{"stream_name":"stdout","time":90.593459588,"data":"State returns: {0: np.float64(0.002735184009788886), 1: np.float64(0.0002385227584358836), 2: np.float64(-0.00030055198318094223)}\n"}
+,{"stream_name":"stdout","time":90.59367608,"data":"Accumulation state identified: 0 (mean return: 0.0027)\n"}
+,{"stream_name":"stderr","time":90.596042517,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":90.596060261,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":90.615753582,"data":"[I 2026-02-17 16:18:55,485] Trial 19 finished with value: 0.0363583062331565 and parameters: {'n_components': 3, 'n_restarts': 9, 'capital_window': 50, 'pv_corr_window': 6, 'pv_baseline_window': 80}. Best is trial 11 with value: 0.107752477316152.\n"}
+,{"stream_name":"stderr","time":90.617153703,"data":"\r                                                                                     \r\rBest trial: 11. Best value: 0.107752:  95%|█████████▌| 19/20 [01:22\u003c00:04,  4.59s/it]\rBest trial: 11. Best value: 0.107752:  95%|█████████▌| 19/20 [01:22\u003c00:04,  4.59s/it]\rBest trial: 11. Best value: 0.107752: 100%|██████████| 20/20 [01:22\u003c00:00,  4.42s/it]\rBest trial: 11. Best value: 0.107752: 100%|██████████| 20/20 [01:22\u003c00:00,  4.14s/it]\n"}
+,{"stream_name":"stdout","time":90.61731875,"data":"\n"}
+,{"stream_name":"stdout","time":90.61739938,"data":"Optuna optimization complete:\n"}
+,{"stream_name":"stdout","time":90.617770478,"data":"  Best MI: 0.107752\n"}
+,{"stream_name":"stdout","time":90.618118285,"data":"  Best params: {'n_components': 4, 'n_restarts': 11, 'capital_window': 60, 'pv_corr_window': 10, 'pv_baseline_window': 40}\n"}
+,{"stream_name":"stdout","time":90.618492299,"data":"\n"}
+,{"stream_name":"stdout","time":90.618572655,"data":"[3/5] Generating features with best hyperparameters...\n"}
+,{"stream_name":"stderr","time":90.86413675,"data":"Model is not converging.  Current: 5980.3918601399 is not greater than 5980.4394448973735. Delta is -0.047584757473487116\n"}
+,{"stream_name":"stderr","time":91.515682068,"data":"Model is not converging.  Current: 5979.624342049403 is not greater than 5979.945424478492. Delta is -0.32108242908907414\n"}
+,{"stream_name":"stderr","time":92.723557729,"data":"Model is not converging.  Current: 6009.837701935783 is not greater than 6009.891200507991. Delta is -0.0534985722079\n"}
+,{"stream_name":"stderr","time":93.34821734,"data":"Model is not converging.  Current: 6001.671443191131 is not greater than 6001.7054007177185. Delta is -0.03395752658707352\n"}
+,{"stream_name":"stderr","time":93.557131212,"data":"Model is not converging.  Current: 5928.9039994386285 is not greater than 5929.003718092771. Delta is -0.09971865414263448\n"}
+,{"stream_name":"stderr","time":94.117063999,"data":"Model is not converging.  Current: 5990.70309428576 is not greater than 5990.721976610698. Delta is -0.018882324938203965\n"}
+,{"stream_name":"stderr","time":94.451983302,"data":"Model is not converging.  Current: 6004.130263790052 is not greater than 6004.157222203127. Delta is -0.026958413075590215\n"}
+,{"stream_name":"stderr","time":95.302883573,"data":"Model is not converging.  Current: 6000.105485044421 is not greater than 6000.226246242432. Delta is -0.12076119801167806\n"}
+,{"stream_name":"stderr","time":95.651840925,"data":"Model is not converging.  Current: 5994.928608334364 is not greater than 5994.973780092647. Delta is -0.045171758282776864\n"}
+,{"stream_name":"stdout","time":95.654334692,"data":"HMM training complete: 4 components, best log-likelihood=6009.64\n"}
+,{"stream_name":"stdout","time":95.657241604,"data":"State returns: {0: np.float64(-7.8412852120723e-05), 1: np.float64(0.005394459068060389), 2: np.float64(-0.002346107170760011), 3: np.float64(0.00030319032288856767)}\n"}
+,{"stream_name":"stdout","time":95.657456532,"data":"Accumulation state identified: 1 (mean return: 0.0054)\n"}
+,{"stream_name":"stderr","time":95.665026064,"data":"/kaggle/src/script.py:205: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.\n"}
+,{"stream_name":"stderr","time":95.665060011,"data":"  probs_df = probs_df.fillna(method='ffill').fillna(method='bfill')\n"}
+,{"stream_name":"stdout","time":95.670300654,"data":"\n"}
+,{"stream_name":"stdout","time":95.673014583,"data":"Feature generation complete:\n"}
+,{"stream_name":"stdout","time":95.673042809,"data":"  Output shape: (2839, 3)\n"}
+,{"stream_name":"stdout","time":95.673047634,"data":"  Columns: ['etf_regime_prob', 'etf_capital_intensity', 'etf_pv_divergence']\n"}
+,{"stream_name":"stdout","time":95.673052025,"data":"  Date range: 2014-10-28 to 2026-02-17\n"}
+,{"stream_name":"stdout","time":95.673056064,"data":"\n"}
+,{"stream_name":"stdout","time":95.673060091,"data":"[4/5] Computing evaluation metrics...\n"}
+,{"stream_name":"stdout","time":95.750839652,"data":"\n"}
+,{"stream_name":"stdout","time":95.750984104,"data":"Metrics computed:\n"}
+,{"stream_name":"stdout","time":95.751162512,"data":"  MI individual: {'etf_regime_prob': np.float64(0.0), 'etf_capital_intensity': np.float64(0.0027837488717628034), 'etf_pv_divergence': np.float64(0.0)}\n"}
+,{"stream_name":"stdout","time":95.751335365,"data":"  MI sum: 0.002784\n"}
+,{"stream_name":"stdout","time":95.752183501,"data":"  Autocorrelation: {'etf_regime_prob': np.float64(0.9421120867662458), 'etf_capital_intensity': np.float64(0.5019777143401934), 'etf_pv_divergence': np.float64(0.8831894732591421)}\n"}
+,{"stream_name":"stdout","time":95.752202937,"data":"\n"}
+,{"stream_name":"stdout","time":95.752208166,"data":"[5/5] Saving results...\n"}
+,{"stream_name":"stdout","time":95.791927598,"data":"  Saved: submodel_output.csv (2839 rows, 3 columns)\n"}
+,{"stream_name":"stdout","time":95.792403849,"data":"  Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":95.792418289,"data":"\n"}
+,{"stream_name":"stdout","time":95.792421758,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":95.792425173,"data":"Training complete!\n"}
+,{"stream_name":"stdout","time":95.792428011,"data":"================================================================================\n"}
+,{"stream_name":"stdout","time":95.79243086,"data":"\n"}
+,{"stream_name":"stdout","time":95.792433762,"data":"Final MI: 0.002784\n"}
+,{"stream_name":"stdout","time":95.792436629,"data":"Output shape: (2839, 3)\n"}
+,{"stream_name":"stdout","time":95.792511734,"data":"Columns: ['etf_regime_prob', 'etf_capital_intensity', 'etf_pv_divergence']\n"}
+,{"stream_name":"stderr","time":98.418952551,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":98.419026881,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":98.735614075,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":98.735655311,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":99.661545511,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":99.66158387,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":99.707361068,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":101.302145152,"data":"[NbConvertApp] Writing 351429 bytes to __results__.html\n"}
+]

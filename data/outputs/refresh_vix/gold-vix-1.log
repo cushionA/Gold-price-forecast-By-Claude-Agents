@@ -1,0 +1,124 @@
+[{"stream_name":"stdout","time":6.431586161,"data":"=== Gold SubModel Training: VIX attempt 1 ===\n"}
+,{"stream_name":"stdout","time":6.431667387,"data":"Started: 2026-02-17T16:18:15.721331\n"}
+,{"stream_name":"stdout","time":6.431672621,"data":"\n"}
+,{"stream_name":"stdout","time":6.431675489,"data":"=== Data Fetching ===\n"}
+,{"stream_name":"stdout","time":6.616085956,"data":"FRED fetch failed: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stdout","time":6.6161238430000004,"data":"Falling back to Yahoo Finance...\n"}
+,{"stream_name":"stderr","time":8.012671442,"data":"/kaggle/src/script.py:62: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":8.012724587,"data":"  vix_df = yf.download('^VIX', start='2014-10-01', progress=False)\n"}
+,{"stream_name":"stdout","time":8.560610511,"data":"Fetched 2861 rows from Yahoo Finance (^VIX)\n"}
+,{"stream_name":"stdout","time":8.573295463000001,"data":"Final data: 4157 rows, date range: 2014-10-02 00:00:00 to 2026-02-17 00:00:00\n"}
+,{"stream_name":"stdout","time":8.57333484,"data":"VIX range: 9.14 to 82.69\n"}
+,{"stream_name":"stdout","time":8.573443083,"data":"Log-change std: 0.0671\n"}
+,{"stream_name":"stdout","time":8.573474659,"data":"\n"}
+,{"stream_name":"stdout","time":8.573502285,"data":"=== Computing Target Variable ===\n"}
+,{"stream_name":"stdout","time":8.57351157,"data":"Fetching Gold data (GC=F) for target computation...\n"}
+,{"stream_name":"stderr","time":8.573778542,"data":"/kaggle/src/script.py:251: FutureWarning: YF.download() has changed argument auto_adjust default to True\n"}
+,{"stream_name":"stderr","time":8.573790228,"data":"  gold_df = yf.download('GC=F', start='2014-01-01', progress=False)\n"}
+,{"stream_name":"stdout","time":8.793723008,"data":"Gold target computed: 3047 rows\n"}
+,{"stream_name":"stdout","time":8.793769686,"data":"Target range: -11.37% to 6.08%\n"}
+,{"stream_name":"stdout","time":8.800889689,"data":"Merged data: 2858 rows (VIX + Gold target)\n"}
+,{"stream_name":"stdout","time":8.800923691,"data":"\n"}
+,{"stream_name":"stdout","time":8.800928059,"data":"=== Extracting Arrays ===\n"}
+,{"stream_name":"stdout","time":8.800931588,"data":"merged_df shape: (2858, 4)\n"}
+,{"stream_name":"stdout","time":8.800935104,"data":"merged_df columns: ['date', 'vix', 'vix_log_change', 'gold_return_next']\n"}
+,{"stream_name":"stdout","time":8.800939918,"data":"TARGET_AVAILABLE: True\n"}
+,{"stream_name":"stdout","time":8.800944856,"data":"target_col: gold_return_next\n"}
+,{"stream_name":"stdout","time":8.800998639,"data":"vix_log_changes shape: (2858,)\n"}
+,{"stream_name":"stdout","time":8.801010719,"data":"vix_levels shape: (2858,)\n"}
+,{"stream_name":"stdout","time":8.801015769,"data":"target shape: (2858,)\n"}
+,{"stream_name":"stdout","time":8.801020352,"data":"dates shape: (2858,)\n"}
+,{"stream_name":"stdout","time":8.801167617,"data":"\n"}
+,{"stream_name":"stdout","time":8.801179921,"data":"Data split: train=2000, val=428, test=430\n"}
+,{"stream_name":"stdout","time":8.801194015,"data":"\n"}
+,{"stream_name":"stdout","time":8.801198849,"data":"=== Running Optuna HPO ===\n"}
+,{"stream_name":"stderr","time":8.802276274,"data":"[I 2026-02-17 16:18:18,091] A new study created in memory with name: no-name-11d9ec51-601e-4ce6-ae57-90c70ef8161b\n"}
+,{"stream_name":"stderr","time":9.679261238,"data":"[I 2026-02-17 16:18:18,968] Trial 0 finished with value: 1.5511185297582655 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'zscore_window': 40, 'autocorr_window': 20}. Best is trial 0 with value: 1.5511185297582655.\n"}
+,{"stream_name":"stderr","time":10.462042293,"data":"[I 2026-02-17 16:18:19,751] Trial 1 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":11.338714688,"data":"[I 2026-02-17 16:18:20,628] Trial 2 finished with value: 1.5033273677414256 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'zscore_window': 60, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":12.132944084,"data":"[I 2026-02-17 16:18:21,422] Trial 3 finished with value: 1.5304619542664808 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'zscore_window': 90, 'autocorr_window': 20}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":12.93591422,"data":"[I 2026-02-17 16:18:22,225] Trial 4 finished with value: 1.4960203487429231 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'zscore_window': 60, 'autocorr_window': 15}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":13.728009665,"data":"[I 2026-02-17 16:18:23,017] Trial 5 finished with value: 1.4912285889934536 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'zscore_window': 60, 'autocorr_window': 20}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":14.502330937,"data":"[I 2026-02-17 16:18:23,791] Trial 6 finished with value: 1.4960203487429231 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'zscore_window': 60, 'autocorr_window': 15}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":15.332321319,"data":"[I 2026-02-17 16:18:24,621] Trial 7 finished with value: 1.4886850943910837 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'zscore_window': 60, 'autocorr_window': 15}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":16.198165624,"data":"[I 2026-02-17 16:18:25,487] Trial 8 finished with value: 1.4912285889934536 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 60, 'autocorr_window': 20}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":16.995745953,"data":"[I 2026-02-17 16:18:26,285] Trial 9 finished with value: 1.5279184596641109 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'zscore_window': 90, 'autocorr_window': 15}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":17.873031777,"data":"[I 2026-02-17 16:18:27,162] Trial 10 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":18.738636703,"data":"[I 2026-02-17 16:18:28,028] Trial 11 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":19.604794376,"data":"[I 2026-02-17 16:18:28,894] Trial 12 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":20.482028087,"data":"[I 2026-02-17 16:18:29,771] Trial 13 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":21.379108041,"data":"[I 2026-02-17 16:18:30,668] Trial 14 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":22.187202883,"data":"[I 2026-02-17 16:18:31,476] Trial 15 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":23.034603755,"data":"[I 2026-02-17 16:18:32,324] Trial 16 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":23.901121949,"data":"[I 2026-02-17 16:18:33,190] Trial 17 finished with value: 1.5498959873662923 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 90, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":24.695226209,"data":"[I 2026-02-17 16:18:33,984] Trial 18 finished with value: 1.5705525628580772 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":25.511815181,"data":"[I 2026-02-17 16:18:34,801] Trial 19 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":26.403225155,"data":"[I 2026-02-17 16:18:35,692] Trial 20 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":27.277685256,"data":"[I 2026-02-17 16:18:36,567] Trial 21 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":28.163723438,"data":"[I 2026-02-17 16:18:37,453] Trial 22 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":29.034387439,"data":"[I 2026-02-17 16:18:38,323] Trial 23 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":29.899243429,"data":"[I 2026-02-17 16:18:39,188] Trial 24 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":30.671945694,"data":"[I 2026-02-17 16:18:39,961] Trial 25 finished with value: 1.5498959873662923 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'zscore_window': 90, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":31.660303085,"data":"[I 2026-02-17 16:18:40,949] Trial 26 finished with value: 1.5659292825451652 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":32.542092178,"data":"[I 2026-02-17 16:18:41,831] Trial 27 finished with value: 1.5778878172099169 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 10, 'zscore_window': 40, 'autocorr_window': 30}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":33.374703563,"data":"[I 2026-02-17 16:18:42,664] Trial 28 finished with value: 1.563245543859575 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'zscore_window': 40, 'autocorr_window': 15}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stderr","time":34.177456904,"data":"[I 2026-02-17 16:18:43,467] Trial 29 finished with value: 1.5511185297582655 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 3, 'zscore_window': 40, 'autocorr_window': 20}. Best is trial 1 with value: 1.5778878172099169.\n"}
+,{"stream_name":"stdout","time":34.179606921,"data":"\n"}
+,{"stream_name":"stdout","time":34.179640046,"data":"Optuna completed: 30 trials\n"}
+,{"stream_name":"stdout","time":34.179658345,"data":"Best value: 1.577888\n"}
+,{"stream_name":"stdout","time":34.179828688,"data":"Best params: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 3, 'zscore_window': 40, 'autocorr_window': 30}\n"}
+,{"stream_name":"stdout","time":34.179910548,"data":"\n"}
+,{"stream_name":"stdout","time":34.1799226,"data":"=== Generating Final Output ===\n"}
+,{"stream_name":"stdout","time":34.928550386,"data":"Output shape: (2858, 4)\n"}
+,{"stream_name":"stdout","time":34.92859112,"data":"Output columns: ['date', 'vix_regime_probability', 'vix_mean_reversion_z', 'vix_persistence']\n"}
+,{"stream_name":"stdout","time":34.9285978,"data":"\n"}
+,{"stream_name":"stdout","time":34.928601378,"data":"Output summary:\n"}
+,{"stream_name":"stdout","time":34.947016771,"data":"                                date  ...  vix_persistence\n"}
+,{"stream_name":"stdout","time":34.947056996,"data":"count                           2858  ...      2829.000000\n"}
+,{"stream_name":"stdout","time":34.947063426,"data":"mean   2020-06-09 01:36:14.107767552  ...        -0.077449\n"}
+,{"stream_name":"stdout","time":34.947068034,"data":"min              2014-10-02 00:00:00  ...        -0.601159\n"}
+,{"stream_name":"stdout","time":34.947071482,"data":"25%              2017-08-07 06:00:00  ...        -0.204706\n"}
+,{"stream_name":"stdout","time":34.947074686,"data":"50%              2020-06-10 12:00:00  ...        -0.079470\n"}
+,{"stream_name":"stdout","time":34.947077804,"data":"75%              2023-04-12 18:00:00  ...         0.049111\n"}
+,{"stream_name":"stdout","time":34.947115684,"data":"max              2026-02-13 00:00:00  ...         0.652861\n"}
+,{"stream_name":"stdout","time":34.947119451,"data":"std                              NaN  ...         0.178253\n"}
+,{"stream_name":"stdout","time":34.94712257,"data":"\n"}
+,{"stream_name":"stdout","time":34.947125753,"data":"[8 rows x 4 columns]\n"}
+,{"stream_name":"stdout","time":34.947523964,"data":"\n"}
+,{"stream_name":"stdout","time":34.947536542,"data":"NaN counts after forward-fill:\n"}
+,{"stream_name":"stdout","time":34.947917372,"data":"date                       0\n"}
+,{"stream_name":"stdout","time":34.947925638,"data":"vix_regime_probability     0\n"}
+,{"stream_name":"stdout","time":34.947951615,"data":"vix_mean_reversion_z      39\n"}
+,{"stream_name":"stdout","time":34.947955947,"data":"vix_persistence           29\n"}
+,{"stream_name":"stdout","time":34.947959796,"data":"dtype: int64\n"}
+,{"stream_name":"stdout","time":34.947963409,"data":"\n"}
+,{"stream_name":"stdout","time":34.947967049,"data":"=== Computing Metrics ===\n"}
+,{"stream_name":"stdout","time":34.961266803,"data":"MI on test set:\n"}
+,{"stream_name":"stdout","time":34.961306176,"data":"  vix_regime_probability: 0.514511\n"}
+,{"stream_name":"stdout","time":34.961312005,"data":"  vix_mean_reversion_z: 0.481643\n"}
+,{"stream_name":"stdout","time":34.96131668,"data":"  vix_persistence: 0.500133\n"}
+,{"stream_name":"stdout","time":34.961320793,"data":"  Total: 1.496287\n"}
+,{"stream_name":"stdout","time":34.962817234,"data":"\n"}
+,{"stream_name":"stdout","time":34.962841898,"data":"Autocorrelation (lag 1):\n"}
+,{"stream_name":"stdout","time":34.962846966,"data":"  vix_regime_probability: 0.1496\n"}
+,{"stream_name":"stdout","time":34.962850781,"data":"  vix_mean_reversion_z: 0.8587\n"}
+,{"stream_name":"stdout","time":34.962854727,"data":"  vix_persistence: 0.9257\n"}
+,{"stream_name":"stdout","time":34.96285864,"data":"\n"}
+,{"stream_name":"stdout","time":34.96286239,"data":"=== Saving Results ===\n"}
+,{"stream_name":"stdout","time":34.996220446,"data":"Saved: submodel_output.csv\n"}
+,{"stream_name":"stdout","time":34.998885524,"data":"Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":34.998916088,"data":"\n"}
+,{"stream_name":"stdout","time":34.99892105,"data":"=== Training Complete! ===\n"}
+,{"stream_name":"stdout","time":34.998925264,"data":"Finished: 2026-02-17T16:18:44.288663\n"}
+,{"stream_name":"stdout","time":34.998933406,"data":"Best MI (validation): 1.577888\n"}
+,{"stream_name":"stdout","time":34.99893745,"data":"Best MI (test): 1.496287\n"}
+,{"stream_name":"stdout","time":34.998941147,"data":"Output: 2858 rows × 4 columns\n"}
+,{"stream_name":"stderr","time":37.765338677,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":37.765404466,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":38.171202361,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":38.171235675,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":40.414566838,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":40.414606684,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":40.460194943,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":42.191500926,"data":"[NbConvertApp] Writing 353590 bytes to __results__.html\n"}
+]

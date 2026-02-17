@@ -1,0 +1,52 @@
+{
+  "feature": "inflation_expectation",
+  "attempt": 1,
+  "timestamp": "2026-02-18T01:33:06.177157",
+  "best_params": {
+    "hmm_n_components": 3,
+    "hmm_covariance_type": "full",
+    "hmm_n_init": 3,
+    "anchoring_vol_window": 5,
+    "anchoring_baseline_window": 120,
+    "sensitivity_baseline_window": 40
+  },
+  "metrics": {
+    "mi_individual": {
+      "ie_regime_prob": 0.005800758183530874,
+      "ie_anchoring_z": 0.022476325285044396,
+      "ie_gold_sensitivity_z": 0.006524039405269022
+    },
+    "mi_sum": 0.03480112287384429,
+    "autocorr": {
+      "ie_regime_prob": 0.9248665001334226,
+      "ie_anchoring_z": 0.830125625399077,
+      "ie_gold_sensitivity_z": 0.7042852149871834
+    },
+    "has_nan": {
+      "ie_regime_prob": false,
+      "ie_anchoring_z": false,
+      "ie_gold_sensitivity_z": false
+    },
+    "is_constant": {
+      "ie_regime_prob": false,
+      "ie_anchoring_z": false,
+      "ie_gold_sensitivity_z": false
+    }
+  },
+  "optuna_best_value": 0.057274232704002115,
+  "output_shape": [
+    2924,
+    3
+  ],
+  "output_columns": [
+    "ie_regime_prob",
+    "ie_anchoring_z",
+    "ie_gold_sensitivity_z"
+  ],
+  "data_info": {
+    "train_samples": 2046,
+    "val_samples": 439,
+    "test_samples": 439,
+    "full_samples": 2924
+  }
+}
