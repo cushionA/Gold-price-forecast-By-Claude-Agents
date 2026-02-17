@@ -1,164 +1,349 @@
 {
-  "feature": "dxy",
+  "feature": "classifier",
   "attempt": 1,
   "source": "entrance",
-  "phase": "phase2_submodel",
+  "phase": "classifier_model",
 
-  "summary": "DXY submodel proper construction. Previous attempt 1 was auto-evaluated (MI=0.019) without Gate 2/3 testing and its output was never incorporated into the meta-model. The meta-model currently uses only dxy_change (base feature, importance rank #17 at 3.50%). DXY is gold's strongest inverse correlator and deserves a proper submodel to extract regime, divergence, and volatility context.",
+  "summary": "Build a standalone binary classification model (UP/DOWN) using NEW features specifically designed for DOWN detection, then ensemble it with the existing regression meta-model (attempt 7). The regression model has 96% bullish bias -- it almost always predicts UP. In 2026 YTD, it correctly predicted 21/31 days overall but caught only 1/10 down days. A classification XGBoost using the SAME 24 features failed completely (P(UP) always 0.46-0.51, zero discrimination). The problem is that the existing 24 features do not contain enough DOWN-specific information. We need features that capture momentum exhaustion, volatility regime shifts, cross-asset stress, and reversal signals.",
 
-  "requirements": "Build a Deterministic HMM-based submodel that extracts USD regime dynamics, cross-currency structure, and FX volatility state from DXY and its 6 constituent currency pairs. Output 2-3 columns following the proven success pattern (Deterministic HMM with 3-state regime + z-score features). All data is daily frequency -- no interpolation required.",
-
-  "approach": "Deterministic HMM + Cross-Currency Z-Score Features (Proven Pattern)",
-
-  "why_dxy_matters": {
-    "theoretical_background": "Gold is priced in USD, creating a mechanical inverse relationship. When USD strengthens (DXY rises), gold becomes more expensive for non-USD buyers, reducing demand. Conversely, USD weakness signals monetary easing or loss of confidence, driving gold demand as a store of value. However, this inverse correlation is regime-dependent: during crises, both USD and gold can rise as safe havens. The raw dxy_change base feature captures only the directional move but not the context (is it broad-based USD strength? EUR-driven? Is the USD in a trending or mean-reverting regime?).",
-    "current_gap": "The meta-model sees dxy_change (rank #17, 3.50% importance) -- a raw daily change with no contextual information. Other features like dxy_dxy (raw level) provide no regime or structural insight. The meta-model cannot distinguish between: (a) broad-based USD rally with all currencies moving together, (b) EUR-specific weakness driving DXY up while JPY/CHF strengthen, (c) high-volatility regime where DXY moves are larger and more persistent.",
-    "expected_value_add": "A DXY submodel capturing regime state, cross-currency agreement/divergence, and USD volatility context gives the meta-model the ability to weight dxy_change appropriately based on the structural environment. This is analogous to how vix_regime_probability (rank #21, 3.38%) helps contextualize raw VIX, and how tech_trend_regime_prob (rank #1, 7.20%) helps contextualize gold technicals."
+  "problem_analysis": {
+    "regression_model_behavior": {
+      "test_da": "60.04%",
+      "test_hcda": "64.13%",
+      "test_sharpe": 2.46,
+      "positive_prediction_pct": "87.3% (attempt 7), 96% in 2026 backtests",
+      "actual_positive_pct": "58.7% in test set",
+      "2026_ytd_performance": "21/31 correct overall, but only 1/10 DOWN days caught",
+      "down_day_recall": "~10% (essentially no DOWN detection skill)"
+    },
+    "why_same_features_failed_for_classification": [
+      "All 24 features are designed to predict gold RETURN magnitude, not direction change",
+      "Regime probability features (7 of 24) are slow-moving state indicators, not reversal signals",
+      "Z-score features capture mean-reversion tendency but not exhaustion timing",
+      "No features capture intra-day momentum collapse, volume climax, or cross-market contagion",
+      "XGBoost classifier with same features produced P(UP) in 0.46-0.51 range for ALL samples -- zero discrimination"
+    ],
+    "what_down_days_look_like": [
+      "Sudden reversals after extended rallies (momentum exhaustion)",
+      "VIX spike + DXY strength + equity selloff (risk-off cascade)",
+      "Gold-specific: GVZ spike without corresponding VIX move (gold-specific fear)",
+      "Volume anomalies: abnormally high volume on flat/negative days",
+      "Cross-asset divergence: gold diverges from silver/copper (relative value reset)",
+      "Fed surprise: hawkish communication causing rate spike + gold drop"
+    ]
   },
 
-  "data_sources": {
-    "primary": {
-      "DXY_index": "Yahoo: DX-Y.NYB (daily, already in data/raw/dxy.csv)"
-    },
-    "constituent_currencies": {
-      "EURUSD": "Yahoo: EURUSD=X (57.6% weight, inverse to DXY)",
-      "USDJPY": "Yahoo: JPY=X (13.6% weight, same direction as DXY)",
-      "GBPUSD": "Yahoo: GBPUSD=X (11.9% weight, inverse to DXY)",
-      "USDCAD": "Yahoo: CAD=X (9.1% weight, same direction as DXY)",
-      "USDSEK": "Yahoo: SEK=X (4.2% weight, same direction as DXY)",
-      "USDCHF": "Yahoo: CHF=X (3.6% weight, same direction as DXY)"
-    },
-    "frequency": "All daily. No interpolation needed (key advantage over real_rate).",
-    "delay": "Same-day or T+1. Well within 5-day rule."
+  "requirements": "Build a binary classification model (UP=1/DOWN=0) using 15-25 NEW features specifically designed for DOWN-day detection. The classifier should focus on capturing reversal signals, momentum exhaustion, volatility regime changes, and cross-asset stress patterns that are NOT present in the existing 24 regression features. Output: P(DOWN) probability for each day, to be ensembled with regression predictions via a threshold-based override system.",
+
+  "target_variable": {
+    "definition": "Binary: 1 if next-day gold return > 0 (UP), 0 otherwise (DOWN)",
+    "note_on_flat_days": "Days with exactly 0% return are extremely rare (<0.5%) and should be classified as DOWN (conservative) since the regression model already has UP bias",
+    "class_balance": "Approximately 58-60% UP / 40-42% DOWN in training data (moderate imbalance)",
+    "why_binary_not_ternary": "A UP/FLAT/DOWN tri-class model would reduce effective sample size per class too much with only ~2500 samples. Binary is more robust."
   },
 
-  "proven_success_pattern": {
-    "description": "The most successful submodel pattern in this project is Deterministic HMM (3-state) + domain-specific z-score features. This pattern has produced Gate 3 passes for: vix (DA +0.96%, Sharpe +0.289), cross_asset (DA +0.76%, MAE -0.0866), etf_flow (Sharpe +0.377, MAE -0.0436), inflation_expectation (DA +0.57%, Sharpe +0.152), and others.",
-    "architecture": {
-      "component_1": "3-state HMM on DXY daily returns -> dxy_regime_prob (probability of trending state)",
-      "component_2": "Z-score feature capturing cross-currency divergence or DXY momentum persistence",
-      "component_3_optional": "Z-score feature capturing FX volatility state (only if VIF allows)"
+  "new_feature_categories": {
+    "category_1_momentum_exhaustion": {
+      "description": "Features that detect when an uptrend is losing steam -- the most direct DOWN predictor",
+      "candidate_features": [
+        {
+          "name": "rsi_14d",
+          "source": "yfinance GC=F",
+          "formula": "Standard RSI with 14-day lookback on gold close prices",
+          "rationale": "RSI > 70 historically signals overbought conditions and reversal risk. Unlike existing tech_mean_reversion_z (which captures z-score of returns), RSI specifically captures momentum exhaustion timing.",
+          "existing_feature_overlap": "Low -- tech_mean_reversion_z is z-score of GLD returns, not RSI-based"
+        },
+        {
+          "name": "gold_streak_days",
+          "source": "yfinance GC=F",
+          "formula": "Consecutive days with positive (or negative) returns",
+          "rationale": "Extended winning streaks (5+ days) create mean-reversion pressure. No existing feature tracks sequential patterns.",
+          "existing_feature_overlap": "None -- completely new signal type"
+        },
+        {
+          "name": "momentum_divergence",
+          "source": "yfinance GC=F",
+          "formula": "Sign(5-day return) != Sign(20-day return). Or: 5d_return - 20d_return normalized",
+          "rationale": "When short-term momentum decouples from medium-term, reversals become likely. Captures trend fatigue.",
+          "existing_feature_overlap": "Low -- no multi-timeframe momentum comparison exists"
+        },
+        {
+          "name": "distance_from_20d_high",
+          "source": "yfinance GC=F",
+          "formula": "(close - 20d_high) / 20d_range. Near 0 = at high, near -1 = at low",
+          "rationale": "Gold at 20-day high has higher probability of reversal than gold at 20-day midpoint",
+          "existing_feature_overlap": "None"
+        }
+      ]
     },
-    "output_columns": "2-3 columns: regime_prob + 1-2 z-score features",
-    "why_this_works": "HMM regime_prob captures temporal state (trending vs consolidation vs crisis). Z-score features capture domain-specific dynamics. XGBoost can easily split on these well-scaled features. The 2-3 column constraint prevents noise overfitting (lesson from real_rate attempt 5: 7 columns = worst Gate 3 result)."
-  },
-
-  "candidate_output_features": {
-    "column_1_regime_prob": {
-      "name": "dxy_regime_prob",
-      "method": "3-state Gaussian HMM on DXY daily log-returns",
-      "description": "Probability of being in the high-variance (trending) regime. Captures whether USD is in a strong trend, low-volatility consolidation, or high-volatility crisis mode.",
-      "range": "[0, 1]",
-      "precedent": "vix_regime_probability, tech_trend_regime_prob, xasset_regime_prob, etf_regime_prob, ie_regime_prob -- all passed Gate 3"
+    "category_2_volatility_regime_shifts": {
+      "description": "Features capturing sudden changes in volatility that often precede DOWN days",
+      "candidate_features": [
+        {
+          "name": "gvz_spike",
+          "source": "FRED: GVZCLS or Yahoo: ^GVZ",
+          "formula": "GVZ z-score (current GVZ / 60-day rolling mean - 1). High values = fear spike",
+          "rationale": "Sudden GVZ spikes indicate options market pricing in gold-specific risk. Unlike existing options_risk_regime_prob (HMM regime), this captures the MAGNITUDE of the spike.",
+          "existing_feature_overlap": "Moderate with options_risk_regime_prob -- but regime_prob is binary-ish state, this is continuous intensity"
+        },
+        {
+          "name": "gvz_vix_ratio_change",
+          "source": "FRED: GVZCLS + VIXCLS",
+          "formula": "Daily change in GVZ/VIX ratio",
+          "rationale": "When GVZ rises faster than VIX, it means gold-specific fear is rising beyond general market fear. This is a gold-specific DOWN signal.",
+          "existing_feature_overlap": "Low -- VIX level and VIX regime exist but not the GVZ/VIX ratio dynamic"
+        },
+        {
+          "name": "realized_vol_ratio",
+          "source": "yfinance GC=F",
+          "formula": "5-day realized vol / 20-day realized vol. >1 means short-term vol expanding",
+          "rationale": "Short-term vol expansion relative to medium-term is a classic reversal precursor. No existing feature captures this vol-of-vol concept.",
+          "existing_feature_overlap": "Low -- tech_volatility_regime is from HMM, not ratio-based"
+        },
+        {
+          "name": "intraday_range_ratio",
+          "source": "yfinance GC=F (High/Low)",
+          "formula": "(high-low)/close normalized by 20-day average range",
+          "rationale": "Abnormally wide daily ranges often precede reversals. Large range = high uncertainty = directional change likely.",
+          "existing_feature_overlap": "None"
+        }
+      ]
     },
-    "column_2_primary_candidate": {
-      "name": "dxy_momentum_z",
-      "method": "Z-score of DXY 20-day momentum (return over 20 days), normalized via expanding window",
-      "description": "Captures whether USD is in a strong uptrend or downtrend relative to historical norms. Different from raw dxy_change (1-day) because it captures persistence of direction over a month.",
-      "range": "unbounded, typically [-3, 3]",
-      "why_preferred": "Simpler and more robust than PCA cross-currency divergence. The previous attempt 1's PCA divergence had scaling issues (many 0.0 values in early period). Momentum z-score is proven to work (similar to vix_mean_reversion_z, tech_mean_reversion_z)."
+    "category_3_cross_asset_stress": {
+      "description": "Features capturing when multiple markets signal risk-off simultaneously",
+      "candidate_features": [
+        {
+          "name": "risk_off_score",
+          "source": "yfinance: ^VIX, DX-Y.NYB, ^TNX",
+          "formula": "Composite: z-score(VIX_change) + z-score(DXY_change) - z-score(SP500_change) - z-score(10Y_yield_change)",
+          "rationale": "When VIX rises, DXY strengthens, equities fall, and yields drop simultaneously, it is a strong risk-off signal that pressures gold from the USD side. No existing feature captures this multi-asset synchronization.",
+          "existing_feature_overlap": "Low -- individual components exist but not the composite synchronization"
+        },
+        {
+          "name": "gold_silver_divergence",
+          "source": "yfinance: GC=F, SI=F",
+          "formula": "Gold 5d return - Silver 5d return (z-scored)",
+          "rationale": "Gold outperforming silver over 5 days signals gold is being bought as a safe haven (UP persistence). Silver outperforming means industrial demand driving, less safe-haven premium (DOWN risk for gold).",
+          "existing_feature_overlap": "Low -- xasset_divergence exists but captures a different cross-asset relationship"
+        },
+        {
+          "name": "equity_gold_beta_5d",
+          "source": "yfinance: GC=F, ^GSPC",
+          "formula": "Rolling 5-day beta of gold returns vs SP500 returns",
+          "rationale": "Normally gold has near-zero or negative beta to equities. When beta turns positive (gold moves WITH equities), the safe-haven premium has collapsed, increasing DOWN risk.",
+          "existing_feature_overlap": "None -- no rolling beta feature exists"
+        }
+      ]
     },
-    "column_3_alternative_candidates": {
-      "option_a_volatility_z": {
-        "name": "dxy_vol_z",
-        "method": "Z-score of 20-day realized volatility of DXY returns",
-        "risk": "May correlate with vix_regime_probability or vix_persistence. VIF must be checked."
-      },
-      "option_b_divergence": {
-        "name": "dxy_cross_currency_div",
-        "method": "Rolling PCA on 6 constituent currency returns. 1 - PC1_explained_variance_ratio.",
-        "risk": "Previous attempt had many 0.0 values. May need different scaling or window."
-      },
-      "researcher_should_recommend": "Researcher should evaluate which option provides more unique information vs existing submodel features. VIF analysis is critical."
+    "category_4_volume_and_flow_anomalies": {
+      "description": "Features capturing unusual volume patterns that signal distribution/accumulation",
+      "candidate_features": [
+        {
+          "name": "gld_volume_z",
+          "source": "yfinance: GLD",
+          "formula": "Z-score of GLD daily volume vs 20-day rolling mean",
+          "rationale": "Abnormally high volume on flat or negative days signals institutional distribution. The existing etf_capital_intensity captures dollar volume z-score but not the volume-vs-return divergence.",
+          "existing_feature_overlap": "Moderate with etf_capital_intensity -- but this is raw volume z-score, not dollar-weighted"
+        },
+        {
+          "name": "volume_price_disagreement",
+          "source": "yfinance: GLD",
+          "formula": "High volume + negative return = bearish divergence. sign(return) * z_score(volume). Negative = distribution",
+          "rationale": "Classic technical analysis: price up on low volume (weak rally, DOWN risk) vs price down on high volume (strong selling, DOWN continuation).",
+          "existing_feature_overlap": "Moderate with etf_pv_divergence -- but this captures a different formulation of PV relationship"
+        }
+      ]
+    },
+    "category_5_rate_and_currency_shock": {
+      "description": "Features capturing sudden rate moves that historically cause gold selloffs",
+      "candidate_features": [
+        {
+          "name": "rate_surprise",
+          "source": "FRED: DFII10",
+          "formula": "abs(real_rate_change) > 2*std(real_rate_change over 20 days). Binary or continuous surprise magnitude.",
+          "rationale": "Sharp unexpected rate moves (especially upward) cause immediate gold price pressure. The base feature real_rate_change exists but does not capture the SURPRISE magnitude.",
+          "existing_feature_overlap": "Moderate with real_rate_change -- but this captures abnormality, not direction"
+        },
+        {
+          "name": "dxy_acceleration",
+          "source": "yfinance: DX-Y.NYB",
+          "formula": "Second derivative: today's dxy_change minus yesterday's dxy_change",
+          "rationale": "USD acceleration (increasingly positive changes) signals strengthening downward pressure on gold. Unlike raw dxy_change, acceleration captures the rate-of-change of the headwind.",
+          "existing_feature_overlap": "Low -- dxy_change is first derivative only"
+        }
+      ]
+    },
+    "category_6_calendar_and_seasonality": {
+      "description": "Features capturing day-of-week and seasonal patterns in gold returns",
+      "candidate_features": [
+        {
+          "name": "day_of_week",
+          "source": "Computed from date",
+          "formula": "Integer 0-4 (Mon-Fri). Or one-hot encoded.",
+          "rationale": "Gold exhibits statistically significant day-of-week effects (Monday effect, Friday effect). This is zero-cost information that can improve classification.",
+          "existing_feature_overlap": "None -- no calendar features exist"
+        },
+        {
+          "name": "month_of_year",
+          "source": "Computed from date",
+          "formula": "Integer 1-12",
+          "rationale": "Gold has seasonal patterns (weak in March/September historically). XGBoost can learn tree splits on these.",
+          "existing_feature_overlap": "None"
+        }
+      ]
     }
   },
 
   "research_questions": [
-    "What is the optimal number of HMM states for daily DXY returns? The project's proven pattern uses 3 states. Is 3 states appropriate for FX data, or should we test 2-4? What does the BIC/AIC suggest for DXY daily returns?",
-    "What z-score features best capture DXY dynamics that are NOT already in the meta-model? The meta-model has dxy_change (1-day). Candidates: (a) 20-day momentum z-score, (b) realized vol z-score, (c) cross-currency divergence via PCA. Which provides the most unique information? Compute pairwise correlations against existing features (vix, vix_regime_probability, vix_persistence).",
-    "Does cross-currency PCA divergence (1 - PC1_explained_variance) provide meaningful variation? The previous DXY attempt 1 output had many 0.0 values for dxy_cross_currency_div in the early period. Is this a data issue or is the feature inherently too stable? What rolling window (40/60/90 days) produces the best variation?",
-    "What is the empirical VIF of dxy_momentum_z and dxy_vol_z against the existing 24 meta-model features? Specifically, correlations with: (a) dxy_change (1-day vs 20-day momentum -- should be moderate ~0.3-0.5), (b) vix_persistence (FX vol vs equity vol persistence), (c) yc_curvature_z (rate structure vs FX structure).",
-    "For the 6 constituent DXY currencies, are there data quality issues on Yahoo Finance for USDSEK=X and USDCHF=X (lowest weights)? Should we simplify to top-4 currencies (EUR, JPY, GBP, CAD = 92.2% of DXY) to reduce data noise?",
-    "What is the historical breakdown frequency of the DXY-gold inverse correlation? In what percentage of 60-day rolling windows does the correlation become positive? This informs whether the regime feature adds value for the meta-model."
+    "What is the empirical distribution of gold DOWN days by magnitude? What percentage of DOWN days are -0.5% or worse vs small -0.1% moves? Should we focus the classifier on 'significant DOWN' (>0.3% decline) rather than any DOWN?",
+    "Which momentum exhaustion indicators have the strongest predictive power for gold reversals? Compare: (a) RSI > 70 reversal frequency, (b) Bollinger Band width percentile, (c) consecutive positive-day streaks vs next-day return, (d) distance from N-day high vs next-day return. Compute conditional DOWN probabilities for each.",
+    "Does the GVZ/VIX ratio have predictive power for gold DOWN days? Specifically: when GVZ rises faster than VIX (gold-specific fear rising), does gold tend to decline in the next 1-3 days? Use FRED GVZCLS and VIXCLS data from 2008 onwards.",
+    "What is the optimal lookback period for the realized_vol_ratio feature (5d/20d vs 5d/60d vs 10d/30d)? Which ratio configuration maximizes the information gain for next-day direction classification?",
+    "Is there a day-of-week effect in gold returns? Compute average returns and DOWN-day frequency by weekday from 2015-2025. Are any days statistically significant at p<0.05?",
+    "How effective is focal loss vs weighted cross-entropy for class-imbalanced gold direction classification? Literature review on Imbalance-XGBoost (Wang et al., 2019) applicability to financial time series with 60/40 class split.",
+    "What threshold should define 'high-confidence DOWN' for the ensemble override? If the classifier outputs P(DOWN), should we override the regression prediction only when P(DOWN) > 0.55? > 0.60? > 0.65? What is the precision-recall tradeoff at each threshold?",
+    "What is the optimal feature count for a binary classifier on ~2500 samples? Literature suggests 10-20 features for this sample size. Should we use all candidate features and let the model select, or pre-filter via mutual information?",
+    "Are there known interactions between VIX regime and gold DOWN probability? Specifically: is P(gold DOWN | VIX regime = high-vol) different from P(gold DOWN | VIX regime = low-vol)? This would inform whether to include VIX regime as a classifier feature.",
+    "For ensemble combination: what is the literature on combining regression predictions with classification overrides? Is threshold-based override (our approach) optimal, or should we use a weighted probability combination? Are there papers on regression+classification ensemble for financial prediction?"
   ],
+
+  "architecture_candidates": {
+    "primary": {
+      "model": "XGBoost with binary:logistic or focal loss",
+      "rationale": "Same framework as regression model, well-understood. Focal loss handles the ~60/40 class imbalance by down-weighting easy-to-classify UP days and focusing on hard DOWN cases.",
+      "hyperparameter_search": "Optuna 100 trials. Key HPs: max_depth [2-5], scale_pos_weight [0.8-2.0], focal_gamma [0-5], n_estimators [100-500]"
+    },
+    "alternative_1": {
+      "model": "LightGBM with focal loss",
+      "rationale": "Faster training, native categorical support (day_of_week), built-in focal loss support via custom objective. May outperform XGBoost on this task.",
+      "note": "Requires pip install lightgbm in Kaggle notebook"
+    },
+    "alternative_2": {
+      "model": "Two-stage: Stage 1 = threshold filter, Stage 2 = neural net on filtered samples",
+      "rationale": "First filter out obvious UP days (e.g. strong momentum, low VIX), then apply neural net only to ambiguous cases where DOWN detection matters most.",
+      "note": "More complex, only if simple models fail"
+    },
+    "not_recommended": {
+      "model": "Same XGBoost classifier on same 24 features",
+      "rationale": "ALREADY FAILED. P(UP) in 0.46-0.51 range for all samples. Zero discrimination. The features, not the model, are the bottleneck."
+    }
+  },
+
+  "ensemble_strategy": {
+    "approach": "Threshold-based DOWN override",
+    "description": "The classifier outputs P(DOWN) for each day. When P(DOWN) exceeds a tuned threshold, the regression model's direction prediction is overridden to DOWN. When P(DOWN) is below the threshold, the regression model's prediction is used as-is.",
+    "pseudo_code": "if P(DOWN) > threshold: final_direction = DOWN; elif regression_pred > 0: final_direction = UP; else: final_direction = DOWN",
+    "threshold_tuning": "Optimize threshold on validation set to maximize composite metric: Sharpe + 0.5*(DA - 0.5). Test thresholds from 0.40 to 0.65 in 0.01 increments.",
+    "expected_behavior": "In 2026, convert some of the 9 missed DOWN days from false-UP to correct-DOWN predictions, while sacrificing minimal UP accuracy. Net improvement: +2-5pp DA, +0.2-0.5 Sharpe.",
+    "fallback_if_classifier_hurts": "Set threshold to 1.0 (never override) and the system degrades gracefully to regression-only. No harm done.",
+    "alternative_ensemble": {
+      "weighted_probability": "final_sign = sign(regression_pred * (1-alpha) + (2*P(UP)-1) * alpha), where alpha is tuned on validation",
+      "when_to_use": "If threshold-based override is too aggressive (sacrificing too many UP days for DOWN gains)"
+    }
+  },
+
+  "evaluation_criteria": {
+    "classifier_standalone": {
+      "balanced_accuracy": "> 52% (above random, weighted by class)",
+      "down_day_recall": "> 30% (catch at least 30% of DOWN days -- currently catching ~10%)",
+      "down_day_precision": "> 45% (when we predict DOWN, be right at least 45% of the time)",
+      "f1_down_class": "> 0.35 (harmonic mean of DOWN precision and recall)",
+      "note": "These thresholds are deliberately modest. The classifier does not need to be great alone -- it needs to ADD value when ensembled."
+    },
+    "ensemble_improvement": {
+      "da_improvement": "> +1.0pp over regression-only DA (60.04% -> 61%+)",
+      "sharpe_maintained": "> 2.0 (regression-only is 2.46, allow some drop)",
+      "down_day_capture_improvement": "From ~10% to >25% of DOWN days correctly predicted",
+      "up_day_accuracy_preservation": "> 85% of UP days still correctly predicted (regression-only is ~96%)",
+      "net_benefit": "DA improvement must exceed UP accuracy loss. If we catch 3 more DOWN days but miss 5 UP days, that is a net negative."
+    },
+    "meta_metric": {
+      "primary": "Ensemble Sharpe ratio on test set > 2.0 AND ensemble DA > 60%",
+      "secondary": "2026 YTD DOWN-day capture > 3/10 (currently 1/10)",
+      "failure_mode": "If ensemble DA < regression-only DA, abandon the classifier"
+    }
+  },
 
   "constraints": [
-    "5-day data delay rule: all Yahoo Finance currency data is same-day/T+1. Safe.",
-    "Submodel does NOT predict gold prices. It extracts USD regime state, momentum persistence, and optionally cross-currency divergence.",
-    "Output 2-3 columns maximum. The proven success pattern is regime_prob + 1-2 z-score features. More columns = more noise for XGBoost.",
-    "All data is daily frequency. No interpolation of any kind.",
-    "All normalizations must use expanding or rolling windows (no full-sample statistics). Causal computation only -- no lookahead.",
-    "HMM must be trained with fixed random_state for reproducibility.",
-    "Must pass VIF < 10 against all existing meta-model features. Key risk: dxy_vol_z may correlate with VIX-related features.",
-    "Currency return direction normalization is CRITICAL: EURUSD and GBPUSD returns must be negated so positive = USD strength for all pairs.",
-    "Use hmmlearn library (pip install hmmlearn in notebook). Proven to work on Kaggle.",
-    "Must include dataset_sources: bigbigzabuton/gold-prediction-submodels in kernel-metadata.json."
+    "5-day data delay rule: all data sources (yfinance, FRED) provide same-day or T+1 data. All safe.",
+    "The classifier does NOT predict gold returns. It predicts UP/DOWN direction only.",
+    "Use only free data sources: yfinance, FRED (FRED_API_KEY), CBOE (publicly available indices)",
+    "Must be trainable on Kaggle with GPU in < 30 minutes",
+    "Time-series split only (70/15/15). No shuffle, no random split.",
+    "No future information leakage: all features must be computable at market close of day T to predict day T+1",
+    "Feature count: 15-25 features. More than 25 on ~2500 samples risks overfitting. Fewer than 15 may miss important signals.",
+    "The classifier must use DIFFERENT features from the regression model's 24 features. Reusing the same features is proven to fail.",
+    "However, some raw data overlap is acceptable: both models may use GC=F close price, but they must TRANSFORM it differently (e.g., regression uses HMM regime_prob, classifier uses RSI)",
+    "Must include dataset_sources: bigbigzabuton/gold-prediction-submodels in kernel-metadata.json (for accessing existing submodel outputs if needed as auxiliary features)",
+    "The classifier's P(DOWN) output must be saved as a CSV for ensemble use"
   ],
 
-  "lessons_from_previous_dxy_attempt": {
-    "attempt_1_summary": "Auto-evaluated with MI=0.019. Training used GMM (not HMM), rolling PCA, and realized vol z-score. Output exists in data/submodel_outputs/dxy/submodel_output.csv but was NEVER used in the meta-model.",
-    "issues_identified": [
-      "PCA cross-currency divergence had many 0.0 values in early period (expanding MinMax scaling issue)",
-      "GMM was used instead of HMM -- GMM does not capture temporal transitions between regimes",
-      "The 3 output features were not tested in ablation (Gate 3) -- no evidence they improve meta-model",
-      "MI=0.019 was very low compared to other submodels"
-    ],
-    "what_to_change": [
-      "Switch from GMM to proper HMM (GaussianHMM) for regime detection",
-      "Consider replacing PCA divergence with simpler momentum z-score (proven pattern)",
-      "Ensure proper Optuna HPO (30 trials) for HMM n_components, n_init, windows",
-      "Run full Gate 1/2/3 evaluation -- no auto-evaluation shortcuts"
-    ]
+  "data_sources": {
+    "gold_prices": "yfinance: GC=F (OHLCV, daily)",
+    "gold_etf": "yfinance: GLD (OHLCV + volume, daily)",
+    "gold_volatility": "FRED: GVZCLS (Gold Volatility Index, daily)",
+    "equity_volatility": "FRED: VIXCLS (VIX, daily)",
+    "skew_index": "yfinance: ^SKEW (CBOE SKEW, daily)",
+    "dollar_index": "yfinance: DX-Y.NYB (DXY, daily)",
+    "real_rate": "FRED: DFII10 (10Y TIPS yield, daily)",
+    "equities": "yfinance: ^GSPC (S&P 500, daily)",
+    "silver": "yfinance: SI=F (Silver futures, daily)",
+    "copper": "yfinance: HG=F (Copper futures, daily)",
+    "treasury_10y": "FRED: DGS10 (10Y nominal yield, daily)",
+    "treasury_2y": "FRED: DGS2 (2Y nominal yield, daily)"
   },
 
-  "success_patterns_from_other_submodels": {
-    "highest_gate3_successes": {
-      "technical_mae": "-0.1824 (18x threshold) -- regime_prob rank #1 in importance (7.20%)",
-      "options_market_mae": "-0.1562 (15.6x threshold) -- regime_prob rank #2 in importance (7.55%)",
-      "etf_flow_sharpe": "+0.377 (7.5x threshold) -- dual pass on Sharpe and MAE",
-      "inflation_expectation": "All 3 gates pass -- first and only submodel to achieve this (until temporal_context)"
+  "lessons_from_failed_attempts": {
+    "backtest_classification_failure": {
+      "what_happened": "XGBoost binary:logistic with same 24 features, Optuna 100 trials, scale_pos_weight tuning. P(UP) output was always 0.46-0.51 for all samples. Zero discrimination ability.",
+      "root_cause": "Features designed for regression (magnitude prediction) do not contain directional reversal information. Regime probabilities are too slow-moving, z-scores are symmetric around 0.",
+      "lesson": "MUST use different features. Same input -> same information -> same inability to discriminate."
     },
-    "common_architecture": "HMM 3-state regime detection + 2 domain-specific z-score features = 3 output columns",
-    "feature_importance_pattern": "regime_prob features consistently rank in top 10 (tech: #1, options: #2, xasset: #5, ie: #3, etf: #9). Z-score features add complementary information."
+    "meta_model_attempts_8_12": {
+      "what_happened": "5 consecutive attempts to improve regression meta-model all regressed from attempt 7",
+      "lesson_for_classifier": "Adding features to an existing model framework has diminishing returns. A fundamentally different model (classification) with fundamentally different features is more promising than iterating on regression.",
+      "anti_patterns": [
+        "Do not use stacking/ensemble meta-learners (Ridge collapse in attempt 8)",
+        "Do not add features to the regression model -- 5 attempts proved this fails",
+        "Do not use binary regime indicators with sparse activation"
+      ]
+    }
   },
 
-  "success_hypothesis": "A DXY submodel following the proven Deterministic HMM pattern (3-state regime + momentum z-score + optional vol/divergence z-score) will provide the meta-model with USD structural context that distinguishes trending, consolidating, and crisis regimes. Expected: Gate 3 MAE improvement -0.01 or better (most achievable criterion based on 6 of 8 submodels passing via MAE). DXY is gold's strongest inverse correlator, and even modest regime context should help XGBoost use dxy_change more effectively.",
+  "success_hypothesis": "A standalone binary classifier with 15-25 NEW features focused on momentum exhaustion, volatility regime shifts, cross-asset stress, and volume anomalies will achieve DOWN-day recall > 30% and ensemble DA > 61%. By detecting even 3-5 additional DOWN days that the regression model misses, the ensemble Sharpe will remain above 2.0 while DA improves by 1-3 percentage points. The key insight is that DOWN detection requires DIFFERENT information (reversal signals, exhaustion patterns, stress synchronization) than return magnitude prediction (regime states, mean-reversion, persistence).",
 
-  "success_criteria": {
-    "gate1_standalone_quality": "Overfit ratio < 1.5 (HMM is generative, not predictive -- should pass easily). No constant output. Autocorrelation < 0.99.",
-    "gate2_information_gain": "MI total increase > 5%. VIF < 10 for all output columns. Rolling correlation std < 0.15.",
-    "gate3_ablation": "Any one of: DA +0.5%, Sharpe +0.05, MAE -0.01. Based on precedent, MAE improvement is the most likely criterion to pass."
+  "output_specification": {
+    "classifier_output": {
+      "format": "CSV with columns: Date, p_up, p_down, predicted_direction",
+      "rows": "Same date range as base_features (~2500 rows)",
+      "save_path": "data/submodel_outputs/classifier.csv"
+    },
+    "ensemble_output": {
+      "format": "CSV with columns: Date, regression_pred, classifier_p_down, ensemble_direction, ensemble_confidence",
+      "save_path": "data/outputs/classifier_ensemble.csv"
+    },
+    "training_result": {
+      "format": "JSON with classifier metrics, ensemble metrics, feature importance, threshold optimization results",
+      "save_path": "training_result.json (Kaggle output)"
+    }
   },
 
-  "fallback_plan": {
-    "if_3_columns_fail_gate3": "Reduce to 2 columns (regime_prob + best z-score). Drop the least important feature.",
-    "if_hmm_fails_gate1": "Use deterministic threshold-based regime detection (sigmoid of 20-day momentum / 20-day std) as regime proxy.",
-    "if_vif_fails": "Residualize violating feature against base features. Or drop and keep only 2 columns.",
-    "max_attempts": "2-3 attempts maximum. DXY should be straightforward given daily data frequency."
+  "pipeline_notes": {
+    "differs_from_submodel_pipeline": "This is NOT a submodel in the traditional sense. It does not feed features into the regression meta-model. It is a parallel model whose output is combined with the regression model at the prediction stage.",
+    "no_gate_2_evaluation": "Gate 2 (MI/VIF/stability) does not apply -- the classifier is not feeding features into XGBoost.",
+    "modified_gate_3": "Instead of ablation vs baseline, evaluate: ensemble vs regression-only on DA, Sharpe, and DOWN capture.",
+    "data_flow": "Raw data -> NEW features -> Binary classifier -> P(DOWN) -> Ensemble with regression pred -> Final direction"
   },
 
   "meta_model_context": {
     "current_best": "Attempt 7: DA 60.04%, HCDA 64.13%, Sharpe 2.46, MAE 0.94%",
-    "targets_passed": "3/4 (DA, HCDA, Sharpe). MAE structurally infeasible with current test set.",
-    "n_features": 24,
-    "dxy_change_current_importance": "rank #17 of 22, 3.50% importance -- lowest among base features",
-    "potential_impact": "If DXY submodel features reach similar importance to other regime_prob features (5-8%), it could improve DA or MAE. However, attempts 8-10 showed that adding features does not guarantee improvement -- the feature must add genuine signal, not noise."
+    "bullish_bias": "87.3% positive predictions in test set. 96% positive in 2026 YTD",
+    "2026_ytd": "21/31 correct, 1/10 DOWN days caught, 20/21 UP days caught",
+    "n_features_regression": 24,
+    "top_3_features_regression": ["yc_curvature_z (8.68%)", "xasset_recession_signal (7.80%)", "temporal_context_score (5.78%)"]
   },
 
-  "previous_feedback": {
-    "auto_evaluation_note": "DXY attempt 1 was auto-evaluated with MI=0.019 and marked 'completed' without Gate 2/3 testing. This was a shortcut that should be corrected. The output was never incorporated into the meta-model.",
-    "meta_model_attempt_10_lesson": "Adding cny_demand_spread_z (1 feature) to meta-model attempt 10 ranked last (25/25) and degraded all metrics. New features must demonstrate genuine signal, not just exist."
-  },
-
-  "output_specification": {
-    "format": "CSV with Date column + 2-3 feature columns",
-    "naming_convention": "dxy_regime_prob, dxy_momentum_z, [dxy_vol_z or dxy_cross_currency_div]",
-    "value_range": "regime_prob: [0,1]; z-scores: typically [-3, 3]",
-    "expected_rows": "~2500 (matching base_features date range 2015-01-30 to 2025-02-12)",
-    "nan_handling": "First ~60 rows may be NaN due to warmup. Fill with 0 for z-scores, 0.5 for regime_prob.",
-    "save_path": "data/submodel_outputs/dxy.csv"
-  },
-
-  "created_at": "2026-02-17T23:30:00",
+  "previous_feedback": null,
+  "created_at": "2026-02-18T12:00:00",
   "created_by": "entrance"
 }
