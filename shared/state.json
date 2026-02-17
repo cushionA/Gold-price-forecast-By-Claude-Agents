@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel",
   "current_feature": "real_rate",
   "current_attempt": 6,
-  "resume_from": "orchestrator",
+  "resume_from": "evaluator",
   "error_context": null,
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -38,8 +38,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-9",
-  "submitted_at": "2026-02-17T08:42:00.557194",
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-attempt-6",
+  "submitted_at": "2026-02-17T20:29:13.265526",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -552,7 +552,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T14:00:00.000000",
-  "current_submodel": "real_rate",
+  "last_updated": "2026-02-17T20:29:13.265539",
   "error_type": null
 }
