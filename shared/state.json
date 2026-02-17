@@ -1,8 +1,8 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel",
   "current_feature": "meta_model",
-  "current_attempt": 11,
+  "current_attempt": 12,
   "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
@@ -38,8 +38,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-11",
-  "submitted_at": "2026-02-18T00:22:44.040390",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-12",
+  "submitted_at": "2026-02-18T00:48:33.416549",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -549,7 +549,7 @@
         "DA_58.52%_still_above_56%_target",
         "Sharpe_2.00_still_above_0.80_target"
       ],
-      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor \u2014 genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
+      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor — genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
     },
     "attempt_11": {
       "decision": "no_further_improvement",
@@ -665,6 +665,6 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-18T00:31:28.756676",
+  "last_updated": "2026-02-18T00:48:33.416562",
   "error_type": ""
 }
