@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel",
   "current_feature": "dxy",
   "current_attempt": 1,
-  "resume_from": "researcher",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -38,8 +38,8 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-10",
-  "submitted_at": "2026-02-17T22:48:45.170493",
+  "kaggle_kernel": "bigbigzabuton/gold-model-training",
+  "submitted_at": "2026-02-17T23:46:03.696116",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -508,8 +508,8 @@
     "attempt_10": {
       "decision": "no_further_improvement",
       "test_da": 0.5852,
-      "test_hcda": 0.5870,
-      "test_mae": 0.9490,
+      "test_hcda": 0.587,
+      "test_mae": 0.949,
       "test_sharpe": 1.9977,
       "train_test_da_gap_pp": 6.38,
       "targets_passed": "2/4",
@@ -616,6 +616,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T22:50:03.222886",
+  "last_updated": "2026-02-17T23:46:03.696129",
   "error_type": "unknown"
 }
