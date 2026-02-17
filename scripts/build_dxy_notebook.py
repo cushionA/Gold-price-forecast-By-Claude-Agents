@@ -101,19 +101,33 @@ def generate_regime_feature(dxy_log_ret, n_components, covariance_type, n_init, 
     """
     Fit GaussianHMM on train portion, return P(highest-variance state) for full data.
     CRITICAL: Use HMM (not GMM) to capture temporal regime transitions.
+    Manual n_init: fit multiple times, keep best log-likelihood.
     """
     X_train = dxy_log_ret.iloc[:train_size].values.reshape(-1, 1)
     X_full = dxy_log_ret.values.reshape(-1, 1)
 
-    model = GaussianHMM(
-        n_components=n_components,
-        covariance_type=covariance_type,
-        n_iter=200,
-        tol=1e-4,
-        random_state=42,
-        n_init=n_init
-    )
-    model.fit(X_train)
+    best_model = None
+    best_score = -np.inf
+    for init_i in range(n_init):
+        try:
+            m = GaussianHMM(
+                n_components=n_components,
+                covariance_type=covariance_type,
+                n_iter=200,
+                tol=1e-4,
+                random_state=42 + init_i
+            )
+            m.fit(X_train)
+            score = m.score(X_train)
+            if score > best_score:
+                best_score = score
+                best_model = m
+        except Exception:
+            continue
+
+    if best_model is None:
+        raise RuntimeError('All HMM initializations failed')
+    model = best_model
 
     # Get posterior probabilities for full dataset
     probs = model.predict_proba(X_full)
@@ -169,9 +183,9 @@ def discretize(x, bins=20):
     x_clean = x.copy()
     x_clean[~valid] = np.nanmedian(x)
     try:
-        return pd.qcut(x_clean, bins, labels=False, duplicates='drop').values
+        return np.asarray(pd.qcut(x_clean, bins, labels=False, duplicates='drop'))
     except ValueError:
-        return pd.cut(x_clean, bins, labels=False, duplicates='drop').values
+        return np.asarray(pd.cut(x_clean, bins, labels=False, duplicates='drop'))
 
 
 def compute_mi_sum(features_dict, target_vals):

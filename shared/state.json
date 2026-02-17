@@ -3,7 +3,7 @@
   "phase": "phase2_submodel",
   "current_feature": "dxy",
   "current_attempt": 1,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -39,7 +39,7 @@
     "temporal_context"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-dxy-model-attempt-1",
-  "submitted_at": "2026-02-17T23:53:07.082989",
+  "submitted_at": "2026-02-17T23:57:33.184598",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -526,7 +526,7 @@
         "DA_58.52%_still_above_56%_target",
         "Sharpe_2.00_still_above_0.80_target"
       ],
-      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor — genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
+      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor \u2014 genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
     }
   },
   "final_result": {
@@ -615,7 +615,7 @@
       "note": "Constant-output collapse FIXED. Model produces genuine variation. But variation is net-harmful: negative predictions wrong 62% of time. DA skill -2.84pp (worse than Attempt 1's 0.00pp). Sharpe A dropped 2.03 to 0.71 due to harmful trades. Moved from 'no skill, no harm' to 'some variation, net harmful'."
     }
   },
-  "kaggle_version": 2,
-  "last_updated": "2026-02-17T23:53:33.959240",
-  "error_type": "unknown"
+  "kaggle_version": 4,
+  "last_updated": "2026-02-18T00:04:47.264201",
+  "error_type": ""
 }
