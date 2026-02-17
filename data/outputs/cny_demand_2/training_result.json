@@ -1,0 +1,67 @@
+{
+  "feature": "cny_demand",
+  "attempt": 2,
+  "timestamp": "2026-02-17T13:16:24.127251",
+  "architecture": "Deterministic CNY-CNH spread change z-score (single output)",
+  "key_changes": [
+    "NEW: CNY-CNH spread change approach (was CNY momentum only in attempt 1)",
+    "Captures onshore-offshore capital control tension",
+    "Single output column: cny_demand_spread_z",
+    "Statistically significant correlation (p=0.022 measured)",
+    "Lower autocorrelation (0.32 vs 0.74)"
+  ],
+  "best_params": {
+    "momentum_window": 10,
+    "baseline_window": 100
+  },
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 5.857140659853468,
+  "metrics": {
+    "train": {
+      "correlation": 0.03688952505423471,
+      "p_value": 0.10475552154417411,
+      "mi": 0.113853666813478,
+      "n_samples": 1935,
+      "autocorrelation": 0.3797842389650644
+    },
+    "val": {
+      "correlation": 0.06190003779920246,
+      "p_value": 0.20824597691297295,
+      "mi": 0.5795240622054265,
+      "n_samples": 415,
+      "autocorrelation": 0.3341590312414102
+    },
+    "test": {
+      "correlation": -0.09034064280482876,
+      "p_value": 0.06597567351224341,
+      "mi": 0.560952034522102,
+      "n_samples": 415,
+      "autocorrelation": 0.5210762277453715
+    }
+  },
+  "output_shape": [
+    2765,
+    1
+  ],
+  "output_columns": [
+    "cny_demand_spread_z"
+  ],
+  "quality_checks": {
+    "nan_count": 0,
+    "nan_pct": 0.0,
+    "std": 1.0180408823120353,
+    "autocorrelation_lag1": 0.3941245841260641,
+    "min": -4.0,
+    "max": 4.0
+  },
+  "data_info": {
+    "train_samples": 1935,
+    "val_samples": 415,
+    "test_samples": 415,
+    "full_samples": 2765,
+    "date_range": {
+      "start": "2015-01-30 00:00:00",
+      "end": "2026-02-13 00:00:00"
+    }
+  }
+}
