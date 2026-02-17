@@ -1,10 +1,10 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel",
   "current_feature": "real_rate",
   "current_attempt": 6,
-  "resume_from": "evaluator",
-  "error_context": null,
+  "resume_from": "builder_model",
+  "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "notebook_generated",
@@ -552,6 +552,6 @@
     }
   },
   "kaggle_version": 10,
-  "last_updated": "2026-02-17T20:41:36.535523",
-  "error_type": null
+  "last_updated": "2026-02-17T20:47:25.328909",
+  "error_type": "unknown"
 }
