@@ -19,15 +19,15 @@
     "final_attempt": 1,
     "final_gate_reached": 3,
     "gate3_scores": {
-      "direction_accuracy_delta": null,
-      "sharpe_delta": null,
-      "mae_delta": null
+      "direction_accuracy_delta": 0.00726,
+      "sharpe_delta": 0.2546,
+      "mae_delta": 0.0084
     },
-    "output_columns": [],
-    "output_path": null,
+    "output_columns": ["dxy_regime_prob", "dxy_momentum_z", "dxy_vol_z"],
+    "output_path": "data/submodel_outputs/dxy/submodel_output.csv",
     "model_path": null,
-    "completed_at": "2026-02-14T20:15:06",
-    "reason": "Auto-evaluated as success (MI=0.019). Full Gate 2/3 evaluation was not performed in detail."
+    "completed_at": "2026-02-18T00:05:00",
+    "reason": "Gate 3 PASS via DA (+0.73pp, 1.5x threshold, 4/5 folds) and Sharpe (+0.2546, 5.1x threshold, 4/5 folds). Third submodel to pass all 3 gates (after inflation_expectation and temporal_context). MI increase 6.24%, VIF max 2.92, stability 0.149. dxy_vol_z ranked #6/43 in feature importance."
   },
   "vix": {
     "status": "completed",

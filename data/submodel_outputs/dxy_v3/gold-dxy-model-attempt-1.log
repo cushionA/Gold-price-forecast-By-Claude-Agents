@@ -1,0 +1,1183 @@
+[{"stream_name":"stderr","time":8.419385142,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.419457316,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.419462777,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.419465834,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.163477050000001,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.163536359,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.163543543,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.163548825,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.858409871,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":12.922455261,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":12.956389768,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":12.959737899,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":12.967780949,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":12.992286847999999,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":12.993960359,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":13.030067839,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":13.061544279,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":13.061574666,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":13.061580546,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.061591036,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":13.06159424,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":13.061597382,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":13.061600896,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":13.061604027,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":13.071963767,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":13.274549274,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.346994736,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":15.44494437,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":15.549698269,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":15.549735026,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":20.349044377,"data":"=== Gold SubModel Training: DXY attempt 1 (HMM Revised) ===\n"}
+,{"stream_name":"stdout","time":20.349090018,"data":"Started: 2026-02-17T14:57:53.714789\n"}
+,{"stream_name":"stdout","time":20.349095038,"data":"\n"}
+,{"stream_name":"stdout","time":20.349115137,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":20.349120714,"data":"STEP 1: DATA FETCHING\n"}
+,{"stream_name":"stdout","time":20.34912546,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":20.349130042,"data":"\n"}
+,{"stream_name":"stdout","time":20.349134935,"data":"[Data Fetch] Downloading DXY and GC=F from Yahoo Finance...\n"}
+,{"stream_name":"stdout","time":21.719409011,"data":"[OK] DXY: 2862 rows, range 2014-10-01 to 2026-02-17\n"}
+,{"stream_name":"stderr","time":22.010914625,"data":"[I 2026-02-17 14:57:55,570] A new study created in memory with name: no-name-64564ffc-f8a0-4640-ab4b-5f048484ca42\n"}
+,{"stream_name":"stderr","time":22.010954729,"data":"\n"}
+,{"stream_name":"stderr","time":22.010960333,"data":"[I 2026-02-17 14:57:55,570] A new study created in memory with name: no-name-64564ffc-f8a0-4640-ab4b-5f048484ca42\n"}
+,{"stream_name":"stdout","time":22.019638796,"data":"[OK] GC=F: 2860 rows\n"}
+,{"stream_name":"stdout","time":22.019675713,"data":"[OK] Combined: 2862 rows, 2014-10-02 to 2026-02-17\n"}
+,{"stream_name":"stdout","time":22.019699502,"data":"[OK] DXY close: 98.07 +/- 5.05\n"}
+,{"stream_name":"stdout","time":22.019707403,"data":"[OK] DXY log-ret: 0.000043 +/- 0.004406\n"}
+,{"stream_name":"stdout","time":22.019712749,"data":"\n"}
+,{"stream_name":"stdout","time":22.019717407,"data":"Data split:\n"}
+,{"stream_name":"stdout","time":22.019722325,"data":"  Train: 0:2003 (2003 rows, 2014-10-02 to 2022-09-16)\n"}
+,{"stream_name":"stdout","time":22.019727323,"data":"  Val:   2003:2432 (429 rows, 2022-09-19 to 2024-06-03)\n"}
+,{"stream_name":"stdout","time":22.019732716,"data":"  Test:  2432:2862 (430 rows, 2024-06-04 to 2026-02-17)\n"}
+,{"stream_name":"stdout","time":22.019738439,"data":"\n"}
+,{"stream_name":"stdout","time":22.019743456,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":22.019748285,"data":"STEP 2: OPTUNA HPO (30 trials, 300s timeout)\n"}
+,{"stream_name":"stdout","time":22.019752842,"data":"======================================================================\n"}
+,{"stream_name":"stderr","time":22.156240347,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":22.156277662,"data":"\n"}
+,{"stream_name":"stderr","time":22.157802532,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":22.271641299,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":22.271679224,"data":"\n"}
+,{"stream_name":"stderr","time":22.274800585,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":22.476800258,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":22.476855769,"data":"\n"}
+,{"stream_name":"stderr","time":22.47686092,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":22.580768788,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":22.580806095,"data":"\n"}
+,{"stream_name":"stderr","time":22.581017195,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":22.669245496,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":22.669284871,"data":"\n"}
+,{"stream_name":"stderr","time":22.669301403,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":22.766784652,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":22.766836775,"data":"\n"}
+,{"stream_name":"stderr","time":22.768834378,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":22.823804052,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":22.823854811,"data":"\n"}
+,{"stream_name":"stderr","time":22.826820508,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":22.87994177,"data":"  HMM states=3, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":22.879975621,"data":"  State variances: ['0.00101296', '0.00002151', '0.00037420']\n"}
+,{"stream_name":"stdout","time":22.879997686,"data":"  High-var state: 0, mean regime_prob: 0.005\n"}
+,{"stream_name":"stdout","time":22.880002105,"data":"  Trial 0 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":22.880006563,"data":"[I 2026-02-17 14:57:56,254] Trial 0 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":22.896852416,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":22.896887891,"data":"\n"}
+,{"stream_name":"stderr","time":22.897818291,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":23.113646401,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":23.113714525,"data":"\n"}
+,{"stream_name":"stderr","time":23.116846018,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":23.248594155,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":23.248629798,"data":"\n"}
+,{"stream_name":"stderr","time":23.248928806,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":23.364183907,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":23.364281613,"data":"\n"}
+,{"stream_name":"stderr","time":23.366841815,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":23.507327789,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":23.50736305,"data":"\n"}
+,{"stream_name":"stderr","time":23.507621427,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":23.675641629,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":23.675679093,"data":"\n"}
+,{"stream_name":"stderr","time":23.678811274,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":23.804020156,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":23.804057113,"data":"\n"}
+,{"stream_name":"stderr","time":23.804171161,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":23.863526456,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":23.863557334,"data":"\n"}
+,{"stream_name":"stderr","time":23.863561582,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":23.938824143,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":23.938854195,"data":"\n"}
+,{"stream_name":"stderr","time":23.938858699,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":24.126411093,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":24.126445763,"data":"\n"}
+,{"stream_name":"stderr","time":24.126451506,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":24.429545662,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":24.429618535,"data":"\n"}
+,{"stream_name":"stderr","time":24.42962383,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":24.472805539,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":24.472825112,"data":"\n"}
+,{"stream_name":"stderr","time":24.472829993,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":24.639393243,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":24.639468339,"data":"\n"}
+,{"stream_name":"stderr","time":24.639473685,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":24.810720207,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":24.810756533,"data":"\n"}
+,{"stream_name":"stderr","time":24.810947772,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stdout","time":24.842615072,"data":"  HMM states=2, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":24.84265264,"data":"  State variances: ['0.00002167', '0.00040241']\n"}
+,{"stream_name":"stdout","time":24.842658003,"data":"  High-var state: 1, mean regime_prob: 0.015\n"}
+,{"stream_name":"stdout","time":24.842662383,"data":"  Trial 1 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":24.842666743,"data":"[I 2026-02-17 14:57:58,219] Trial 1 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":24.863786826,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":24.863845285,"data":"\n"}
+,{"stream_name":"stderr","time":24.864141924,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":25.020482527,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":25.020564062,"data":"\n"}
+,{"stream_name":"stderr","time":25.020726788,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":25.331955424,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":25.332018990999998,"data":"\n"}
+,{"stream_name":"stderr","time":25.332024405,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":25.455482837,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":25.455546582,"data":"\n"}
+,{"stream_name":"stderr","time":25.455551575,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":25.618988212,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":25.619026112,"data":"\n"}
+,{"stream_name":"stderr","time":25.619053083,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":25.857975526,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":25.858014044,"data":"\n"}
+,{"stream_name":"stderr","time":25.858177856,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":25.95390592,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":25.953943029,"data":"\n"}
+,{"stream_name":"stderr","time":25.956800991,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":26.064763396,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":26.0647998,"data":"\n"}
+,{"stream_name":"stderr","time":26.064977792,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":26.12834229,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":26.128381531,"data":"\n"}
+,{"stream_name":"stderr","time":26.129797646,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":26.220053975,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":26.220088856,"data":"\n"}
+,{"stream_name":"stderr","time":26.221787745,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":26.271247778,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":26.271282526,"data":"\n"}
+,{"stream_name":"stderr","time":26.271488108,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":26.317234067,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":26.317286461,"data":"\n"}
+,{"stream_name":"stderr","time":26.317293445,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stdout","time":26.335836975,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":26.33587562,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":26.335904627,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":26.335910572,"data":"  Trial 2 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":26.335916396000002,"data":"[I 2026-02-17 14:57:59,710] Trial 2 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":26.365716945,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":26.365768976,"data":"\n"}
+,{"stream_name":"stderr","time":26.365775885,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":26.401924937,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":26.401960438,"data":"\n"}
+,{"stream_name":"stderr","time":26.401965885,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":26.439298326,"data":"Model is not converging.  Current: 8054.741723094793 is not greater than 8055.0468087851905. Delta is -0.30508569039739086\n"}
+,{"stream_name":"stderr","time":26.439334656,"data":"\n"}
+,{"stream_name":"stderr","time":26.439338969,"data":"Model is not converging.  Current: 8054.741723094793 is not greater than 8055.0468087851905. Delta is -0.30508569039739086\n"}
+,{"stream_name":"stderr","time":26.484081061,"data":"Model is not converging.  Current: 8062.919908207275 is not greater than 8063.37566430145. Delta is -0.45575609417574015\n"}
+,{"stream_name":"stderr","time":26.484119355,"data":"\n"}
+,{"stream_name":"stderr","time":26.484125379,"data":"Model is not converging.  Current: 8062.919908207275 is not greater than 8063.37566430145. Delta is -0.45575609417574015\n"}
+,{"stream_name":"stderr","time":26.522819912,"data":"Model is not converging.  Current: 8054.677442382301 is not greater than 8054.728659965513. Delta is -0.051217583211837336\n"}
+,{"stream_name":"stderr","time":26.522856651,"data":"\n"}
+,{"stream_name":"stderr","time":26.522861812,"data":"Model is not converging.  Current: 8054.677442382301 is not greater than 8054.728659965513. Delta is -0.051217583211837336\n"}
+,{"stream_name":"stderr","time":26.556887093,"data":"Model is not converging.  Current: 8070.3459314076445 is not greater than 8073.4892611830255. Delta is -3.143329775381062\n"}
+,{"stream_name":"stderr","time":26.55692304,"data":"\n"}
+,{"stream_name":"stderr","time":26.556929081,"data":"Model is not converging.  Current: 8070.3459314076445 is not greater than 8073.4892611830255. Delta is -3.143329775381062\n"}
+,{"stream_name":"stderr","time":26.620548865,"data":"Model is not converging.  Current: 8052.7374667149825 is not greater than 8052.7971368160825. Delta is -0.059670101099982276\n"}
+,{"stream_name":"stderr","time":26.620585791,"data":"\n"}
+,{"stream_name":"stderr","time":26.620591517,"data":"Model is not converging.  Current: 8052.7374667149825 is not greater than 8052.7971368160825. Delta is -0.059670101099982276\n"}
+,{"stream_name":"stderr","time":26.687651855,"data":"Model is not converging.  Current: 7992.448165330352 is not greater than 7992.486562926817. Delta is -0.03839759646507446\n"}
+,{"stream_name":"stderr","time":26.687706006,"data":"\n"}
+,{"stream_name":"stderr","time":26.687716233,"data":"Model is not converging.  Current: 7992.448165330352 is not greater than 7992.486562926817. Delta is -0.03839759646507446\n"}
+,{"stream_name":"stderr","time":26.728911703,"data":"Model is not converging.  Current: 8069.186643554521 is not greater than 8075.883645143697. Delta is -6.69700158917658\n"}
+,{"stream_name":"stderr","time":26.728948491,"data":"\n"}
+,{"stream_name":"stderr","time":26.728953895,"data":"Model is not converging.  Current: 8069.186643554521 is not greater than 8075.883645143697. Delta is -6.69700158917658\n"}
+,{"stream_name":"stderr","time":26.766995366,"data":"Model is not converging.  Current: 8069.841701977469 is not greater than 8074.578808533333. Delta is -4.737106555864557\n"}
+,{"stream_name":"stderr","time":26.767036301,"data":"\n"}
+,{"stream_name":"stderr","time":26.767042144,"data":"Model is not converging.  Current: 8069.841701977469 is not greater than 8074.578808533333. Delta is -4.737106555864557\n"}
+,{"stream_name":"stderr","time":26.800361406,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.983163989658. Delta is -1.9714455816656482\n"}
+,{"stream_name":"stderr","time":26.800398664,"data":"\n"}
+,{"stream_name":"stderr","time":26.80040445,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.983163989658. Delta is -1.9714455816656482\n"}
+,{"stream_name":"stderr","time":26.835753176,"data":"Model is not converging.  Current: 8063.581725542904 is not greater than 8065.102647429309. Delta is -1.520921886405631\n"}
+,{"stream_name":"stderr","time":26.835813843,"data":"\n"}
+,{"stream_name":"stderr","time":26.835819326,"data":"Model is not converging.  Current: 8063.581725542904 is not greater than 8065.102647429309. Delta is -1.520921886405631\n"}
+,{"stream_name":"stderr","time":26.883884651,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":26.883923933,"data":"\n"}
+,{"stream_name":"stderr","time":26.883929567,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":26.917808451,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":26.917860972,"data":"\n"}
+,{"stream_name":"stderr","time":26.917866821,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":26.96329784,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":26.963337219,"data":"\n"}
+,{"stream_name":"stderr","time":26.963344077,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":27.010322784,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":27.010365182,"data":"\n"}
+,{"stream_name":"stderr","time":27.010370399,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stdout","time":27.041039191,"data":"  HMM states=3, cov=diag, n_init=15\n"}
+,{"stream_name":"stdout","time":27.041075141,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":27.041079549,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":27.041101455,"data":"  Trial 3 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":27.041105472,"data":"[I 2026-02-17 14:58:00,415] Trial 3 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 15, 'momentum_window': 15, 'vol_window': 20, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":27.043525333,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":27.043586383,"data":"\n"}
+,{"stream_name":"stderr","time":27.043592285,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":27.124763267,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":27.124800325,"data":"\n"}
+,{"stream_name":"stderr","time":27.124804608,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":27.20131144,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":27.201371408,"data":"\n"}
+,{"stream_name":"stderr","time":27.203803265,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stdout","time":27.25027105,"data":"  HMM states=3, cov=diag, n_init=5\n"}
+,{"stream_name":"stdout","time":27.250331709,"data":"  State variances: ['0.00101296', '0.00002151', '0.00037420']\n"}
+,{"stream_name":"stdout","time":27.250337111,"data":"  High-var state: 0, mean regime_prob: 0.005\n"}
+,{"stream_name":"stdout","time":27.250341478,"data":"  Trial 4 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":27.25034589,"data":"[I 2026-02-17 14:58:00,624] Trial 4 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 15, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":27.300349728,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":27.300384031,"data":"\n"}
+,{"stream_name":"stderr","time":27.302797926,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":27.404165935,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":27.404228612,"data":"\n"}
+,{"stream_name":"stderr","time":27.404234021,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":27.477205527,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":27.477241011,"data":"\n"}
+,{"stream_name":"stderr","time":27.477256824,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":27.567466561,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":27.567529866,"data":"\n"}
+,{"stream_name":"stderr","time":27.56753485,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":27.633133498,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":27.633197527,"data":"\n"}
+,{"stream_name":"stderr","time":27.6332025,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":27.687170388,"data":"  HMM states=3, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":27.687208334,"data":"  State variances: ['0.00101296', '0.00002151', '0.00037420']\n"}
+,{"stream_name":"stdout","time":27.687213762,"data":"  High-var state: 0, mean regime_prob: 0.005\n"}
+,{"stream_name":"stdout","time":27.687218305000002,"data":"  Trial 5 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":27.687222795,"data":"[I 2026-02-17 14:58:01,063] Trial 5 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":27.697776802,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":27.697835036,"data":"\n"}
+,{"stream_name":"stderr","time":27.697840407,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":27.909214296000002,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":27.909251077,"data":"\n"}
+,{"stream_name":"stderr","time":27.910842668,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":27.962296481,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":27.962330614,"data":"\n"}
+,{"stream_name":"stderr","time":27.964814595,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":28.058170105,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":28.058208768,"data":"\n"}
+,{"stream_name":"stderr","time":28.060841904,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":28.125103179,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":28.125140479,"data":"\n"}
+,{"stream_name":"stderr","time":28.125146764,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stdout","time":28.173321394,"data":"  HMM states=2, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":28.173375269,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":28.173401616,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":28.173407213,"data":"  Trial 6 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":28.173412402,"data":"[I 2026-02-17 14:58:01,545] Trial 6 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 30, 'vol_window': 20, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.175546216,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":28.175578744,"data":"\n"}
+,{"stream_name":"stderr","time":28.175583743,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":28.226654915,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":28.226718183,"data":"\n"}
+,{"stream_name":"stderr","time":28.226727421,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":28.261927766,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":28.261965845,"data":"\n"}
+,{"stream_name":"stderr","time":28.261971495,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":28.333675971,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":28.333730155,"data":"\n"}
+,{"stream_name":"stderr","time":28.334014202,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":28.389055525,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":28.389126192,"data":"\n"}
+,{"stream_name":"stderr","time":28.391864486,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":28.448959836,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":28.449019108,"data":"\n"}
+,{"stream_name":"stderr","time":28.451834368,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stdout","time":28.467955705,"data":"  HMM states=3, cov=diag, n_init=5\n"}
+,{"stream_name":"stdout","time":28.468000893,"data":"  State variances: ['0.00101296', '0.00002151', '0.00037420']\n"}
+,{"stream_name":"stdout","time":28.468005691,"data":"  High-var state: 0, mean regime_prob: 0.005\n"}
+,{"stream_name":"stdout","time":28.468009958,"data":"  Trial 7 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":28.468014284,"data":"[I 2026-02-17 14:58:01,842] Trial 7 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 15, 'vol_window': 20, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":28.675804049,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":28.675843072,"data":"\n"}
+,{"stream_name":"stderr","time":28.67781207,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":28.837632088,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":28.837677529,"data":"\n"}
+,{"stream_name":"stderr","time":28.837859331,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":28.945183803,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":28.945216957,"data":"\n"}
+,{"stream_name":"stderr","time":28.946789012,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":29.091082982,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":29.091115649,"data":"\n"}
+,{"stream_name":"stderr","time":29.091120134,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":29.199249693,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":29.199306433,"data":"\n"}
+,{"stream_name":"stderr","time":29.199311224,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":29.323343658,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":29.323401459,"data":"\n"}
+,{"stream_name":"stderr","time":29.323406548,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":29.47270627,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":29.472742952,"data":"\n"}
+,{"stream_name":"stderr","time":29.472747654,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":29.560991473,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":29.561052745,"data":"\n"}
+,{"stream_name":"stderr","time":29.561058003,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":29.772241788,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":29.772289446,"data":"\n"}
+,{"stream_name":"stderr","time":29.772294044,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":30.010843597,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":30.010879948,"data":"\n"}
+,{"stream_name":"stderr","time":30.010906969,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":30.05951696,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":30.05955095,"data":"\n"}
+,{"stream_name":"stderr","time":30.059555734,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":30.239563462,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":30.239615211,"data":"\n"}
+,{"stream_name":"stderr","time":30.243070526,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":30.330976053,"data":"Model is not converging.  Current: 8047.995621712961 is not greater than 8048.12625758352. Delta is -0.1306358705587627\n"}
+,{"stream_name":"stderr","time":30.331012578,"data":"\n"}
+,{"stream_name":"stderr","time":30.331018138,"data":"Model is not converging.  Current: 8047.995621712961 is not greater than 8048.12625758352. Delta is -0.1306358705587627\n"}
+,{"stream_name":"stderr","time":30.373815093,"data":"Model is not converging.  Current: 8049.37765793698 is not greater than 8049.567324185566. Delta is -0.1896662485860361\n"}
+,{"stream_name":"stderr","time":30.373851936,"data":"\n"}
+,{"stream_name":"stderr","time":30.374182157,"data":"Model is not converging.  Current: 8049.37765793698 is not greater than 8049.567324185566. Delta is -0.1896662485860361\n"}
+,{"stream_name":"stderr","time":30.403625363,"data":"Model is not converging.  Current: 8064.619290905198 is not greater than 8065.662811417987. Delta is -1.0435205127887457\n"}
+,{"stream_name":"stderr","time":30.403662531,"data":"\n"}
+,{"stream_name":"stderr","time":30.403668105,"data":"Model is not converging.  Current: 8064.619290905198 is not greater than 8065.662811417987. Delta is -1.0435205127887457\n"}
+,{"stream_name":"stdout","time":30.447368919,"data":"  HMM states=2, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":30.447408133,"data":"  State variances: ['0.00002167', '0.00040241']\n"}
+,{"stream_name":"stdout","time":30.447414554,"data":"  High-var state: 1, mean regime_prob: 0.015\n"}
+,{"stream_name":"stdout","time":30.447419564,"data":"  Trial 8 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":30.447424646,"data":"[I 2026-02-17 14:58:03,822] Trial 8 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 30, 'vol_window': 20, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":30.536903991,"data":"Model is not converging.  Current: 8051.58310158427 is not greater than 8052.116369347413. Delta is -0.5332677631431579\n"}
+,{"stream_name":"stderr","time":30.536944364,"data":"\n"}
+,{"stream_name":"stderr","time":30.536948554,"data":"Model is not converging.  Current: 8051.58310158427 is not greater than 8052.116369347413. Delta is -0.5332677631431579\n"}
+,{"stream_name":"stderr","time":30.566782589,"data":"Model is not converging.  Current: 8052.082598634933 is not greater than 8052.535754169907. Delta is -0.45315553497403016\n"}
+,{"stream_name":"stderr","time":30.566832724,"data":"\n"}
+,{"stream_name":"stderr","time":30.566836908,"data":"Model is not converging.  Current: 8052.082598634933 is not greater than 8052.535754169907. Delta is -0.45315553497403016\n"}
+,{"stream_name":"stderr","time":30.643908362,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":30.643966241,"data":"\n"}
+,{"stream_name":"stderr","time":30.643971462,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":30.709239535000002,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":30.709277526,"data":"\n"}
+,{"stream_name":"stderr","time":30.709648507,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stdout","time":30.771416623,"data":"  HMM states=2, cov=diag, n_init=5\n"}
+,{"stream_name":"stdout","time":30.771452955,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":30.771458714,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":30.771463365,"data":"  Trial 9 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":30.771468283,"data":"[I 2026-02-17 14:58:04,145] Trial 9 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 15, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":30.810660368,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":30.810729758,"data":"\n"}
+,{"stream_name":"stderr","time":30.81390717,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":30.906191188,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":30.906246627,"data":"\n"}
+,{"stream_name":"stderr","time":30.906412757,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":30.981762347,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":30.981827631,"data":"\n"}
+,{"stream_name":"stderr","time":30.984893815,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":31.047723739,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":31.047777012,"data":"\n"}
+,{"stream_name":"stderr","time":31.047782268,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":31.140413534,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":31.140453127,"data":"\n"}
+,{"stream_name":"stderr","time":31.140656921,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":31.259800932,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":31.259839748,"data":"\n"}
+,{"stream_name":"stderr","time":31.263870412,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":31.337469436,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":31.33750104,"data":"\n"}
+,{"stream_name":"stderr","time":31.337505555,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":31.460115469,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":31.460174585,"data":"\n"}
+,{"stream_name":"stderr","time":31.461833803,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":31.548386551,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":31.548423611,"data":"\n"}
+,{"stream_name":"stderr","time":31.550862293,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":31.601844261,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":31.601881051,"data":"\n"}
+,{"stream_name":"stderr","time":31.602829889,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":31.66138374,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":31.661426792,"data":"\n"}
+,{"stream_name":"stderr","time":31.661546258,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stdout","time":31.667664124,"data":"  HMM states=3, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":31.667711782,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":31.667718964,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":31.667723433,"data":"  Trial 10 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":31.667728242,"data":"[I 2026-02-17 14:58:05,042] Trial 10 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 20, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":31.879326681,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":31.879388841,"data":"\n"}
+,{"stream_name":"stderr","time":31.881833903,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":32.032624789,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":32.032674348,"data":"\n"}
+,{"stream_name":"stderr","time":32.03490391,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":32.142116459,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":32.142185927,"data":"\n"}
+,{"stream_name":"stderr","time":32.142192024,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":32.448404665,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":32.448441111,"data":"\n"}
+,{"stream_name":"stderr","time":32.451894419,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":32.612948506,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":32.612984652,"data":"\n"}
+,{"stream_name":"stderr","time":32.613873912,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":32.737457609,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":32.737496054,"data":"\n"}
+,{"stream_name":"stderr","time":32.737502841,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":32.855377665,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":32.8554169,"data":"\n"}
+,{"stream_name":"stderr","time":32.855423371,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":32.930262597,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":32.930299187,"data":"\n"}
+,{"stream_name":"stderr","time":32.930304464,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":33.129439942,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":33.129496217,"data":"\n"}
+,{"stream_name":"stderr","time":33.129502131,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":33.412272575,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":33.412310862,"data":"\n"}
+,{"stream_name":"stderr","time":33.412476457,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":33.562646041,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":33.562707729,"data":"\n"}
+,{"stream_name":"stderr","time":33.564093461,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":33.817718696,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":33.817754137,"data":"\n"}
+,{"stream_name":"stderr","time":33.820873981,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":33.910015898,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":33.910048001,"data":"\n"}
+,{"stream_name":"stderr","time":33.912847976,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":33.973889081,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":33.973924252,"data":"\n"}
+,{"stream_name":"stderr","time":33.976838407,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":34.028560365,"data":"  HMM states=2, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":34.028592849,"data":"  State variances: ['0.00002167', '0.00040241']\n"}
+,{"stream_name":"stdout","time":34.02861533,"data":"  High-var state: 1, mean regime_prob: 0.015\n"}
+,{"stream_name":"stdout","time":34.028619284,"data":"  Trial 11 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":34.028623072,"data":"[I 2026-02-17 14:58:07,400] Trial 11 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":34.080425273,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":34.080460339,"data":"\n"}
+,{"stream_name":"stderr","time":34.084849975,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":34.378344344,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":34.378380718,"data":"\n"}
+,{"stream_name":"stderr","time":34.378385577,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":34.441054194,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":34.441093162,"data":"\n"}
+,{"stream_name":"stderr","time":34.441099354,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":34.544834035,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":34.54488632,"data":"\n"}
+,{"stream_name":"stderr","time":34.544891337,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":34.72451384,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":34.724552723,"data":"\n"}
+,{"stream_name":"stderr","time":34.724558076,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":34.83022731,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":34.830276008,"data":"\n"}
+,{"stream_name":"stderr","time":34.830282796,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":35.039187537,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":35.039225134,"data":"\n"}
+,{"stream_name":"stderr","time":35.039231293,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":35.114311383,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":35.114346405,"data":"\n"}
+,{"stream_name":"stderr","time":35.116828709,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":35.203583182,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":35.203619232,"data":"\n"}
+,{"stream_name":"stderr","time":35.205845152,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":35.407713931,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":35.407754413,"data":"\n"}
+,{"stream_name":"stderr","time":35.407760071,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":35.700223578,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":35.700263931,"data":"\n"}
+,{"stream_name":"stderr","time":35.700269072,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":35.807204759,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":35.807242168,"data":"\n"}
+,{"stream_name":"stderr","time":35.807247727000004,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":35.975193433,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":35.975268592,"data":"\n"}
+,{"stream_name":"stderr","time":35.975274242,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":36.147613493,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":36.14764956,"data":"\n"}
+,{"stream_name":"stderr","time":36.14791025,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stdout","time":36.181127208,"data":"  HMM states=2, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":36.181164529,"data":"  State variances: ['0.00002167', '0.00040241']\n"}
+,{"stream_name":"stdout","time":36.181169403,"data":"  High-var state: 1, mean regime_prob: 0.015\n"}
+,{"stream_name":"stdout","time":36.181192724,"data":"  Trial 12 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":36.181197123,"data":"[I 2026-02-17 14:58:09,557] Trial 12 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":36.31802684,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":36.318073248,"data":"\n"}
+,{"stream_name":"stderr","time":36.318077662,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":36.412706254,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":36.41274353,"data":"\n"}
+,{"stream_name":"stderr","time":36.412748705,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":36.518280182,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":36.518317759,"data":"\n"}
+,{"stream_name":"stderr","time":36.518322659,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":36.589215056,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":36.589262379,"data":"\n"}
+,{"stream_name":"stderr","time":36.589268723,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":36.754342262,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":36.754405369,"data":"\n"}
+,{"stream_name":"stderr","time":36.754410711,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":36.847225227,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":36.847288154,"data":"\n"}
+,{"stream_name":"stderr","time":36.847293224,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":36.922502069,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":36.922539488,"data":"\n"}
+,{"stream_name":"stderr","time":36.922544348,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":37.054322909,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":37.054358877,"data":"\n"}
+,{"stream_name":"stderr","time":37.054523598,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":37.183271504,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":37.183319156,"data":"\n"}
+,{"stream_name":"stderr","time":37.185913466,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":37.313974196,"data":"Model is not converging.  Current: 7992.448165330529 is not greater than 7992.486562927041. Delta is -0.03839759651145869\n"}
+,{"stream_name":"stderr","time":37.314011059,"data":"\n"}
+,{"stream_name":"stderr","time":37.31401603,"data":"Model is not converging.  Current: 7992.448165330529 is not greater than 7992.486562927041. Delta is -0.03839759651145869\n"}
+,{"stream_name":"stderr","time":37.410773326,"data":"Model is not converging.  Current: 8069.186643554419 is not greater than 8075.8836451445795. Delta is -6.697001590160653\n"}
+,{"stream_name":"stderr","time":37.410810087,"data":"\n"}
+,{"stream_name":"stderr","time":37.41081478,"data":"Model is not converging.  Current: 8069.186643554419 is not greater than 8075.8836451445795. Delta is -6.697001590160653\n"}
+,{"stream_name":"stderr","time":37.502780457,"data":"Model is not converging.  Current: 8069.8417019776425 is not greater than 8074.578808533367. Delta is -4.737106555724495\n"}
+,{"stream_name":"stderr","time":37.502841155,"data":"\n"}
+,{"stream_name":"stderr","time":37.502846698,"data":"Model is not converging.  Current: 8069.8417019776425 is not greater than 8074.578808533367. Delta is -4.737106555724495\n"}
+,{"stream_name":"stderr","time":37.605783786,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.98316398966. Delta is -1.9714455816674672\n"}
+,{"stream_name":"stderr","time":37.605839415,"data":"\n"}
+,{"stream_name":"stderr","time":37.606834051999996,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.98316398966. Delta is -1.9714455816674672\n"}
+,{"stream_name":"stderr","time":37.686826179,"data":"Model is not converging.  Current: 8063.581725542914 is not greater than 8065.10264742929. Delta is -1.5209218863765273\n"}
+,{"stream_name":"stderr","time":37.686863112,"data":"\n"}
+,{"stream_name":"stderr","time":37.686867923,"data":"Model is not converging.  Current: 8063.581725542914 is not greater than 8065.10264742929. Delta is -1.5209218863765273\n"}
+,{"stream_name":"stderr","time":37.795288978,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":37.795341126,"data":"\n"}
+,{"stream_name":"stderr","time":37.7953699,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":37.870638787,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":37.870675331,"data":"\n"}
+,{"stream_name":"stderr","time":37.870832697,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stdout","time":37.894919691,"data":"  HMM states=3, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":37.894971831,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":37.894976633,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":37.894980576,"data":"  Trial 13 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":37.894984372,"data":"[I 2026-02-17 14:58:11,270] Trial 13 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":38.024088074,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":38.024128778,"data":"\n"}
+,{"stream_name":"stderr","time":38.026832296,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":38.119491977,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":38.11952962,"data":"\n"}
+,{"stream_name":"stderr","time":38.120798374,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":38.186472256,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":38.186511966,"data":"\n"}
+,{"stream_name":"stderr","time":38.187811389,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":38.271764979,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":38.27179899,"data":"\n"}
+,{"stream_name":"stderr","time":38.274796779,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":38.371886352,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":38.371923667,"data":"\n"}
+,{"stream_name":"stderr","time":38.372106844,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":38.453646591,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":38.453712011,"data":"\n"}
+,{"stream_name":"stderr","time":38.456805227,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":38.58280239,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":38.582843014,"data":"\n"}
+,{"stream_name":"stderr","time":38.583797499,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":38.720245841,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":38.720314863,"data":"\n"}
+,{"stream_name":"stderr","time":38.723803873,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":38.889526974,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":38.889589003,"data":"\n"}
+,{"stream_name":"stderr","time":38.891325548,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stdout","time":38.929851837,"data":"  HMM states=3, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":38.929907368,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":38.929912573,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":38.929917175,"data":"  Trial 14 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":38.929922219,"data":"[I 2026-02-17 14:58:12,303] Trial 14 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 20, 'vol_window': 10, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":39.009505147,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":39.009538625,"data":"\n"}
+,{"stream_name":"stderr","time":39.009713964,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":39.079668074,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":39.079717618,"data":"\n"}
+,{"stream_name":"stderr","time":39.082998211,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":39.378479837,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":39.378524103,"data":"\n"}
+,{"stream_name":"stderr","time":39.379882903,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":39.441454745,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":39.441499919,"data":"\n"}
+,{"stream_name":"stderr","time":39.441679459,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":39.583433935,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":39.583481681,"data":"\n"}
+,{"stream_name":"stderr","time":39.58374014,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stdout","time":39.644087847,"data":"  HMM states=2, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":39.644126817,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":39.644132009,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":39.644136427,"data":"  Trial 15 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":39.644140866,"data":"[I 2026-02-17 14:58:13,016] Trial 15 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":39.651299943,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":39.651361072,"data":"\n"}
+,{"stream_name":"stderr","time":39.654003184,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":39.722476784,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":39.722542057,"data":"\n"}
+,{"stream_name":"stderr","time":39.723847334,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":39.945768805,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":39.94583162,"data":"\n"}
+,{"stream_name":"stderr","time":39.947033421,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":40.051370317,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":40.051441392,"data":"\n"}
+,{"stream_name":"stderr","time":40.052879183,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":40.1544887,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":40.154525475,"data":"\n"}
+,{"stream_name":"stderr","time":40.155877714,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":40.29522356,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":40.295264262,"data":"\n"}
+,{"stream_name":"stderr","time":40.295269395,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":40.418824077,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":40.418862544,"data":"\n"}
+,{"stream_name":"stderr","time":40.42187969,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":40.50651112,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":40.506549143,"data":"\n"}
+,{"stream_name":"stderr","time":40.509889518,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":40.56631771,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":40.566384145,"data":"\n"}
+,{"stream_name":"stderr","time":40.56667715,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":40.643464719,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":40.64350304,"data":"\n"}
+,{"stream_name":"stderr","time":40.64487531,"data":"Model is not converging.  Current: 8064.607096823242 is not greater than 8065.061720544073. Delta is -0.45462372083147784\n"}
+,{"stream_name":"stderr","time":40.907986389,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":40.908022922,"data":"\n"}
+,{"stream_name":"stderr","time":40.910876411,"data":"Model is not converging.  Current: 8050.215209045377 is not greater than 8050.395760528614. Delta is -0.18055148323674075\n"}
+,{"stream_name":"stderr","time":41.226360513,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":41.226424898,"data":"\n"}
+,{"stream_name":"stderr","time":41.228854193,"data":"Model is not converging.  Current: 8047.50941262975 is not greater than 8047.956695979122. Delta is -0.44728334937190084\n"}
+,{"stream_name":"stderr","time":41.293703784,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":41.293762783,"data":"\n"}
+,{"stream_name":"stderr","time":41.293941928,"data":"Model is not converging.  Current: 7984.547181309844 is not greater than 7984.555261459654. Delta is -0.008080149809757131\n"}
+,{"stream_name":"stderr","time":41.466998187,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":41.46705794,"data":"\n"}
+,{"stream_name":"stderr","time":41.467202154,"data":"Model is not converging.  Current: 8049.126616136157 is not greater than 8049.442346943778. Delta is -0.3157308076206391\n"}
+,{"stream_name":"stderr","time":41.630944401,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":41.630984229,"data":"\n"}
+,{"stream_name":"stderr","time":41.633879822,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stdout","time":41.674263966,"data":"  HMM states=2, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":41.674320242,"data":"  State variances: ['0.00002167', '0.00040241']\n"}
+,{"stream_name":"stdout","time":41.674326434,"data":"  High-var state: 1, mean regime_prob: 0.015\n"}
+,{"stream_name":"stdout","time":41.674331187,"data":"  Trial 16 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":41.67433494,"data":"[I 2026-02-17 14:58:15,049] Trial 16 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":41.717751281,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":41.717804707,"data":"\n"}
+,{"stream_name":"stderr","time":41.720872706,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":41.903096052,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":41.903148092,"data":"\n"}
+,{"stream_name":"stderr","time":41.903302344,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":42.056847731,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":42.056885523,"data":"\n"}
+,{"stream_name":"stderr","time":42.059877134,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":42.218839538,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":42.218876891,"data":"\n"}
+,{"stream_name":"stderr","time":42.218881597,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":42.329484977999996,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":42.329519967,"data":"\n"}
+,{"stream_name":"stderr","time":42.329918912,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":42.39939158,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":42.399463084,"data":"\n"}
+,{"stream_name":"stderr","time":42.399470181,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stdout","time":42.424487992,"data":"  HMM states=3, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":42.424523501,"data":"  State variances: ['0.00101296', '0.00002151', '0.00037420']\n"}
+,{"stream_name":"stdout","time":42.424528175,"data":"  High-var state: 0, mean regime_prob: 0.005\n"}
+,{"stream_name":"stdout","time":42.424532004,"data":"  Trial 17 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":42.424535859,"data":"[I 2026-02-17 14:58:15,799] Trial 17 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":42.454940388,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":42.454996313,"data":"\n"}
+,{"stream_name":"stderr","time":42.455003317,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":42.50306328,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":42.50309888,"data":"\n"}
+,{"stream_name":"stderr","time":42.503106656,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":42.53696074,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":42.536997191,"data":"\n"}
+,{"stream_name":"stderr","time":42.537001443,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":42.573103783,"data":"Model is not converging.  Current: 8054.741723094793 is not greater than 8055.0468087851905. Delta is -0.30508569039739086\n"}
+,{"stream_name":"stderr","time":42.573384351,"data":"\n"}
+,{"stream_name":"stderr","time":42.573403824,"data":"Model is not converging.  Current: 8054.741723094793 is not greater than 8055.0468087851905. Delta is -0.30508569039739086\n"}
+,{"stream_name":"stderr","time":42.618934795,"data":"Model is not converging.  Current: 8062.919908207275 is not greater than 8063.37566430145. Delta is -0.45575609417574015\n"}
+,{"stream_name":"stderr","time":42.618982489,"data":"\n"}
+,{"stream_name":"stderr","time":42.61898848,"data":"Model is not converging.  Current: 8062.919908207275 is not greater than 8063.37566430145. Delta is -0.45575609417574015\n"}
+,{"stream_name":"stderr","time":42.659872494,"data":"Model is not converging.  Current: 8054.677442382301 is not greater than 8054.728659965513. Delta is -0.051217583211837336\n"}
+,{"stream_name":"stderr","time":42.659931943,"data":"\n"}
+,{"stream_name":"stderr","time":42.659939247,"data":"Model is not converging.  Current: 8054.677442382301 is not greater than 8054.728659965513. Delta is -0.051217583211837336\n"}
+,{"stream_name":"stderr","time":42.693325042,"data":"Model is not converging.  Current: 8070.3459314076445 is not greater than 8073.4892611830255. Delta is -3.143329775381062\n"}
+,{"stream_name":"stderr","time":42.693358882,"data":"\n"}
+,{"stream_name":"stderr","time":42.693363056,"data":"Model is not converging.  Current: 8070.3459314076445 is not greater than 8073.4892611830255. Delta is -3.143329775381062\n"}
+,{"stream_name":"stderr","time":42.757239514,"data":"Model is not converging.  Current: 8052.7374667149825 is not greater than 8052.7971368160825. Delta is -0.059670101099982276\n"}
+,{"stream_name":"stderr","time":42.757309008,"data":"\n"}
+,{"stream_name":"stderr","time":42.757316218,"data":"Model is not converging.  Current: 8052.7374667149825 is not greater than 8052.7971368160825. Delta is -0.059670101099982276\n"}
+,{"stream_name":"stderr","time":42.822892098,"data":"Model is not converging.  Current: 7992.448165330352 is not greater than 7992.486562926817. Delta is -0.03839759646507446\n"}
+,{"stream_name":"stderr","time":42.82292993,"data":"\n"}
+,{"stream_name":"stderr","time":42.822943598,"data":"Model is not converging.  Current: 7992.448165330352 is not greater than 7992.486562926817. Delta is -0.03839759646507446\n"}
+,{"stream_name":"stderr","time":42.863959906,"data":"Model is not converging.  Current: 8069.186643554521 is not greater than 8075.883645143697. Delta is -6.69700158917658\n"}
+,{"stream_name":"stderr","time":42.863998774,"data":"\n"}
+,{"stream_name":"stderr","time":42.86400884,"data":"Model is not converging.  Current: 8069.186643554521 is not greater than 8075.883645143697. Delta is -6.69700158917658\n"}
+,{"stream_name":"stderr","time":42.90100458,"data":"Model is not converging.  Current: 8069.841701977469 is not greater than 8074.578808533333. Delta is -4.737106555864557\n"}
+,{"stream_name":"stderr","time":42.901043556,"data":"\n"}
+,{"stream_name":"stderr","time":42.901047639,"data":"Model is not converging.  Current: 8069.841701977469 is not greater than 8074.578808533333. Delta is -4.737106555864557\n"}
+,{"stream_name":"stderr","time":42.935571694,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.983163989658. Delta is -1.9714455816656482\n"}
+,{"stream_name":"stderr","time":42.935609717,"data":"\n"}
+,{"stream_name":"stderr","time":42.935614627,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.983163989658. Delta is -1.9714455816656482\n"}
+,{"stream_name":"stderr","time":42.968317946,"data":"Model is not converging.  Current: 8063.581725542904 is not greater than 8065.102647429309. Delta is -1.520921886405631\n"}
+,{"stream_name":"stderr","time":42.968350931,"data":"\n"}
+,{"stream_name":"stderr","time":42.968355938,"data":"Model is not converging.  Current: 8063.581725542904 is not greater than 8065.102647429309. Delta is -1.520921886405631\n"}
+,{"stream_name":"stderr","time":43.043299731,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":43.043338176,"data":"\n"}
+,{"stream_name":"stderr","time":43.043569456,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":43.094941145,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":43.09498784,"data":"\n"}
+,{"stream_name":"stderr","time":43.094993161,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":43.174251573,"data":"  HMM states=3, cov=diag, n_init=15\n"}
+,{"stream_name":"stdout","time":43.174297911,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":43.174303275,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":43.174307639,"data":"  Trial 18 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":43.174312491,"data":"[I 2026-02-17 14:58:16,548] Trial 18 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 15, 'momentum_window': 30, 'vol_window': 15, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":43.192944144,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":43.192979532,"data":"\n"}
+,{"stream_name":"stderr","time":43.193257916,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":43.508570206,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":43.508606394,"data":"\n"}
+,{"stream_name":"stderr","time":43.50861142,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":43.671066149,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":43.671103582,"data":"\n"}
+,{"stream_name":"stderr","time":43.671250328,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":43.777073965,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":43.777112493,"data":"\n"}
+,{"stream_name":"stderr","time":43.779860265,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":43.912840299,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":43.912878529,"data":"\n"}
+,{"stream_name":"stderr","time":43.912883632,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":44.113822754,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":44.113889401,"data":"\n"}
+,{"stream_name":"stderr","time":44.113896371,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":44.333707314,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":44.333744026,"data":"\n"}
+,{"stream_name":"stderr","time":44.333749079,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":44.471670098,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":44.471725355,"data":"\n"}
+,{"stream_name":"stderr","time":44.471731043,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":44.632080919,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":44.632141259,"data":"\n"}
+,{"stream_name":"stderr","time":44.632146625,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stdout","time":44.682253467,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":44.682289,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":44.682293304,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":44.682297115,"data":"  Trial 19 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":44.682323964,"data":"[I 2026-02-17 14:58:18,053] Trial 19 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 20, 'vol_window': 10, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":44.73671484,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":44.736753873,"data":"\n"}
+,{"stream_name":"stderr","time":44.736760313,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":44.902588428,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":44.902627037,"data":"\n"}
+,{"stream_name":"stderr","time":44.90263177,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":45.012515219,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":45.012552428,"data":"\n"}
+,{"stream_name":"stderr","time":45.012737763,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":45.081165282,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":45.081209282,"data":"\n"}
+,{"stream_name":"stderr","time":45.083882803,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":45.170130628,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":45.170172428,"data":"\n"}
+,{"stream_name":"stderr","time":45.170323155,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":45.261233452,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":45.261290463,"data":"\n"}
+,{"stream_name":"stderr","time":45.263852185,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":45.345832194,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":45.3458677,"data":"\n"}
+,{"stream_name":"stderr","time":45.345872319,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":45.463268689,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":45.46330553,"data":"\n"}
+,{"stream_name":"stderr","time":45.46331038,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":45.638170655,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":45.638225551,"data":"\n"}
+,{"stream_name":"stderr","time":45.638230612,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":45.8224684,"data":"Model is not converging.  Current: 7992.448165330529 is not greater than 7992.486562927041. Delta is -0.03839759651145869\n"}
+,{"stream_name":"stderr","time":45.822506535,"data":"\n"}
+,{"stream_name":"stderr","time":45.82252291,"data":"Model is not converging.  Current: 7992.448165330529 is not greater than 7992.486562927041. Delta is -0.03839759651145869\n"}
+,{"stream_name":"stderr","time":45.965902098,"data":"Model is not converging.  Current: 8069.186643554419 is not greater than 8075.8836451445795. Delta is -6.697001590160653\n"}
+,{"stream_name":"stderr","time":45.965961683,"data":"\n"}
+,{"stream_name":"stderr","time":45.968828948,"data":"Model is not converging.  Current: 8069.186643554419 is not greater than 8075.8836451445795. Delta is -6.697001590160653\n"}
+,{"stream_name":"stderr","time":46.052190762,"data":"Model is not converging.  Current: 8069.8417019776425 is not greater than 8074.578808533367. Delta is -4.737106555724495\n"}
+,{"stream_name":"stderr","time":46.052228441,"data":"\n"}
+,{"stream_name":"stderr","time":46.052233075,"data":"Model is not converging.  Current: 8069.8417019776425 is not greater than 8074.578808533367. Delta is -4.737106555724495\n"}
+,{"stream_name":"stderr","time":46.133220339,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.98316398966. Delta is -1.9714455816674672\n"}
+,{"stream_name":"stderr","time":46.133280886,"data":"\n"}
+,{"stream_name":"stderr","time":46.135797767,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.98316398966. Delta is -1.9714455816674672\n"}
+,{"stream_name":"stderr","time":46.284141573,"data":"Model is not converging.  Current: 8063.581725542914 is not greater than 8065.10264742929. Delta is -1.5209218863765273\n"}
+,{"stream_name":"stderr","time":46.284169982,"data":"\n"}
+,{"stream_name":"stderr","time":46.28417483,"data":"Model is not converging.  Current: 8063.581725542914 is not greater than 8065.10264742929. Delta is -1.5209218863765273\n"}
+,{"stream_name":"stderr","time":46.382967061,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":46.383026154,"data":"\n"}
+,{"stream_name":"stderr","time":46.383031417,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":46.448607748,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":46.448642471,"data":"\n"}
+,{"stream_name":"stderr","time":46.448658397,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":46.498789881,"data":"  HMM states=3, cov=full, n_init=15\n"}
+,{"stream_name":"stdout","time":46.498825941,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":46.49883025,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":46.498833883,"data":"  Trial 20 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":46.498838017,"data":"[I 2026-02-17 14:58:19,867] Trial 20 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":46.525171501,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":46.525241636,"data":"\n"}
+,{"stream_name":"stderr","time":46.525246901,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":46.742362219,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":46.742401484,"data":"\n"}
+,{"stream_name":"stderr","time":46.743799011,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":46.813160058,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":46.813222622,"data":"\n"}
+,{"stream_name":"stderr","time":46.816841314,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":46.929290385,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":46.929327043,"data":"\n"}
+,{"stream_name":"stderr","time":46.929331936,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":47.079076896,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":47.079138816,"data":"\n"}
+,{"stream_name":"stderr","time":47.082824457,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":47.185253736,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":47.185292496,"data":"\n"}
+,{"stream_name":"stderr","time":47.185308391,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":47.316224216,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":47.316263431,"data":"\n"}
+,{"stream_name":"stderr","time":47.319816938,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":47.389536339,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":47.389575002,"data":"\n"}
+,{"stream_name":"stderr","time":47.389579785,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":47.492769809,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":47.492831419,"data":"\n"}
+,{"stream_name":"stderr","time":47.492944529,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":47.560586299,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":47.56062312,"data":"\n"}
+,{"stream_name":"stderr","time":47.563856586,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":47.597772813,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":47.597830529,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":47.597835487,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":47.597839289,"data":"  Trial 21 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":47.597843119,"data":"[I 2026-02-17 14:58:20,971] Trial 21 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":47.641417198,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":47.641454249,"data":"\n"}
+,{"stream_name":"stderr","time":47.644903528,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":47.872374864,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":47.87242123,"data":"\n"}
+,{"stream_name":"stderr","time":47.872577755,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":48.030434269,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":48.030477783,"data":"\n"}
+,{"stream_name":"stderr","time":48.03282904,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":48.138768923,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":48.138833529,"data":"\n"}
+,{"stream_name":"stderr","time":48.141907761,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":48.33302639,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":48.333062132,"data":"\n"}
+,{"stream_name":"stderr","time":48.333261484,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":48.436405129,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":48.436441652,"data":"\n"}
+,{"stream_name":"stderr","time":48.438905809,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":48.556562912,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":48.556597458,"data":"\n"}
+,{"stream_name":"stderr","time":48.556933387,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":48.616043189,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":48.616104124,"data":"\n"}
+,{"stream_name":"stderr","time":48.618839423,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":48.710316888,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":48.710355492,"data":"\n"}
+,{"stream_name":"stderr","time":48.710360371,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":48.760224419,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":48.760283238,"data":"\n"}
+,{"stream_name":"stderr","time":48.760288339,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":48.830245294,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":48.830282326,"data":"\n"}
+,{"stream_name":"stderr","time":48.830287167,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stdout","time":48.831231637,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":48.831242882,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":48.831247247,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":48.831251393,"data":"  Trial 22 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":48.83125587,"data":"[I 2026-02-17 14:58:22,201] Trial 22 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":49.122304335,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":49.122342155,"data":"\n"}
+,{"stream_name":"stderr","time":49.122347007,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":49.172127785,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":49.172189617,"data":"\n"}
+,{"stream_name":"stderr","time":49.172194819,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":49.27821682,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":49.278267558,"data":"\n"}
+,{"stream_name":"stderr","time":49.278272353,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":49.421303719,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":49.421341921,"data":"\n"}
+,{"stream_name":"stderr","time":49.42134689,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":49.502015996,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":49.502049598,"data":"\n"}
+,{"stream_name":"stderr","time":49.502069417,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":49.629107826,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":49.629168383,"data":"\n"}
+,{"stream_name":"stderr","time":49.629173237,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":49.708405932,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":49.708442046,"data":"\n"}
+,{"stream_name":"stderr","time":49.70847801,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":49.804539699,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":49.804576438,"data":"\n"}
+,{"stream_name":"stderr","time":49.805833843,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":49.871218504,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":49.871251766,"data":"\n"}
+,{"stream_name":"stderr","time":49.87482262,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stdout","time":49.909049398,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":49.909081021,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":49.909085781,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":49.909090156,"data":"  Trial 23 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":49.909094497,"data":"[I 2026-02-17 14:58:23,285] Trial 23 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":49.943763057,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":49.94382786,"data":"\n"}
+,{"stream_name":"stderr","time":49.9457863,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":50.172157264,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":50.172208388,"data":"\n"}
+,{"stream_name":"stderr","time":50.174820645,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":50.239643892,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":50.23967589,"data":"\n"}
+,{"stream_name":"stderr","time":50.239836098,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":50.439310617,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":50.439347612,"data":"\n"}
+,{"stream_name":"stderr","time":50.441891688,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":50.571727944,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":50.57176351,"data":"\n"}
+,{"stream_name":"stderr","time":50.575884079,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":50.740811639,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":50.740851262,"data":"\n"}
+,{"stream_name":"stderr","time":50.74100124,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":50.862138501,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":50.862175184,"data":"\n"}
+,{"stream_name":"stderr","time":50.864870059,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":50.926557593,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":50.926720066,"data":"\n"}
+,{"stream_name":"stderr","time":50.927019593,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":51.0239475,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":51.023985055,"data":"\n"}
+,{"stream_name":"stderr","time":51.027102308,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stdout","time":51.137914899,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":51.137949836,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":51.13803219,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":51.13803631,"data":"  Trial 24 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":51.138040113,"data":"[I 2026-02-17 14:58:24,510] Trial 24 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":51.14879761,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":51.148850158,"data":"\n"}
+,{"stream_name":"stderr","time":51.149165147,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":51.254957981,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":51.25500445,"data":"\n"}
+,{"stream_name":"stderr","time":51.256888233,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":51.486619559,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":51.486658219,"data":"\n"}
+,{"stream_name":"stderr","time":51.488869438,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":51.551120327,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":51.551157718,"data":"\n"}
+,{"stream_name":"stderr","time":51.553812212,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":51.667720173,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":51.667757415,"data":"\n"}
+,{"stream_name":"stderr","time":51.668824183,"data":"Model is not converging.  Current: 8049.482040070209 is not greater than 8049.486284308458. Delta is -0.004244238249157206\n"}
+,{"stream_name":"stderr","time":51.801148559,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":51.801194157,"data":"\n"}
+,{"stream_name":"stderr","time":51.80307527,"data":"Model is not converging.  Current: 8050.076933011205 is not greater than 8050.32350113164. Delta is -0.24656812043485843\n"}
+,{"stream_name":"stderr","time":51.894517149,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":51.894554474,"data":"\n"}
+,{"stream_name":"stderr","time":51.895842076,"data":"Model is not converging.  Current: 8059.638414948213 is not greater than 8059.861894190231. Delta is -0.22347924201858405\n"}
+,{"stream_name":"stderr","time":52.006941669,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":52.006975944,"data":"\n"}
+,{"stream_name":"stderr","time":52.01085937,"data":"Model is not converging.  Current: 8053.405709968877 is not greater than 8053.715509661997. Delta is -0.30979969312011235\n"}
+,{"stream_name":"stderr","time":52.07104677,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":52.0710844,"data":"\n"}
+,{"stream_name":"stderr","time":52.071089206,"data":"Model is not converging.  Current: 8053.8847663668375 is not greater than 8054.390880361722. Delta is -0.5061139948847995\n"}
+,{"stream_name":"stderr","time":52.169673705,"data":"Model is not converging.  Current: 8047.995621712961 is not greater than 8048.12625758352. Delta is -0.1306358705587627\n"}
+,{"stream_name":"stderr","time":52.169724166,"data":"\n"}
+,{"stream_name":"stderr","time":52.169729351,"data":"Model is not converging.  Current: 8047.995621712961 is not greater than 8048.12625758352. Delta is -0.1306358705587627\n"}
+,{"stream_name":"stderr","time":52.215123912,"data":"Model is not converging.  Current: 8049.37765793698 is not greater than 8049.567324185566. Delta is -0.1896662485860361\n"}
+,{"stream_name":"stderr","time":52.215163865,"data":"\n"}
+,{"stream_name":"stderr","time":52.215169595,"data":"Model is not converging.  Current: 8049.37765793698 is not greater than 8049.567324185566. Delta is -0.1896662485860361\n"}
+,{"stream_name":"stderr","time":52.246190897,"data":"Model is not converging.  Current: 8064.619290905198 is not greater than 8065.662811417987. Delta is -1.0435205127887457\n"}
+,{"stream_name":"stderr","time":52.246228506,"data":"\n"}
+,{"stream_name":"stderr","time":52.246232973,"data":"Model is not converging.  Current: 8064.619290905198 is not greater than 8065.662811417987. Delta is -1.0435205127887457\n"}
+,{"stream_name":"stdout","time":52.277324526,"data":"  HMM states=2, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":52.277355469,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":52.277359996,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":52.277363829,"data":"  Trial 25 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":52.277367643,"data":"[I 2026-02-17 14:58:25,652] Trial 25 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":52.41374899,"data":"Model is not converging.  Current: 8051.58310158427 is not greater than 8052.116369347413. Delta is -0.5332677631431579\n"}
+,{"stream_name":"stderr","time":52.413789417,"data":"\n"}
+,{"stream_name":"stderr","time":52.413795436,"data":"Model is not converging.  Current: 8051.58310158427 is not greater than 8052.116369347413. Delta is -0.5332677631431579\n"}
+,{"stream_name":"stderr","time":52.441345255,"data":"Model is not converging.  Current: 8052.082598634933 is not greater than 8052.535754169907. Delta is -0.45315553497403016\n"}
+,{"stream_name":"stderr","time":52.441376407,"data":"\n"}
+,{"stream_name":"stderr","time":52.441380341,"data":"Model is not converging.  Current: 8052.082598634933 is not greater than 8052.535754169907. Delta is -0.45315553497403016\n"}
+,{"stream_name":"stderr","time":52.517219668,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":52.517256869,"data":"\n"}
+,{"stream_name":"stderr","time":52.517261116,"data":"Model is not converging.  Current: 8047.995621713472 is not greater than 8048.126257584117. Delta is -0.1306358706451647\n"}
+,{"stream_name":"stderr","time":52.562830183,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":52.562865502,"data":"\n"}
+,{"stream_name":"stderr","time":52.562869724,"data":"Model is not converging.  Current: 8049.377657936974 is not greater than 8049.567324185564. Delta is -0.18966624858967407\n"}
+,{"stream_name":"stderr","time":52.617540168,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stderr","time":52.617573051,"data":"\n"}
+,{"stream_name":"stderr","time":52.617596526,"data":"Model is not converging.  Current: 8064.619290905248 is not greater than 8065.662811418019. Delta is -1.0435205127714653\n"}
+,{"stream_name":"stdout","time":52.64593639,"data":"  HMM states=2, cov=diag, n_init=5\n"}
+,{"stream_name":"stdout","time":52.645969285,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":52.645973964,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":52.645978146,"data":"  Trial 26 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":52.64598272,"data":"[I 2026-02-17 14:58:26,020] Trial 26 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":52.899636669,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":52.899702086,"data":"\n"}
+,{"stream_name":"stderr","time":52.899709015,"data":"Model is not converging.  Current: 8051.583101584202 is not greater than 8052.116369347326. Delta is -0.5332677631240585\n"}
+,{"stream_name":"stderr","time":53.056132451,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":53.056344439,"data":"\n"}
+,{"stream_name":"stderr","time":53.056350714,"data":"Model is not converging.  Current: 8052.082598634924 is not greater than 8052.535754169906. Delta is -0.4531555349822156\n"}
+,{"stream_name":"stderr","time":53.158420204,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":53.158461469,"data":"\n"}
+,{"stream_name":"stderr","time":53.158612722,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":53.23251138,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":53.232545009,"data":"\n"}
+,{"stream_name":"stderr","time":53.235907147,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stdout","time":53.265276203,"data":"  HMM states=2, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":53.265311928,"data":"  State variances: ['0.00045749', '0.00002180']\n"}
+,{"stream_name":"stdout","time":53.265317163,"data":"  High-var state: 0, mean regime_prob: 0.013\n"}
+,{"stream_name":"stdout","time":53.265321677,"data":"  Trial 27 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":53.265326406,"data":"[I 2026-02-17 14:58:26,639] Trial 27 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 20, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":53.341126029,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":53.341164683,"data":"\n"}
+,{"stream_name":"stderr","time":53.342893118,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":53.449381941,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":53.449420549,"data":"\n"}
+,{"stream_name":"stderr","time":53.451853336,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":53.519027304,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":53.519066447,"data":"\n"}
+,{"stream_name":"stderr","time":53.52193474,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":53.604552354,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":53.604598087,"data":"\n"}
+,{"stream_name":"stderr","time":53.604641845,"data":"Model is not converging.  Current: 8054.741723094781 is not greater than 8055.046808785185. Delta is -0.3050856904037573\n"}
+,{"stream_name":"stderr","time":53.704503557,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":53.704542527,"data":"\n"}
+,{"stream_name":"stderr","time":53.706827047,"data":"Model is not converging.  Current: 8062.919908207094 is not greater than 8063.375664301356. Delta is -0.45575609426214214\n"}
+,{"stream_name":"stderr","time":53.786553513,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":53.786591203,"data":"\n"}
+,{"stream_name":"stderr","time":53.78695959,"data":"Model is not converging.  Current: 8054.677442382838 is not greater than 8054.72865996648. Delta is -0.05121758364202833\n"}
+,{"stream_name":"stderr","time":53.945460125,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":53.945535209,"data":"\n"}
+,{"stream_name":"stderr","time":53.945951396,"data":"Model is not converging.  Current: 8070.345931407648 is not greater than 8073.489261183025. Delta is -3.1433297753765146\n"}
+,{"stream_name":"stderr","time":54.070773622,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":54.070903476,"data":"\n"}
+,{"stream_name":"stderr","time":54.073832175,"data":"Model is not converging.  Current: 8052.737466714898 is not greater than 8052.797136815987. Delta is -0.05967010108906834\n"}
+,{"stream_name":"stderr","time":54.161361745,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":54.16139779,"data":"\n"}
+,{"stream_name":"stderr","time":54.163903746,"data":"Model is not converging.  Current: 7993.244190683918 is not greater than 7996.083694389426. Delta is -2.839503705507923\n"}
+,{"stream_name":"stderr","time":54.208390478,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":54.208427918,"data":"\n"}
+,{"stream_name":"stderr","time":54.20853434,"data":"Model is not converging.  Current: 8058.7466081333905 is not greater than 8059.996468196117. Delta is -1.2498600627268388\n"}
+,{"stream_name":"stderr","time":54.255026503,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stderr","time":54.255065031,"data":"\n"}
+,{"stream_name":"stderr","time":54.255071215,"data":"Model is not converging.  Current: 8051.289742765362 is not greater than 8051.558798763407. Delta is -0.26905599804558733\n"}
+,{"stream_name":"stdout","time":54.280204795,"data":"  HMM states=3, cov=full, n_init=10\n"}
+,{"stream_name":"stdout","time":54.280247981,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":54.280252629,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":54.280256432,"data":"  Trial 28 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":54.280260325,"data":"[I 2026-02-17 14:58:27,654] Trial 28 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 30, 'vol_window': 15, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stderr","time":54.307029532,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":54.307067455,"data":"\n"}
+,{"stream_name":"stderr","time":54.307073867,"data":"Model is not converging.  Current: 7995.830122997695 is not greater than 7996.404539032708. Delta is -0.5744160350132006\n"}
+,{"stream_name":"stderr","time":54.343312878,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":54.343353008,"data":"\n"}
+,{"stream_name":"stderr","time":54.343359383,"data":"Model is not converging.  Current: 8059.161851217406 is not greater than 8067.887460495837. Delta is -8.725609278430966\n"}
+,{"stream_name":"stderr","time":54.380911233,"data":"Model is not converging.  Current: 8054.741723094793 is not greater than 8055.0468087851905. Delta is -0.30508569039739086\n"}
+,{"stream_name":"stderr","time":54.380949208,"data":"\n"}
+,{"stream_name":"stderr","time":54.381036635,"data":"Model is not converging.  Current: 8054.741723094793 is not greater than 8055.0468087851905. Delta is -0.30508569039739086\n"}
+,{"stream_name":"stderr","time":54.427348296,"data":"Model is not converging.  Current: 8062.919908207275 is not greater than 8063.37566430145. Delta is -0.45575609417574015\n"}
+,{"stream_name":"stderr","time":54.427414223,"data":"\n"}
+,{"stream_name":"stderr","time":54.427421377,"data":"Model is not converging.  Current: 8062.919908207275 is not greater than 8063.37566430145. Delta is -0.45575609417574015\n"}
+,{"stream_name":"stderr","time":54.46525848,"data":"Model is not converging.  Current: 8054.677442382301 is not greater than 8054.728659965513. Delta is -0.051217583211837336\n"}
+,{"stream_name":"stderr","time":54.465300022,"data":"\n"}
+,{"stream_name":"stderr","time":54.465304333,"data":"Model is not converging.  Current: 8054.677442382301 is not greater than 8054.728659965513. Delta is -0.051217583211837336\n"}
+,{"stream_name":"stderr","time":54.498919396,"data":"Model is not converging.  Current: 8070.3459314076445 is not greater than 8073.4892611830255. Delta is -3.143329775381062\n"}
+,{"stream_name":"stderr","time":54.498953991,"data":"\n"}
+,{"stream_name":"stderr","time":54.498958238,"data":"Model is not converging.  Current: 8070.3459314076445 is not greater than 8073.4892611830255. Delta is -3.143329775381062\n"}
+,{"stream_name":"stderr","time":54.560592667,"data":"Model is not converging.  Current: 8052.7374667149825 is not greater than 8052.7971368160825. Delta is -0.059670101099982276\n"}
+,{"stream_name":"stderr","time":54.560629211,"data":"\n"}
+,{"stream_name":"stderr","time":54.56063446,"data":"Model is not converging.  Current: 8052.7374667149825 is not greater than 8052.7971368160825. Delta is -0.059670101099982276\n"}
+,{"stream_name":"stderr","time":54.626136026,"data":"Model is not converging.  Current: 7992.448165330352 is not greater than 7992.486562926817. Delta is -0.03839759646507446\n"}
+,{"stream_name":"stderr","time":54.626174628,"data":"\n"}
+,{"stream_name":"stderr","time":54.626179965,"data":"Model is not converging.  Current: 7992.448165330352 is not greater than 7992.486562926817. Delta is -0.03839759646507446\n"}
+,{"stream_name":"stderr","time":54.668195194,"data":"Model is not converging.  Current: 8069.186643554521 is not greater than 8075.883645143697. Delta is -6.69700158917658\n"}
+,{"stream_name":"stderr","time":54.668233778,"data":"\n"}
+,{"stream_name":"stderr","time":54.668239197,"data":"Model is not converging.  Current: 8069.186643554521 is not greater than 8075.883645143697. Delta is -6.69700158917658\n"}
+,{"stream_name":"stderr","time":54.70626397,"data":"Model is not converging.  Current: 8069.841701977469 is not greater than 8074.578808533333. Delta is -4.737106555864557\n"}
+,{"stream_name":"stderr","time":54.706300899,"data":"\n"}
+,{"stream_name":"stderr","time":54.706306628,"data":"Model is not converging.  Current: 8069.841701977469 is not greater than 8074.578808533333. Delta is -4.737106555864557\n"}
+,{"stream_name":"stderr","time":54.738355994,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.983163989658. Delta is -1.9714455816656482\n"}
+,{"stream_name":"stderr","time":54.738403693,"data":"\n"}
+,{"stream_name":"stderr","time":54.738410108,"data":"Model is not converging.  Current: 8053.011718407993 is not greater than 8054.983163989658. Delta is -1.9714455816656482\n"}
+,{"stream_name":"stderr","time":54.776860851,"data":"Model is not converging.  Current: 8063.581725542904 is not greater than 8065.102647429309. Delta is -1.520921886405631\n"}
+,{"stream_name":"stderr","time":54.776898123,"data":"\n"}
+,{"stream_name":"stderr","time":54.776902803,"data":"Model is not converging.  Current: 8063.581725542904 is not greater than 8065.102647429309. Delta is -1.520921886405631\n"}
+,{"stream_name":"stderr","time":54.851871511,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stderr","time":54.851912004,"data":"\n"}
+,{"stream_name":"stderr","time":54.851917967,"data":"Model is not converging.  Current: 7993.244190683922 is not greater than 7996.0836943894265. Delta is -2.839503705504285\n"}
+,{"stream_name":"stdout","time":54.982131997,"data":"  HMM states=3, cov=diag, n_init=15\n"}
+,{"stream_name":"stdout","time":54.982171003,"data":"  State variances: ['0.00382359', '0.00002190', '0.00048714']\n"}
+,{"stream_name":"stdout","time":54.98217798,"data":"  High-var state: 0, mean regime_prob: 0.001\n"}
+,{"stream_name":"stdout","time":54.982183311,"data":"  Trial 29 failed: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stdout","time":54.982207344,"data":"[I 2026-02-17 14:58:28,356] Trial 29 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 15, 'momentum_window': 15, 'vol_window': 20, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":54.982213965,"data":"\n"}
+,{"stream_name":"stdout","time":54.9822185,"data":"Best MI sum: 0.000000\n"}
+,{"stream_name":"stdout","time":54.98223305,"data":"Best params: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}\n"}
+,{"stream_name":"stdout","time":54.982238527,"data":"Completed trials: 30\n"}
+,{"stream_name":"stdout","time":54.982242984,"data":"\n"}
+,{"stream_name":"stdout","time":54.982247304,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":54.98225176,"data":"STEP 3: FINAL FEATURE GENERATION WITH BEST PARAMS\n"}
+,{"stream_name":"stdout","time":54.982256324,"data":"======================================================================\n"}
+,{"stream_name":"stderr","time":55.021324089,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":55.02135784,"data":"\n"}
+,{"stream_name":"stderr","time":55.02136198,"data":"Model is not converging.  Current: 8058.746608133328 is not greater than 8059.996468196142. Delta is -1.2498600628141503\n"}
+,{"stream_name":"stderr","time":55.115814291,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":55.115866698,"data":"\n"}
+,{"stream_name":"stderr","time":55.116813091,"data":"Model is not converging.  Current: 8051.2897427645985 is not greater than 8051.558798763199. Delta is -0.2690559986003791\n"}
+,{"stream_name":"stderr","time":55.212561202,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":55.212600277,"data":"\n"}
+,{"stream_name":"stderr","time":55.214856388,"data":"Model is not converging.  Current: 7995.830122997782 is not greater than 7996.404539032652. Delta is -0.5744160348695004\n"}
+,{"stream_name":"stderr","time":55.297307295,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stderr","time":55.297341938,"data":"\n"}
+,{"stream_name":"stderr","time":55.299819372,"data":"Model is not converging.  Current: 8059.161851217191 is not greater than 8067.887460495831. Delta is -8.72560927864015\n"}
+,{"stream_name":"stdout","time":55.326598988,"data":"  HMM states=3, cov=full, n_init=5\n"}
+,{"stream_name":"stdout","time":55.326634095,"data":"  State variances: ['0.00101296', '0.00002151', '0.00037420']\n"}
+,{"stream_name":"stdout","time":55.326639522,"data":"  High-var state: 0, mean regime_prob: 0.005\n"}
+,{"stream_name":"stdout","time":55.326648134,"data":"\n"}
+,{"stream_name":"stdout","time":55.326653186,"data":"Output shape: (2862, 3)\n"}
+,{"stream_name":"stdout","time":55.326657951,"data":"Date range: 2014-10-02 to 2026-02-17\n"}
+,{"stream_name":"stdout","time":55.326662417,"data":"  dxy_regime_prob: mean=0.0046, std=0.0537, min=0.0000, max=0.9523\n"}
+,{"stream_name":"stdout","time":55.326666903,"data":"  dxy_momentum_z: mean=-0.0679, std=0.8629, min=-4.0000, max=4.0000\n"}
+,{"stream_name":"stdout","time":55.326671051,"data":"  dxy_vol_z: mean=-0.2181, std=0.9464, min=-2.4322, max=4.0000\n"}
+,{"stream_name":"stdout","time":55.326706003,"data":"\n"}
+,{"stream_name":"stdout","time":55.32671482,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":55.326719461,"data":"STEP 4: METRICS\n"}
+,{"stream_name":"stdout","time":55.326724447,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":55.326728857,"data":"Autocorrelation (lag-1): {'dxy_regime_prob': 0.9091887417484332, 'dxy_momentum_z': 0.889491109807581, 'dxy_vol_z': 0.9455029217673483}\n"}
+,{"stream_name":"stdout","time":55.326733838,"data":"Is constant: {'dxy_regime_prob': False, 'dxy_momentum_z': False, 'dxy_vol_z': False}\n"}
+,{"stream_name":"stderr","time":56.219897485,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":56.219927657,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":56.219934449,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":56.220140779,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":56.220153406,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":56.2203836,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":56.220773618,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":56.220790513,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":56.220795553,"data":"Exception encountered at \"In [1]\":\n"}
+,{"stream_name":"stderr","time":56.220800888,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":56.22080533,"data":"AttributeError                            Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":56.220810125,"data":"/tmp/ipykernel_17/864743987.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":56.220815211,"data":"    348     mask = ~np.isnan(feat_val) \u0026 ~np.isnan(target_val)\n"}
+,{"stream_name":"stderr","time":56.220819882,"data":"    349     if mask.sum() \u003e 50:\n"}
+,{"stream_name":"stderr","time":56.220824034,"data":"--\u003e 350         f_disc = discretize(feat_val[mask])\n"}
+,{"stream_name":"stderr","time":56.220828661,"data":"    351         t_disc = discretize(target_val[mask])\n"}
+,{"stream_name":"stderr","time":56.220833901,"data":"    352         if f_disc is not None and t_disc is not None:\n"}
+,{"stream_name":"stderr","time":56.220837653,"data":"\n"}
+,{"stream_name":"stderr","time":56.220841417,"data":"/tmp/ipykernel_17/864743987.py in discretize(x, bins)\n"}
+,{"stream_name":"stderr","time":56.220845447,"data":"    180     x_clean[~valid] = np.nanmedian(x)\n"}
+,{"stream_name":"stderr","time":56.22084977,"data":"    181     try:\n"}
+,{"stream_name":"stderr","time":56.220853841,"data":"--\u003e 182         return pd.qcut(x_clean, bins, labels=False, duplicates='drop').values\n"}
+,{"stream_name":"stderr","time":56.220858862,"data":"    183     except ValueError:\n"}
+,{"stream_name":"stderr","time":56.220862951,"data":"    184         return pd.cut(x_clean, bins, labels=False, duplicates='drop').values\n"}
+,{"stream_name":"stderr","time":56.22086742,"data":"\n"}
+,{"stream_name":"stderr","time":56.220871399,"data":"AttributeError: 'numpy.ndarray' object has no attribute 'values'\n"}
+,{"stream_name":"stderr","time":56.220887579,"data":"\n"}
+,{"stream_name":"stderr","time":58.692035551000004,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":58.692075081,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":58.872867057,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":58.872901156,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":59.648642101,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":59.648680232,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":59.686342808,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":60.12262676,"data":"[NbConvertApp] Writing 101458 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":63.296443841,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":63.296529783,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":63.328319578,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":64.430553932,"data":"[NbConvertApp] Writing 430715 bytes to __results__.html\n"}
+]

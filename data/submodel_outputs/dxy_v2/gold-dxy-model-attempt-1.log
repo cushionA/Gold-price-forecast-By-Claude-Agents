@@ -1,0 +1,163 @@
+[{"stream_name":"stderr","time":9.578007598,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.578105025,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.578110326000001,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.578113708,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.426761115,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.426807582,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.426818024,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.426821309,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.808217986,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":14.839928468,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":14.87001211,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.873262528,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":14.881866008,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":14.908479428,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":14.910640416,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":14.940698191,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":14.971074305,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 6.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.010988376,"data":"Collecting hmmlearn\n"}
+,{"stream_name":"stdout","time":15.011028218,"data":"  Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)\n"}
+,{"stream_name":"stdout","time":15.011035262,"data":"Requirement already satisfied: numpy\u003e=1.10 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (2.0.2)\n"}
+,{"stream_name":"stdout","time":15.011040458,"data":"Requirement already satisfied: scikit-learn!=0.22.0,\u003e=0.16 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.6.1)\n"}
+,{"stream_name":"stdout","time":15.01104493,"data":"Requirement already satisfied: scipy\u003e=0.19 in /usr/local/lib/python3.12/dist-packages (from hmmlearn) (1.15.3)\n"}
+,{"stream_name":"stdout","time":15.011049292,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (1.5.3)\n"}
+,{"stream_name":"stdout","time":15.011053962,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn!=0.22.0,\u003e=0.16-\u003ehmmlearn) (3.6.0)\n"}
+,{"stream_name":"stdout","time":15.011079537,"data":"Downloading hmmlearn-0.3.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (165 kB)\n"}
+,{"stream_name":"stdout","time":15.011084588,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 6.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":17.389308019,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":17.502676749,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":17.592945869,"data":"Installing collected packages: hmmlearn\n"}
+,{"stream_name":"stdout","time":17.592998949,"data":"Successfully installed hmmlearn-0.3.3\n"}
+,{"stream_name":"stdout","time":23.167588446,"data":"=== Gold SubModel Training: DXY attempt 1 (HMM Revised) ===\n"}
+,{"stream_name":"stdout","time":23.167724499,"data":"Started: 2026-02-17T14:53:13.777662\n"}
+,{"stream_name":"stdout","time":23.167737299,"data":"\n"}
+,{"stream_name":"stdout","time":23.167742241,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":23.167747042,"data":"STEP 1: DATA FETCHING\n"}
+,{"stream_name":"stdout","time":23.167751438,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":23.167757082,"data":"\n"}
+,{"stream_name":"stdout","time":23.167761062,"data":"[Data Fetch] Downloading DXY and GC=F from Yahoo Finance...\n"}
+,{"stream_name":"stdout","time":23.739577432,"data":"[OK] DXY: 2862 rows, range 2014-10-01 to 2026-02-17\n"}
+,{"stream_name":"stderr","time":23.767755257,"data":"[I 2026-02-17 14:53:14,580] A new study created in memory with name: no-name-30837af6-4fd2-4711-8b91-51a510290bd8\n"}
+,{"stream_name":"stderr","time":23.767796064,"data":"\n"}
+,{"stream_name":"stderr","time":23.76780192,"data":"[I 2026-02-17 14:53:14,580] A new study created in memory with name: no-name-30837af6-4fd2-4711-8b91-51a510290bd8\n"}
+,{"stream_name":"stdout","time":23.782880164,"data":"[OK] GC=F: 2860 rows\n"}
+,{"stream_name":"stdout","time":23.782923297,"data":"[OK] Combined: 2862 rows, 2014-10-02 to 2026-02-17\n"}
+,{"stream_name":"stdout","time":23.782943284,"data":"[OK] DXY close: 98.07 +/- 5.05\n"}
+,{"stream_name":"stdout","time":23.782948894,"data":"[OK] DXY log-ret: 0.000043 +/- 0.004406\n"}
+,{"stream_name":"stdout","time":23.782953306,"data":"\n"}
+,{"stream_name":"stdout","time":23.78295791,"data":"Data split:\n"}
+,{"stream_name":"stdout","time":23.78296256,"data":"  Train: 0:2003 (2003 rows, 2014-10-02 to 2022-09-16)\n"}
+,{"stream_name":"stdout","time":23.782966751,"data":"  Val:   2003:2432 (429 rows, 2022-09-19 to 2024-06-03)\n"}
+,{"stream_name":"stdout","time":23.782970848,"data":"  Test:  2432:2862 (430 rows, 2024-06-04 to 2026-02-17)\n"}
+,{"stream_name":"stdout","time":23.782974931,"data":"\n"}
+,{"stream_name":"stdout","time":23.782978767,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":23.782983256,"data":"STEP 2: OPTUNA HPO (30 trials, 300s timeout)\n"}
+,{"stream_name":"stdout","time":23.782992491,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":23.95606005,"data":"  Trial 0 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956104141,"data":"[I 2026-02-17 14:53:14,596] Trial 0 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956130022,"data":"  Trial 1 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956135002,"data":"[I 2026-02-17 14:53:14,601] Trial 1 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956139482,"data":"  Trial 2 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956144308,"data":"[I 2026-02-17 14:53:14,606] Trial 2 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956149164,"data":"  Trial 3 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956153364,"data":"[I 2026-02-17 14:53:14,610] Trial 3 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 15, 'momentum_window': 15, 'vol_window': 20, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956158285,"data":"  Trial 4 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956163044,"data":"[I 2026-02-17 14:53:14,614] Trial 4 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 15, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.95616749,"data":"  Trial 5 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.95617167,"data":"[I 2026-02-17 14:53:14,618] Trial 5 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956178072,"data":"  Trial 6 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956187536,"data":"[I 2026-02-17 14:53:14,622] Trial 6 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 30, 'vol_window': 20, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.95619254,"data":"  Trial 7 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956196293,"data":"[I 2026-02-17 14:53:14,626] Trial 7 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 15, 'vol_window': 20, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956200832,"data":"  Trial 8 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956205093,"data":"[I 2026-02-17 14:53:14,631] Trial 8 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 30, 'vol_window': 20, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956209604,"data":"  Trial 9 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956213719,"data":"[I 2026-02-17 14:53:14,636] Trial 9 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 15, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.95622419,"data":"  Trial 10 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956228931,"data":"[I 2026-02-17 14:53:14,648] Trial 10 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 20, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956233637,"data":"  Trial 11 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.95623792,"data":"[I 2026-02-17 14:53:14,658] Trial 11 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956243653,"data":"  Trial 12 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956247931,"data":"[I 2026-02-17 14:53:14,668] Trial 12 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956252585,"data":"  Trial 13 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956271013,"data":"[I 2026-02-17 14:53:14,679] Trial 13 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956276429,"data":"  Trial 14 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956280958,"data":"[I 2026-02-17 14:53:14,688] Trial 14 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 20, 'vol_window': 10, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956285785,"data":"  Trial 15 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956290017,"data":"[I 2026-02-17 14:53:14,701] Trial 15 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956295252,"data":"  Trial 16 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956299739,"data":"[I 2026-02-17 14:53:14,710] Trial 16 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956304874,"data":"  Trial 17 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.95630921,"data":"[I 2026-02-17 14:53:14,721] Trial 17 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956317969,"data":"  Trial 18 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956323026,"data":"[I 2026-02-17 14:53:14,731] Trial 18 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 15, 'momentum_window': 30, 'vol_window': 15, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956327478,"data":"  Trial 19 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.95633167,"data":"[I 2026-02-17 14:53:14,740] Trial 19 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 20, 'vol_window': 10, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956336511,"data":"  Trial 20 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956340402,"data":"[I 2026-02-17 14:53:14,750] Trial 20 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 15, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.956344898,"data":"  Trial 21 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.956366163,"data":"[I 2026-02-17 14:53:14,760] Trial 21 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.983695353999998,"data":"  Trial 22 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.983756037,"data":"[I 2026-02-17 14:53:14,774] Trial 22 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.983763523,"data":"  Trial 23 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.983767992,"data":"[I 2026-02-17 14:53:14,784] Trial 23 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":23.983772921,"data":"  Trial 24 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":23.983777188,"data":"[I 2026-02-17 14:53:14,792] Trial 24 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":24.035424787,"data":"  Trial 25 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":24.035466001,"data":"[I 2026-02-17 14:53:14,802] Trial 25 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 10, 'vol_window': 30, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":24.035473031,"data":"  Trial 26 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":24.035482369,"data":"[I 2026-02-17 14:53:14,810] Trial 26 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'diag', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":24.035500535,"data":"  Trial 27 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":24.035503578,"data":"[I 2026-02-17 14:53:14,819] Trial 27 finished with value: 0.0 and parameters: {'hmm_n_components': 2, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 20, 'vol_window': 15, 'expanding_warmup': 120}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":24.035506683,"data":"  Trial 28 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":24.035509432,"data":"[I 2026-02-17 14:53:14,828] Trial 28 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 10, 'momentum_window': 30, 'vol_window': 15, 'expanding_warmup': 60}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":24.035512832,"data":"  Trial 29 failed: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stdout","time":24.035515656,"data":"[I 2026-02-17 14:53:14,837] Trial 29 finished with value: 0.0 and parameters: {'hmm_n_components': 3, 'hmm_covariance_type': 'diag', 'hmm_n_init': 15, 'momentum_window': 15, 'vol_window': 20, 'expanding_warmup': 252}. Best is trial 0 with value: 0.0.\n"}
+,{"stream_name":"stdout","time":24.035518775,"data":"\n"}
+,{"stream_name":"stdout","time":24.035521311,"data":"Best MI sum: 0.000000\n"}
+,{"stream_name":"stdout","time":24.035524082,"data":"Best params: {'hmm_n_components': 3, 'hmm_covariance_type': 'full', 'hmm_n_init': 5, 'momentum_window': 10, 'vol_window': 10, 'expanding_warmup': 252}\n"}
+,{"stream_name":"stdout","time":24.035527509,"data":"Completed trials: 30\n"}
+,{"stream_name":"stdout","time":24.035530141,"data":"\n"}
+,{"stream_name":"stdout","time":24.035532735,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":24.035535547,"data":"STEP 3: FINAL FEATURE GENERATION WITH BEST PARAMS\n"}
+,{"stream_name":"stdout","time":24.035539319,"data":"======================================================================\n"}
+,{"stream_name":"stderr","time":24.874560664,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":24.874621443,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":24.874626517,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":24.874740233,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":24.875087133,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":24.875288738,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":24.875819205,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":24.875859289,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":24.875863777,"data":"Exception encountered at \"In [1]\":\n"}
+,{"stream_name":"stderr","time":24.875867069999998,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":24.875870011,"data":"TypeError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":24.875872943,"data":"/tmp/ipykernel_17/3866421832.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":24.875889919,"data":"    274 print('='*70)\n"}
+,{"stream_name":"stderr","time":24.875892784,"data":"    275 \n"}
+,{"stream_name":"stderr","time":24.875895589,"data":"--\u003e 276 regime = generate_regime_feature(\n"}
+,{"stream_name":"stderr","time":24.875898358,"data":"    277     df['dxy_log_ret'],\n"}
+,{"stream_name":"stderr","time":24.875901196,"data":"    278     best_params['hmm_n_components'],\n"}
+,{"stream_name":"stderr","time":24.875904062,"data":"\n"}
+,{"stream_name":"stderr","time":24.875906649,"data":"/tmp/ipykernel_17/3866421832.py in generate_regime_feature(dxy_log_ret, n_components, covariance_type, n_init, train_size)\n"}
+,{"stream_name":"stderr","time":24.875909486,"data":"    102     X_full = dxy_log_ret.values.reshape(-1, 1)\n"}
+,{"stream_name":"stderr","time":24.875912259,"data":"    103 \n"}
+,{"stream_name":"stderr","time":24.875914816,"data":"--\u003e 104     model = GaussianHMM(\n"}
+,{"stream_name":"stderr","time":24.875917493,"data":"    105         n_components=n_components,\n"}
+,{"stream_name":"stderr","time":24.875920125,"data":"    106         covariance_type=covariance_type,\n"}
+,{"stream_name":"stderr","time":24.875922884,"data":"\n"}
+,{"stream_name":"stderr","time":24.87592548,"data":"TypeError: GaussianHMM.__init__() got an unexpected keyword argument 'n_init'\n"}
+,{"stream_name":"stderr","time":24.875928279,"data":"\n"}
+,{"stream_name":"stderr","time":27.538288995,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":27.538339394,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":27.761906582,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":27.761959182,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":28.606975925,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":28.607016389,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":28.655361315,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":29.05571856,"data":"[NbConvertApp] Writing 48035 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":32.432516633,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":32.432676799,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":32.465071973,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":33.607730635,"data":"[NbConvertApp] Writing 375607 bytes to __results__.html\n"}
+]

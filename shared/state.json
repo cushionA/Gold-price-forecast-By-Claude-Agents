@@ -3,7 +3,7 @@
   "phase": "phase2_submodel",
   "current_feature": "dxy",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -340,6 +340,29 @@
         ],
         "note": "Single column output. Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds)."
       }
+    },
+    "dxy": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate1_all_pass",
+          "gate2_mi_increase=+6.24%",
+          "gate2_vif_max_2.92",
+          "gate2_stability_0.149",
+          "gate3_da_delta=+0.73%_4_of_5_folds",
+          "gate3_sharpe_delta=+0.2546_5.1x_threshold_4_of_5_folds",
+          "dxy_vol_z_ranked_6_of_43_features",
+          "third_submodel_all_3_gates_pass"
+        ],
+        "primary_failures": [
+          "gate3_mae_delta=+0.0084_degraded",
+          "dxy_regime_prob_extremely_skewed_mean_0.0006"
+        ],
+        "note": "HMM-based DXY submodel. All 3 gates PASS. DA +0.73pp (1.5x threshold), Sharpe +0.2546 (5.1x threshold). dxy_vol_z most informative (rank 6/43). Only fold 5 (2023-2025 high-vol) degraded."
+      }
     }
   },
   "meta_model_history": {
@@ -616,6 +639,6 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-18T00:04:47.264201",
+  "last_updated": "2026-02-18T00:10:37.898519",
   "error_type": ""
 }
