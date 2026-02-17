@@ -1,14 +1,14 @@
 {
-  "status": "in_progress",
-  "phase": "phase2_submodel",
+  "status": "completed",
+  "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 10,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "gate3_pass_da_and_sharpe",
+  "evaluator_status": "attempt_10_regressed_attempt_7_confirmed_final",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -504,6 +504,29 @@
       },
       "note": "Single XGBoost + 3 continuous interactions + dual-track MSE/directional + weight shift. Collapsed to identical failure mode as attempt 8 (100% positive predictions). All 3 targeted modifications failed to improve over attempt 7. 2 of 3 improvement attempts used, both regressing. Recommend accepting attempt 7 as final.",
       "attempt_10_recommendation": "NOT_RECOMMENDED. 2 consecutive attempts regressed. Same failure mode (trivial predictor) despite different approaches. >70% probability attempt 10 would also regress."
+    },
+    "attempt_10": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5852,
+      "test_hcda": 0.5870,
+      "test_mae": 0.9490,
+      "test_sharpe": 1.9977,
+      "train_test_da_gap_pp": 6.38,
+      "targets_passed": "2/4",
+      "primary_failures": [
+        "DA_regressed_-1.52pp_from_attempt_7",
+        "HCDA_regressed_-5.43pp_from_attempt_7_now_FAIL",
+        "Sharpe_regressed_-0.47_from_attempt_7",
+        "MAE_regressed_+0.006_from_attempt_7",
+        "cny_demand_spread_z_ranked_25_of_25_last"
+      ],
+      "primary_successes": [
+        "no_prediction_collapse_std_0.096",
+        "positive_pct_57.4%_genuine_variation",
+        "DA_58.52%_still_above_56%_target",
+        "Sharpe_2.00_still_above_0.80_target"
+      ],
+      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor — genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
     }
   },
   "final_result": {
@@ -513,8 +536,8 @@
     "improvement_attempts_summary": {
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
-      "attempt_10": "NOT RECOMMENDED (2 consecutive regressions, >70% probability of same failure)",
-      "conclusion": "Attempt 7 confirmed as final meta-model"
+      "attempt_10": "+cny_demand_spread_z (25 features) -- regressed on all metrics (DA -1.52pp, HCDA -5.43pp, Sharpe -0.47)",
+      "conclusion": "Attempt 7 confirmed as final meta-model. 3 consecutive attempts (8,9,10) all regressed."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
