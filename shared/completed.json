@@ -1,29 +1,33 @@
 {
   "real_rate": {
     "status": "no_further_improvement",
-    "final_attempt": 5,
+    "final_attempt": 6,
     "final_gate_reached": 3,
-    "gate3_scores": null,
+    "gate3_scores": {
+      "direction_accuracy_delta": -0.00574,
+      "sharpe_delta": -0.249,
+      "mae_delta": -0.00074
+    },
     "output_columns": [],
     "output_path": null,
     "model_path": null,
-    "completed_at": "2026-02-14T18:31:38",
-    "reason": "5 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures). Gate 2 consistently passes (MI +10-39%) but Gate 3 consistently fails. Root cause: monthly macro regime information cannot improve daily gold return prediction when base features already contain the direct real rate level. Base real_rate feature retained."
+    "completed_at": "2026-02-17T21:00:00",
+    "reason": "6 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures, DeterministicBondVolMomentum). Attempt 6 used US-only daily DFII10 with deterministic rolling statistics (bond vol z-score + momentum persistence z-score). Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). All 6 approaches fail Gate 3 despite varying MI increases (2-39%). Information in DFII10 derivatives beyond raw daily change (real_rate_change base feature) is redundant with existing submodel features. No further approaches remain."
   },
   "dxy": {
     "status": "completed",
     "final_attempt": 1,
     "final_gate_reached": 3,
     "gate3_scores": {
-      "direction_accuracy_delta": null,
-      "sharpe_delta": null,
-      "mae_delta": null
+      "direction_accuracy_delta": 0.00726,
+      "sharpe_delta": 0.2546,
+      "mae_delta": 0.0084
     },
-    "output_columns": [],
-    "output_path": null,
+    "output_columns": ["dxy_regime_prob", "dxy_momentum_z", "dxy_vol_z"],
+    "output_path": "data/submodel_outputs/dxy/submodel_output.csv",
     "model_path": null,
-    "completed_at": "2026-02-14T20:15:06",
-    "reason": "Auto-evaluated as success (MI=0.019). Full Gate 2/3 evaluation was not performed in detail."
+    "completed_at": "2026-02-18T00:05:00",
+    "reason": "Gate 3 PASS via DA (+0.73pp, 1.5x threshold, 4/5 folds) and Sharpe (+0.2546, 5.1x threshold, 4/5 folds). Third submodel to pass all 3 gates (after inflation_expectation and temporal_context). MI increase 6.24%, VIF max 2.92, stability 0.149. dxy_vol_z ranked #6/43 in feature importance."
   },
   "vix": {
     "status": "completed",
@@ -119,23 +123,28 @@
   },
   "cny_demand": {
     "status": "completed",
-    "final_attempt": 1,
+    "final_attempt": 2,
     "final_gate_reached": 3,
     "gate3_scores": {
-      "direction_accuracy_delta": -0.0206,
-      "sharpe_delta": -0.5934,
-      "mae_delta": -0.0658
+      "direction_accuracy_delta": 0.0153,
+      "sharpe_delta": 0.2166,
+      "mae_delta": -0.0008
     },
-    "output_columns": ["cny_regime_prob", "cny_momentum_z", "cny_vol_regime_z"],
-    "output_path": "data/submodel_outputs/cny_demand.csv",
+    "output_columns": ["cny_demand_spread_z"],
+    "output_path": "data/outputs/cny_demand_2/submodel_output.csv",
     "model_path": null,
-    "completed_at": "2026-02-15T19:00:00",
-    "reason": "Gate 3 PASS via MAE criterion (-0.0658, 6.6x threshold, 3/5 folds). HMM 2-state regime detection on CNY/USD dynamics + momentum z-score + volatility regime z-score. Gate 2 MI fails (0.09%) but VIF excellent (1.26) and stability passes (0.143). Weakest Gate 3 pass: DA degrades -2.06% and Sharpe degrades -0.593 (worst of any passing submodel). CNY features may attenuate prediction magnitudes while adding directional noise. cny_momentum_z ranked #4/22 in feature importance (5.57%). Monitor closely in meta-model.",
-    "warnings": [
-      "DA degradation -2.06% is worst of any passing submodel",
-      "Sharpe degradation -0.593 is worst of any passing submodel",
-      "Consider meta-model ablation with/without cny_demand features"
-    ]
+    "completed_at": "2026-02-17T22:30:00",
+    "reason": "Gate 3 PASS via DA (+1.53pp, 3.1x threshold, 5/5 folds) and Sharpe (+0.217, 4.3x threshold, 5/5 folds). Deterministic CNY-CNH spread change z-score. Dramatically superior to attempt 1: reverses DA degradation (-2.06% -> +1.53%) and Sharpe degradation (-0.593 -> +0.217). VIF excellent (1.14), stability passes (0.134). Low feature importance (rank 22.4/25) but consistent positive contribution across all 5 folds. Should replace attempt 1 output in Kaggle dataset.",
+    "attempt_1_comparison": {
+      "attempt_1_da_delta": -0.0206,
+      "attempt_1_sharpe_delta": -0.5934,
+      "attempt_1_mae_delta": -0.0658,
+      "attempt_2_da_delta": 0.0153,
+      "attempt_2_sharpe_delta": 0.2166,
+      "attempt_2_mae_delta": -0.0008,
+      "da_improvement_pp": 3.59,
+      "sharpe_improvement": 0.810
+    }
   },
   "options_market": {
     "status": "completed",
@@ -205,5 +214,20 @@
     "completed_at": "2026-02-16T23:45:00",
     "reason": "3/4 targets met (DA 60.04%, HCDA 64.13%, Sharpe 2.46). Best-ever DA, HCDA, and Sharpe. MAE target (0.75%) structurally infeasible with expanded 2025-2026 test set. Design doc success criteria satisfied: '3/4 targets met -> Accept as final meta-model.' temporal_context_score ranked #3 in feature importance (5.78%), validating the Transformer submodel addition.",
     "mae_waiver_reason": "Test set expanded to 458 samples including extreme 2025-2026 gold volatility. Zero-prediction MAE would be ~0.96%. Model's conservative predictions maximize Sharpe (2.46) but cannot match actual return magnitudes. No attempt with expanded test set achieved MAE < 0.75%."
+  },
+  "regime_classification": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0134,
+      "sharpe_delta": 0.377,
+      "mae_delta": -0.001
+    },
+    "output_columns": ["regime_prob_0", "regime_prob_1", "regime_transition_velocity"],
+    "output_path": "data/submodel_outputs/regime_classification/submodel_output.csv",
+    "model_path": null,
+    "completed_at": "2026-02-18T21:30:00",
+    "reason": "Gate 3 PASS via DA (+1.34%, 2.7x threshold, 4/5 folds) and Sharpe (+0.377, 7.5x threshold, 4/5 folds). GMM K=2 with PCA (2 components), diagonal covariance. Gate 2 FAIL (MI +0.77%) overridden by strong Gate 3. VIF 3.90 (excellent orthogonality), stability 0.058 (well below 0.15). Regime balance 30/70 Risk-Off/Risk-On, avg duration 10 days."
   }
 }

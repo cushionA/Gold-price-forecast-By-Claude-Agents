@@ -1,0 +1,315 @@
+{
+  "feature": "meta_model_weekly",
+  "attempt": 1,
+  "timestamp": "2026-02-16T16:22:39.814474",
+  "architecture": "XGBoost reg:squarederror + Bootstrap + OLS (weekly target)",
+  "phase": "3_meta_model",
+  "target_type": "gold_return_5d",
+  "target_description": "Forward 5-day gold return (%)",
+  "model_config": {
+    "n_features": 24,
+    "train_samples": 2129,
+    "val_samples": 456,
+    "test_samples": 457,
+    "samples_per_feature_ratio": 88.70833333333333,
+    "selected_configuration": "optuna",
+    "optuna_trials_completed": 100,
+    "best_params": {
+      "max_depth": 2,
+      "min_child_weight": 21,
+      "subsample": 0.4587606915061521,
+      "colsample_bytree": 0.37484833854126165,
+      "reg_lambda": 5.186770736416926,
+      "reg_alpha": 2.0386063179872917,
+      "learning_rate": 0.01658126495275162,
+      "n_estimators": 175
+    }
+  },
+  "optuna_search": {
+    "n_trials": 100,
+    "best_value": 0.6641696674569488,
+    "best_trial_number": 87,
+    "top_5_trials": [
+      {
+        "number": 87,
+        "value": 0.6641696674569488,
+        "params": {
+          "max_depth": 2,
+          "min_child_weight": 21,
+          "subsample": 0.4587606915061521,
+          "colsample_bytree": 0.37484833854126165,
+          "reg_lambda": 5.186770736416926,
+          "reg_alpha": 2.0386063179872917,
+          "learning_rate": 0.01658126495275162,
+          "n_estimators": 175
+        },
+        "val_da": 0.5307017543859649,
+        "val_hc_da": 0.7307692307692307
+      },
+      {
+        "number": 3,
+        "value": 0.6641533533715719,
+        "params": {
+          "max_depth": 3,
+          "min_child_weight": 22,
+          "subsample": 0.4898532019712619,
+          "colsample_bytree": 0.45711721920680576,
+          "reg_lambda": 4.974318579788527,
+          "reg_alpha": 0.5746499650110706,
+          "learning_rate": 0.010769622478263132,
+          "n_estimators": 219
+        },
+        "val_da": 0.5307017543859649,
+        "val_hc_da": 0.8181818181818182
+      },
+      {
+        "number": 5,
+        "value": 0.6641417973425523,
+        "params": {
+          "max_depth": 2,
+          "min_child_weight": 18,
+          "subsample": 0.4154748345018483,
+          "colsample_bytree": 0.6546602010393909,
+          "reg_lambda": 2.0153425505297697,
+          "reg_alpha": 3.6385753170854684,
+          "learning_rate": 0.003385226783451979,
+          "n_estimators": 464
+        },
+        "val_da": 0.5307017543859649,
+        "val_hc_da": 0.9
+      },
+      {
+        "number": 85,
+        "value": 0.6641396445212526,
+        "params": {
+          "max_depth": 3,
+          "min_child_weight": 21,
+          "subsample": 0.4655013671810373,
+          "colsample_bytree": 0.36324019465938906,
+          "reg_lambda": 5.091700725377927,
+          "reg_alpha": 1.9414598933461824,
+          "learning_rate": 0.0023158576142455986,
+          "n_estimators": 174
+        },
+        "val_da": 0.5307017543859649,
+        "val_hc_da": 0.75
+      },
+      {
+        "number": 94,
+        "value": 0.6641326954333537,
+        "params": {
+          "max_depth": 2,
+          "min_child_weight": 21,
+          "subsample": 0.4517115145051605,
+          "colsample_bytree": 0.4048022028380793,
+          "reg_lambda": 5.881154058419498,
+          "reg_alpha": 2.006681036678348,
+          "learning_rate": 0.0022386616429752827,
+          "n_estimators": 211
+        },
+        "val_da": 0.5307017543859649,
+        "val_hc_da": 0.7777777777777778
+      }
+    ]
+  },
+  "fallback_comparison": {
+    "fallback_objective": 0.5712144753534407,
+    "optuna_objective": 0.6641696674569488,
+    "selected": "optuna",
+    "fallback_metrics": {
+      "da": 0.5307017543859649,
+      "hcda": 0.5604395604395604,
+      "mae": 1.5878653447188356,
+      "sharpe": 1.0911605548353691
+    }
+  },
+  "bootstrap_analysis": {
+    "bootstrap_ensemble_size": 5,
+    "bootstrap_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "bootstrap_std_range_test": [
+      0.001435628393664956,
+      0.05582504719495773
+    ],
+    "bootstrap_std_mean_test": 0.01399565301835537,
+    "bootstrap_conf_range_test": [
+      0.9471266865730286,
+      0.9985664486885071
+    ],
+    "bootstrap_conf_mean_test": 0.9863024950027466,
+    "hcda_bootstrap": 0.6847826086956522,
+    "hcda_pred": 0.6190476190476191,
+    "hcda_improvement": 0.06573498964803315
+  },
+  "ols_scaling": {
+    "alpha_ols": 2.7565608828232193,
+    "mae_raw": 2.119302590669143,
+    "mae_scaled": 2.069592795711995,
+    "mae_improvement": 0.04970979495714811
+  },
+  "primary_hcda_method": "bootstrap",
+  "primary_hcda_value": 0.6847826086956522,
+  "primary_mae": 2.069592795711995,
+  "metrics": {
+    "train": {
+      "direction_accuracy": 0.5376293508936971,
+      "high_confidence_da": 0.6171428571428571,
+      "high_confidence_coverage": 0.16486613433536873,
+      "mae": 1.5250061951286116,
+      "mae_raw": 1.5250061951286116,
+      "mae_scaled": 1.527734658688276,
+      "sharpe_ratio": 0.3991965306115644
+    },
+    "val": {
+      "direction_accuracy": 0.5307017543859649,
+      "high_confidence_da": 0.6060606060606061,
+      "high_confidence_coverage": 0.14473684210526316,
+      "mae": 1.5893751825413993,
+      "mae_raw": 1.5893751825413993,
+      "mae_scaled": 1.5926721229030891,
+      "sharpe_ratio": 1.0911605548353691
+    },
+    "test": {
+      "direction_accuracy": 0.6608315098468271,
+      "high_confidence_da": 0.6190476190476191,
+      "high_confidence_coverage": 0.13785557986870897,
+      "mae": 2.069592795711995,
+      "mae_raw": 2.119302590669143,
+      "mae_scaled": 2.069592795711995,
+      "sharpe_ratio": 2.3152501879783705
+    }
+  },
+  "weekly_evaluation": {
+    "sharpe_approach_a": 2.025652871197791,
+    "sharpe_approach_b": 2.2959818590075978,
+    "non_overlapping_metrics": {
+      "n_samples": 92,
+      "da": 0.7065217391304348,
+      "mae": 2.1050428527544884
+    },
+    "overlapping_metrics": {
+      "direction_accuracy": 0.6608315098468271,
+      "high_confidence_da": 0.6190476190476191,
+      "high_confidence_coverage": 0.13785557986870897,
+      "mae": 2.069592795711995,
+      "mae_raw": 2.119302590669143,
+      "mae_scaled": 2.069592795711995,
+      "sharpe_ratio": 2.3152501879783705
+    },
+    "trades_in_test": 1,
+    "annualized_trades": 0
+  },
+  "vs_daily_attempt_7": {
+    "daily_da": 0.6004,
+    "daily_hcda": 0.6413,
+    "daily_mae": 0.9429,
+    "daily_sharpe": 2.4636,
+    "weekly_da": 0.6608315098468271,
+    "weekly_hcda": 0.6847826086956522,
+    "weekly_mae": 2.069592795711995,
+    "weekly_sharpe": 2.025652871197791,
+    "da_delta_pp": 6.04315098468271,
+    "hcda_delta_pp": 4.348260869565223,
+    "mae_delta": 1.1266927957119952,
+    "sharpe_delta": -0.4379471288022092
+  },
+  "target_evaluation": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "66.08%",
+      "gap": "+10.08pp",
+      "passed": true
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "68.48%",
+      "gap": "+8.48pp",
+      "passed": true,
+      "method_used": "bootstrap"
+    },
+    "mae": {
+      "target": "< 1.70%",
+      "actual": "2.0696%",
+      "gap": "-2.0526%",
+      "passed": false
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": "2.03",
+      "gap": "+1.23",
+      "passed": true
+    }
+  },
+  "targets_passed": "3",
+  "targets_total": 4,
+  "overall_passed": false,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": -12.320215895313002,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS"
+  },
+  "feature_importance": {
+    "top_10_xgb": [
+      {
+        "feature": "options_risk_regime_prob",
+        "importance": 0.05437564477324486
+      },
+      {
+        "feature": "xasset_regime_prob",
+        "importance": 0.05415421724319458
+      },
+      {
+        "feature": "tech_trend_regime_prob",
+        "importance": 0.05303742736577988
+      },
+      {
+        "feature": "inflation_exp_change",
+        "importance": 0.05170505493879318
+      },
+      {
+        "feature": "vix",
+        "importance": 0.048001211136579514
+      },
+      {
+        "feature": "vix_persistence",
+        "importance": 0.04709972068667412
+      },
+      {
+        "feature": "temporal_context_score",
+        "importance": 0.04708575829863548
+      },
+      {
+        "feature": "ie_gold_sensitivity_z",
+        "importance": 0.04464203491806984
+      },
+      {
+        "feature": "xasset_divergence",
+        "importance": 0.04426557943224907
+      },
+      {
+        "feature": "etf_capital_intensity",
+        "importance": 0.04318465664982796
+      }
+    ],
+    "options_risk_regime_prob_rank": 23,
+    "options_risk_regime_prob_importance": 0.05437564477324486,
+    "temporal_context_score_rank": 24,
+    "temporal_context_score_importance": 0.04708575829863548
+  },
+  "vs_naive": {
+    "naive_always_up_da": "66.08%",
+    "model_vs_naive_pp": 0.0
+  },
+  "prediction_characteristics": {
+    "mean_raw": 0.11307567358016968,
+    "std_raw": 0.005453184247016907,
+    "min_raw": 0.09539411962032318,
+    "max_raw": 0.13998590409755707,
+    "positive_pct": 100.0
+  }
+}

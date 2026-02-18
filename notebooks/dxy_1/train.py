@@ -51,7 +51,7 @@ def fetch_data():
     dfs = {}
     for name, ticker in tickers.items():
         try:
-            df = yf.download(ticker, start='2014-12-01', end='2025-02-14', progress=False)
+            df = yf.download(ticker, start='2014-12-01', progress=False)
             if df.empty:
                 print(f"[WARN] {ticker} returned empty dataframe")
                 continue
@@ -108,7 +108,7 @@ def preprocess_data(df):
     print(f"Date range: {returns.index[0]} to {returns.index[-1]}")
 
     # Forward-fill gaps up to 3 days
-    returns = returns.fillna(method='ffill', limit=3)
+    returns = returns.ffill(limit=3)
 
     # Drop any remaining NaN
     returns = returns.dropna()

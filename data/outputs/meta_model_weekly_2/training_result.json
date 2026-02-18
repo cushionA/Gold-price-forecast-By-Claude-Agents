@@ -1,0 +1,314 @@
+{
+  "feature": "meta_model_weekly",
+  "attempt": 2,
+  "timestamp": "2026-02-16T16:45:16.131777",
+  "architecture": "XGBoost reg:squarederror + Bootstrap + OLS (weekly target, non-overlapping training)",
+  "phase": "3_meta_model",
+  "target_type": "gold_return_5d",
+  "target_description": "Forward 5-day gold return (%)",
+  "design_changes": {
+    "non_overlapping_training": true,
+    "target_centering": true,
+    "train_mean_5d": 0.1136995137632328,
+    "naive_aware_objective": true,
+    "trade_activity_gate": true,
+    "constant_output_penalty": true,
+    "relaxed_regularization": true,
+    "non_overlapping_train_samples": 426,
+    "non_overlapping_val_samples": 92
+  },
+  "model_config": {
+    "n_features": 24,
+    "train_samples": 426,
+    "val_samples": 92,
+    "test_samples": 457,
+    "samples_per_feature_ratio": 17.75,
+    "selected_configuration": "optuna",
+    "optuna_trials_completed": 100,
+    "best_params": {
+      "max_depth": 6,
+      "min_child_weight": 8,
+      "subsample": 0.6099419200051603,
+      "colsample_bytree": 0.3928138807281375,
+      "reg_lambda": 1.7543889177439929,
+      "reg_alpha": 0.12056583093944324,
+      "learning_rate": 0.0913187855533882,
+      "n_estimators": 303
+    }
+  },
+  "optuna_search": {
+    "n_trials": 100,
+    "best_value": 0.6467546227582628,
+    "best_trial_number": 46,
+    "top_5_trials": [
+      {
+        "number": 46,
+        "value": 0.6467546227582628,
+        "params": {
+          "max_depth": 6,
+          "min_child_weight": 8,
+          "subsample": 0.6099419200051603,
+          "colsample_bytree": 0.3928138807281375,
+          "reg_lambda": 1.7543889177439929,
+          "reg_alpha": 0.12056583093944324,
+          "learning_rate": 0.0913187855533882,
+          "n_estimators": 303
+        },
+        "val_da": 0.5869565217391305,
+        "val_hc_da": 0.5625,
+        "da_skill_pp": 6.521739130434789
+      },
+      {
+        "number": 62,
+        "value": 0.5606631253189739,
+        "params": {
+          "max_depth": 6,
+          "min_child_weight": 10,
+          "subsample": 0.7514080722582498,
+          "colsample_bytree": 0.4552621805822947,
+          "reg_lambda": 4.364871550730202,
+          "reg_alpha": 0.08237928886353116,
+          "learning_rate": 0.07584527265608931,
+          "n_estimators": 345
+        },
+        "val_da": 0.5652173913043478,
+        "val_hc_da": 0.5789473684210527,
+        "da_skill_pp": 4.347826086956519
+      },
+      {
+        "number": 11,
+        "value": 0.5390684552394118,
+        "params": {
+          "max_depth": 6,
+          "min_child_weight": 3,
+          "subsample": 0.6942277680641442,
+          "colsample_bytree": 0.30579944170509626,
+          "reg_lambda": 0.7370355284388321,
+          "reg_alpha": 0.11871077102258674,
+          "learning_rate": 0.09806204916353609,
+          "n_estimators": 356
+        },
+        "val_da": 0.5434782608695652,
+        "val_hc_da": 0.631578947368421,
+        "da_skill_pp": 2.1739130434782594
+      },
+      {
+        "number": 13,
+        "value": 0.4814376575011794,
+        "params": {
+          "max_depth": 6,
+          "min_child_weight": 3,
+          "subsample": 0.6583774632593158,
+          "colsample_bytree": 0.3049815598437498,
+          "reg_lambda": 1.508951290010627,
+          "reg_alpha": 0.21973986657995973,
+          "learning_rate": 0.09980918596810291,
+          "n_estimators": 352
+        },
+        "val_da": 0.5434782608695652,
+        "val_hc_da": 0.7142857142857143,
+        "da_skill_pp": 2.1739130434782594
+      },
+      {
+        "number": 93,
+        "value": 0.47044851763466344,
+        "params": {
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "subsample": 0.6859261551658835,
+          "colsample_bytree": 0.368337044109887,
+          "reg_lambda": 0.7554352918317578,
+          "reg_alpha": 0.11871137476764645,
+          "learning_rate": 0.09446062331136461,
+          "n_estimators": 316
+        },
+        "val_da": 0.532608695652174,
+        "val_hc_da": 0.6666666666666666,
+        "da_skill_pp": 1.0869565217391353
+      }
+    ]
+  },
+  "bootstrap_analysis": {
+    "bootstrap_ensemble_size": 5,
+    "bootstrap_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "bootstrap_std_range_test": [
+      0.01119455803360196,
+      0.2467332477595281
+    ],
+    "bootstrap_std_mean_test": 0.09508032531085144,
+    "bootstrap_conf_range_test": [
+      0.8020961996458136,
+      0.9889293727456651
+    ],
+    "bootstrap_conf_mean_test": 0.9147017742517813,
+    "hcda_bootstrap": 0.7934782608695652,
+    "hcda_pred": 0.625,
+    "hcda_improvement": 0.1684782608695652
+  },
+  "ols_scaling": {
+    "alpha_ols": 0.851169360553789,
+    "mae_raw": 2.1249890817537564,
+    "mae_scaled": 2.1289021833894877,
+    "mae_improvement": -0.00391310163573122
+  },
+  "primary_hcda_method": "bootstrap",
+  "primary_hcda_value": 0.7934782608695652,
+  "primary_mae": 2.1249890817537564,
+  "metrics": {
+    "train": {
+      "direction_accuracy": 0.5657276995305164,
+      "high_confidence_da": 0.7307692307692307,
+      "high_confidence_coverage": 0.18309859154929578,
+      "mae": 1.5579008991213663,
+      "mae_raw": 1.5579008991213663,
+      "mae_scaled": 1.5611856223815512,
+      "sharpe_ratio": 1.133632396063788
+    },
+    "val": {
+      "direction_accuracy": 0.4891304347826087,
+      "high_confidence_da": 0.5789473684210527,
+      "high_confidence_coverage": 0.20652173913043478,
+      "mae": 1.6617845220206038,
+      "mae_raw": 1.6629664817623433,
+      "mae_scaled": 1.6617845220206038,
+      "sharpe_ratio": 0.11643656129976646
+    },
+    "test": {
+      "direction_accuracy": 0.6323851203501094,
+      "high_confidence_da": 0.625,
+      "high_confidence_coverage": 0.1575492341356674,
+      "mae": 2.1249890817537564,
+      "mae_raw": 2.1249890817537564,
+      "mae_scaled": 2.1289021833894877,
+      "sharpe_ratio": 1.5618357160733745
+    }
+  },
+  "substantive_skill_tests": {
+    "da_above_naive": "False",
+    "prediction_diversity": false,
+    "trade_activity": "True",
+    "prediction_balance": "True",
+    "prediction_variation": "True"
+  },
+  "naive_comparison": {
+    "naive_da_train": 0.5328638497652582,
+    "naive_da_val": 0.5217391304347826,
+    "naive_da_test": 0.6608315098468271,
+    "model_da_test": 0.6323851203501094,
+    "da_skill_pp": -2.844638949671774
+  },
+  "weekly_evaluation": {
+    "sharpe_approach_a": 0.7054140067797405,
+    "sharpe_approach_b": 0.9869085223806859,
+    "non_overlapping_metrics": {
+      "n_samples": 92,
+      "da": 0.6304347826086957,
+      "mae": 2.117717891454667
+    },
+    "overlapping_metrics": {
+      "direction_accuracy": 0.6323851203501094,
+      "high_confidence_da": 0.625,
+      "high_confidence_coverage": 0.1575492341356674,
+      "mae": 2.1249890817537564,
+      "mae_raw": 2.1249890817537564,
+      "mae_scaled": 2.1289021833894877,
+      "sharpe_ratio": 1.5618357160733745
+    },
+    "trades_in_test": 19,
+    "annualized_trades": 10
+  },
+  "target_evaluation": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "63.24%",
+      "gap": "+7.24pp",
+      "passed": true
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "79.35%",
+      "gap": "+19.35pp",
+      "passed": true,
+      "method_used": "bootstrap"
+    },
+    "mae": {
+      "target": "< 1.70%",
+      "actual": "2.1250%",
+      "gap": "-2.1080%",
+      "passed": false
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": "0.71",
+      "gap": "-0.09",
+      "passed": true
+    }
+  },
+  "targets_passed": "3",
+  "targets_total": 4,
+  "overall_passed": false,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": -6.665742081959303,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS"
+  },
+  "feature_importance": {
+    "top_10_xgb": [
+      {
+        "feature": "ie_anchoring_z",
+        "importance": 0.056528862565755844
+      },
+      {
+        "feature": "etf_regime_prob",
+        "importance": 0.05517883971333504
+      },
+      {
+        "feature": "options_risk_regime_prob",
+        "importance": 0.05333799496293068
+      },
+      {
+        "feature": "temporal_context_score",
+        "importance": 0.051886558532714844
+      },
+      {
+        "feature": "etf_capital_intensity",
+        "importance": 0.0517965704202652
+      },
+      {
+        "feature": "tech_trend_regime_prob",
+        "importance": 0.04828880727291107
+      },
+      {
+        "feature": "ie_gold_sensitivity_z",
+        "importance": 0.04805811494588852
+      },
+      {
+        "feature": "real_rate_change",
+        "importance": 0.04639337584376335
+      },
+      {
+        "feature": "xasset_recession_signal",
+        "importance": 0.04569005221128464
+      },
+      {
+        "feature": "ie_regime_prob",
+        "importance": 0.03987783566117287
+      }
+    ]
+  },
+  "prediction_characteristics": {
+    "mean_raw": 0.09833674552182674,
+    "std_raw": 0.10408740162143379,
+    "min_raw": -0.11508242478962365,
+    "max_raw": 0.3385646373928028,
+    "positive_pct": 87.96498905908096,
+    "unique_predictions": 18,
+    "position_changes": 66
+  }
+}

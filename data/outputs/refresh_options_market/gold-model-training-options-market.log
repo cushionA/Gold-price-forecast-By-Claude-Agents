@@ -1,0 +1,218 @@
+[{"stream_name":"stderr","time":7.848888349,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.848953391,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.848960912,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.848963958,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.552512726,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.552549715,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.552556097,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.552560942,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.916624016,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":12.204700793,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":12.407304557,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.770226508,"data":"hmmlearn installed successfully\n"}
+,{"stream_name":"stdout","time":19.213691898,"data":"All libraries imported successfully\n"}
+,{"stream_name":"stdout","time":19.21373101,"data":"Execution started: 2026-02-17T16:18:49.654800\n"}
+,{"stream_name":"stdout","time":19.414364662,"data":"\n"}
+,{"stream_name":"stdout","time":19.414403926,"data":"=== Fetching Data ===\n"}
+,{"stream_name":"stdout","time":19.414409601,"data":"Fetching SKEW Index (^SKEW)...\n"}
+,{"stream_name":"stdout","time":20.614670881,"data":"  SKEW: 2803 rows fetched, range 2014-10-01 00:00:00-04:00 to 2026-02-13 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":20.614712857,"data":"Fetching Gold Volatility Index (^GVZ)...\n"}
+,{"stream_name":"stdout","time":20.96912623,"data":"  GVZ: 2860 rows fetched, range 2014-10-01 00:00:00-04:00 to 2026-02-13 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":20.969165068,"data":"Fetching Gold futures (GC=F)...\n"}
+,{"stream_name":"stdout","time":21.111530591,"data":"  Gold: 2859 rows fetched, range 2014-10-01 00:00:00-04:00 to 2026-02-13 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":21.111578397,"data":"\n"}
+,{"stream_name":"stdout","time":21.111585077,"data":"Aligning data on common dates...\n"}
+,{"stream_name":"stdout","time":21.11159052,"data":"  Aligned: 2800 rows\n"}
+,{"stream_name":"stdout","time":21.111595687,"data":"Forward-filling gaps (max 3 days)...\n"}
+,{"stream_name":"stdout","time":21.111600756,"data":"Computing daily changes...\n"}
+,{"stream_name":"stdout","time":21.111605776,"data":"\n"}
+,{"stream_name":"stdout","time":21.111610808000002,"data":"Final dataset: 2798 rows\n"}
+,{"stream_name":"stdout","time":21.111614286,"data":"Date range: 2014-10-02 00:00:00-04:00 to 2026-02-12 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":21.111617667,"data":"\n"}
+,{"stream_name":"stdout","time":21.111620824,"data":"Data summary:\n"}
+,{"stream_name":"stdout","time":21.111623986,"data":"        skew_close    gvz_close  skew_change   gvz_change\n"}
+,{"stream_name":"stdout","time":21.111627589,"data":"count  2798.000000  2798.000000  2798.000000  2798.000000\n"}
+,{"stream_name":"stdout","time":21.111657444,"data":"mean    134.433463    16.475161     0.006909     0.004110\n"}
+,{"stream_name":"stdout","time":21.111662808,"data":"std      12.125912     4.456463     3.906112     1.007897\n"}
+,{"stream_name":"stdout","time":21.111667272,"data":"min     110.339996     8.880000   -22.810005    -9.500000\n"}
+,{"stream_name":"stdout","time":21.111671323,"data":"25%     125.040001    13.262500    -1.810013    -0.460000\n"}
+,{"stream_name":"stdout","time":21.111675776,"data":"50%     133.375000    16.155000     0.000000    -0.070000\n"}
+,{"stream_name":"stdout","time":21.111679852,"data":"75%     142.295002    18.510000     1.919998     0.370000\n"}
+,{"stream_name":"stdout","time":21.111683754,"data":"max     183.119995    48.980000    24.749992     7.250000\n"}
+,{"stream_name":"stdout","time":21.111692791,"data":"\n"}
+,{"stream_name":"stdout","time":21.111695246,"data":"=== Data Quality Checks ===\n"}
+,{"stream_name":"stdout","time":21.111697967,"data":"SKEW range: [110.3, 183.1]\n"}
+,{"stream_name":"stdout","time":21.111700504,"data":"GVZ range: [8.9, 49.0]\n"}
+,{"stream_name":"stdout","time":21.111703072,"data":"SKEW change std: 3.91\n"}
+,{"stream_name":"stdout","time":21.111705547,"data":"GVZ change std: 1.01\n"}
+,{"stream_name":"stdout","time":21.111712143,"data":"Missing data: 0 cells\n"}
+,{"stream_name":"stdout","time":21.135833775,"data":"\n"}
+,{"stream_name":"stdout","time":21.135868993,"data":"=== Data Split ===\n"}
+,{"stream_name":"stdout","time":21.135873333,"data":"Total samples: 2798\n"}
+,{"stream_name":"stdout","time":21.135876217,"data":"Train: 1958 samples (0 to 1957)\n"}
+,{"stream_name":"stdout","time":21.135879,"data":"Val:   419 samples (1958 to 2376)\n"}
+,{"stream_name":"stdout","time":21.135883015,"data":"Test:  421 samples (2377 to 2797)\n"}
+,{"stream_name":"stdout","time":21.135886851,"data":"\n"}
+,{"stream_name":"stdout","time":21.1358906,"data":"Date ranges:\n"}
+,{"stream_name":"stdout","time":21.13589489,"data":"Train: 2014-10-02 00:00:00-04:00 to 2022-08-26 00:00:00-04:00\n"}
+,{"stream_name":"stdout","time":21.135899015,"data":"Val:   2022-08-29 00:00:00-04:00 to 2024-05-24 00:00:00-04:00\n"}
+,{"stream_name":"stdout","time":21.135903469,"data":"Test:  2024-05-28 00:00:00-04:00 to 2026-02-12 00:00:00-05:00\n"}
+,{"stream_name":"stdout","time":21.159445809,"data":"Feature generation function defined\n"}
+,{"stream_name":"stdout","time":21.184775189,"data":"Optuna objective function defined\n"}
+,{"stream_name":"stderr","time":21.210985371,"data":"[I 2026-02-17 16:18:51,649] A new study created in memory with name: no-name-d4ea0759-b367-481f-9564-3269e9e74452\n"}
+,{"stream_name":"stderr","time":21.211022128,"data":"\n"}
+,{"stream_name":"stderr","time":21.211027969,"data":"[I 2026-02-17 16:18:51,649] A new study created in memory with name: no-name-d4ea0759-b367-481f-9564-3269e9e74452\n"}
+,{"stream_name":"stdout","time":21.288800527,"data":"\n"}
+,{"stream_name":"stdout","time":21.288835634,"data":"=== Running Optuna Hyperparameter Optimization ===\n"}
+,{"stream_name":"stdout","time":21.288841107,"data":"Objective: Maximize MI(regime_prob, gold_return_next) on validation set\n"}
+,{"stream_name":"stdout","time":21.288845632,"data":"Search space:\n"}
+,{"stream_name":"stdout","time":21.288849513,"data":"  hmm_n_components: [2, 3]\n"}
+,{"stream_name":"stdout","time":21.288852133,"data":"  input_scaling: [True, False]\n"}
+,{"stream_name":"stdout","time":21.288854711,"data":"Trials: 30\n"}
+,{"stream_name":"stdout","time":21.288857236,"data":"Timeout: 300 seconds (5 minutes)\n"}
+,{"stream_name":"stdout","time":21.288874664,"data":"\n"}
+,{"stream_name":"stderr","time":21.705901874,"data":"[I 2026-02-17 16:18:52,141] Trial 0 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 0 with value: 0.5243753022959359.\n"}
+,{"stream_name":"stderr","time":21.705937879,"data":"\n"}
+,{"stream_name":"stderr","time":21.705943241,"data":"[I 2026-02-17 16:18:52,141] Trial 0 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 0 with value: 0.5243753022959359.\n"}
+,{"stream_name":"stderr","time":21.835020047,"data":"[I 2026-02-17 16:18:52,275] Trial 1 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":21.835082927,"data":"\n"}
+,{"stream_name":"stderr","time":21.835088458,"data":"[I 2026-02-17 16:18:52,275] Trial 1 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":22.335578319,"data":"[I 2026-02-17 16:18:52,776] Trial 2 finished with value: 0.48902180262307354 and parameters: {'hmm_n_components': 3, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":22.335613347,"data":"\n"}
+,{"stream_name":"stderr","time":22.33947938,"data":"[I 2026-02-17 16:18:52,776] Trial 2 finished with value: 0.48902180262307354 and parameters: {'hmm_n_components': 3, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":22.468244985,"data":"[I 2026-02-17 16:18:52,909] Trial 3 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":22.468283867,"data":"\n"}
+,{"stream_name":"stderr","time":22.468301909,"data":"[I 2026-02-17 16:18:52,909] Trial 3 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":22.928804566,"data":"[I 2026-02-17 16:18:53,369] Trial 4 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":22.928851153,"data":"\n"}
+,{"stream_name":"stderr","time":22.931190642,"data":"[I 2026-02-17 16:18:53,369] Trial 4 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":23.083000814,"data":"[I 2026-02-17 16:18:53,521] Trial 5 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":23.083036505,"data":"\n"}
+,{"stream_name":"stderr","time":23.083041102,"data":"[I 2026-02-17 16:18:53,521] Trial 5 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":23.431683456000002,"data":"[I 2026-02-17 16:18:53,871] Trial 6 finished with value: 0.48902180262307354 and parameters: {'hmm_n_components': 3, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":23.431719291,"data":"\n"}
+,{"stream_name":"stderr","time":23.431723979,"data":"[I 2026-02-17 16:18:53,871] Trial 6 finished with value: 0.48902180262307354 and parameters: {'hmm_n_components': 3, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":23.652132927,"data":"[I 2026-02-17 16:18:54,093] Trial 7 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":23.652172013,"data":"\n"}
+,{"stream_name":"stderr","time":23.652177582,"data":"[I 2026-02-17 16:18:54,093] Trial 7 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.111196624,"data":"[I 2026-02-17 16:18:54,549] Trial 8 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.111234267,"data":"\n"}
+,{"stream_name":"stderr","time":24.113478384,"data":"[I 2026-02-17 16:18:54,549] Trial 8 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.251909906,"data":"[I 2026-02-17 16:18:54,692] Trial 9 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.251949349,"data":"\n"}
+,{"stream_name":"stderr","time":24.253459125,"data":"[I 2026-02-17 16:18:54,692] Trial 9 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.380192942,"data":"[I 2026-02-17 16:18:54,821] Trial 10 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.380232111,"data":"\n"}
+,{"stream_name":"stderr","time":24.382482956,"data":"[I 2026-02-17 16:18:54,821] Trial 10 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.517684444,"data":"[I 2026-02-17 16:18:54,955] Trial 11 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.517722895,"data":"\n"}
+,{"stream_name":"stderr","time":24.520450734,"data":"[I 2026-02-17 16:18:54,955] Trial 11 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.736408423,"data":"[I 2026-02-17 16:18:55,177] Trial 12 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.736461723,"data":"\n"}
+,{"stream_name":"stderr","time":24.736468118,"data":"[I 2026-02-17 16:18:55,177] Trial 12 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.866692891,"data":"[I 2026-02-17 16:18:55,307] Trial 13 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":24.866730103,"data":"\n"}
+,{"stream_name":"stderr","time":24.869455341,"data":"[I 2026-02-17 16:18:55,307] Trial 13 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.09336881,"data":"[I 2026-02-17 16:18:55,534] Trial 14 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.093420913,"data":"\n"}
+,{"stream_name":"stderr","time":25.093426148,"data":"[I 2026-02-17 16:18:55,534] Trial 14 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.234437103,"data":"[I 2026-02-17 16:18:55,675] Trial 15 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.234473106,"data":"\n"}
+,{"stream_name":"stderr","time":25.234478015,"data":"[I 2026-02-17 16:18:55,675] Trial 15 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.428000004,"data":"[I 2026-02-17 16:18:55,866] Trial 16 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.428061274,"data":"\n"}
+,{"stream_name":"stderr","time":25.428066638,"data":"[I 2026-02-17 16:18:55,866] Trial 16 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.624735123,"data":"[I 2026-02-17 16:18:56,065] Trial 17 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.624770421,"data":"\n"}
+,{"stream_name":"stderr","time":25.624774829,"data":"[I 2026-02-17 16:18:56,065] Trial 17 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.760960442,"data":"[I 2026-02-17 16:18:56,201] Trial 18 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.761011539,"data":"\n"}
+,{"stream_name":"stderr","time":25.761017071,"data":"[I 2026-02-17 16:18:56,201] Trial 18 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.898362037,"data":"[I 2026-02-17 16:18:56,336] Trial 19 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":25.898395732,"data":"\n"}
+,{"stream_name":"stderr","time":25.898418464,"data":"[I 2026-02-17 16:18:56,336] Trial 19 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.027469136,"data":"[I 2026-02-17 16:18:56,468] Trial 20 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.027503524,"data":"\n"}
+,{"stream_name":"stderr","time":26.02750831,"data":"[I 2026-02-17 16:18:56,468] Trial 20 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.160492304,"data":"[I 2026-02-17 16:18:56,601] Trial 21 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.160541516,"data":"\n"}
+,{"stream_name":"stderr","time":26.161425588,"data":"[I 2026-02-17 16:18:56,601] Trial 21 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.296977602,"data":"[I 2026-02-17 16:18:56,735] Trial 22 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.297032356,"data":"\n"}
+,{"stream_name":"stderr","time":26.297038551,"data":"[I 2026-02-17 16:18:56,735] Trial 22 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.517745961,"data":"[I 2026-02-17 16:18:56,958] Trial 23 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.517786006,"data":"\n"}
+,{"stream_name":"stderr","time":26.521510029,"data":"[I 2026-02-17 16:18:56,958] Trial 23 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.649746261,"data":"[I 2026-02-17 16:18:57,090] Trial 24 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.649785165,"data":"\n"}
+,{"stream_name":"stderr","time":26.649950008,"data":"[I 2026-02-17 16:18:57,090] Trial 24 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.833679847,"data":"[I 2026-02-17 16:18:57,274] Trial 25 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":26.833715472,"data":"\n"}
+,{"stream_name":"stderr","time":26.833887501,"data":"[I 2026-02-17 16:18:57,274] Trial 25 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":27.298682145,"data":"[I 2026-02-17 16:18:57,739] Trial 26 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":27.298736577,"data":"\n"}
+,{"stream_name":"stderr","time":27.298742303,"data":"[I 2026-02-17 16:18:57,739] Trial 26 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":27.434444046,"data":"[I 2026-02-17 16:18:57,875] Trial 27 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":27.434476634,"data":"\n"}
+,{"stream_name":"stderr","time":27.434491927,"data":"[I 2026-02-17 16:18:57,875] Trial 27 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":27.646102409,"data":"[I 2026-02-17 16:18:58,087] Trial 28 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":27.646137092,"data":"\n"}
+,{"stream_name":"stderr","time":27.649474747,"data":"[I 2026-02-17 16:18:58,087] Trial 28 finished with value: 0.5266649675779264 and parameters: {'hmm_n_components': 2, 'input_scaling': False}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":28.110854954,"data":"[I 2026-02-17 16:18:58,551] Trial 29 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stderr","time":28.110888253,"data":"\n"}
+,{"stream_name":"stderr","time":28.111018718,"data":"[I 2026-02-17 16:18:58,551] Trial 29 finished with value: 0.5243753022959359 and parameters: {'hmm_n_components': 3, 'input_scaling': True}. Best is trial 1 with value: 0.5266649675779264.\n"}
+,{"stream_name":"stdout","time":28.114984142,"data":"\n"}
+,{"stream_name":"stdout","time":28.115012333,"data":"=== Optuna Results ===\n"}
+,{"stream_name":"stdout","time":28.115017068,"data":"Completed trials: 30\n"}
+,{"stream_name":"stdout","time":28.115021034,"data":"Best value (MI): 0.526665\n"}
+,{"stream_name":"stdout","time":28.115025226,"data":"Best params: {'hmm_n_components': 2, 'input_scaling': False}\n"}
+,{"stream_name":"stdout","time":28.29725211,"data":"\n"}
+,{"stream_name":"stdout","time":28.297285339,"data":"=== Generating Final Submodel Output ===\n"}
+,{"stream_name":"stdout","time":28.297309524,"data":"Using best parameters: {'hmm_n_components': 2, 'input_scaling': False}\n"}
+,{"stream_name":"stdout","time":28.297326275,"data":"\n"}
+,{"stream_name":"stdout","time":28.297333503,"data":"Output shape: (2798, 1)\n"}
+,{"stream_name":"stdout","time":28.297337721,"data":"Output columns: ['options_risk_regime_prob']\n"}
+,{"stream_name":"stdout","time":28.297341645,"data":"\n"}
+,{"stream_name":"stdout","time":28.297345623,"data":"Output statistics:\n"}
+,{"stream_name":"stdout","time":28.297349428,"data":"       options_risk_regime_prob\n"}
+,{"stream_name":"stdout","time":28.297353353,"data":"count              2.798000e+03\n"}
+,{"stream_name":"stdout","time":28.297357154,"data":"mean               2.321048e-01\n"}
+,{"stream_name":"stdout","time":28.297360926,"data":"std                3.420855e-01\n"}
+,{"stream_name":"stdout","time":28.297364715,"data":"min                5.840006e-12\n"}
+,{"stream_name":"stdout","time":28.297368406,"data":"25%                8.321567e-03\n"}
+,{"stream_name":"stdout","time":28.297372479,"data":"50%                3.586692e-02\n"}
+,{"stream_name":"stdout","time":28.297376521,"data":"75%                3.260285e-01\n"}
+,{"stream_name":"stdout","time":28.297380279,"data":"max                1.000000e+00\n"}
+,{"stream_name":"stdout","time":28.297384067,"data":"\n"}
+,{"stream_name":"stdout","time":28.29738769,"data":"Autocorrelation (lag 1): 0.8316\n"}
+,{"stream_name":"stdout","time":28.29739145,"data":"NaN count: 0\n"}
+,{"stream_name":"stdout","time":28.297395154,"data":"\n"}
+,{"stream_name":"stdout","time":28.297398638,"data":"Output validation: PASS\n"}
+,{"stream_name":"stdout","time":28.369722089,"data":"\n"}
+,{"stream_name":"stdout","time":28.369764546,"data":"=== Saving Results ===\n"}
+,{"stream_name":"stdout","time":28.4128625,"data":"Saved: submodel_output.csv\n"}
+,{"stream_name":"stdout","time":28.412920136,"data":"Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":28.412926611,"data":"\n"}
+,{"stream_name":"stdout","time":28.412930613,"data":"=== Training Complete ===\n"}
+,{"stream_name":"stdout","time":28.412934368,"data":"Finished: 2026-02-17T16:18:58.853849\n"}
+,{"stream_name":"stdout","time":28.412938422,"data":"\n"}
+,{"stream_name":"stdout","time":28.412942028,"data":"Final summary:\n"}
+,{"stream_name":"stdout","time":28.412945682,"data":"  Feature: options_market\n"}
+,{"stream_name":"stdout","time":28.412949352,"data":"  Attempt: 2\n"}
+,{"stream_name":"stdout","time":28.412953212,"data":"  Output: 1 column (options_risk_regime_prob)\n"}
+,{"stream_name":"stdout","time":28.412957091,"data":"  Best MI: 0.526665\n"}
+,{"stream_name":"stdout","time":28.412960982,"data":"  Best params: {'hmm_n_components': 2, 'input_scaling': False}\n"}
+,{"stream_name":"stdout","time":28.412964935,"data":"  Data: 2798 samples (2014-10-02 00:00:00-04:00 to 2026-02-12 00:00:00-05:00)\n"}
+,{"stream_name":"stderr","time":31.590422552,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":31.590462292,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":31.76609947,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":31.766137017,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":32.541252321,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":32.541292267,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":32.608018278,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":33.002981652,"data":"[NbConvertApp] Writing 38001 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":36.010960097,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":36.011002141,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":36.039613268,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":37.095726618,"data":"[NbConvertApp] Writing 354816 bytes to __results__.html\n"}
+]

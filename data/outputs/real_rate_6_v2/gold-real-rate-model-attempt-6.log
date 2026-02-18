@@ -1,0 +1,43 @@
+[{"stream_name":"stderr","time":10.031524489,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.031586807,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.031593686,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.031597822,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.88643549,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.886482907,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.886491686,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.886497108,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":19.630067911,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":19.630109404,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":19.63011763,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":19.630168955,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":19.630260941,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":19.630449087,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":19.630774665,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":19.630793309,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":19.630798081000002,"data":"Exception encountered at \"In [1]\":\n"}
+,{"stream_name":"stderr","time":19.63080328,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":19.63080857,"data":"KeyError                                  Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":19.630813776,"data":"/tmp/ipykernel_17/389226229.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":19.630820362,"data":"     14 # FRED API\n"}
+,{"stream_name":"stderr","time":19.630825779,"data":"     15 from fredapi import Fred\n"}
+,{"stream_name":"stderr","time":19.630830705,"data":"---\u003e 16 FRED_API_KEY = os.environ['FRED_API_KEY']  # Kaggle Secret\n"}
+,{"stream_name":"stderr","time":19.630836231,"data":"     17 fred = Fred(api_key=FRED_API_KEY)\n"}
+,{"stream_name":"stderr","time":19.63084146,"data":"     18 \n"}
+,{"stream_name":"stderr","time":19.630846897,"data":"\n"}
+,{"stream_name":"stderr","time":19.630852023,"data":"/usr/lib/python3.12/os.py in __getitem__(self, key)\n"}
+,{"stream_name":"stderr","time":19.630855691,"data":"\n"}
+,{"stream_name":"stderr","time":19.63085894,"data":"KeyError: 'FRED_API_KEY'\n"}
+,{"stream_name":"stderr","time":19.630862118,"data":"\n"}
+,{"stream_name":"stderr","time":22.749783463,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.749822281,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":23.007234661,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":23.007288266,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23.933777897,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":23.933834205,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":23.989312035,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":24.417172678,"data":"[NbConvertApp] Writing 19471 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":27.902073391,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":27.902122637,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":27.935383156,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":29.079131784,"data":"[NbConvertApp] Writing 337822 bytes to __results__.html\n"}
+]

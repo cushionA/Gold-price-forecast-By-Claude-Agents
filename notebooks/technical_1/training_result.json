@@ -1,0 +1,36 @@
+{
+  "feature": "technical",
+  "attempt": 1,
+  "timestamp": "2026-02-18T01:26:16.471677",
+  "best_params": {
+    "hmm_n_components": 2,
+    "hmm_n_restarts": 10,
+    "zscore_window": 15,
+    "gk_baseline_window": 60
+  },
+  "metrics": {
+    "mi_regime": 0.5711857960400321,
+    "mi_zscore": 0.5364496519342535,
+    "mi_vol_z": 0.5015739160433161,
+    "mi_sum": 1.6092093640176017,
+    "optuna_best_value": 1.6092093640176017
+  },
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 1.6092093640176017,
+  "output_shape": [
+    2860,
+    4
+  ],
+  "output_columns": [
+    "date",
+    "tech_trend_regime_prob",
+    "tech_mean_reversion_z",
+    "tech_volatility_regime"
+  ],
+  "data_info": {
+    "train_samples": 2001,
+    "val_samples": 430,
+    "test_samples": 429,
+    "full_samples": 2860
+  }
+}

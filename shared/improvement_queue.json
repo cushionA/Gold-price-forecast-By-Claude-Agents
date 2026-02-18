@@ -1,21 +1,81 @@
 {
-  "feature": "options_market",
+  "feature": "classifier",
+  "attempt": 2,
   "items": [
     {
       "priority": 1,
-      "type": "output_dimensionality_reduction",
-      "description": "Reduce output from 3 columns to 1-2. options_risk_regime_prob ranked #2/22 in feature importance (5.70%) and has the highest individual MI (0.031). Consider: (1) output only regime_prob as single column, or (2) PCA to compress 3 columns into 1 principal component, preserving maximum variance while reducing noise. The 3-column output introduced noise that degraded DA in all 5 folds.",
-      "reason": "Gate 2 PASS (MI +17.12%, VIF 2.12, stability 0.146) confirms information exists. Gate 3 FAIL with DA degraded in 0/5 folds improved and Sharpe degraded by -0.234. Pattern matches real_rate attempts 4-5 where more output columns gave XGBoost more noise to overfit on.",
+      "type": "objective_function_fix",
+      "description": "Replace Optuna composite objective (40% F1_DOWN + 30% AUC + 30% balanced_acc) with Matthews Correlation Coefficient (MCC). MCC = 0 for ANY trivial predictor (all-UP, all-DOWN, random), making it impossible for Optuna to exploit constant-output shortcuts. Add a trivial-prediction guard: if minority class predictions < 15% or prediction_std < 0.03, return -1.0 (force prune). Optional secondary: MCC + 0.2*AUC if pure MCC prunes too aggressively.",
+      "reason": "The current composite objective has a trivial floor of 0.562 for all-DOWN prediction. Optuna's best value (0.567) barely exceeded this, proving the optimizer exploited the all-DOWN shortcut instead of learning genuine discrimination. MCC = (TP*TN - FP*FN) / sqrt((TP+FP)(TP+FN)(TN+FP)(TN+FN)) is mathematically zero for any constant predictor.",
       "resume_from": "architect",
       "research_needed": false
     },
     {
       "priority": 2,
-      "type": "feature_engineering",
-      "description": "If single-column output still fails Gate 3, consider alternative feature engineering: (1) interaction term between SKEW z-score and GVZ regime, (2) time-lagged features to capture lead-lag between options sentiment and gold moves, (3) conditional features activated only during high-volatility regimes.",
-      "reason": "Backup plan if dimensionality reduction alone is insufficient.",
+      "type": "hyperparameter_bounds_fix",
+      "description": "Tighten Optuna HP search to prevent over-regularization. Changes: learning_rate [0.01, 0.15] (was [0.005, 0.1]), n_estimators [200, 800] (was [100, 500]), reg_lambda [0.1, 3.0] (was [0.5, 10.0]), reg_alpha [0.0, 1.0] (was [0.0, 5.0]), min_child_weight [3, 15] (was [5, 20]), colsample_bytree [0.5, 0.95] (was [0.4, 0.9]).",
+      "reason": "Attempt 1 best: learning_rate=0.003, reg_lambda=6.28, reg_alpha=1.38, n_estimators=100. Effective learning = 100*0.003 = 0.3 steps. The model cannot learn with this regularization. P(DOWN) range [0.517, 0.559] proves the model barely deviated from the prior.",
+      "resume_from": "architect",
+      "research_needed": false
+    },
+    {
+      "priority": 3,
+      "type": "class_weight_fix",
+      "description": "Fix scale_pos_weight handling. Constrain to [0.9, 2.0] or fix to n_up/n_down (~1.06). Remove the option for values < 0.9 which down-weight UP class and amplify all-DOWN incentive. Also change early stopping metric from logloss to auc.",
+      "reason": "Attempt 1: scale_pos_weight=0.81 down-weighted UP class, encouraging all-DOWN. Combined with flawed objective, this reinforced the trivial prediction. Early stopping on logloss allowed convergence to the prior (constant output) without penalty.",
+      "resume_from": "architect",
+      "research_needed": false
+    },
+    {
+      "priority": 4,
+      "type": "feature_adjustment",
+      "description": "Minor feature changes: (1) Drop rate_surprise (unsigned), keep only rate_surprise_signed. These are highly correlated and the signed version subsumes the unsigned. (2) Optionally add rv_ratio_5_20 (5d/20d vol ratio) for faster regime shift detection. Net feature count: 17-18.",
+      "reason": "rate_surprise and rate_surprise_signed correlation is very high (abs(rate_surprise) = rate_surprise when positive). Dropping one reduces multicollinearity. rv_ratio_5_20 provides faster signal than 10d/30d.",
+      "resume_from": "architect",
+      "research_needed": false
+    },
+    {
+      "priority": 5,
+      "type": "model_alternative",
+      "description": "Optionally include LightGBM as a categorical HP choice within Optuna (model_type: 'xgboost' or 'lightgbm'). LightGBM uses leaf-wise growth which may find weak signals more efficiently. Different gradient computation may avoid the same collapse mode.",
+      "reason": "XGBoost collapsed to trivial predictor. LightGBM's different tree growth strategy may produce different optimization landscape. Low priority -- fix objective first.",
       "resume_from": "architect",
       "research_needed": false
     }
-  ]
+  ],
+  "previous_feedback": {
+    "attempt": 1,
+    "gate1_passed": false,
+    "gate2_passed": "SKIPPED (trivial predictor)",
+    "root_cause": "Optuna objective function exploit: composite (40% F1_DOWN + 30% AUC + 30% balanced_acc) achievable at 0.562 by trivial all-DOWN prediction. Optuna best=0.567, barely above trivial floor. Combined with extreme regularization (lr=0.003, reg_lambda=6.28) and scale_pos_weight=0.81 (amplifying DOWN bias).",
+    "key_evidence": [
+      "ALL 2959 predictions are DOWN (100%)",
+      "P(DOWN) range [0.517, 0.559] with std=0.007",
+      "Balanced accuracy = 0.50 (random) on all splits",
+      "Train AUC=0.80, Val AUC=0.50, Test AUC=0.55 (massive overfitting gap)",
+      "Optuna best value 0.567 vs trivial floor 0.562 (only 0.005 above trivial)",
+      "Effective learning: 100 * 0.003 = 0.3 gradient steps (extreme under-training)"
+    ],
+    "what_failed_in_attempt_1": [
+      "Optuna objective rewards trivial all-DOWN (F1_DOWN=0.654 for free)",
+      "Heavy regularization pushes predictions toward prior (48.6% DOWN)",
+      "scale_pos_weight=0.81 down-weights UP, amplifying all-DOWN incentive",
+      "Early stopping on logloss allows convergence to constant output",
+      "Val AUC=0.50 means zero generalization despite train AUC=0.80"
+    ],
+    "anti_patterns": [
+      "DO NOT use F1_DOWN in objective (exploitable by all-DOWN prediction)",
+      "DO NOT allow learning_rate < 0.01 (prevents learning)",
+      "DO NOT allow reg_lambda > 3.0 or reg_alpha > 1.0 (over-regularization)",
+      "DO NOT allow scale_pos_weight < 0.9 (amplifies majority class bias)",
+      "DO NOT use logloss for early stopping (use auc instead)"
+    ],
+    "what_might_still_work": [
+      "The 18 features have NOT been properly tested -- model was prevented from learning",
+      "Train AUC=0.80 proves features contain in-sample information",
+      "Test AUC=0.55 suggests weak but non-zero out-of-sample signal",
+      "Feature importance is well-distributed (no single feature dominance)",
+      "MCC-based objective + relaxed regularization should produce non-trivial predictions"
+    ]
+  }
 }

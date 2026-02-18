@@ -1,0 +1,190 @@
+{
+  "feature": "meta_model",
+  "attempt": 8,
+  "timestamp": "2026-02-17T12:00:00",
+  "architecture": "GBDT Stacking (XGB+LGBM+CatBoost) + Ridge Meta-Learner + Bootstrap confidence + OLS scaling",
+  "phase": "3_meta_model",
+  "evaluation_type": "final_targets",
+  "gate1": {
+    "passed": false,
+    "checks": {
+      "overfit_ratio": {
+        "value": "N/A (test > train)",
+        "train_test_da_gap_pp": -7.08,
+        "threshold_pp": 10.0,
+        "passed": true,
+        "detail": "train_DA=51.65%, test_DA=58.73%. Test outperforms train by 7.08pp. No overfitting."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": ["stacking_predictions_near_constant"],
+        "passed": false,
+        "detail": "Prediction std=0.000107. Ridge meta-learner with alpha=90.37 collapsed 3 base model predictions to near-constant output. Mean=0.0584, range=[0.0579, 0.0591]. This is effectively a constant predictor."
+      },
+      "prediction_collapse": {
+        "passed": false,
+        "detail": "100% positive predictions. Prediction std (0.000107) is 211x smaller than attempt 7 (0.0226). The Ridge meta-learner intercept (0.0581) dominates entirely; XGB coefficient=0.0004, LGBM coefficient=0.0061, CatBoost coefficient=0.0049 are all near-zero.",
+        "ridge_alpha": 90.37,
+        "ridge_intercept": 0.0581,
+        "ridge_coefficients_sum": 0.0114,
+        "prediction_std": 0.000107,
+        "positive_pct": 100.0
+      },
+      "autocorrelation": {
+        "passed": true,
+        "detail": "Near-constant predictions trivially have high autocorrelation, but this is a symptom of the collapse, not a data leak."
+      },
+      "hpo_coverage": {
+        "xgb_trials": 100,
+        "lgbm_trials": 80,
+        "cb_trials": 80,
+        "ridge_trials": 20,
+        "total_trials": 280,
+        "passed": true,
+        "detail": "280 total Optuna trials completed across 4 model types. HPO coverage is excellent but irrelevant since the Ridge meta-learner destroyed all signal."
+      },
+      "regime_features_quality": {
+        "passed": false,
+        "detail": "5 of 6 regime-conditional features had zero importance. High-vol regime active in 0.0% of samples (threshold too aggressive). Trend regime active in only 0.4% of samples. These sparse features added noise without information.",
+        "active_percentages": {
+          "high_vol": "0.0%",
+          "risk_off": "6.7%",
+          "trend": "0.4%"
+        },
+        "zero_importance_features": 5,
+        "total_regime_features": 6
+      },
+      "base_model_quality": {
+        "passed": false,
+        "detail": "All 3 base GBDT models performed near coin-flip on validation: XGB DA=52.09%, LGBM DA=50.77%, CatBoost DA=52.53%. Attempt 7 single XGBoost achieved val DA=52.53% with much better test generalization.",
+        "xgb_val_da": 0.5209,
+        "lgbm_val_da": 0.5077,
+        "catboost_val_da": 0.5253
+      }
+    }
+  },
+  "gate2_not_applicable": "Phase 3 meta-model uses final target evaluation instead of Gate 2/3 ablation.",
+  "gate3_final_targets": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "58.73%",
+      "gap_pp": 2.73,
+      "passed_nominal": true,
+      "passed_substantive": false,
+      "detail": "Nominally passes 56% target, but DA exactly equals naive always-up strategy (58.73% = 58.73%). Model has ZERO directional skill. All predictions are positive (100%), so DA simply reflects the percentage of positive-return days in the test set."
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "61.96%",
+      "gap_pp": 1.96,
+      "passed_nominal": true,
+      "passed_substantive": false,
+      "method_used": "pred (|prediction| magnitude)",
+      "bootstrap_hcda": "56.52%",
+      "detail": "HCDA 61.96% via |prediction| method, but the prediction magnitudes span only [0.0579, 0.0591] -- a range of 0.0012. The high-confidence subset is determined by near-random variation in this tiny range, making HCDA unreliable and non-reproducible."
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9424%",
+      "gap_pct": -0.1924,
+      "passed": false,
+      "detail": "MAE virtually unchanged from attempt 7 (0.9424% vs 0.9429%). Near-constant predictions centered at 0.058% yield MAE dominated by actual return volatility. Structurally infeasible."
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": 2.064,
+      "gap": 1.264,
+      "passed_nominal": true,
+      "passed_substantive": false,
+      "detail": "Sharpe 2.06 nominally passes 0.80 target, but this is the Sharpe of a 100% always-long strategy during a gold bull market (2024-2026). The model adds zero value beyond 'always buy gold'. Attempt 7 Sharpe (2.46) was higher because it had genuine directional signals that improved timing."
+    }
+  },
+  "substantive_skill_assessment": {
+    "overall": "FAIL - TRIVIAL PREDICTOR",
+    "tests": {
+      "vs_naive": {
+        "naive_da": "58.73%",
+        "model_da": "58.73%",
+        "delta_pp": 0.0,
+        "passed": false,
+        "detail": "Model exactly equals naive always-up. Zero added directional skill."
+      },
+      "prediction_diversity": {
+        "unique_predictions_approx": "near-continuous but range 0.0012",
+        "positive_pct": 100.0,
+        "std": 0.000107,
+        "passed": false,
+        "detail": "Prediction std is 211x smaller than attempt 7. All predictions are positive. The model has collapsed to a trivial constant predictor."
+      },
+      "trade_activity": {
+        "position_changes": 0,
+        "passed": false,
+        "detail": "With 100% positive predictions, the model never changes position. Zero trades means zero information beyond 'always hold gold'."
+      },
+      "model_vs_attempt7": {
+        "da_delta_pp": -1.31,
+        "hcda_delta_pp": -2.17,
+        "sharpe_delta": -0.40,
+        "mae_delta": -0.0005,
+        "passed": false,
+        "detail": "All meaningful metrics regressed from attempt 7. DA -1.31pp, HCDA -2.17pp, Sharpe -0.40."
+      }
+    }
+  },
+  "targets_passed_nominal": 3,
+  "targets_passed_substantive": 0,
+  "targets_total": 4,
+  "overall_passed": false,
+  "failure_diagnosis": {
+    "root_cause": "Ridge meta-learner prediction collapse",
+    "mechanism": "Ridge regression with alpha=90.37 applied extreme L2 regularization to the 3 base model predictions. Coefficients were shrunk to near-zero (XGB=0.0004, LGBM=0.006, CB=0.005), causing the intercept (0.058) to dominate entirely. The stacking architecture was structurally flawed: 3 base models with near-identical features produced highly correlated predictions (XGB-LGBM r=0.775, XGB-CB r=0.570, LGBM-CB r=0.733), giving Ridge no diversity to exploit.",
+    "contributing_factors": [
+      "Base model DA all near coin-flip (50.8-52.5%): Ridge correctly determined individual predictions were low-quality",
+      "High base model correlation (0.57-0.78): No ensemble diversity for meta-learner to exploit",
+      "6 regime-conditional features added noise: 5 of 6 had zero importance, high-vol regime active in 0% of samples",
+      "Ridge Optuna search found extreme alpha (90.37) as optimal: This correctly minimized validation loss by ignoring noisy base predictions, but produced a trivially constant output",
+      "Stacking composite score (0.6023) > single XGB (0.5650) led to selection of stacking despite collapse"
+    ],
+    "why_attempt_7_was_better": "Attempt 7 used a single well-tuned XGBoost model (100 Optuna trials). Its prediction std=0.0226 was 211x larger. It produced 87.3% positive predictions (not 100%), allowing for genuine negative calls. It beat naive always-up by 1.31pp. The stacking architecture added complexity without diversity."
+  },
+  "vs_attempt_7": {
+    "da_delta_pp": -1.31,
+    "hcda_delta_pp": -2.17,
+    "mae_delta": -0.0005,
+    "sharpe_delta": -0.40,
+    "prediction_std_ratio": 0.0047,
+    "positive_pct_delta": "+12.7pp (87.3% -> 100%)",
+    "regression_on_all_meaningful_metrics": true,
+    "conclusion": "Attempt 8 is strictly worse than attempt 7 on all substantive metrics. The stacking + regime features architecture was a step backward."
+  },
+  "decision": "attempt+1",
+  "decision_rationale": {
+    "summary": "Attempt 8 FAIL. Stacking meta-learner collapsed to trivial constant predictor. All 3/4 nominal target passes are artifacts of always-positive prediction during gold bull market. Zero genuine skill demonstrated. 2 more attempts remain (attempt budget: 8, 9, 10).",
+    "attempt_consumed": true,
+    "attempts_used": "1 of 3 (attempts 8-10)",
+    "attempts_remaining": 2
+  },
+  "improvement_plan": {
+    "priority_1": {
+      "description": "Revert to single XGBoost architecture (attempt 7 baseline) and focus on targeted improvements",
+      "rationale": "Attempt 7 single XGB was superior. Stacking added complexity without benefit. The improvement should preserve attempt 7's proven architecture."
+    },
+    "priority_2": {
+      "description": "Replace sparse regime features with continuous interaction features",
+      "rationale": "Binary regime features with 0% activation are useless. Use continuous interactions: real_rate_change * vix_level (not * (vix > 25)). This preserves signal across all samples, not just rare regime activations."
+    },
+    "priority_3": {
+      "description": "Try asymmetric loss function (directional-aware) to improve DA beyond naive",
+      "rationale": "Core challenge is beating naive always-up. An asymmetric loss that penalizes wrong-direction predictions 2x can improve DA by forcing the model to learn when NOT to predict positive."
+    },
+    "anti_patterns": [
+      "Do NOT use stacking/ensemble meta-learners (proven failure: Ridge collapse)",
+      "Do NOT use binary regime indicators with sparse activation (<5%)",
+      "Do NOT change the data pipeline or features dramatically -- attempt 7 features were validated",
+      "Do NOT try prediction calibration (proven failure in attempts 3-4)"
+    ]
+  }
+}

@@ -1,0 +1,124 @@
+DXY Submodel Data Preparation Report
+=====================================
+Date: 2026-02-17
+Feature: dxy
+Attempt: 1 (Revised - HMM instead of GMM)
+Design Document: docs/design/dxy_hmm_1.md
+
+TASK SUMMARY
+------------
+Prepared DXY submodel input data according to design specification.
+The design uses a hybrid deterministic-probabilistic approach with:
+  1. Hidden Markov Model (3-state HMM) for regime detection
+  2. Expanding z-score of 20-day momentum
+  3. Expanding z-score of 20-day realized volatility
+
+DATA SOURCES
+------------
+Primary: DX-Y.NYB (Yahoo Finance)
+Warmup period: Starting from 2014-10-01 (provides buffer for expanding windows)
+
+QUALITY CHECK RESULTS
+---------------------
+
+1. Raw Data Existence
+   - Source file: data/raw/dxy.csv
+   - Status: EXISTS
+   - Date range: 2015-01-02 to 2025-02-13
+   - Rows: 2545
+
+2. Processed Data Creation
+   - Output file: data/processed/dxy_features_input.csv
+   - Status: CREATED
+   - Date range: 2014-10-01 to 2026-02-17
+   - Rows: 2862
+   - Columns: dxy_close, dxy_log_ret
+
+3. Data Quality Metrics
+   ✓ Missing values: 1 (only first log_ret, expected)
+   ✓ DXY value range: 84.95 - 114.11 (within 70-130 bounds)
+   ✓ Log return range: -0.0240 to 0.0203
+   ✓ Extreme moves (|log_ret| > 5%): 0
+   ✓ Max gap between dates: 4 days
+   ✓ Gaps > 3 business days: 78 (weekend/holiday gaps)
+
+4. Date Range Coverage
+   - Base features: 2015-01-30 to 2025-02-12 (2523 rows)
+   - Target data: 2015-01-02 to 2025-02-12 (2542 rows)
+   - DXY data: 2014-10-01 to 2026-02-17 (2862 rows)
+   - Warmup coverage: Starts 131 days after ideal 252-day warmup
+     * Design allows 60-252 day warmup (Optuna tunable)
+     * Current coverage supports up to ~160 day warmup
+   ✓ DXY fully covers base_features date range
+
+5. Target Alignment
+   ✓ gold_return_next exists in target data
+   - Common dates (DXY ∩ Target): 2542
+   - Common dates (DXY ∩ Base): 2523
+   - Target stats: mean=0.0398%, std=0.9239%
+
+6. Data Statistics
+   DXY Close:
+     - Mean: 98.07
+     - Std: 5.05
+     - Min: 84.95
+     - Max: 114.11
+
+   Log Returns:
+     - Mean: 0.0044%
+     - Std: 0.44%
+     - Min: -2.40%
+     - Max: 2.03%
+
+DESIGN COMPLIANCE
+-----------------
+✓ Single ticker (DX-Y.NYB) as specified for Attempt 1
+✓ Daily frequency (no interpolation needed)
+✓ Log returns computed correctly: log(DXY_t) - log(DXY_t-1)
+✓ Forward-fill gaps up to 3 days
+✓ Warmup buffer included (starts from 2014-10-01)
+✓ No extreme outliers (|log_ret| < 5%)
+✓ Data covers full base_features range
+
+CRITICAL DESIGN CORRECTIONS FROM PREVIOUS ATTEMPT
+-------------------------------------------------
+1. GMM → HMM: Previous attempt used GaussianMixture (treats observations independently).
+   This attempt uses GaussianHMM (captures temporal regime transitions via Markov chain).
+
+2. 3-state HMM: Following proven success pattern from VIX, cross_asset submodels.
+
+3. Momentum z-score: Replacing previous PCA divergence which had MinMax scaling issues.
+   Using proven pattern from vix_mean_reversion_z and tech_mean_reversion_z.
+
+4. Full Gate 1/2/3 evaluation: Previous attempt was auto-evaluated (MI=0.019) without
+   ablation testing. This attempt undergoes complete evaluation.
+
+COMPARISON WITH real_rate FAILURE MODE
+---------------------------------------
+DXY avoids all 5 real_rate failure points:
+
+1. Frequency mismatch: DXY is daily (not monthly-to-daily interpolation)
+2. Artificial smoothness: No interpolation artifacts
+3. Lookahead bias: Expanding windows only use past data
+4. Feature redundancy: 3 compact features (not 7 like real_rate attempt 5)
+5. Weak signal: DXY has strong, documented inverse relationship with gold
+
+NEXT STEPS
+----------
+Data preparation is complete and ready for builder_model.
+
+builder_model should:
+1. Generate self-contained train.ipynb for Kaggle execution
+2. Include pip install hmmlearn at start
+3. Fetch data from Yahoo Finance (DX-Y.NYB, start='2014-10-01')
+4. Implement 3 feature generation functions:
+   - generate_regime_feature (HMM with 2-3 states)
+   - generate_momentum_feature (expanding z-score, 10-30 day window)
+   - generate_volatility_feature (expanding z-score, 10-30 day window)
+5. Run Optuna with 30 trials, 300s timeout
+6. Output 3 columns: dxy_regime_prob, dxy_momentum_z, dxy_vol_z
+
+CONCLUSION
+----------
+[PASS] All quality checks passed.
+Data is ready for builder_model to generate Kaggle training notebook.

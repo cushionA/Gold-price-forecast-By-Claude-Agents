@@ -1,0 +1,175 @@
+{
+  "feature": "meta_model_weekly",
+  "attempt": 1,
+  "timestamp": "2026-02-17T12:00:00",
+  "phase": "phase3_weekly_meta_model",
+  "target_type": "gold_return_5d",
+
+  "gate1": {
+    "passed": false,
+    "checks": {
+      "overfit_ratio": {
+        "description": "Train-test DA gap",
+        "train_da": 0.5376,
+        "test_da": 0.6608,
+        "gap_pp": -12.32,
+        "passed": true,
+        "note": "Test outperforms train (-12.32pp gap). Nominal PASS but misleading -- both DA values simply reflect the fraction of positive returns in each split (train 53.69%, test 66.08%)"
+      },
+      "constant_output": {
+        "description": "Prediction variance check",
+        "prediction_std": 0.005453,
+        "prediction_unique_values": 10,
+        "prediction_range": [0.09539, 0.13999],
+        "all_predictions_positive": true,
+        "positive_pct": 100.0,
+        "passed": false,
+        "severity": "CRITICAL",
+        "note": "Model output is effectively constant. Only 10 unique raw prediction values across 457 test samples. 67.4% of test predictions are 0.11269. All predictions are positive (100%). Model is a trivial always-long predictor."
+      },
+      "nan_check": {
+        "description": "No NaN in output",
+        "nan_count": 0,
+        "passed": true
+      },
+      "leak_check": {
+        "description": "Autocorrelation / leak indicators",
+        "trades_in_test": 0,
+        "position_changes": 0,
+        "passed": true,
+        "note": "No meaningful trades because prediction sign never changes. Not a leak per se, but an artifact of near-constant output."
+      },
+      "model_vs_naive": {
+        "description": "Model must outperform naive always-up strategy",
+        "model_da_test": 0.6608,
+        "naive_always_up_da_test": 0.6608,
+        "delta_pp": 0.0,
+        "model_da_val": 0.5307,
+        "naive_always_up_da_val": 0.5307,
+        "delta_val_pp": 0.0,
+        "model_da_train": 0.5376,
+        "naive_always_up_da_train": 0.5369,
+        "delta_train_pp": 0.08,
+        "passed": false,
+        "severity": "CRITICAL",
+        "note": "On validation and test sets, model DA is EXACTLY equal to naive always-up. On train, delta is 0.08pp (1-2 samples). The model has learned nothing beyond a positive bias."
+      },
+      "optuna_convergence": {
+        "description": "Optuna HPO explored meaningful variation",
+        "trials_completed": 100,
+        "best_value": 0.6642,
+        "top_5_val_da_values": [0.5307, 0.5307, 0.5307, 0.5307, 0.5307],
+        "all_top_5_identical_da": true,
+        "passed": false,
+        "severity": "HIGH",
+        "note": "All top-5 Optuna trials produced identical val_da=53.07%, equal to naive. Optuna optimized the composite objective mainly via HCDA bootstrap variance, not actual prediction quality. The DA component is saturated at naive."
+      },
+      "ols_scaling": {
+        "description": "OLS scaling factor reasonableness",
+        "alpha_ols": 2.7566,
+        "raw_prediction_mean": 0.1131,
+        "scaled_prediction_mean": 0.3106,
+        "actual_return_mean_test": 0.8602,
+        "scale_ratio": 2.76,
+        "passed": false,
+        "severity": "HIGH",
+        "note": "OLS alpha=2.76 means raw predictions are ~3x too small even after scaling. Actual weekly returns average 0.86% but model predictions average 0.31% after scaling (0.11% raw). Model has not learned the scale of weekly returns."
+      }
+    }
+  },
+
+  "gate2": {
+    "passed": null,
+    "note": "Skipped for weekly meta-model (uses base features directly, not submodel evaluation)"
+  },
+
+  "gate3_meta_targets": {
+    "passed": false,
+    "checks": {
+      "direction_accuracy": {
+        "target": "> 56.0%",
+        "actual": 0.6608,
+        "actual_pct": "66.08%",
+        "gap": "+10.08pp",
+        "nominal_pass": true,
+        "substantive_pass": false,
+        "severity": "CRITICAL",
+        "reason": "DA=66.08% exactly equals naive always-up DA. Model has zero directional information. Formal target met only because test period has 66% positive returns."
+      },
+      "high_confidence_da": {
+        "target": "> 60.0%",
+        "actual_bootstrap": 0.6848,
+        "actual_pred": 0.6190,
+        "primary_method": "bootstrap",
+        "primary_value": "68.48%",
+        "gap": "+8.48pp",
+        "nominal_pass": true,
+        "substantive_pass": false,
+        "severity": "CRITICAL",
+        "reason": "HCDA(bootstrap)=68.37% vs naive on same subset=68.37%. Delta=0.00pp. Bootstrap confidence selects periods with low inter-model variance, which correlates with the gold uptrend regime. The high-confidence subset simply has a higher fraction of positive returns. HCDA(|pred|)=61.90% vs naive 61.90%, also 0.00pp delta. Both HCDA methods reflect selection bias, not model skill."
+      },
+      "mae": {
+        "target": "< 1.70%",
+        "actual": 2.0696,
+        "actual_pct": "2.07%",
+        "gap": "-0.37%",
+        "nominal_pass": false,
+        "substantive_pass": false,
+        "reason": "MAE 2.07% exceeds 1.70% target by 0.37pp. Raw predictions near 0.11% vs actual returns averaging 0.86% with std 2.68%. Even after OLS scaling to 0.31%, predictions are far too conservative. Zero-prediction MAE would be 2.15% -- model is only 4% better than predicting zero."
+      },
+      "sharpe_ratio": {
+        "target": "> 0.80",
+        "actual_approach_a": 2.0257,
+        "actual_approach_b": 2.2960,
+        "primary": "approach_a",
+        "primary_value": "2.03",
+        "gap": "+1.23",
+        "nominal_pass": true,
+        "substantive_pass": false,
+        "severity": "CRITICAL",
+        "reason": "Sharpe=2.03 is entirely driven by always-long position during gold uptrend test period (Apr 2024 - Feb 2026). Buy-and-hold gold would have similar Sharpe. Model makes 0 trades during test. Sharpe reflects gold's trend, not model skill."
+      }
+    },
+    "nominal_targets_passed": "3/4",
+    "substantive_targets_passed": "0/4",
+    "note": "All 3 nominal passes (DA, HCDA, Sharpe) are artifacts of the gold uptrend in the test period combined with an always-positive model. No metric shows any evidence of model skill beyond naive always-up."
+  },
+
+  "root_cause_analysis": {
+    "primary_diagnosis": "Model collapsed to constant positive prediction (trivial always-long)",
+    "mechanism": [
+      "1. XGBoost with strong regularization (max_depth=2, min_child_weight=21, reg_lambda=5.2, reg_alpha=2.0) + weekly target noise => model converges to predicting the unconditional mean.",
+      "2. Weekly 5-day returns have higher variance (~2.7%) than daily (~1.0%). The signal-to-noise ratio for conditional prediction is much worse.",
+      "3. Overlapping targets (each daily row shares 4/5 days with neighbors) cause massive autocorrelation in the training target. Regularized tree model defaults to a near-constant prediction.",
+      "4. Optuna composite objective (40% Sharpe + 30% DA + 10% MAE + 20% HCDA) rewards any model that predicts positive (since train set is ~54% positive). The objective landscape has a broad flat optimum around always-positive prediction.",
+      "5. OLS scaling amplifies the tiny positive bias (0.11% -> 0.31%) but cannot create directional variation.",
+      "6. Bootstrap confidence (5 nearly-identical models) produces near-1.0 confidence for all predictions, making HCDA equivalent to selecting random subsets."
+    ],
+    "evidence": {
+      "only_10_unique_predictions": "Model learned ~10 leaf values, most mapping to 0.1127",
+      "train_val_test_all_match_naive": "DA matches naive in all 3 splits within 0.1pp",
+      "optuna_top_5_identical_da": "All top trials have val_da=53.07% = naive",
+      "zero_trades": "Position never changes from long",
+      "bootstrap_std_extremely_low": "Mean bootstrap std = 0.014 (models nearly identical)"
+    }
+  },
+
+  "vs_daily_attempt_7": {
+    "daily_da": 0.6004,
+    "daily_hcda": 0.6413,
+    "daily_mae": 0.9429,
+    "daily_sharpe": 2.4636,
+    "daily_da_vs_naive": "+2.3pp above naive",
+    "weekly_da": 0.6608,
+    "weekly_hcda": 0.6848,
+    "weekly_mae": 2.0696,
+    "weekly_sharpe": 2.0257,
+    "weekly_da_vs_naive": "+0.0pp above naive",
+    "comparison": "Daily attempt 7 had genuine model skill (2.3pp above naive, first model to beat naive). Weekly attempt 1 has zero skill. The weekly model is strictly inferior despite nominally higher DA and HCDA -- those numbers are inflated by the test period's 66% positive rate."
+  },
+
+  "overall_passed": false,
+  "decision": "attempt+1",
+  "attempt_consumed": true,
+  "reason": "FAIL -- Model collapsed to trivial always-positive prediction. 0/4 targets substantively passed. DA, HCDA, and Sharpe formally meet thresholds but are entirely explained by naive always-up strategy in a gold uptrend test period. No evidence of learned directional or magnitude prediction. Root cause: overlapping weekly targets + excessive regularization => constant output. Attempt 2 must fundamentally address the target construction and model incentive structure."
+}

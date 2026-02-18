@@ -163,7 +163,7 @@ def load_precomputed_features():
 
     # Filter to base_features date range
     df = df[df.index >= '2015-01-30']
-    df = df[df.index <= '2025-02-12']
+    # No end date filter - use all available data
 
     # Select output columns
     output_df = df[['xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence']].copy()

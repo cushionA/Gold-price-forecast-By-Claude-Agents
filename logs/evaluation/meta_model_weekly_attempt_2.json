@@ -1,0 +1,286 @@
+{
+  "feature": "meta_model_weekly",
+  "attempt": 2,
+  "timestamp": "2026-02-17T15:00:00",
+  "phase": "phase3_weekly_meta_model",
+  "target_type": "gold_return_5d",
+
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit_ratio": {
+        "description": "Train-test DA gap",
+        "train_da": 0.5657,
+        "test_da": 0.6324,
+        "gap_pp": -6.67,
+        "passed": true,
+        "note": "Test outperforms train by 6.67pp. Not overfitting on DA -- but both are below their respective naive baselines (train skill +3.29pp, test skill -2.84pp). The gap reflects different positive fractions across splits, not genuine generalization."
+      },
+      "constant_output": {
+        "description": "Prediction variance check",
+        "prediction_std": 0.1041,
+        "prediction_unique_values": 18,
+        "prediction_range": [-0.1151, 0.3386],
+        "positive_pct": 87.96,
+        "passed": true,
+        "note": "Major improvement from Attempt 1 (std 0.005 -> 0.104, unique 10 -> 18, positive 100% -> 88%). Model now produces both positive and negative predictions. However, 18 unique values across 457 samples is still very coarse -- likely ~18 leaf nodes. Not yet a rich predictor.",
+        "vs_attempt_1": {
+          "std_improvement": "19x (0.005 -> 0.104)",
+          "unique_improvement": "1.8x (10 -> 18)",
+          "positive_pct_improvement": "100% -> 88%"
+        }
+      },
+      "nan_check": {
+        "description": "No NaN in output",
+        "nan_count": 0,
+        "passed": true
+      },
+      "leak_check": {
+        "description": "Autocorrelation / leak indicators",
+        "trades_in_test": 19,
+        "position_changes": 66,
+        "passed": true,
+        "note": "66 position changes (from 0 in Attempt 1). Trade-activity gate in objective function worked. 19 weekly-equivalent trades over 457 days (~10 per year)."
+      },
+      "model_vs_naive": {
+        "description": "Model must outperform naive always-up strategy",
+        "model_da_test": 0.6324,
+        "naive_always_up_da_test": 0.6608,
+        "delta_pp": -2.84,
+        "model_da_val": 0.4891,
+        "naive_always_up_da_val": 0.5217,
+        "delta_val_pp": -3.26,
+        "model_da_train": 0.5657,
+        "naive_always_up_da_train": 0.5329,
+        "delta_train_pp": 3.29,
+        "passed": false,
+        "severity": "HIGH",
+        "note": "Model beats naive on TRAIN (+3.29pp) but loses on BOTH val (-3.26pp) and test (-2.84pp). Optuna selected a trial with +6.52pp val DA skill, but this skill did not survive post-HPO evaluation -- the Optuna-internal val evaluation used different data handling than the final evaluation, or the selected model overfit the 91-sample val set."
+      },
+      "optuna_convergence": {
+        "description": "Optuna HPO explored meaningful variation",
+        "trials_completed": 100,
+        "best_value": 0.6468,
+        "best_trial_val_da": 0.5870,
+        "best_trial_da_skill_pp": 6.52,
+        "top_5_val_da_values": [0.5870, 0.5652, 0.5435, 0.5435, 0.5326],
+        "all_top_5_identical_da": false,
+        "passed": true,
+        "note": "Improvement from Attempt 1: top 5 trials show genuine variation in val DA (53.3% to 58.7%). Optuna explored meaningful parameter space. However, the best trial's +6.52pp val skill did NOT generalize to test (-2.84pp) -- 91 val samples too noisy for reliable HPO."
+      },
+      "ols_scaling": {
+        "description": "OLS scaling factor reasonableness",
+        "alpha_ols": 0.8512,
+        "raw_prediction_mean": 0.0983,
+        "scaled_prediction_mean": 0.0837,
+        "actual_return_mean_test": 0.8605,
+        "scale_ratio": 0.85,
+        "passed": true,
+        "note": "OLS alpha=0.85 is reasonable (vs 2.76 in Attempt 1). Scaling slightly shrinks predictions. Model still predicts ~10x smaller magnitudes than actual weekly returns, but this is inherent to regularized regression -- the model hedges magnitude for stability."
+      }
+    }
+  },
+
+  "gate2": {
+    "passed": null,
+    "note": "Skipped for weekly meta-model (uses base features directly, not submodel evaluation)"
+  },
+
+  "gate3_meta_targets": {
+    "passed": false,
+    "checks": {
+      "direction_accuracy": {
+        "target": "> 56.0%",
+        "actual": 0.6324,
+        "actual_pct": "63.24%",
+        "gap": "+7.24pp",
+        "nominal_pass": true,
+        "substantive_pass": false,
+        "severity": "HIGH",
+        "reason": "DA=63.24% formally passes 56% target, but is 2.84pp BELOW naive always-up (66.08%). Model's negative predictions are only 38.2% correct (need >50% to beat naive). Net contribution of negative predictions: -13 (21 correct negatives minus 34 false negatives). Model would be better off predicting positive for everything."
+      },
+      "high_confidence_da": {
+        "target": "> 60.0%",
+        "actual_bootstrap": 0.7935,
+        "actual_pred": 0.6250,
+        "primary_method": "bootstrap",
+        "primary_value": "79.35%",
+        "gap": "+19.35pp",
+        "nominal_pass": true,
+        "substantive_pass": false,
+        "severity": "HIGH",
+        "reason": "HCDA(bootstrap)=79.35% but naive on same subset=79.35%. Delta=0.00pp. Bootstrap confidence threshold=0.949 selects periods with near-unanimous model agreement, which correlates with stable uptrend regimes. The 79.35% HC subset positive rate vs 66.08% overall confirms selection bias, not model skill. HCDA(|pred|)=62.50% also equals naive on its subset (62.50%). Both methods show zero skill."
+      },
+      "mae": {
+        "target": "< 1.70%",
+        "actual": 2.1250,
+        "actual_pct": "2.1250%",
+        "gap": "-0.4250%",
+        "nominal_pass": false,
+        "substantive_pass": false,
+        "reason": "MAE 2.125% exceeds 1.70% target by 0.425pp. Zero-prediction MAE would be 2.153%, so model achieves only 1.3% improvement over predicting zero. The target of 1.70% requires predictions to explain >21% of weekly return variance, which may be structurally infeasible given weekly return volatility (std=2.68%)."
+      },
+      "sharpe_ratio": {
+        "target": "> 0.80",
+        "actual_approach_a": 0.7054,
+        "actual_approach_b": 0.9869,
+        "primary": "approach_a",
+        "primary_value": "0.71",
+        "gap": "-0.09",
+        "nominal_pass": false,
+        "substantive_pass": false,
+        "reason": "Sharpe Approach A = 0.71, below 0.80 target. Major drop from Attempt 1 (2.03) because model now makes trades -- but those trades are net-negative. Approach B = 0.99 (non-overlapping weekly) passes target but uses a different methodology. Naive buy-and-hold Sharpe = 5.10 (sqrt252). Model's active trading destroys value compared to holding."
+      }
+    },
+    "nominal_targets_passed": "2/4",
+    "substantive_targets_passed": "0/4",
+    "note": "Formal target count worsened from 3/4 (attempt 1) to 2/4 (attempt 2). Sharpe A dropped from 2.03 to 0.71 (below target) because model now makes trades that lose money. DA and HCDA formally pass but show zero skill above naive. Substantively, 0/4 targets demonstrate model skill, same as Attempt 1."
+  },
+
+  "substantive_skill_tests": {
+    "da_above_naive": {
+      "requirement": "> +0.5pp",
+      "actual_pp": -2.84,
+      "passed": false,
+      "note": "DA 2.84pp BELOW naive. Worse than Attempt 1 (0.00pp)."
+    },
+    "prediction_diversity": {
+      "requirement": "> 50 unique values",
+      "actual": 18,
+      "passed": false,
+      "note": "18 unique predictions. Improved from 10 but still far from 50. Model has ~18 effective leaf nodes."
+    },
+    "trade_activity": {
+      "requirement": "> 10 position changes",
+      "actual": 66,
+      "passed": true,
+      "note": "66 position changes. Major improvement from 0. Trade-activity gate worked."
+    },
+    "prediction_balance": {
+      "requirement": "30-90% positive",
+      "actual_pct": 87.96,
+      "passed": true,
+      "note": "88% positive (borderline). Improved from 100% but still heavily positive-biased."
+    },
+    "prediction_variation": {
+      "requirement": "std > 0.1",
+      "actual": 0.1041,
+      "passed": true,
+      "note": "std=0.104 (barely passes). Improved 19x from 0.005 but magnitude is tiny compared to actual returns (std=2.68%)."
+    },
+    "summary": "3/5 substantive tests pass (trade_activity, prediction_balance, prediction_variation). But the most critical test -- DA above naive -- FAILS. The model generates variation and trades, but those trades are net-harmful."
+  },
+
+  "root_cause_analysis": {
+    "primary_diagnosis": "Model learned conditional variation on train but the variation does not generalize -- negative predictions are wrong 61.8% of the time on test",
+    "mechanism": [
+      "1. Non-overlapping training fixed the constant-output problem (18 unique predictions, 66 trades). The design changes worked as intended for their specific goals.",
+      "2. Optuna found +6.52pp DA skill on val (91 non-overlapping samples), but this skill is noise. With 91 samples, the standard error of DA is ~5pp, so +6.52pp is within 1.3 standard errors -- not statistically significant.",
+      "3. The selected model (max_depth=6, mcw=8) is much more expressive than Attempt 1 (max_depth=2, mcw=21). It learned conditional patterns on 425 train samples that captured noise, not signal.",
+      "4. On test: model predicts negative 55 times (12% of test). Of those 55, only 21 are correct (38.2%). But naive would expect 33.9% negatives. Model is slightly better than random at identifying negatives (38.2% vs 33.9%) but not enough to overcome the cost of false negatives in a 66% positive environment.",
+      "5. Quarterly analysis shows skill is inconsistent: +2.0pp in 2024Q2, -4.7pp in 2024Q3, +1.6pp in 2024Q4, -4.9pp in 2025Q1, -8.1pp in 2025Q2, -1.5pp in 2025Q3, +1.6pp in 2025Q4, -15.4pp in 2026Q1. Four quarters positive skill, four quarters negative. No consistent pattern.",
+      "6. HCDA bootstrap: 79.35% = exact naive rate on HC subset. Bootstrap confidence selects low-variance (stable trend) periods. Zero skill.",
+      "7. Sharpe dropped because active trading (66 changes) in a predominantly positive market destroys value vs buy-and-hold. Each wrong negative prediction costs ~1-3% return."
+    ],
+    "val_to_test_generalization_failure": {
+      "val_da_skill_pp": -3.26,
+      "optuna_best_val_skill_pp": 6.52,
+      "test_da_skill_pp": -2.84,
+      "explanation": "Critical discrepancy: Optuna reported +6.52pp val skill for best trial, but final model evaluation shows -3.26pp val skill. This suggests Optuna's internal val evaluation differed from the final evaluation (possibly different data handling, train_mean centering, or eval set). The 91-sample val set is too small for reliable optimization.",
+      "implication": "Cannot trust Optuna val metrics with only 91 non-overlapping samples."
+    }
+  },
+
+  "attempt_1_to_2_comparison": {
+    "improvements": {
+      "prediction_collapse_fixed": true,
+      "prediction_std": {"from": 0.005, "to": 0.104, "improvement": "19x"},
+      "unique_predictions": {"from": 10, "to": 18, "improvement": "+80%"},
+      "position_changes": {"from": 0, "to": 66, "improvement": "66 new trades"},
+      "positive_pct": {"from": 100.0, "to": 87.96, "improvement": "model predicts negative 12% of time"},
+      "ols_alpha": {"from": 2.76, "to": 0.85, "improvement": "more reasonable scaling"},
+      "optuna_da_variation": {"from": "all identical 53.07%", "to": "varies 53.3-58.7%", "improvement": "genuine exploration"}
+    },
+    "regressions": {
+      "da_vs_naive": {"from": "0.00pp", "to": "-2.84pp", "regression": "model now actively wrong on negative predictions"},
+      "nominal_targets": {"from": "3/4", "to": "2/4", "regression": "lost Sharpe A target due to trading costs"},
+      "sharpe_a": {"from": 2.03, "to": 0.71, "regression": "-1.32 due to harmful trades"},
+      "mae": {"from": 2.07, "to": 2.12, "regression": "+0.06 slight degradation"}
+    },
+    "net_assessment": "Design changes successfully addressed the constant-output collapse. The model now makes genuine predictions with variation. However, the variation is net-harmful: negative predictions are wrong 62% of the time, and active trading destroys Sharpe. The model moved from 'no skill, no harm' (Attempt 1) to 'some variation, net harmful' (Attempt 2). This is a lateral move, not an improvement."
+  },
+
+  "mae_target_feasibility": {
+    "target": 1.70,
+    "current_mae": 2.125,
+    "zero_prediction_mae": 2.153,
+    "median_abs_weekly_return": 1.774,
+    "weekly_return_std": 2.678,
+    "assessment": "LIKELY INFEASIBLE",
+    "reasoning": [
+      "Zero-prediction MAE = 2.15%. Current model achieves 2.12% -- only 1.3% better than predicting zero.",
+      "MAE target 1.70% requires explaining at least 21% of weekly return variance. Daily model explains ~12% of daily variance.",
+      "Weekly return std is 2.68x daily but weekly MAE target (1.70%) is only 2.27x daily target (0.75%). Weekly target is relatively harder.",
+      "Median |weekly return| = 1.77% -- barely above the 1.70% target. Even a perfect model cannot achieve MAE < median |return| without near-perfect magnitude prediction.",
+      "Daily meta-model attempt 7 achieved MAE=0.94% vs 0.75% target (25% above). Weekly model would need proportional improvement from 2.12% to achieve 1.70% (20% improvement) -- plausible only with perfect magnitude calibration."
+    ],
+    "revised_target_recommendation": "Consider 2.0% as a more realistic weekly MAE target, or use a relative metric (MAE / zero-prediction MAE < 0.85)."
+  },
+
+  "quarterly_da_breakdown": [
+    {"quarter": "2024Q2", "da": 54.9, "naive": 52.9, "skill_pp": 2.0, "n": 51, "neg_pred": 5},
+    {"quarter": "2024Q3", "da": 68.8, "naive": 73.4, "skill_pp": -4.7, "n": 64, "neg_pred": 11},
+    {"quarter": "2024Q4", "da": 56.2, "naive": 54.7, "skill_pp": 1.6, "n": 64, "neg_pred": 7},
+    {"quarter": "2025Q1", "da": 77.0, "naive": 82.0, "skill_pp": -4.9, "n": 61, "neg_pred": 3},
+    {"quarter": "2025Q2", "da": 51.6, "naive": 59.7, "skill_pp": -8.1, "n": 62, "neg_pred": 17},
+    {"quarter": "2025Q3", "da": 72.3, "naive": 73.8, "skill_pp": -1.5, "n": 65, "neg_pred": 3},
+    {"quarter": "2025Q4", "da": 60.9, "naive": 59.4, "skill_pp": 1.6, "n": 64, "neg_pred": 5},
+    {"quarter": "2026Q1", "da": 61.5, "naive": 76.9, "skill_pp": -15.4, "n": 26, "neg_pred": 4}
+  ],
+
+  "vs_daily_attempt_7": {
+    "daily_da": 0.6004,
+    "daily_da_vs_naive": "+2.3pp above naive",
+    "daily_hcda": 0.6413,
+    "daily_mae": 0.9429,
+    "daily_sharpe": 2.4636,
+    "weekly_da": 0.6324,
+    "weekly_da_vs_naive": "-2.84pp below naive",
+    "weekly_hcda": 0.7935,
+    "weekly_mae": 2.125,
+    "weekly_sharpe_a": 0.7054,
+    "comparison": "Daily attempt 7 has genuine skill (+2.3pp above naive) while weekly attempt 2 has negative skill (-2.84pp). The daily model remains strictly superior in substantive terms. Weekly model's nominally higher HCDA (79.35% vs 64.13%) is entirely a selection bias artifact."
+  },
+
+  "overall_passed": false,
+  "decision": "attempt+1",
+  "attempt_consumed": true,
+  "reason": "FAIL -- 2/4 formal targets met (DA, HCDA nominal), 0/4 substantive. DA skill -2.84pp below naive (worse than Attempt 1's 0.00pp). Design changes successfully fixed constant-output collapse (prediction std 19x improvement, 66 position changes) but the conditional variation learned by the model does not generalize from 91 non-overlapping val samples. Negative predictions are wrong 62% of the time, actively harming DA. Sharpe A dropped from 2.03 to 0.71 because model now makes net-harmful trades. HCDA 79.35% is pure selection bias (= naive on HC subset). Need fundamentally different approach to val/test generalization.",
+
+  "improvement_plan": {
+    "priority_1": {
+      "type": "training_data_strategy",
+      "description": "Use overlapping targets for training (2129 samples) but evaluate on non-overlapping test. The 91-sample val set is too noisy for Optuna HPO. Alternative: use time-series cross-validation (multiple non-overlapping folds) on the full training set to get more robust HPO signals.",
+      "reason": "91 non-overlapping val samples produce val DA standard error of ~5pp. Optuna's +6.52pp val skill is within noise. Need 500+ val samples for reliable HPO.",
+      "resume_from": "architect"
+    },
+    "priority_2": {
+      "type": "model_architecture",
+      "description": "Consider asymmetric loss or directional classification instead of regression. The model learns regression targets (centered returns) but is evaluated on direction (sign of prediction). A direct classification objective (logistic loss) would optimize for DA directly, not magnitude.",
+      "reason": "Current model learns magnitude prediction via reg:squarederror, then we evaluate sign. The magnitude prediction is poor (MAE 2.12%) and the sign inference from poor magnitudes is also poor. Direct classification avoids this mismatch.",
+      "resume_from": "architect"
+    },
+    "priority_3": {
+      "type": "negative_prediction_threshold",
+      "description": "Instead of using sign(prediction) for direction, use a calibrated threshold. The model's mean prediction is 0.098 (positive). Using sign(pred - threshold) with threshold = mean(pred) would center the decision boundary at the model's own mean, producing more balanced direction calls.",
+      "reason": "Currently sign(0.098) = +1, sign(0.04) = +1, sign(-0.01) = -1. The model only predicts negative for extreme outliers. A threshold at ~0.05 would rebalance.",
+      "resume_from": "architect"
+    },
+    "priority_4": {
+      "type": "mae_target_revision",
+      "description": "Revise weekly MAE target to 2.0% or use relative metric (MAE / zero-prediction MAE < 0.85). Current 1.70% target is likely structurally infeasible for weekly returns with 2.68% volatility.",
+      "reason": "Zero-prediction MAE = 2.15%. Even the daily model achieves only 12% improvement over zero-prediction. Weekly target requires 21% improvement -- likely infeasible.",
+      "resume_from": "evaluator (target revision decision)"
+    }
+  }
+}

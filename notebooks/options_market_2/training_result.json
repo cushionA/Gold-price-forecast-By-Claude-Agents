@@ -1,0 +1,43 @@
+{
+  "feature": "options_market",
+  "attempt": 2,
+  "timestamp": "2026-02-18T01:32:06.635582",
+  "best_params": {
+    "hmm_n_components": 2,
+    "input_scaling": false
+  },
+  "optuna_trials_completed": 30,
+  "optuna_best_value": 0.5266649675779264,
+  "output_shape": [
+    2798,
+    1
+  ],
+  "output_columns": [
+    "options_risk_regime_prob"
+  ],
+  "output_stats": {
+    "mean": 0.2321047778516484,
+    "std": 0.3420855054151757,
+    "min": 5.840005761838831e-12,
+    "max": 1.0,
+    "autocorr_lag1": 0.8315563894952951
+  },
+  "data_info": {
+    "total_samples": 2798,
+    "train_samples": 1958,
+    "val_samples": 419,
+    "test_samples": 421,
+    "date_range_start": "2014-10-02 00:00:00-04:00",
+    "date_range_end": "2026-02-12 00:00:00-05:00"
+  },
+  "design_changes_from_attempt_1": {
+    "output_columns": "Reduced from 3 to 1",
+    "dropped_features": [
+      "options_tail_risk_z (MI=0.002)",
+      "options_skew_momentum_z (MI=0.017)"
+    ],
+    "retained_feature": "options_risk_regime_prob (MI=0.031, rank #2/22)",
+    "optuna_objective": "Single-column MI (was sum of 3)",
+    "new_parameter": "input_scaling (standardize HMM inputs)"
+  }
+}

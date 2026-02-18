@@ -1,14 +1,15 @@
 {
   "status": "completed",
-  "phase": "phase3_meta_model",
+  "phase": "completed",
   "current_feature": "meta_model",
-  "current_attempt": 7,
+  "current_attempt": 15,
   "resume_from": null,
-  "error_context": null,
+  "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
-  "builder_model_status": "notebook_generated",
-  "evaluator_status": "completed_3_of_4_targets",
+  "builder_model_status": null,
+  "evaluator_status": null,
+  "current_submodel": "meta_model",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -35,10 +36,11 @@
     "inflation_expectation",
     "cny_demand",
     "options_market",
-    "temporal_context"
+    "temporal_context",
+    "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-training-attempt-7",
-  "submitted_at": "2026-02-16T23:12:16.606652",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-15",
+  "submitted_at": "2026-02-18T22:29:38.550806",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -125,6 +127,27 @@
           "stability_0.132"
         ],
         "note": "Markov Regime + CUSUM State Features. Highest MI (+39.3%) but worst Gate 3 degradation. 7 state features gave XGBoost more noise to overfit on. 5 attempts exhausted. Proceeding to dxy."
+      },
+      "attempt_6": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": false,
+        "decision": "no_further_improvement",
+        "primary_failures": [
+          "gate2_mi_increase=1.95pct_below_5pct",
+          "gate3_da_delta=-0.574pct",
+          "gate3_sharpe_delta=-0.249",
+          "gate3_mae_delta=-0.00074_below_0.01_threshold"
+        ],
+        "primary_successes": [
+          "gate1_all_pass",
+          "autocorr_bond_vol_0.899_below_0.95",
+          "autocorr_momentum_0.769_below_0.95",
+          "VIF_max_1.18",
+          "cross_correlation_0.065_nearly_orthogonal",
+          "stability_0.139_below_0.15"
+        ],
+        "note": "Deterministic bond vol regime + momentum persistence. US-only daily DFII10 data. Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). 6 consecutive Gate 3 failures across fundamentally different approaches. Information in DFII10 derivatives beyond raw daily change is redundant with existing submodel features. No_further_improvement permanent."
       }
     },
     "vix": {
@@ -268,6 +291,26 @@
           "gate3_sharpe_delta=-0.593_worst_of_any_passing"
         ],
         "note": "Weakest Gate 3 pass. Gate 3 PASS via MAE (-0.0658, 6.6x threshold)."
+      },
+      "attempt_2": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_da_delta=+1.53%_5_of_5_folds",
+          "gate3_sharpe_delta=+0.217_5_of_5_folds",
+          "reverses_attempt_1_da_degradation",
+          "reverses_attempt_1_sharpe_degradation",
+          "VIF_1.14_excellent_orthogonality",
+          "stability_0.134_below_0.15"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=-0.13%_below_5%",
+          "gate3_mae_delta=-0.0008_below_0.01_threshold",
+          "low_feature_importance_rank_22.4_of_25"
+        ],
+        "note": "Dramatic improvement over attempt 1. Deterministic CNY-CNH spread z-score. Gate 3 PASS via DA (+1.53pp, 3.1x threshold, 5/5 folds) and Sharpe (+0.217, 4.3x threshold, 5/5 folds). Reverses attempt 1's DA degradation (-2.06%) and Sharpe degradation (-0.593). Should replace attempt 1 output in Kaggle dataset."
       }
     },
     "options_market": {
@@ -297,6 +340,51 @@
           "gate2_mi_increase=4.96%_marginally_below_5%"
         ],
         "note": "Single column output. Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds)."
+      }
+    },
+    "dxy": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate1_all_pass",
+          "gate2_mi_increase=+6.24%",
+          "gate2_vif_max_2.92",
+          "gate2_stability_0.149",
+          "gate3_da_delta=+0.73%_4_of_5_folds",
+          "gate3_sharpe_delta=+0.2546_5.1x_threshold_4_of_5_folds",
+          "dxy_vol_z_ranked_6_of_43_features",
+          "third_submodel_all_3_gates_pass"
+        ],
+        "primary_failures": [
+          "gate3_mae_delta=+0.0084_degraded",
+          "dxy_regime_prob_extremely_skewed_mean_0.0006"
+        ],
+        "note": "HMM-based DXY submodel. All 3 gates PASS. DA +0.73pp (1.5x threshold), Sharpe +0.2546 (5.1x threshold). dxy_vol_z most informative (rank 6/43). Only fold 5 (2023-2025 high-vol) degraded."
+      }
+    },
+    "regime_classification": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_da_delta=+1.34%_2.7x_threshold_4_of_5_folds",
+          "gate3_sharpe_delta=+0.377_7.5x_threshold_4_of_5_folds",
+          "VIF_3.90_excellent_orthogonality",
+          "stability_0.058_well_below_0.15",
+          "regime_balance_30_70_healthy",
+          "avg_duration_10_days_in_5_30_range"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=0.77%_below_5%",
+          "gate3_mae_delta=-0.001_below_0.01_threshold",
+          "low_feature_importance_rank_18_25_of_28"
+        ],
+        "note": "GMM K=2 (Risk-Off/Risk-On) with PCA (2 components), diagonal covariance. Gate 2 FAIL on MI but Gate 3 convincingly PASS on DA and Sharpe. Sharpe +0.377 ties with etf_flow for highest Gate 3 Sharpe improvement. DA +1.34% is 3rd highest after cny_demand attempt 2 (+1.53%) and vix (+0.96%). Gate 2 overridden per precedent."
       }
     }
   },
@@ -408,12 +496,222 @@
         "MAE_0.9429%_above_0.75%_target_structurally_infeasible"
       ],
       "note": "Best meta-model. 3/4 targets met (DA, HCDA, Sharpe). MAE target structurally infeasible with expanded 2025-2026 test set. Design doc success criteria satisfied."
+    },
+    "attempt_8": {
+      "decision": "attempt+1",
+      "test_da": 0.5873,
+      "test_hcda": 0.6196,
+      "test_mae": 0.9424,
+      "test_sharpe": 2.064,
+      "train_test_da_gap_pp": -7.08,
+      "targets_passed_nominal": "3/4",
+      "targets_passed_substantive": "0/4",
+      "primary_failures": [
+        "Ridge_meta_learner_prediction_collapse_std_0.0001",
+        "DA_equals_naive_0.00pp_delta_zero_skill",
+        "100%_positive_predictions_trivial",
+        "5_of_6_regime_features_zero_importance",
+        "all_base_models_near_coin_flip_DA"
+      ],
+      "primary_successes": [
+        "280_optuna_trials_extensive_HPO",
+        "no_overfitting_test_outperforms_train"
+      ],
+      "improvement_plan": "Revert to single XGBoost (attempt 7 arch), replace binary regime features with continuous interactions, try asymmetric loss for DA",
+      "note": "Stacking (XGB+LGBM+CatBoost) with Ridge meta-learner collapsed to trivial constant predictor. Ridge alpha=90.37 shrunk all coefficients to near-zero. All nominal target passes are artifacts of always-positive prediction in bull market. Strictly worse than attempt 7 on all meaningful metrics."
+    },
+    "attempt_9": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5873,
+      "test_hcda": 0.6413,
+      "test_mae": 0.9425,
+      "test_sharpe": 2.06,
+      "train_test_da_gap_pp": -7.08,
+      "targets_passed_nominal": "3/4",
+      "targets_passed_substantive": "0/4",
+      "primary_failures": [
+        "prediction_collapse_std_0.0006_37x_smaller_than_att7",
+        "DA_equals_naive_0.00pp_delta_zero_skill",
+        "100%_positive_predictions_trivial",
+        "directional_loss_track_b_inferior_to_mse",
+        "2_of_3_interaction_features_ranked_last",
+        "all_metrics_regressed_from_attempt_7"
+      ],
+      "primary_successes": [
+        "real_rate_x_temporal_rank_3_top_interaction",
+        "100_optuna_trials_completed",
+        "no_overfitting_test_outperforms_train"
+      ],
+      "dual_track_result": {
+        "track_a_mse_composite": 0.6412,
+        "track_b_directional_composite": 0.6137,
+        "selected": "mse",
+        "conclusion": "Directional loss provided no benefit"
+      },
+      "note": "Single XGBoost + 3 continuous interactions + dual-track MSE/directional + weight shift. Collapsed to identical failure mode as attempt 8 (100% positive predictions). All 3 targeted modifications failed to improve over attempt 7. 2 of 3 improvement attempts used, both regressing. Recommend accepting attempt 7 as final.",
+      "attempt_10_recommendation": "NOT_RECOMMENDED. 2 consecutive attempts regressed. Same failure mode (trivial predictor) despite different approaches. >70% probability attempt 10 would also regress."
+    },
+    "attempt_10": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5852,
+      "test_hcda": 0.587,
+      "test_mae": 0.949,
+      "test_sharpe": 1.9977,
+      "train_test_da_gap_pp": 6.38,
+      "targets_passed": "2/4",
+      "primary_failures": [
+        "DA_regressed_-1.52pp_from_attempt_7",
+        "HCDA_regressed_-5.43pp_from_attempt_7_now_FAIL",
+        "Sharpe_regressed_-0.47_from_attempt_7",
+        "MAE_regressed_+0.006_from_attempt_7",
+        "cny_demand_spread_z_ranked_25_of_25_last"
+      ],
+      "primary_successes": [
+        "no_prediction_collapse_std_0.096",
+        "positive_pct_57.4%_genuine_variation",
+        "DA_58.52%_still_above_56%_target",
+        "Sharpe_2.00_still_above_0.80_target"
+      ],
+      "note": "Added cny_demand_spread_z (25 features). Feature ranked last (25/25) with importance 0.0376. All metrics regressed from attempt 7. Unlike attempts 8-9, model didn't collapse to trivial predictor — genuine variation exists. But added feature introduced noise that degraded HCDA from 64.13% to 58.70% (below 60% target). Attempt 7 confirmed as final meta-model."
+    },
+    "attempt_11": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5568,
+      "test_hcda": 0.5978,
+      "test_mae": 0.9497,
+      "test_sharpe": 1.52,
+      "train_test_da_gap_pp": 9.31,
+      "targets_passed": "1/4",
+      "primary_failures": [
+        "DA_55.68%_misses_56%_target_by_0.32pp",
+        "HCDA_59.78%_misses_60%_target_by_0.22pp",
+        "MAE_0.9497%_above_0.75%_target",
+        "all_metrics_regressed_from_attempt_7",
+        "DA_regressed_-4.36pp_from_attempt_7",
+        "HCDA_regressed_-4.35pp_from_attempt_7",
+        "Sharpe_regressed_-0.94_from_attempt_7"
+      ],
+      "primary_successes": [
+        "Sharpe_1.52_above_0.80_target",
+        "dxy_regime_prob_ranked_9_of_27",
+        "100_optuna_trials_completed",
+        "no_prediction_collapse"
+      ],
+      "note": "Added 3 DXY HMM features (27 total). All metrics regressed from attempt 7. DA dropped 4.36pp below target. HCDA dropped 4.35pp below target. Same pattern as attempts 8-10: additional features introduce noise that degrades the model. Attempt 7 (24 features) confirmed as final meta-model. 4 consecutive attempts (8,9,10,11) all regressed."
+    },
+    "attempt_12": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5546,
+      "test_hcda": 0.5978,
+      "test_mae": 0.9532,
+      "test_sharpe": 1.134,
+      "train_test_da_gap_pp": 6.13,
+      "targets_passed": "1/4",
+      "primary_failures": [
+        "DA_55.46%_misses_56%_target_by_0.54pp",
+        "HCDA_59.78%_misses_60%_target_by_0.22pp",
+        "MAE_0.9532%_above_0.75%_target",
+        "all_metrics_regressed_from_attempt_7",
+        "DA_regressed_-4.58pp_from_attempt_7",
+        "HCDA_regressed_-4.35pp_from_attempt_7",
+        "Sharpe_regressed_-1.33_from_attempt_7",
+        "positive_pct_50.4%_lost_directional_bias"
+      ],
+      "primary_successes": [
+        "Sharpe_1.13_above_0.80_target",
+        "100_optuna_trials_completed",
+        "no_prediction_collapse",
+        "higher_samples_per_feature_118:1"
+      ],
+      "note": "Feature pruning experiment: 24->18 features (removed bottom 6 by gain-weighted importance, 4.91% total). Optuna found max_depth=4 (vs attempt 7's 2), compensating for fewer features with deeper trees. All metrics regressed. Positive prediction pct dropped from 87.3% to 50.4%, losing directional bias. 5 consecutive attempts (8-12) all regressed from attempt 7. Pruning hypothesis REJECTED: low-importance features were contributing useful regularization through feature competition."
+    },
+    "attempt_13": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5349,
+      "test_hcda": 0.5435,
+      "test_mae": 0.9544,
+      "test_sharpe": 0.1335,
+      "train_test_da_gap_pp": 11.4,
+      "targets_passed": "0/4",
+      "primary_failures": [
+        "DA_53.49%_worst_since_attempt_1_misses_56%_by_2.51pp",
+        "HCDA_54.35%_worst_ever_misses_60%_by_5.65pp",
+        "Sharpe_0.13_worst_ever_misses_0.80_target",
+        "MAE_0.9544%_above_0.75%_target",
+        "overfitting_11.40pp_gap_exceeds_10pp_threshold",
+        "regime_classification_features_ranked_25_26_27_of_27",
+        "max_depth_4_too_complex_vs_attempt_7_depth_2",
+        "colsample_bytree_0.20_extremely_low"
+      ],
+      "primary_successes": [
+        "100_optuna_trials_completed",
+        "no_prediction_collapse"
+      ],
+      "note": "Added 3 regime_classification features (27 total). WORST result since attempt 1. All 4 targets FAIL. regime_classification features ranked last (25-27/27) with combined importance 8.3%. HPO selected max_depth=4 (vs attempt 7's 2), causing severe overfitting (11.4pp gap). 6 consecutive attempts (8-13) all regressed from attempt 7. Attempt 7 confirmed as permanent final meta-model."
+    },
+    "attempt_14": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5742,
+      "test_hcda": 0.6304,
+      "test_mae": 0.9527,
+      "test_sharpe": 1.16,
+      "train_test_da_gap_pp": 4.59,
+      "targets_passed": "3/4",
+      "architecture": "XGBoost asymmetric_squared_error (alpha=3.28)",
+      "primary_failures": [
+        "MAE_0.9527%_above_0.75%_target",
+        "DA_57.42%_below_attempt_7_60.04%_by_2.62pp",
+        "HCDA_63.04%_below_attempt_7_64.13%_by_1.09pp",
+        "Sharpe_1.16_below_attempt_7_2.46_by_1.30"
+      ],
+      "primary_successes": [
+        "DA_57.42%_passes_56%_target",
+        "HCDA_63.04%_passes_60%_target",
+        "Sharpe_1.16_passes_0.80_target",
+        "overfitting_4.59pp_best_ever_below_10pp",
+        "3_of_4_targets_passed"
+      ],
+      "note": "Asymmetric squared error custom objective (alpha=3.28, penalizes DOWN misses 3.28x). Passes 3/4 targets same as attempt 7 but all absolute metrics are worse. Very low overfitting (4.59pp) suggests regularization benefit from asymmetric loss. XGBoost v3.1.0 sklearn API passes (y_true, y_pred) not (preds, DMatrix) for custom objectives."
+    },
+    "attempt_15": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5459,
+      "test_hcda": 0.6630,
+      "test_mae": 0.9544,
+      "test_sharpe": 0.90,
+      "train_test_da_gap_pp": 1.82,
+      "targets_passed": "2/4",
+      "architecture": "Ridge + XGBoost Weighted Average Ensemble (w=0.65)",
+      "primary_failures": [
+        "DA_54.59%_misses_56%_target_by_1.41pp",
+        "MAE_0.9544%_above_0.75%_target",
+        "DA_dropped_4.8pp_vs_XGB_only_component",
+        "Ridge_hurt_overall_direction_accuracy"
+      ],
+      "primary_successes": [
+        "HCDA_66.30%_best_ever_via_bootstrap_confidence",
+        "Sharpe_0.90_passes_0.80_target",
+        "overfitting_1.82pp_lowest_ever",
+        "XGB_only_component_DA_59.39%_close_to_attempt_7"
+      ],
+      "note": "Ridge+XGB ensemble (65%/35%). Best-ever HCDA (66.30% via bootstrap) and lowest overfitting (1.82pp). But Ridge component hurt DA significantly (-4.8pp vs XGB-only). XGB-only scored DA=59.39%, Sharpe=2.52 (near attempt 7). Ensemble trades direction accuracy for lower variance. 8 consecutive attempts (8-15) all failed to beat attempt 7 overall."
     }
   },
   "final_result": {
-    "status": "completed",
+    "status": "completed_attempt_7_confirmed_final",
     "best_attempt_overall": 7,
-    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy.",
+    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8-15 all regressed. No further improvement possible.",
+    "improvement_attempts_summary": {
+      "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
+      "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
+      "attempt_10": "+cny_demand_spread_z (25 features) -- regressed on all metrics (DA -1.52pp, HCDA -5.43pp, Sharpe -0.47)",
+      "attempt_11": "+3 DXY features (27 total) -- regressed on all metrics (DA -4.36pp, HCDA -4.35pp, Sharpe -0.94)",
+      "attempt_12": "Feature pruning 24->18 -- regressed on all metrics (DA -4.58pp, HCDA -4.35pp, Sharpe -1.33)",
+      "attempt_13": "+3 regime_classification features (27 total) -- worst result since attempt 1 (DA -6.55pp, HCDA -9.78pp, Sharpe -2.33)",
+      "attempt_14": "Asymmetric squared error (alpha=3.28) -- 3/4 targets but all metrics below attempt 7 (DA -2.62pp, HCDA -1.09pp, Sharpe -1.30)",
+      "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, best-ever HCDA 66.30% but DA -5.45pp (DA misses 56% target)",
+      "conclusion": "Attempt 7 confirmed as final meta-model. 8 consecutive attempts (8-15) all regressed."
+    },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
       "targets_failed": "1/4 (MAE - structurally infeasible)",
@@ -438,8 +736,59 @@
       "mae_delta": "+0.255 (different test set)"
     }
   },
-  "kaggle_version": 10,
-  "last_updated": "2026-02-17T00:00:00",
-  "current_submodel": null,
-  "error_type": null
+  "meta_model_weekly_history": {
+    "attempt_1": {
+      "decision": "attempt+1",
+      "test_da": 0.6608,
+      "test_hcda": 0.6848,
+      "test_mae": 2.0696,
+      "test_sharpe": 2.0257,
+      "train_test_da_gap_pp": -12.32,
+      "targets_passed_nominal": "3/4",
+      "targets_passed_substantive": "0/4",
+      "primary_failures": [
+        "trivial_always_positive_prediction",
+        "DA_equals_naive_0.00pp_delta",
+        "only_10_unique_predictions_out_of_457",
+        "zero_trades_in_test",
+        "MAE_2.07%_exceeds_1.70%_target"
+      ],
+      "primary_successes": [],
+      "improvement_plan": "Non-overlapping training targets + naive-aware objective + relaxed regularization + centered targets",
+      "note": "Model collapsed to trivial always-positive predictor. All nominal target passes (DA, HCDA, Sharpe) are artifacts of gold uptrend test period. Zero model skill demonstrated."
+    },
+    "attempt_2": {
+      "decision": "attempt+1",
+      "test_da": 0.6324,
+      "test_hcda": 0.7935,
+      "test_mae": 2.125,
+      "test_sharpe_a": 0.7054,
+      "test_sharpe_b": 0.9869,
+      "train_test_da_gap_pp": -6.67,
+      "da_vs_naive_pp": -2.84,
+      "targets_passed_nominal": "2/4",
+      "targets_passed_substantive": "0/4",
+      "substantive_skill_tests": "3/5 (trade_activity, balance, variation pass; da_above_naive, diversity fail)",
+      "primary_failures": [
+        "DA_2.84pp_below_naive_66.08%",
+        "negative_predictions_38.2%_correct_need_50%",
+        "Sharpe_A_0.71_below_0.80_target",
+        "MAE_2.125%_exceeds_1.70%_target",
+        "HCDA_79.35%_equals_naive_on_HC_subset",
+        "only_18_unique_predictions"
+      ],
+      "primary_successes": [
+        "prediction_collapse_fixed_std_0.005_to_0.104",
+        "66_position_changes_from_0",
+        "positive_pct_100%_to_88%",
+        "OLS_alpha_2.76_to_0.85_reasonable",
+        "Optuna_top5_varied_DA_53-59%"
+      ],
+      "improvement_plan": "Fix HPO validation (91 samples too noisy), consider classification objective, calibrate negative prediction threshold",
+      "note": "Constant-output collapse FIXED. Model produces genuine variation. But variation is net-harmful: negative predictions wrong 62% of time. DA skill -2.84pp (worse than Attempt 1's 0.00pp). Sharpe A dropped 2.03 to 0.71 due to harmful trades. Moved from 'no skill, no harm' to 'some variation, net harmful'."
+    }
+  },
+  "kaggle_version": 4,
+  "last_updated": "2026-02-18T22:31:25.536840",
+  "error_type": "unknown"
 }

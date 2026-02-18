@@ -1,0 +1,80 @@
+{
+  "feature": "dxy",
+  "attempt": 1,
+  "timestamp": "2026-02-17T23:30:51.647788",
+  "steps": [
+    {
+      "step": "file_check",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_stats",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "temporal",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "alignment_frequency",
+      "issues": [],
+      "overlap_with_target": {
+        "count": 2542,
+        "target_total": 2542,
+        "coverage_pct": 100.0
+      },
+      "date_ranges": {
+        "dxy": [
+          "2014-10-01",
+          "2026-02-17"
+        ],
+        "base_features": [
+          "2015-01-30",
+          "2025-02-12"
+        ],
+        "target": [
+          "2015-01-02",
+          "2025-02-12"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "step": "correlation_autocorr",
+      "issues": [],
+      "dxy_log_ret_autocorr_lag1": 0.01101,
+      "note_autocorr": "dxy_log_ret autocorr(lag1)=0.01101 (OK)",
+      "note_corr": "相関チェックスキップ: base_features に dxy_change カラムなし。代わりに dxy_dxy が存在し、これは dxy_close と r=1.000 の完全一致（raw price level）。dxy_log_ret との低相関(r=0.051)はレベル vs リターンの差異であり問題なし。",
+      "dxy_log_ret_vs_base_dxy_dxy_note": "base_features.dxy_dxy = DXY close price (level), not return. Correlation with dxy_log_ret (r=0.051) is expected and correct.",
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "action": "PASS",
+  "overall_passed": true,
+  "summary": {
+    "rows": 2862,
+    "columns": ["dxy_close", "dxy_log_ret"],
+    "dxy_close_range": [84.95, 114.11],
+    "dxy_log_ret_range": [-0.02399, 0.02032],
+    "missing_rate_dxy_close": "0.000%",
+    "missing_rate_dxy_log_ret": "0.035%",
+    "target_coverage": "100%",
+    "dxy_log_ret_autocorr_lag1": 0.01101,
+    "future_leak_max_corr_with_target": 0.0473
+  }
+}

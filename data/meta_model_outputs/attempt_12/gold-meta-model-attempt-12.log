@@ -1,0 +1,340 @@
+[{"stream_name":"stderr","time":6.987262051,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.987318292,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.987323953,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.987329334,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.564780532,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.564808827,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.564813407,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.564817057,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.191624727,"data":"XGBoost version: 3.1.0\n"}
+,{"stream_name":"stdout","time":11.191665314,"data":"Optuna version: 4.6.0\n"}
+,{"stream_name":"stdout","time":11.191670001,"data":"Started: 2026-02-17T15:53:55.235773\n"}
+,{"stream_name":"stdout","time":11.218153633,"data":"Features defined: 18 features (pruned from 24)\n"}
+,{"stream_name":"stdout","time":11.218175992,"data":"Removed features: ['vix_persistence', 'xasset_recession_signal', 'etf_capital_intensity', 'etf_pv_divergence', 'ie_anchoring_z', 'ie_gold_sensitivity_z']\n"}
+,{"stream_name":"stdout","time":11.454252187,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.454282576,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":11.454288297,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.004010573,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":14.043349126,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":14.056721184,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":14.085987585,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.087097575,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":14.088758083,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.089634602,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.097791813,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":14.111723086,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":14.206075901,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":14.20609774,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":14.206103217,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.2.2)\n"}
+,{"stream_name":"stdout","time":14.206119938,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":14.206123408,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":14.206126002,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.206128397,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":14.206130806,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":14.20613342,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":15.914269587,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":15.937643057,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":16.116223992,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":16.116248529,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":16.116251916,"data":"FRED API initialized\n"}
+,{"stream_name":"stdout","time":16.116254475,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/\n"}
+,{"stream_name":"stdout","time":16.116257115,"data":"\n"}
+,{"stream_name":"stdout","time":16.116259307,"data":"Fetching gold price (GC=F)...\n"}
+,{"stream_name":"stdout","time":16.578246449,"data":"  Gold: 3047 rows\n"}
+,{"stream_name":"stdout","time":16.578275976,"data":"\n"}
+,{"stream_name":"stdout","time":16.578279196,"data":"Fetching base features...\n"}
+,{"stream_name":"stdout","time":16.578281678,"data":"  Fetching real rate (DFII10)...\n"}
+,{"stream_name":"stdout","time":17.192074914,"data":"  Fetching DXY (DX-Y.NYB)...\n"}
+,{"stream_name":"stdout","time":17.192104977,"data":"  Fetching VIX (VIXCLS)...\n"}
+,{"stream_name":"stdout","time":17.845854218,"data":"  Fetching yield curve (DGS10, DGS2)...\n"}
+,{"stream_name":"stdout","time":20.631397824,"data":"  Fetching inflation expectation (T10YIE)...\n"}
+,{"stream_name":"stdout","time":21.174638675,"data":"  Base features: 3047 rows, 6 columns\n"}
+,{"stream_name":"stdout","time":21.174663816,"data":"\n"}
+,{"stream_name":"stdout","time":21.174668896,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
+,{"stream_name":"stdout","time":21.174673001,"data":"  vix: 2857 rows\n"}
+,{"stream_name":"stdout","time":21.174676839,"data":"  technical: 2860 rows\n"}
+,{"stream_name":"stdout","time":21.174680484,"data":"  cross_asset: 2522 rows\n"}
+,{"stream_name":"stdout","time":21.174684281,"data":"  yield_curve: 2794 rows\n"}
+,{"stream_name":"stdout","time":21.174688605,"data":"  etf_flow: 2838 rows\n"}
+,{"stream_name":"stdout","time":21.174692978,"data":"  inflation_expectation: 2924 rows\n"}
+,{"stream_name":"stdout","time":21.174697164,"data":"  options_market: 2548 rows\n"}
+,{"stream_name":"stdout","time":21.183227334,"data":"  temporal_context: 2461 rows\n"}
+,{"stream_name":"stdout","time":21.183248175,"data":"\n"}
+,{"stream_name":"stdout","time":21.183252685,"data":"Data fetching complete\n"}
+,{"stream_name":"stdout","time":21.232471518,"data":"\n"}
+,{"stream_name":"stdout","time":21.232500589,"data":"Applying transformations...\n"}
+,{"stream_name":"stdout","time":21.232505987,"data":"\n"}
+,{"stream_name":"stdout","time":21.232509994,"data":"Merging submodel outputs...\n"}
+,{"stream_name":"stdout","time":21.232515155,"data":"  Features after merge: 25 columns, 3047 rows\n"}
+,{"stream_name":"stdout","time":21.232519218,"data":"\n"}
+,{"stream_name":"stdout","time":21.232522845,"data":"Applying NaN imputation...\n"}
+,{"stream_name":"stdout","time":21.232526663,"data":"  NaN before imputation: 5586\n"}
+,{"stream_name":"stdout","time":21.232530649,"data":"  NaN after imputation: 0\n"}
+,{"stream_name":"stdout","time":21.232534268,"data":"  Final dataset: 3046 rows\n"}
+,{"stream_name":"stdout","time":21.232537926,"data":"\n"}
+,{"stream_name":"stdout","time":21.232541495,"data":"All 18 features present\n"}
+,{"stream_name":"stdout","time":21.232545216,"data":"Dataset shape: (3046, 25)\n"}
+,{"stream_name":"stdout","time":21.23254928,"data":"Date range: 2014-01-03 to 2026-02-13\n"}
+,{"stream_name":"stdout","time":21.260438806,"data":"\n"}
+,{"stream_name":"stdout","time":21.260477513,"data":"Data split complete:\n"}
+,{"stream_name":"stdout","time":21.260483012,"data":"  Train: 2132 rows (70.0%) - 2014-01-03 to 2022-06-27\n"}
+,{"stream_name":"stdout","time":21.260487118,"data":"  Val:   456 rows (15.0%) - 2022-06-28 to 2024-04-19\n"}
+,{"stream_name":"stdout","time":21.260498762,"data":"  Test:  458 rows (15.0%) - 2024-04-22 to 2026-02-13\n"}
+,{"stream_name":"stdout","time":21.2605044,"data":"  Total: 3046 rows\n"}
+,{"stream_name":"stdout","time":21.260507983,"data":"  Samples per feature: 118.4:1 (train)\n"}
+,{"stream_name":"stdout","time":21.260511674,"data":"\n"}
+,{"stream_name":"stdout","time":21.260514615,"data":"No time-series leakage detected\n"}
+,{"stream_name":"stdout","time":21.260517223,"data":"\n"}
+,{"stream_name":"stdout","time":21.260519629,"data":"Array shapes:\n"}
+,{"stream_name":"stdout","time":21.26052213,"data":"  X_train: (2132, 18), y_train: (2132,)\n"}
+,{"stream_name":"stdout","time":21.260524673,"data":"  X_val:   (456, 18), y_val:   (456,)\n"}
+,{"stream_name":"stdout","time":21.26052738,"data":"  X_test:  (458, 18), y_test:  (458,)\n"}
+,{"stream_name":"stdout","time":21.285604393,"data":"Metric functions defined\n"}
+,{"stream_name":"stdout","time":21.311099565,"data":"Optuna objective function defined\n"}
+,{"stream_name":"stderr","time":21.326645807,"data":"[I 2026-02-17 15:54:05,370] A new study created in memory with name: no-name-c3b5973f-ceb3-4196-bcc2-37685fd58720\n"}
+,{"stream_name":"stderr","time":21.326663296,"data":"\n"}
+,{"stream_name":"stderr","time":21.32666769,"data":"[I 2026-02-17 15:54:05,370] A new study created in memory with name: no-name-c3b5973f-ceb3-4196-bcc2-37685fd58720\n"}
+,{"stream_name":"stdout","time":21.338304885,"data":"\n"}
+,{"stream_name":"stdout","time":21.338323977,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":21.338329975,"data":"RUNNING OPTUNA HPO (100 trials, 2-hour timeout)\n"}
+,{"stream_name":"stdout","time":21.338334251,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":21.83265868,"data":"[I 2026-02-17 15:54:05,673] Trial 0 finished with value: 0.4581656815581185 and parameters: {'max_depth': 3, 'min_child_weight': 25, 'subsample': 0.7293972738151323, 'colsample_bytree': 0.49932924209851826, 'reg_lambda': 1.5257808482051174, 'reg_alpha': 0.7978542347074177, 'learning_rate': 0.001255111517297384, 'n_estimators': 707}. Best is trial 0 with value: 0.4581656815581185.\n"}
+,{"stream_name":"stdout","time":21.832710324,"data":"[I 2026-02-17 15:54:05,814] Trial 1 finished with value: 0.4932298477402877 and parameters: {'max_depth': 3, 'min_child_weight': 21, 'subsample': 0.40926302243311113, 'colsample_bytree': 0.6849549260809971, 'reg_lambda': 9.52858721704024, 'reg_alpha': 0.9445600138094694, 'learning_rate': 0.0020366442026830914, 'n_estimators': 228}. Best is trial 1 with value: 0.4932298477402877.\n"}
+,{"stream_name":"stdout","time":22.103520935,"data":"[I 2026-02-17 15:54:05,945] Trial 2 finished with value: 0.4771542071469523 and parameters: {'max_depth': 2, 'min_child_weight': 19, 'subsample': 0.5943752583889521, 'colsample_bytree': 0.34561457009902097, 'reg_lambda': 5.243180891902851, 'reg_alpha': 0.7593739613361233, 'learning_rate': 0.0031357757322577457, 'n_estimators': 356}. Best is trial 1 with value: 0.4932298477402877.\n"}
+,{"stream_name":"stdout","time":22.103551814,"data":"[I 2026-02-17 15:54:06,028] Trial 3 finished with value: 0.4152715037572541 and parameters: {'max_depth': 3, 'min_child_weight': 22, 'subsample': 0.4898532019712619, 'colsample_bytree': 0.45711721920680576, 'reg_lambda': 4.974318579788527, 'reg_alpha': 0.5746499650110706, 'learning_rate': 0.010769622478263132, 'n_estimators': 219}. Best is trial 1 with value: 0.4932298477402877.\n"}
+,{"stream_name":"stdout","time":22.103571836,"data":"[I 2026-02-17 15:54:06,081] Trial 4 finished with value: 0.5523837794308277 and parameters: {'max_depth': 2, 'min_child_weight': 25, 'subsample': 0.8345344148835516, 'colsample_bytree': 0.6041986740582306, 'reg_lambda': 2.28167398808162, 'reg_alpha': 0.6699530280754894, 'learning_rate': 0.01453755557616192, 'n_estimators': 408}. Best is trial 4 with value: 0.5523837794308277.\n"}
+,{"stream_name":"stdout","time":22.329421893,"data":"[I 2026-02-17 15:54:06,173] Trial 5 finished with value: 0.48853789025285976 and parameters: {'max_depth': 2, 'min_child_weight': 18, 'subsample': 0.4154748345018483, 'colsample_bytree': 0.6546602010393909, 'reg_lambda': 2.0153425505297697, 'reg_alpha': 3.6385753170854684, 'learning_rate': 0.003385226783451979, 'n_estimators': 464}. Best is trial 4 with value: 0.5523837794308277.\n"}
+,{"stream_name":"stdout","time":22.329449786,"data":"[I 2026-02-17 15:54:06,299] Trial 6 finished with value: 0.542338294778585 and parameters: {'max_depth': 3, 'min_child_weight': 14, 'subsample': 0.8363130824940513, 'colsample_bytree': 0.5875664116805572, 'reg_lambda': 12.733168701231962, 'reg_alpha': 7.297384471483422, 'learning_rate': 0.010370844668954535, 'n_estimators': 746}. Best is trial 4 with value: 0.5523837794308277.\n"}
+,{"stream_name":"stdout","time":22.329454236,"data":"[I 2026-02-17 15:54:06,357] Trial 7 finished with value: 0.4978916053796429 and parameters: {'max_depth': 2, 'min_child_weight': 14, 'subsample': 0.4203522800097422, 'colsample_bytree': 0.3626651653816322, 'reg_lambda': 2.8649692367714423, 'reg_alpha': 1.1272058498680244, 'learning_rate': 0.02558586885593425, 'n_estimators': 350}. Best is trial 4 with value: 0.5523837794308277.\n"}
+,{"stream_name":"stdout","time":22.610496922,"data":"[I 2026-02-17 15:54:06,452] Trial 8 finished with value: 0.5473418360352063 and parameters: {'max_depth': 2, 'min_child_weight': 19, 'subsample': 0.4634159012386432, 'colsample_bytree': 0.6010984903770198, 'reg_lambda': 1.2237095811188043, 'reg_alpha': 9.614783537271693, 'learning_rate': 0.020512599422151365, 'n_estimators': 239}. Best is trial 4 with value: 0.5523837794308277.\n"}
+,{"stream_name":"stdout","time":22.610525273,"data":"[I 2026-02-17 15:54:06,512] Trial 9 finished with value: 0.5852011646022598 and parameters: {'max_depth': 2, 'min_child_weight': 23, 'subsample': 0.7180858047314277, 'colsample_bytree': 0.5645035840204936, 'reg_lambda': 8.073917605382004, 'reg_alpha': 0.6241720498669826, 'learning_rate': 0.004064644058668376, 'n_estimators': 181}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":22.61054348,"data":"[I 2026-02-17 15:54:06,593] Trial 10 finished with value: 0.5475278458404043 and parameters: {'max_depth': 4, 'min_child_weight': 22, 'subsample': 0.6886548954435735, 'colsample_bytree': 0.20898093780740987, 'reg_lambda': 7.70788627524725, 'reg_alpha': 1.7557529423582223, 'learning_rate': 0.04271906202534828, 'n_estimators': 107}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":22.81681349,"data":"[I 2026-02-17 15:54:06,661] Trial 11 finished with value: 0.5613789232461522 and parameters: {'max_depth': 2, 'min_child_weight': 25, 'subsample': 0.844047795896592, 'colsample_bytree': 0.5406708897311783, 'reg_lambda': 3.0600869295670097, 'reg_alpha': 1.7058087983545616, 'learning_rate': 0.005341394144721749, 'n_estimators': 534}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":22.816846362,"data":"[I 2026-02-17 15:54:06,795] Trial 12 finished with value: 0.418700054251234 and parameters: {'max_depth': 4, 'min_child_weight': 24, 'subsample': 0.7556871727399874, 'colsample_bytree': 0.5202012787727661, 'reg_lambda': 3.663687827899685, 'reg_alpha': 2.4301113578804627, 'learning_rate': 0.004587526761083915, 'n_estimators': 574}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":23.032504729,"data":"[I 2026-02-17 15:54:06,874] Trial 13 finished with value: 0.47638002178291 and parameters: {'max_depth': 2, 'min_child_weight': 22, 'subsample': 0.6168248256552351, 'colsample_bytree': 0.5369320744702512, 'reg_lambda': 6.641443149582862, 'reg_alpha': 1.594215808760456, 'learning_rate': 0.005550984473260668, 'n_estimators': 567}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":23.032536492,"data":"[I 2026-02-17 15:54:06,991] Trial 14 finished with value: 0.49090710625474343 and parameters: {'max_depth': 2, 'min_child_weight': 24, 'subsample': 0.7751451980388858, 'colsample_bytree': 0.40852502835507376, 'reg_lambda': 14.279581816810953, 'reg_alpha': 3.4758743983659164, 'learning_rate': 0.007695630490380304, 'n_estimators': 549}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":23.301452583,"data":"[I 2026-02-17 15:54:07,146] Trial 15 finished with value: 0.41416586480743495 and parameters: {'max_depth': 3, 'min_child_weight': 17, 'subsample': 0.6844203974356684, 'colsample_bytree': 0.4568305313189506, 'reg_lambda': 3.662276216585818, 'reg_alpha': 1.1926110676447288, 'learning_rate': 0.001954765019835301, 'n_estimators': 657}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":23.301480981,"data":"[I 2026-02-17 15:54:07,214] Trial 16 finished with value: 0.5474019280804377 and parameters: {'max_depth': 2, 'min_child_weight': 23, 'subsample': 0.5442142946593651, 'colsample_bytree': 0.5519406526119973, 'reg_lambda': 9.564612957187608, 'reg_alpha': 2.8630842964323957, 'learning_rate': 0.0010187164547024532, 'n_estimators': 106}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":23.619619611,"data":"[I 2026-02-17 15:54:07,461] Trial 17 finished with value: 0.5630468984569631 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.7782417362777403, 'colsample_bytree': 0.6438872354180711, 'reg_lambda': 4.862899714394451, 'reg_alpha': 5.466658075473228, 'learning_rate': 0.0034084431100898094, 'n_estimators': 514}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":23.895617828,"data":"[I 2026-02-17 15:54:07,738] Trial 18 finished with value: 0.564824137973531 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.6737751893509144, 'colsample_bytree': 0.6486531650690748, 'reg_lambda': 5.173883174205692, 'reg_alpha': 5.370881540016629, 'learning_rate': 0.0026711862589095135, 'n_estimators': 451}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":24.197668428,"data":"[I 2026-02-17 15:54:08,040] Trial 19 finished with value: 0.559432149181999 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.6652678454957758, 'colsample_bytree': 0.6826344683999104, 'reg_lambda': 6.602006516673346, 'reg_alpha': 4.6743187708692995, 'learning_rate': 0.001953683848127722, 'n_estimators': 365}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":24.197850179,"data":"[I 2026-02-17 15:54:08,220] Trial 20 finished with value: 0.49129413144181017 and parameters: {'max_depth': 4, 'min_child_weight': 12, 'subsample': 0.5707572529816092, 'colsample_bytree': 0.23037733151859022, 'reg_lambda': 10.22285676372744, 'reg_alpha': 5.9278471807152675, 'learning_rate': 0.0025255083682345575, 'n_estimators': 269}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":24.614799502,"data":"[I 2026-02-17 15:54:08,458] Trial 21 finished with value: 0.5334749947599812 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.7728236082197787, 'colsample_bytree': 0.6197292814125778, 'reg_lambda': 5.12829742225937, 'reg_alpha': 5.269242952989618, 'learning_rate': 0.003902511567873688, 'n_estimators': 469}. Best is trial 9 with value: 0.5852011646022598.\n"}
+,{"stream_name":"stdout","time":24.815967352,"data":"[I 2026-02-17 15:54:08,660] Trial 22 finished with value: 0.5882257581144947 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.7212303683936276, 'colsample_bytree': 0.6345096954319009, 'reg_lambda': 4.567435805567786, 'reg_alpha': 6.918384092068396, 'learning_rate': 0.007252295219807008, 'n_estimators': 625}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":24.816002416,"data":"[I 2026-02-17 15:54:08,826] Trial 23 finished with value: 0.5394635628825487 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'subsample': 0.6615649154107655, 'colsample_bytree': 0.6924796936268873, 'reg_lambda': 7.181523845843014, 'reg_alpha': 9.129668659951959, 'learning_rate': 0.007252177725284127, 'n_estimators': 635}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.134489877,"data":"[I 2026-02-17 15:54:08,976] Trial 24 finished with value: 0.4963815477489374 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.7245808593730355, 'colsample_bytree': 0.5828766532329975, 'reg_lambda': 5.828609148877002, 'reg_alpha': 3.7222708904312083, 'learning_rate': 0.008699589492311331, 'n_estimators': 639}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.134522014,"data":"[I 2026-02-17 15:54:09,100] Trial 25 finished with value: 0.45849586549473087 and parameters: {'max_depth': 3, 'min_child_weight': 12, 'subsample': 0.6380888973630564, 'colsample_bytree': 0.6368300896435254, 'reg_lambda': 3.9055398237167083, 'reg_alpha': 6.730823692340125, 'learning_rate': 0.006100095573165618, 'n_estimators': 800}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.371575121,"data":"[I 2026-02-17 15:54:09,215] Trial 26 finished with value: 0.46144504892381544 and parameters: {'max_depth': 3, 'min_child_weight': 15, 'subsample': 0.7204088406032669, 'colsample_bytree': 0.48553624844628973, 'reg_lambda': 9.132304297291501, 'reg_alpha': 7.569033955552418, 'learning_rate': 0.0014226798380068074, 'n_estimators': 165}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.601631604,"data":"[I 2026-02-17 15:54:09,443] Trial 27 finished with value: 0.5446001851578945 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.799226444511142, 'colsample_bytree': 0.5767733749576223, 'reg_lambda': 4.493230902576425, 'reg_alpha': 4.325823507402493, 'learning_rate': 0.0025404681113977597, 'n_estimators': 289}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.601664621,"data":"[I 2026-02-17 15:54:09,568] Trial 28 finished with value: 0.5812464777107 and parameters: {'max_depth': 4, 'min_child_weight': 14, 'subsample': 0.7036990822618143, 'colsample_bytree': 0.6546880921532652, 'reg_lambda': 3.0138069216532823, 'reg_alpha': 2.656545092939756, 'learning_rate': 0.014619661506215284, 'n_estimators': 420}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.813844014,"data":"[I 2026-02-17 15:54:09,657] Trial 29 finished with value: 0.4831686014578362 and parameters: {'max_depth': 3, 'min_child_weight': 13, 'subsample': 0.7075606031252613, 'colsample_bytree': 0.5079473998912252, 'reg_lambda': 2.0572022890161987, 'reg_alpha': 0.5061584259310883, 'learning_rate': 0.014162187216842152, 'n_estimators': 739}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":25.813878088,"data":"[I 2026-02-17 15:54:09,746] Trial 30 finished with value: 0.5011076809238734 and parameters: {'max_depth': 3, 'min_child_weight': 14, 'subsample': 0.6336662817086346, 'colsample_bytree': 0.5693124075442253, 'reg_lambda': 1.5866493529629815, 'reg_alpha': 2.1622655783201243, 'learning_rate': 0.025891009120226963, 'n_estimators': 310}. Best is trial 22 with value: 0.5882257581144947.\n"}
+,{"stream_name":"stdout","time":26.038580465,"data":"[I 2026-02-17 15:54:09,881] Trial 31 finished with value: 0.6275210074946431 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.7445654679047852, 'colsample_bytree': 0.6602960153107995, 'reg_lambda': 2.832224557468776, 'reg_alpha': 2.86065326754157, 'learning_rate': 0.015283198497366805, 'n_estimators': 413}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.038610621,"data":"[I 2026-02-17 15:54:09,995] Trial 32 finished with value: 0.529686563002874 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'subsample': 0.7397428413437854, 'colsample_bytree': 0.6993191542867758, 'reg_lambda': 2.6959010935991667, 'reg_alpha': 2.6990890931796336, 'learning_rate': 0.015260475400191875, 'n_estimators': 386}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.268501859,"data":"[I 2026-02-17 15:54:10,113] Trial 33 finished with value: 0.5700767185822153 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.8037576693329462, 'colsample_bytree': 0.670339313179952, 'reg_lambda': 2.4400318161370773, 'reg_alpha': 2.0164817931418266, 'learning_rate': 0.019197032283232895, 'n_estimators': 169}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.268545429,"data":"[I 2026-02-17 15:54:10,234] Trial 34 finished with value: 0.43843112338297846 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.7073064695672567, 'colsample_bytree': 0.6175362404591286, 'reg_lambda': 1.7041204323836718, 'reg_alpha': 1.2217882431862301, 'learning_rate': 0.010827195910541987, 'n_estimators': 495}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.507884424,"data":"[I 2026-02-17 15:54:10,348] Trial 35 finished with value: 0.5563261383859823 and parameters: {'max_depth': 4, 'min_child_weight': 13, 'subsample': 0.7430792445193743, 'colsample_bytree': 0.6289604233712119, 'reg_lambda': 3.4318723438519676, 'reg_alpha': 2.8779350771970074, 'learning_rate': 0.04980691406394719, 'n_estimators': 415}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.507927311,"data":"[I 2026-02-17 15:54:10,447] Trial 36 finished with value: 0.5229348557384743 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.7997300883450097, 'colsample_bytree': 0.6638509479472989, 'reg_lambda': 1.276301924288194, 'reg_alpha': 0.8636336046235186, 'learning_rate': 0.03285392251497398, 'n_estimators': 586}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.507933711,"data":"[I 2026-02-17 15:54:10,543] Trial 37 finished with value: 0.4526397978479475 and parameters: {'max_depth': 3, 'min_child_weight': 16, 'subsample': 0.6995606856691025, 'colsample_bytree': 0.48637165605756205, 'reg_lambda': 3.0573859715772547, 'reg_alpha': 1.4529540222255006, 'learning_rate': 0.012054046921862542, 'n_estimators': 337}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.792236607,"data":"[I 2026-02-17 15:54:10,637] Trial 38 finished with value: 0.47021749591656964 and parameters: {'max_depth': 3, 'min_child_weight': 13, 'subsample': 0.5970704776835011, 'colsample_bytree': 0.6031636496543021, 'reg_lambda': 1.9467377244544875, 'reg_alpha': 0.7345170245100783, 'learning_rate': 0.00885913042033792, 'n_estimators': 434}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":26.792264098,"data":"[I 2026-02-17 15:54:10,751] Trial 39 finished with value: 0.6056527064910411 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.6541594554701085, 'colsample_bytree': 0.4188754221796419, 'reg_lambda': 4.075074030604662, 'reg_alpha': 3.2248809141974335, 'learning_rate': 0.01804059673236147, 'n_estimators': 613}. Best is trial 31 with value: 0.6275210074946431.\n"}
+,{"stream_name":"stdout","time":27.016032321,"data":"[I 2026-02-17 15:54:10,858] Trial 40 finished with value: 0.6373528705298365 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5570636189057278, 'colsample_bytree': 0.4183534825671808, 'reg_lambda': 4.115435330790931, 'reg_alpha': 3.1820150164333314, 'learning_rate': 0.028960833378201985, 'n_estimators': 609}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.016058511,"data":"[I 2026-02-17 15:54:10,960] Trial 41 finished with value: 0.5229902136462188 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5421513252569555, 'colsample_bytree': 0.4270323724539434, 'reg_lambda': 4.515567370790236, 'reg_alpha': 3.425871264671544, 'learning_rate': 0.03277764692673545, 'n_estimators': 682}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.016062864,"data":"[I 2026-02-17 15:54:11,057] Trial 42 finished with value: 0.5231005532216776 and parameters: {'max_depth': 4, 'min_child_weight': 21, 'subsample': 0.4998561959829843, 'colsample_bytree': 0.36970905524940495, 'reg_lambda': 4.180565239187523, 'reg_alpha': 4.14066998863609, 'learning_rate': 0.019267190557247862, 'n_estimators': 600}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.332480985,"data":"[I 2026-02-17 15:54:11,175] Trial 43 finished with value: 0.5822596705890644 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.6510600094950468, 'colsample_bytree': 0.37708839172512043, 'reg_lambda': 5.572494920736856, 'reg_alpha': 0.977733481280601, 'learning_rate': 0.023605528612804502, 'n_estimators': 698}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.33251679,"data":"[I 2026-02-17 15:54:11,284] Trial 44 finished with value: 0.5611650436418152 and parameters: {'max_depth': 4, 'min_child_weight': 21, 'subsample': 0.6091013025374301, 'colsample_bytree': 0.2997442800760377, 'reg_lambda': 1.0039344243328698, 'reg_alpha': 3.0864009182572465, 'learning_rate': 0.032925572678759334, 'n_estimators': 744}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.629551329,"data":"[I 2026-02-17 15:54:11,474] Trial 45 finished with value: 0.5295472324428969 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5861648726531662, 'colsample_bytree': 0.3349100922398434, 'reg_lambda': 3.3092292759257647, 'reg_alpha': 1.9616872226665434, 'learning_rate': 0.004393246641384046, 'n_estimators': 665}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.629595827,"data":"[I 2026-02-17 15:54:11,541] Trial 46 finished with value: 0.5708071906980822 and parameters: {'max_depth': 2, 'min_child_weight': 23, 'subsample': 0.7561319197085844, 'colsample_bytree': 0.4053575985902674, 'reg_lambda': 8.15776616910138, 'reg_alpha': 2.517529229863785, 'learning_rate': 0.017528613396403995, 'n_estimators': 612}. Best is trial 40 with value: 0.6373528705298365.\n"}
+,{"stream_name":"stdout","time":27.629615968,"data":"[I 2026-02-17 15:54:11,653] Trial 47 finished with value: 0.6482072010199151 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.5507980300897638, 'colsample_bytree': 0.44227353005731984, 'reg_lambda': 2.6099975427733453, 'reg_alpha': 0.6322634246412394, 'learning_rate': 0.02566989952901008, 'n_estimators': 521}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":27.914940567,"data":"[I 2026-02-17 15:54:11,756] Trial 48 finished with value: 0.3972323667067091 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.5131247275509927, 'colsample_bytree': 0.43489199841469683, 'reg_lambda': 2.40842065225001, 'reg_alpha': 1.4714147848596397, 'learning_rate': 0.026107421628420422, 'n_estimators': 489}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":27.914972358,"data":"[I 2026-02-17 15:54:11,861] Trial 49 finished with value: 0.6406374419371288 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.4552475160551943, 'colsample_bytree': 0.46924513175471616, 'reg_lambda': 2.729202291122597, 'reg_alpha': 3.1325663140264304, 'learning_rate': 0.03950130627936605, 'n_estimators': 547}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.119917803,"data":"[I 2026-02-17 15:54:11,962] Trial 50 finished with value: 0.6339645184681353 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.46200087970848397, 'colsample_bytree': 0.32493640415968283, 'reg_lambda': 2.738221635740764, 'reg_alpha': 2.378073751954141, 'learning_rate': 0.037928060628040355, 'n_estimators': 529}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.119946829,"data":"[I 2026-02-17 15:54:12,061] Trial 51 finished with value: 0.5945741810793499 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.44804476099737933, 'colsample_bytree': 0.29719306367632364, 'reg_lambda': 2.766786695606801, 'reg_alpha': 2.309097876816716, 'learning_rate': 0.04062322453297413, 'n_estimators': 548}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.119951818,"data":"[I 2026-02-17 15:54:12,162] Trial 52 finished with value: 0.4597099417546742 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.4443472038464228, 'colsample_bytree': 0.39744081605477427, 'reg_lambda': 2.1918835334203077, 'reg_alpha': 3.060882462789338, 'learning_rate': 0.03768506200893489, 'n_estimators': 527}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.436101122,"data":"[I 2026-02-17 15:54:12,280] Trial 53 finished with value: 0.5898556435460178 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.4043931063305855, 'colsample_bytree': 0.33394162112675363, 'reg_lambda': 2.6134711837418623, 'reg_alpha': 3.715318808715436, 'learning_rate': 0.02905411891650589, 'n_estimators': 559}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.436130451,"data":"[I 2026-02-17 15:54:12,375] Trial 54 finished with value: 0.4482144913810682 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.46309356224620724, 'colsample_bytree': 0.46657295937801935, 'reg_lambda': 3.4147633279503764, 'reg_alpha': 1.8047345904490923, 'learning_rate': 0.02265839672209788, 'n_estimators': 480}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.436135339,"data":"[I 2026-02-17 15:54:12,479] Trial 55 finished with value: 0.6221396052510356 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5232245161802842, 'colsample_bytree': 0.43674288147713586, 'reg_lambda': 1.8160872379389918, 'reg_alpha': 3.273854731092491, 'learning_rate': 0.03660456637028382, 'n_estimators': 502}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.73258236,"data":"[I 2026-02-17 15:54:12,574] Trial 56 finished with value: 0.5566023395595789 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5357245512131751, 'colsample_bytree': 0.29798915872528975, 'reg_lambda': 1.8848437704339964, 'reg_alpha': 4.145984086915885, 'learning_rate': 0.03745701732328188, 'n_estimators': 510}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.732611433,"data":"[I 2026-02-17 15:54:12,688] Trial 57 finished with value: 0.5336201217146562 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.4771705012620223, 'colsample_bytree': 0.44604467391726893, 'reg_lambda': 2.3891442037617643, 'reg_alpha': 2.188075778051438, 'learning_rate': 0.04772823580806485, 'n_estimators': 456}. Best is trial 47 with value: 0.6482072010199151.\n"}
+,{"stream_name":"stdout","time":28.941883415,"data":"[I 2026-02-17 15:54:12,786] Trial 58 finished with value: 0.6910664462731623 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5638464122306557, 'colsample_bytree': 0.27033919922559224, 'reg_lambda': 1.7056675831954382, 'reg_alpha': 4.703042529997059, 'learning_rate': 0.045037505185407216, 'n_estimators': 382}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":28.941912086,"data":"[I 2026-02-17 15:54:12,877] Trial 59 finished with value: 0.5666154033233805 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5687243210841605, 'colsample_bytree': 0.2695601177883036, 'reg_lambda': 1.4777987392340755, 'reg_alpha': 5.003284482476132, 'learning_rate': 0.0449996787069682, 'n_estimators': 437}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":28.941916487,"data":"[I 2026-02-17 15:54:12,975] Trial 60 finished with value: 0.5743754001672623 and parameters: {'max_depth': 4, 'min_child_weight': 21, 'subsample': 0.5637318081162959, 'colsample_bytree': 0.25116777966971143, 'reg_lambda': 3.2135073295364656, 'reg_alpha': 4.630485687030511, 'learning_rate': 0.02938540687173069, 'n_estimators': 384}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.253098651,"data":"[I 2026-02-17 15:54:13,094] Trial 61 finished with value: 0.594220384886667 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5164540747355261, 'colsample_bytree': 0.38717081622870536, 'reg_lambda': 1.7646658708989122, 'reg_alpha': 3.8478140707758817, 'learning_rate': 0.03891103276887982, 'n_estimators': 528}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.253127065,"data":"[I 2026-02-17 15:54:13,192] Trial 62 finished with value: 0.5249554380755611 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.42924620146323844, 'colsample_bytree': 0.3578918379860727, 'reg_lambda': 1.3958358192421612, 'reg_alpha': 2.4297434469780903, 'learning_rate': 0.028658005245426433, 'n_estimators': 576}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.253131667,"data":"[I 2026-02-17 15:54:13,293] Trial 63 finished with value: 0.5267093540285525 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.4905718515327886, 'colsample_bytree': 0.2087147362103991, 'reg_lambda': 2.080083191381088, 'reg_alpha': 2.849515888838401, 'learning_rate': 0.021741290222243442, 'n_estimators': 386}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.560552106,"data":"[I 2026-02-17 15:54:13,403] Trial 64 finished with value: 0.5607437799648576 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.5215126281989898, 'colsample_bytree': 0.4651518272740193, 'reg_lambda': 2.22166253098424, 'reg_alpha': 3.3585337343528887, 'learning_rate': 0.034923473591352415, 'n_estimators': 465}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.560617503,"data":"[I 2026-02-17 15:54:13,507] Trial 65 finished with value: 0.5367243256220069 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.5507436227375353, 'colsample_bytree': 0.5279461959952482, 'reg_lambda': 3.6901274689917494, 'reg_alpha': 2.649771217794438, 'learning_rate': 0.043472037046436346, 'n_estimators': 547}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.76359965,"data":"[I 2026-02-17 15:54:13,605] Trial 66 finished with value: 0.465106088942159 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.5822359783926352, 'colsample_bytree': 0.31682320194818436, 'reg_lambda': 2.6168431453807135, 'reg_alpha': 3.069120573019837, 'learning_rate': 0.02972241093404472, 'n_estimators': 515}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.763636741,"data":"[I 2026-02-17 15:54:13,715] Trial 67 finished with value: 0.5000212816735635 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.4719398123897078, 'colsample_bytree': 0.48135389740714785, 'reg_lambda': 2.9308149792402207, 'reg_alpha': 3.814670933725724, 'learning_rate': 0.024716298033148627, 'n_estimators': 323}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.978520602,"data":"[I 2026-02-17 15:54:13,820] Trial 68 finished with value: 0.6681003617060873 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.42644315172543973, 'colsample_bytree': 0.2740464039528295, 'reg_lambda': 1.6513315310645937, 'reg_alpha': 4.669383207841146, 'learning_rate': 0.0420385015803827, 'n_estimators': 500}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.978549002,"data":"[I 2026-02-17 15:54:13,907] Trial 69 finished with value: 0.5752495782464456 and parameters: {'max_depth': 3, 'min_child_weight': 19, 'subsample': 0.4300726718317763, 'colsample_bytree': 0.2750948565765419, 'reg_lambda': 1.5317981469439037, 'reg_alpha': 6.3761942922306485, 'learning_rate': 0.04407956294985516, 'n_estimators': 400}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":29.978567329,"data":"[I 2026-02-17 15:54:13,996] Trial 70 finished with value: 0.5493345666228027 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.415848885638892, 'colsample_bytree': 0.23186239292199948, 'reg_lambda': 1.2004772471540657, 'reg_alpha': 4.804900078358648, 'learning_rate': 0.04933342781988229, 'n_estimators': 442}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.261519339,"data":"[I 2026-02-17 15:54:14,104] Trial 71 finished with value: 0.5993340769559483 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.44133600599594147, 'colsample_bytree': 0.25671704931531536, 'reg_lambda': 1.669024308089323, 'reg_alpha': 5.881756472184369, 'learning_rate': 0.03582941835349839, 'n_estimators': 493}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.261547206,"data":"[I 2026-02-17 15:54:14,246] Trial 72 finished with value: 0.6388638645006333 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'subsample': 0.5302134770835278, 'colsample_bytree': 0.4459928889069228, 'reg_lambda': 1.8546367433977504, 'reg_alpha': 8.403644366693646, 'learning_rate': 0.03948130445958321, 'n_estimators': 589}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.504695122,"data":"[I 2026-02-17 15:54:14,346] Trial 73 finished with value: 0.47618475552853634 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.5034521429494057, 'colsample_bytree': 0.23512438494282104, 'reg_lambda': 2.0729619975426736, 'reg_alpha': 9.154789063279722, 'learning_rate': 0.04163512603183276, 'n_estimators': 590}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.504737199,"data":"[I 2026-02-17 15:54:14,445] Trial 74 finished with value: 0.5033101417580248 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'subsample': 0.4583277680412114, 'colsample_bytree': 0.4987340852781309, 'reg_lambda': 2.4991945887780718, 'reg_alpha': 8.448008201498594, 'learning_rate': 0.03185777361887384, 'n_estimators': 650}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.719441952,"data":"[I 2026-02-17 15:54:14,563] Trial 75 finished with value: 0.5817898560864729 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'subsample': 0.5550345453536248, 'colsample_bytree': 0.5507239709968408, 'reg_lambda': 2.182921918941488, 'reg_alpha': 5.777202830798893, 'learning_rate': 0.027899957561737646, 'n_estimators': 567}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.719484323,"data":"[I 2026-02-17 15:54:14,651] Trial 76 finished with value: 0.5693236019942952 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.4854222894379045, 'colsample_bytree': 0.2782714224477627, 'reg_lambda': 1.3588987864541469, 'reg_alpha': 4.44257584721194, 'learning_rate': 0.040900635269845234, 'n_estimators': 355}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.963576308,"data":"[I 2026-02-17 15:54:14,808] Trial 77 finished with value: 0.5620885014427642 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.40004119830892726, 'colsample_bytree': 0.31951301099738083, 'reg_lambda': 2.88925489423209, 'reg_alpha': 7.465010812251561, 'learning_rate': 0.03186721822145871, 'n_estimators': 479}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":30.963605823,"data":"[I 2026-02-17 15:54:14,914] Trial 78 finished with value: 0.5231563055170853 and parameters: {'max_depth': 4, 'min_child_weight': 15, 'subsample': 0.6033037304069987, 'colsample_bytree': 0.3577523300980298, 'reg_lambda': 1.6183912462181287, 'reg_alpha': 1.9979302587981884, 'learning_rate': 0.020889753226323665, 'n_estimators': 530}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.188739297,"data":"[I 2026-02-17 15:54:15,031] Trial 79 finished with value: 0.5026732037901416 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.5306930602872615, 'colsample_bytree': 0.4168687034128468, 'reg_lambda': 1.8555356019200935, 'reg_alpha': 4.062819444596832, 'learning_rate': 0.026472959261881698, 'n_estimators': 602}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.188762192,"data":"[I 2026-02-17 15:54:15,199] Trial 80 finished with value: 0.4620499577613402 and parameters: {'max_depth': 4, 'min_child_weight': 14, 'subsample': 0.5006691179582269, 'colsample_bytree': 0.44686187260665966, 'reg_lambda': 1.172469699286206, 'reg_alpha': 5.181052868475097, 'learning_rate': 0.016972701505132522, 'n_estimators': 548}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.498519177,"data":"[I 2026-02-17 15:54:15,341] Trial 81 finished with value: 0.6286582516779443 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5301135373383021, 'colsample_bytree': 0.4367512993919629, 'reg_lambda': 1.743962916840076, 'reg_alpha': 3.4189045887674596, 'learning_rate': 0.03721350400274959, 'n_estimators': 508}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.498548722,"data":"[I 2026-02-17 15:54:15,451] Trial 82 finished with value: 0.5574980655824061 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.6217484978337353, 'colsample_bytree': 0.47229684483722856, 'reg_lambda': 1.4520767975452782, 'reg_alpha': 3.5290865208902993, 'learning_rate': 0.04541219099910051, 'n_estimators': 622}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.730229844,"data":"[I 2026-02-17 15:54:15,575] Trial 83 finished with value: 0.5319344784604827 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5856370677508017, 'colsample_bytree': 0.39609489326477065, 'reg_lambda': 1.997212729297563, 'reg_alpha': 2.8282117735525554, 'learning_rate': 0.0345594149183737, 'n_estimators': 577}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.730271325,"data":"[I 2026-02-17 15:54:15,685] Trial 84 finished with value: 0.5168409761857474 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5568408694373741, 'colsample_bytree': 0.5079486275642591, 'reg_lambda': 2.3006030500811496, 'reg_alpha': 8.262166397070512, 'learning_rate': 0.03945262686689622, 'n_estimators': 413}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.953833252,"data":"[I 2026-02-17 15:54:15,797] Trial 85 finished with value: 0.5150922089208737 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5420928482936512, 'colsample_bytree': 0.4566821832530038, 'reg_lambda': 3.1763628046999735, 'reg_alpha': 2.42541394561886, 'learning_rate': 0.049182524336623214, 'n_estimators': 514}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.953867429,"data":"[I 2026-02-17 15:54:15,886] Trial 86 finished with value: 0.5758078188388704 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.47435270342721947, 'colsample_bytree': 0.28727790908426054, 'reg_lambda': 1.7570769839289817, 'reg_alpha': 0.5414671808528647, 'learning_rate': 0.023639330973886662, 'n_estimators': 458}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":31.953872412,"data":"[I 2026-02-17 15:54:15,997] Trial 87 finished with value: 0.5412675370693296 and parameters: {'max_depth': 4, 'min_child_weight': 21, 'subsample': 0.5745032975015635, 'colsample_bytree': 0.24994909860050885, 'reg_lambda': 3.6755340686703564, 'reg_alpha': 0.6209277378128458, 'learning_rate': 0.030883415740487568, 'n_estimators': 370}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.255516583,"data":"[I 2026-02-17 15:54:16,097] Trial 88 finished with value: 0.5502359687443453 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.8251275865733956, 'colsample_bytree': 0.21956173116587865, 'reg_lambda': 2.5630233706020262, 'reg_alpha': 2.677775988826589, 'learning_rate': 0.03704764334681307, 'n_estimators': 555}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.255547033,"data":"[I 2026-02-17 15:54:16,213] Trial 89 finished with value: 0.5423935713137651 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.4523035283931959, 'colsample_bytree': 0.42810849975964593, 'reg_lambda': 2.796605203549954, 'reg_alpha': 2.248124576547045, 'learning_rate': 0.042288144189316985, 'n_estimators': 425}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.544529844,"data":"[I 2026-02-17 15:54:16,387] Trial 90 finished with value: 0.5817701520873245 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.4244819042085481, 'colsample_bytree': 0.316283722036417, 'reg_lambda': 1.1166531961458404, 'reg_alpha': 3.0492290499618186, 'learning_rate': 0.012603089940739774, 'n_estimators': 472}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.544574064,"data":"[I 2026-02-17 15:54:16,490] Trial 91 finished with value: 0.5144300011825623 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5233210010762802, 'colsample_bytree': 0.44119339775911587, 'reg_lambda': 1.8263036997275146, 'reg_alpha': 3.3149482800518513, 'learning_rate': 0.03442273464883558, 'n_estimators': 502}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.756746313,"data":"[I 2026-02-17 15:54:16,599] Trial 92 finished with value: 0.5042428618547341 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5092177264271591, 'colsample_bytree': 0.4177938042240693, 'reg_lambda': 1.306575782727492, 'reg_alpha': 3.5109010318197633, 'learning_rate': 0.038309509035955085, 'n_estimators': 539}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.75681298,"data":"[I 2026-02-17 15:54:16,699] Trial 93 finished with value: 0.5346844170842261 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.5312443761235555, 'colsample_bytree': 0.43318497970565933, 'reg_lambda': 1.90023876296942, 'reg_alpha': 4.077406422278616, 'learning_rate': 0.04601007531480778, 'n_estimators': 517}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.975618013,"data":"[I 2026-02-17 15:54:16,817] Trial 94 finished with value: 0.4740723511311702 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.48633860458704503, 'colsample_bytree': 0.4555652872338062, 'reg_lambda': 1.5435284284810251, 'reg_alpha': 3.1919184567787418, 'learning_rate': 0.03569241621697352, 'n_estimators': 496}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":32.975652897,"data":"[I 2026-02-17 15:54:16,931] Trial 95 finished with value: 0.49198240668689946 and parameters: {'max_depth': 4, 'min_child_weight': 16, 'subsample': 0.5465967240853418, 'colsample_bytree': 0.3447103534589089, 'reg_lambda': 1.6832953132840431, 'reg_alpha': 2.923966947454067, 'learning_rate': 0.041223446180492375, 'n_estimators': 593}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":33.198509571,"data":"[I 2026-02-17 15:54:17,041] Trial 96 finished with value: 0.5533820620700565 and parameters: {'max_depth': 4, 'min_child_weight': 18, 'subsample': 0.43720318420820986, 'colsample_bytree': 0.38205594427770684, 'reg_lambda': 4.828553918801166, 'reg_alpha': 3.6603245559899005, 'learning_rate': 0.027195776282207283, 'n_estimators': 447}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":33.198539457,"data":"[I 2026-02-17 15:54:17,145] Trial 97 finished with value: 0.5055569199238833 and parameters: {'max_depth': 4, 'min_child_weight': 17, 'subsample': 0.5629159501698351, 'colsample_bytree': 0.3990006221056165, 'reg_lambda': 4.083957349819822, 'reg_alpha': 2.5316287705892924, 'learning_rate': 0.030355945902348098, 'n_estimators': 565}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":33.34145039,"data":"[I 2026-02-17 15:54:17,275] Trial 98 finished with value: 0.5869199516450496 and parameters: {'max_depth': 4, 'min_child_weight': 19, 'subsample': 0.5956402748086767, 'colsample_bytree': 0.49124567114449513, 'reg_lambda': 2.1130985346222477, 'reg_alpha': 6.278620198181706, 'learning_rate': 0.024852021101565102, 'n_estimators': 535}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":33.341475606,"data":"[I 2026-02-17 15:54:17,371] Trial 99 finished with value: 0.5100631444455772 and parameters: {'max_depth': 4, 'min_child_weight': 20, 'subsample': 0.49519839063908616, 'colsample_bytree': 0.4722403780531088, 'reg_lambda': 2.3869366545261825, 'reg_alpha': 1.8713865458716819, 'learning_rate': 0.0340854404157847, 'n_estimators': 633}. Best is trial 58 with value: 0.6910664462731623.\n"}
+,{"stream_name":"stdout","time":33.341484799,"data":"\n"}
+,{"stream_name":"stdout","time":33.341505288,"data":"Optuna optimization complete\n"}
+,{"stream_name":"stdout","time":33.341509786,"data":"  Trials completed: 100\n"}
+,{"stream_name":"stdout","time":33.341527516,"data":"  Best value: 0.6911\n"}
+,{"stream_name":"stdout","time":33.341531511,"data":"\n"}
+,{"stream_name":"stdout","time":33.341534871,"data":"Best hyperparameters:\n"}
+,{"stream_name":"stdout","time":33.341538117,"data":"  max_depth: 4\n"}
+,{"stream_name":"stdout","time":33.341541422,"data":"  min_child_weight: 18\n"}
+,{"stream_name":"stdout","time":33.341544649,"data":"  subsample: 0.5638464122306557\n"}
+,{"stream_name":"stdout","time":33.341548091,"data":"  colsample_bytree: 0.27033919922559224\n"}
+,{"stream_name":"stdout","time":33.341570317,"data":"  reg_lambda: 1.7056675831954382\n"}
+,{"stream_name":"stdout","time":33.341578459,"data":"  reg_alpha: 4.703042529997059\n"}
+,{"stream_name":"stdout","time":33.341582933,"data":"  learning_rate: 0.045037505185407216\n"}
+,{"stream_name":"stdout","time":33.341586615,"data":"  n_estimators: 382\n"}
+,{"stream_name":"stdout","time":33.34158985,"data":"\n"}
+,{"stream_name":"stdout","time":33.34159304,"data":"Best trial validation metrics:\n"}
+,{"stream_name":"stdout","time":33.34159628,"data":"  DA:     56.04%\n"}
+,{"stream_name":"stdout","time":33.3415995,"data":"  HCDA:   52.75%\n"}
+,{"stream_name":"stdout","time":33.341602668,"data":"  MAE:    0.6435%\n"}
+,{"stream_name":"stdout","time":33.341605956,"data":"  Sharpe: 2.62\n"}
+,{"stream_name":"stdout","time":33.341609198,"data":"  DA gap: 5.83pp\n"}
+,{"stream_name":"stdout","time":33.436686743,"data":"\n"}
+,{"stream_name":"stdout","time":33.436732272,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.436737058,"data":"FALLBACK: Testing Attempt 2 Best Params on 18 Features\n"}
+,{"stream_name":"stdout","time":33.436740616,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.437429212,"data":"\n"}
+,{"stream_name":"stdout","time":33.437433765,"data":"Optuna: 0.6911 vs Fallback: 0.4616\n"}
+,{"stream_name":"stdout","time":33.437436944,"data":"Using Optuna best configuration\n"}
+,{"stream_name":"stdout","time":33.583675852,"data":"\n"}
+,{"stream_name":"stdout","time":33.583700379,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.58370415,"data":"TRAINING FINAL MODEL (OPTUNA CONFIG)\n"}
+,{"stream_name":"stdout","time":33.583707212,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.583710304,"data":"\n"}
+,{"stream_name":"stdout","time":33.583713441,"data":"Raw predictions: Train mean=0.0229 std=0.0753\n"}
+,{"stream_name":"stdout","time":33.583716324,"data":"                 Val   mean=0.0205 std=0.0804\n"}
+,{"stream_name":"stdout","time":33.583719163,"data":"                 Test  mean=-0.0012 std=0.0754\n"}
+,{"stream_name":"stdout","time":33.583722633,"data":"\n"}
+,{"stream_name":"stdout","time":33.58372616,"data":"--- OLS Scaling ---\n"}
+,{"stream_name":"stdout","time":33.583729454,"data":"OLS scaling factor: 0.74\n"}
+,{"stream_name":"stdout","time":33.583733764,"data":"MAE raw=0.9532%, scaled=0.9538%, delta=+0.0006%\n"}
+,{"stream_name":"stdout","time":33.583737705,"data":"Using RAW for MAE\n"}
+,{"stream_name":"stdout","time":33.583741754,"data":"\n"}
+,{"stream_name":"stdout","time":33.583745452,"data":"--- Bootstrap Ensemble (5 models) ---\n"}
+,{"stream_name":"stdout","time":33.680576662,"data":"  Model 1/5 trained (seed=42)\n"}
+,{"stream_name":"stdout","time":33.838601091,"data":"  Model 2/5 trained (seed=43)\n"}
+,{"stream_name":"stdout","time":33.838645215,"data":"  Model 3/5 trained (seed=44)\n"}
+,{"stream_name":"stdout","time":33.921647965,"data":"  Model 4/5 trained (seed=45)\n"}
+,{"stream_name":"stdout","time":33.937965646,"data":"  Model 5/5 trained (seed=46)\n"}
+,{"stream_name":"stdout","time":33.937984588,"data":"\n"}
+,{"stream_name":"stdout","time":33.937988148,"data":"Bootstrap std (test): [0.0036, 0.1409], mean=0.0295\n"}
+,{"stream_name":"stdout","time":33.937991338,"data":"HCDA bootstrap=59.78%, |pred|=54.35%\n"}
+,{"stream_name":"stdout","time":33.937994293,"data":"Using BOOTSTRAP for HCDA: 59.78%\n"}
+,{"stream_name":"stdout","time":33.979194389,"data":"\n"}
+,{"stream_name":"stdout","time":33.979217701,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.979223263,"data":"FINAL EVALUATION\n"}
+,{"stream_name":"stdout","time":33.979227153,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.979231214,"data":"\n"}
+,{"stream_name":"stdout","time":33.979235183,"data":"TRAIN: DA=61.59%, HCDA=78.40%, MAE=0.6343%, Sharpe=4.61\n"}
+,{"stream_name":"stdout","time":33.979239166,"data":"\n"}
+,{"stream_name":"stdout","time":33.979243254,"data":"VAL: DA=51.43%, HCDA=52.22%, MAE=0.6489%, Sharpe=-0.28\n"}
+,{"stream_name":"stdout","time":33.979246768,"data":"\n"}
+,{"stream_name":"stdout","time":33.979250001,"data":"TEST: DA=55.46%, HCDA=54.35%, MAE=0.9532%, Sharpe=1.13\n"}
+,{"stream_name":"stdout","time":33.97925389,"data":"\n"}
+,{"stream_name":"stdout","time":33.979257103,"data":"TARGET STATUS:\n"}
+,{"stream_name":"stdout","time":33.979260399,"data":"  DA \u003e 56%:     FAIL (55.46%)\n"}
+,{"stream_name":"stdout","time":33.979264698,"data":"  HCDA \u003e 60%:   FAIL (59.78% via bootstrap)\n"}
+,{"stream_name":"stdout","time":33.979268804,"data":"  MAE \u003c 0.75%:  FAIL (0.9532%)\n"}
+,{"stream_name":"stdout","time":33.979272918,"data":"  Sharpe \u003e 0.8: PASS (1.13)\n"}
+,{"stream_name":"stdout","time":33.97927683,"data":"\n"}
+,{"stream_name":"stdout","time":33.979279959,"data":"Targets passed: 1/4\n"}
+,{"stream_name":"stdout","time":33.979283241,"data":"Overfitting: Train-Test DA gap = 6.13pp (target: \u003c10pp)\n"}
+,{"stream_name":"stdout","time":33.979286661,"data":"\n"}
+,{"stream_name":"stdout","time":33.979290372,"data":"VS ATTEMPT 7 (24 features):\n"}
+,{"stream_name":"stdout","time":33.979294574,"data":"  DA:     -4.58pp\n"}
+,{"stream_name":"stdout","time":33.97929856,"data":"  HCDA:   -4.35pp\n"}
+,{"stream_name":"stdout","time":33.979301865,"data":"  MAE:    +0.0103%\n"}
+,{"stream_name":"stdout","time":33.979305187,"data":"  Sharpe: -1.33\n"}
+,{"stream_name":"stdout","time":33.979308506,"data":"\n"}
+,{"stream_name":"stdout","time":33.979312541,"data":"Naive always-up DA: 58.73%\n"}
+,{"stream_name":"stdout","time":33.97931647,"data":"Model vs naive: -3.28pp\n"}
+,{"stream_name":"stdout","time":34.027084655,"data":"\n"}
+,{"stream_name":"stdout","time":34.027106606,"data":"FEATURE IMPORTANCE (18 features):\n"}
+,{"stream_name":"stdout","time":34.027111734,"data":"   1. real_rate_change               0.0923\n"}
+,{"stream_name":"stdout","time":34.027115587,"data":"   2. tech_trend_regime_prob         0.0803\n"}
+,{"stream_name":"stdout","time":34.027119161,"data":"   3. xasset_regime_prob             0.0701\n"}
+,{"stream_name":"stdout","time":34.027122573,"data":"   4. inflation_exp_change           0.0618\n"}
+,{"stream_name":"stdout","time":34.027125685,"data":"   5. tech_mean_reversion_z          0.0570\n"}
+,{"stream_name":"stdout","time":34.027139566,"data":"   6. tech_volatility_regime         0.0547\n"}
+,{"stream_name":"stdout","time":34.027143521,"data":"   7. yield_spread_change            0.0544\n"}
+,{"stream_name":"stdout","time":34.027146808,"data":"   8. etf_regime_prob                0.0523\n"}
+,{"stream_name":"stdout","time":34.027150165,"data":"   9. vix                            0.0516\n"}
+,{"stream_name":"stdout","time":34.027153465,"data":"  10. vix_regime_probability         0.0509\n"}
+,{"stream_name":"stdout","time":34.02715676,"data":"  11. xasset_divergence              0.0505\n"}
+,{"stream_name":"stdout","time":34.027159935,"data":"  12. ie_regime_prob                 0.0502\n"}
+,{"stream_name":"stdout","time":34.027163251,"data":"  13. dxy_change                     0.0484\n"}
+,{"stream_name":"stdout","time":34.02716643,"data":"  14. options_risk_regime_prob       0.0483\n"}
+,{"stream_name":"stdout","time":34.027169543,"data":"  15. vix_mean_reversion_z           0.0479\n"}
+,{"stream_name":"stdout","time":34.027172881,"data":"  16. yc_spread_velocity_z           0.0455\n"}
+,{"stream_name":"stdout","time":34.027176383,"data":"  17. temporal_context_score         0.0430\n"}
+,{"stream_name":"stdout","time":34.027179953,"data":"  18. yc_curvature_z                 0.0407\n"}
+,{"stream_name":"stdout","time":34.027183382,"data":"\n"}
+,{"stream_name":"stdout","time":34.027186557,"data":"Prediction distribution (test): mean=-0.0012, std=0.0754, positive=50.4%\n"}
+,{"stream_name":"stdout","time":34.027190109,"data":"\n"}
+,{"stream_name":"stdout","time":34.027194395,"data":"QUARTERLY PERFORMANCE:\n"}
+,{"stream_name":"stdout","time":34.027197731,"data":"  2024Q2: DA= 54.2%, MAE=0.808%, Sharpe= 0.79, N=48\n"}
+,{"stream_name":"stdout","time":34.027201069,"data":"  2024Q3: DA= 54.7%, MAE=0.720%, Sharpe= 2.08, N=64\n"}
+,{"stream_name":"stdout","time":34.027204558,"data":"  2024Q4: DA= 50.0%, MAE=0.815%, Sharpe=-3.19, N=64\n"}
+,{"stream_name":"stdout","time":34.027207767,"data":"  2025Q1: DA= 54.1%, MAE=0.680%, Sharpe= 0.66, N=61\n"}
+,{"stream_name":"stdout","time":34.027211738,"data":"  2025Q2: DA= 62.9%, MAE=1.326%, Sharpe= 3.58, N=62\n"}
+,{"stream_name":"stdout","time":34.027215467,"data":"  2025Q3: DA= 58.5%, MAE=0.685%, Sharpe= 2.19, N=65\n"}
+,{"stream_name":"stdout","time":34.027219023,"data":"  2025Q4: DA= 53.1%, MAE=1.118%, Sharpe= 0.59, N=64\n"}
+,{"stream_name":"stdout","time":34.02722237,"data":"  2026Q1: DA= 56.7%, MAE=1.994%, Sharpe= 2.11, N=30\n"}
+,{"stream_name":"stdout","time":34.07067584,"data":"\n"}
+,{"stream_name":"stdout","time":34.070697083,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":34.07070239,"data":"SAVING RESULTS\n"}
+,{"stream_name":"stdout","time":34.070706088,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":34.171804607,"data":"Saved predictions.csv, test_predictions.csv, submodel_output.csv, model.json\n"}
+,{"stream_name":"stdout","time":34.171827542,"data":"Saved training_result.json\n"}
+,{"stream_name":"stdout","time":34.171832385,"data":"\n"}
+,{"stream_name":"stdout","time":34.171836426,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":34.171840389,"data":"TRAINING COMPLETE\n"}
+,{"stream_name":"stdout","time":34.171844096,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":34.171847659,"data":"Features: 18 (pruned from 24)\n"}
+,{"stream_name":"stdout","time":34.171851433,"data":"Config: OPTUNA, HCDA: BOOTSTRAP\n"}
+,{"stream_name":"stdout","time":34.171865014,"data":"Targets passed: 1/4\n"}
+,{"stream_name":"stdout","time":34.171868636,"data":"\n"}
+,{"stream_name":"stdout","time":34.171871789,"data":"Vs Attempt 7: DA -4.58pp, HCDA -4.35pp, MAE +0.0103%, Sharpe -1.33\n"}
+,{"stream_name":"stderr","time":36.552057754,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":36.552087551,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":36.694088411,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":36.694111649,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":37.302784653,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":37.30281707,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":37.3355694,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":37.645224753,"data":"[NbConvertApp] Writing 118517 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":39.966071346,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":39.966107963,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":39.990977451,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":40.921797968,"data":"[NbConvertApp] Writing 541112 bytes to __results__.html\n"}
+]

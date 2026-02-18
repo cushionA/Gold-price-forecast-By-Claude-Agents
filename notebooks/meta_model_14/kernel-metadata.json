@@ -1,0 +1,11 @@
+{
+  "id": "bigbigzabuton/gold-meta-model-attempt-14",
+  "title": "gold-meta-model-attempt-14",
+  "code_file": "train.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"]
+}

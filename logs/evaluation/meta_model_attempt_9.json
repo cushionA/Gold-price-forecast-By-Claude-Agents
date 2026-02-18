@@ -1,0 +1,248 @@
+{
+  "feature": "meta_model",
+  "attempt": 9,
+  "timestamp": "2026-02-17T12:00:00",
+  "architecture": "XGBoost (dual-track MSE/directional) + 3 interaction features + Bootstrap confidence + OLS scaling (27 features)",
+  "phase": "3_meta_model",
+  "evaluation_type": "final_targets",
+  "gate1": {
+    "passed": false,
+    "checks": {
+      "overfit_ratio": {
+        "value": "N/A (test > train)",
+        "train_test_da_gap_pp": -7.08,
+        "threshold_pp": 10.0,
+        "passed": true,
+        "detail": "train_DA=51.65%, test_DA=58.73%. Test outperforms train by 7.08pp. No overfitting."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": ["predictions_near_constant"],
+        "passed": false,
+        "detail": "Prediction std=0.0006. This is 37.7x smaller than attempt 7 (std=0.0226). Raw prediction range [0.0188, 0.0236] spans only 0.0048. Effectively a near-constant positive predictor."
+      },
+      "prediction_collapse": {
+        "passed": false,
+        "detail": "100% positive predictions (TP=269, FP=189, TN=0, FN=0). Zero negative predictions. Attempt 7 had 87.3% positive (with 58 genuine negative predictions). Model has collapsed to trivial always-positive predictor -- identical failure mode to attempt 8.",
+        "prediction_std": 0.0006,
+        "attempt_7_prediction_std": 0.0226,
+        "std_ratio": 0.0265,
+        "positive_pct": 100.0,
+        "attempt_7_positive_pct": 87.3,
+        "negative_predictions": 0,
+        "attempt_7_negative_predictions": 58
+      },
+      "autocorrelation": {
+        "passed": true,
+        "detail": "Near-constant predictions trivially have high autocorrelation. This is a symptom of the prediction collapse, not a data leak."
+      },
+      "hpo_coverage": {
+        "track_a_trials": 60,
+        "track_b_trials": 40,
+        "total_trials": 100,
+        "passed": true,
+        "detail": "100 Optuna trials completed (60 Track A MSE, 40 Track B directional). HPO coverage adequate but both tracks found nearly identical solutions."
+      },
+      "dual_track_quality": {
+        "passed": false,
+        "track_a_composite": 0.6412,
+        "track_b_composite": 0.6137,
+        "selected_track": "mse",
+        "detail": "Track A (MSE) selected with composite 0.6412 vs Track B (directional) 0.6137. Directional loss provided NO benefit (composite -0.0275 lower). Both tracks found val_DA=52.53% and val_sharpe=1.07 -- identical validation performance. The dual-track experiment was uninformative: directional loss did not improve DA."
+      },
+      "interaction_features_assessment": {
+        "passed": "partial",
+        "detail": "1 of 3 interaction features contributed meaningfully. real_rate_x_temporal ranked #3 with 5.71% importance (TOP-3, validates feature engineering). yc_curvature_x_recession ranked #25 (0.0306) and dxy_x_vix_persistence ranked #27 (0.0298, LAST) were essentially noise.",
+        "useful_interactions": 1,
+        "total_interactions": 3,
+        "top_interaction": {
+          "name": "real_rate_x_temporal",
+          "rank": 3,
+          "importance": 0.0571
+        },
+        "bottom_interactions": [
+          {"name": "yc_curvature_x_recession", "rank": 25, "importance": 0.0306},
+          {"name": "dxy_x_vix_persistence", "rank": 27, "importance": 0.0298}
+        ]
+      }
+    }
+  },
+  "gate2_vs_attempt7": {
+    "passed": false,
+    "checks": {
+      "da_comparison": {
+        "attempt_7": 0.6004,
+        "attempt_9": 0.5873,
+        "delta_pp": -1.31,
+        "passed": false,
+        "detail": "DA regressed by 1.31pp. Attempt 9 DA (58.73%) exactly equals naive always-up, while attempt 7 (60.04%) beat naive by 1.31pp."
+      },
+      "hcda_comparison": {
+        "attempt_7": 0.6413,
+        "attempt_9": 0.6413,
+        "delta_pp": 0.0,
+        "passed": false,
+        "detail": "HCDA nominally unchanged (64.13% in both). However, attempt 9's prediction range [0.0188, 0.0236] is 9.4x narrower than attempt 7 [-0.1186, 0.0921]. HCDA in attempt 9 is determined by minuscule variation in near-constant predictions, making it unreliable and non-reproducible."
+      },
+      "sharpe_comparison": {
+        "attempt_7": 2.4636,
+        "attempt_9": 2.06,
+        "delta": -0.40,
+        "passed": false,
+        "detail": "Sharpe regressed by 0.40 (from 2.46 to 2.06). Both pass the 0.80 target, but attempt 7 achieved its Sharpe with genuine directional signals while attempt 9's Sharpe is purely from always-long during a bull market."
+      },
+      "mae_comparison": {
+        "attempt_7": 0.9429,
+        "attempt_9": 0.9425,
+        "delta": -0.0004,
+        "passed": true,
+        "detail": "MAE nearly identical. Both fail the 0.75% target (waived)."
+      },
+      "vs_naive_comparison": {
+        "attempt_7_vs_naive_pp": 1.31,
+        "attempt_9_vs_naive_pp": 0.0,
+        "delta_pp": -1.31,
+        "passed": false,
+        "detail": "CRITICAL REGRESSION. Attempt 7 beat naive by +1.31pp. Attempt 9 equals naive exactly (+0.00pp). The model lost all skill above naive baseline."
+      },
+      "prediction_diversity_comparison": {
+        "attempt_7_std": 0.0226,
+        "attempt_9_std": 0.0006,
+        "ratio": 0.0265,
+        "passed": false,
+        "detail": "Prediction diversity collapsed by 37.7x. Attempt 7 produced genuine negative predictions (12.7% of total). Attempt 9 produces zero negative predictions."
+      },
+      "confusion_matrix_comparison": {
+        "attempt_7_estimated": {"TP": 243, "FP": 157, "TN": 32, "FN": 26},
+        "attempt_9_actual": {"TP": 269, "FP": 189, "TN": 0, "FN": 0},
+        "true_negatives_lost": 32,
+        "false_negatives_avoided": 26,
+        "net_correct_lost": 6,
+        "detail": "Attempt 7 had 32 correct negative predictions and 26 incorrect negative predictions, for a net gain of +6 correct calls from negative predictions (net 1.31pp DA advantage). Attempt 9 loses all of these."
+      }
+    },
+    "overall_assessment": "Attempt 9 is strictly worse than attempt 7 on all meaningful metrics. DA regressed (-1.31pp), Sharpe regressed (-0.40), prediction diversity collapsed (37.7x), and the model equals naive (vs beating it by 1.31pp in attempt 7). HCDA is nominally unchanged but unreliable due to near-constant prediction range."
+  },
+  "gate3_final_targets": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "58.73%",
+      "gap_pp": 2.73,
+      "passed_nominal": true,
+      "passed_substantive": false,
+      "detail": "Nominally passes 56% target, but DA exactly equals naive always-up strategy (58.73%). Model has ZERO directional skill above naive. Identical failure to attempt 8."
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "64.13%",
+      "gap_pp": 4.13,
+      "passed_nominal": true,
+      "passed_substantive": false,
+      "method_used": "bootstrap",
+      "detail": "HCDA 64.13% via bootstrap method. However, prediction range [0.0188, 0.0236] is only 0.0048 wide. High-confidence subset is determined by vanishingly small variation in near-constant predictions. Not meaningfully different from random selection of the top 20%."
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9425%",
+      "gap_pct": -0.1925,
+      "passed": false,
+      "detail": "MAE structurally infeasible (waived). Near-constant predictions centered at 0.022% yield MAE dominated by actual return volatility."
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": 2.06,
+      "gap": 1.26,
+      "passed_nominal": true,
+      "passed_substantive": false,
+      "detail": "Sharpe 2.06 nominally passes 0.80 target, but this is the Sharpe of a 100% always-long strategy during a gold bull market (2024-2026). Model adds zero value beyond 'always buy gold'. Attempt 7 Sharpe (2.46) was higher because genuine directional signals improved position timing."
+    }
+  },
+  "substantive_skill_assessment": {
+    "overall": "FAIL - TRIVIAL PREDICTOR (same failure mode as attempt 8)",
+    "tests": {
+      "vs_naive": {
+        "naive_da": "58.73%",
+        "model_da": "58.73%",
+        "delta_pp": 0.0,
+        "passed": false,
+        "detail": "Model exactly equals naive always-up. Zero added directional skill."
+      },
+      "prediction_diversity": {
+        "prediction_std": 0.0006,
+        "positive_pct": 100.0,
+        "passed": false,
+        "detail": "Prediction std is 37.7x smaller than attempt 7. All predictions positive. Model has collapsed to trivial constant predictor."
+      },
+      "trade_activity": {
+        "position_changes": 0,
+        "passed": false,
+        "detail": "With 100% positive predictions, model never changes position. Zero trades means zero information beyond 'always hold gold'."
+      },
+      "model_vs_attempt7": {
+        "da_delta_pp": -1.31,
+        "hcda_delta_pp": 0.0,
+        "sharpe_delta": -0.40,
+        "mae_delta": -0.0004,
+        "passed": false,
+        "detail": "All meaningful metrics regressed from attempt 7 or remained static. The 3 targeted modifications (interaction features, dual-track loss, weight shift) collectively failed to improve any metric."
+      }
+    }
+  },
+  "targets_passed_nominal": 3,
+  "targets_passed_substantive": 0,
+  "targets_total": 4,
+  "overall_passed": false,
+  "failure_diagnosis": {
+    "root_cause": "Prediction collapse to near-constant positive output despite reverting to single XGBoost",
+    "mechanism": "The Optuna search with updated weights (30/40/10/20 vs 40/30/10/20) found HP configurations that produce near-constant positive predictions (std=0.0006). The MSE track's best composite (0.6412) corresponds to val_DA=52.53% -- the exact same validation DA as attempt 7. However, the model generalizes differently on the test set: instead of producing genuine variation (std=0.0226 in attempt 7), it produces near-constant output (std=0.0006). This suggests the 3 additional features and/or weight shift pushed Optuna toward a different region of HP space that over-regularizes predictions.",
+    "contributing_factors": [
+      "Weight shift (Sharpe 40->30%, DA 30->40%) may have encouraged Optuna to find configurations that maximize validation DA via consistent positive predictions rather than genuine directional calls",
+      "2 of 3 interaction features ranked last (25th, 27th out of 27) -- added noise without signal",
+      "Directional loss (Track B) produced LOWER composite (0.6137 vs 0.6412) -- the experimental track failed entirely",
+      "Both tracks found identical val_DA (52.53%) and val_sharpe (1.07), suggesting the search space is saturated",
+      "OLS alpha=1.0 (vs 1.317 in attempt 7) indicates the OLS scaling found no room for amplitude adjustment",
+      "Prediction range [0.0188, 0.0236] vs attempt 7 [-0.1186, 0.0921] shows 9.4x narrower range. The model refuses to predict negatively."
+    ],
+    "pattern_across_attempts": "Attempts 8 and 9 both collapsed to 100% positive predictions despite completely different architectures (stacking vs single XGBoost). This suggests the underlying problem is NOT architectural but rather that the HP search in 27+ feature space, combined with the expanded 2025-2026 bull market test set, naturally converges to always-positive strategies because the naive always-up has a structurally high DA (58.73%) in this period."
+  },
+  "vs_attempt_7": {
+    "da_delta_pp": -1.31,
+    "hcda_delta_pp": 0.0,
+    "mae_delta": -0.0004,
+    "sharpe_delta": -0.40,
+    "prediction_std_ratio": 0.0265,
+    "positive_pct_delta": "+12.7pp (87.3% -> 100%)",
+    "vs_naive_delta_pp": -1.31,
+    "regression_on_all_meaningful_metrics": true,
+    "conclusion": "Attempt 9 is strictly worse than attempt 7 on all substantive metrics. Despite reverting to single XGBoost and making only 3 targeted modifications, the model regressed to the same failure mode as attempt 8."
+  },
+  "attempt_10_assessment": {
+    "recommended": false,
+    "rationale": [
+      "2 consecutive attempts (8, 9) have both regressed from attempt 7 with identical failure mode (100% positive predictions)",
+      "Attempt 8 (stacking): collapsed to constant predictor. Attempt 9 (single XGBoost + modifications): also collapsed to constant predictor.",
+      "Different architectures, same failure: suggests the problem is fundamental to the data/test period, not the model architecture",
+      "Attempt 7 was trained with exactly 24 features, reg:squarederror, and 40/30/10/20 weights. ANY modification appears to destabilize the precise HP configuration that produced genuine negative predictions.",
+      "Risk of attempt 10: HIGH probability (>70%) of same trivial predictor outcome. LOW probability (<15%) of improving over attempt 7.",
+      "Opportunity cost: attempt 10 requires architect + builder_model + Kaggle execution + evaluation, consuming significant time with minimal expected value.",
+      "Attempt 7 already passes 3/4 targets with genuine skill (DA=60.04%, beats naive by 1.31pp). This is a strong result that should be accepted as final."
+    ],
+    "conclusion": "Recommend accepting attempt 7 as the final meta-model and proceeding to final reporting. The 2/3 improvement budget has been spent with both attempts regressing. Further attempts carry high risk of wasting time with no benefit."
+  },
+  "decision": "no_further_improvement",
+  "decision_rationale": {
+    "summary": "Attempt 9 FAIL. Model collapsed to trivial always-positive predictor (same failure as attempt 8). All 3 targeted modifications (interaction features, dual-track loss, weight shift) failed to improve any metric. DA regressed -1.31pp, Sharpe regressed -0.40, prediction diversity collapsed 37.7x. 2 of 3 improvement attempts used, both regressing. Recommend accepting attempt 7 as final model.",
+    "attempt_consumed": true,
+    "attempts_used": "2 of 3 (attempts 8, 9 used; attempt 10 remaining but not recommended)",
+    "final_model": "attempt 7",
+    "final_model_rationale": "Attempt 7 remains the best meta-model: DA=60.04% (beats naive by 1.31pp), HCDA=64.13%, Sharpe=2.46, 3/4 targets pass. Two subsequent attempts both degraded. The model has reached its practical performance ceiling.",
+    "improvement_attempts_summary": {
+      "attempt_8": "Stacking (3 GBDT + Ridge) -- collapsed to constant predictor via Ridge over-regularization",
+      "attempt_9": "Single XGBoost + interactions + directional loss -- collapsed to constant predictor via HP space convergence to always-positive",
+      "pattern": "Both attempts independently converged to 100% positive predictions, suggesting this is a fundamental attractor in the optimization landscape for this data"
+    }
+  }
+}

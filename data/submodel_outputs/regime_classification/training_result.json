@@ -1,0 +1,70 @@
+{
+  "feature": "regime_classification",
+  "attempt": 1,
+  "timestamp": "2026-02-18T12:19:37.842990",
+  "best_params": {
+    "n_components": 2,
+    "covariance_type": "diag",
+    "reg_covar": 1.0101853659235578e-06,
+    "smoothing_window": 3,
+    "use_pca": true,
+    "pca_components": 2
+  },
+  "metrics": {
+    "train_bic": 14568.385699267146,
+    "val_bic": 3116.9935272297575,
+    "train_log_likelihood": -3.4804636628170424,
+    "val_log_likelihood": -3.432837059037642,
+    "overfit_ratio": 0.9863160175497363,
+    "n_components": 2,
+    "covariance_type": "diag",
+    "component_weights": [
+      0.3493226883093912,
+      0.6506773116906088
+    ],
+    "regime_balance": {
+      "regime_0": 30.073924731182792,
+      "regime_1": 69.9260752688172
+    },
+    "avg_regime_duration_days": 9.986577181208053,
+    "regime_labels": {
+      "0": {
+        "name": "Risk-Off",
+        "vix_z": 1.0502687453599833,
+        "yield_spread_z": -0.5099423201503308,
+        "equity_return_z": -0.9496522171635643,
+        "gold_rvol_z": 0.17142561698849643
+      },
+      "1": {
+        "name": "Risk-On",
+        "vix_z": -0.6281221656916195,
+        "yield_spread_z": -0.33206973274159013,
+        "equity_return_z": 0.4423499123425775,
+        "gold_rvol_z": -0.11484731487940561
+      }
+    },
+    "collapse_warning": false
+  },
+  "output_shape": [
+    2976,
+    4
+  ],
+  "output_columns": [
+    "Date",
+    "regime_prob_0",
+    "regime_prob_1",
+    "regime_transition_velocity"
+  ],
+  "optuna_n_trials": 50,
+  "optuna_best_value": 3082.0612583988186,
+  "data_info": {
+    "train_samples": 2083,
+    "val_samples": 446,
+    "test_samples": 447,
+    "full_samples": 2976,
+    "date_range": {
+      "start": "2014-04-11",
+      "end": "2026-02-13"
+    }
+  }
+}

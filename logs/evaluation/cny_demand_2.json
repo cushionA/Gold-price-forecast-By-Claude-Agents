@@ -1,0 +1,195 @@
+{
+  "feature": "cny_demand",
+  "attempt": 2,
+  "timestamp": "2026-02-17T22:25:22.147734",
+  "architecture": "Deterministic CNY-CNH spread change z-score (single output)",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {
+        "value": "N/A (deterministic model, no training)",
+        "passed": true,
+        "note": "Deterministic CNY-CNH spread z-score. No neural network training, no overfit ratio applicable."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "std": 1.0180408823120342
+      },
+      "autocorr_cny_demand_spread_z": {
+        "value": 0.3941245841260641,
+        "passed": true,
+        "note": "Autocorrelation 0.3941 (threshold < 0.99)"
+      },
+      "hpo_coverage": {
+        "value": 30,
+        "passed": true,
+        "note": "30 Optuna trials completed for window parameter optimization."
+      },
+      "nan_pct": {
+        "value": 0.0,
+        "passed": true,
+        "note": "0.0% NaN"
+      }
+    }
+  },
+  "gate2": {
+    "passed": false,
+    "checks": {
+      "mi": {
+        "base": 0.2620991493607363,
+        "extended": 0.2617469973643234,
+        "increase": -0.0013435831330909122,
+        "increase_pct": "-0.13%",
+        "passed": false,
+        "threshold": "> 5%",
+        "cny_demand_spread_z_mi": 0.0054735405895156575
+      },
+      "vif": {
+        "cny_demand_spread_z": 1.136171959755183,
+        "max": 1.136171959755183,
+        "passed": true,
+        "threshold": "< 10"
+      },
+      "stability": {
+        "max_std": 0.1343155293487007,
+        "passed": true,
+        "threshold": "< 0.15",
+        "details": {
+          "cny_demand_spread_z": 0.1343155293487007
+        }
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": 0.015305437611837669,
+        "delta_pct": "+1.53pp",
+        "passed": true,
+        "threshold": "> +0.5%",
+        "improved_folds": "5/5"
+      },
+      "sharpe": {
+        "delta": 0.21657684226050056,
+        "passed": true,
+        "threshold": "> +0.05",
+        "improved_folds": "5/5"
+      },
+      "mae": {
+        "delta": -0.0007522426753872047,
+        "passed": false,
+        "threshold": "< -0.01",
+        "improved_folds": "3/5"
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.5504120212994726,
+      "mae": 0.6623416285400643,
+      "sharpe": 1.4425568897768066
+    },
+    "extended": {
+      "direction_accuracy": 0.5657174589113103,
+      "mae": 0.6615893858646771,
+      "sharpe": 1.6591337320373072
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "da_base": 0.5119617224880383,
+        "da_ext": 0.5311004784688995,
+        "da_delta": 0.019138755980861233,
+        "sharpe_base": 0.22770285617498717,
+        "sharpe_ext": 0.37324488806952366,
+        "sharpe_delta": 0.1455420318945365,
+        "mae_base": 0.5689074257725345,
+        "mae_ext": 0.5657768186066408,
+        "mae_delta": -0.0031306071658937507,
+        "cny_spread_z_importance": 0.030676616355776787,
+        "cny_spread_z_rank": 22
+      },
+      {
+        "fold": 2,
+        "da_base": 0.5288461538461539,
+        "da_ext": 0.5456730769230769,
+        "da_delta": 0.016826923076923017,
+        "sharpe_base": 0.7163377131653649,
+        "sharpe_ext": 0.7643616485113451,
+        "sharpe_delta": 0.04802393534598026,
+        "mae_base": 0.5175263711169649,
+        "mae_ext": 0.5165434952767326,
+        "mae_delta": -0.0009828758402322668,
+        "cny_spread_z_importance": 0.034248318523168564,
+        "cny_spread_z_rank": 19
+      },
+      {
+        "fold": 3,
+        "da_base": 0.583732057416268,
+        "da_ext": 0.5909090909090909,
+        "da_delta": 0.0071770334928229484,
+        "sharpe_base": 2.786645537574745,
+        "sharpe_ext": 2.979708142862761,
+        "sharpe_delta": 0.193062605288016,
+        "mae_base": 0.8287025959220292,
+        "mae_ext": 0.8306967073163224,
+        "mae_delta": 0.0019941113942931743,
+        "cny_spread_z_importance": 0.03362682834267616,
+        "cny_spread_z_rank": 24
+      },
+      {
+        "fold": 4,
+        "da_base": 0.5584725536992841,
+        "da_ext": 0.5799522673031027,
+        "da_delta": 0.021479713603818618,
+        "sharpe_base": 1.7842533825339104,
+        "sharpe_ext": 2.351398446895964,
+        "sharpe_delta": 0.5671450643620535,
+        "mae_base": 0.7223130755642024,
+        "mae_ext": 0.7233387524215722,
+        "mae_delta": 0.0010256768573697617,
+        "cny_spread_z_importance": 0.025261493399739265,
+        "cny_spread_z_rank": 25
+      },
+      {
+        "fold": 5,
+        "da_base": 0.569047619047619,
+        "da_ext": 0.580952380952381,
+        "da_delta": 0.011904761904761973,
+        "sharpe_base": 1.6978449594350258,
+        "sharpe_ext": 1.8269555338469419,
+        "sharpe_delta": 0.1291105744119161,
+        "mae_base": 0.6742586743245897,
+        "mae_ext": 0.6715911557021179,
+        "mae_delta": -0.0026675186224718317,
+        "cny_spread_z_importance": 0.03318667784333229,
+        "cny_spread_z_rank": 22
+      }
+    ],
+    "feature_importance": {
+      "cny_demand_spread_z_avg_importance": 0.03139998689293862,
+      "cny_demand_spread_z_avg_rank": 22.4
+    },
+    "xgb_params_used": "meta_model_attempt_7_best_params"
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "decision_rationale": "Gate 3 PASS. cny_demand_spread_z provides ablation improvement.",
+  "comparison_with_attempt_1": {
+    "attempt_1_gate3_passed": true,
+    "attempt_1_gate3_mae_delta": -0.0658,
+    "attempt_1_gate3_da_delta": -0.0206,
+    "attempt_1_gate3_sharpe_delta": -0.5934,
+    "attempt_2_gate3_passed": true,
+    "attempt_2_gate3_da_delta": 0.015305437611837669,
+    "attempt_2_gate3_sharpe_delta": 0.21657684226050056,
+    "attempt_2_gate3_mae_delta": -0.0007522426753872047,
+    "meta_model_7_uses_cny_features": false,
+    "meta_model_7_cny_features_count": "0/24"
+  }
+}

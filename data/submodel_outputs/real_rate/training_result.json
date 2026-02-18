@@ -1,97 +1,53 @@
 {
   "feature": "real_rate",
-  "attempt": 5,
-  "method": "MarkovRegression_EWM_CUSUM_StateFeatures",
-  "timestamp": "2026-02-14T18:23:44.098134",
-  "markov_regimes": {
-    "regime_0": {
-      "mean_change": -0.059853769535914786,
-      "pct_months": 66.54275092936803,
-      "std": 0.08268553839495942
-    },
-    "regime_1": {
-      "mean_change": 0.14689005738852737,
-      "pct_months": 24.1635687732342,
-      "std": 0.05118339027531498
-    },
-    "regime_2": {
-      "mean_change": -0.007741962548852918,
-      "pct_months": 9.293680297397769,
-      "std": 0.32801458574517783
-    }
+  "attempt": 6,
+  "method": "deterministic_bond_vol_momentum_zscore",
+  "timestamp": "2026-02-17T11:54:56.264458",
+  "best_params": {
+    "vol_window": 10,
+    "vol_zscore_window": 60,
+    "autocorr_window": 10,
+    "autocorr_zscore_window": 30
   },
-  "cusum_change_points": 20,
-  "ewm_span": 3,
+  "validation_mi_sum": 1.2045741775718872,
+  "per_feature_mi": {
+    "rr_bond_vol_z": 0.5942600708120758,
+    "rr_momentum_z": 0.6103141067598115
+  },
+  "autocorrelation": {
+    "rr_bond_vol_z": 0.8989289934531742,
+    "rr_momentum_z": 0.7694776537543878
+  },
+  "cross_correlation": 0.06465251613069792,
   "output_shape": [
     2523,
-    7
+    2
   ],
   "output_columns": [
-    "real_rate_regime_persistence",
-    "real_rate_transition_prob",
-    "real_rate_trend_direction",
-    "real_rate_trend_strength",
-    "real_rate_regime_sync",
-    "real_rate_change_magnitude",
-    "real_rate_days_since_change"
+    "rr_bond_vol_z",
+    "rr_momentum_z"
   ],
   "output_stats": {
-    "real_rate_regime_persistence": {
-      "mean": 0.8388399809252005,
-      "std": 0.14754059957218515,
-      "min": 0.42898363982423426,
-      "max": 0.999999999966136
+    "rr_bond_vol_z": {
+      "mean": 0.01210933831815581,
+      "std": 1.1672935868656598,
+      "min": -3.012260334042066,
+      "max": 4.0
     },
-    "real_rate_transition_prob": {
-      "mean": 0.1611600190747995,
-      "std": 0.14754059957218515,
-      "min": 3.3864022697116525e-11,
-      "max": 0.5710163601757657
-    },
-    "real_rate_trend_direction": {
-      "mean": -0.006738010305192232,
-      "std": 1.000175530555022,
-      "min": -1.0,
-      "max": 1.0
-    },
-    "real_rate_trend_strength": {
-      "mean": 0.5206727068849257,
-      "std": 0.44746284232281724,
-      "min": 0.00389279952081641,
-      "max": 2.1428501031014933
-    },
-    "real_rate_regime_sync": {
-      "mean": 0.8367023384859295,
-      "std": 0.15285473437586608,
-      "min": 0.5714285714285714,
-      "max": 1.0
-    },
-    "real_rate_change_magnitude": {
-      "mean": 0.8260047372560844,
-      "std": 0.6456203455938134,
-      "min": 0.014247864647332768,
-      "max": 2.9169160163047603
-    },
-    "real_rate_days_since_change": {
-      "mean": 761.1026555687673,
-      "std": 691.861445865043,
-      "min": 0.0,
-      "max": 2251.0
+    "rr_momentum_z": {
+      "mean": 3.3926183298098895e-06,
+      "std": 1.2112177586866941,
+      "min": -4.0,
+      "max": 4.0
     }
   },
-  "unique_value_counts": {
-    "real_rate_regime_persistence": 122,
-    "real_rate_transition_prob": 122,
-    "real_rate_trend_direction": 2,
-    "real_rate_trend_strength": 122,
-    "real_rate_regime_sync": 4,
-    "real_rate_change_magnitude": 122,
-    "real_rate_days_since_change": 1701
-  },
-  "n_train_months": 188,
-  "n_total_months": 269,
-  "validation": {
-    "nan_count": 0,
-    "all_checks_passed": true
+  "nan_filled_rows": 0,
+  "n_optuna_trials": 36,
+  "total_combinations": 36,
+  "all_checks_passed": true,
+  "split_info": {
+    "train_rows": 1766,
+    "val_rows": 378,
+    "test_rows": 379
   }
 }

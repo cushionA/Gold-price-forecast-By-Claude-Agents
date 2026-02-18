@@ -1,0 +1,42 @@
+{
+  "feature": "regime_classification",
+  "attempt": 1,
+  "timestamp": "2026-02-18T21:10:25.062617",
+  "verdict": "PASS",
+  "steps": {
+    "step_1_missing_values": {
+      "status": "PASS",
+      "details": "All 4 features have 0 NaN (0.000%). vix_z=0, yield_spread_z=0, equity_return_z=0, gold_rvol_z=0. Well below 1% threshold."
+    },
+    "step_2_anomalies": {
+      "status": "PASS",
+      "details": "All features correctly clipped to [-4, 4]. vix_z: [-2.8793, 4.0000], yield_spread_z: [-3.6091, 4.0000], equity_return_z: [-4.0000, 3.2804], gold_rvol_z: [-3.5196, 4.0000]. Zero values outside [-4, 4] range. Clipping confirmed in source code (fetch_regime_classification.py line 138)."
+    },
+    "step_3_future_leak": {
+      "status": "PASS",
+      "details": "Source code inspection of src/fetch_regime_classification.py confirms all rolling windows use center=False (pandas default). vix_z uses 20d backward-looking window (lines 109-111), yield_spread_z uses 60d backward-looking window (lines 116-118), equity_return_z uses pct_change(5) + 60d backward-looking window (lines 122-125), gold_rvol_z uses 10d realized vol + 60d backward-looking window (lines 129-133). No future information leakage detected."
+    },
+    "step_4_autocorrelation": {
+      "status": "PASS",
+      "details": "All lag-1 autocorrelations are in the expected range [0.3, 0.95] for financial z-score features. vix_z=0.7953, yield_spread_z=0.9480, equity_return_z=0.7710, gold_rvol_z=0.8875. yield_spread_z at 0.9480 is highest (slow-moving yield curve dynamics) but below 0.99 constant threshold. No near-constant or random-noise behavior detected."
+    },
+    "step_5_correlation": {
+      "status": "PASS",
+      "details": "No perfect correlations (|r| > 0.95) between any feature pair. vix_z vs equity_return_z: -0.6644 (within expected -0.5 to -0.8 range, PASS). vix_z vs yield_spread_z: 0.0318 (low, PASS). vix_z vs gold_rvol_z: 0.0852 (low, PASS). yield_spread_z vs equity_return_z: -0.0259 (low, PASS). yield_spread_z vs gold_rvol_z: 0.0318 (low, PASS). equity_return_z vs gold_rvol_z: -0.0365 (low, PASS). Feature space shows appropriate diversity for multi-dimensional regime detection."
+    },
+    "step_6_integrity": {
+      "status": "PASS",
+      "details": "Date range: 2014-04-11 to 2026-02-13. Total rows: 2976 (within expected 2000-3500 range). Dates monotonically increasing: True. Duplicate dates: 0. Weekend dates: 0 (business days only). Max gap: 4 calendar days (typical for 3-day weekends / holidays). No gaps > 5 calendar days. Gap distribution: 2326x1-day, 31x2-day, 534x3-day (weekends), 84x4-day (holiday weekends). All integrity checks pass."
+    },
+    "step_7_split_compat": {
+      "status": "PASS",
+      "details": "Train/Val/Test split (70/15/15): Train=2083 rows (2014-04-11 to 2022-07-25), Val=446 rows (2022-07-26 to 2024-05-02), Test=447 rows (2024-05-03 to 2026-02-13). All splits have adequate sample count. Overlap with base_features.csv (2015-01-30 to 2025-02-12): 2523 rows overlap available. Submodel outputs in data/submodel_outputs/ start from 2015-01-30, which falls within this dataset (2014-04-11 start). After inner-join with base_features, ~2523 rows will be available for meta-model training. Alignment is compatible."
+    }
+  },
+  "critical_issues": [],
+  "warnings": [
+    "WARNING: yield_spread_z autocorrelation=0.9480 is close to upper boundary (0.95). This is expected for slow-moving yield curve dynamics and is not problematic for GMM training.",
+    "WARNING: Dataset starts 2014-04-11 while base_features.csv starts 2015-01-30. After alignment/inner-join with base_features during meta-model training, ~453 rows will be dropped. This is by design (z-score warmup period). Effective dataset will be ~2523 rows."
+  ],
+  "summary": "All 7 data quality steps PASS. The regime_classification_features.csv dataset is valid for use in GMM training. 2976 rows of 4 z-scored features (vix_z, yield_spread_z, equity_return_z, gold_rvol_z) with zero NaN, correct [-4,4] clipping, no future leaks, appropriate autocorrelation structure, expected inter-feature correlations (vix_z vs equity_return_z = -0.66), business-day-only dates with no duplicates or large gaps, and compatible date range for 70/15/15 train/val/test split. Proceed to builder_model."
+}

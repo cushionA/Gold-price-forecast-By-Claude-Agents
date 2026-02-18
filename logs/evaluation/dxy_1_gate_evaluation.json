@@ -1,0 +1,247 @@
+{
+  "feature": "dxy",
+  "attempt": 1,
+  "timestamp": "2026-02-18T00:09:15.016029",
+  "method": "GaussianHMM + Momentum Z-Score + Volatility Z-Score",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "no_all_nan": {
+        "value": [],
+        "passed": true,
+        "detail": "0 all-NaN columns found"
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "detail": "0 constant columns found"
+      },
+      "autocorrelation": {
+        "details": {
+          "dxy_regime_prob": {
+            "value": 0.344728,
+            "passed": "True"
+          },
+          "dxy_momentum_z": {
+            "value": 0.922912,
+            "passed": "True"
+          },
+          "dxy_vol_z": {
+            "value": 0.970634,
+            "passed": "True"
+          }
+        },
+        "passed": true,
+        "detail": "All columns below 0.99 threshold"
+      },
+      "hpo_quality": {
+        "optuna_trials": 30,
+        "best_mi_sum": 1.5777418095659015,
+        "passed": true,
+        "detail": "Optuna completed 30 trials (>= 10 required)"
+      },
+      "regime_prob_quality": {
+        "stats": {
+          "mean": 0.000582448686018589,
+          "std": 0.006290217266672014,
+          "median": 3.71971163988993e-05,
+          "max": 0.1841637678761027,
+          "skewness": 20.27158337082949,
+          "pct_above_0.01": 0.9084556254367574,
+          "pct_above_0.05": 0.3494060097833683
+        },
+        "passed": true,
+        "warning": "Highly skewed (mean=0.0006, max=0.184). Only 2.9% of days above 0.01.",
+        "detail": "regime_prob: mean=0.000582, std=0.006290, max=0.1842"
+      },
+      "overfit_ratio": {
+        "value": "N/A (unsupervised HMM)",
+        "passed": true,
+        "detail": "Overfit ratio not applicable for unsupervised model. Using MI validation instead."
+      }
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base_sum": 0.474221901090635,
+        "extended_sum": 0.50382051332394,
+        "increase": 0.06241511022369768,
+        "increase_pct": "6.24%",
+        "individual_mi": {
+          "dxy_regime_prob": 0.006568267759041069,
+          "dxy_momentum_z": 0.0,
+          "dxy_vol_z": 0.028811329048843426
+        },
+        "passed": true,
+        "detail": "MI increase: 6.24% (> 5%)"
+      },
+      "vif": {
+        "individual": {
+          "dxy_regime_prob": 1.0996500628085453,
+          "dxy_momentum_z": 1.4679581793263534,
+          "dxy_vol_z": 2.9230658331315587
+        },
+        "max": 2.9230658331315587,
+        "passed": true,
+        "detail": "Max VIF: 2.9231 (< 10)"
+      },
+      "stability": {
+        "individual_stds": {
+          "dxy_regime_prob": 0.14915893526233664,
+          "dxy_momentum_z": 0.11588893340334692,
+          "dxy_vol_z": 0.1256759294846194
+        },
+        "max_std": 0.14915893526233664,
+        "passed": true,
+        "detail": "Max rolling corr std: 0.149159 (< 0.15)"
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": 0.007258717284845062,
+        "delta_pp": "+0.73pp",
+        "passed": "True",
+        "threshold": "+0.5pp",
+        "folds_improved": "4/5",
+        "detail": "DA delta: +0.73pp (> 0.5pp)"
+      },
+      "sharpe": {
+        "delta": 0.25455771706972685,
+        "passed": "True",
+        "threshold": "+0.05",
+        "folds_improved": "4/5",
+        "detail": "Sharpe delta: +0.2546 (> 0.05)"
+      },
+      "mae": {
+        "delta": 0.008419262142855266,
+        "passed": "False",
+        "threshold": "-0.01",
+        "folds_improved": "1/5",
+        "detail": "MAE delta: +0.008419 (> -0.01)"
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.517651,
+      "mae": 0.729305,
+      "sharpe": 0.864741
+    },
+    "extended": {
+      "direction_accuracy": 0.524909,
+      "mae": 0.737725,
+      "sharpe": 1.119299
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "train_size": 397,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5358974358974359,
+          "mae": 0.5513029485187922,
+          "sharpe": 1.8533382699697258
+        },
+        "extended": {
+          "direction_accuracy": 0.5435897435897435,
+          "mae": 0.5628974118601756,
+          "sharpe": 2.1899572998430914
+        },
+        "delta_da": 0.007692307692307665,
+        "delta_sharpe": 0.33661902987336556,
+        "delta_mae": 0.011594463341383365
+      },
+      {
+        "fold": 2,
+        "train_size": 789,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.4883720930232558,
+          "mae": 0.6890608103032537,
+          "sharpe": -0.043327911594320284
+        },
+        "extended": {
+          "direction_accuracy": 0.5271317829457365,
+          "mae": 0.6671073033209378,
+          "sharpe": 0.7615785340122009
+        },
+        "delta_da": 0.03875968992248069,
+        "delta_sharpe": 0.8049064456065211,
+        "delta_mae": -0.021953506982315907
+      },
+      {
+        "fold": 3,
+        "train_size": 1181,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5677749360613811,
+          "mae": 0.7875573879960803,
+          "sharpe": 1.7204798829400512
+        },
+        "extended": {
+          "direction_accuracy": 0.5754475703324808,
+          "mae": 0.7926143159041505,
+          "sharpe": 2.061444595580182
+        },
+        "delta_da": 0.007672634271099765,
+        "delta_sharpe": 0.34096471264013073,
+        "delta_mae": 0.005056927908070219
+      },
+      {
+        "fold": 4,
+        "train_size": 1573,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5140664961636828,
+          "mae": 0.7581738168798893,
+          "sharpe": 0.8280144548112129
+        },
+        "extended": {
+          "direction_accuracy": 0.5242966751918159,
+          "mae": 0.7705721113407772,
+          "sharpe": 1.4355247401067786
+        },
+        "delta_da": 0.010230179028133057,
+        "delta_sharpe": 0.6075102852955656,
+        "delta_mae": 0.012398294460887915
+      },
+      {
+        "fold": 5,
+        "train_size": 1965,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.48214285714285715,
+          "mae": 0.8604320815497005,
+          "sharpe": -0.034800372197946745
+        },
+        "extended": {
+          "direction_accuracy": 0.45408163265306123,
+          "mae": 0.8954322135359515,
+          "sharpe": -0.8520122602648957
+        },
+        "delta_da": -0.028061224489795922,
+        "delta_sharpe": -0.817211888066949,
+        "delta_mae": 0.03500013198625096
+      }
+    ],
+    "passing_criteria": [
+      "DA (+0.73pp)",
+      "Sharpe (+0.2546)"
+    ]
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "data_info": {
+    "evaluation_samples": 2357,
+    "dxy_output_shape": [
+      2862,
+      3
+    ],
+    "existing_features": 40,
+    "date_range": "2015-06-25 to 2025-02-12"
+  }
+}
