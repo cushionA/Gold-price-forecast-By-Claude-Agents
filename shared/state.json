@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "completed",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 13,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -624,6 +624,30 @@
         "higher_samples_per_feature_118:1"
       ],
       "note": "Feature pruning experiment: 24->18 features (removed bottom 6 by gain-weighted importance, 4.91% total). Optuna found max_depth=4 (vs attempt 7's 2), compensating for fewer features with deeper trees. All metrics regressed. Positive prediction pct dropped from 87.3% to 50.4%, losing directional bias. 5 consecutive attempts (8-12) all regressed from attempt 7. Pruning hypothesis REJECTED: low-importance features were contributing useful regularization through feature competition."
+    },
+    "attempt_13": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5349,
+      "test_hcda": 0.5435,
+      "test_mae": 0.9544,
+      "test_sharpe": 0.1335,
+      "train_test_da_gap_pp": 11.40,
+      "targets_passed": "0/4",
+      "primary_failures": [
+        "DA_53.49%_worst_since_attempt_1_misses_56%_by_2.51pp",
+        "HCDA_54.35%_worst_ever_misses_60%_by_5.65pp",
+        "Sharpe_0.13_worst_ever_misses_0.80_target",
+        "MAE_0.9544%_above_0.75%_target",
+        "overfitting_11.40pp_gap_exceeds_10pp_threshold",
+        "regime_classification_features_ranked_25_26_27_of_27",
+        "max_depth_4_too_complex_vs_attempt_7_depth_2",
+        "colsample_bytree_0.20_extremely_low"
+      ],
+      "primary_successes": [
+        "100_optuna_trials_completed",
+        "no_prediction_collapse"
+      ],
+      "note": "Added 3 regime_classification features (27 total). WORST result since attempt 1. All 4 targets FAIL. regime_classification features ranked last (25-27/27) with combined importance 8.3%. HPO selected max_depth=4 (vs attempt 7's 2), causing severe overfitting (11.4pp gap). 6 consecutive attempts (8-13) all regressed from attempt 7. Attempt 7 confirmed as permanent final meta-model."
     }
   },
   "final_result": {
@@ -636,7 +660,8 @@
       "attempt_10": "+cny_demand_spread_z (25 features) -- regressed on all metrics (DA -1.52pp, HCDA -5.43pp, Sharpe -0.47)",
       "attempt_11": "+3 DXY features (27 total) -- regressed on all metrics (DA -4.36pp, HCDA -4.35pp, Sharpe -0.94)",
       "attempt_12": "Feature pruning 24->18 -- regressed on all metrics (DA -4.58pp, HCDA -4.35pp, Sharpe -1.33)",
-      "conclusion": "Attempt 7 confirmed as final meta-model. 5 consecutive attempts (8-12) all regressed."
+      "attempt_13": "+3 regime_classification features (27 total) -- worst result since attempt 1 (DA -6.55pp, HCDA -9.78pp, Sharpe -2.33)",
+      "conclusion": "Attempt 7 confirmed as final meta-model. 6 consecutive attempts (8-13) all regressed."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
