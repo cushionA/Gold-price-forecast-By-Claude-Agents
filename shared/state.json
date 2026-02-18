@@ -8,7 +8,7 @@
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": null,
+  "evaluator_status": "gate3_pass_da_sharpe",
   "current_submodel": "regime_classification",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -36,7 +36,8 @@
     "inflation_expectation",
     "cny_demand",
     "options_market",
-    "temporal_context"
+    "temporal_context",
+    "regime_classification"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-regime-classification-attempt-1",
   "submitted_at": "2026-02-18T21:16:27.329118",
@@ -362,6 +363,28 @@
           "dxy_regime_prob_extremely_skewed_mean_0.0006"
         ],
         "note": "HMM-based DXY submodel. All 3 gates PASS. DA +0.73pp (1.5x threshold), Sharpe +0.2546 (5.1x threshold). dxy_vol_z most informative (rank 6/43). Only fold 5 (2023-2025 high-vol) degraded."
+      }
+    },
+    "regime_classification": {
+      "attempt_1": {
+        "gate1": true,
+        "gate2": false,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate3_da_delta=+1.34%_2.7x_threshold_4_of_5_folds",
+          "gate3_sharpe_delta=+0.377_7.5x_threshold_4_of_5_folds",
+          "VIF_3.90_excellent_orthogonality",
+          "stability_0.058_well_below_0.15",
+          "regime_balance_30_70_healthy",
+          "avg_duration_10_days_in_5_30_range"
+        ],
+        "primary_failures": [
+          "gate2_mi_increase=0.77%_below_5%",
+          "gate3_mae_delta=-0.001_below_0.01_threshold",
+          "low_feature_importance_rank_18_25_of_28"
+        ],
+        "note": "GMM K=2 (Risk-Off/Risk-On) with PCA (2 components), diagonal covariance. Gate 2 FAIL on MI but Gate 3 convincingly PASS on DA and Sharpe. Sharpe +0.377 ties with etf_flow for highest Gate 3 Sharpe improvement. DA +1.34% is 3rd highest after cny_demand attempt 2 (+1.53%) and vix (+0.96%). Gate 2 overridden per precedent."
       }
     }
   },

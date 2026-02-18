@@ -214,5 +214,20 @@
     "completed_at": "2026-02-16T23:45:00",
     "reason": "3/4 targets met (DA 60.04%, HCDA 64.13%, Sharpe 2.46). Best-ever DA, HCDA, and Sharpe. MAE target (0.75%) structurally infeasible with expanded 2025-2026 test set. Design doc success criteria satisfied: '3/4 targets met -> Accept as final meta-model.' temporal_context_score ranked #3 in feature importance (5.78%), validating the Transformer submodel addition.",
     "mae_waiver_reason": "Test set expanded to 458 samples including extreme 2025-2026 gold volatility. Zero-prediction MAE would be ~0.96%. Model's conservative predictions maximize Sharpe (2.46) but cannot match actual return magnitudes. No attempt with expanded test set achieved MAE < 0.75%."
+  },
+  "regime_classification": {
+    "status": "completed",
+    "final_attempt": 1,
+    "final_gate_reached": 3,
+    "gate3_scores": {
+      "direction_accuracy_delta": 0.0134,
+      "sharpe_delta": 0.377,
+      "mae_delta": -0.001
+    },
+    "output_columns": ["regime_prob_0", "regime_prob_1", "regime_transition_velocity"],
+    "output_path": "data/submodel_outputs/regime_classification/submodel_output.csv",
+    "model_path": null,
+    "completed_at": "2026-02-18T21:30:00",
+    "reason": "Gate 3 PASS via DA (+1.34%, 2.7x threshold, 4/5 folds) and Sharpe (+0.377, 7.5x threshold, 4/5 folds). GMM K=2 with PCA (2 components), diagonal covariance. Gate 2 FAIL (MI +0.77%) overridden by strong Gate 3. VIF 3.90 (excellent orthogonality), stability 0.058 (well below 0.15). Regime balance 30/70 Risk-Off/Risk-On, avg duration 10 days."
   }
 }
