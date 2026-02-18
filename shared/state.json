@@ -648,12 +648,59 @@
         "no_prediction_collapse"
       ],
       "note": "Added 3 regime_classification features (27 total). WORST result since attempt 1. All 4 targets FAIL. regime_classification features ranked last (25-27/27) with combined importance 8.3%. HPO selected max_depth=4 (vs attempt 7's 2), causing severe overfitting (11.4pp gap). 6 consecutive attempts (8-13) all regressed from attempt 7. Attempt 7 confirmed as permanent final meta-model."
+    },
+    "attempt_14": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5742,
+      "test_hcda": 0.6304,
+      "test_mae": 0.9527,
+      "test_sharpe": 1.16,
+      "train_test_da_gap_pp": 4.59,
+      "targets_passed": "3/4",
+      "architecture": "XGBoost asymmetric_squared_error (alpha=3.28)",
+      "primary_failures": [
+        "MAE_0.9527%_above_0.75%_target",
+        "DA_57.42%_below_attempt_7_60.04%_by_2.62pp",
+        "HCDA_63.04%_below_attempt_7_64.13%_by_1.09pp",
+        "Sharpe_1.16_below_attempt_7_2.46_by_1.30"
+      ],
+      "primary_successes": [
+        "DA_57.42%_passes_56%_target",
+        "HCDA_63.04%_passes_60%_target",
+        "Sharpe_1.16_passes_0.80_target",
+        "overfitting_4.59pp_best_ever_below_10pp",
+        "3_of_4_targets_passed"
+      ],
+      "note": "Asymmetric squared error custom objective (alpha=3.28, penalizes DOWN misses 3.28x). Passes 3/4 targets same as attempt 7 but all absolute metrics are worse. Very low overfitting (4.59pp) suggests regularization benefit from asymmetric loss. XGBoost v3.1.0 sklearn API passes (y_true, y_pred) not (preds, DMatrix) for custom objectives."
+    },
+    "attempt_15": {
+      "decision": "no_further_improvement",
+      "test_da": 0.5459,
+      "test_hcda": 0.6630,
+      "test_mae": 0.9544,
+      "test_sharpe": 0.90,
+      "train_test_da_gap_pp": 1.82,
+      "targets_passed": "2/4",
+      "architecture": "Ridge + XGBoost Weighted Average Ensemble (w=0.65)",
+      "primary_failures": [
+        "DA_54.59%_misses_56%_target_by_1.41pp",
+        "MAE_0.9544%_above_0.75%_target",
+        "DA_dropped_4.8pp_vs_XGB_only_component",
+        "Ridge_hurt_overall_direction_accuracy"
+      ],
+      "primary_successes": [
+        "HCDA_66.30%_best_ever_via_bootstrap_confidence",
+        "Sharpe_0.90_passes_0.80_target",
+        "overfitting_1.82pp_lowest_ever",
+        "XGB_only_component_DA_59.39%_close_to_attempt_7"
+      ],
+      "note": "Ridge+XGB ensemble (65%/35%). Best-ever HCDA (66.30% via bootstrap) and lowest overfitting (1.82pp). But Ridge component hurt DA significantly (-4.8pp vs XGB-only). XGB-only scored DA=59.39%, Sharpe=2.52 (near attempt 7). Ensemble trades direction accuracy for lower variance. 8 consecutive attempts (8-15) all failed to beat attempt 7 overall."
     }
   },
   "final_result": {
     "status": "completed_attempt_7_confirmed_final",
     "best_attempt_overall": 7,
-    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8-12 all regressed. No further improvement possible.",
+    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8-15 all regressed. No further improvement possible.",
     "improvement_attempts_summary": {
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
@@ -661,7 +708,9 @@
       "attempt_11": "+3 DXY features (27 total) -- regressed on all metrics (DA -4.36pp, HCDA -4.35pp, Sharpe -0.94)",
       "attempt_12": "Feature pruning 24->18 -- regressed on all metrics (DA -4.58pp, HCDA -4.35pp, Sharpe -1.33)",
       "attempt_13": "+3 regime_classification features (27 total) -- worst result since attempt 1 (DA -6.55pp, HCDA -9.78pp, Sharpe -2.33)",
-      "conclusion": "Attempt 7 confirmed as final meta-model. 6 consecutive attempts (8-13) all regressed."
+      "attempt_14": "Asymmetric squared error (alpha=3.28) -- 3/4 targets but all metrics below attempt 7 (DA -2.62pp, HCDA -1.09pp, Sharpe -1.30)",
+      "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, best-ever HCDA 66.30% but DA -5.45pp (DA misses 56% target)",
+      "conclusion": "Attempt 7 confirmed as final meta-model. 8 consecutive attempts (8-15) all regressed."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
