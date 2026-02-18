@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel",
   "current_feature": "regime_classification",
   "current_attempt": 1,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -38,7 +38,7 @@
     "options_market",
     "temporal_context"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-regime-classification-1",
+  "kaggle_kernel": "bigbigzabuton/gold-regime-classification-attempt-1",
   "submitted_at": "2026-02-18T21:16:27.329118",
   "baseline_metrics": {
     "test_mae": 0.7139,
@@ -692,6 +692,6 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-18T21:16:27.329129",
+  "last_updated": "2026-02-18T21:17:01.940335",
   "error_type": "unknown"
 }
