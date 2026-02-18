@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 13,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-regime-classification-attempt-1",
-  "submitted_at": "2026-02-18T21:16:27.329118",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-13",
+  "submitted_at": "2026-02-18T21:35:37.376358",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -715,6 +715,6 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-18T21:21:00.917840",
+  "last_updated": "2026-02-18T21:35:37.376370",
   "error_type": "unknown"
 }
