@@ -46,8 +46,8 @@ def fetch_and_preprocess():
         subprocess.run(["pip", "install", "fredapi"], check=True)
         from fredapi import Fred
 
-    # Get FRED API key (Kaggle Secrets)
-    FRED_API_KEY = os.environ['FRED_API_KEY']  # Fail immediately if not set
+    # FRED API key
+    FRED_API_KEY = "3ffb68facdf6321e180e380c00e909c8"
     fred = Fred(FRED_API_KEY)
 
     # === Yahoo Finance ===
