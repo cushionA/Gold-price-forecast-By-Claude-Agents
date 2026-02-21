@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "completed",
   "current_feature": "meta_model",
   "current_attempt": 17,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -40,7 +40,7 @@
     "regime_classification"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
-  "submitted_at": "2026-02-21T19:07:42.650370",
+  "submitted_at": "2026-02-21T19:13:53.366514",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -817,7 +817,7 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-21T19:09:22.879257",
+  "last_updated": "2026-02-21T19:13:53.366523",
   "error_type": "unknown",
-  "auto_resume_remaining": 1
+  "auto_resume_remaining": 0
 }
