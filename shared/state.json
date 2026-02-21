@@ -3,10 +3,10 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
   "current_attempt": 3,
-  "resume_from": "datachecker",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
-  "datachecker_status": null,
+  "datachecker_status": "PASS",
   "builder_model_status": null,
   "evaluator_status": "options_market_attempt2_gate3_pass_plan_attempt3",
   "retry_ctx": {
