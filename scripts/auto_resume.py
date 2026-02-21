@@ -158,15 +158,28 @@ def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "
             )
         else:
             # 残りあり → evaluatorが改善余地を判断
-            chain_note = (
-                f" NOTE: current_attempt={attempt}, max_attempt={max_attempt} "
-                f"({attempts_left} attempt(s) remaining). "
-                f"After evaluating: if improvement is still plausible, "
-                f"continue to architect -> builder_model -> submit_and_monitor(max_loops=1). "
-                f"If no further improvement is likely (e.g. consistent degradation), "
-                f"declare the best attempt as final and STOP. "
-                f"The evaluator decides - do not blindly continue to next attempt."
-            )
+            automation_test = retry_ctx.get("automation_test", False)
+            ctx_note = retry_ctx.get("note", "")
+            if automation_test:
+                # 自動化テストモード: 必ず次のattemptを続行
+                chain_note = (
+                    f" NOTE: current_attempt={attempt}, max_attempt={max_attempt} "
+                    f"({attempts_left} attempt(s) remaining). "
+                    f"AUTOMATION TEST MODE: ALWAYS continue to next attempt regardless of metrics. "
+                    f"Do NOT declare no_further_improvement. "
+                    f"continue to builder_model -> submit_and_monitor(max_loops=1). "
+                    f"Context: {ctx_note}"
+                )
+            else:
+                chain_note = (
+                    f" NOTE: current_attempt={attempt}, max_attempt={max_attempt} "
+                    f"({attempts_left} attempt(s) remaining). "
+                    f"After evaluating: if improvement is still plausible, "
+                    f"continue to architect -> builder_model -> submit_and_monitor(max_loops=1). "
+                    f"If no further improvement is likely (e.g. consistent degradation), "
+                    f"declare the best attempt as final and STOP. "
+                    f"The evaluator decides - do not blindly continue to next attempt."
+                )
 
     return (
         f"Kaggle training for {feature} attempt {attempt} has {kaggle_status}. "
