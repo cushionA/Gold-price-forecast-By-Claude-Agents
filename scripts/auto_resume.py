@@ -222,6 +222,35 @@ def main():
     feature = state.get("current_feature", "?")
     attempt = state.get("current_attempt", "?")
 
+    if status == "in_progress" and (state.get("auto_resume_remaining") or 0) > 0:
+        # Training already complete, results already fetched — skip Kaggle polling
+        # and launch Claude directly (handles the case where claude previously failed)
+        resume_from = state.get("resume_from", "evaluator")
+        remaining = state.get("auto_resume_remaining")
+        log.info(f"State=in_progress, resume_from={resume_from}, remaining={remaining}. Launching Claude directly.")
+        if not acquire_lock():
+            log.info("Another auto_resume is already running. Exiting.")
+            return
+        try:
+            if remaining is not None:
+                state["auto_resume_remaining"] = remaining - 1
+                save_state(state)
+                log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
+            prompt = (
+                f"Kaggle training for {feature} attempt {attempt} has complete. "
+                f"Results have been fetched and state.json updated. "
+                f"Resume from {resume_from}."
+            )
+            launched = launch_claude(prompt)
+            if launched:
+                log.info("Done. Claude Code session completed.")
+            else:
+                log.error("Claude Code failed. Manual resume needed.")
+        finally:
+            release_lock()
+            log.info("auto_resume exiting.")
+        return
+
     if status != "waiting_training":
         log.info(f"Not waiting_training (status={status}). Exiting.")
         return
