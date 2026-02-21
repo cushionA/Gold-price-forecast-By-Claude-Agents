@@ -13,7 +13,10 @@
       "TodoWrite",
       "NotebookEdit",
       "Bash(kaggle kernels list:*)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__mcp-registry__search_mcp_registry",
+      "mcp__drawio__open_drawio_mermaid",
+      "mcp__drawio__open_drawio_xml"
     ],
     "defaultMode": "bypassPermissions",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": 1

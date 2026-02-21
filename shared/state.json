@@ -1,9 +1,9 @@
 {
-  "status": "completed",
+  "status": "waiting_training",
   "phase": "completed",
   "current_feature": "meta_model",
-  "current_attempt": 15,
-  "resume_from": null,
+  "current_attempt": 16,
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-15",
-  "submitted_at": "2026-02-18T22:29:38.550806",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-16",
+  "submitted_at": "2026-02-21T17:35:21.753176",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -676,9 +676,9 @@
     "attempt_15": {
       "decision": "no_further_improvement",
       "test_da": 0.5459,
-      "test_hcda": 0.6630,
+      "test_hcda": 0.663,
       "test_mae": 0.9544,
-      "test_sharpe": 0.90,
+      "test_sharpe": 0.9,
       "train_test_da_gap_pp": 1.82,
       "targets_passed": "2/4",
       "architecture": "Ridge + XGBoost Weighted Average Ensemble (w=0.65)",
@@ -789,6 +789,6 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-18T22:31:25.536840",
+  "last_updated": "2026-02-21T17:35:21.753191",
   "error_type": "unknown"
 }

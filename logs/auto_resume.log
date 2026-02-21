@@ -21,3 +21,21 @@ Max wait time: 3.0 hours
         'Resume from where we left off'
 ======================================================================
 
+2026-02-21 17:03:35,118 [INFO] ============================================================
+2026-02-21 17:03:35,118 [INFO] Auto-resume check started
+2026-02-21 17:03:35,119 [INFO] State: status=completed, feature=meta_model, attempt=15
+2026-02-21 17:03:35,119 [INFO] Not waiting_training (status=completed). Nothing to do.
+2026-02-21 17:06:01,413 [INFO] ============================================================
+2026-02-21 17:06:01,413 [INFO] Auto-resume check started
+2026-02-21 17:06:01,414 [INFO] State: status=completed, feature=meta_model, attempt=15
+2026-02-21 17:06:01,414 [INFO] Not waiting_training (status=completed). Nothing to do.
+2026-02-21 17:09:09,094 [INFO] ============================================================
+2026-02-21 17:09:09,094 [INFO] Auto-resume check started
+2026-02-21 17:09:09,095 [INFO] State: status=completed, feature=meta_model, attempt=15
+2026-02-21 17:09:09,095 [INFO] Not waiting_training (status=completed). Nothing to do.
+2026-02-21 17:12:02,744 [INFO] ============================================================
+2026-02-21 17:12:02,745 [INFO] auto_resume started
+2026-02-21 17:12:02,745 [INFO] Not waiting_training (status=completed). Exiting.
+2026-02-21 17:13:44,495 [INFO] ============================================================
+2026-02-21 17:13:44,495 [INFO] auto_resume started
+2026-02-21 17:13:44,496 [INFO] Not waiting_training (status=completed). Exiting.

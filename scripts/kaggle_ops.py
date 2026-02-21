@@ -419,36 +419,50 @@ def submit_and_monitor(
     folder: str,
     feature: str,
     attempt: int,
+    max_loops: int | None = None,
 ) -> KaggleResult:
     """
-    提出 → バックグラウンドで監視スクリプトを起動。
+    提出 → バックグラウンドで auto_resume.py を起動。
 
-    監視完了後は state.json が更新される。
-    evaluator は Claude Code で手動実行する前提。
+    auto_resume.py が monitor (ブロッキング) → 完了検知 → claude -p を1回起動 → 自然終了。
+    claude -p 内で再度 submit_and_monitor() が呼ばれると新しい auto_resume.py が生まれ、
+    max_loops 回まで自動ループする。
+
+    Args:
+        max_loops: 自動再開の最大回数。None=無制限、3=3回だけ自動実行。
     """
     result = submit(folder, feature, attempt)
     if not result.success:
         return result
 
-    # Start background monitor
+    # Start background auto_resume (monitor + claude -p trigger)
+    auto_resume_script = str(Path(__file__).resolve().parent / "auto_resume.py")
+    cmd_args = [auto_resume_script]
+    if max_loops is not None:
+        cmd_args += ["--max-loops", str(max_loops)]
+
     try:
-        script = str(Path(__file__).resolve())
         if sys.platform == "win32":
+            pythonw = str(Path(sys.executable).parent / "pythonw.exe")
+            if not Path(pythonw).exists():
+                pythonw = sys.executable
             subprocess.Popen(
-                [sys.executable, script, "monitor"],
-                creationflags=subprocess.CREATE_NEW_CONSOLE | subprocess.DETACHED_PROCESS,
-                cwd=_PROJECT_ROOT,
+                [pythonw] + cmd_args,
+                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS,
+                cwd=str(_PROJECT_ROOT),
             )
         else:
             subprocess.Popen(
-                [sys.executable, script, "monitor"],
+                [sys.executable] + cmd_args,
                 start_new_session=True,
-                cwd=_PROJECT_ROOT,
+                cwd=str(_PROJECT_ROOT),
             )
-        print("[OK] Background monitor started")
+        loops_str = f"max {max_loops} loops" if max_loops is not None else "unlimited"
+        print(f"[OK] auto_resume started ({loops_str})")
+        print("     Status: python scripts/auto_resume.py --status")
     except Exception as e:
-        print(f"[WARN] Could not start monitor: {e}")
-        print(f"  Run manually: python scripts/kaggle_ops.py monitor")
+        print(f"[WARN] Could not start auto_resume: {e}")
+        print(f"  Run manually: python scripts/auto_resume.py")
 
     return result
 
@@ -657,6 +671,8 @@ def main():
     p.add_argument("feature", help="Feature name (e.g. real_rate)")
     p.add_argument("attempt", type=int, help="Attempt number")
     p.add_argument("--monitor", action="store_true", help="Start background monitor after submit")
+    p.add_argument("--max-loops", type=int, default=None,
+                   help="Max auto-resume loops (requires --monitor). None=unlimited, 3=3 loops")
 
     # monitor
     p = subparsers.add_parser("monitor", help="Monitor running kernel until complete")
@@ -673,7 +689,7 @@ def main():
         "dataset-create": lambda: dataset_create(args.folder),
         "dataset-update": lambda: dataset_update(args.folder, args.version_notes),
         "submit": lambda: (
-            submit_and_monitor(args.folder, args.feature, args.attempt)
+            submit_and_monitor(args.folder, args.feature, args.attempt, max_loops=args.max_loops)
             if args.monitor
             else submit(args.folder, args.feature, args.attempt)
         ),

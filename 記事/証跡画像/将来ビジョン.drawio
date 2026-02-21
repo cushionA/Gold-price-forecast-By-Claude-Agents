@@ -1,0 +1,149 @@
+<mxfile host="65bd71144e">
+    <diagram name="Future Vision" id="future">
+        <mxGraphModel dx="72186" dy="41579" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1400" pageHeight="750" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="18" y="7" width="1352" height="676" as="geometry"/>
+                </mxCell>
+                <mxCell id="title" value="今後の展望：物理デバイスからの完全解放" style="text;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontStyle=1;fontColor=#333;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="15" width="450" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="current_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="70" width="1310" height="264" as="geometry"/>
+                </mxCell>
+                <mxCell id="current_label" value="現在のシステム" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#E65100;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="80" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1" value="🖥️ PC起動" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;fontFamily=Helvetica;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="130" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2" value="Claude Code起動" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;fontFamily=Helvetica;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="130" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3" value="設計→スクリプト生成&lt;br&gt;→Kaggle提出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;fontFamily=Helvetica;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="130" width="160" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4" value="💤 PCオフOK&lt;br&gt;Kaggle学習中" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;fontFamily=Helvetica;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="130" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5" value="🖥️ PC再起動" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCDD2;strokeColor=#E53935;fontFamily=Helvetica;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="130" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6" value="結果取得→評価&lt;br&gt;→次イテレーション" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;fontFamily=Helvetica;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="130" width="150" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c7" value="💤 PCオフOK&lt;br&gt;Kaggle学習中" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;fontFamily=Helvetica;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="130" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c8" value="🔄 繰り返し..." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#8E24AA;fontFamily=Helvetica;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1200" y="130" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ca1" style="rounded=1;strokeColor=#666;strokeWidth=1.5;endArrow=blockThin;endFill=1;" parent="1" source="c1" target="c2" edge="1"/>
+                <mxCell id="ca2" style="rounded=1;strokeColor=#666;strokeWidth=1.5;endArrow=blockThin;endFill=1;" parent="1" source="c2" target="c3" edge="1"/>
+                <mxCell id="ca3" style="rounded=1;strokeColor=#666;strokeWidth=1.5;endArrow=blockThin;endFill=1;" parent="1" source="c3" target="c4" edge="1"/>
+                <mxCell id="ca4" style="rounded=1;strokeColor=#E53935;strokeWidth=2;endArrow=blockThin;endFill=1;dashed=1;" parent="1" source="c4" target="c5" edge="1"/>
+                <mxCell id="ca5" style="rounded=1;strokeColor=#666;strokeWidth=1.5;endArrow=blockThin;endFill=1;" parent="1" source="c5" target="c6" edge="1"/>
+                <mxCell id="ca6" style="rounded=1;strokeColor=#666;strokeWidth=1.5;endArrow=blockThin;endFill=1;" parent="1" source="c6" target="c7" edge="1"/>
+                <mxCell id="ca7" style="rounded=1;strokeColor=#666;strokeWidth=1.5;endArrow=blockThin;endFill=1;" parent="1" source="c7" target="c8" edge="1"/>
+                <mxCell id="pain1" value="⚠️ PC起動が必要" style="text;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#E53935;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="195" width="150" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="timeline_c" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9800;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="240" width="1260" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_pc1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="240" width="480" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_off1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="240" width="170" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_pc2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="240" width="320" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_off2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="240" width="140" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_pc3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;" parent="1" vertex="1">
+                    <mxGeometry x="1170" y="240" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_pc" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="275" width="20" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_pc_t" value="PC必要" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=10;fontColor=#666;" parent="1" vertex="1">
+                    <mxGeometry x="85" y="272" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_off" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="275" width="20" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_off_t" value="PCオフOK" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=10;fontColor=#666;" parent="1" vertex="1">
+                    <mxGeometry x="185" y="272" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="future_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=2;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="370" width="1310" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="future_label" value="将来：クラウド版 Claude Code" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#2E7D32;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="390" width="320" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="f1" value="👤 指示を出す&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;「金価格予測モデルを作って」&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#8E24AA;fontFamily=Helvetica;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="440" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="f2" value="☁️ クラウドClaude Code&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;全工程を自律実行&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B2EBF2;strokeColor=#00897B;fontFamily=Helvetica;fontSize=12;fontStyle=1;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="440" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="f3" value="☁️ Kaggle学習" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B2EBF2;strokeColor=#00897B;fontFamily=Helvetica;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="440" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="f4" value="☁️ 自動結果取得&lt;br&gt;→ 評価 → 次イテレーション" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B2EBF2;strokeColor=#00897B;fontFamily=Helvetica;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="770" y="440" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="f5" value="📩 完了通知&lt;br&gt;を受け取る" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCEDC8;strokeColor=#7CB342;fontFamily=Helvetica;fontSize=12;fontStyle=1;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="440" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="fa1" style="rounded=1;strokeColor=#2E7D32;strokeWidth=2;endArrow=blockThin;endFill=1;" parent="1" source="f1" target="f2" edge="1"/>
+                <mxCell id="fa2" style="rounded=1;strokeColor=#2E7D32;strokeWidth=2;endArrow=blockThin;endFill=1;" parent="1" source="f2" target="f3" edge="1"/>
+                <mxCell id="fa3" style="rounded=1;strokeColor=#2E7D32;strokeWidth=2;endArrow=blockThin;endFill=1;" parent="1" source="f3" target="f4" edge="1"/>
+                <mxCell id="fa4" style="rounded=1;strokeColor=#2E7D32;strokeWidth=2;endArrow=blockThin;endFill=1;" parent="1" source="f4" target="f5" edge="1"/>
+                <mxCell id="floop" style="rounded=1;strokeColor=#00897B;strokeWidth=1.5;endArrow=blockThin;endFill=1;dashed=1;" parent="1" source="f4" target="f2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="865" y="530"/>
+                            <mxPoint x="420" y="530"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="floop_label" value="自動ループ（PC不要）" style="text;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=10;fontColor=#00897B;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="532" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="timeline_f" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="570" width="1260" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_human1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#8E24AA;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="570" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_human2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#8E24AA;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="570" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg2_cloud" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="605" width="20" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg2_cloud_t" value="クラウド自律実行" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=10;fontColor=#666;" parent="1" vertex="1">
+                    <mxGeometry x="85" y="602" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg2_human" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#8E24AA;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="605" width="20" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg2_human_t" value="人間の操作" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=10;fontColor=#666;" parent="1" vertex="1">
+                    <mxGeometry x="245" y="602" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="human_f" value="👤 人間の関与: 指示を出す + 完了通知を受け取る（のみ）" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#2E7D32;fontStyle=3;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="635" width="450" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="enabler" value="💡 state.json + kaggle_ops.py の設計がそのまま流用可能" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FDD835;fontFamily=Helvetica;fontSize=12;fontStyle=1;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="605" width="400" height="35" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

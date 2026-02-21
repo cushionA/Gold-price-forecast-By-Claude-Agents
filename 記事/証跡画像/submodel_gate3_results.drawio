@@ -1,0 +1,253 @@
+<mxfile host="65bd71144e">
+    <diagram name="Gate 3 Results" id="gate3-results">
+        <mxGraphModel dx="1386" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="15" width="1130" height="715" as="geometry"/>
+                </mxCell>
+                <mxCell id="title" value="&lt;b&gt;サブモデル Gate 3 アブレーション結果&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="15" width="400" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="各サブモデルを除外した場合のメタモデル性能劣化量（正=貢献あり）" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#888888;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="45" width="440" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="header_bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#CCCCCC;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="75" width="1100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="hdr_name" value="&lt;b&gt;サブモデル&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="77" width="120" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="hdr_da" value="&lt;b&gt;DA delta (pp)&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#3498db;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="77" width="100" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="hdr_sharpe" value="&lt;b&gt;Sharpe delta&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="77" width="100" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="hdr_status" value="&lt;b&gt;回数 / 結果&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="77" width="100" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1_name" value="CNY需要" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="115" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="118" width="230" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1_da_val" value="+1.53" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="765" y="113" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="133" width="65" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1_sh_val" value="+0.217" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="130" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;2回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="115" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2_name" value="レジーム分類" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="160" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="163" width="201" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2_da_val" value="+1.34" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="736" y="158" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="178" width="113" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2_sh_val" value="+0.377" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="648" y="175" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="160" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3_name" value="VIX" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="205" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="208" width="144" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3_da_val" value="+0.96" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="679" y="203" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="223" width="87" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3_sh_val" value="+0.289" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="622" y="220" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="205" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4_name" value="クロスアセット" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="250" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="253" width="114" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4_da_val" value="+0.76" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="649" y="248" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="268" width="12" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4_sh_val" value="+0.040" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="547" y="265" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;2回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="250" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5_name" value="DXY" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="295" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="298" width="110" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5_da_val" value="+0.73" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="645" y="293" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="313" width="77" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5_sh_val" value="+0.255" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="612" y="310" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="295" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6_name" value="時間文脈" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="340" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="343" width="87" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6_da_val" value="+0.58" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="622" y="338" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="358" width="34" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6_sh_val" value="+0.113" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="569" y="355" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="340" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7_name" value="インフレ期待" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="385" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="388" width="86" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7_da_val" value="+0.57" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="621" y="383" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="403" width="46" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7_sh_val" value="+0.152" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="581" y="400" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="385" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8_name" value="ETFフロー" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="430" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="433" width="68" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8_da_val" value="+0.45" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="603" y="428" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8_sh_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="448" width="113" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8_sh_val" value="+0.377" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#e67e22;" parent="1" vertex="1">
+                    <mxGeometry x="648" y="445" width="50" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="430" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r9_name" value="イールドカーブ" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="475" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r9_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="478" width="30" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r9_da_val" value="+0.20" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="565" y="473" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r9_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="475" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r10_name" value="テクニカル" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="520" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r10_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="523" width="8" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r10_da_val" value="+0.05" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#3498db;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="543" y="518" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r10_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;1回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="520" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r11_name" value="オプション市場" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="565" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r11_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e74c3c;strokeColor=none;opacity=60;" parent="1" vertex="1">
+                    <mxGeometry x="494" y="568" width="36" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r11_da_val" value="-0.24" style="text;html=1;align=right;verticalAlign=middle;fontSize=10;fontColor=#e74c3c;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="563" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r11_status" value="&lt;font color=&quot;#27ae60&quot;&gt;&lt;b&gt;2回 PASS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="565" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r12_bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFE8E8;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="605" width="1100" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="r12_name" value="実質金利" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#e74c3c;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="610" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r12_da_bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e74c3c;strokeColor=none;opacity=60;" parent="1" vertex="1">
+                    <mxGeometry x="444" y="613" width="86" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="r12_da_val" value="-0.57" style="text;html=1;align=right;verticalAlign=middle;fontSize=10;fontColor=#e74c3c;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="608" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="r12_status" value="&lt;font color=&quot;#e74c3c&quot;&gt;&lt;b&gt;6回 FAIL&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="610" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="zero_line" value="" style="endArrow=none;html=1;strokeColor=#999999;strokeWidth=1;dashed=0;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="530" y="110" as="sourcePoint"/>
+                        <mxPoint x="530" y="640" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_bg2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#CCCCCC;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="660" width="600" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_da_box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3498db;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="671" width="20" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_da_text" value="DA delta（方向精度の改善量 pp）" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="85" y="665" width="200" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_sh_box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e67e22;strokeColor=none;opacity=80;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="671" width="20" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg_sh_text" value="Sharpe delta（Sharpe Ratioの改善量）" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="665" width="240" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="note_text" value="&lt;font color=&quot;#888888&quot;&gt;※ 正の値 = そのサブモデルを除外するとメタモデル性能が劣化する = 貢献している&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="700" width="500" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
