@@ -9,6 +9,11 @@ Auto-Resume: Kaggle完了を待ち、Claude Codeを1回だけ起動して終了�
        - 未設定 → 無制限（後方互換）
     3. スクリプト自然終了（何も残らない）
 
+Claude終了後のstate確認 (パイプライン未完了検知):
+    - waiting_training になった → Kaggle提出成功 → 終了
+    - resume_from が BUILD_PHASES (architect等) → 途中終了 → 再起動
+    - それ以外 (evaluatorが停止判断、またはNone) → 正常終了 → 再起動しない
+
 使い方:
     # submit後にバックグラウンド起動（submit_and_monitor が自動で起動）
     pythonw scripts/auto_resume.py &
@@ -96,6 +101,152 @@ def load_state() -> dict:
 def save_state(state: dict):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2, ensure_ascii=False, default=str)
+
+
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
+
+# Claude がここで止まった場合 = evaluator が判断する前にパイプラインが中断
+# → auto_resume が再起動すべきフェーズ
+BUILD_PHASES = {"architect", "researcher", "builder_data", "datachecker", "builder_model"}
+
+# Claude 終了後のパイプライン未完了検知で最大何回再起動するか
+MAX_PIPELINE_RELAUNCH = 2
+
+
+# ---------------------------------------------------------------------------
+# Prompt helpers
+# ---------------------------------------------------------------------------
+
+def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "", error_context: str = "") -> str:
+    """
+    evaluator 向けプロンプトを生成する。
+    retry_context が存在する場合は「残り回数確認・改善余地判断」の指示を含める。
+    evaluator が続行/停止を自律的に決定できるようにする。
+    """
+    feature = state.get("current_feature", "?")
+    attempt = state.get("current_attempt", "?")
+    resume_from = state.get("resume_from", "evaluator")
+
+    if kaggle_status == "error":
+        return (
+            f"Kaggle training for {feature} attempt {attempt} FAILED "
+            f"(error_type={error_type}). "
+            f"error_context: {error_context[:300] if error_context else 'see state.json'}. "
+            f"state.json has been updated with resume_from=builder_model. "
+            f"Fix the notebook error and re-submit."
+        )
+
+    # retry_context の情報を読み込んでプロンプトに含める
+    retry_ctx = (
+        state.get("real_rate_retry_context")
+        or state.get("retry_context")
+        or {}
+    )
+    max_attempt = retry_ctx.get("max_attempt")
+
+    chain_note = ""
+    if max_attempt is not None:
+        attempts_left = max_attempt - int(attempt)
+        if attempts_left <= 0:
+            # 上限到達 → evaluator に停止を指示
+            chain_note = (
+                f" NOTE: current_attempt={attempt} has reached max_attempt={max_attempt}. "
+                f"After evaluating, declare the best attempt as final and STOP the chain. "
+                f"Do NOT submit another attempt."
+            )
+        else:
+            # 残りあり → evaluatorが改善余地を判断
+            chain_note = (
+                f" NOTE: current_attempt={attempt}, max_attempt={max_attempt} "
+                f"({attempts_left} attempt(s) remaining). "
+                f"After evaluating: if improvement is still plausible, "
+                f"continue to architect -> builder_model -> submit_and_monitor(max_loops=1). "
+                f"If no further improvement is likely (e.g. consistent degradation), "
+                f"declare the best attempt as final and STOP. "
+                f"The evaluator decides - do not blindly continue to next attempt."
+            )
+
+    return (
+        f"Kaggle training for {feature} attempt {attempt} has {kaggle_status}. "
+        f"Results have been fetched and state.json updated. "
+        f"Resume from {resume_from}.{chain_note}"
+    )
+
+
+def _build_relaunch_prompt(state: dict) -> str:
+    """
+    パイプライン途中（BUILD_PHASES）で止まった場合の再起動プロンプト。
+    明示的に「submission まで続けろ」と指示する。
+    """
+    feature = state.get("current_feature", "?")
+    attempt = state.get("current_attempt", "?")
+    resume_from = state.get("resume_from", "architect")
+
+    retry_ctx = (
+        state.get("real_rate_retry_context")
+        or state.get("retry_context")
+        or {}
+    )
+    max_attempt = retry_ctx.get("max_attempt")
+    max_note = f" (max_attempt={max_attempt})" if max_attempt else ""
+
+    return (
+        f"Pipeline incomplete: state.json shows resume_from={resume_from} for "
+        f"{feature} attempt {attempt}{max_note}. "
+        f"Continue the pipeline from {resume_from}: "
+        f"{resume_from} -> builder_model -> submit_and_monitor(max_loops=1). "
+        f"Do NOT exit until submit_and_monitor() has been called "
+        f"(state.json status must reach 'waiting_training')."
+    )
+
+
+def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIPELINE_RELAUNCH) -> None:
+    """
+    Claudeを起動し、終了後にパイプライン完了を確認する。
+    BUILD_PHASESで止まった場合は最大 max_relaunch 回まで再起動する。
+    evaluatorが停止判断した場合（resume_from not in BUILD_PHASES）は再起動しない。
+    """
+    prompt = initial_prompt
+    for attempt_num in range(max_relaunch + 1):
+        release_lock()
+        log.info("Lock released. Launching Claude...")
+        launched = launch_claude(prompt)
+
+        if not launched:
+            log.error("Claude Code failed to launch. Manual resume needed.")
+            return
+
+        # Claude終了後にstateを再確認
+        state_after = load_state()
+        status_after = state_after.get("status")
+        resume_after = state_after.get("resume_from")
+
+        if status_after == "waiting_training":
+            log.info("Claude reached waiting_training (submitted to Kaggle). Cycle complete.")
+            return
+
+        if resume_after in BUILD_PHASES and attempt_num < max_relaunch:
+            # パイプライン途中で止まった → evaluatorはまだ判断していない → 再起動
+            log.warning(
+                f"Claude exited at resume_from='{resume_after}' without submitting "
+                f"(relaunch {attempt_num + 1}/{max_relaunch}). Relaunching..."
+            )
+            prompt = _build_relaunch_prompt(state_after)
+        else:
+            # evaluatorが停止判断した、または再起動上限に達した
+            if resume_after in BUILD_PHASES:
+                log.error(
+                    f"Claude exited at resume_from='{resume_after}' after {max_relaunch} relaunch(es). "
+                    f"Manual resume needed."
+                )
+            else:
+                log.info(
+                    f"Claude completed (status={status_after}, resume_from={resume_after}). "
+                    f"Evaluator made stop/continue decision."
+                )
+            return
 
 
 # ---------------------------------------------------------------------------
@@ -241,20 +392,10 @@ def main():
                 state["auto_resume_remaining"] = remaining - 1
                 save_state(state)
                 log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
-            prompt = (
-                f"Kaggle training for {feature} attempt {attempt} has complete. "
-                f"Results have been fetched and state.json updated. "
-                f"Resume from {resume_from}."
-            )
-            # Release lock BEFORE launching Claude so submit_and_monitor()'s
-            # child auto_resume can acquire the lock and monitor the next kernel.
-            release_lock()
-            log.info("Lock released. Launching Claude...")
-            launched = launch_claude(prompt)
-            if launched:
-                log.info("Done. Claude Code session completed.")
-            else:
-                log.error("Claude Code failed. Manual resume needed.")
+            prompt = _build_evaluator_prompt(state, kaggle_status="complete")
+            # _launch_with_pipeline_check releases lock before launching Claude,
+            # then relaunches if Claude stops mid-pipeline (BUILD_PHASES).
+            _launch_with_pipeline_check(prompt)
         finally:
             release_lock()  # No-op if already released; safe due to missing_ok=True
             log.info("auto_resume exiting.")
@@ -319,35 +460,17 @@ def main():
             save_state(state)
             log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
 
-        # 8. Fire Claude Code exactly once
-        if kaggle_status == "error":
-            prompt = (
-                f"Kaggle training for {feature} attempt {attempt} FAILED "
-                f"(error_type={error_type}). "
-                f"error_context: {error_context[:300] if error_context else 'see state.json'}. "
-                f"state.json has been updated with resume_from=builder_model. "
-                f"Fix the notebook error and re-submit."
-            )
-        else:
-            prompt = (
-                f"Kaggle training for {feature} attempt {attempt} has {kaggle_status}. "
-                f"Results have been fetched and state.json updated. "
-                f"Resume from {resume_from}."
-            )
-
-        # Release lock BEFORE launching Claude so that submit_and_monitor()'s
-        # child auto_resume can acquire the lock and monitor the next kernel.
-        # Without this, child auto_resume sees "Another auto_resume is already running"
-        # and exits, leaving nobody to monitor the next training run.
-        release_lock()
-        log.info("Lock released. Launching Claude...")
-
-        launched = launch_claude(prompt)
-
-        if launched:
-            log.info("Done. Claude Code session completed.")
-        else:
-            log.error("Claude Code failed. Manual resume needed.")
+        # 8. Fire Claude Code (with pipeline completion check)
+        prompt = _build_evaluator_prompt(
+            state,
+            kaggle_status=kaggle_status,
+            error_type=error_type,
+            error_context=error_context,
+        )
+        # _launch_with_pipeline_check releases lock before launching Claude,
+        # then relaunches if Claude stops mid-pipeline (BUILD_PHASES).
+        # Does NOT relaunch if evaluator decided to stop (resume_from not in BUILD_PHASES).
+        _launch_with_pipeline_check(prompt)
 
     finally:
         release_lock()  # No-op if already released; safe due to missing_ok=True
