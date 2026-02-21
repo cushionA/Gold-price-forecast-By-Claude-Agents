@@ -240,11 +240,16 @@ def _build_relaunch_prompt(state: dict) -> str:
 def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIPELINE_RELAUNCH) -> None:
     """
     Claudeを起動し、終了後にパイプライン完了を確認する。
-    BUILD_PHASESで止まった場合は最大 max_relaunch 回まで再起動する。
-    evaluatorが停止判断した場合（resume_from not in BUILD_PHASES）は再起動しない。
+
+    再起動ロジックを2種類に分離:
+    1. BUILD_PHASES 再起動: パイプライン途中クラッシュ → max_relaunch 回まで
+    2. automation_test 継続: evaluatorが早期停止した場合 → attempts_left > 0 の間は無制限
+       (attempt_num カウンターと独立して動作する)
     """
     prompt = initial_prompt
-    for attempt_num in range(max_relaunch + 1):
+    build_relaunch_count = 0  # BUILD_PHASES クラッシュ用カウンター（max_relaunhと比較）
+
+    while True:
         _release_if_owner()
         log.info("Lock released (owner-checked). Launching Claude...")
         launched = launch_claude(prompt)
@@ -258,62 +263,66 @@ def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIP
         status_after = state_after.get("status")
         resume_after = state_after.get("resume_from")
 
+        # --- ケース1: Kaggle提出まで到達 → 正常終了 ---
         if status_after == "waiting_training":
             log.info("Claude reached waiting_training (submitted to Kaggle). Cycle complete.")
             return
 
-        if resume_after in BUILD_PHASES and attempt_num < max_relaunch:
-            # パイプライン途中で止まった → evaluatorはまだ判断していない → 再起動
-            log.warning(
-                f"Claude exited at resume_from='{resume_after}' without submitting "
-                f"(relaunch {attempt_num + 1}/{max_relaunch}). Relaunching..."
-            )
-            prompt = _build_relaunch_prompt(state_after)
-        else:
-            # evaluatorが停止判断した、または再起動上限に達した
-            if resume_after in BUILD_PHASES:
-                log.error(
-                    f"Claude exited at resume_from='{resume_after}' after {max_relaunch} relaunch(es). "
-                    f"Manual resume needed."
+        # --- ケース2: BUILD_PHASES で止まった（evaluatorの判断前） ---
+        if resume_after in BUILD_PHASES:
+            if build_relaunch_count < max_relaunch:
+                build_relaunch_count += 1
+                log.warning(
+                    f"Claude exited at resume_from='{resume_after}' without submitting "
+                    f"(build relaunch {build_relaunch_count}/{max_relaunch}). Relaunching..."
                 )
+                prompt = _build_relaunch_prompt(state_after)
+                continue  # 再起動
             else:
-                # automation_test: evaluatorが早期停止したが attempts_left > 0 → 強制継続
-                retry_ctx_after = (
-                    state_after.get("real_rate_retry_context")
-                    or state_after.get("retry_context")
-                    or {}
+                log.error(
+                    f"Claude exited at resume_from='{resume_after}' after {max_relaunch} "
+                    f"build relaunch(es). Manual resume needed."
                 )
-                auto_test = retry_ctx_after.get("automation_test", False)
-                max_att = retry_ctx_after.get("max_attempt")
-                cur_att = state_after.get("current_attempt", 0)
-                left = (max_att - int(cur_att)) if (auto_test and max_att) else 0
+                return
 
-                if auto_test and left > 0 and status_after == "completed" and attempt_num < max_relaunch:
-                    log.warning(
-                        f"automation_test: Evaluator declared completed early (attempts_left={left}). "
-                        f"Force-continuing to next attempt (relaunch {attempt_num + 1}/{max_relaunch})."
-                    )
-                    # reset state to in_progress to allow submission
-                    state_after["status"] = "in_progress"
-                    state_after["resume_from"] = "builder_model"
-                    save_state(state_after)
-                    force_prompt = (
-                        f"AUTOMATION TEST OVERRIDE: The evaluator declared the project complete at attempt {cur_att}, "
-                        f"but max_attempt={max_att} requires continuing to attempt {cur_att + 1}. "
-                        f"IGNORE the previous no_further_improvement decision. "
-                        f"Build and submit meta_model attempt {cur_att + 1} now. "
-                        f"Use submit_and_monitor(max_loops=1). "
-                        f"Context from retry_context: {retry_ctx_after.get('improvement_mandate', '')}"
-                    )
-                    prompt = force_prompt
-                    # continue the for-loop to relaunch
-                    continue
-                else:
-                    log.info(
-                        f"Claude completed (status={status_after}, resume_from={resume_after}). "
-                        f"Evaluator made stop/continue decision."
-                    )
-            return
+        # --- ケース3: evaluatorが判断した（resume_from not in BUILD_PHASES） ---
+        retry_ctx_after = (
+            state_after.get("real_rate_retry_context")
+            or state_after.get("retry_context")
+            or {}
+        )
+        auto_test = retry_ctx_after.get("automation_test", False)
+        max_att = retry_ctx_after.get("max_attempt")
+        cur_att = state_after.get("current_attempt", 0)
+        left = (max_att - int(cur_att)) if (auto_test and max_att is not None) else 0
+
+        if auto_test and left > 0 and status_after in ("completed", "paused_max_iterations"):
+            # automation_test: attempt_num < max_relaunch 制約なし（独立した継続ロジック）
+            feature = state_after.get("current_feature", "?")
+            log.warning(
+                f"automation_test: Evaluator declared '{status_after}' at {feature} attempt {cur_att} "
+                f"(attempts_left={left}). Force-continuing to attempt {cur_att + 1}."
+            )
+            state_after["status"] = "in_progress"
+            state_after["resume_from"] = "architect"
+            save_state(state_after)
+            prompt = (
+                f"AUTOMATION TEST OVERRIDE: The evaluator declared '{status_after}' for "
+                f"{feature} at attempt {cur_att}, but retry_context.max_attempt={max_att} "
+                f"requires continuing to attempt {cur_att + 1}. "
+                f"IGNORE the previous no_further_improvement/completed decision. "
+                f"Resume from architect for {feature} attempt {cur_att + 1}: "
+                f"architect -> builder_model -> submit_and_monitor(max_loops=1). "
+                f"Note from retry_context: {retry_ctx_after.get('note', '')}"
+            )
+            continue  # 次のattemptへ（build_relaunch_countはリセットしない）
+
+        # --- ケース4: evaluatorが正常停止判断 → 終了 ---
+        log.info(
+            f"Claude completed (status={status_after}, resume_from={resume_after}). "
+            f"Evaluator made stop/continue decision."
+        )
+        return
 
 
 # ---------------------------------------------------------------------------
