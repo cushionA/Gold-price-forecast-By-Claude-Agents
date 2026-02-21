@@ -49,3 +49,10 @@ Max wait time: 3.0 hours
 2026-02-21 17:36:35,656 [INFO] Monitor exited (code=1)
 2026-02-21 17:36:35,656 [ERROR] Monitor finished with error. Manual resume needed.
 2026-02-21 17:36:35,657 [INFO] auto_resume exiting.
+2026-02-21 17:42:35,227 [INFO] ============================================================
+2026-02-21 17:42:35,228 [INFO] auto_resume started
+2026-02-21 17:42:35,240 [INFO] auto_resume_remaining set to 3
+2026-02-21 17:42:35,241 [INFO] Watching: meta_model attempt 16
+2026-02-21 17:42:35,241 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-16
+2026-02-21 17:42:35,241 [INFO] Remaining loops: 3
+2026-02-21 17:42:35,241 [INFO] Starting monitor (interval=60s, max=3.0h)
