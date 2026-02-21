@@ -255,3 +255,12 @@ Max wait time: 3.0 hours
 2026-02-21 22:25:17,398 [INFO] auto_resume_remaining: 1 → 0
 2026-02-21 22:25:17,401 [INFO] Lock released. Launching Claude...
 2026-02-21 22:25:17,411 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 22:30:59,171 [INFO] ============================================================
+2026-02-21 22:30:59,172 [INFO] auto_resume started
+2026-02-21 22:30:59,173 [INFO] Watching: meta_model attempt 19
+2026-02-21 22:30:59,173 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-19
+2026-02-21 22:30:59,174 [INFO] Remaining loops: 0
+2026-02-21 22:30:59,174 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)
+2026-02-21 22:31:38,267 [INFO] Claude Code exited (code=0)
+2026-02-21 22:31:38,268 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
+2026-02-21 22:31:38,268 [INFO] auto_resume exiting.
