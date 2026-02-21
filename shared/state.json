@@ -1,5 +1,5 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "completed",
   "current_feature": "meta_model",
   "current_attempt": 16,
@@ -40,7 +40,7 @@
     "regime_classification"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-16",
-  "submitted_at": "2026-02-21T17:54:59.728551",
+  "submitted_at": "2026-02-21T18:12:15.321635",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -789,7 +789,7 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-21T17:56:08.907689",
+  "last_updated": "2026-02-21T18:12:15.321647",
   "error_type": "unknown",
-  "auto_resume_remaining": 2
+  "auto_resume_remaining": 1
 }
