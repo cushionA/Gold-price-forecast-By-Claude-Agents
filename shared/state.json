@@ -3,7 +3,7 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
   "current_attempt": 3,
-  "resume_from": "completed",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -13,7 +13,7 @@
     "automation_test": true,
     "max_attempt": 5
   },
-  "auto_resume_remaining": 0,
+  "auto_resume_remaining": 2,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -529,7 +529,7 @@
         "gate3_details": {
           "da_delta_pp": 0.86,
           "sharpe_delta": 0.0294,
-          "mae_delta": -0.0020,
+          "mae_delta": -0.002,
           "da_improved_folds": "5/5",
           "sharpe_improved_folds": "3/5",
           "mae_improved_folds": "4/5",
@@ -1069,10 +1069,13 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T03:10:00.000000",
+  "last_updated": "2026-02-22T08:30:41.104069",
   "options_market_attempt3_result": {
     "decision": "completed_best",
-    "production_columns": ["options_regime_smooth", "options_gvz_momentum_z"],
+    "production_columns": [
+      "options_regime_smooth",
+      "options_gvz_momentum_z"
+    ],
     "replaces_attempt2_column": "options_risk_regime_prob",
     "production_file": "data/dataset_upload_clean/options_market.csv",
     "gate1": "PASS",
@@ -1103,11 +1106,10 @@
     "max_attempt": 11
   },
   "retry_context": {
-    "feature": "yield_curve",
-    "max_attempt": 6,
-    "user_requested": true,
+    "feature": "options_market",
+    "max_attempt": 5,
     "automation_test": true,
-    "note": "Automation pipeline test: run yield_curve for 3 more attempts (4, 5, 6). ALWAYS continue to next attempt regardless of metrics (automation_test=True). Do NOT declare no_further_improvement. After evaluating each attempt: continue to architect -> builder_model -> submit_and_monitor(max_loops=1). STOP after evaluating attempt 6 - do NOT submit attempt 7."
+    "note": "Automation pipeline test: run options_market for attempts 3-5. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor. STOP after evaluating attempt 5."
   },
   "kaggle_results_fetched": true,
   "kaggle_results_path": "data/outputs/yield_curve_2/",

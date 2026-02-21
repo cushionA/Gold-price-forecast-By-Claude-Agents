@@ -296,7 +296,7 @@ def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIP
         cur_att = state_after.get("current_attempt", 0)
         left = (max_att - int(cur_att)) if (auto_test and max_att is not None) else 0
 
-        if auto_test and left > 0 and status_after in ("completed", "paused_max_iterations"):
+        if auto_test and left > 0 and (status_after in ("completed", "paused_max_iterations") or resume_after == "completed"):
             # automation_test: attempt_num < max_relaunch 制約なし（独立した継続ロジック）
             feature = state_after.get("current_feature", "?")
             log.warning(
