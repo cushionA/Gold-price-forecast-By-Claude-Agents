@@ -1,0 +1,180 @@
+[{"stream_name":"stderr","time":6.514521395,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.514603404,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.514609228,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.514611901,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.11994887,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.119996797,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.120001001,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.120004109,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.992416335,"data":"XGBoost version: 3.1.3\n"}
+,{"stream_name":"stdout","time":10.992454372,"data":"Optuna version: 4.7.0\n"}
+,{"stream_name":"stdout","time":10.992459226,"data":"Started: 2026-02-21T13:22:47.228979\n"}
+,{"stream_name":"stdout","time":10.992462905,"data":"Attempt: 19\n"}
+,{"stream_name":"stdout","time":10.992466341,"data":"Architecture: Optuna HPO (100 trials) + Bootstrap Data Subsampling Ensemble (12 models, 80%)\n"}
+,{"stream_name":"stdout","time":11.013929964,"data":"Features defined: 28 features\n"}
+,{"stream_name":"stdout","time":11.090652239,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.090681823,"data":"LOADING DATA FROM KAGGLE DATASET (no API key needed)\n"}
+,{"stream_name":"stdout","time":11.090687375,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.090691191,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels (pattern: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/base_features_raw.csv)\n"}
+,{"stream_name":"stdout","time":11.090695806,"data":"\n"}
+,{"stream_name":"stdout","time":11.090700132,"data":"Loading base_features_raw.csv from dataset...\n"}
+,{"stream_name":"stdout","time":11.090704111,"data":"  Loaded: 3050 rows, 2014-01-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":11.090707571,"data":"  Columns: ['gold_return_next', 'real_rate_real_rate', 'dxy_dxy', 'vix_vix', 'yield_curve_yield_spread', 'inflation_expectation_inflation_expectation']\n"}
+,{"stream_name":"stdout","time":11.090711271,"data":"  Base features: 3050 rows, 6 columns\n"}
+,{"stream_name":"stdout","time":11.090714701,"data":"\n"}
+,{"stream_name":"stdout","time":11.090717963,"data":"Data loading complete\n"}
+,{"stream_name":"stdout","time":11.194198975,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels (pattern: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/vix.csv)\n"}
+,{"stream_name":"stdout","time":11.194232743,"data":"\n"}
+,{"stream_name":"stdout","time":11.194237758,"data":"Applying transformations...\n"}
+,{"stream_name":"stdout","time":11.194241488,"data":"  Base transformations applied\n"}
+,{"stream_name":"stdout","time":11.194245085,"data":"  Columns so far: ['gold_return_next', 'real_rate_change', 'dxy_change', 'vix', 'yield_spread_change', 'inflation_exp_change']\n"}
+,{"stream_name":"stdout","time":11.194249638,"data":"\n"}
+,{"stream_name":"stdout","time":11.194253296,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
+,{"stream_name":"stdout","time":11.194267558,"data":"  vix: 2857 rows\n"}
+,{"stream_name":"stdout","time":11.238523554,"data":"  technical: 2860 rows\n"}
+,{"stream_name":"stdout","time":11.36482295,"data":"  cross_asset: 2522 rows\n"}
+,{"stream_name":"stdout","time":11.364854336,"data":"  yield_curve: 2794 rows\n"}
+,{"stream_name":"stdout","time":11.364857672,"data":"  etf_flow: 2838 rows\n"}
+,{"stream_name":"stdout","time":11.364860159,"data":"  inflation_expectation: 2924 rows\n"}
+,{"stream_name":"stdout","time":11.364862583,"data":"  options_market: 2548 rows\n"}
+,{"stream_name":"stdout","time":11.364864957,"data":"  temporal_context: 2461 rows\n"}
+,{"stream_name":"stdout","time":11.407520659,"data":"  real_rate: 2542 rows\n"}
+,{"stream_name":"stdout","time":11.40755503,"data":"\n"}
+,{"stream_name":"stdout","time":11.407561117,"data":"Merging submodel outputs...\n"}
+,{"stream_name":"stdout","time":11.407564292,"data":"  Features after merge: 29 columns, 3050 rows\n"}
+,{"stream_name":"stdout","time":11.40756681,"data":"\n"}
+,{"stream_name":"stdout","time":11.40756997,"data":"Applying NaN imputation...\n"}
+,{"stream_name":"stdout","time":11.407574895,"data":"  NaN before imputation: 7675\n"}
+,{"stream_name":"stdout","time":11.407578713,"data":"  NaN after imputation: 0\n"}
+,{"stream_name":"stdout","time":11.407582411,"data":"  Final dataset: 3049 rows\n"}
+,{"stream_name":"stdout","time":11.407586333,"data":"\n"}
+,{"stream_name":"stdout","time":11.40758983,"data":"All 28 features present\n"}
+,{"stream_name":"stdout","time":11.407593798,"data":"Dataset shape: (3049, 29)\n"}
+,{"stream_name":"stdout","time":11.407598149,"data":"Date range: 2014-01-03 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":11.435465544,"data":"\n"}
+,{"stream_name":"stdout","time":11.435493977,"data":"Data split complete:\n"}
+,{"stream_name":"stdout","time":11.435498677,"data":"  Train: 2134 rows (70.0%) - 2014-01-03 to 2022-06-29\n"}
+,{"stream_name":"stdout","time":11.4355024,"data":"  Val:   457 rows (15.0%) - 2022-06-30 to 2024-04-24\n"}
+,{"stream_name":"stdout","time":11.435506403,"data":"  Test:  458 rows (15.0%) - 2024-04-25 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":11.4355104,"data":"  Total: 3049 rows\n"}
+,{"stream_name":"stdout","time":11.435514324,"data":"  Samples per feature: 76.2:1 (train)\n"}
+,{"stream_name":"stdout","time":11.435517817,"data":"\n"}
+,{"stream_name":"stdout","time":11.435522045999999,"data":"No time-series leakage detected\n"}
+,{"stream_name":"stdout","time":11.435525479,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.435528778,"data":"\n"}
+,{"stream_name":"stdout","time":11.435531989,"data":"Array shapes:\n"}
+,{"stream_name":"stdout","time":11.435535214,"data":"  X_train: (2134, 28), y_train: (2134,)\n"}
+,{"stream_name":"stdout","time":11.435538470000001,"data":"  X_val:   (457, 28), y_val:   (457,)\n"}
+,{"stream_name":"stdout","time":11.435541909,"data":"  X_test:  (458, 28), y_test:  (458,)\n"}
+,{"stream_name":"stdout","time":11.463638433,"data":"Metric functions defined\n"}
+,{"stream_name":"stderr","time":11.577260785,"data":"[W 2026-02-21 13:22:47,812] Trial 0 failed with parameters: {'max_depth': 3, 'min_child_weight': 48, 'subsample': 0.8561978796339917, 'colsample_bytree': 0.5595304694689628, 'reg_lambda': 1.5013435314067614, 'reg_alpha': 0.6239780813448106, 'learning_rate': 0.012323344486727979} because of the following error: TypeError(\"XGBModel.fit() got an unexpected keyword argument 'early_stopping_rounds'\").\n"}
+,{"stream_name":"stderr","time":11.577296287,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":11.577314018,"data":"  File \"/usr/local/lib/python3.12/dist-packages/optuna/study/_optimize.py\", line 206, in _run_trial\n"}
+,{"stream_name":"stderr","time":11.577318265,"data":"    value_or_values = func(trial)\n"}
+,{"stream_name":"stderr","time":11.577321587,"data":"                      ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":11.577324929,"data":"  File \"/tmp/ipykernel_24/87291894.py\", line 24, in objective\n"}
+,{"stream_name":"stderr","time":11.577328732,"data":"    model.fit(X_train, y_train, eval_set=[(X_val, y_val)],\n"}
+,{"stream_name":"stderr","time":11.577332188,"data":"  File \"/usr/local/lib/python3.12/dist-packages/xgboost/core.py\", line 774, in inner_f\n"}
+,{"stream_name":"stderr","time":11.577335812,"data":"    return func(**kwargs)\n"}
+,{"stream_name":"stderr","time":11.577339132,"data":"           ^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":11.577342448,"data":"TypeError: XGBModel.fit() got an unexpected keyword argument 'early_stopping_rounds'\n"}
+,{"stream_name":"stderr","time":11.577346,"data":"\n"}
+,{"stream_name":"stderr","time":11.577349361,"data":"[W 2026-02-21 13:22:47,812] Trial 0 failed with parameters: {'max_depth': 3, 'min_child_weight': 48, 'subsample': 0.8561978796339917, 'colsample_bytree': 0.5595304694689628, 'reg_lambda': 1.5013435314067614, 'reg_alpha': 0.6239780813448106, 'learning_rate': 0.012323344486727979} because of the following error: TypeError(\"XGBModel.fit() got an unexpected keyword argument 'early_stopping_rounds'\").\n"}
+,{"stream_name":"stderr","time":11.577353901,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":11.577357455,"data":"  File \"/usr/local/lib/python3.12/dist-packages/optuna/study/_optimize.py\", line 206, in _run_trial\n"}
+,{"stream_name":"stderr","time":11.577361101,"data":"    value_or_values = func(trial)\n"}
+,{"stream_name":"stderr","time":11.577366256,"data":"                      ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":11.57736999,"data":"  File \"/tmp/ipykernel_24/87291894.py\", line 24, in objective\n"}
+,{"stream_name":"stderr","time":11.577372658,"data":"    model.fit(X_train, y_train, eval_set=[(X_val, y_val)],\n"}
+,{"stream_name":"stderr","time":11.577375629,"data":"  File \"/usr/local/lib/python3.12/dist-packages/xgboost/core.py\", line 774, in inner_f\n"}
+,{"stream_name":"stderr","time":11.57738365,"data":"    return func(**kwargs)\n"}
+,{"stream_name":"stderr","time":11.577387432,"data":"           ^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":11.577391125,"data":"TypeError: XGBModel.fit() got an unexpected keyword argument 'early_stopping_rounds'\n"}
+,{"stream_name":"stderr","time":11.578070925,"data":"[W 2026-02-21 13:22:47,814] Trial 0 failed with value None.\n"}
+,{"stream_name":"stderr","time":11.578091639,"data":"\n"}
+,{"stream_name":"stderr","time":11.578095327,"data":"[W 2026-02-21 13:22:47,814] Trial 0 failed with value None.\n"}
+,{"stream_name":"stdout","time":11.581863719,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.58189007,"data":"OPTUNA HPO (100 trials) - Finding best params for 28 features\n"}
+,{"stream_name":"stdout","time":11.581894815,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":12.220719488,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":12.220744928,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":12.220749952,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":12.220841485,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":12.220848818,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":12.221050506,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":12.221425626,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":12.221432263,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":12.221436619,"data":"Exception encountered at \"In [7]\":\n"}
+,{"stream_name":"stderr","time":12.221440684,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":12.221445014,"data":"TypeError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":12.221449299,"data":"/tmp/ipykernel_24/87291894.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":12.221453658,"data":"     49     sampler=TPESampler(seed=42)\n"}
+,{"stream_name":"stderr","time":12.221457808,"data":"     50 )\n"}
+,{"stream_name":"stderr","time":12.221461445,"data":"---\u003e 51 study.optimize(objective, n_trials=100, show_progress_bar=False)\n"}
+,{"stream_name":"stderr","time":12.221465744,"data":"     52 \n"}
+,{"stream_name":"stderr","time":12.221469093,"data":"     53 best_params = study.best_params.copy()\n"}
+,{"stream_name":"stderr","time":12.221472595,"data":"\n"}
+,{"stream_name":"stderr","time":12.221475870999999,"data":"/usr/local/lib/python3.12/dist-packages/optuna/study/study.py in optimize(self, func, n_trials, timeout, n_jobs, catch, callbacks, gc_after_trial, show_progress_bar)\n"}
+,{"stream_name":"stderr","time":12.221479813,"data":"    488                 If nested invocation of this method occurs.\n"}
+,{"stream_name":"stderr","time":12.221483439,"data":"    489         \"\"\"\n"}
+,{"stream_name":"stderr","time":12.221486454,"data":"--\u003e 490         _optimize(\n"}
+,{"stream_name":"stderr","time":12.221488819,"data":"    491             study=self,\n"}
+,{"stream_name":"stderr","time":12.221491234,"data":"    492             func=func,\n"}
+,{"stream_name":"stderr","time":12.221493476,"data":"\n"}
+,{"stream_name":"stderr","time":12.221495692,"data":"/usr/local/lib/python3.12/dist-packages/optuna/study/_optimize.py in _optimize(study, func, n_trials, timeout, n_jobs, catch, callbacks, gc_after_trial, show_progress_bar)\n"}
+,{"stream_name":"stderr","time":12.221498203,"data":"     66     try:\n"}
+,{"stream_name":"stderr","time":12.221500401,"data":"     67         if n_jobs == 1:\n"}
+,{"stream_name":"stderr","time":12.221502724,"data":"---\u003e 68             _optimize_sequential(\n"}
+,{"stream_name":"stderr","time":12.221505071,"data":"     69                 study,\n"}
+,{"stream_name":"stderr","time":12.221507333,"data":"     70                 func,\n"}
+,{"stream_name":"stderr","time":12.221509613,"data":"\n"}
+,{"stream_name":"stderr","time":12.221511812,"data":"/usr/local/lib/python3.12/dist-packages/optuna/study/_optimize.py in _optimize_sequential(study, func, n_trials, timeout, catch, callbacks, gc_after_trial, reseed_sampler_rng, time_start, progress_bar)\n"}
+,{"stream_name":"stderr","time":12.221515532,"data":"    163 \n"}
+,{"stream_name":"stderr","time":12.221517757,"data":"    164         try:\n"}
+,{"stream_name":"stderr","time":12.22152002,"data":"--\u003e 165             frozen_trial_id = _run_trial(study, func, catch)\n"}
+,{"stream_name":"stderr","time":12.221530495,"data":"    166         finally:\n"}
+,{"stream_name":"stderr","time":12.221532881,"data":"    167             # The following line mitigates memory problems that can be occurred in some\n"}
+,{"stream_name":"stderr","time":12.22153523,"data":"\n"}
+,{"stream_name":"stderr","time":12.221537564,"data":"/usr/local/lib/python3.12/dist-packages/optuna/study/_optimize.py in _run_trial(study, func, catch)\n"}
+,{"stream_name":"stderr","time":12.221539974,"data":"    261         and not isinstance(func_err, catch)\n"}
+,{"stream_name":"stderr","time":12.221542261,"data":"    262     ):\n"}
+,{"stream_name":"stderr","time":12.221544479,"data":"--\u003e 263         raise func_err\n"}
+,{"stream_name":"stderr","time":12.221546793,"data":"    264     return trial._trial_id\n"}
+,{"stream_name":"stderr","time":12.221549056,"data":"    265 \n"}
+,{"stream_name":"stderr","time":12.221551292000001,"data":"\n"}
+,{"stream_name":"stderr","time":12.221553457,"data":"/usr/local/lib/python3.12/dist-packages/optuna/study/_optimize.py in _run_trial(study, func, catch)\n"}
+,{"stream_name":"stderr","time":12.221555961,"data":"    204     with get_heartbeat_thread(trial._trial_id, study._storage):\n"}
+,{"stream_name":"stderr","time":12.221558834,"data":"    205         try:\n"}
+,{"stream_name":"stderr","time":12.221561124,"data":"--\u003e 206             value_or_values = func(trial)\n"}
+,{"stream_name":"stderr","time":12.221563484,"data":"    207         except exceptions.TrialPruned as e:\n"}
+,{"stream_name":"stderr","time":12.221565791,"data":"    208             # TODO(mamu): Handle multi-objective cases.\n"}
+,{"stream_name":"stderr","time":12.221568531,"data":"\n"}
+,{"stream_name":"stderr","time":12.221570824,"data":"/tmp/ipykernel_24/87291894.py in objective(trial)\n"}
+,{"stream_name":"stderr","time":12.22157315,"data":"     22     }\n"}
+,{"stream_name":"stderr","time":12.221575559,"data":"     23     model = xgb.XGBRegressor(**params)\n"}
+,{"stream_name":"stderr","time":12.221577964,"data":"---\u003e 24     model.fit(X_train, y_train, eval_set=[(X_val, y_val)],\n"}
+,{"stream_name":"stderr","time":12.221580298,"data":"     25               early_stopping_rounds=50, verbose=False)\n"}
+,{"stream_name":"stderr","time":12.221582715,"data":"     26     pred_val = model.predict(X_val)\n"}
+,{"stream_name":"stderr","time":12.221585043,"data":"\n"}
+,{"stream_name":"stderr","time":12.221587271,"data":"/usr/local/lib/python3.12/dist-packages/xgboost/core.py in inner_f(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":12.221589589,"data":"    772             for k, arg in zip(sig.parameters, args):\n"}
+,{"stream_name":"stderr","time":12.221591993,"data":"    773                 kwargs[k] = arg\n"}
+,{"stream_name":"stderr","time":12.221594281,"data":"--\u003e 774             return func(**kwargs)\n"}
+,{"stream_name":"stderr","time":12.221596572,"data":"    775 \n"}
+,{"stream_name":"stderr","time":12.221598808,"data":"    776         return inner_f\n"}
+,{"stream_name":"stderr","time":12.22160114,"data":"\n"}
+,{"stream_name":"stderr","time":12.221603366,"data":"TypeError: XGBModel.fit() got an unexpected keyword argument 'early_stopping_rounds'\n"}
+,{"stream_name":"stderr","time":12.221605761,"data":"\n"}
+,{"stream_name":"stderr","time":14.438085646,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":14.438119755,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":14.592692834,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":14.592736893,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":15.156055255,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":15.156092998,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":15.18860944,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":15.504763823,"data":"[NbConvertApp] Writing 75160 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":17.909724773,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":17.909759332,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":17.930542595,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":18.908159761,"data":"[NbConvertApp] Writing 501123 bytes to __results__.html\n"}
+]

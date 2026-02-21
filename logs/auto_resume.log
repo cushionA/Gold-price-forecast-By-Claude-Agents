@@ -250,3 +250,8 @@ Max wait time: 3.0 hours
 2026-02-21 22:22:39,026 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-19
 2026-02-21 22:22:39,026 [INFO] Remaining loops: 1
 2026-02-21 22:22:39,026 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)
+2026-02-21 22:25:17,396 [INFO] Monitor exited (code=1)
+2026-02-21 22:25:17,397 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-21 22:25:17,398 [INFO] auto_resume_remaining: 1 → 0
+2026-02-21 22:25:17,401 [INFO] Lock released. Launching Claude...
+2026-02-21 22:25:17,411 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
