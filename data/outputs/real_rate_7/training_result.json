@@ -1,0 +1,193 @@
+{
+  "feature": "real_rate",
+  "attempt": 7,
+  "method": "deterministic_yield_curve_shape",
+  "timestamp": "2026-02-21T10:48:11.794807",
+  "description": "Real yield curve shape features: slope change z-score, curvature change z-score, level change z-score, slope level z-score. All daily DFII series. No forward-fill.",
+  "data_sources": [
+    "FRED:DFII5",
+    "FRED:DFII7",
+    "FRED:DFII10",
+    "FRED:DFII20",
+    "FRED:DFII30"
+  ],
+  "output_shape": [
+    2542,
+    4
+  ],
+  "output_columns": [
+    "rr_level_change_z",
+    "rr_slope_chg_z",
+    "rr_curvature_chg_z",
+    "rr_slope_level_z"
+  ],
+  "gate1": {
+    "pass": true,
+    "overfit_ratio": 1.0,
+    "checks": {
+      "rr_level_change_z": {
+        "nan_pct": 0.0,
+        "std": 0.990244688116122,
+        "autocorr": 0.0316900262074333,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_slope_chg_z": {
+        "nan_pct": 0.0,
+        "std": 1.0006225333994734,
+        "autocorr": -0.04166206198881228,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_curvature_chg_z": {
+        "nan_pct": 0.0,
+        "std": 0.9878236118163476,
+        "autocorr": -0.1983329971778884,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_slope_level_z": {
+        "nan_pct": 0.0,
+        "std": 1.3614011966728057,
+        "autocorr": 0.9374397144471592,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      }
+    }
+  },
+  "gate2": {
+    "pass": true,
+    "checks": {
+      "mi": {
+        "new_total": 2.115405312057057,
+        "baseline_total": 0.1,
+        "increase": 2115.405312057057,
+        "pass": true
+      },
+      "vif": {
+        "max": 1.2146716539676867,
+        "pass": true
+      },
+      "stability": {
+        "max_rolling_corr_std": 0.15886808529381877,
+        "pass": false
+      }
+    },
+    "per_feature_mi": {
+      "rr_level_change_z": 0.5145692556065455,
+      "rr_slope_chg_z": 0.5138609398878311,
+      "rr_curvature_chg_z": 0.5613375244315232,
+      "rr_slope_level_z": 0.525637592131157
+    }
+  },
+  "gate3": {
+    "pass": true,
+    "baseline": {
+      "direction_accuracy": 0.519279353063647,
+      "sharpe_ratio": 0.4017850099846897,
+      "mae": 0.7243114852134465
+    },
+    "extended": {
+      "direction_accuracy": 0.5177860539575443,
+      "sharpe_ratio": 0.7308273802975322,
+      "mae": 0.7220985703142858
+    },
+    "checks": {
+      "direction": {
+        "delta": -0.0014932991061027412,
+        "threshold": 0.005,
+        "pass": false
+      },
+      "sharpe": {
+        "delta": 0.32904237031284256,
+        "threshold": 0.05,
+        "pass": true
+      },
+      "mae": {
+        "delta": -0.002212914899160645,
+        "threshold": -0.01,
+        "pass": false
+      }
+    },
+    "fold_results": {
+      "base_da": [
+        0.5070993914807302,
+        0.501002004008016,
+        0.5212981744421906,
+        0.5477178423236515
+      ],
+      "ext_da": [
+        0.5152129817444219,
+        0.5070140280561122,
+        0.49290060851926976,
+        0.5560165975103735
+      ],
+      "base_sharpe": [
+        0.3147511296291985,
+        -0.6200936841036506,
+        0.34361782296311005,
+        1.5688647714501007
+      ],
+      "ext_sharpe": [
+        0.5588358436921356,
+        0.5903472946327514,
+        -0.1772647896307852,
+        1.9513911724960273
+      ],
+      "base_mae": [
+        0.612097331713701,
+        0.7992386047794509,
+        0.7575301876652495,
+        0.7283798166953847
+      ],
+      "ext_mae": [
+        0.6181620901820473,
+        0.7915897375760274,
+        0.7535745494109223,
+        0.7250679040881464
+      ]
+    }
+  },
+  "feature_stats": {
+    "rr_level_change_z": {
+      "mean": 0.005569505139673922,
+      "std": 0.990244688116122,
+      "min": -3.437396798152866,
+      "max": 4.0,
+      "autocorr": 0.0316900262074333,
+      "nan_pct": 0.0
+    },
+    "rr_slope_chg_z": {
+      "mean": 0.003345058345637007,
+      "std": 1.0006225333994734,
+      "min": -4.0,
+      "max": 4.0,
+      "autocorr": -0.04166206198881228,
+      "nan_pct": 0.0
+    },
+    "rr_curvature_chg_z": {
+      "mean": -4.206003687829776e-05,
+      "std": 0.9878236118163476,
+      "min": -4.0,
+      "max": 4.0,
+      "autocorr": -0.1983329971778884,
+      "nan_pct": 0.0
+    },
+    "rr_slope_level_z": {
+      "mean": 0.04299057239022373,
+      "std": 1.3614011966728057,
+      "min": -4.0,
+      "max": 3.5708135539131005,
+      "autocorr": 0.9374397144471592,
+      "nan_pct": 0.0
+    }
+  }
+}

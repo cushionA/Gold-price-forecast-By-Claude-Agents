@@ -1,103 +1,151 @@
-[{"stream_name":"stderr","time":8.031381042,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":8.032365481,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":8.032373788,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":8.032377876,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stderr","time":8.778130569,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":8.778199879,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":8.778207078,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":8.778211542,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stdout","time":16.225692495,"data":"Started: 2026-02-21T10:35:15.072557\n"}
-,{"stream_name":"stdout","time":16.225764096,"data":"Libraries loaded successfully\n"}
-,{"stream_name":"stderr","time":17.046844613,"data":"Traceback (most recent call last):\n"}
-,{"stream_name":"stderr","time":17.046878177,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
-,{"stream_name":"stderr","time":17.046884876,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
-,{"stream_name":"stderr","time":17.047021364,"data":"    raise_for_execution_errors(nb, output_path)\n"}
-,{"stream_name":"stderr","time":17.047047021,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
-,{"stream_name":"stderr","time":17.047236236,"data":"    raise error\n"}
-,{"stream_name":"stderr","time":17.047751036,"data":"papermill.exceptions.PapermillExecutionError: \n"}
-,{"stream_name":"stderr","time":17.047772926,"data":"---------------------------------------------------------------------------\n"}
-,{"stream_name":"stderr","time":17.047780811,"data":"Exception encountered at \"In [2]\":\n"}
-,{"stream_name":"stderr","time":17.047786431,"data":"---------------------------------------------------------------------------\n"}
-,{"stream_name":"stderr","time":17.047791911,"data":"HTTPError                                 Traceback (most recent call last)\n"}
-,{"stream_name":"stderr","time":17.047797312,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py in make_post_request(self, data, endpoint, timeout)\n"}
-,{"stream_name":"stderr","time":17.047802776,"data":"     45         try:\n"}
-,{"stream_name":"stderr","time":17.047807737,"data":"---\u003e 46             with urllib.request.urlopen(req, timeout=timeout) as response:\n"}
-,{"stream_name":"stderr","time":17.047819465,"data":"     47                 response_json = json.loads(response.read())\n"}
-,{"stream_name":"stderr","time":17.047822959,"data":"\n"}
-,{"stream_name":"stderr","time":17.047826193,"data":"/usr/lib/python3.12/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)\n"}
-,{"stream_name":"stderr","time":17.047829841,"data":"    214         opener = _opener\n"}
-,{"stream_name":"stderr","time":17.047833136,"data":"--\u003e 215     return opener.open(url, data, timeout)\n"}
-,{"stream_name":"stderr","time":17.047836551,"data":"    216 \n"}
-,{"stream_name":"stderr","time":17.047839929,"data":"\n"}
-,{"stream_name":"stderr","time":17.04784316,"data":"/usr/lib/python3.12/urllib/request.py in open(self, fullurl, data, timeout)\n"}
-,{"stream_name":"stderr","time":17.047859223,"data":"    520             meth = getattr(processor, meth_name)\n"}
-,{"stream_name":"stderr","time":17.047862763,"data":"--\u003e 521             response = meth(req, response)\n"}
-,{"stream_name":"stderr","time":17.047865346,"data":"    522 \n"}
-,{"stream_name":"stderr","time":17.047867961,"data":"\n"}
-,{"stream_name":"stderr","time":17.047870344,"data":"/usr/lib/python3.12/urllib/request.py in http_response(self, request, response)\n"}
-,{"stream_name":"stderr","time":17.047872952,"data":"    629         if not (200 \u003c= code \u003c 300):\n"}
-,{"stream_name":"stderr","time":17.047875552,"data":"--\u003e 630             response = self.parent.error(\n"}
-,{"stream_name":"stderr","time":17.047878136,"data":"    631                 'http', request, response, code, msg, hdrs)\n"}
-,{"stream_name":"stderr","time":17.047880612,"data":"\n"}
-,{"stream_name":"stderr","time":17.047883011,"data":"/usr/lib/python3.12/urllib/request.py in error(self, proto, *args)\n"}
-,{"stream_name":"stderr","time":17.047885498,"data":"    558             args = (dict, 'default', 'http_error_default') + orig_args\n"}
-,{"stream_name":"stderr","time":17.047888268,"data":"--\u003e 559             return self._call_chain(*args)\n"}
-,{"stream_name":"stderr","time":17.047890836,"data":"    560 \n"}
-,{"stream_name":"stderr","time":17.047893398,"data":"\n"}
-,{"stream_name":"stderr","time":17.047895788,"data":"/usr/lib/python3.12/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)\n"}
-,{"stream_name":"stderr","time":17.04789834,"data":"    491             func = getattr(handler, meth_name)\n"}
-,{"stream_name":"stderr","time":17.047900788,"data":"--\u003e 492             result = func(*args)\n"}
-,{"stream_name":"stderr","time":17.04790331,"data":"    493             if result is not None:\n"}
-,{"stream_name":"stderr","time":17.047905743,"data":"\n"}
-,{"stream_name":"stderr","time":17.04790832,"data":"/usr/lib/python3.12/urllib/request.py in http_error_default(self, req, fp, code, msg, hdrs)\n"}
-,{"stream_name":"stderr","time":17.047910988,"data":"    638     def http_error_default(self, req, fp, code, msg, hdrs):\n"}
-,{"stream_name":"stderr","time":17.04791362,"data":"--\u003e 639         raise HTTPError(req.full_url, code, msg, hdrs, fp)\n"}
-,{"stream_name":"stderr","time":17.047916246,"data":"    640 \n"}
-,{"stream_name":"stderr","time":17.04791868,"data":"\n"}
-,{"stream_name":"stderr","time":17.047920967,"data":"HTTPError: HTTP Error 400: Bad Request\n"}
-,{"stream_name":"stderr","time":17.047923439,"data":"\n"}
-,{"stream_name":"stderr","time":17.047925751,"data":"The above exception was the direct cause of the following exception:\n"}
-,{"stream_name":"stderr","time":17.047928504,"data":"\n"}
-,{"stream_name":"stderr","time":17.047931737,"data":"ConnectionError                           Traceback (most recent call last)\n"}
-,{"stream_name":"stderr","time":17.047934404,"data":"/tmp/ipykernel_17/2706624850.py in \u003ccell line: 0\u003e()\n"}
-,{"stream_name":"stderr","time":17.047937165,"data":"      5     from kaggle_secrets import UserSecretsClient\n"}
-,{"stream_name":"stderr","time":17.047939677,"data":"----\u003e 6     FRED_API_KEY = UserSecretsClient().get_secret('FRED_API_KEY')\n"}
-,{"stream_name":"stderr","time":17.047942295,"data":"      7     print('FRED_API_KEY loaded from Kaggle Secrets')\n"}
-,{"stream_name":"stderr","time":17.047944772,"data":"\n"}
-,{"stream_name":"stderr","time":17.047947076,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_secrets.py in get_secret(self, label)\n"}
-,{"stream_name":"stderr","time":17.04795329,"data":"     63         }\n"}
-,{"stream_name":"stderr","time":17.047955918,"data":"---\u003e 64         response_json = self.web_client.make_post_request(request_body, self.GET_USER_SECRET_BY_LABEL_ENDPOINT)\n"}
-,{"stream_name":"stderr","time":17.047958629,"data":"     65         if 'secret' not in response_json:\n"}
-,{"stream_name":"stderr","time":17.047961172,"data":"\n"}
-,{"stream_name":"stderr","time":17.047963536,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py in make_post_request(self, data, endpoint, timeout)\n"}
-,{"stream_name":"stderr","time":17.047966169,"data":"     57                     'Timeout error trying to communicate with service. Please ensure internet is on.') from e\n"}
-,{"stream_name":"stderr","time":17.047968757,"data":"---\u003e 58             raise ConnectionError(\n"}
-,{"stream_name":"stderr","time":17.04797125,"data":"     59                 'Connection error trying to communicate with service.') from e\n"}
-,{"stream_name":"stderr","time":17.047974059,"data":"\n"}
-,{"stream_name":"stderr","time":17.047976428,"data":"ConnectionError: Connection error trying to communicate with service.\n"}
-,{"stream_name":"stderr","time":17.047979019,"data":"\n"}
-,{"stream_name":"stderr","time":17.047981394,"data":"During handling of the above exception, another exception occurred:\n"}
-,{"stream_name":"stderr","time":17.047983917,"data":"\n"}
-,{"stream_name":"stderr","time":17.047986223,"data":"KeyError                                  Traceback (most recent call last)\n"}
-,{"stream_name":"stderr","time":17.047988728,"data":"/tmp/ipykernel_17/2706624850.py in \u003ccell line: 0\u003e()\n"}
-,{"stream_name":"stderr","time":17.047991267,"data":"      9     FRED_API_KEY = os.environ.get('FRED_API_KEY')\n"}
-,{"stream_name":"stderr","time":17.047994069,"data":"     10     if not FRED_API_KEY:\n"}
-,{"stream_name":"stderr","time":17.047996572,"data":"---\u003e 11         raise KeyError(f'FRED_API_KEY not found in Kaggle Secrets or environment: {e}')\n"}
-,{"stream_name":"stderr","time":17.047999229,"data":"     12     print('FRED_API_KEY loaded from environment variable')\n"}
-,{"stream_name":"stderr","time":17.048001819,"data":"     13 \n"}
-,{"stream_name":"stderr","time":17.048004177,"data":"\n"}
-,{"stream_name":"stderr","time":17.048006524,"data":"KeyError: 'FRED_API_KEY not found in Kaggle Secrets or environment: Connection error trying to communicate with service.'\n"}
-,{"stream_name":"stderr","time":17.048009144,"data":"\n"}
-,{"stream_name":"stderr","time":19.837086632,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":19.837125641,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":20.036361161,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":20.036392448,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":20.711838673,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
-,{"stream_name":"stderr","time":20.711891847,"data":"  warn(\n"}
-,{"stream_name":"stderr","time":20.753916478,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
-,{"stream_name":"stderr","time":21.148621352,"data":"[NbConvertApp] Writing 45755 bytes to __notebook__.ipynb\n"}
-,{"stream_name":"stderr","time":24.251342277,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
-,{"stream_name":"stderr","time":24.251384665,"data":"  warn(\n"}
-,{"stream_name":"stderr","time":24.277359063,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
-,{"stream_name":"stderr","time":25.439397793,"data":"[NbConvertApp] Writing 407913 bytes to __results__.html\n"}
+[{"stream_name":"stderr","time":8.644797959,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.644863195,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.644870728,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.644875588,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.462062628,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.462097833,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.462104033,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.462108896,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.74908622,"data":"Started: 2026-02-21T10:48:00.993909\n"}
+,{"stream_name":"stdout","time":11.749153434,"data":"Libraries loaded successfully\n"}
+,{"stream_name":"stdout","time":11.769029409,"data":"FRED public CSV fetcher ready (no API key required)\n"}
+,{"stream_name":"stdout","time":11.949295965,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.949333141,"data":"DATA FETCHING\n"}
+,{"stream_name":"stdout","time":11.949341108,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":13.240712847,"data":"  DFII5: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.103226189,"data":"  DFII7: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.103287396,"data":"  DFII10: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":15.337502317,"data":"  DFII20: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":15.678052775,"data":"  DFII30: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":15.678099822,"data":"\n"}
+,{"stream_name":"stdout","time":15.678107462,"data":"Combined (all 5 non-null): 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":15.704476298,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.70453404,"data":"INTERMEDIATE SERIES\n"}
+,{"stream_name":"stdout","time":15.70454218,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.704548595,"data":"Slope range: -0.400 to 1.950 (mean=0.673)\n"}
+,{"stream_name":"stdout","time":15.70455477,"data":"Curvature range: -0.550 to 0.320 (mean=-0.182)\n"}
+,{"stream_name":"stdout","time":15.704560641,"data":"DFII10 daily chg: [-0.4500, 0.3900]\n"}
+,{"stream_name":"stdout","time":15.704566376,"data":"Slope daily chg: [-0.2600, 0.2100]\n"}
+,{"stream_name":"stdout","time":15.704572105,"data":"Curvature daily chg: [-0.1500, 0.2200]\n"}
+,{"stream_name":"stdout","time":15.732624985,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.732671355,"data":"DATASET PATH RESOLUTION\n"}
+,{"stream_name":"stdout","time":15.732678739,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.732684859,"data":"Found submodel dataset at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":15.732691137,"data":"Submodel files (13): ['yield_curve.csv', 'options_market.csv', 'technical.csv', 'inflation_expectation.csv', 'cny_demand.csv', 'base_features_raw.csv', 'temporal_context.csv', 'regime_classification.csv', 'vix.csv', 'dxy.csv']\n"}
+,{"stream_name":"stdout","time":15.77174802,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.771806638,"data":"FEATURE COMPUTATION\n"}
+,{"stream_name":"stdout","time":15.771813133,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.771817988,"data":"Features computed:\n"}
+,{"stream_name":"stdout","time":15.771822758,"data":"  rr_level_change_z: valid=2776, nan=15 (0.5%), autocorr=0.0219, std=0.9925\n"}
+,{"stream_name":"stdout","time":15.771827767,"data":"  rr_slope_chg_z: valid=2761, nan=30 (1.1%), autocorr=-0.0508, std=0.9994\n"}
+,{"stream_name":"stdout","time":15.771832258,"data":"  rr_curvature_chg_z: valid=2761, nan=30 (1.1%), autocorr=-0.2076, std=0.9854\n"}
+,{"stream_name":"stdout","time":15.771836884,"data":"  rr_slope_level_z: valid=2762, nan=29 (1.0%), autocorr=0.9398, std=1.3804\n"}
+,{"stream_name":"stdout","time":15.869219942,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.869266232,"data":"ALIGNMENT TO SCHEMA DATES\n"}
+,{"stream_name":"stdout","time":15.869272658,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.606349451,"data":"Gold trading calendar: 2804 dates, 2014-01-02 to 2025-02-27\n"}
+,{"stream_name":"stdout","time":17.606415626,"data":"Schema dates: 2542 dates, 2015-01-02 to 2025-02-12\n"}
+,{"stream_name":"stdout","time":17.606425489,"data":"Features aligned shape: (2542, 4)\n"}
+,{"stream_name":"stdout","time":17.606430717,"data":"NaN counts after alignment:\n"}
+,{"stream_name":"stdout","time":17.606435641,"data":"  rr_level_change_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.606440533,"data":"  rr_slope_chg_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.606445116,"data":"  rr_curvature_chg_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.606449979,"data":"  rr_slope_level_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.627598929,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.627668056,"data":"DATA SPLIT\n"}
+,{"stream_name":"stdout","time":17.62767413,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.627678618,"data":"Common dates (features + target): 2542\n"}
+,{"stream_name":"stdout","time":17.627683172,"data":"Train: 1779 (2015-01-02 to 2022-01-28)\n"}
+,{"stream_name":"stdout","time":17.627688156,"data":"Val:   381 (2022-01-31 to 2023-08-07)\n"}
+,{"stream_name":"stdout","time":17.627693661,"data":"Test:  382 (2023-08-08 to 2025-02-12)\n"}
+,{"stream_name":"stdout","time":17.653877223,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.653928739,"data":"GATE 1: STANDALONE QUALITY\n"}
+,{"stream_name":"stdout","time":17.653935065,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.653939607,"data":"  rr_level_change_z: PASS | nan=0.0%, std=0.9902, autocorr=0.0317\n"}
+,{"stream_name":"stdout","time":17.653944642,"data":"  rr_slope_chg_z: PASS | nan=0.0%, std=1.0006, autocorr=-0.0417\n"}
+,{"stream_name":"stdout","time":17.653949589,"data":"  rr_curvature_chg_z: PASS | nan=0.0%, std=0.9878, autocorr=-0.1983\n"}
+,{"stream_name":"stdout","time":17.653954571,"data":"  rr_slope_level_z: PASS | nan=0.0%, std=1.3614, autocorr=0.9374\n"}
+,{"stream_name":"stdout","time":17.653978812,"data":"\n"}
+,{"stream_name":"stdout","time":17.65398365,"data":"Overfit ratio: 1.00 (deterministic, no training)\n"}
+,{"stream_name":"stdout","time":17.653988299,"data":"Gate 1 Overall: PASS\n"}
+,{"stream_name":"stdout","time":17.801228113,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.801274939,"data":"GATE 2: INFORMATION GAIN\n"}
+,{"stream_name":"stdout","time":17.801281429,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.599687999,"data":"WARNING: Could not load base features: [Errno 2] No such file or directory: '/kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/meta_model_input.csv'\n"}
+,{"stream_name":"stdout","time":19.599725855,"data":"  MI(rr_level_change_z) = 0.514569\n"}
+,{"stream_name":"stdout","time":19.599732,"data":"  MI(rr_slope_chg_z) = 0.513861\n"}
+,{"stream_name":"stdout","time":19.599736903,"data":"  MI(rr_curvature_chg_z) = 0.561338\n"}
+,{"stream_name":"stdout","time":19.599741399,"data":"  MI(rr_slope_level_z) = 0.525638\n"}
+,{"stream_name":"stdout","time":19.599745903,"data":"\n"}
+,{"stream_name":"stdout","time":19.599750247,"data":"New features MI total: 2.115405\n"}
+,{"stream_name":"stdout","time":19.599754909,"data":"Baseline MI total: 0.100000\n"}
+,{"stream_name":"stdout","time":19.599759172,"data":"MI increase: 2115.41% (threshold: \u003e 5%)\n"}
+,{"stream_name":"stdout","time":19.59976413,"data":"Gate 2 MI: PASS\n"}
+,{"stream_name":"stdout","time":19.599768749,"data":"Max VIF: 1.215 (threshold: \u003c 10)\n"}
+,{"stream_name":"stdout","time":19.59977326,"data":"Max rolling corr std: 0.1589 (threshold: \u003c 0.15)\n"}
+,{"stream_name":"stdout","time":19.59977754,"data":"Gate 2 Overall: PASS (MI=True, VIF=True, stability=False)\n"}
+,{"stream_name":"stdout","time":19.892564392,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.892624332,"data":"GATE 3: ABLATION TEST (5-FOLD CV)\n"}
+,{"stream_name":"stdout","time":19.892629721,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":20.170887258,"data":"meta_model_input.csv not found - constructing from base_features_raw.csv + submodel CSVs\n"}
+,{"stream_name":"stdout","time":20.170934819,"data":"  base_features_raw.csv: (3050, 6)\n"}
+,{"stream_name":"stdout","time":20.17094158,"data":"  cny_demand.csv: (2765, 1)\n"}
+,{"stream_name":"stdout","time":20.170945996,"data":"  cross_asset.csv: (2522, 3)\n"}
+,{"stream_name":"stdout","time":20.170950597,"data":"  dxy.csv: (2862, 3)\n"}
+,{"stream_name":"stdout","time":20.170955339,"data":"  etf_flow.csv: (2838, 3)\n"}
+,{"stream_name":"stdout","time":20.170959857,"data":"  inflation_expectation.csv: (2924, 3)\n"}
+,{"stream_name":"stdout","time":20.170965507,"data":"  WARNING: Could not load options_market.csv: Tz-aware datetime.datetime cannot be converted to datetime64 unless utc=True, at position 22\n"}
+,{"stream_name":"stdout","time":20.170970786,"data":"  regime_classification.csv: (2976, 3)\n"}
+,{"stream_name":"stdout","time":20.473034893,"data":"  WARNING: Could not load technical.csv: Tz-aware datetime.datetime cannot be converted to datetime64 unless utc=True, at position 23\n"}
+,{"stream_name":"stdout","time":20.473071581,"data":"  temporal_context.csv: (2461, 1)\n"}
+,{"stream_name":"stdout","time":20.47307613,"data":"  vix.csv: (2857, 3)\n"}
+,{"stream_name":"stdout","time":20.473080458,"data":"  yield_curve.csv: (2794, 3)\n"}
+,{"stream_name":"stdout","time":20.473108318,"data":"Meta model input (constructed): (3050, 29)\n"}
+,{"stream_name":"stdout","time":20.473112509,"data":"Columns: ['gold_return_next', 'real_rate_real_rate', 'dxy_dxy', 'vix_vix', 'yield_curve_yield_spread', 'inflation_expectation_inflation_expectation', 'cny_demand_spread_z', 'xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence']...\n"}
+,{"stream_name":"stdout","time":20.473118706,"data":"Target column: gold_return_next\n"}
+,{"stream_name":"stdout","time":20.473122515,"data":"Base feature columns: 28\n"}
+,{"stream_name":"stdout","time":20.473126325,"data":"  Fold 1: skipped (insufficient training data)\n"}
+,{"stream_name":"stdout","time":20.473130246,"data":"Running 4 folds...\n"}
+,{"stream_name":"stdout","time":21.023241125,"data":"  Fold 1: Base DA=0.5071, Ext DA=0.5152 (delta=+0.0081)\n"}
+,{"stream_name":"stdout","time":21.023289018,"data":"           Base Sharpe=0.3148, Ext Sharpe=0.5588 (delta=+0.2441)\n"}
+,{"stream_name":"stdout","time":21.023295383,"data":"           Base MAE=0.6121, Ext MAE=0.6182 (delta=+0.0061)\n"}
+,{"stream_name":"stdout","time":21.511076316,"data":"  Fold 2: Base DA=0.5010, Ext DA=0.5070 (delta=+0.0060)\n"}
+,{"stream_name":"stdout","time":21.511138379,"data":"           Base Sharpe=-0.6201, Ext Sharpe=0.5903 (delta=+1.2104)\n"}
+,{"stream_name":"stdout","time":21.511145441,"data":"           Base MAE=0.7992, Ext MAE=0.7916 (delta=-0.0076)\n"}
+,{"stream_name":"stdout","time":22.054273005,"data":"  Fold 3: Base DA=0.5213, Ext DA=0.4929 (delta=-0.0284)\n"}
+,{"stream_name":"stdout","time":22.054331217,"data":"           Base Sharpe=0.3436, Ext Sharpe=-0.1773 (delta=-0.5209)\n"}
+,{"stream_name":"stdout","time":22.054337942,"data":"           Base MAE=0.7575, Ext MAE=0.7536 (delta=-0.0040)\n"}
+,{"stream_name":"stdout","time":22.494158793,"data":"  Fold 4: Base DA=0.5477, Ext DA=0.5560 (delta=+0.0083)\n"}
+,{"stream_name":"stdout","time":22.494198294,"data":"           Base Sharpe=1.5689, Ext Sharpe=1.9514 (delta=+0.3825)\n"}
+,{"stream_name":"stdout","time":22.494204412,"data":"           Base MAE=0.7284, Ext MAE=0.7251 (delta=-0.0033)\n"}
+,{"stream_name":"stdout","time":22.49420978,"data":"\n"}
+,{"stream_name":"stdout","time":22.494215248,"data":"--- Gate 3 Summary ---\n"}
+,{"stream_name":"stdout","time":22.49422041,"data":"Direction Accuracy: 0.5193 -\u003e 0.5178 (delta=-0.0015)\n"}
+,{"stream_name":"stdout","time":22.494225815,"data":"Sharpe Ratio:       0.4018 -\u003e 0.7308 (delta=+0.3290)\n"}
+,{"stream_name":"stdout","time":22.494230952,"data":"MAE:                0.7243 -\u003e 0.7221 (delta=-0.0022)\n"}
+,{"stream_name":"stdout","time":22.494236012000002,"data":"Gate 3: DA=False, Sharpe=True, MAE=False\n"}
+,{"stream_name":"stdout","time":22.494240963,"data":"Gate 3 Overall: PASS\n"}
+,{"stream_name":"stdout","time":22.554333814,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":22.554414844,"data":"SAVING OUTPUTS\n"}
+,{"stream_name":"stdout","time":22.554424336,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":22.554430503,"data":"Saved submodel_output.csv: (2542, 4)\n"}
+,{"stream_name":"stdout","time":22.554436016,"data":"Saved training_result.json\n"}
+,{"stream_name":"stdout","time":22.554441583,"data":"\n"}
+,{"stream_name":"stdout","time":22.554446886,"data":"Finished: 2026-02-21T10:48:11.799324\n"}
+,{"stream_name":"stdout","time":22.554452934,"data":"Training complete!\n"}
+,{"stream_name":"stdout","time":22.554458201,"data":"Gate 1: PASS\n"}
+,{"stream_name":"stdout","time":22.554463937,"data":"Gate 2: PASS (MI +2115.4%, VIF 1.21)\n"}
+,{"stream_name":"stdout","time":22.554486159,"data":"Gate 3: PASS (DA -0.0015, Sharpe +0.3290, MAE -0.0022)\n"}
+,{"stream_name":"stderr","time":25.912078801,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":25.912129602,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":26.120310818,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":26.120344871,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":26.821214707,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.821260144,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.859571739,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":27.285812534,"data":"[NbConvertApp] Writing 48240 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":30.466778645,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":30.466828944,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":30.493268443,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":31.727340902999998,"data":"[NbConvertApp] Writing 413648 bytes to __results__.html\n"}
 ]
