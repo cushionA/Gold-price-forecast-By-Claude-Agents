@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 5,
-  "resume_from": "submit",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -15,10 +15,10 @@
     "max_attempt": 7
   },
   "retry_context": {
-    "feature": "yield_curve",
-    "max_attempt": 7,
+    "feature": "options_market",
+    "max_attempt": 5,
     "automation_test": true,
-    "note": "Automation pipeline test: run yield_curve attempts 5-7. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor(max_loops=1). STOP after evaluating attempt 7."
+    "note": "Automation pipeline test: run options_market for attempts 3-5. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor. STOP after evaluating attempt 5."
   },
   "auto_resume_remaining": 3,
   "current_submodel": "real_rate",
@@ -51,8 +51,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-options-market-model-attempt-3",
-  "submitted_at": "2026-02-22T02:33:00.061178",
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-5",
+  "submitted_at": "2026-02-22T08:55:36.884207",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1076,7 +1076,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T08:30:41.104069",
+  "last_updated": "2026-02-22T08:55:36.884215",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
@@ -1112,12 +1112,6 @@
     "note": "Run until attempt 11. After evaluating each attempt, submit next with submit_and_monitor(max_loops=1). STOP after evaluating attempt 11 - do NOT submit attempt 12. Chain: evaluate9→submit10(max_loops=1) → evaluate10→submit11(max_loops=1) → evaluate11→STOP.",
     "max_attempt": 11
   },
-  "retry_context": {
-    "feature": "options_market",
-    "max_attempt": 5,
-    "automation_test": true,
-    "note": "Automation pipeline test: run options_market for attempts 3-5. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor. STOP after evaluating attempt 5."
-  },
   "kaggle_results_fetched": true,
   "kaggle_results_path": "data/outputs/yield_curve_2/",
   "yield_curve_retry_result": {
@@ -1140,6 +1134,5 @@
     "retry_attempts_remaining_skipped": 7,
     "skip_rationale": "Evaluator authority exercised per user directive. Pattern of 2 consecutive Gate 3 failures with universal degradation + structural data frequency limitation = >90% probability any further attempt fails Gate 3."
   },
-  "architect_status": "completed",
   "builder_data_status": "completed"
 }
