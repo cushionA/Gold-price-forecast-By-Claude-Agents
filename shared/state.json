@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
   "current_attempt": 3,
-  "resume_from": "kaggle_submit",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -44,8 +44,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
+  "kaggle_kernel": "bigbigzabuton/gold-options-market-model-attempt-3",
+  "submitted_at": "2026-02-22T02:33:00.061178",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1032,7 +1032,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T02:32:02.458521",
+  "last_updated": "2026-02-22T02:33:00.061185",
   "error_type": "unknown",
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
