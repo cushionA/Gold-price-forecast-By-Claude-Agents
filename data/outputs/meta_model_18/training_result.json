@@ -1,0 +1,219 @@
+{
+  "feature": "meta_model",
+  "attempt": 18,
+  "timestamp": "2026-02-21T12:46:03.439373",
+  "architecture": "XGBoost (attempt 7 params) + Bootstrap Data Subsampling Ensemble (12 models) + real_rate attempt 7 features",
+  "phase": "3_meta_model",
+  "model_config": {
+    "algorithm": "XGBoost",
+    "n_features": 28,
+    "new_features": [
+      "rr_level_change_z",
+      "rr_slope_chg_z",
+      "rr_curvature_chg_z",
+      "rr_slope_level_z"
+    ],
+    "new_features_source": "real_rate_attempt_7",
+    "train_samples": 2134,
+    "val_samples": 457,
+    "test_samples": 458,
+    "samples_per_feature_ratio": 76.21428571428571,
+    "xgb_params": {
+      "objective": "reg:squarederror",
+      "max_depth": 2,
+      "min_child_weight": 25,
+      "subsample": 0.765,
+      "colsample_bytree": 0.45,
+      "reg_lambda": 2.049,
+      "reg_alpha": 1.107,
+      "learning_rate": 0.0215,
+      "n_estimators": 621,
+      "tree_method": "hist",
+      "device": "cuda",
+      "random_state": 42,
+      "verbosity": 0
+    },
+    "n_ensemble": 12,
+    "bootstrap_fraction": 0.8,
+    "bootstrap_sample_size": 1707,
+    "hpo": "none_exact_attempt_7_params"
+  },
+  "bootstrap_analysis": {
+    "n_ensemble": 12,
+    "bootstrap_fraction": 0.8,
+    "bootstrap_type": "data_subsampling_with_replacement",
+    "bootstrap_std_range_train": [
+      0.03428073227405548,
+      1.0808318853378296
+    ],
+    "bootstrap_std_mean_train": 0.15446403622627258,
+    "bootstrap_std_range_val": [
+      0.06399723142385483,
+      0.4968363046646118
+    ],
+    "bootstrap_std_mean_val": 0.1620495766401291,
+    "bootstrap_std_range_test": [
+      0.04377719759941101,
+      0.4695805609226227
+    ],
+    "bootstrap_std_mean_test": 0.15986263751983643,
+    "hcda_method_A_bootstrap_std": 0.5217391304347826,
+    "hcda_method_A_coverage": 0.20087336244541484,
+    "hcda_method_B_abs_prediction": 0.6304347826086957,
+    "hcda_method_B_coverage": 0.20087336244541484,
+    "primary_hcda_method": "abs_prediction",
+    "primary_hcda_value": 0.6304347826086957,
+    "comparison_att7_std_mean": 0.008,
+    "comparison_att16_std_mean": 0.025
+  },
+  "ols_scaling": {
+    "alpha_ols": 0.5,
+    "mae_raw_test": 0.9526559377544271,
+    "mae_scaled_test": 0.953657846343714,
+    "mae_improvement": -0.0010019085892868373,
+    "use_scaled": false
+  },
+  "metrics": {
+    "train": {
+      "direction_accuracy": 0.6468926553672316,
+      "high_confidence_da_abs": 0.8149882903981265,
+      "high_confidence_coverage_abs": 0.2000937207122774,
+      "mae": 0.5946687310657346,
+      "mae_raw": 0.5946687310657346,
+      "mae_scaled": 0.6204493775304194,
+      "sharpe_ratio": 4.908761962742329
+    },
+    "val": {
+      "direction_accuracy": 0.5548245614035088,
+      "high_confidence_da_abs": 0.4175824175824176,
+      "high_confidence_coverage_abs": 0.2013129102844639,
+      "mae": 0.6494563660164131,
+      "mae_raw": 0.6605967664900544,
+      "mae_scaled": 0.6494563660164131,
+      "sharpe_ratio": 1.5566113793444376
+    },
+    "test": {
+      "direction_accuracy": 0.5829694323144105,
+      "high_confidence_da_abs": 0.6304347826086957,
+      "high_confidence_coverage_abs": 0.20087336244541484,
+      "mae": 0.9526559377544271,
+      "mae_raw": 0.9526559377544271,
+      "mae_scaled": 0.953657846343714,
+      "sharpe_ratio": 1.8624308122416298,
+      "high_confidence_da_bootstrap": 0.5217391304347826,
+      "high_confidence_coverage_bootstrap": 0.20087336244541484,
+      "hcda_primary": 0.6304347826086957,
+      "hcda_primary_method": "abs_prediction"
+    }
+  },
+  "target_evaluation": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "58.30%",
+      "gap": "+2.30pp",
+      "passed": true
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "63.04%",
+      "gap": "+3.04pp",
+      "passed": true,
+      "method_used": "abs_prediction",
+      "hcda_method_A_bootstrap": "52.17%",
+      "hcda_method_B_abs": "63.04%"
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9527%",
+      "gap": "-0.9452%",
+      "passed": false
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": "1.86",
+      "gap": "+1.06",
+      "passed": true
+    }
+  },
+  "targets_passed": 3,
+  "targets_total": 4,
+  "overall_passed": false,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": 6.392322305282116,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS"
+  },
+  "feature_importance": {
+    "method": "xgboost_gain_averaged_over_ensemble",
+    "top_10": [
+      {
+        "feature": "real_rate_change",
+        "importance_pct": 5.278412818908691
+      },
+      {
+        "feature": "rr_level_change_z",
+        "importance_pct": 4.7754998207092285
+      },
+      {
+        "feature": "tech_trend_regime_prob",
+        "importance_pct": 4.761864185333252
+      },
+      {
+        "feature": "temporal_context_score",
+        "importance_pct": 4.484949111938477
+      },
+      {
+        "feature": "xasset_regime_prob",
+        "importance_pct": 4.334932804107666
+      },
+      {
+        "feature": "options_risk_regime_prob",
+        "importance_pct": 4.112207412719727
+      },
+      {
+        "feature": "yc_curvature_z",
+        "importance_pct": 3.9240918159484863
+      },
+      {
+        "feature": "inflation_exp_change",
+        "importance_pct": 3.901488780975342
+      },
+      {
+        "feature": "vix",
+        "importance_pct": 3.8353641033172607
+      },
+      {
+        "feature": "tech_mean_reversion_z",
+        "importance_pct": 3.6638612747192383
+      }
+    ],
+    "real_rate_submodel_total_pct": 14.595412254333496
+  },
+  "vs_attempt_7": {
+    "description": "XGBoost single model, 24 features (best DA and Sharpe)",
+    "att7_da": 0.6004,
+    "att7_hcda": 0.6413,
+    "att7_sharpe": 2.4636,
+    "da_delta_pp": -1.7430567685589593,
+    "hcda_delta_pp": -1.0865217391304305,
+    "sharpe_delta": -0.6011691877583702
+  },
+  "vs_attempt_16": {
+    "description": "LightGBM + 5-seed bootstrap, 24 features (best HCDA)",
+    "att16_da": 0.5852,
+    "att16_hcda": 0.6848,
+    "da_delta_pp": -0.22305676855896017,
+    "hcda_delta_pp": -5.436521739130429
+  },
+  "vs_naive": {
+    "naive_always_up_da": "58.95%",
+    "model_vs_naive_pp": -0.6550218340611424
+  },
+  "prediction_characteristics": {
+    "mean_ensemble": 0.004851824138313532,
+    "std_ensemble": 0.21323351562023163,
+    "min_ensemble": -0.8049866557121277,
+    "max_ensemble": 0.6327002644538879,
+    "positive_pct": 53.930131004366814
+  }
+}

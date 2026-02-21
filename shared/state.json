@@ -1,14 +1,14 @@
 {
-  "status": "in_progress",
+  "status": "completed",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 18,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "gate3_pass_mae_attempt_9_worse_than_7_and_8",
+  "evaluator_status": "final_evaluation_attempt_18_complete_attempt_7_confirmed_as_final",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -779,13 +779,63 @@
       ],
       "improvement_plan": "XGBoost attempt 7 architecture + bootstrap confidence with data subsampling (10-15 models, 80% training data per model). Combine proven XGBoost base (DA 60%, Sharpe 2.46) with proven bootstrap HCDA technique (+8.70pp).",
       "note": "LightGBM + bootstrap achieves best-ever HCDA (68.48%) but LightGBM inferior to XGBoost on DA (-1.52pp) and Sharpe (-0.70). Bootstrap technique proven effective. Untried combination: XGBoost attempt 7 + bootstrap. 9 consecutive attempts (8-16) all failed to beat attempt 7 overall, but attempt 16 validates a new technique that may work on XGBoost."
+    },
+    "attempt_17": {
+      "decision": "attempt+1",
+      "test_da": 0.5873,
+      "test_hcda": 0.5978,
+      "test_mae": 0.9558,
+      "test_sharpe": 1.96,
+      "train_test_da_gap_pp": "N/A",
+      "targets_passed": "2/4",
+      "architecture": "XGBoost (attempt 7 params) + Bootstrap data subsampling (12 models, 80% data, 24 features)",
+      "primary_failures": [
+        "HCDA_59.78%_misses_60%_target_by_0.22pp",
+        "MAE_0.9558%_above_0.75%_target",
+        "DA_58.73%_below_attempt_7_60.04%_by_1.31pp",
+        "Sharpe_1.96_below_attempt_7_2.46_by_0.50"
+      ],
+      "primary_successes": [
+        "DA_58.73%_passes_56%_target",
+        "Sharpe_1.96_passes_0.80_target",
+        "no_prediction_collapse"
+      ],
+      "note": "XGBoost + 12-model data subsampling (24 features). Bootstrap HCDA failed on XGBoost -- too-uniform variance. HCDA dropped to 59.78% (below 60% target). All metrics regressed from attempt 7. 10 consecutive regressions (8-17)."
+    },
+    "attempt_18": {
+      "decision": "no_further_improvement_FINAL",
+      "test_da": 0.5830,
+      "test_hcda": 0.6304,
+      "test_mae": 0.9527,
+      "test_sharpe": 1.86,
+      "train_test_da_gap_pp": 5.96,
+      "targets_passed": "3/4",
+      "architecture": "XGBoost (attempt 7 params) + Bootstrap data subsampling (12 models, 80% data) + real_rate submodel features (28 total features)",
+      "primary_failures": [
+        "MAE_0.9527%_above_0.75%_target",
+        "DA_58.30%_below_attempt_7_60.04%_by_1.74pp",
+        "HCDA_63.04%_below_attempt_7_64.13%_by_1.09pp",
+        "Sharpe_1.86_below_attempt_7_2.46_by_0.60",
+        "ALL_4_metrics_regressed_from_attempt_7",
+        "DA_0.66pp_below_naive_always_up"
+      ],
+      "primary_successes": [
+        "DA_58.30%_passes_56%_target",
+        "HCDA_63.04%_passes_60%_target",
+        "Sharpe_1.86_passes_0.80_target",
+        "HCDA_improved_3.26pp_vs_attempt_17",
+        "no_prediction_collapse_std_0.2132"
+      ],
+      "note": "FINAL ATTEMPT. Added 4 real_rate submodel features (28 total). rr_level_change_z ranked #2 (4.78%) but net effect negative -- all metrics regressed from attempt 7. 11 consecutive regressions (8-18). Attempt 7 confirmed as permanent final meta-model."
     }
   },
   "final_result": {
-    "status": "in_progress_attempt_17_pending",
+    "status": "completed",
     "best_attempt_overall": 7,
     "best_hcda_attempt": 16,
-    "best_attempt_rationale": "Attempt 7 remains best overall (DA 60.04%, HCDA 64.13%, Sharpe 2.46). Attempt 16 achieved best-ever HCDA (68.48%) via bootstrap confidence but regressed on DA/Sharpe due to LightGBM base. Attempt 17 will combine XGBoost (attempt 7) + bootstrap confidence (attempt 16) -- the only untried combination with strong empirical backing.",
+    "total_attempts": 18,
+    "consecutive_regressions_from_best": 11,
+    "best_attempt_rationale": "Attempt 7 confirmed as permanent final meta-model after 11 consecutive improvement attempts (8-18) all failed to beat it. No approach -- stacking, feature addition/pruning, asymmetric loss, ensemble methods, alternative GBDT, bootstrap subsampling -- could improve on attempt 7's combination of DA, HCDA, and Sharpe.",
     "improvement_attempts_summary": {
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
@@ -795,8 +845,10 @@
       "attempt_13": "+3 regime_classification features (27 total) -- worst result since attempt 1 (DA -6.55pp, HCDA -9.78pp, Sharpe -2.33)",
       "attempt_14": "Asymmetric squared error (alpha=3.28) -- 3/4 targets but all metrics below attempt 7 (DA -2.62pp, HCDA -1.09pp, Sharpe -1.30)",
       "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, HCDA 66.30% but DA -5.45pp",
-      "attempt_16": "LightGBM + bootstrap -- 3/4 targets, BEST-EVER HCDA 68.48% but DA -1.52pp, Sharpe -0.70 (LightGBM weaker than XGBoost)",
-      "conclusion": "Attempt 17 will test XGBoost + bootstrap. If it fails, attempt 7 is confirmed final."
+      "attempt_16": "LightGBM + bootstrap -- 3/4 targets, BEST-EVER HCDA 68.48% but DA -1.52pp, Sharpe -0.70",
+      "attempt_17": "XGBoost + 12-model bootstrap (24 feat) -- 2/4 targets, HCDA 59.78% bootstrap failed on XGBoost",
+      "attempt_18": "XGBoost + 12-model bootstrap + real_rate (28 feat) -- 3/4 targets but ALL metrics below attempt 7",
+      "conclusion": "Attempt 7 is the permanent final meta-model. 11 diverse improvement strategies all regressed."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
@@ -877,7 +929,7 @@
   "kaggle_version": null,
   "last_updated": "2026-02-21T21:47:16.402871",
   "error_type": null,
-  "auto_resume_remaining": 1,
+  "auto_resume_remaining": 0,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -904,7 +956,8 @@
     "max_attempt": 19,
     "user_requested": true,
     "automation_test": true,
-    "note": "Automation test: run attempt 18 and attempt 19. MUST continue to next attempt regardless of metrics. Do NOT declare no_further_improvement until attempt 19 is evaluated.",
-    "improvement_mandate": "attempt 18: XGBoost+Bootstrap+real_rate_7 (28 features). attempt 19: Optuna HPO with 28 features or feature subset tuning."
+    "note": "COMPLETED. Attempt 18 evaluated as FINAL. User instructed to declare attempt 7 as final and NOT submit attempt 19. 11 consecutive regressions confirm attempt 7 as robust optimum.",
+    "improvement_mandate": "NONE -- project completed",
+    "final_decision": "attempt_7_permanent_final"
   }
 }

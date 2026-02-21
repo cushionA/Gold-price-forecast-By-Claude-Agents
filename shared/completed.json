@@ -1,25 +1,21 @@
 {
   "real_rate": {
-    "status": "in_progress_retry",
+    "status": "completed",
     "best_attempt": 7,
-    "current_attempt": 9,
+    "final_attempt": 9,
     "max_attempt": 11,
     "final_gate_reached": 3,
-    "gate3_scores_best": {
+    "gate3_scores": {
       "direction_accuracy_delta": -0.00149,
       "sharpe_delta": 0.329,
       "mae_delta": -0.00221
     },
-    "gate3_scores_attempt_9": {
-      "direction_accuracy_delta": -0.0173,
-      "sharpe_delta": -0.186,
-      "mae_delta": -0.0141
-    },
     "output_columns": ["rr_level_change_z", "rr_slope_chg_z", "rr_curvature_chg_z", "rr_slope_level_z"],
     "output_path": "data/submodel_outputs/real_rate.csv",
     "model_path": null,
-    "completed_at": null,
-    "reason": "User-requested retry (attempts 7-11). Attempt 7 passed Gate 3 via Sharpe (+0.329, 6.6x threshold). Attempts 8 and 9 also pass Gate 3 via MAE but are overall weaker. Attempt 7 remains best. Continuing to attempt 10 per user directive.",
+    "completed_at": "2026-02-21T22:30:00",
+    "reason": "Gate 3 PASS via Sharpe (+0.329, 6.6x threshold) at attempt 7. Attempts 8-9 also pass Gate 3 via MAE but are overall weaker. However, real_rate submodel features did NOT improve meta-model performance (attempt 18 with 28 features regressed on ALL metrics vs attempt 7 with 24 features). Submodel completed but features not included in final meta-model.",
+    "meta_model_impact": "real_rate submodel features (4 columns) were tested in meta_model attempt 18 (28 total features). rr_level_change_z ranked #2 in feature importance (4.78%) but net effect was negative: all 4 meta-model metrics regressed vs attempt 7 (24 features). Information is largely redundant with real_rate_change base feature.",
     "attempt_history_summary": {
       "attempt_7": "Gate 3 PASS Sharpe +0.329 (BEST). 4 features.",
       "attempt_8": "Gate 3 PASS MAE -0.0203. 3 features. Sharpe reversed to -0.260.",
@@ -224,7 +220,11 @@
       {"feature": "temporal_context_score", "importance": 0.0578}
     ],
     "completed_at": "2026-02-16T23:45:00",
-    "reason": "3/4 targets met (DA 60.04%, HCDA 64.13%, Sharpe 2.46). Best-ever DA, HCDA, and Sharpe. MAE target (0.75%) structurally infeasible with expanded 2025-2026 test set. Design doc success criteria satisfied: '3/4 targets met -> Accept as final meta-model.' temporal_context_score ranked #3 in feature importance (5.78%), validating the Transformer submodel addition.",
+    "confirmed_final_at": "2026-02-21T22:30:00",
+    "total_attempts": 18,
+    "improvement_attempts_after_best": 11,
+    "all_improvement_attempts_regressed": true,
+    "reason": "3/4 targets met (DA 60.04%, HCDA 64.13%, Sharpe 2.46). Best-ever DA, HCDA, and Sharpe. MAE target (0.75%) structurally infeasible with expanded 2025-2026 test set. Confirmed as final after 11 consecutive improvement attempts (8-18) all failed to beat attempt 7 on any combination of metrics. Design doc success criteria satisfied.",
     "mae_waiver_reason": "Test set expanded to 458 samples including extreme 2025-2026 gold volatility. Zero-prediction MAE would be ~0.96%. Model's conservative predictions maximize Sharpe (2.46) but cannot match actual return magnitudes. No attempt with expanded test set achieved MAE < 0.75%."
   },
   "regime_classification": {

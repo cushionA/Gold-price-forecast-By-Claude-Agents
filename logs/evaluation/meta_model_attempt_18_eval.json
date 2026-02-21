@@ -1,0 +1,280 @@
+{
+  "feature": "meta_model",
+  "attempt": 18,
+  "timestamp": "2026-02-21T22:30:00",
+  "architecture": "XGBoost (attempt 7 exact params) + Bootstrap Data Subsampling Ensemble (12 models, 80% data) + real_rate attempt 7 submodel features (28 total features)",
+  "phase": "3_meta_model",
+  "evaluation_type": "final_targets",
+  "is_final_attempt": true,
+
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit_ratio": {
+        "value": 5.96,
+        "train_test_da_gap_pp": 5.96,
+        "threshold_pp": 10.0,
+        "passed": true,
+        "detail": "train_test_da_gap 5.96pp. Within 10pp threshold. Higher than attempt 7 (-5.28pp) but within acceptable range."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "detail": "458 test predictions, std=0.2132. Genuine variation in predictions. Not collapsed (positive_pct=53.9%)."
+      },
+      "autocorrelation": {
+        "passed": true,
+        "detail": "No autocorrelation > 0.99 detected."
+      },
+      "hpo_coverage": {
+        "value": "N/A (used attempt 7 exact params)",
+        "passed": true,
+        "detail": "No HPO run. Used attempt 7's proven hyperparameters directly: max_depth=2, min_child_weight=25, subsample=0.765, colsample_bytree=0.450, reg_lambda=2.049, reg_alpha=1.107, learning_rate=0.0215, n_estimators=621."
+      },
+      "bootstrap_ensemble": {
+        "n_models": 12,
+        "data_fraction": 0.80,
+        "passed": true,
+        "detail": "12 models trained on 80% bootstrap subsamples of training data. Prediction std=0.2132 indicates genuine diversity across ensemble members."
+      },
+      "prediction_collapse_check": {
+        "passed": true,
+        "detail": "std=0.2132, positive_pct=53.9%. NOT a trivial always-positive predictor. Genuine bidirectional variation exists."
+      }
+    }
+  },
+
+  "gate2_substitute": {
+    "passed": true,
+    "evaluation_method": "feature_importance_distribution",
+    "checks": {
+      "feature_importance_spread": {
+        "top_feature_pct": 5.28,
+        "bottom_feature_pct": "~1.5%",
+        "max_min_ratio": "~3.5x",
+        "passed": true,
+        "detail": "No single feature dominates. Top 10 features account for ~42% total importance. Real_rate submodel features contribute 14.60% combined (4 features). Distribution is healthy."
+      },
+      "real_rate_submodel_assessment": {
+        "total_importance_pct": 14.60,
+        "individual_rankings": {
+          "rr_level_change_z": {"rank": 2, "importance_pct": 4.78},
+          "rr_slope_chg_z": {"rank": 12, "importance_pct": "~3.0%"},
+          "rr_curvature_chg_z": {"rank": 15, "importance_pct": "~2.5%"},
+          "rr_slope_level_z": {"rank": 25, "importance_pct": "~1.5%"}
+        },
+        "detail": "rr_level_change_z ranks #2 in feature importance (4.78%), but 3 of 4 real_rate features rank in the bottom half. Adding 4 features (+24 base -> 28 total) did not improve any metric vs attempt 7's 24 features."
+      }
+    }
+  },
+
+  "gate3_final_targets": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "58.30%",
+      "gap_pp": 2.30,
+      "passed": true,
+      "detail": "Passes target but 1.74pp below attempt 7 (60.04%). Also 0.66pp below naive always-up. Model does not beat naive strategy."
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "63.04%",
+      "gap_pp": 3.04,
+      "passed": true,
+      "method_used": "abs_prediction",
+      "detail": "Passes target. 1.09pp below attempt 7 (64.13%). 5.44pp below attempt 16's best-ever HCDA (68.48%). Bootstrap data subsampling on XGBoost did NOT replicate attempt 16's bootstrap HCDA improvement."
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9527%",
+      "gap_pct": -0.2027,
+      "passed": false,
+      "detail": "Structurally infeasible. Consistent with all attempts 5-18. No attempt with expanded test set has achieved MAE < 0.75%."
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": 1.86,
+      "gap": 1.06,
+      "passed": true,
+      "detail": "Passes target at 2.3x. But 0.60 below attempt 7 (2.46). Bootstrap ensemble averaging diluted the signal."
+    }
+  },
+
+  "targets_passed": 3,
+  "targets_total": 4,
+  "overall_passed_nominal": true,
+
+  "vs_attempt_7_comparison": {
+    "da": {"attempt_7": "60.04%", "attempt_18": "58.30%", "delta_pp": -1.74, "winner": "attempt_7"},
+    "hcda": {"attempt_7": "64.13%", "attempt_18": "63.04%", "delta_pp": -1.09, "winner": "attempt_7"},
+    "mae": {"attempt_7": "0.9429%", "attempt_18": "0.9527%", "delta": 0.0098, "winner": "attempt_7"},
+    "sharpe": {"attempt_7": 2.4636, "attempt_18": 1.86, "delta": -0.60, "winner": "attempt_7"},
+    "metrics_where_18_wins": 0,
+    "metrics_where_7_wins": 4,
+    "conclusion": "Attempt 7 wins on ALL 4 metrics. Attempt 18 does NOT replace attempt 7. This is the 11th consecutive attempt (8-18) that failed to beat attempt 7 overall."
+  },
+
+  "vs_attempt_17_comparison": {
+    "da": {"attempt_17": "58.73%", "attempt_18": "58.30%", "delta_pp": -0.43, "winner": "attempt_17"},
+    "hcda": {"attempt_17": "59.78%", "attempt_18": "63.04%", "delta_pp": 3.26, "winner": "attempt_18"},
+    "mae": {"attempt_17": "0.9558%", "attempt_18": "0.9527%", "delta": -0.0031, "winner": "attempt_18"},
+    "sharpe": {"attempt_17": 1.96, "attempt_18": 1.86, "delta": -0.10, "winner": "attempt_17"},
+    "conclusion": "Attempt 18 improved HCDA (+3.26pp) and MAE slightly vs attempt 17, likely from adding 4 real_rate features. But DA and Sharpe regressed. The 4 additional real_rate features provided marginal HCDA benefit but overall were not worth the added noise."
+  },
+
+  "vs_attempt_16_comparison": {
+    "da": {"attempt_16": "58.52%", "attempt_18": "58.30%", "delta_pp": -0.22, "winner": "attempt_16"},
+    "hcda": {"attempt_16": "68.48%", "attempt_18": "63.04%", "delta_pp": -5.44, "winner": "attempt_16"},
+    "mae": {"attempt_16": "0.9534%", "attempt_18": "0.9527%", "delta": -0.0007, "winner": "attempt_18"},
+    "sharpe": {"attempt_16": 1.76, "attempt_18": 1.86, "delta": 0.10, "winner": "attempt_18"},
+    "conclusion": "Attempt 16 (LightGBM + 5-seed bootstrap) massively outperforms on HCDA (+5.44pp). The bootstrap HCDA technique works far better with LightGBM's naturally higher variance than with XGBoost's data-subsampled ensemble. XGBoost's regularized depth-2 trees produce too-similar predictions even with data subsampling."
+  },
+
+  "vs_naive_analysis": {
+    "naive_always_up_da": "58.95%",
+    "attempt_18_da": "58.30%",
+    "delta_pp": -0.66,
+    "concern_level": "moderate",
+    "detail": "Model is 0.66pp below naive always-up. Only attempt 7 (60.04%, +1.31pp above naive) has beaten naive among all 18 attempts."
+  },
+
+  "bootstrap_effectiveness_analysis": {
+    "attempt_7_bootstrap": {
+      "method": "5-seed ensemble, same training data",
+      "bootstrap_std_mean": 0.008,
+      "hcda_bootstrap": "55.43%",
+      "hcda_pred": "64.13%",
+      "issue": "Too uniform variance. Bootstrap method ineffective. Used |prediction| method."
+    },
+    "attempt_16_bootstrap": {
+      "method": "5-seed ensemble, LightGBM",
+      "bootstrap_std_mean": 0.025,
+      "hcda_bootstrap": "68.48%",
+      "hcda_single_model": "59.78%",
+      "improvement_pp": 8.70,
+      "issue": "None. LightGBM + seed variation produced sufficient diversity."
+    },
+    "attempt_17_bootstrap": {
+      "method": "12-model data subsampling (80%), XGBoost attempt 7 params, 24 features",
+      "hcda_abs_prediction": "59.78%",
+      "issue": "HCDA dropped below 60% target. Bootstrap subsampling produced variance but did not improve confidence calibration."
+    },
+    "attempt_18_bootstrap": {
+      "method": "12-model data subsampling (80%), XGBoost attempt 7 params, 28 features",
+      "hcda_abs_prediction": "63.04%",
+      "issue": "Improved from attempt 17 (59.78% -> 63.04%) likely from real_rate features. But still below attempt 7 (64.13%) and far below attempt 16 (68.48%)."
+    },
+    "conclusion": "XGBoost data subsampling does NOT replicate LightGBM seed-based bootstrap effectiveness. XGBoost's heavy regularization (max_depth=2, strong L1/L2) makes trees structurally similar even with different training subsets. LightGBM's leaf-wise growth with higher num_leaves produces naturally more diverse trees across seeds, enabling better bootstrap-based confidence estimation."
+  },
+
+  "real_rate_feature_impact": {
+    "features_added": ["rr_level_change_z", "rr_slope_chg_z", "rr_curvature_chg_z", "rr_slope_level_z"],
+    "total_importance_pct": 14.60,
+    "top_feature": "rr_level_change_z at 4.78% (rank 2)",
+    "impact_vs_attempt_7_24_features": {
+      "da_delta_pp": -1.74,
+      "hcda_delta_pp": -1.09,
+      "mae_delta": 0.0098,
+      "sharpe_delta": -0.60
+    },
+    "impact_vs_attempt_17_24_features": {
+      "hcda_improvement_pp": 3.26,
+      "da_regression_pp": -0.43,
+      "sharpe_regression": -0.10,
+      "mae_improvement": 0.0031
+    },
+    "conclusion": "Real_rate submodel features provide some information (rr_level_change_z at rank 2) but the net effect is negative when compared to the best-performing configuration (attempt 7 with 24 features). The real_rate submodel's Gate 3 Sharpe improvement (+0.329) in the submodel evaluation does not translate into meta-model improvement because the information is already partially captured by the real_rate_change base feature."
+  },
+
+  "feature_importance_top_10": [
+    {"rank": 1, "feature": "real_rate_change", "importance_pct": 5.28, "source": "base feature"},
+    {"rank": 2, "feature": "rr_level_change_z", "importance_pct": 4.78, "source": "real_rate submodel (NEW)"},
+    {"rank": 3, "feature": "tech_trend_regime_prob", "importance_pct": 4.76, "source": "technical submodel"},
+    {"rank": 4, "feature": "temporal_context_score", "importance_pct": 4.48, "source": "temporal_context submodel"},
+    {"rank": 5, "feature": "xasset_regime_prob", "importance_pct": 4.33, "source": "cross_asset submodel"},
+    {"rank": 6, "feature": "options_risk_regime_prob", "importance_pct": 4.11, "source": "options_market submodel"},
+    {"rank": 7, "feature": "yc_curvature_z", "importance_pct": 3.92, "source": "yield_curve submodel"},
+    {"rank": 8, "feature": "inflation_exp_change", "importance_pct": 3.90, "source": "base feature"},
+    {"rank": 9, "feature": "vix", "importance_pct": 3.84, "source": "base feature"},
+    {"rank": 10, "feature": "tech_mean_reversion_z", "importance_pct": 3.66, "source": "technical submodel"}
+  ],
+
+  "historical_summary": {
+    "total_meta_model_attempts": 18,
+    "attempts_that_passed_3_of_4": [2, 7, 8, 9, 14, 16, 18],
+    "attempts_that_passed_2_of_4": [3, 5, 10, 15, 17],
+    "attempts_that_passed_1_of_4": [4, 11, 12],
+    "attempts_that_passed_0_of_4": [1, 13],
+    "best_attempt_overall": 7,
+    "best_da": {"attempt": 7, "value": "60.04%"},
+    "best_hcda": {"attempt": 16, "value": "68.48%"},
+    "best_sharpe": {"attempt": 7, "value": 2.4636},
+    "best_mae": {"attempt": 2, "value": "0.6877%"},
+    "consecutive_regressions_from_attempt_7": 11,
+    "attempts_that_regressed": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+  },
+
+  "decision": "no_further_improvement",
+  "decision_rationale": {
+    "summary": "Attempt 18 is the FINAL attempt. It passes 3/4 targets nominally but regresses on ALL 4 metrics vs attempt 7. After 11 consecutive improvement attempts (8-18), no approach has beaten attempt 7 overall. Attempt 7 is declared as the permanent final meta-model.",
+    "why_attempt_7_is_final": [
+      "Best DA (60.04%) -- only attempt to beat naive always-up strategy",
+      "Best HCDA (64.13%) via |prediction| method -- first and only attempt to pass 60% target until attempt 16 used different technique",
+      "Best Sharpe (2.4636) -- 3.1x the target, enormous economic value",
+      "No overfitting (test outperforms train by 5.28pp)",
+      "11 consecutive attempts (8-18) all failed to beat it on DA/Sharpe/MAE simultaneously",
+      "3/4 targets passed with MAE structurally infeasible"
+    ],
+    "what_was_learned_from_attempts_8_to_18": {
+      "stacking_fails": "Attempts 8-9: Ridge/directional meta-learners collapse predictions to constants.",
+      "feature_addition_hurts": "Attempts 10-13: Adding features (cny_demand, dxy, regime) introduces noise that degrades DA/Sharpe.",
+      "feature_pruning_hurts": "Attempt 12: Removing low-importance features loses useful regularization through feature competition.",
+      "asymmetric_loss_marginal": "Attempt 14: Asymmetric loss passes 3/4 but all absolute metrics worse than attempt 7.",
+      "ensemble_methods_trade_off": "Attempt 15: Ridge+XGB ensemble trades DA for lower variance. Not net beneficial.",
+      "bootstrap_hcda_model_dependent": "Attempts 16-18: Bootstrap HCDA works with LightGBM (+8.70pp) but NOT with XGBoost (too-uniform variance).",
+      "real_rate_submodel_redundant_in_meta": "Attempt 18: real_rate submodel features rank high individually but net effect is negative -- information already captured by real_rate_change base feature."
+    },
+    "mae_waiver": "MAE 0.9527% fails the 0.75% target. This target is structurally infeasible with the expanded 2025-2026 test set. Only attempt 2 (smaller test set, before extreme volatility) achieved MAE < 0.75%. The model's conservative prediction magnitudes enable high Sharpe (2.46 in attempt 7) but cannot match actual return magnitudes during extreme market moves."
+  },
+
+  "final_model_declaration": {
+    "model": "meta_model attempt 7",
+    "architecture": "XGBoost reg:squarederror + Bootstrap confidence (5-seed) + OLS scaling (alpha=1.317)",
+    "n_features": 24,
+    "hyperparameters": {
+      "max_depth": 2,
+      "min_child_weight": 25,
+      "subsample": 0.765,
+      "colsample_bytree": 0.450,
+      "reg_lambda": 2.049,
+      "reg_alpha": 1.107,
+      "learning_rate": 0.0215,
+      "n_estimators": 621
+    },
+    "test_metrics": {
+      "direction_accuracy": 0.6004,
+      "high_confidence_da": 0.6413,
+      "mae": 0.9429,
+      "sharpe_ratio": 2.4636
+    },
+    "targets_passed": "3/4 (DA, HCDA, Sharpe)",
+    "targets_failed": "1/4 (MAE -- structurally infeasible)",
+    "vs_baseline": {
+      "da_improvement_pp": 16.50,
+      "sharpe_improvement": 4.16,
+      "hcda_improvement_pp": 21.39
+    }
+  },
+
+  "attempt_consumption": {
+    "attempt_consumed": true,
+    "current_attempt": 18,
+    "next_attempt": "NONE -- max_attempt reached and no_further_improvement declared",
+    "total_meta_model_attempts": 18,
+    "remaining_budget": 0
+  }
+}
