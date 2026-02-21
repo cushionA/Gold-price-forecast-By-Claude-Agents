@@ -1,0 +1,268 @@
+{
+  "feature": "options_market",
+  "attempt": 3,
+  "timestamp": "2026-02-22T02:45:17.996340",
+  "architecture": "2-column: EMA-smoothed HMM regime probability + GVZ EMA momentum z-score",
+  "evaluation_strategy": {
+    "gate2": "REPLACEMENT: 23 features (no options_market) vs 25 features (23 + attempt 3's 2 cols)",
+    "gate3": "REPLACEMENT: 24 features (with attempt 2) vs 25 features (attempt 3 replaces attempt 2)"
+  },
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {
+        "value": "N/A (unsupervised HMM + deterministic GVZ momentum)",
+        "passed": true,
+        "note": "No supervised training. HMM is unsupervised; GVZ momentum is deterministic."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true,
+        "note": "0 all-NaN columns found"
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "stds": {
+          "options_regime_smooth": 0.26301490880485795,
+          "options_gvz_momentum_z": 1.2230882887534535
+        }
+      },
+      "autocorrelation": {
+        "details": {
+          "options_regime_smooth": {
+            "value": 0.9728371179281061,
+            "passed": true
+          },
+          "options_gvz_momentum_z": {
+            "value": 0.9781118898485235,
+            "passed": true
+          }
+        },
+        "passed": true
+      },
+      "hpo_coverage": {
+        "value": 50,
+        "passed": true,
+        "best_mi_sum": 0.07618522463640387,
+        "note": "50 Optuna trials completed (>= 10 required)"
+      },
+      "nan_pct": {
+        "value": 0.0,
+        "passed": true,
+        "note": "0.00% NaN in raw output"
+      }
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base_sum_23features": 0.24414234501197374,
+        "extended_sum_25features": 0.25737809521833177,
+        "increase": 0.05421325088151984,
+        "increase_pct": "5.42%",
+        "individual_mi": {
+          "options_regime_smooth": 0.00014124153466132938,
+          "options_gvz_momentum_z": 0.015410178140916386
+        },
+        "passed": true,
+        "threshold": "> 5%",
+        "strategy": "REPLACEMENT (23 vs 23+2 columns)",
+        "context": "Attempt 2 had 4.96% MI increase with 1 column"
+      },
+      "vif": {
+        "individual": {
+          "options_regime_smooth": 2.4453048846680567,
+          "options_gvz_momentum_z": 1.7052065203536129
+        },
+        "max": 2.4453048846680567,
+        "passed": true,
+        "threshold": "< 10"
+      },
+      "stability": {
+        "individual_stds": {
+          "options_regime_smooth": 0.13240028191839678,
+          "options_gvz_momentum_z": 0.11577542016214695
+        },
+        "max_std": 0.13240028191839678,
+        "passed": true,
+        "threshold": "< 0.15",
+        "context": "Attempt 2 had stability 0.1555 (FAIL). Target: < 0.15."
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "checks": {
+      "direction": {
+        "delta": 0.008609041745425317,
+        "delta_pct": "+0.86pp",
+        "passed": true,
+        "threshold": "> +0.5%",
+        "improved_folds": "5/5"
+      },
+      "sharpe": {
+        "delta": 0.02937731594273396,
+        "passed": false,
+        "threshold": "> +0.05",
+        "improved_folds": "3/5"
+      },
+      "mae": {
+        "delta": -0.002004682535429514,
+        "passed": false,
+        "threshold": "< -0.01",
+        "improved_folds": "4/5"
+      }
+    },
+    "baseline_24": {
+      "direction_accuracy": 0.5504120212994726,
+      "mae": 0.6623416285400643,
+      "sharpe": 1.4425568897768066
+    },
+    "extended_25": {
+      "direction_accuracy": 0.559021063044898,
+      "mae": 0.6603369460046348,
+      "sharpe": 1.4719342057195406
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "da_base": 0.5119617224880383,
+        "da_ext": 0.5263157894736842,
+        "da_delta": 0.014354066985645897,
+        "sharpe_base": 0.22770285617498717,
+        "sharpe_ext": 0.18059899759852732,
+        "sharpe_delta": -0.04710385857645985,
+        "mae_base": 0.5689074257725345,
+        "mae_ext": 0.5678268734537879,
+        "mae_delta": -0.001080552318746597,
+        "feature_importances": {
+          "options_regime_smooth": 0.037415940314531326,
+          "options_gvz_momentum_z": 0.031345266848802567
+        },
+        "feature_ranks": {
+          "options_regime_smooth": 15,
+          "options_gvz_momentum_z": 22
+        }
+      },
+      {
+        "fold": 2,
+        "da_base": 0.5288461538461539,
+        "da_ext": 0.53125,
+        "da_delta": 0.0024038461538461453,
+        "sharpe_base": 0.7163377131653649,
+        "sharpe_ext": 0.5243154391151793,
+        "sharpe_delta": -0.19202227405018557,
+        "mae_base": 0.5175263711169649,
+        "mae_ext": 0.5177769140795303,
+        "mae_delta": 0.0002505429625654365,
+        "feature_importances": {
+          "options_regime_smooth": 0.04009866341948509,
+          "options_gvz_momentum_z": 0.035193897783756256
+        },
+        "feature_ranks": {
+          "options_regime_smooth": 10,
+          "options_gvz_momentum_z": 18
+        }
+      },
+      {
+        "fold": 3,
+        "da_base": 0.583732057416268,
+        "da_ext": 0.6028708133971292,
+        "da_delta": 0.019138755980861233,
+        "sharpe_base": 2.786645537574745,
+        "sharpe_ext": 2.926657156475551,
+        "sharpe_delta": 0.1400116189008056,
+        "mae_base": 0.8287025959220292,
+        "mae_ext": 0.8248157377477073,
+        "mae_delta": -0.0038868581743218833,
+        "feature_importances": {
+          "options_regime_smooth": 0.04583026096224785,
+          "options_gvz_momentum_z": 0.03427433222532272
+        },
+        "feature_ranks": {
+          "options_regime_smooth": 5,
+          "options_gvz_momentum_z": 21
+        }
+      },
+      {
+        "fold": 4,
+        "da_base": 0.5584725536992841,
+        "da_ext": 0.5608591885441527,
+        "da_delta": 0.0023866348448686736,
+        "sharpe_base": 1.7842533825339104,
+        "sharpe_ext": 1.7985740132837766,
+        "sharpe_delta": 0.014320630749866226,
+        "mae_base": 0.7223130755642024,
+        "mae_ext": 0.7219023489909968,
+        "mae_delta": -0.000410726573205622,
+        "feature_importances": {
+          "options_regime_smooth": 0.05013289675116539,
+          "options_gvz_momentum_z": 0.031304437667131424
+        },
+        "feature_ranks": {
+          "options_regime_smooth": 4,
+          "options_gvz_momentum_z": 22
+        }
+      },
+      {
+        "fold": 5,
+        "da_base": 0.569047619047619,
+        "da_ext": 0.5738095238095238,
+        "da_delta": 0.004761904761904745,
+        "sharpe_base": 1.6978449594350258,
+        "sharpe_ext": 1.9295254221246694,
+        "sharpe_delta": 0.2316804626896436,
+        "mae_base": 0.6742586743245897,
+        "mae_ext": 0.6693628557511516,
+        "mae_delta": -0.0048958185734381265,
+        "feature_importances": {
+          "options_regime_smooth": 0.04501224681735039,
+          "options_gvz_momentum_z": 0.034322865307331085
+        },
+        "feature_ranks": {
+          "options_regime_smooth": 7,
+          "options_gvz_momentum_z": 17
+        }
+      }
+    ],
+    "feature_importances": {
+      "options_regime_smooth": {
+        "avg_importance": 0.04369800165295601,
+        "avg_rank": 8.2
+      },
+      "options_gvz_momentum_z": {
+        "avg_importance": 0.03328815996646881,
+        "avg_rank": 20.0
+      }
+    },
+    "xgb_params_used": "meta_model_attempt_7_best_params"
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "decision_rationale": "Gate 3 PASS via: DA (+0.86pp). Attempt 3 (2-column EMA-smoothed regime + GVZ momentum) improves over attempt 2 (1-column raw regime). Gate 2: MI increase = 5.42%, stability = 0.1324.",
+  "comparison_with_previous": {
+    "attempt_1": {
+      "gate3_passed": false,
+      "gate3_da_delta": -0.0105,
+      "note": "3 columns too noisy"
+    },
+    "attempt_2": {
+      "gate3_passed": true,
+      "gate3_mae_delta": -0.1562,
+      "gate2_mi": 0.0496,
+      "gate2_stability": 0.1555,
+      "note": "1 col, Gate3 PASS via MAE, Gate2 FAIL (marginal)"
+    },
+    "attempt_3": {
+      "gate3_passed": true,
+      "gate3_da_delta": 0.008609041745425317,
+      "gate3_sharpe_delta": 0.02937731594273396,
+      "gate3_mae_delta": -0.002004682535429514,
+      "gate2_mi_increase": 0.05421325088151984,
+      "gate2_stability": 0.13240028191839678
+    }
+  }
+}

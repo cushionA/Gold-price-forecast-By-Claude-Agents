@@ -3,17 +3,17 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
   "current_attempt": 3,
-  "resume_from": "evaluator",
+  "resume_from": "completed",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "options_market_attempt2_gate3_pass_plan_attempt3",
+  "evaluator_status": "options_market_attempt3_all_gates_pass_completed_best",
   "retry_ctx": {
     "automation_test": true,
     "max_attempt": 5
   },
-  "auto_resume_remaining": 2,
+  "auto_resume_remaining": 0,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -54,7 +54,7 @@
   "phase2_complete": true,
   "phase2_summary": "All 9 features + options_market processed. 8 submodels completed (Gate 3 PASS), 1 auto-evaluated (dxy), 1 no further improvement (real_rate). options_market attempt 2 PASS via MAE (-0.1562, 15.6x threshold). Ready for Phase 3: Meta-Model Construction with expanded feature set.",
   "next_phase": null,
-  "options_market_evaluation": "completed_gate3_pass_mae",
+  "options_market_evaluation": "completed_all_gates_pass_attempt3_best",
   "evaluation_history": {
     "real_rate": {
       "attempt_1": {
@@ -496,13 +496,50 @@
         "note": "Single column output. Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds). automation_test: continuing to attempt 3 to improve Gate 2 compliance and DA/Sharpe."
       },
       "attempt_3": {
-        "gate1": null,
-        "gate2": null,
-        "gate3": null,
-        "decision": "planned",
-        "improvement_plan": "Option A: EMA-smoothed regime_prob (fix stability 0.1555->0.15) + complementary volatility trend signal (fix MI 4.96%->5%). Target: Gate 2 compliance + positive DA/Sharpe deltas.",
-        "resume_from": "architect",
-        "note": "Planned from evaluator. Primary: fix Gate 2 (MI +0.04pp, stability -0.006). Secondary: improve DA and Sharpe into positive territory."
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "completed_best",
+        "primary_successes": [
+          "gate1_all_pass_autocorr_0.9728_0.9781_below_0.99",
+          "gate2_mi_increase=5.42%_above_5%_threshold",
+          "gate2_vif_max_2.4453_below_10",
+          "gate2_stability_max_0.1324_below_0.15_FIXED_from_0.1555",
+          "gate3_da_delta=+0.86pp_1.7x_threshold_5_of_5_folds",
+          "gate3_da_improved_all_5_folds_consistent",
+          "first_options_market_attempt_to_pass_all_3_gates",
+          "options_regime_smooth_rank_8.2_of_25_avg",
+          "options_gvz_momentum_z_rank_20_of_25_avg"
+        ],
+        "primary_failures": [
+          "gate3_sharpe_delta=+0.0294_below_0.05_threshold",
+          "gate3_mae_delta=-0.0020_below_0.01_threshold",
+          "options_gvz_momentum_z_low_individual_mi_0.000141"
+        ],
+        "gate2_details": {
+          "mi_increase_pct": "5.42%",
+          "mi_base_sum_23features": 0.244142,
+          "mi_extended_sum_25features": 0.257378,
+          "vif_options_regime_smooth": 2.4453,
+          "vif_options_gvz_momentum_z": 1.7052,
+          "stability_options_regime_smooth": 0.1324,
+          "stability_options_gvz_momentum_z": 0.1158,
+          "strategy": "REPLACEMENT vs 23-feature baseline (no options_market attempt 2)"
+        },
+        "gate3_details": {
+          "da_delta_pp": 0.86,
+          "sharpe_delta": 0.0294,
+          "mae_delta": -0.0020,
+          "da_improved_folds": "5/5",
+          "sharpe_improved_folds": "3/5",
+          "mae_improved_folds": "4/5",
+          "baseline_24_da": "55.04%",
+          "extended_25_da": "55.90%",
+          "strategy": "REPLACEMENT: 24-feature (with attempt 2) vs 25-feature (attempt 3 replaces attempt 2)"
+        },
+        "note": "BEST options_market attempt. First to pass ALL 3 gates. 2-column: EMA-smoothed HMM regime (ema_span=7, 2-state) + GVZ EMA momentum z-score (short=9, long=24, window=62). Gate 2 fully compliant (MI 5.42%, stability 0.1324 -- both criteria fixed from attempt 2). Gate 3 PASS via DA (+0.86pp, consistent 5/5 folds). Declared completed_best. STOP automation_test -- no further attempts needed.",
+        "evaluation_script": "scripts/evaluate_options_market_3.py",
+        "evaluation_json": "logs/evaluation/options_market_3_gate_evaluation.json"
       }
     },
     "dxy": {
@@ -1032,7 +1069,17 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T02:35:08.832177",
+  "last_updated": "2026-02-22T03:10:00.000000",
+  "options_market_attempt3_result": {
+    "decision": "completed_best",
+    "production_columns": ["options_regime_smooth", "options_gvz_momentum_z"],
+    "replaces_attempt2_column": "options_risk_regime_prob",
+    "production_file": "data/dataset_upload_clean/options_market.csv",
+    "gate1": "PASS",
+    "gate2": "PASS (MI 5.42%, stability 0.1324)",
+    "gate3": "PASS (DA +0.86pp, 5/5 folds)",
+    "note": "New 2-column output replaces 1-column attempt 2 output. Meta-model feature set changes from options_risk_regime_prob to options_regime_smooth+options_gvz_momentum_z. Kaggle dataset update needed before running new meta-model attempts."
+  },
   "error_type": "unknown",
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
