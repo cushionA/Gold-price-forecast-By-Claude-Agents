@@ -363,3 +363,8 @@ Max wait time: 3.0 hours
 2026-02-22 01:13:50,634 [INFO] Claude SDK completed successfully
 2026-02-22 01:13:50,635 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
 2026-02-22 01:13:50,636 [INFO] auto_resume exiting.
+2026-02-22 01:16:45,652 [INFO] Monitor exited (code=1)
+2026-02-22 01:16:45,654 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-22 01:16:45,654 [INFO] auto_resume_remaining=0. NOT launching Claude. Loop stopped.
+2026-02-22 01:16:45,654 [INFO] Error fix needed. Run manually: python scripts/auto_resume.py
+2026-02-22 01:16:45,654 [INFO] auto_resume exiting.
