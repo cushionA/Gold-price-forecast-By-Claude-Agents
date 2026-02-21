@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 5,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -1076,7 +1076,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T08:55:36.884215",
+  "last_updated": "2026-02-22T08:58:46.380102",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
