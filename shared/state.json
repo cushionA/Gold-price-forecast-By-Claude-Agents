@@ -2,13 +2,13 @@
   "status": "waiting_training",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
-  "current_attempt": 2,
+  "current_attempt": 3,
   "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "final_evaluation_attempt_18_complete_attempt_7_confirmed_as_final",
+  "evaluator_status": "yield_curve_attempt_2_gate3_pass_mae_completed",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-2",
-  "submitted_at": "2026-02-21T22:58:03.264145",
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-3",
+  "submitted_at": "2026-02-21T23:44:28.911142",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -295,6 +295,28 @@
           "gate2_mi_increase_0.37pct_below_5pct"
         ],
         "note": "HMM 2-state yield curve model. yc_regime_prob excluded (constant). Gate 3 PASS via MAE (-0.0693, 6.9x threshold, 4/5 folds)."
+      },
+      "attempt_2": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "completed",
+        "primary_successes": [
+          "gate1_all_pass_no_constant_columns",
+          "gate2_mi_increase=+15.17pct_all_3_criteria_pass",
+          "gate2_vif_max_1.74_excellent_orthogonality",
+          "gate2_stability_max_0.149_all_pass",
+          "gate3_mae_delta=-0.0127_1.27x_threshold",
+          "yc_10y3m_velocity_z_rank_6_of_44_new_valuable_signal",
+          "fold_5_dramatic_improvement_DA_+4.85pp_MAE_-0.23_Sharpe_+2.16"
+        ],
+        "primary_failures": [
+          "gate3_da_delta=-1.08pct_fail",
+          "gate3_sharpe_delta=-0.015_fail",
+          "gate3_mae_consistency_2_of_5_folds_only",
+          "gate3_mae_weaker_than_attempt_1_-0.013_vs_-0.069"
+        ],
+        "note": "Deterministic 4-feature z-score approach (no HMM). First yield_curve attempt to pass all 3 Gates. Gate 2 MI +15.17% (40x improvement over attempt 1's 0.37%). Gate 3 PASS via MAE (-0.0127, 1.27x) but weaker than attempt 1 (-0.0693, 6.9x). yc_10y3m_velocity_z ranked 6th in feature importance (new signal). Strong recent-period performance (fold 5) but inconsistent across earlier folds."
       }
     },
     "etf_flow": {
@@ -927,9 +949,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T22:58:03.264154",
+  "last_updated": "2026-02-21T23:44:28.911150",
   "error_type": "unknown",
-  "auto_resume_remaining": 3,
+  "auto_resume_remaining": 2,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -957,5 +979,7 @@
     "user_requested": true,
     "automation_test": true,
     "note": "Automation pipeline test: run yield_curve for 3 attempts (2, 3, 4) automatically. After evaluating each attempt, if improvement needed and current_attempt < max_attempt: generate improved notebook in notebooks/yield_curve_{N+1}/, submit with submit_and_monitor(max_loops=remaining_loops). STOP after evaluating attempt 4 - do NOT submit attempt 5. Remaining loops: attempt2->max_loops=3, attempt3->max_loops=2, attempt4->max_loops=1 (fetch only, no claude). Design doc: docs/design/yield_curve_attempt_1.md. Improvement guidance: attempt2 uses no-HMM deterministic approach with DGS3MO. For attempt3+: fix Gate 1/2/3 failures from previous result. Key issue from attempt1: HMM collapsed -> constant output. Attempt2 fix: removed HMM, added 4 deterministic z-score features using DGS3MO."
-  }
+  },
+  "kaggle_results_fetched": true,
+  "kaggle_results_path": "data/outputs/yield_curve_2/"
 }

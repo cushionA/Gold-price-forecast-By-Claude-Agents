@@ -83,20 +83,28 @@
   },
   "yield_curve": {
     "status": "completed",
-    "final_attempt": 1,
+    "best_attempt": 1,
+    "final_attempt": 2,
     "final_gate_reached": 3,
     "gate3_scores": {
-      "direction_accuracy_delta": 0.0020,
-      "sharpe_delta": -0.0891,
-      "mae_delta": -0.0693
+      "direction_accuracy_delta": -0.0108,
+      "sharpe_delta": -0.0151,
+      "mae_delta": -0.0127
     },
-    "output_columns": ["yc_spread_velocity_z", "yc_curvature_z"],
-    "output_path": "data/submodel_outputs/yield_curve.csv",
+    "output_columns": ["yc_curvature_z", "yc_spread_velocity_z", "yc_10y3m_velocity_z", "yc_dgs3mo_velocity_z"],
+    "output_path": "data/outputs/yield_curve_2/submodel_output.csv",
     "model_path": null,
-    "completed_at": "2026-02-15T12:00:00",
-    "reason": "Gate 3 PASS via MAE criterion (-0.0693, 6.9x threshold, 4/5 folds). HMM 2-state yield curve model with spread velocity z-score and curvature z-score. yc_regime_prob excluded (constant, HMM collapsed to single state). Gate 1 FAIL (constant column), Gate 2 FAIL (MI +0.37%), but Gate 3 MAE improvement is convincing and consistent.",
-    "excluded_columns": ["yc_regime_prob"],
-    "exclusion_reason": "HMM regime_prob is constant (std=1.07e-11). 2-component HMM collapsed to single state."
+    "completed_at": "2026-02-21T23:30:00",
+    "reason": "Gate 3 PASS via MAE (-0.0127, 1.27x threshold). First yield_curve attempt to pass ALL 3 gates (Gate 1 PASS, Gate 2 MI +15.17%, Gate 3 MAE PASS). Deterministic 4-feature z-score approach. yc_10y3m_velocity_z ranked 6/44 in feature importance.",
+    "attempt_1_comparison": {
+      "attempt_1_gate3_mae_delta": -0.0693,
+      "attempt_1_gate3_mae_multiplier": "6.9x",
+      "attempt_2_gate3_mae_delta": -0.0127,
+      "attempt_2_gate3_mae_multiplier": "1.27x",
+      "attempt_1_gate2_mi": "+0.37% (FAIL)",
+      "attempt_2_gate2_mi": "+15.17% (PASS)",
+      "note": "Attempt 1 has stronger Gate 3 MAE (6.9x vs 1.27x, 4/5 vs 2/5 folds). Attempt 2 has better information quality (all 3 gates PASS). For meta-model, attempt 1 output is currently in production dataset."
+    }
   },
   "etf_flow": {
     "status": "completed",

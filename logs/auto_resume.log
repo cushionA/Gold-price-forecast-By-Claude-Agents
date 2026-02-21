@@ -280,3 +280,6 @@ Max wait time: 3.0 hours
 2026-02-21 22:52:36,194 [INFO] Kaggle ERROR: auto_resume_remaining NOT decremented (kept at 3)
 2026-02-21 22:52:36,194 [INFO] Lock released. Launching Claude...
 2026-02-21 22:52:36,202 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 22:58:25,978 [INFO] Claude Code exited (code=0)
+2026-02-21 22:58:25,997 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
+2026-02-21 22:58:25,997 [INFO] auto_resume exiting.
