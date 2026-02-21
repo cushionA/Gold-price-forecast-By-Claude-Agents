@@ -1,9 +1,9 @@
 {
-  "status": "completed",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 3,
-  "resume_from": null,
+  "resume_from": "architect",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -972,7 +972,7 @@
   "kaggle_version": null,
   "last_updated": "2026-02-21T23:58:07.325148",
   "error_type": "unknown",
-  "auto_resume_remaining": 0,
+  "auto_resume_remaining": 3,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -996,10 +996,10 @@
   },
   "retry_context": {
     "feature": "yield_curve",
-    "max_attempt": 4,
+    "max_attempt": 6,
     "user_requested": true,
     "automation_test": true,
-    "note": "Automation pipeline test: run yield_curve for 3 attempts (2, 3, 4) automatically. After evaluating each attempt, if improvement needed and current_attempt < max_attempt: generate improved notebook in notebooks/yield_curve_{N+1}/, submit with submit_and_monitor(max_loops=remaining_loops). STOP after evaluating attempt 4 - do NOT submit attempt 5. Remaining loops: attempt2->max_loops=3, attempt3->max_loops=2, attempt4->max_loops=1 (fetch only, no claude). Design doc: docs/design/yield_curve_attempt_1.md. Improvement guidance: attempt2 uses no-HMM deterministic approach with DGS3MO. For attempt3+: fix Gate 1/2/3 failures from previous result. Key issue from attempt1: HMM collapsed -> constant output. Attempt2 fix: removed HMM, added 4 deterministic z-score features using DGS3MO."
+    "note": "Automation pipeline test: run yield_curve for 3 more attempts (4, 5, 6). ALWAYS continue to next attempt regardless of metrics (automation_test=True). Do NOT declare no_further_improvement. After evaluating each attempt: continue to architect -> builder_model -> submit_and_monitor(max_loops=1). STOP after evaluating attempt 6 - do NOT submit attempt 7."
   },
   "kaggle_results_fetched": true,
   "kaggle_results_path": "data/outputs/yield_curve_2/",
