@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 4,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -970,9 +970,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T00:24:17.294780",
+  "last_updated": "2026-02-22T00:27:23.732451",
   "error_type": "unknown",
-  "auto_resume_remaining": 3,
+  "auto_resume_remaining": 1,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
