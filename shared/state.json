@@ -1,14 +1,16 @@
 {
   "status": "in_progress",
   "phase": "phase2_submodel_extra",
-  "current_feature": "yield_curve",
-  "current_attempt": 4,
-  "resume_from": null,
+  "current_feature": "options_market",
+  "current_attempt": 2,
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
-  "builder_model_status": "notebook_generated",
-  "evaluator_status": "yield_curve_FINAL_attempt2_best_retry_complete_no_further_improvement",
+  "builder_model_status": null,
+  "evaluator_status": "options_market_attempt2_gate3_pass_retry_requested",
+  "retry_ctx": {"automation_test": true, "max_attempt": 5},
+  "auto_resume_remaining": 3,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -39,8 +41,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-4",
-  "submitted_at": "2026-02-22T01:19:28.586861",
+  "kaggle_kernel": null,
+  "submitted_at": null,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,

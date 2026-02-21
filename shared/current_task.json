@@ -1,76 +1,87 @@
 {
-  "feature": "real_rate",
-  "attempt": 10,
+  "feature": "options_market",
+  "attempt": 3,
   "phase": "phase2_submodel_retry",
-  "created_at": "2026-02-21",
-  "agent_sequence": ["architect", "builder_data", "datachecker", "builder_model"],
+  "created_at": "2026-02-22",
+  "agent_sequence": ["evaluator", "architect", "builder_data", "datachecker", "builder_model"],
 
-  "objective": "Build a real interest rate submodel attempt 10 using a fundamentally different feature extraction approach from attempts 7-9. Use PCA on daily DFII changes to produce data-driven orthogonal features, avoiding the hand-crafted Sharpe-MAE tradeoff observed in attempts 7-9.",
+  "objective": "Improve options_market submodel from attempt 2 (Gate 3 PASS via MAE only) to simultaneously improve DA and/or Sharpe. Attempt 2 had strong MAE (-0.156, 15.6x) but still negative DA delta (-0.24%) and Sharpe delta (-0.141). This is an automation pipeline test (automation_test=true, max_attempt=5).",
 
   "background": {
-    "attempt_7_result": "Gate 3 PASS via Sharpe +0.329 (6.6x threshold). 4 features: rr_level_change_z, rr_slope_chg_z, rr_curvature_chg_z, rr_slope_level_z. BEST overall attempt.",
-    "attempt_8_result": "Gate 3 PASS via MAE -0.0203 (2.0x threshold). 3 features: removed rr_slope_level_z. Sharpe reversed to -0.260.",
-    "attempt_9_result": "Gate 3 PASS via MAE -0.0141 (1.4x threshold). 5 features: attempt 7 + interaction. STRICTLY WORSE than attempt 8 on ALL metrics. Combination strategy failed.",
-    "fundamental_tradeoff": "rr_slope_level_z (252-day rolling z-score, autocorr=0.937) drives Sharpe improvement but hurts MAE/DA. Without it, MAE improves but Sharpe degrades. Adding more hand-crafted features (attempt 9) makes everything worse.",
-    "key_lesson": "Hand-crafted feature combinations have been exhausted. Need fundamentally different approach."
+    "attempt_1_result": "Gate 3 FAIL. 3 output columns (regime_prob + tail_risk_z + skew_momentum_z). DA degraded in ALL 5 folds. Gate 2 PASS (MI +17.12%). Problem: too many noisy columns.",
+    "attempt_2_result": "Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds). Reduced to 1 column (options_risk_regime_prob only). DA improved 3/5 folds vs 0/5 in attempt 1. Gate 2 FAIL marginally: MI 4.96% (threshold 5%), stability 0.1555 (threshold 0.15). Feature rank: #2 (7.55% importance).",
+    "remaining_weaknesses": {
+      "DA_delta": -0.0024,
+      "Sharpe_delta": -0.1413,
+      "MI_increase": 0.0496,
+      "stability": 0.1555,
+      "gate2_passed": false
+    }
   },
 
   "previous_feedback": {
-    "attempt_9_gate3": "PASS via MAE (-0.0141) but strictly worse than attempt 8 on all metrics",
+    "attempt_2_gate3": "PASS via MAE only. DA and Sharpe still need improvement.",
     "anti_patterns": [
-      "DO NOT add features on top of attempt 7 set (attempt 9 proved counterproductive)",
-      "DO NOT use rr_slope_level_z and expect MAE improvement (structural tradeoff)",
-      "DO NOT remove rr_slope_level_z and expect Sharpe improvement (structural tradeoff)",
-      "DO NOT use 252-day rolling window for level features (causes autocorr=0.937)"
+      "DO NOT use 3+ output columns without strong evidence each column contributes unique MI",
+      "DO NOT use HMM without smoothing if stability > 0.15",
+      "DO NOT add noise features (tail_risk_z, skew_momentum_z had low MI: 0.002, 0.017)"
     ]
   },
 
   "design_approach": {
-    "name": "PCA on Daily DFII Changes",
-    "data_sources": [
-      "FRED: DFII5 (5Y TIPS yield, daily)",
-      "FRED: DFII7 (7Y TIPS yield, daily)",
-      "FRED: DFII10 (10Y TIPS yield, daily)",
-      "FRED: DFII20 (20Y TIPS yield, daily)",
-      "FRED: DFII30 (30Y TIPS yield, daily)"
+    "primary_direction": "Improve Gate 2 compliance and DA/Sharpe by modifying the HMM output or adding a complementary signal",
+    "options": [
+      {
+        "name": "Smoothed regime prob + options volume trend",
+        "description": "Apply EMA smoothing to regime_prob (reduce stability from 0.1555 to <0.15). Add a 2nd output: options volume trend z-score (normalized put volume change). VIF check needed.",
+        "rationale": "Smoothing addresses stability. Volume trend captures positioning changes that may correlate with short-term gold direction."
+      },
+      {
+        "name": "3-state HMM",
+        "description": "Expand from 2-state to 3-state HMM (low/medium/high risk) to increase MI above 5% threshold.",
+        "rationale": "More states should capture more variance in options behavior, increasing MI above 5%."
+      },
+      {
+        "name": "Different input features for HMM",
+        "description": "Replace or augment current HMM inputs with put/call ratio changes and SKEW index changes.",
+        "rationale": "Better inputs to HMM may produce more discriminative regime output."
+      }
     ],
-    "feature_design": {
-      "approach": "Compute daily changes for all 5 DFII series. Apply rolling PCA (window 252 or expanding) to the 5-dimensional change vector. Output the projection onto the top 2-3 principal components as rolling z-scores.",
-      "rationale": "PCA produces orthogonal components by construction. No autocorrelation issue since we use daily changes not levels. Data-driven -- not biased by hand-crafted assumptions about which combinations matter."
-    },
-    "alternative": {
-      "approach": "Exponential decay weighting. Same 3 change features as attempt 8 but add a 4th feature: EWM slope level with half-life 10-20 days (instead of 252-day rolling). This captures the same information as rr_slope_level_z but with much lower autocorrelation.",
-      "rationale": "Short memory exponential decay may preserve the Sharpe signal from rr_slope_level_z while avoiding the autocorrelation problem that hurts MAE."
-    },
-    "architect_decides": "Choose PCA approach (priority 1) or exponential decay (priority 2) based on feasibility and expected information content"
+    "architect_decides": "Choose best approach or combine, ensuring output has max 2 columns with VIF < 10"
   },
 
   "output_spec": {
-    "file": "data/processed/real_rate/data.csv",
+    "file": "data/processed/options_market/data.csv",
     "format": "CSV with date index",
-    "columns": "2-4 features, architect decides",
+    "columns": "1-2 features maximum",
     "date_range": "Matching target.csv",
     "nan_handling": "NaN for warmup period. No forward-fill."
   },
 
   "constraints": [
-    "Maximum 4 output features",
-    "All sources must be daily frequency from FRED",
-    "No forward-fill of monthly-to-daily",
-    "No neural network training required -- pure deterministic features",
+    "Maximum 2 output features (VIF must be < 10)",
+    "No hardcoded API keys",
+    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']",
     "FRED API key via Kaggle Secrets (UserSecretsClient)",
-    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']"
+    "automation_test mode: evaluator will continue even if Gate 3 PASS (forced by retry_ctx)"
   ],
 
   "success_criteria": {
     "gate1": "No overfitting, no all-NaN or constant columns",
-    "gate2": "MI increase > 5%",
-    "gate3": "Any one of: DA +0.5pp, Sharpe +0.05, MAE -0.01%. Goal: beat attempt 7 Sharpe +0.329 or attempt 8 MAE -0.0203. Realistically, matching either would be a success."
+    "gate2": "MI increase > 5% AND stability < 0.15 (both must pass)",
+    "gate3": "Any one of: DA delta > +0.5%, Sharpe delta > +0.05, MAE delta < -0.01%. Priority: positive DA delta or Sharpe delta.",
+    "stretch_goal": "Pass Gate 2 while maintaining or improving Gate 3 MAE improvement"
   },
 
   "kaggle_config": {
-    "kernel_id": "bigbigzabuton/gold-real-rate-10",
-    "notebook_path": "notebooks/real_rate_10/",
+    "kernel_id": "bigbigzabuton/gold-options-market-3",
+    "notebook_path": "notebooks/options_market_3/",
     "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"]
+  },
+
+  "automation_test_ctx": {
+    "automation_test": true,
+    "max_attempt": 5,
+    "note": "Pipeline will automatically continue to attempts 4 and 5 regardless of evaluator decision. This tests the automation pipeline end-to-end."
   }
 }
