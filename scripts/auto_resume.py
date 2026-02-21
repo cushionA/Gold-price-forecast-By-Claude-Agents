@@ -88,6 +88,25 @@ def release_lock():
         pass
 
 
+def _release_if_owner():
+    """
+    ロックファイルが自プロセス(PID一致)のものである場合のみ解放する。
+
+    release_lock() は常にファイルを削除するため、別プロセス(AR2等)が
+    ロックを取得している状態で呼ぶと誤って削除してしまう。
+    このヘルパーはPIDを確認してから解放することでその問題を防ぐ。
+    """
+    try:
+        if not LOCK_FILE.exists():
+            return
+        lock_data = json.loads(LOCK_FILE.read_text(encoding="utf-8"))
+        if lock_data.get("pid") == os.getpid():
+            LOCK_FILE.unlink(missing_ok=True)
+        # else: 別プロセスのlock → 削除しない
+    except Exception:
+        pass  # 読み取り失敗時は安全側に倒してスキップ
+
+
 # ---------------------------------------------------------------------------
 # State helpers
 # ---------------------------------------------------------------------------
@@ -135,7 +154,9 @@ def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "
             f"(error_type={error_type}). "
             f"error_context: {error_context[:300] if error_context else 'see state.json'}. "
             f"state.json has been updated with resume_from=builder_model. "
-            f"Fix the notebook error and re-submit."
+            f"Fix the notebook error in notebooks/{feature}_{attempt}/train.ipynb, "
+            f"then call submit_and_monitor(max_loops=1) to re-submit and keep the auto-resume chain alive. "
+            f"NEVER use submit() alone — it does not spawn auto_resume and breaks the automation loop."
         )
 
     # retry_context の情報を読み込んでプロンプトに含める
@@ -223,8 +244,8 @@ def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIP
     """
     prompt = initial_prompt
     for attempt_num in range(max_relaunch + 1):
-        release_lock()
-        log.info("Lock released. Launching Claude...")
+        _release_if_owner()
+        log.info("Lock released (owner-checked). Launching Claude...")
         launched = launch_claude(prompt)
 
         if not launched:
@@ -442,7 +463,7 @@ def main():
             # then relaunches if Claude stops mid-pipeline (BUILD_PHASES).
             _launch_with_pipeline_check(prompt)
         finally:
-            release_lock()  # No-op if already released; safe due to missing_ok=True
+            _release_if_owner()  # PID確認してから解放 (AR2のlockを誤削除しない)
             log.info("auto_resume exiting.")
         return
 
@@ -469,7 +490,9 @@ def main():
         log.info(f"Remaining loops: {'unlimited' if remaining is None else remaining}")
 
         # 4. Block until Kaggle completes
-        ok = run_monitor(interval=args.interval, max_hours=args.max_hours, initial_wait=90)
+        # initial_wait=120: 新カーネルはQUEUEDからRUNNINGに移行するまで90秒以上かかることがある。
+        # 90秒だと古いエラーステータスを誤読みしてfalse-positive errorが発生する。
+        ok = run_monitor(interval=args.interval, max_hours=args.max_hours, initial_wait=120)
 
         # 5. Re-read state (monitor updated it)
         state = load_state()
@@ -555,7 +578,7 @@ def main():
         _launch_with_pipeline_check(prompt)
 
     finally:
-        release_lock()  # No-op if already released; safe due to missing_ok=True
+        _release_if_owner()  # PID確認してから解放 (AR2のlockを誤削除しない)
         log.info("auto_resume exiting.")
 
 
