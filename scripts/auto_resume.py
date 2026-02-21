@@ -150,11 +150,15 @@ def launch_claude(prompt: str) -> bool:
         cmd_args = ["cmd", "/c", claude_cmd, "-p", prompt]
     else:
         cmd_args = [claude_cmd, "-p", prompt]
+    # Remove CLAUDECODE env var: claude refuses to start inside another claude session
+    env = os.environ.copy()
+    env.pop("CLAUDECODE", None)
     try:
         result = subprocess.run(
             cmd_args,
             cwd=str(PROJECT_ROOT),
             timeout=3600,
+            env=env,
         )
         log.info(f"Claude Code exited (code={result.returncode})")
         return result.returncode == 0
