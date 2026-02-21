@@ -1,0 +1,211 @@
+{
+  "feature": "meta_model",
+  "attempt": 17,
+  "timestamp": "2026-02-21T10:14:23.631133",
+  "architecture": "XGBoost (attempt 7 params) + Bootstrap Data Subsampling Ensemble (12 models)",
+  "phase": "3_meta_model",
+  "model_config": {
+    "algorithm": "XGBoost",
+    "n_features": 24,
+    "train_samples": 2134,
+    "val_samples": 457,
+    "test_samples": 458,
+    "samples_per_feature_ratio": 88.91666666666667,
+    "xgb_params": {
+      "objective": "reg:squarederror",
+      "max_depth": 2,
+      "min_child_weight": 25,
+      "subsample": 0.765,
+      "colsample_bytree": 0.45,
+      "reg_lambda": 2.049,
+      "reg_alpha": 1.107,
+      "learning_rate": 0.0215,
+      "n_estimators": 621,
+      "tree_method": "hist",
+      "device": "cuda",
+      "random_state": 42,
+      "verbosity": 0
+    },
+    "n_ensemble": 12,
+    "bootstrap_fraction": 0.8,
+    "bootstrap_sample_size": 1707,
+    "hpo": "none_exact_attempt_7_params"
+  },
+  "bootstrap_analysis": {
+    "n_ensemble": 12,
+    "bootstrap_fraction": 0.8,
+    "bootstrap_type": "data_subsampling_with_replacement",
+    "bootstrap_std_range_train": [
+      0.03437788039445877,
+      1.057981252670288
+    ],
+    "bootstrap_std_mean_train": 0.1523933708667755,
+    "bootstrap_std_range_val": [
+      0.042336393147706985,
+      0.48157697916030884
+    ],
+    "bootstrap_std_mean_val": 0.16949871182441711,
+    "bootstrap_std_range_test": [
+      0.04083508253097534,
+      0.5540080666542053
+    ],
+    "bootstrap_std_mean_test": 0.16597843170166016,
+    "hcda_method_A_bootstrap_std": 0.532608695652174,
+    "hcda_method_A_coverage": 0.20087336244541484,
+    "hcda_method_B_abs_prediction": 0.5978260869565217,
+    "hcda_method_B_coverage": 0.20087336244541484,
+    "primary_hcda_method": "abs_prediction",
+    "primary_hcda_value": 0.5978260869565217,
+    "comparison_att7_std_mean": 0.008,
+    "comparison_att16_std_mean": 0.025
+  },
+  "ols_scaling": {
+    "alpha_ols": 0.5,
+    "mae_raw_test": 0.9585863846971068,
+    "mae_scaled_test": 0.9557775781468343,
+    "mae_improvement": 0.0028088065502724913,
+    "use_scaled": true
+  },
+  "metrics": {
+    "train": {
+      "direction_accuracy": 0.6468926553672316,
+      "high_confidence_da_abs": 0.8149882903981265,
+      "high_confidence_coverage_abs": 0.2000937207122774,
+      "mae": 0.5969576354721233,
+      "mae_raw": 0.5969576354721233,
+      "mae_scaled": 0.6218577593021755,
+      "sharpe_ratio": 5.026105332581651
+    },
+    "val": {
+      "direction_accuracy": 0.5745614035087719,
+      "high_confidence_da_abs": 0.4725274725274725,
+      "high_confidence_coverage_abs": 0.2013129102844639,
+      "mae": 0.6474592597163168,
+      "mae_raw": 0.6569978849159611,
+      "mae_scaled": 0.6474592597163168,
+      "sharpe_ratio": 1.934418853492352
+    },
+    "test": {
+      "direction_accuracy": 0.5873362445414847,
+      "high_confidence_da_abs": 0.5978260869565217,
+      "high_confidence_coverage_abs": 0.20087336244541484,
+      "mae": 0.9557775781468343,
+      "mae_raw": 0.9585863846971068,
+      "mae_scaled": 0.9557775781468343,
+      "sharpe_ratio": 1.964181606131606,
+      "high_confidence_da_bootstrap": 0.532608695652174,
+      "high_confidence_coverage_bootstrap": 0.20087336244541484,
+      "hcda_primary": 0.5978260869565217,
+      "hcda_primary_method": "abs_prediction"
+    }
+  },
+  "target_evaluation": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "58.73%",
+      "gap": "+2.73pp",
+      "passed": true
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "59.78%",
+      "gap": "-0.22pp",
+      "passed": false,
+      "method_used": "abs_prediction",
+      "hcda_method_A_bootstrap": "53.26%",
+      "hcda_method_B_abs": "59.78%"
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9558%",
+      "gap": "-0.9483%",
+      "passed": false
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": "1.96",
+      "gap": "+1.16",
+      "passed": true
+    }
+  },
+  "targets_passed": 2,
+  "targets_total": 4,
+  "overall_passed": false,
+  "overfitting_analysis": {
+    "train_test_da_gap_pp": 5.955641082574692,
+    "target_gap_pp": 10.0,
+    "overfitting_check": "PASS"
+  },
+  "feature_importance": {
+    "method": "xgboost_gain_averaged_over_ensemble",
+    "top_10": [
+      {
+        "feature": "real_rate_change",
+        "importance_pct": 6.630852222442627
+      },
+      {
+        "feature": "tech_trend_regime_prob",
+        "importance_pct": 5.252269268035889
+      },
+      {
+        "feature": "temporal_context_score",
+        "importance_pct": 5.1269683837890625
+      },
+      {
+        "feature": "xasset_regime_prob",
+        "importance_pct": 4.932903289794922
+      },
+      {
+        "feature": "options_risk_regime_prob",
+        "importance_pct": 4.629568576812744
+      },
+      {
+        "feature": "yc_curvature_z",
+        "importance_pct": 4.625458717346191
+      },
+      {
+        "feature": "inflation_exp_change",
+        "importance_pct": 4.5600385665893555
+      },
+      {
+        "feature": "tech_mean_reversion_z",
+        "importance_pct": 4.471313953399658
+      },
+      {
+        "feature": "vix",
+        "importance_pct": 4.204013347625732
+      },
+      {
+        "feature": "etf_regime_prob",
+        "importance_pct": 4.095580577850342
+      }
+    ]
+  },
+  "vs_attempt_7": {
+    "description": "XGBoost single model (baseline for attempt 17)",
+    "att7_da": 0.6004,
+    "att7_hcda": 0.6413,
+    "att7_sharpe": 2.4636,
+    "da_delta_pp": -1.3063755458515347,
+    "hcda_delta_pp": -4.347391304347825,
+    "sharpe_delta": -0.49941839386839404
+  },
+  "vs_attempt_16": {
+    "description": "LightGBM + 5-seed bootstrap",
+    "att16_da": 0.5852,
+    "att16_hcda": 0.6848,
+    "da_delta_pp": 0.21362445414846443,
+    "hcda_delta_pp": -8.697391304347823
+  },
+  "vs_naive": {
+    "naive_always_up_da": "58.95%",
+    "model_vs_naive_pp": -0.21834061135371785
+  },
+  "prediction_characteristics": {
+    "mean_ensemble": -0.01760336570441723,
+    "std_ensemble": 0.23713932931423187,
+    "min_ensemble": -1.0499024391174316,
+    "max_ensemble": 0.5708941221237183,
+    "positive_pct": 51.310043668122276
+  }
+}
