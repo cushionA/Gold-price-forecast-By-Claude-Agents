@@ -83,8 +83,8 @@
   },
   "yield_curve": {
     "status": "completed",
-    "best_attempt": 1,
-    "final_attempt": 2,
+    "best_attempt": 2,
+    "final_attempt": 3,
     "final_gate_reached": 3,
     "gate3_scores": {
       "direction_accuracy_delta": -0.0108,
@@ -94,16 +94,12 @@
     "output_columns": ["yc_curvature_z", "yc_spread_velocity_z", "yc_10y3m_velocity_z", "yc_dgs3mo_velocity_z"],
     "output_path": "data/outputs/yield_curve_2/submodel_output.csv",
     "model_path": null,
-    "completed_at": "2026-02-21T23:30:00",
-    "reason": "Gate 3 PASS via MAE (-0.0127, 1.27x threshold). First yield_curve attempt to pass ALL 3 gates (Gate 1 PASS, Gate 2 MI +15.17%, Gate 3 MAE PASS). Deterministic 4-feature z-score approach. yc_10y3m_velocity_z ranked 6/44 in feature importance.",
-    "attempt_1_comparison": {
-      "attempt_1_gate3_mae_delta": -0.0693,
-      "attempt_1_gate3_mae_multiplier": "6.9x",
-      "attempt_2_gate3_mae_delta": -0.0127,
-      "attempt_2_gate3_mae_multiplier": "1.27x",
-      "attempt_1_gate2_mi": "+0.37% (FAIL)",
-      "attempt_2_gate2_mi": "+15.17% (PASS)",
-      "note": "Attempt 1 has stronger Gate 3 MAE (6.9x vs 1.27x, 4/5 vs 2/5 folds). Attempt 2 has better information quality (all 3 gates PASS). For meta-model, attempt 1 output is currently in production dataset."
+    "completed_at": "2026-02-22T00:30:00",
+    "reason": "Attempt 2 remains best (Gate 3 PASS via MAE -0.0127, 1.27x). Attempt 3 FAILED all gates: Gate 1 FAIL (yc_spread_level_z autocorr 0.9937), Gate 2 PASS (MI +6.49%), Gate 3 FAIL (DA -1.57pp, Sharpe -0.233, MAE +0.005). Strictly worse than attempt 2. No further improvement.",
+    "attempt_history": {
+      "attempt_1": "Gate 3 PASS MAE -0.069 (6.9x). Gate 1/2 FAIL.",
+      "attempt_2": "All 3 Gates PASS. Gate 3 MAE -0.013 (1.27x). BEST overall.",
+      "attempt_3": "Gate 1 FAIL (autocorr 0.994), Gate 2 PASS, Gate 3 FAIL (all metrics degraded). Strictly worse than attempt 2."
     }
   },
   "etf_flow": {

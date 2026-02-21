@@ -283,3 +283,17 @@ Max wait time: 3.0 hours
 2026-02-21 22:58:25,978 [INFO] Claude Code exited (code=0)
 2026-02-21 22:58:25,997 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
 2026-02-21 22:58:25,997 [INFO] auto_resume exiting.
+2026-02-21 23:44:31,710 [INFO] ============================================================
+2026-02-21 23:44:31,710 [INFO] auto_resume started
+2026-02-21 23:44:31,729 [INFO] auto_resume_remaining set to 2
+2026-02-21 23:44:31,730 [INFO] Watching: yield_curve attempt 3
+2026-02-21 23:44:31,730 [INFO] Kernel: bigbigzabuton/gold-yield-curve-model-attempt-3
+2026-02-21 23:44:31,730 [INFO] Remaining loops: 2
+2026-02-21 23:44:31,730 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=120s)
+2026-02-21 23:46:41,727 [INFO] Monitor exited (code=0)
+2026-02-21 23:46:41,728 [INFO] auto_resume_remaining: 2 → 1
+2026-02-21 23:46:41,732 [INFO] Lock released (owner-checked). Launching Claude...
+2026-02-21 23:46:41,738 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 23:58:30,121 [INFO] Claude Code exited (code=0)
+2026-02-21 23:58:30,139 [INFO] Claude completed (status=completed, resume_from=None). Evaluator made stop/continue decision.
+2026-02-21 23:58:30,139 [INFO] auto_resume exiting.

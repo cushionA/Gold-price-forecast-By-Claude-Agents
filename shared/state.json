@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
-  "current_attempt": 3,
-  "resume_from": "architect",
+  "current_attempt": 4,
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-3",
-  "submitted_at": "2026-02-21T23:44:28.911142",
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-4",
+  "submitted_at": "2026-02-22T00:24:17.294761",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -970,7 +970,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T23:58:07.325148",
+  "last_updated": "2026-02-22T00:24:17.294780",
   "error_type": "unknown",
   "auto_resume_remaining": 3,
   "saved_meta_model_state": {
