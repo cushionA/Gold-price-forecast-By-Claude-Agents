@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 3,
@@ -949,7 +949,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T23:44:28.911150",
+  "last_updated": "2026-02-21T23:46:37.773125",
   "error_type": "unknown",
   "auto_resume_remaining": 2,
   "saved_meta_model_state": {
