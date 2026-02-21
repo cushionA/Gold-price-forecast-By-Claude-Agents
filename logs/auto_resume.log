@@ -101,3 +101,10 @@ Max wait time: 3.0 hours
 2026-02-21 18:29:12,632 [INFO] State=in_progress, resume_from=evaluator, remaining=1. Launching Claude directly.
 2026-02-21 18:29:12,635 [INFO] auto_resume_remaining: 1 → 0
 2026-02-21 18:29:12,639 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 18:42:51,409 [INFO] ============================================================
+2026-02-21 18:42:51,409 [INFO] auto_resume started
+2026-02-21 18:42:51,422 [INFO] auto_resume_remaining set to 2
+2026-02-21 18:42:51,422 [INFO] Another auto_resume is already running. Exiting.
+2026-02-21 18:43:03,034 [INFO] Claude Code exited (code=0)
+2026-02-21 18:43:03,034 [INFO] Done. Claude Code session completed.
+2026-02-21 18:43:03,034 [INFO] auto_resume exiting.
