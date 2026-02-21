@@ -243,3 +243,10 @@ Max wait time: 3.0 hours
 2026-02-21 22:09:46,194 [INFO] Claude Code exited (code=3221225786)
 2026-02-21 22:09:46,194 [ERROR] Claude Code failed to launch. Manual resume needed.
 2026-02-21 22:09:46,194 [INFO] auto_resume exiting.
+2026-02-21 22:22:39,002 [INFO] ============================================================
+2026-02-21 22:22:39,003 [INFO] auto_resume started
+2026-02-21 22:22:39,025 [INFO] auto_resume_remaining set to 1
+2026-02-21 22:22:39,026 [INFO] Watching: meta_model attempt 19
+2026-02-21 22:22:39,026 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-19
+2026-02-21 22:22:39,026 [INFO] Remaining loops: 1
+2026-02-21 22:22:39,026 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)

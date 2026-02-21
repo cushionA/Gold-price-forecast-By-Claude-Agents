@@ -525,16 +525,22 @@ def main():
                 return
 
         # 7. Decrement counter
+        # エラー時は残り回数を消費しない（エラー修正は attempt消費に含めない）
         # automation_test mode: attempts_left>0 の間は残り回数を消費しない（1に保つ）
         if remaining is not None:
-            if automation_test and attempts_left is not None and attempts_left > 0:
+            if kaggle_status == "error":
+                # エラーは attempt カウント対象外 → デクリメントしない
+                log.info(f"Kaggle ERROR: auto_resume_remaining NOT decremented (kept at {remaining})")
+            elif automation_test and attempts_left is not None and attempts_left > 0:
                 new_remaining = max(1, remaining - 1)  # 少なくとも1は残す
                 log.info(f"automation_test: auto_resume_remaining kept at {new_remaining} (attempts_left={attempts_left})")
+                state["auto_resume_remaining"] = new_remaining
+                save_state(state)
             else:
                 new_remaining = remaining - 1
                 log.info(f"auto_resume_remaining: {remaining} → {new_remaining}")
-            state["auto_resume_remaining"] = new_remaining
-            save_state(state)
+                state["auto_resume_remaining"] = new_remaining
+                save_state(state)
 
         # 8. Fire Claude Code (with pipeline completion check)
         prompt = _build_evaluator_prompt(
