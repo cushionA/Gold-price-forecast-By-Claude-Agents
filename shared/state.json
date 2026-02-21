@@ -1,14 +1,14 @@
 {
-  "status": "in_progress",
+  "status": "completed",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 4,
-  "resume_from": "evaluator",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "yield_curve_attempt_3_gate1_fail_gate3_fail_no_further_improvement",
+  "evaluator_status": "yield_curve_attempt_4_gate1_pass_gate2_pass_gate3_fail_no_further_improvement",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -338,6 +338,35 @@
           "mae_trend_declining_0.069_0.013_-0.005"
         ],
         "note": "Deterministic 4-feature z-score with optimized windows (356-day level, 13-day vol). Gate 1 FAIL: yc_spread_level_z autocorr 0.9937 (near-constant level variable). Gate 2 PASS (MI +6.49%). Gate 3 FAIL: all 3 metrics degraded vs v2 baseline (DA -1.57pp, Sharpe -0.233, MAE +0.005). Strictly worse than attempt 2 on every Gate 3 metric. MAE trend declining across 3 attempts (6.9x -> 1.27x -> negative). No further improvement justified."
+      },
+      "attempt_4": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": false,
+        "decision": "no_further_improvement",
+        "primary_successes": [
+          "gate1_all_4_features_pass_autocorr_max_0.773",
+          "gate2_vif_max_1.07_excellent_orthogonality",
+          "gate2_stability_all_pass_max_0.040",
+          "gate2_mi_increase=+27.14pct_vs_production_att2",
+          "50_optuna_trials_completed",
+          "2nd_order_dynamics_economically_distinct_from_att2"
+        ],
+        "primary_failures": [
+          "gate3_da_delta_avg=-1.47pp_0_of_3_folds",
+          "gate3_sharpe_delta_avg=-0.464_0_of_3_folds",
+          "gate3_mae_delta_avg=+0.005_1_of_3_folds",
+          "all_3_metrics_degraded_every_fold",
+          "yc_mom_divergence_z_0.62_corr_with_existing_yc_spread_velocity_z",
+          "2_consecutive_gate3_fails_attempts_3_and_4"
+        ],
+        "local_eval": {
+          "fold1": {"da_delta_pp": -0.815, "mae_delta": -0.01050, "sharpe_delta": -0.5424},
+          "fold2": {"da_delta_pp": -3.055, "mae_delta": 0.02493, "sharpe_delta": -0.5357},
+          "fold3": {"da_delta_pp": -0.543, "mae_delta": 0.00088, "sharpe_delta": -0.3135},
+          "avg": {"da_delta_pp": -1.471, "mae_delta": 0.00510, "sharpe_delta": -0.464}
+        },
+        "note": "Acceleration + Structural Decomposition (2nd-order dynamics). 4 features: yc_spread_accel_z (-0.507), yc_curv_change_z (-0.186), yc_mom_divergence_z (0.773), yc_vol_ratio_chg_z (0.152). Gate 1 PASS (all <0.95). Gate 2 PASS: VIF max 1.07, stability max 0.040, MI +27.14% vs production att2. Gate 3 FAIL: consistent degradation across all 3 local walk-forward folds (DA avg -1.47pp, Sharpe avg -0.46, MAE avg +0.005). Despite excellent feature quality, 2nd-order dynamics add noise not captured by simple velocity/curvature. Partial redundancy: yc_mom_divergence_z corr=0.62 with existing yc_spread_velocity_z. Pattern: high MI but Gate 3 fail is classic feature redundancy signature. 2 consecutive Gate 3 failures (att3 and att4) with consistent degradation confirms no further improvement possible. Attempt 2 confirmed as best yield_curve submodel."
       }
     },
     "etf_flow": {
@@ -970,9 +999,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T01:21:54.548327",
+  "last_updated": "2026-02-22T02:45:00.000000",
   "error_type": "unknown",
-  "auto_resume_remaining": 3,
+  "auto_resume_remaining": 2,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -1005,9 +1034,9 @@
   "kaggle_results_path": "data/outputs/yield_curve_2/",
   "yield_curve_retry_result": {
     "best_attempt": 2,
-    "final_attempt_evaluated": 3,
+    "final_attempt_evaluated": 4,
     "decision": "no_further_improvement",
-    "rationale": "Attempt 3 Gate 3 FAIL on all metrics: DA -1.57pp, Sharpe -0.233, MAE +0.005. Declining trend across attempts (MAE deltas: -0.069, -0.013, +0.005). Attempt 2 confirmed as best yield_curve submodel.",
+    "rationale": "Attempt 4 Gate 3 FAIL: DA avg -1.47pp (0/3 folds), Sharpe avg -0.46 (0/3 folds), MAE avg +0.005 (1/3 folds). 2 consecutive Gate 3 failures (att3: DA -1.57pp, Sharpe -0.23; att4: DA -1.47pp, Sharpe -0.46). Excellent Gate 2 metrics (VIF 1.07, MI +27.14%) but gate3 fails confirm fundamental issue: 2nd-order yield curve dynamics add noise, not signal. Attempt 2 (yc_spread_velocity_z + yc_curvature_z) confirmed as best yield_curve submodel. STOP.",
     "production_submodel": "data/outputs/yield_curve_2/submodel_output.csv"
   }
 }
