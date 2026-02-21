@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 19,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -927,9 +927,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T22:05:44.840136",
-  "error_type": null,
-  "auto_resume_remaining": 0,
+  "last_updated": "2026-02-21T22:08:21.828479",
+  "error_type": "unknown",
+  "auto_resume_remaining": 1,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
