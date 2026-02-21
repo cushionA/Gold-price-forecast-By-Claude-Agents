@@ -121,11 +121,33 @@ def run_monitor(interval: int = 60, max_hours: float = 3.0) -> bool:
         return False
 
 
+def find_claude_executable() -> str | None:
+    """Find the claude executable, checking PATH and known fallback locations."""
+    import shutil
+    claude_cmd = shutil.which("claude")
+    if claude_cmd:
+        return claude_cmd
+    # Windows fallback: npm global install locations
+    fallback_paths = [
+        r"C:\Users\tatuk\AppData\Roaming\npm\claude.CMD",
+        r"C:\Users\tatuk\AppData\Roaming\npm\claude.cmd",
+    ]
+    for fp in fallback_paths:
+        if os.path.exists(fp):
+            log.info(f"Found claude at fallback path: {fp}")
+            return fp
+    return None
+
+
 def launch_claude(prompt: str) -> bool:
-    log.info("Launching claude -p ...")
+    claude_cmd = find_claude_executable()
+    if claude_cmd is None:
+        log.error("'claude' not found in PATH or fallback locations")
+        return False
+    log.info(f"Launching {claude_cmd} -p ...")
     try:
         result = subprocess.run(
-            ["claude", "-p", prompt],
+            [claude_cmd, "-p", prompt],
             cwd=str(PROJECT_ROOT),
             timeout=3600,
         )
@@ -135,7 +157,7 @@ def launch_claude(prompt: str) -> bool:
         log.error("Claude Code timed out (1h)")
         return False
     except FileNotFoundError:
-        log.error("'claude' not found in PATH")
+        log.error(f"'{claude_cmd}' not found or failed to execute")
         return False
     except Exception as e:
         log.error(f"Claude launch failed: {e}")
