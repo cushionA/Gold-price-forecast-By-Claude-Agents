@@ -82,3 +82,22 @@ Max wait time: 3.0 hours
 2026-02-21 18:12:17,295 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-16
 2026-02-21 18:12:17,295 [INFO] Remaining loops: 2
 2026-02-21 18:12:17,295 [INFO] Starting monitor (interval=60s, max=3.0h)
+2026-02-21 18:13:27,860 [INFO] Monitor exited (code=0)
+2026-02-21 18:13:27,864 [INFO] auto_resume_remaining: 2 → 1
+2026-02-21 18:13:27,869 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 18:13:28,720 [INFO] Claude Code exited (code=1)
+2026-02-21 18:13:28,720 [ERROR] Claude Code failed. Manual resume needed.
+2026-02-21 18:13:28,720 [INFO] auto_resume exiting.
+2026-02-21 18:27:49,624 [INFO] ============================================================
+2026-02-21 18:27:49,624 [INFO] auto_resume started
+2026-02-21 18:27:49,625 [INFO] State=in_progress, resume_from=evaluator, remaining=1. Launching Claude directly.
+2026-02-21 18:27:49,628 [INFO] auto_resume_remaining: 1 → 0
+2026-02-21 18:27:49,634 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 18:27:50,713 [INFO] Claude Code exited (code=1)
+2026-02-21 18:27:50,714 [ERROR] Claude Code failed. Manual resume needed.
+2026-02-21 18:27:50,714 [INFO] auto_resume exiting.
+2026-02-21 18:29:12,631 [INFO] ============================================================
+2026-02-21 18:29:12,632 [INFO] auto_resume started
+2026-02-21 18:29:12,632 [INFO] State=in_progress, resume_from=evaluator, remaining=1. Launching Claude directly.
+2026-02-21 18:29:12,635 [INFO] auto_resume_remaining: 1 → 0
+2026-02-21 18:29:12,639 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
