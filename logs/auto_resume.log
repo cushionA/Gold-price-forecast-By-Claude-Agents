@@ -225,3 +225,6 @@ Max wait time: 3.0 hours
 2026-02-21 21:47:19,798 [INFO] auto_resume_remaining: 1 → 0
 2026-02-21 21:47:19,798 [INFO] Lock released. Launching Claude...
 2026-02-21 21:47:19,804 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 21:58:58,444 [INFO] Claude Code exited (code=0)
+2026-02-21 21:58:58,464 [INFO] Claude completed (status=completed, resume_from=None). Evaluator made stop/continue decision.
+2026-02-21 21:58:58,464 [INFO] auto_resume exiting.
