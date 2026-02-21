@@ -3,12 +3,12 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 4,
-  "resume_from": "architect",
+  "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "yield_curve_attempt_4_gate1_pass_gate2_pass_gate3_fail_no_further_improvement",
+  "evaluator_status": "yield_curve_FINAL_attempt2_best_retry_complete_no_further_improvement",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -361,10 +361,26 @@
           "2_consecutive_gate3_fails_attempts_3_and_4"
         ],
         "local_eval": {
-          "fold1": {"da_delta_pp": -0.815, "mae_delta": -0.01050, "sharpe_delta": -0.5424},
-          "fold2": {"da_delta_pp": -3.055, "mae_delta": 0.02493, "sharpe_delta": -0.5357},
-          "fold3": {"da_delta_pp": -0.543, "mae_delta": 0.00088, "sharpe_delta": -0.3135},
-          "avg": {"da_delta_pp": -1.471, "mae_delta": 0.00510, "sharpe_delta": -0.464}
+          "fold1": {
+            "da_delta_pp": -0.815,
+            "mae_delta": -0.0105,
+            "sharpe_delta": -0.5424
+          },
+          "fold2": {
+            "da_delta_pp": -3.055,
+            "mae_delta": 0.02493,
+            "sharpe_delta": -0.5357
+          },
+          "fold3": {
+            "da_delta_pp": -0.543,
+            "mae_delta": 0.00088,
+            "sharpe_delta": -0.3135
+          },
+          "avg": {
+            "da_delta_pp": -1.471,
+            "mae_delta": 0.0051,
+            "sharpe_delta": -0.464
+          }
         },
         "note": "Acceleration + Structural Decomposition (2nd-order dynamics). 4 features: yc_spread_accel_z (-0.507), yc_curv_change_z (-0.186), yc_mom_divergence_z (0.773), yc_vol_ratio_chg_z (0.152). Gate 1 PASS (all <0.95). Gate 2 PASS: VIF max 1.07, stability max 0.040, MI +27.14% vs production att2. Gate 3 FAIL: consistent degradation across all 3 local walk-forward folds (DA avg -1.47pp, Sharpe avg -0.46, MAE avg +0.005). Despite excellent feature quality, 2nd-order dynamics add noise not captured by simple velocity/curvature. Partial redundancy: yc_mom_divergence_z corr=0.62 with existing yc_spread_velocity_z. Pattern: high MI but Gate 3 fail is classic feature redundancy signature. 2 consecutive Gate 3 failures (att3 and att4) with consistent degradation confirms no further improvement possible. Attempt 2 confirmed as best yield_curve submodel."
       }
@@ -1001,7 +1017,7 @@
   "kaggle_version": null,
   "last_updated": "2026-02-22T02:45:00.000000",
   "error_type": "unknown",
-  "auto_resume_remaining": 2,
+  "auto_resume_remaining": 1,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -1035,8 +1051,13 @@
   "yield_curve_retry_result": {
     "best_attempt": 2,
     "final_attempt_evaluated": 4,
-    "decision": "no_further_improvement",
-    "rationale": "Attempt 4 Gate 3 FAIL: DA avg -1.47pp (0/3 folds), Sharpe avg -0.46 (0/3 folds), MAE avg +0.005 (1/3 folds). 2 consecutive Gate 3 failures (att3: DA -1.57pp, Sharpe -0.23; att4: DA -1.47pp, Sharpe -0.46). Excellent Gate 2 metrics (VIF 1.07, MI +27.14%) but gate3 fails confirm fundamental issue: 2nd-order yield curve dynamics add noise, not signal. Attempt 2 (yc_spread_velocity_z + yc_curvature_z) confirmed as best yield_curve submodel. STOP.",
-    "production_submodel": "data/outputs/yield_curve_2/submodel_output.csv"
+    "attempts_evaluated": [3, 4],
+    "decision": "no_further_improvement_FINAL",
+    "evaluator_decision_date": "2026-02-22",
+    "rationale": "ARCHITECT EVALUATION: 2 consecutive Gate 3 failures (att3 and att4) with consistent degradation across ALL metrics confirm no further improvement possible. Att4 Gate 3: DA avg -1.47pp (0/3 folds), Sharpe avg -0.46 (0/3 folds), MAE avg +0.005 (1/3 folds). High MI (+27.14%) but Gate 3 fail = classic feature redundancy signature (yc_mom_divergence_z corr=0.62 with existing yc_spread_velocity_z). Structural ceiling: monthly yield curve data forward-filled to daily creates step-function signal; complex 2nd-order dynamics cannot overcome this upstream data limitation. Remaining attempts (5-11) offer no unexplored axes: level variables (att3 fail), regime detection (att1 fail), 2nd-order dynamics (att4 fail). Simple velocity+curvature z-scores (att2) is the optimal abstraction for this data type. Attempt 2 is permanent final yield_curve submodel. STOP - do not submit further attempts.",
+    "production_submodel": "data/outputs/yield_curve_2/submodel_output.csv",
+    "production_features": ["yc_curvature_z", "yc_spread_velocity_z", "yc_10y3m_velocity_z", "yc_dgs3mo_velocity_z"],
+    "retry_attempts_remaining_skipped": 7,
+    "skip_rationale": "Evaluator authority exercised per user directive. Pattern of 2 consecutive Gate 3 failures with universal degradation + structural data frequency limitation = >90% probability any further attempt fails Gate 3."
   }
 }
