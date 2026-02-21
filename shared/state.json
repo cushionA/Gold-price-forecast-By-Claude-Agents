@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_retry",
   "current_feature": "real_rate",
   "current_attempt": 7,
-  "resume_from": "researcher",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": null,
-  "submitted_at": null,
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-7",
+  "submitted_at": "2026-02-21T19:34:46.179707",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -817,7 +817,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T19:23:27.590509",
+  "last_updated": "2026-02-21T19:34:46.179717",
   "error_type": null,
   "auto_resume_remaining": 2,
   "saved_meta_model_state": {
