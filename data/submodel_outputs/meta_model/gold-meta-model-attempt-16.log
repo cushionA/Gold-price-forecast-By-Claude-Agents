@@ -1,299 +1,299 @@
-[{"stream_name":"stderr","time":6.229202267,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":6.229263941,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":6.229268318,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":6.229270824,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stderr","time":6.800077338,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":6.800109945,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":6.800115918,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":6.800120265,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stdout","time":14.617965644,"data":"LightGBM version: 4.6.0\n"}
-,{"stream_name":"stdout","time":14.618010458,"data":"Optuna version: 4.7.0\n"}
-,{"stream_name":"stdout","time":14.618017431,"data":"Started: 2026-02-21T08:42:50.053952\n"}
-,{"stream_name":"stdout","time":14.638631155,"data":"Features defined: 24 features\n"}
-,{"stream_name":"stdout","time":14.823516914,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":14.823544567999999,"data":"FETCHING DATA FROM APIs\n"}
-,{"stream_name":"stdout","time":14.823558634,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":16.881861317,"data":"Collecting fredapi\n"}
-,{"stream_name":"stdout","time":16.919420122,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
-,{"stream_name":"stdout","time":16.940861054,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
-,{"stream_name":"stdout","time":16.973627425,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
-,{"stream_name":"stdout","time":16.974816433,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
-,{"stream_name":"stdout","time":16.977358326,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
-,{"stream_name":"stdout","time":16.978359383,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
-,{"stream_name":"stdout","time":16.989782359,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
-,{"stream_name":"stdout","time":17.002899863,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
-,{"stream_name":"stdout","time":17.084033365,"data":"Collecting fredapi\n"}
-,{"stream_name":"stdout","time":17.084065079,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
-,{"stream_name":"stdout","time":17.084071308,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
-,{"stream_name":"stdout","time":17.084076755,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
-,{"stream_name":"stdout","time":17.084082567,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
-,{"stream_name":"stdout","time":17.084102907,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
-,{"stream_name":"stdout","time":17.084106977,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
-,{"stream_name":"stdout","time":17.08411153,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
-,{"stream_name":"stdout","time":17.084117229,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
-,{"stream_name":"stdout","time":18.886961865,"data":"Installing collected packages: fredapi\n"}
-,{"stream_name":"stdout","time":18.9092357,"data":"Successfully installed fredapi-0.5.2\n"}
-,{"stream_name":"stdout","time":19.088996735,"data":"Installing collected packages: fredapi\n"}
-,{"stream_name":"stdout","time":19.089024285,"data":"Successfully installed fredapi-0.5.2\n"}
-,{"stream_name":"stdout","time":19.089028783,"data":"FRED API initialized\n"}
-,{"stream_name":"stdout","time":19.08903252,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
-,{"stream_name":"stdout","time":19.089038057,"data":"\n"}
-,{"stream_name":"stdout","time":19.08904097,"data":"Fetching gold price (GC=F)...\n"}
-,{"stream_name":"stdout","time":19.709080612,"data":"  Gold: 3049 rows\n"}
-,{"stream_name":"stdout","time":19.709118967,"data":"\n"}
-,{"stream_name":"stdout","time":19.709122623,"data":"Fetching base features...\n"}
-,{"stream_name":"stdout","time":22.642287266,"data":"  Base features: 3049 rows, 6 columns\n"}
-,{"stream_name":"stdout","time":22.642339523,"data":"\n"}
-,{"stream_name":"stdout","time":22.642344996,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
-,{"stream_name":"stdout","time":22.642348968,"data":"  vix: 2857 rows\n"}
-,{"stream_name":"stdout","time":22.642352403,"data":"  technical: 2860 rows\n"}
-,{"stream_name":"stdout","time":22.64235616,"data":"  cross_asset: 2522 rows\n"}
-,{"stream_name":"stdout","time":22.642360336,"data":"  yield_curve: 2794 rows\n"}
-,{"stream_name":"stdout","time":22.642364285,"data":"  etf_flow: 2838 rows\n"}
-,{"stream_name":"stdout","time":22.642368141,"data":"  inflation_expectation: 2924 rows\n"}
-,{"stream_name":"stdout","time":22.642371585,"data":"  options_market: 2548 rows\n"}
-,{"stream_name":"stdout","time":22.642376772,"data":"  temporal_context: 2461 rows\n"}
-,{"stream_name":"stdout","time":22.642380635,"data":"\n"}
-,{"stream_name":"stdout","time":22.642383165,"data":"Data fetching complete\n"}
-,{"stream_name":"stdout","time":22.691794819,"data":"\n"}
-,{"stream_name":"stdout","time":22.691828005,"data":"Applying transformations...\n"}
-,{"stream_name":"stdout","time":22.691845563,"data":"\n"}
-,{"stream_name":"stdout","time":22.691849253,"data":"Merging submodel outputs...\n"}
-,{"stream_name":"stdout","time":22.69185343,"data":"  Features after merge: 25 columns, 3049 rows\n"}
-,{"stream_name":"stdout","time":22.691857948,"data":"\n"}
-,{"stream_name":"stdout","time":22.691861481,"data":"Applying NaN imputation...\n"}
-,{"stream_name":"stdout","time":22.691865545,"data":"  NaN before imputation: 5624\n"}
-,{"stream_name":"stdout","time":22.691869077,"data":"  NaN after imputation: 0\n"}
-,{"stream_name":"stdout","time":22.691874273,"data":"  Final dataset: 3048 rows\n"}
-,{"stream_name":"stdout","time":22.691888713,"data":"\n"}
-,{"stream_name":"stdout","time":22.691891214,"data":"All 24 features present\n"}
-,{"stream_name":"stdout","time":22.691893455,"data":"Dataset shape: (3048, 25)\n"}
-,{"stream_name":"stdout","time":22.691895706,"data":"Date range: 2014-01-03 to 2026-02-18\n"}
-,{"stream_name":"stdout","time":22.719413678,"data":"\n"}
-,{"stream_name":"stdout","time":22.719443463,"data":"Data split complete:\n"}
-,{"stream_name":"stdout","time":22.719448345,"data":"  Train: 2133 rows (70.0%) - 2014-01-03 to 2022-06-28\n"}
-,{"stream_name":"stdout","time":22.719451913,"data":"  Val:   457 rows (15.0%) - 2022-06-29 to 2024-04-23\n"}
-,{"stream_name":"stdout","time":22.719455599,"data":"  Test:  458 rows (15.0%) - 2024-04-24 to 2026-02-18\n"}
-,{"stream_name":"stdout","time":22.71945922,"data":"  Total: 3048 rows\n"}
-,{"stream_name":"stdout","time":22.719462862,"data":"  Samples per feature: 88.9:1 (train)\n"}
-,{"stream_name":"stdout","time":22.719466676,"data":"\n"}
-,{"stream_name":"stdout","time":22.719470021,"data":"No time-series leakage detected\n"}
-,{"stream_name":"stdout","time":22.719473766,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":22.719477358,"data":"\n"}
-,{"stream_name":"stdout","time":22.719480811,"data":"Array shapes:\n"}
-,{"stream_name":"stdout","time":22.719488736,"data":"  X_train: (2133, 24), y_train: (2133,)\n"}
-,{"stream_name":"stdout","time":22.71949252,"data":"  X_val:   (457, 24), y_val:   (457,)\n"}
-,{"stream_name":"stdout","time":22.719496189,"data":"  X_test:  (458, 24), y_test:  (458,)\n"}
-,{"stream_name":"stdout","time":22.745823507,"data":"Metric functions defined\n"}
-,{"stream_name":"stdout","time":22.773212701,"data":"LightGBM Optuna objective defined\n"}
-,{"stream_name":"stdout","time":22.801154331,"data":"\n"}
-,{"stream_name":"stdout","time":22.801181287,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":22.801186417,"data":"RUNNING OPTUNA HPO (100 trials, 2-hour timeout)\n"}
-,{"stream_name":"stdout","time":22.801190125,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.700800193,"data":"\n"}
-,{"stream_name":"stdout","time":39.700844451,"data":"Optuna optimization complete\n"}
-,{"stream_name":"stdout","time":39.700850025,"data":"  Trials completed: 100\n"}
-,{"stream_name":"stdout","time":39.700854708,"data":"  Best value: 0.7104\n"}
-,{"stream_name":"stdout","time":39.700859206,"data":"\n"}
-,{"stream_name":"stdout","time":39.700863664,"data":"Best hyperparameters:\n"}
-,{"stream_name":"stdout","time":39.700867996,"data":"  num_leaves: 66\n"}
-,{"stream_name":"stdout","time":39.700871365,"data":"  min_child_samples: 83\n"}
-,{"stream_name":"stdout","time":39.700875039,"data":"  feature_fraction: 0.41980426929501585\n"}
-,{"stream_name":"stdout","time":39.700879662,"data":"  bagging_fraction: 0.608540663048167\n"}
-,{"stream_name":"stdout","time":39.700884243,"data":"  reg_alpha: 2.3076168040117313\n"}
-,{"stream_name":"stdout","time":39.700889521,"data":"  reg_lambda: 0.12790390175145838\n"}
-,{"stream_name":"stdout","time":39.700894871,"data":"  learning_rate: 0.010769622478263132\n"}
-,{"stream_name":"stdout","time":39.700900658,"data":"  n_estimators: 219\n"}
-,{"stream_name":"stdout","time":39.700905301,"data":"\n"}
-,{"stream_name":"stdout","time":39.700909645,"data":"Best trial validation metrics:\n"}
-,{"stream_name":"stdout","time":39.700927757,"data":"  DA:     57.46%\n"}
-,{"stream_name":"stdout","time":39.70093116,"data":"  HCDA:   57.14%\n"}
-,{"stream_name":"stdout","time":39.70093445,"data":"  MAE:    0.6428%\n"}
-,{"stream_name":"stdout","time":39.700937765,"data":"  Sharpe: 2.25\n"}
-,{"stream_name":"stdout","time":39.700941021,"data":"  DA gap: 6.13pp\n"}
-,{"stream_name":"stdout","time":39.818174087,"data":"\n"}
-,{"stream_name":"stdout","time":39.818205062,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.818223882,"data":"TRAINING FINAL LIGHTGBM MODEL\n"}
-,{"stream_name":"stdout","time":39.818228562,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.818233088,"data":"\n"}
-,{"stream_name":"stdout","time":39.81823648,"data":"Raw predictions generated:\n"}
-,{"stream_name":"stdout","time":39.818240804,"data":"  Train: mean=0.0230, std=0.0486\n"}
-,{"stream_name":"stdout","time":39.81824555,"data":"  Val:   mean=0.0240, std=0.0504\n"}
-,{"stream_name":"stdout","time":39.818248738,"data":"  Test:  mean=0.0170, std=0.0481\n"}
-,{"stream_name":"stdout","time":39.818252351,"data":"  Positive pct (test): 65.5%\n"}
-,{"stream_name":"stdout","time":39.845613799,"data":"\n"}
-,{"stream_name":"stdout","time":39.845634875,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.84564125,"data":"OLS OUTPUT SCALING\n"}
-,{"stream_name":"stdout","time":39.845645187,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.845649125,"data":"\n"}
-,{"stream_name":"stdout","time":39.845652792,"data":"OLS scaling factor: 1.50\n"}
-,{"stream_name":"stdout","time":39.845656866,"data":"\n"}
-,{"stream_name":"stdout","time":39.845660483,"data":"MAE (raw):    0.9554%\n"}
-,{"stream_name":"stdout","time":39.845664223,"data":"MAE (scaled): 0.9534%\n"}
-,{"stream_name":"stdout","time":39.845667996,"data":"MAE delta:    -0.0020%\n"}
-,{"stream_name":"stdout","time":39.845672171,"data":"\n"}
-,{"stream_name":"stdout","time":39.845675511,"data":"DA and Sharpe: unchanged by scaling (verified)\n"}
-,{"stream_name":"stdout","time":39.845679002,"data":"\n"}
-,{"stream_name":"stdout","time":39.845682288,"data":"Using SCALED predictions for MAE (improvement: 0.0020%)\n"}
-,{"stream_name":"stdout","time":39.901039764,"data":"\n"}
-,{"stream_name":"stdout","time":39.901086866,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.901092773,"data":"BOOTSTRAP ENSEMBLE CONFIDENCE SCORING\n"}
-,{"stream_name":"stdout","time":39.901096887,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":39.901100986,"data":"  Training bootstrap model 1/5 (seed=42)...\n"}
-,{"stream_name":"stdout","time":40.047133173,"data":"  Training bootstrap model 2/5 (seed=43)...\n"}
-,{"stream_name":"stdout","time":40.07443624,"data":"  Training bootstrap model 3/5 (seed=44)...\n"}
-,{"stream_name":"stdout","time":40.258412932,"data":"  Training bootstrap model 4/5 (seed=45)...\n"}
-,{"stream_name":"stdout","time":40.378669315,"data":"  Training bootstrap model 5/5 (seed=46)...\n"}
-,{"stream_name":"stdout","time":40.436651469,"data":"\n"}
-,{"stream_name":"stdout","time":40.436686001,"data":"Bootstrap ensemble trained: 5 models\n"}
-,{"stream_name":"stdout","time":40.436691381,"data":"\n"}
-,{"stream_name":"stdout","time":40.436695289,"data":"Bootstrap variance statistics (test set):\n"}
-,{"stream_name":"stdout","time":40.436739083,"data":"  Std range: [0.0038, 0.0765]\n"}
-,{"stream_name":"stdout","time":40.436748679,"data":"  Std mean:  0.0250\n"}
-,{"stream_name":"stdout","time":40.436763318,"data":"  Confidence range: [0.9289, 0.9963]\n"}
-,{"stream_name":"stdout","time":40.436766836,"data":"\n"}
-,{"stream_name":"stdout","time":40.436770104,"data":"HCDA comparison (test set):\n"}
-,{"stream_name":"stdout","time":40.43677349,"data":"  Bootstrap variance: 68.48% (N=92)\n"}
-,{"stream_name":"stdout","time":40.436777327,"data":"  |prediction|:       59.78% (N=92)\n"}
-,{"stream_name":"stdout","time":40.436782372,"data":"  Improvement:        +8.70pp\n"}
-,{"stream_name":"stdout","time":40.436785484,"data":"\n"}
-,{"stream_name":"stdout","time":40.436787708,"data":"Using bootstrap variance for HCDA\n"}
-,{"stream_name":"stdout","time":40.469044389,"data":"\n"}
-,{"stream_name":"stdout","time":40.469071659,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.469076965,"data":"FINAL EVALUATION\n"}
-,{"stream_name":"stdout","time":40.469081661,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.469086116,"data":"\n"}
-,{"stream_name":"stdout","time":40.469089414,"data":"TRAIN:\n"}
-,{"stream_name":"stdout","time":40.469092807,"data":"  DA:     59.59%\n"}
-,{"stream_name":"stdout","time":40.469096185,"data":"  HCDA:   77.28% (coverage: 20.0%)\n"}
-,{"stream_name":"stdout","time":40.46909956,"data":"  MAE:    0.6348% (raw: 0.6409%, scaled: 0.6348%)\n"}
-,{"stream_name":"stdout","time":40.469103129,"data":"  Sharpe: 3.78\n"}
-,{"stream_name":"stdout","time":40.469106506,"data":"\n"}
-,{"stream_name":"stdout","time":40.46911175,"data":"VAL:\n"}
-,{"stream_name":"stdout","time":40.469115195,"data":"  DA:     51.54%\n"}
-,{"stream_name":"stdout","time":40.469117584,"data":"  HCDA:   51.65% (coverage: 20.1%)\n"}
-,{"stream_name":"stdout","time":40.469119903,"data":"  MAE:    0.6452% (raw: 0.6452%, scaled: 0.6460%)\n"}
-,{"stream_name":"stdout","time":40.469122169,"data":"  Sharpe: 0.29\n"}
-,{"stream_name":"stdout","time":40.469124372,"data":"\n"}
-,{"stream_name":"stdout","time":40.469126512,"data":"TEST:\n"}
-,{"stream_name":"stdout","time":40.46912882,"data":"  DA:     58.52%\n"}
-,{"stream_name":"stdout","time":40.469131076,"data":"  HCDA:   59.78% (coverage: 20.1%)\n"}
-,{"stream_name":"stdout","time":40.46913333,"data":"  MAE:    0.9534% (raw: 0.9554%, scaled: 0.9534%)\n"}
-,{"stream_name":"stdout","time":40.469135579,"data":"  Sharpe: 1.76\n"}
-,{"stream_name":"stdout","time":40.46913779,"data":"\n"}
-,{"stream_name":"stdout","time":40.469139935,"data":"OVERFITTING:\n"}
-,{"stream_name":"stdout","time":40.469142182,"data":"  Train-Test DA gap: 1.07pp (target: \u003c10pp)\n"}
-,{"stream_name":"stdout","time":40.469144985,"data":"\n"}
-,{"stream_name":"stdout","time":40.46914712,"data":"TARGET STATUS:\n"}
-,{"stream_name":"stdout","time":40.46914936,"data":"  DA \u003e 56%:     PASS (58.52%)\n"}
-,{"stream_name":"stdout","time":40.469152578,"data":"  HCDA \u003e 60%:   PASS (68.48% via bootstrap)\n"}
-,{"stream_name":"stdout","time":40.469157815,"data":"  MAE \u003c 0.75%:  FAIL (0.9534%)\n"}
-,{"stream_name":"stdout","time":40.469161884,"data":"  Sharpe \u003e 0.8: PASS (1.76)\n"}
-,{"stream_name":"stdout","time":40.46916615,"data":"\n"}
-,{"stream_name":"stdout","time":40.469170195,"data":"Targets passed: 3/4\n"}
-,{"stream_name":"stdout","time":40.469174138,"data":"\n"}
-,{"stream_name":"stdout","time":40.46918849,"data":"Vs Attempt 7 (best XGBoost):\n"}
-,{"stream_name":"stdout","time":40.469192056,"data":"  DA:     58.52% (att7: 60.04%, delta: -1.52pp)\n"}
-,{"stream_name":"stdout","time":40.469195455,"data":"  HCDA:   68.48% (att7: 64.13%, delta: +4.35pp)\n"}
-,{"stream_name":"stdout","time":40.469198799,"data":"  MAE:    0.9534% (att7: 0.9429%, delta: +0.0105pp)\n"}
-,{"stream_name":"stdout","time":40.469202182,"data":"  Sharpe: 1.76 (att7: 2.46, delta: -0.70)\n"}
-,{"stream_name":"stdout","time":40.515120451,"data":"\n"}
-,{"stream_name":"stdout","time":40.515148137,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.51515368,"data":"DIAGNOSTIC ANALYSIS\n"}
-,{"stream_name":"stdout","time":40.515158066,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515161969,"data":"\n"}
-,{"stream_name":"stdout","time":40.515165486,"data":"HCDA at different confidence thresholds (|prediction| method, test set):\n"}
-,{"stream_name":"stdout","time":40.515169238,"data":"  Top 30% (N=138): 60.87%\n"}
-,{"stream_name":"stdout","time":40.515172994,"data":"  Top 25% (N=114): 59.13%\n"}
-,{"stream_name":"stdout","time":40.515177171,"data":"  Top 20% (N=92): 59.78%\n"}
-,{"stream_name":"stdout","time":40.515181281,"data":"  Top 15% (N=69): 62.32%\n"}
-,{"stream_name":"stdout","time":40.515184904,"data":"  Top 10% (N=46): 58.70%\n"}
-,{"stream_name":"stdout","time":40.515188653,"data":"\n"}
-,{"stream_name":"stdout","time":40.515192313,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515195995,"data":"FEATURE IMPORTANCE (LightGBM Gain)\n"}
-,{"stream_name":"stdout","time":40.51519971,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515203576,"data":"  tech_trend_regime_prob: 13.74%\n"}
-,{"stream_name":"stdout","time":40.515207383,"data":"  tech_mean_reversion_z: 11.45%\n"}
-,{"stream_name":"stdout","time":40.515210925,"data":"  real_rate_change: 8.72%\n"}
-,{"stream_name":"stdout","time":40.515214844,"data":"  xasset_regime_prob: 6.22%\n"}
-,{"stream_name":"stdout","time":40.515218695,"data":"  options_risk_regime_prob: 4.96%\n"}
-,{"stream_name":"stdout","time":40.515222362,"data":"  tech_volatility_regime: 4.78%\n"}
-,{"stream_name":"stdout","time":40.515225948,"data":"  inflation_exp_change: 4.66%\n"}
-,{"stream_name":"stdout","time":40.515229937,"data":"  vix: 4.54%\n"}
-,{"stream_name":"stdout","time":40.515233302,"data":"  yc_curvature_z: 4.33%\n"}
-,{"stream_name":"stdout","time":40.515237325,"data":"  dxy_change: 3.86%\n"}
-,{"stream_name":"stdout","time":40.51524143,"data":"  vix_persistence: 3.34%\n"}
-,{"stream_name":"stdout","time":40.515245049,"data":"  etf_capital_intensity: 3.30%\n"}
-,{"stream_name":"stdout","time":40.515248741,"data":"  ie_regime_prob: 3.26%\n"}
-,{"stream_name":"stdout","time":40.515252492,"data":"  ie_anchoring_z: 3.21%\n"}
-,{"stream_name":"stdout","time":40.515256287,"data":"  temporal_context_score: 2.54%\n"}
-,{"stream_name":"stdout","time":40.515260932,"data":"  etf_regime_prob: 2.54%\n"}
-,{"stream_name":"stdout","time":40.515265321,"data":"  ie_gold_sensitivity_z: 2.53%\n"}
-,{"stream_name":"stdout","time":40.515269418,"data":"  vix_regime_probability: 2.41%\n"}
-,{"stream_name":"stdout","time":40.515273763,"data":"  yc_spread_velocity_z: 2.41%\n"}
-,{"stream_name":"stdout","time":40.515277414,"data":"  xasset_divergence: 2.07%\n"}
-,{"stream_name":"stdout","time":40.515307341,"data":"  yield_spread_change: 1.81%\n"}
-,{"stream_name":"stdout","time":40.515311741,"data":"  vix_mean_reversion_z: 1.37%\n"}
-,{"stream_name":"stdout","time":40.515315558,"data":"  etf_pv_divergence: 1.04%\n"}
-,{"stream_name":"stdout","time":40.515319655,"data":"  xasset_recession_signal: 0.93%\n"}
-,{"stream_name":"stdout","time":40.515324212,"data":"  options_risk_regime_prob: Rank 5/24, 4.96%\n"}
-,{"stream_name":"stdout","time":40.515328235,"data":"  temporal_context_score: Rank 15/24, 2.54%\n"}
-,{"stream_name":"stdout","time":40.515332247,"data":"\n"}
-,{"stream_name":"stdout","time":40.515336389,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515340216,"data":"PREDICTION DISTRIBUTION (test set, raw)\n"}
-,{"stream_name":"stdout","time":40.515343923,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515347851,"data":"  Mean:     0.0170%\n"}
-,{"stream_name":"stdout","time":40.515351471,"data":"  Std:      0.0481%\n"}
-,{"stream_name":"stdout","time":40.515355247,"data":"  Min:      -0.1365%\n"}
-,{"stream_name":"stdout","time":40.515359243,"data":"  Max:      0.1645%\n"}
-,{"stream_name":"stdout","time":40.515361747,"data":"  Positive: 65.5%\n"}
-,{"stream_name":"stdout","time":40.515364292,"data":"\n"}
-,{"stream_name":"stdout","time":40.515366754,"data":"Naive Baseline:\n"}
-,{"stream_name":"stdout","time":40.515369198,"data":"  Always-up DA: 58.95%\n"}
-,{"stream_name":"stdout","time":40.515371669,"data":"  Model vs naive: -0.44pp\n"}
-,{"stream_name":"stdout","time":40.515374195,"data":"\n"}
-,{"stream_name":"stdout","time":40.515376561,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515379075,"data":"QUARTERLY PERFORMANCE (test set)\n"}
-,{"stream_name":"stdout","time":40.51538163,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.515384233,"data":"  2024Q2: DA= 52.2%, MAE=0.835%, Sharpe= 1.21, N= 46\n"}
-,{"stream_name":"stdout","time":40.515386743,"data":"  2024Q3: DA= 46.9%, MAE=0.724%, Sharpe=-0.52, N= 64\n"}
-,{"stream_name":"stdout","time":40.515389222,"data":"  2024Q4: DA= 62.5%, MAE=0.808%, Sharpe= 2.71, N= 64\n"}
-,{"stream_name":"stdout","time":40.515391708,"data":"  2025Q1: DA= 63.9%, MAE=0.680%, Sharpe= 5.36, N= 61\n"}
-,{"stream_name":"stdout","time":40.515394267,"data":"  2025Q2: DA= 61.3%, MAE=1.333%, Sharpe= 3.83, N= 62\n"}
-,{"stream_name":"stdout","time":40.515398724,"data":"  2025Q3: DA= 61.5%, MAE=0.674%, Sharpe= 4.66, N= 65\n"}
-,{"stream_name":"stdout","time":40.515401269,"data":"  2025Q4: DA= 57.8%, MAE=1.114%, Sharpe= 0.67, N= 64\n"}
-,{"stream_name":"stdout","time":40.515403778,"data":"  2026Q1: DA= 62.5%, MAE=1.933%, Sharpe=-0.81, N= 32\n"}
-,{"stream_name":"stdout","time":40.594913263,"data":"\n"}
-,{"stream_name":"stdout","time":40.594939394,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.594943886,"data":"SAVING RESULTS\n"}
-,{"stream_name":"stdout","time":40.594950094,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.662153766,"data":"Saved predictions.csv\n"}
-,{"stream_name":"stdout","time":40.662179201,"data":"Saved test_predictions.csv\n"}
-,{"stream_name":"stdout","time":40.66218419,"data":"Saved submodel_output.csv\n"}
-,{"stream_name":"stdout","time":40.662188374,"data":"Saved model.txt (LightGBM booster)\n"}
-,{"stream_name":"stdout","time":40.662204264,"data":"Saved training_result.json\n"}
-,{"stream_name":"stdout","time":40.662208112,"data":"\n"}
-,{"stream_name":"stdout","time":40.662213076,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.662216458,"data":"TRAINING COMPLETE\n"}
-,{"stream_name":"stdout","time":40.662219268,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":40.662221702,"data":"Finished: 2026-02-21T08:43:16.098087\n"}
-,{"stream_name":"stdout","time":40.662224069,"data":"\n"}
-,{"stream_name":"stdout","time":40.662226284,"data":"Final Status:\n"}
-,{"stream_name":"stdout","time":40.6622286,"data":"  Algorithm:   LightGBM GBDT\n"}
-,{"stream_name":"stdout","time":40.662230861,"data":"  HCDA method: BOOTSTRAP\n"}
-,{"stream_name":"stdout","time":40.662233158,"data":"  MAE method:  SCALED\n"}
-,{"stream_name":"stdout","time":40.66223537,"data":"  Targets passed: 3/4\n"}
-,{"stream_name":"stdout","time":40.66223823,"data":"  Failed: ['MAE']\n"}
-,{"stream_name":"stderr","time":43.345262672,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":43.345294681,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":43.490180513,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":43.490206788,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":44.019861795,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
-,{"stream_name":"stderr","time":44.019895234,"data":"  warn(\n"}
-,{"stream_name":"stderr","time":44.045867111,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
-,{"stream_name":"stderr","time":44.354755524,"data":"[NbConvertApp] Writing 82906 bytes to __notebook__.ipynb\n"}
-,{"stream_name":"stderr","time":46.642607662,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
-,{"stream_name":"stderr","time":46.642647578,"data":"  warn(\n"}
-,{"stream_name":"stderr","time":46.663325488,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
-,{"stream_name":"stderr","time":47.599805442,"data":"[NbConvertApp] Writing 502342 bytes to __results__.html\n"}
+[{"stream_name":"stderr","time":5.998434853,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":5.998479553,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":5.9984860399999995,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":5.998490467,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.557564746,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.557599012,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.557604308,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.557608779,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.157798048,"data":"LightGBM version: 4.6.0\n"}
+,{"stream_name":"stdout","time":14.157831619,"data":"Optuna version: 4.7.0\n"}
+,{"stream_name":"stdout","time":14.157838193,"data":"Started: 2026-02-21T08:55:15.970198\n"}
+,{"stream_name":"stdout","time":14.178457689,"data":"Features defined: 24 features\n"}
+,{"stream_name":"stdout","time":14.366833074,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.366859711,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":14.366865271,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.419160574,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":16.461269701,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":16.480405185,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":16.514364483,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":16.515640471,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":16.517388971,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.518315753,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":16.529702333,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":16.542340281,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":16.621869447,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":16.62189957,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":16.621906262,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":16.621911738,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":16.621917752,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":16.621936322,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.621940474,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":16.621944562,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":16.621948708,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":18.462146845,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.486598726,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.66436085,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.664406897,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.664412,"data":"FRED API initialized\n"}
+,{"stream_name":"stdout","time":18.664415935,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":18.664419723,"data":"\n"}
+,{"stream_name":"stdout","time":18.664423127,"data":"Fetching gold price (GC=F)...\n"}
+,{"stream_name":"stdout","time":19.279860554,"data":"  Gold: 3049 rows\n"}
+,{"stream_name":"stdout","time":19.279890305,"data":"\n"}
+,{"stream_name":"stdout","time":19.279895358,"data":"Fetching base features...\n"}
+,{"stream_name":"stdout","time":21.902426493,"data":"  Base features: 3049 rows, 6 columns\n"}
+,{"stream_name":"stdout","time":21.902464305,"data":"\n"}
+,{"stream_name":"stdout","time":21.9024682,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
+,{"stream_name":"stdout","time":21.902470733,"data":"  vix: 2857 rows\n"}
+,{"stream_name":"stdout","time":21.902473114,"data":"  technical: 2860 rows\n"}
+,{"stream_name":"stdout","time":21.902475402,"data":"  cross_asset: 2522 rows\n"}
+,{"stream_name":"stdout","time":21.90247798,"data":"  yield_curve: 2794 rows\n"}
+,{"stream_name":"stdout","time":21.902480243,"data":"  etf_flow: 2838 rows\n"}
+,{"stream_name":"stdout","time":21.902482574,"data":"  inflation_expectation: 2924 rows\n"}
+,{"stream_name":"stdout","time":21.902484809,"data":"  options_market: 2548 rows\n"}
+,{"stream_name":"stdout","time":21.902487045,"data":"  temporal_context: 2461 rows\n"}
+,{"stream_name":"stdout","time":21.902489312,"data":"\n"}
+,{"stream_name":"stdout","time":21.90249156,"data":"Data fetching complete\n"}
+,{"stream_name":"stdout","time":21.936763973,"data":"\n"}
+,{"stream_name":"stdout","time":21.936788529,"data":"Applying transformations...\n"}
+,{"stream_name":"stdout","time":21.936793121,"data":"\n"}
+,{"stream_name":"stdout","time":21.936796503,"data":"Merging submodel outputs...\n"}
+,{"stream_name":"stdout","time":21.952977542,"data":"  Features after merge: 25 columns, 3049 rows\n"}
+,{"stream_name":"stdout","time":21.952998218,"data":"\n"}
+,{"stream_name":"stdout","time":21.953002965,"data":"Applying NaN imputation...\n"}
+,{"stream_name":"stdout","time":21.953006923,"data":"  NaN before imputation: 5624\n"}
+,{"stream_name":"stdout","time":21.953010439,"data":"  NaN after imputation: 0\n"}
+,{"stream_name":"stdout","time":21.953013891,"data":"  Final dataset: 3048 rows\n"}
+,{"stream_name":"stdout","time":21.953029004,"data":"\n"}
+,{"stream_name":"stdout","time":21.953031458,"data":"All 24 features present\n"}
+,{"stream_name":"stdout","time":21.953033725,"data":"Dataset shape: (3048, 25)\n"}
+,{"stream_name":"stdout","time":21.953036121,"data":"Date range: 2014-01-03 to 2026-02-18\n"}
+,{"stream_name":"stdout","time":21.981305823,"data":"\n"}
+,{"stream_name":"stdout","time":21.981323828,"data":"Data split complete:\n"}
+,{"stream_name":"stdout","time":21.981328677,"data":"  Train: 2133 rows (70.0%) - 2014-01-03 to 2022-06-28\n"}
+,{"stream_name":"stdout","time":21.981334004,"data":"  Val:   457 rows (15.0%) - 2022-06-29 to 2024-04-23\n"}
+,{"stream_name":"stdout","time":21.981337315,"data":"  Test:  458 rows (15.0%) - 2024-04-24 to 2026-02-18\n"}
+,{"stream_name":"stdout","time":21.981343912,"data":"  Total: 3048 rows\n"}
+,{"stream_name":"stdout","time":21.981349364,"data":"  Samples per feature: 88.9:1 (train)\n"}
+,{"stream_name":"stdout","time":21.981353099,"data":"\n"}
+,{"stream_name":"stdout","time":21.981357095,"data":"No time-series leakage detected\n"}
+,{"stream_name":"stdout","time":21.981361363,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":21.981365764,"data":"\n"}
+,{"stream_name":"stdout","time":21.981369403,"data":"Array shapes:\n"}
+,{"stream_name":"stdout","time":21.981388053,"data":"  X_train: (2133, 24), y_train: (2133,)\n"}
+,{"stream_name":"stdout","time":21.981393213,"data":"  X_val:   (457, 24), y_val:   (457,)\n"}
+,{"stream_name":"stdout","time":21.981397259,"data":"  X_test:  (458, 24), y_test:  (458,)\n"}
+,{"stream_name":"stdout","time":22.008803436,"data":"Metric functions defined\n"}
+,{"stream_name":"stdout","time":22.036358407,"data":"LightGBM Optuna objective defined\n"}
+,{"stream_name":"stdout","time":22.064832377,"data":"\n"}
+,{"stream_name":"stdout","time":22.064850295,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":22.064855911,"data":"RUNNING OPTUNA HPO (100 trials, 2-hour timeout)\n"}
+,{"stream_name":"stdout","time":22.0648626,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.521065735,"data":"\n"}
+,{"stream_name":"stdout","time":38.521099819,"data":"Optuna optimization complete\n"}
+,{"stream_name":"stdout","time":38.521104245,"data":"  Trials completed: 100\n"}
+,{"stream_name":"stdout","time":38.521107703,"data":"  Best value: 0.7104\n"}
+,{"stream_name":"stdout","time":38.521111002,"data":"\n"}
+,{"stream_name":"stdout","time":38.521114277,"data":"Best hyperparameters:\n"}
+,{"stream_name":"stdout","time":38.521118007,"data":"  num_leaves: 66\n"}
+,{"stream_name":"stdout","time":38.521123277,"data":"  min_child_samples: 83\n"}
+,{"stream_name":"stdout","time":38.521130155,"data":"  feature_fraction: 0.41980426929501585\n"}
+,{"stream_name":"stdout","time":38.521135698,"data":"  bagging_fraction: 0.608540663048167\n"}
+,{"stream_name":"stdout","time":38.521141267,"data":"  reg_alpha: 2.3076168040117313\n"}
+,{"stream_name":"stdout","time":38.521147157,"data":"  reg_lambda: 0.12790390175145838\n"}
+,{"stream_name":"stdout","time":38.521152904,"data":"  learning_rate: 0.010769622478263132\n"}
+,{"stream_name":"stdout","time":38.521157786,"data":"  n_estimators: 219\n"}
+,{"stream_name":"stdout","time":38.521162443,"data":"\n"}
+,{"stream_name":"stdout","time":38.521167103,"data":"Best trial validation metrics:\n"}
+,{"stream_name":"stdout","time":38.521188987,"data":"  DA:     57.46%\n"}
+,{"stream_name":"stdout","time":38.521191847,"data":"  HCDA:   57.14%\n"}
+,{"stream_name":"stdout","time":38.521194191,"data":"  MAE:    0.6428%\n"}
+,{"stream_name":"stdout","time":38.521196564,"data":"  Sharpe: 2.25\n"}
+,{"stream_name":"stdout","time":38.521198921,"data":"  DA gap: 6.13pp\n"}
+,{"stream_name":"stdout","time":38.636581176,"data":"\n"}
+,{"stream_name":"stdout","time":38.636605321,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.636609258,"data":"TRAINING FINAL LIGHTGBM MODEL\n"}
+,{"stream_name":"stdout","time":38.636612487,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.636615605,"data":"\n"}
+,{"stream_name":"stdout","time":38.636618487,"data":"Raw predictions generated:\n"}
+,{"stream_name":"stdout","time":38.636621616,"data":"  Train: mean=0.0230, std=0.0486\n"}
+,{"stream_name":"stdout","time":38.636624536,"data":"  Val:   mean=0.0240, std=0.0504\n"}
+,{"stream_name":"stdout","time":38.636627545,"data":"  Test:  mean=0.0170, std=0.0481\n"}
+,{"stream_name":"stdout","time":38.636630547,"data":"  Positive pct (test): 65.5%\n"}
+,{"stream_name":"stdout","time":38.663553475,"data":"\n"}
+,{"stream_name":"stdout","time":38.663576266,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.663581863,"data":"OLS OUTPUT SCALING\n"}
+,{"stream_name":"stdout","time":38.663585806,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.663590082,"data":"\n"}
+,{"stream_name":"stdout","time":38.663594239,"data":"OLS scaling factor: 1.50\n"}
+,{"stream_name":"stdout","time":38.663598476,"data":"\n"}
+,{"stream_name":"stdout","time":38.663602469,"data":"MAE (raw):    0.9554%\n"}
+,{"stream_name":"stdout","time":38.66360622,"data":"MAE (scaled): 0.9534%\n"}
+,{"stream_name":"stdout","time":38.66360969,"data":"MAE delta:    -0.0020%\n"}
+,{"stream_name":"stdout","time":38.66361323,"data":"\n"}
+,{"stream_name":"stdout","time":38.663616907,"data":"DA and Sharpe: unchanged by scaling (verified)\n"}
+,{"stream_name":"stdout","time":38.663620764,"data":"\n"}
+,{"stream_name":"stdout","time":38.6636246,"data":"Using SCALED predictions for MAE (improvement: 0.0020%)\n"}
+,{"stream_name":"stdout","time":38.718503038,"data":"\n"}
+,{"stream_name":"stdout","time":38.718534708,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.71853954,"data":"BOOTSTRAP ENSEMBLE CONFIDENCE SCORING\n"}
+,{"stream_name":"stdout","time":38.718543462,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.71854702,"data":"  Training bootstrap model 1/5 (seed=42)...\n"}
+,{"stream_name":"stdout","time":38.863771151,"data":"  Training bootstrap model 2/5 (seed=43)...\n"}
+,{"stream_name":"stdout","time":38.891689278,"data":"  Training bootstrap model 3/5 (seed=44)...\n"}
+,{"stream_name":"stdout","time":39.066702012,"data":"  Training bootstrap model 4/5 (seed=45)...\n"}
+,{"stream_name":"stdout","time":39.180638198,"data":"  Training bootstrap model 5/5 (seed=46)...\n"}
+,{"stream_name":"stdout","time":39.180658916,"data":"\n"}
+,{"stream_name":"stdout","time":39.180663262,"data":"Bootstrap ensemble trained: 5 models\n"}
+,{"stream_name":"stdout","time":39.23479673,"data":"\n"}
+,{"stream_name":"stdout","time":39.234814791,"data":"Bootstrap variance statistics (test set):\n"}
+,{"stream_name":"stdout","time":39.234832783,"data":"  Std range: [0.0038, 0.0765]\n"}
+,{"stream_name":"stdout","time":39.234836648,"data":"  Std mean:  0.0250\n"}
+,{"stream_name":"stdout","time":39.234839809,"data":"  Confidence range: [0.9289, 0.9963]\n"}
+,{"stream_name":"stdout","time":39.234842829,"data":"\n"}
+,{"stream_name":"stdout","time":39.234845656,"data":"HCDA comparison (test set):\n"}
+,{"stream_name":"stdout","time":39.234848866,"data":"  Bootstrap variance: 68.48% (N=92)\n"}
+,{"stream_name":"stdout","time":39.234851756,"data":"  |prediction|:       59.78% (N=92)\n"}
+,{"stream_name":"stdout","time":39.234854656,"data":"  Improvement:        +8.70pp\n"}
+,{"stream_name":"stdout","time":39.23485749,"data":"\n"}
+,{"stream_name":"stdout","time":39.234860357,"data":"Using bootstrap variance for HCDA\n"}
+,{"stream_name":"stdout","time":39.267914928,"data":"\n"}
+,{"stream_name":"stdout","time":39.26793241,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.267937535,"data":"FINAL EVALUATION\n"}
+,{"stream_name":"stdout","time":39.267941787,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.267945647,"data":"\n"}
+,{"stream_name":"stdout","time":39.267949243,"data":"TRAIN:\n"}
+,{"stream_name":"stdout","time":39.26795319,"data":"  DA:     59.59%\n"}
+,{"stream_name":"stdout","time":39.267956953,"data":"  HCDA:   77.28% (coverage: 20.0%)\n"}
+,{"stream_name":"stdout","time":39.267960665,"data":"  MAE:    0.6348% (raw: 0.6409%, scaled: 0.6348%)\n"}
+,{"stream_name":"stdout","time":39.267964578,"data":"  Sharpe: 3.78\n"}
+,{"stream_name":"stdout","time":39.26796796,"data":"\n"}
+,{"stream_name":"stdout","time":39.267971343,"data":"VAL:\n"}
+,{"stream_name":"stdout","time":39.267974651,"data":"  DA:     51.54%\n"}
+,{"stream_name":"stdout","time":39.267979629,"data":"  HCDA:   51.65% (coverage: 20.1%)\n"}
+,{"stream_name":"stdout","time":39.267982865,"data":"  MAE:    0.6452% (raw: 0.6452%, scaled: 0.6460%)\n"}
+,{"stream_name":"stdout","time":39.267985242,"data":"  Sharpe: 0.29\n"}
+,{"stream_name":"stdout","time":39.267987571,"data":"\n"}
+,{"stream_name":"stdout","time":39.267989717,"data":"TEST:\n"}
+,{"stream_name":"stdout","time":39.267992011,"data":"  DA:     58.52%\n"}
+,{"stream_name":"stdout","time":39.267994352,"data":"  HCDA:   59.78% (coverage: 20.1%)\n"}
+,{"stream_name":"stdout","time":39.267996628,"data":"  MAE:    0.9534% (raw: 0.9554%, scaled: 0.9534%)\n"}
+,{"stream_name":"stdout","time":39.267998888,"data":"  Sharpe: 1.76\n"}
+,{"stream_name":"stdout","time":39.268001104,"data":"\n"}
+,{"stream_name":"stdout","time":39.268003242,"data":"OVERFITTING:\n"}
+,{"stream_name":"stdout","time":39.268005463,"data":"  Train-Test DA gap: 1.07pp (target: \u003c10pp)\n"}
+,{"stream_name":"stdout","time":39.268009146,"data":"\n"}
+,{"stream_name":"stdout","time":39.268014082,"data":"TARGET STATUS:\n"}
+,{"stream_name":"stdout","time":39.268017789,"data":"  DA \u003e 56%:     PASS (58.52%)\n"}
+,{"stream_name":"stdout","time":39.268021708,"data":"  HCDA \u003e 60%:   PASS (68.48% via bootstrap)\n"}
+,{"stream_name":"stdout","time":39.2680255,"data":"  MAE \u003c 0.75%:  FAIL (0.9534%)\n"}
+,{"stream_name":"stdout","time":39.268028724,"data":"  Sharpe \u003e 0.8: PASS (1.76)\n"}
+,{"stream_name":"stdout","time":39.268031789,"data":"\n"}
+,{"stream_name":"stdout","time":39.268034708,"data":"Targets passed: 3/4\n"}
+,{"stream_name":"stdout","time":39.26803792,"data":"\n"}
+,{"stream_name":"stdout","time":39.268052188,"data":"Vs Attempt 7 (best XGBoost):\n"}
+,{"stream_name":"stdout","time":39.268055632,"data":"  DA:     58.52% (att7: 60.04%, delta: -1.52pp)\n"}
+,{"stream_name":"stdout","time":39.268059183,"data":"  HCDA:   68.48% (att7: 64.13%, delta: +4.35pp)\n"}
+,{"stream_name":"stdout","time":39.26806369,"data":"  MAE:    0.9534% (att7: 0.9429%, delta: +0.0105pp)\n"}
+,{"stream_name":"stdout","time":39.268067475,"data":"  Sharpe: 1.76 (att7: 2.46, delta: -0.70)\n"}
+,{"stream_name":"stdout","time":39.313446234,"data":"\n"}
+,{"stream_name":"stdout","time":39.313475644,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313480896,"data":"DIAGNOSTIC ANALYSIS\n"}
+,{"stream_name":"stdout","time":39.313484485,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313488778,"data":"\n"}
+,{"stream_name":"stdout","time":39.313492548,"data":"HCDA at different confidence thresholds (|prediction| method, test set):\n"}
+,{"stream_name":"stdout","time":39.313496584,"data":"  Top 30% (N=138): 60.87%\n"}
+,{"stream_name":"stdout","time":39.313500517,"data":"  Top 25% (N=114): 59.13%\n"}
+,{"stream_name":"stdout","time":39.313505026,"data":"  Top 20% (N=92): 59.78%\n"}
+,{"stream_name":"stdout","time":39.313508959,"data":"  Top 15% (N=69): 62.32%\n"}
+,{"stream_name":"stdout","time":39.313512777,"data":"  Top 10% (N=46): 58.70%\n"}
+,{"stream_name":"stdout","time":39.313516447,"data":"\n"}
+,{"stream_name":"stdout","time":39.31352074,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313525322,"data":"FEATURE IMPORTANCE (LightGBM Gain)\n"}
+,{"stream_name":"stdout","time":39.313528599,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313531875,"data":"  tech_trend_regime_prob: 13.74%\n"}
+,{"stream_name":"stdout","time":39.313535344,"data":"  tech_mean_reversion_z: 11.45%\n"}
+,{"stream_name":"stdout","time":39.313538564,"data":"  real_rate_change: 8.72%\n"}
+,{"stream_name":"stdout","time":39.31354183,"data":"  xasset_regime_prob: 6.22%\n"}
+,{"stream_name":"stdout","time":39.313545019,"data":"  options_risk_regime_prob: 4.96%\n"}
+,{"stream_name":"stdout","time":39.313548381,"data":"  tech_volatility_regime: 4.78%\n"}
+,{"stream_name":"stdout","time":39.313551581,"data":"  inflation_exp_change: 4.66%\n"}
+,{"stream_name":"stdout","time":39.313555574,"data":"  vix: 4.54%\n"}
+,{"stream_name":"stdout","time":39.313559791,"data":"  yc_curvature_z: 4.33%\n"}
+,{"stream_name":"stdout","time":39.313563528,"data":"  dxy_change: 3.86%\n"}
+,{"stream_name":"stdout","time":39.313567523,"data":"  vix_persistence: 3.34%\n"}
+,{"stream_name":"stdout","time":39.313582944,"data":"  etf_capital_intensity: 3.30%\n"}
+,{"stream_name":"stdout","time":39.313586549,"data":"  ie_regime_prob: 3.26%\n"}
+,{"stream_name":"stdout","time":39.313589683000004,"data":"  ie_anchoring_z: 3.21%\n"}
+,{"stream_name":"stdout","time":39.313593075,"data":"  temporal_context_score: 2.54%\n"}
+,{"stream_name":"stdout","time":39.313596475,"data":"  etf_regime_prob: 2.54%\n"}
+,{"stream_name":"stdout","time":39.313599799,"data":"  ie_gold_sensitivity_z: 2.53%\n"}
+,{"stream_name":"stdout","time":39.313603485,"data":"  vix_regime_probability: 2.41%\n"}
+,{"stream_name":"stdout","time":39.313607634,"data":"  yc_spread_velocity_z: 2.41%\n"}
+,{"stream_name":"stdout","time":39.313611186,"data":"  xasset_divergence: 2.07%\n"}
+,{"stream_name":"stdout","time":39.313626941,"data":"  yield_spread_change: 1.81%\n"}
+,{"stream_name":"stdout","time":39.313630499,"data":"  vix_mean_reversion_z: 1.37%\n"}
+,{"stream_name":"stdout","time":39.31363444,"data":"  etf_pv_divergence: 1.04%\n"}
+,{"stream_name":"stdout","time":39.313638244,"data":"  xasset_recession_signal: 0.93%\n"}
+,{"stream_name":"stdout","time":39.313641686,"data":"  options_risk_regime_prob: Rank 5/24, 4.96%\n"}
+,{"stream_name":"stdout","time":39.313645231,"data":"  temporal_context_score: Rank 15/24, 2.54%\n"}
+,{"stream_name":"stdout","time":39.313648451,"data":"\n"}
+,{"stream_name":"stdout","time":39.313651784,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313655502,"data":"PREDICTION DISTRIBUTION (test set, raw)\n"}
+,{"stream_name":"stdout","time":39.313659458,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313663616,"data":"  Mean:     0.0170%\n"}
+,{"stream_name":"stdout","time":39.31366681,"data":"  Std:      0.0481%\n"}
+,{"stream_name":"stdout","time":39.313670279,"data":"  Min:      -0.1365%\n"}
+,{"stream_name":"stdout","time":39.313674842,"data":"  Max:      0.1645%\n"}
+,{"stream_name":"stdout","time":39.313678499,"data":"  Positive: 65.5%\n"}
+,{"stream_name":"stdout","time":39.313682351,"data":"\n"}
+,{"stream_name":"stdout","time":39.313686307,"data":"Naive Baseline:\n"}
+,{"stream_name":"stdout","time":39.313689812,"data":"  Always-up DA: 58.95%\n"}
+,{"stream_name":"stdout","time":39.313693267,"data":"  Model vs naive: -0.44pp\n"}
+,{"stream_name":"stdout","time":39.313696813,"data":"\n"}
+,{"stream_name":"stdout","time":39.313700157,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.313704013,"data":"QUARTERLY PERFORMANCE (test set)\n"}
+,{"stream_name":"stdout","time":39.313707644,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.31371178,"data":"  2024Q2: DA= 52.2%, MAE=0.835%, Sharpe= 1.21, N= 46\n"}
+,{"stream_name":"stdout","time":39.313716175,"data":"  2024Q3: DA= 46.9%, MAE=0.724%, Sharpe=-0.52, N= 64\n"}
+,{"stream_name":"stdout","time":39.313719904,"data":"  2024Q4: DA= 62.5%, MAE=0.808%, Sharpe= 2.71, N= 64\n"}
+,{"stream_name":"stdout","time":39.313723496,"data":"  2025Q1: DA= 63.9%, MAE=0.680%, Sharpe= 5.36, N= 61\n"}
+,{"stream_name":"stdout","time":39.313726862,"data":"  2025Q2: DA= 61.3%, MAE=1.333%, Sharpe= 3.83, N= 62\n"}
+,{"stream_name":"stdout","time":39.313732442,"data":"  2025Q3: DA= 61.5%, MAE=0.674%, Sharpe= 4.66, N= 65\n"}
+,{"stream_name":"stdout","time":39.313736275,"data":"  2025Q4: DA= 57.8%, MAE=1.114%, Sharpe= 0.67, N= 64\n"}
+,{"stream_name":"stdout","time":39.313740058,"data":"  2026Q1: DA= 62.5%, MAE=1.933%, Sharpe=-0.81, N= 32\n"}
+,{"stream_name":"stdout","time":39.436201571,"data":"\n"}
+,{"stream_name":"stdout","time":39.436226866,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.436231634,"data":"SAVING RESULTS\n"}
+,{"stream_name":"stdout","time":39.436235629,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.436239689,"data":"Saved predictions.csv\n"}
+,{"stream_name":"stdout","time":39.436243181,"data":"Saved test_predictions.csv\n"}
+,{"stream_name":"stdout","time":39.436246621,"data":"Saved submodel_output.csv\n"}
+,{"stream_name":"stdout","time":39.436250379,"data":"Saved model.txt (LightGBM booster)\n"}
+,{"stream_name":"stdout","time":39.459546831,"data":"Saved training_result.json\n"}
+,{"stream_name":"stdout","time":39.459575818,"data":"\n"}
+,{"stream_name":"stdout","time":39.459580916,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.459584852,"data":"TRAINING COMPLETE\n"}
+,{"stream_name":"stdout","time":39.459588889,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":39.459592582,"data":"Finished: 2026-02-21T08:55:41.271811\n"}
+,{"stream_name":"stdout","time":39.45959638,"data":"\n"}
+,{"stream_name":"stdout","time":39.459599787,"data":"Final Status:\n"}
+,{"stream_name":"stdout","time":39.459603095,"data":"  Algorithm:   LightGBM GBDT\n"}
+,{"stream_name":"stdout","time":39.459606901,"data":"  HCDA method: BOOTSTRAP\n"}
+,{"stream_name":"stdout","time":39.459610482,"data":"  MAE method:  SCALED\n"}
+,{"stream_name":"stdout","time":39.459614039,"data":"  Targets passed: 3/4\n"}
+,{"stream_name":"stdout","time":39.459618314,"data":"  Failed: ['MAE']\n"}
+,{"stream_name":"stderr","time":42.045763974,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":42.045797198,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":42.186897443,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":42.186922567,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":42.718370472,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":42.718419446,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":42.746720731,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":43.063942459,"data":"[NbConvertApp] Writing 83974 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":45.27868327,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":45.278713327,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":45.298631628,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":46.228222356,"data":"[NbConvertApp] Writing 506708 bytes to __results__.html\n"}
 ]
