@@ -1,0 +1,114 @@
+[{"stream_name":"stderr","time":6.067683838,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.067750172,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.06775685,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.06776052,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.652813912,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.652847042,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.6528523889999995,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.6528559309999995,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.477057003,"data":"LightGBM version: 4.6.0\n"}
+,{"stream_name":"stdout","time":14.477098913,"data":"Optuna version: 4.7.0\n"}
+,{"stream_name":"stdout","time":14.477103352,"data":"Started: 2026-02-21T08:35:41.242187\n"}
+,{"stream_name":"stdout","time":14.498077453,"data":"Features defined: 24 features\n"}
+,{"stream_name":"stdout","time":14.68386201,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.683888384,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":14.683894663,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.703526183,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":16.738525588999998,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":16.758575731,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":16.794596345,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":16.795921801,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":16.797837727,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.798766585,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":16.810436949,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":16.822398433,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":16.906011191,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":16.906060653,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":16.906069435,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":16.906075026,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":16.906080416,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":16.906099822,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":16.906102941,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":16.906105552,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":16.906108301,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":18.762545367,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.786788303,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.964547565,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":18.964578328,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":18.96458825,"data":"FRED API initialized\n"}
+,{"stream_name":"stdout","time":18.964592017,"data":"\n"}
+,{"stream_name":"stdout","time":18.964594396,"data":"Fetching gold price (GC=F)...\n"}
+,{"stream_name":"stdout","time":19.448532284,"data":"  Gold: 3049 rows\n"}
+,{"stream_name":"stdout","time":19.448561948,"data":"\n"}
+,{"stream_name":"stdout","time":19.448565694,"data":"Fetching base features...\n"}
+,{"stream_name":"stdout","time":22.530168169,"data":"  Base features: 3049 rows, 6 columns\n"}
+,{"stream_name":"stdout","time":22.530205628,"data":"\n"}
+,{"stream_name":"stdout","time":22.530209957,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
+,{"stream_name":"stderr","time":23.464767591,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":23.464795419,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":23.464800968,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":23.464829559000002,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":23.46491423,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":23.465065988,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":23.465401158,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":23.465411412,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":23.465415313,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":23.465419336,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":23.465423633,"data":"FileNotFoundError                         Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":23.465429028,"data":"/tmp/ipykernel_23/3356528157.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":23.465432843,"data":"    114 submodel_dfs = {}\n"}
+,{"stream_name":"stderr","time":23.465436683,"data":"    115 for feature, spec in submodel_files.items():\n"}
+,{"stream_name":"stderr","time":23.465440801,"data":"--\u003e 116     df = pd.read_csv(spec['path'])\n"}
+,{"stream_name":"stderr","time":23.465454669,"data":"    117     date_col = spec['date_col']\n"}
+,{"stream_name":"stderr","time":23.465458039,"data":"    118     if spec['tz_aware']:\n"}
+,{"stream_name":"stderr","time":23.465461594,"data":"\n"}
+,{"stream_name":"stderr","time":23.465469172,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)\n"}
+,{"stream_name":"stderr","time":23.465477582,"data":"   1024     kwds.update(kwds_defaults)\n"}
+,{"stream_name":"stderr","time":23.465480828,"data":"   1025 \n"}
+,{"stream_name":"stderr","time":23.465484498,"data":"-\u003e 1026     return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":23.465488429,"data":"   1027 \n"}
+,{"stream_name":"stderr","time":23.465491554,"data":"   1028 \n"}
+,{"stream_name":"stderr","time":23.465494813,"data":"\n"}
+,{"stream_name":"stderr","time":23.465498442,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":23.46550192,"data":"    618 \n"}
+,{"stream_name":"stderr","time":23.465505364,"data":"    619     # Create the parser.\n"}
+,{"stream_name":"stderr","time":23.465508623,"data":"--\u003e 620     parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":23.465511872,"data":"    621 \n"}
+,{"stream_name":"stderr","time":23.465515114,"data":"    622     if chunksize or iterator:\n"}
+,{"stream_name":"stderr","time":23.465518353,"data":"\n"}
+,{"stream_name":"stderr","time":23.465521613,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in __init__(self, f, engine, **kwds)\n"}
+,{"stream_name":"stderr","time":23.465525399,"data":"   1618 \n"}
+,{"stream_name":"stderr","time":23.465528653,"data":"   1619         self.handles: IOHandles | None = None\n"}
+,{"stream_name":"stderr","time":23.465532231,"data":"-\u003e 1620         self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":23.465535633000002,"data":"   1621 \n"}
+,{"stream_name":"stderr","time":23.465538969,"data":"   1622     def close(self) -\u003e None:\n"}
+,{"stream_name":"stderr","time":23.465542444,"data":"\n"}
+,{"stream_name":"stderr","time":23.465545721,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _make_engine(self, f, engine)\n"}
+,{"stream_name":"stderr","time":23.465549284,"data":"   1878                 if \"b\" not in mode:\n"}
+,{"stream_name":"stderr","time":23.465553757,"data":"   1879                     mode += \"b\"\n"}
+,{"stream_name":"stderr","time":23.465557342,"data":"-\u003e 1880             self.handles = get_handle(\n"}
+,{"stream_name":"stderr","time":23.465560859,"data":"   1881                 f,\n"}
+,{"stream_name":"stderr","time":23.465564304,"data":"   1882                 mode,\n"}
+,{"stream_name":"stderr","time":23.465567871,"data":"\n"}
+,{"stream_name":"stderr","time":23.465571255,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/common.py in get_handle(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)\n"}
+,{"stream_name":"stderr","time":23.465579394,"data":"    871         if ioargs.encoding and \"b\" not in ioargs.mode:\n"}
+,{"stream_name":"stderr","time":23.465583502,"data":"    872             # Encoding\n"}
+,{"stream_name":"stderr","time":23.465586931,"data":"--\u003e 873             handle = open(\n"}
+,{"stream_name":"stderr","time":23.465590878,"data":"    874                 handle,\n"}
+,{"stream_name":"stderr","time":23.465594634,"data":"    875                 ioargs.mode,\n"}
+,{"stream_name":"stderr","time":23.465605504,"data":"\n"}
+,{"stream_name":"stderr","time":23.465609149,"data":"FileNotFoundError: [Errno 2] No such file or directory: '../input/gold-prediction-submodels/vix.csv'\n"}
+,{"stream_name":"stderr","time":23.465612816,"data":"\n"}
+,{"stream_name":"stderr","time":25.467023862,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":25.467090194,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":25.615249353,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":25.61527382,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":26.179578843,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.179616535,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.277713504,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":26.594180153,"data":"[NbConvertApp] Writing 62803 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":29.010234532,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":29.010271628,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":29.030773417,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":30.013149491,"data":"[NbConvertApp] Writing 484198 bytes to __results__.html\n"}
+]

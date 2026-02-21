@@ -220,21 +220,32 @@ def main():
         # 4. Block until Kaggle completes
         ok = run_monitor(interval=args.interval, max_hours=args.max_hours)
 
-        if not ok:
-            log.error("Monitor finished with error. Manual resume needed.")
-            return
-
         # 5. Re-read state (monitor updated it)
         state = load_state()
         resume_from = state.get("resume_from", "evaluator")
-        kaggle_status = "complete" if state.get("status") == "in_progress" else "error"
+        error_type = state.get("error_type", "unknown")
+        error_context = state.get("error_context", "")
+
+        if not ok:
+            # Training failed — check if monitor properly classified the error
+            if state.get("status") == "in_progress" and resume_from == "builder_model":
+                log.warning(f"Training FAILED (error_type={error_type}). Launching Claude to fix.")
+            else:
+                log.error("Monitor exited unexpectedly. Manual resume needed.")
+                return
+            kaggle_status = "error"
+        else:
+            kaggle_status = "complete"
 
         # 6. Check remaining count
         remaining = state.get("auto_resume_remaining")
 
         if remaining is not None and remaining <= 0:
             log.info(f"auto_resume_remaining={remaining}. NOT launching Claude. Loop stopped.")
-            log.info("Results are fetched. Run manually: claude -p 'Resume from evaluator'")
+            if ok:
+                log.info("Results are fetched. Run manually: claude -p 'Resume from evaluator'")
+            else:
+                log.info(f"Error fix needed. Run manually: claude -p 'Resume from builder_model'")
             return
 
         # 7. Decrement counter
@@ -244,11 +255,20 @@ def main():
             log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
 
         # 8. Fire Claude Code exactly once
-        prompt = (
-            f"Kaggle training for {feature} attempt {attempt} has {kaggle_status}. "
-            f"Results have been fetched and state.json updated. "
-            f"Resume from {resume_from}."
-        )
+        if kaggle_status == "error":
+            prompt = (
+                f"Kaggle training for {feature} attempt {attempt} FAILED "
+                f"(error_type={error_type}). "
+                f"error_context: {error_context[:300] if error_context else 'see state.json'}. "
+                f"state.json has been updated with resume_from=builder_model. "
+                f"Fix the notebook error and re-submit."
+            )
+        else:
+            prompt = (
+                f"Kaggle training for {feature} attempt {attempt} has {kaggle_status}. "
+                f"Results have been fetched and state.json updated. "
+                f"Resume from {resume_from}."
+            )
         launched = launch_claude(prompt)
 
         if launched:
