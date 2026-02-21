@@ -1,0 +1,214 @@
+{
+  "feature": "real_rate",
+  "attempt": 9,
+  "method": "deterministic_yield_curve_5feature_with_interaction",
+  "timestamp": "2026-02-21T11:40:14.000589",
+  "description": "Real yield curve: 4 attempt-7 features retained + slope-curvature interaction z-score as 5th feature. Attempt 7 achieved Sharpe +0.329 via rr_slope_level_z. Attempt 8 removed it but Sharpe reversed to -0.260 (MAE improved). Attempt 9 retains rr_slope_level_z + adds low-autocorr interaction feature to push DA positive.",
+  "design_choices": {
+    "retained_from_attempt_7": [
+      "rr_level_change_z",
+      "rr_slope_chg_z",
+      "rr_curvature_chg_z",
+      "rr_slope_level_z"
+    ],
+    "new_in_attempt_9": "rr_slope_curvature_interaction_z = rolling_zscore(slope.diff() * curvature.diff(), 60)",
+    "rationale": "Interaction feature captures butterfly distortion events. Low autocorr (product of two near-iid series). Orthogonal to existing features."
+  },
+  "data_sources": [
+    "FRED:DFII5",
+    "FRED:DFII10",
+    "FRED:DFII30"
+  ],
+  "output_shape": [
+    2542,
+    5
+  ],
+  "output_columns": [
+    "rr_level_change_z",
+    "rr_slope_chg_z",
+    "rr_curvature_chg_z",
+    "rr_slope_level_z",
+    "rr_slope_curvature_interaction_z"
+  ],
+  "gate1": {
+    "pass": true,
+    "overfit_ratio": 1.0,
+    "checks": {
+      "rr_level_change_z": {
+        "nan_pct": 0.0,
+        "std": 0.990244688116122,
+        "autocorr": 0.0316900262074333,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_slope_chg_z": {
+        "nan_pct": 0.0,
+        "std": 1.0006225333994734,
+        "autocorr": -0.04166206198881228,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_curvature_chg_z": {
+        "nan_pct": 0.0,
+        "std": 0.9878236118163476,
+        "autocorr": -0.1983329971778884,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_slope_level_z": {
+        "nan_pct": 0.0,
+        "std": 1.3614011966728057,
+        "autocorr": 0.9374397144471592,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      },
+      "rr_slope_curvature_interaction_z": {
+        "nan_pct": 0.0,
+        "std": 0.9431623298870973,
+        "autocorr": 0.05888881328804176,
+        "is_constant": false,
+        "is_all_nan": false,
+        "high_autocorr": false,
+        "pass": true
+      }
+    }
+  },
+  "gate2": {
+    "pass": true,
+    "checks": {
+      "mi": {
+        "new_total": 2.646612179592788,
+        "baseline_total": 0.1,
+        "increase": 2646.612179592788,
+        "pass": true
+      },
+      "vif": {
+        "max": 1.242477580413224,
+        "pass": true
+      },
+      "stability": {
+        "max_rolling_corr_std": 0.15886808529381877,
+        "pass": false
+      }
+    },
+    "per_feature_mi": {
+      "rr_level_change_z": 0.5145692556065455,
+      "rr_slope_chg_z": 0.5138609398878311,
+      "rr_curvature_chg_z": 0.5613375244315232,
+      "rr_slope_level_z": 0.525637592131157,
+      "rr_slope_curvature_interaction_z": 0.5312068675357309
+    }
+  },
+  "gate3": {
+    "pass": true,
+    "baseline": {
+      "direction_accuracy": 0.49600348509644165,
+      "sharpe_ratio": -0.12960043270815425,
+      "mae": 0.7428599769423653
+    },
+    "extended": {
+      "direction_accuracy": 0.47865793330170964,
+      "sharpe_ratio": -0.31552144772402996,
+      "mae": 0.7287500024617866
+    },
+    "checks": {
+      "direction": {
+        "delta": -0.017345551794732017,
+        "threshold": 0.005,
+        "pass": false
+      },
+      "sharpe": {
+        "delta": -0.1859210150158757,
+        "threshold": 0.05,
+        "pass": false
+      },
+      "mae": {
+        "delta": -0.014109974480578713,
+        "threshold": -0.01,
+        "pass": true
+      }
+    },
+    "fold_results": {
+      "base_da": [
+        0.49592169657422513,
+        0.4871382636655949,
+        0.504950495049505
+      ],
+      "ext_da": [
+        0.48450244698205547,
+        0.4630225080385852,
+        0.4884488448844885
+      ],
+      "base_sharpe": [
+        -1.0206628601481986,
+        0.0003351135994760731,
+        0.6315264484242599
+      ],
+      "ext_sharpe": [
+        -0.4079187896075783,
+        -0.398501568825073,
+        -0.14014398473943862
+      ],
+      "base_mae": [
+        0.6569834179906544,
+        0.864895102291884,
+        0.7067014105445572
+      ],
+      "ext_mae": [
+        0.6219306426117333,
+        0.8602949643322639,
+        0.7040244004413626
+      ]
+    }
+  },
+  "feature_stats": {
+    "rr_level_change_z": {
+      "mean": 0.005569505139673922,
+      "std": 0.990244688116122,
+      "min": -3.437396798152866,
+      "max": 4.0,
+      "autocorr": 0.0316900262074333,
+      "nan_pct": 0.0
+    },
+    "rr_slope_chg_z": {
+      "mean": 0.003345058345637007,
+      "std": 1.0006225333994734,
+      "min": -4.0,
+      "max": 4.0,
+      "autocorr": -0.04166206198881228,
+      "nan_pct": 0.0
+    },
+    "rr_curvature_chg_z": {
+      "mean": -4.206003687829776e-05,
+      "std": 0.9878236118163476,
+      "min": -4.0,
+      "max": 4.0,
+      "autocorr": -0.1983329971778884,
+      "nan_pct": 0.0
+    },
+    "rr_slope_level_z": {
+      "mean": 0.04299057239022373,
+      "std": 1.3614011966728057,
+      "min": -4.0,
+      "max": 3.5708135539131005,
+      "autocorr": 0.9374397144471592,
+      "nan_pct": 0.0
+    },
+    "rr_slope_curvature_interaction_z": {
+      "mean": -0.009742949845827381,
+      "std": 0.9431623298870973,
+      "min": -4.0,
+      "max": 4.0,
+      "autocorr": 0.05888881328804176,
+      "nan_pct": 0.0
+    }
+  }
+}

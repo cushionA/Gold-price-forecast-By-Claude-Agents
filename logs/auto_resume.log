@@ -205,3 +205,9 @@ Max wait time: 3.0 hours
 2026-02-21 20:13:26,570 [INFO] Kernel: bigbigzabuton/gold-real-rate-8
 2026-02-21 20:13:26,570 [INFO] Remaining loops: 1
 2026-02-21 20:13:26,570 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)
+2026-02-21 20:48:35,518 [INFO] ============================================================
+2026-02-21 20:48:35,518 [INFO] auto_resume started
+2026-02-21 20:48:35,519 [INFO] State=in_progress, resume_from=evaluator, remaining=2. Launching Claude directly.
+2026-02-21 20:48:35,522 [INFO] auto_resume_remaining: 2 → 1
+2026-02-21 20:48:35,522 [INFO] Lock released. Launching Claude...
+2026-02-21 20:48:35,527 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...

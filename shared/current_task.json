@@ -1,31 +1,32 @@
 {
   "feature": "real_rate",
-  "attempt": 7,
+  "attempt": 10,
   "phase": "phase2_submodel_retry",
   "created_at": "2026-02-21",
-  "agent_sequence": ["researcher", "architect", "builder_data", "datachecker", "builder_model"],
+  "agent_sequence": ["architect", "builder_data", "datachecker", "builder_model"],
 
-  "objective": "Build a real interest rate yield curve shape submodel using daily DFII5/DFII7/DFII10/DFII20/DFII30 series from FRED. Extract shape characteristics (slope, curvature, level velocity) as deterministic features without any monthly-to-daily forward-fill interpolation.",
+  "objective": "Build a real interest rate submodel attempt 10 using a fundamentally different feature extraction approach from attempts 7-9. Use PCA on daily DFII changes to produce data-driven orthogonal features, avoiding the hand-crafted Sharpe-MAE tradeoff observed in attempts 7-9.",
 
   "background": {
-    "previous_attempts_summary": {
-      "attempt_1": "MLP Autoencoder - Gate1 FAIL (overfit 2.69, autocorr>0.99)",
-      "attempt_2": "GRU Autoencoder - all Optuna trials pruned, GRU convergence failure",
-      "attempt_3": "Multi-country Transformer - Gate2 PASS (MI +23.8%), Gate3 FAIL - forward-fill step function caused MAE degradation",
-      "attempt_4": "PCA + Cubic Spline - Gate2 PASS (MI +10.29%), Gate3 FAIL - all metrics degraded in all 5 folds",
-      "attempt_5": "Markov + CUSUM (7 cols) - Gate2 PASS (MI +39.3%), Gate3 FAIL - worst degradation ever",
-      "attempt_6": "Deterministic Vol+Momentum (US-only daily DFII10) - Gate2 FAIL (MI 1.95%), Gate3 FAIL"
-    },
-    "root_cause_analysis": {
-      "monthly_data_problem": "Attempts 3-5 used monthly TIPS data forward-filled to daily. This step-function creates artificial persistence that degrades MAE even when MI is high.",
-      "single_series_problem": "Attempt 6 used only daily DFII10. Single series provides insufficient information (MI +1.95%) despite being clean daily data.",
-      "solution": "Use MULTIPLE daily DFII series (DFII5, DFII7, DFII10, DFII20, DFII30) to extract curve SHAPE, not level. Shape features are orthogonal to the raw DFII10 already in base_features."
-    },
-    "key_insight": "Attempt 3 confirmed information exists in real rates (MI +23.8%). The problem was HOW to extract it. Yield curve shape features from multiple daily DFII series avoid both the monthly forward-fill problem AND the single-series information insufficiency."
+    "attempt_7_result": "Gate 3 PASS via Sharpe +0.329 (6.6x threshold). 4 features: rr_level_change_z, rr_slope_chg_z, rr_curvature_chg_z, rr_slope_level_z. BEST overall attempt.",
+    "attempt_8_result": "Gate 3 PASS via MAE -0.0203 (2.0x threshold). 3 features: removed rr_slope_level_z. Sharpe reversed to -0.260.",
+    "attempt_9_result": "Gate 3 PASS via MAE -0.0141 (1.4x threshold). 5 features: attempt 7 + interaction. STRICTLY WORSE than attempt 8 on ALL metrics. Combination strategy failed.",
+    "fundamental_tradeoff": "rr_slope_level_z (252-day rolling z-score, autocorr=0.937) drives Sharpe improvement but hurts MAE/DA. Without it, MAE improves but Sharpe degrades. Adding more hand-crafted features (attempt 9) makes everything worse.",
+    "key_lesson": "Hand-crafted feature combinations have been exhausted. Need fundamentally different approach."
+  },
+
+  "previous_feedback": {
+    "attempt_9_gate3": "PASS via MAE (-0.0141) but strictly worse than attempt 8 on all metrics",
+    "anti_patterns": [
+      "DO NOT add features on top of attempt 7 set (attempt 9 proved counterproductive)",
+      "DO NOT use rr_slope_level_z and expect MAE improvement (structural tradeoff)",
+      "DO NOT remove rr_slope_level_z and expect Sharpe improvement (structural tradeoff)",
+      "DO NOT use 252-day rolling window for level features (causes autocorr=0.937)"
+    ]
   },
 
   "design_approach": {
-    "name": "Real Yield Curve Shape Features (Daily DFII Multi-Tenor)",
+    "name": "PCA on Daily DFII Changes",
     "data_sources": [
       "FRED: DFII5 (5Y TIPS yield, daily)",
       "FRED: DFII7 (7Y TIPS yield, daily)",
@@ -34,53 +35,42 @@
       "FRED: DFII30 (30Y TIPS yield, daily)"
     ],
     "feature_design": {
-      "rr_slope_z": "Z-score of daily change in (DFII30 - DFII5). Window 60 days. Captures steepening/flattening dynamics.",
-      "rr_curvature_z": "Z-score of (2*DFII10 - DFII5 - DFII30). Window 60 days. Captures belly distortion.",
-      "rr_level_change_z": "Z-score of DFII10 daily change. Window 30 days. Captures level velocity.",
-      "rr_slope_level": "Raw value of (DFII30 - DFII5). Absolute slope regime signal (optional 4th feature)."
+      "approach": "Compute daily changes for all 5 DFII series. Apply rolling PCA (window 252 or expanding) to the 5-dimensional change vector. Output the projection onto the top 2-3 principal components as rolling z-scores.",
+      "rationale": "PCA produces orthogonal components by construction. No autocorrelation issue since we use daily changes not levels. Data-driven -- not biased by hand-crafted assumptions about which combinations matter."
     },
-    "max_features": 4,
-    "model_type": "Deterministic transformation (no neural network needed)",
-    "rationale": "Pure deterministic features avoid overfitting entirely. All series are daily (no forward-fill). Features are designed to be orthogonal to DFII10 raw level already in base_features."
+    "alternative": {
+      "approach": "Exponential decay weighting. Same 3 change features as attempt 8 but add a 4th feature: EWM slope level with half-life 10-20 days (instead of 252-day rolling). This captures the same information as rr_slope_level_z but with much lower autocorrelation.",
+      "rationale": "Short memory exponential decay may preserve the Sharpe signal from rr_slope_level_z while avoiding the autocorrelation problem that hurts MAE."
+    },
+    "architect_decides": "Choose PCA approach (priority 1) or exponential decay (priority 2) based on feasibility and expected information content"
   },
 
   "output_spec": {
     "file": "data/processed/real_rate/data.csv",
     "format": "CSV with date index",
-    "columns": ["rr_slope_z", "rr_curvature_z", "rr_level_change_z"],
-    "optional_4th": "rr_slope_level if architect deems useful",
-    "date_range": "2015-01-02 to 2025-02-12 (matching target.csv)",
-    "nan_handling": "NaN allowed where DFII series unavailable (first 30-60 days for z-score warmup). Do NOT forward-fill across missing values."
+    "columns": "2-4 features, architect decides",
+    "date_range": "Matching target.csv",
+    "nan_handling": "NaN for warmup period. No forward-fill."
   },
 
   "constraints": [
     "Maximum 4 output features",
-    "No monthly data (all sources must be daily frequency from FRED)",
-    "No forward-fill of monthly-to-daily (this was the root cause of attempts 3-5 failure)",
-    "No neural network training required - pure deterministic features",
-    "FRED API key via environment variable or Kaggle Secrets",
-    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']",
-    "Kaggle notebook: use UserSecretsClient for FRED_API_KEY"
+    "All sources must be daily frequency from FRED",
+    "No forward-fill of monthly-to-daily",
+    "No neural network training required -- pure deterministic features",
+    "FRED API key via Kaggle Secrets (UserSecretsClient)",
+    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']"
   ],
 
   "success_criteria": {
-    "gate1": "No overfitting (deterministic features: always pass), no all-NaN or constant columns",
-    "gate2": "MI increase > 5% (attempt 3 showed MI +23.8% is achievable with real rate curve info)",
-    "gate3": "Any one of: DA +0.5pp, Sharpe +0.05, MAE -0.01%"
+    "gate1": "No overfitting, no all-NaN or constant columns",
+    "gate2": "MI increase > 5%",
+    "gate3": "Any one of: DA +0.5pp, Sharpe +0.05, MAE -0.01%. Goal: beat attempt 7 Sharpe +0.329 or attempt 8 MAE -0.0203. Realistically, matching either would be a success."
   },
 
   "kaggle_config": {
-    "kernel_id": "bigbigzabuton/gold-real-rate-7",
-    "notebook_path": "notebooks/real_rate_7/",
+    "kernel_id": "bigbigzabuton/gold-real-rate-10",
+    "notebook_path": "notebooks/real_rate_10/",
     "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"]
-  },
-
-  "research_questions": [
-    "Confirm FRED DFII5, DFII7, DFII10, DFII20, DFII30 are available as daily series",
-    "Verify the exact FRED series IDs for each tenor",
-    "Check historical coverage: when did each series start? DFII5 may have shorter history.",
-    "Confirm no forward-fill will be needed: are these series truly daily business day frequency?",
-    "Verify: is slope (30Y-5Y) a known predictor of gold prices in academic literature?",
-    "Is curvature (2*10Y - 5Y - 30Y) used in bond/commodity research?"
-  ]
+  }
 }

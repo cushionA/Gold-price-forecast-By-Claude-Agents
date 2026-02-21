@@ -1,14 +1,14 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_retry",
   "current_feature": "real_rate",
-  "current_attempt": 9,
-  "resume_from": "evaluator",
+  "current_attempt": 10,
+  "resume_from": "architect",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "gate3_pass_mae_attempt_8",
+  "evaluator_status": "gate3_pass_mae_attempt_9_worse_than_7_and_8",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -39,7 +39,7 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-real-rate-9",
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-model-attempt-9",
   "submitted_at": "2026-02-21T20:39:47.641360",
   "baseline_metrics": {
     "test_mae": 0.7139,
@@ -186,6 +186,26 @@
           "sharpe_improved_only_1_of_3_folds"
         ],
         "note": "Gate 3 PASS via MAE (-0.0203, 2.03x threshold). Removing rr_slope_level_z traded Sharpe gain for MAE gain. Key insight: rr_slope_level_z is essential for Sharpe but hurts MAE. Attempt 9 goal: retain all 4 attempt 7 features + add 5th momentum feature."
+      },
+      "attempt_9": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "gate3_pass_mae_but_worse_than_7_and_8",
+        "primary_successes": [
+          "gate3_mae_delta=-0.0141_1.4x_threshold",
+          "gate1_all_pass_overfit_1.0",
+          "gate2_vif_max_1.24_excellent",
+          "new_interaction_feature_low_autocorr_0.059"
+        ],
+        "primary_failures": [
+          "gate3_sharpe_delta=-0.186_worse_than_attempt_8_-0.260",
+          "gate3_da_delta=-0.0173_worst_of_attempts_7_8_9",
+          "gate3_mae_delta=-0.0141_weaker_than_attempt_8_-0.0203",
+          "strictly_worse_than_attempt_8_on_all_metrics",
+          "combination_strategy_counterproductive"
+        ],
+        "note": "Gate 3 PASS via MAE (-0.0141, 1.4x threshold). However, attempt 9 is STRICTLY WORSE than attempt 8 on ALL metrics (MAE -0.0141 vs -0.0203, Sharpe -0.186 vs -0.260, DA -0.0173 vs -0.01471). Adding rr_slope_level_z back + interaction feature degraded everything vs attempt 8. 3-attempt sequence (7,8,9) confirms irreconcilable Sharpe-MAE tradeoff. Evaluator recommends attempt 7 as final output. Continuing to attempt 10 per user directive (max_attempt=11)."
       }
     },
     "vix": {
@@ -855,9 +875,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T20:39:47.641377",
+  "last_updated": "2026-02-21T22:00:00",
   "error_type": null,
-  "auto_resume_remaining": 0,
+  "auto_resume_remaining": 1,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -869,13 +889,14 @@
   },
   "real_rate_retry_context": {
     "user_requested": true,
-    "attempts_remaining": 1,
+    "attempts_remaining": 0,
     "reason": "User wants auto-run until attempt 9 (2 more Kaggle submissions after attempt 7)",
     "previous_no_further_improvement": true,
     "max_loops": 1,
     "new_approach": "Real yield curve shape (DFII5/DFII7/DFII10/DFII20/DFII30 - all daily)",
     "attempt7_result_downloaded": true,
     "attempt7_self_gate3": "PASS (Sharpe +0.329)",
-    "note": "Only count attempt increments on Kaggle submissions, not planning cycles"
+    "note": "Run until attempt 11. After evaluating each attempt, submit next with submit_and_monitor(max_loops=1). STOP after evaluating attempt 11 - do NOT submit attempt 12. Chain: evaluate9→submit10(max_loops=1) → evaluate10→submit11(max_loops=1) → evaluate11→STOP.",
+    "max_attempt": 11
   }
 }

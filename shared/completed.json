@@ -1,18 +1,30 @@
 {
   "real_rate": {
-    "status": "no_further_improvement",
-    "final_attempt": 6,
+    "status": "in_progress_retry",
+    "best_attempt": 7,
+    "current_attempt": 9,
+    "max_attempt": 11,
     "final_gate_reached": 3,
-    "gate3_scores": {
-      "direction_accuracy_delta": -0.00574,
-      "sharpe_delta": -0.249,
-      "mae_delta": -0.00074
+    "gate3_scores_best": {
+      "direction_accuracy_delta": -0.00149,
+      "sharpe_delta": 0.329,
+      "mae_delta": -0.00221
     },
-    "output_columns": [],
-    "output_path": null,
+    "gate3_scores_attempt_9": {
+      "direction_accuracy_delta": -0.0173,
+      "sharpe_delta": -0.186,
+      "mae_delta": -0.0141
+    },
+    "output_columns": ["rr_level_change_z", "rr_slope_chg_z", "rr_curvature_chg_z", "rr_slope_level_z"],
+    "output_path": "data/submodel_outputs/real_rate.csv",
     "model_path": null,
-    "completed_at": "2026-02-17T21:00:00",
-    "reason": "6 attempts exhausted (MLP, GRU, Transformer, PCA, StateFeatures, DeterministicBondVolMomentum). Attempt 6 used US-only daily DFII10 with deterministic rolling statistics (bond vol z-score + momentum persistence z-score). Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). All 6 approaches fail Gate 3 despite varying MI increases (2-39%). Information in DFII10 derivatives beyond raw daily change (real_rate_change base feature) is redundant with existing submodel features. No further approaches remain."
+    "completed_at": null,
+    "reason": "User-requested retry (attempts 7-11). Attempt 7 passed Gate 3 via Sharpe (+0.329, 6.6x threshold). Attempts 8 and 9 also pass Gate 3 via MAE but are overall weaker. Attempt 7 remains best. Continuing to attempt 10 per user directive.",
+    "attempt_history_summary": {
+      "attempt_7": "Gate 3 PASS Sharpe +0.329 (BEST). 4 features.",
+      "attempt_8": "Gate 3 PASS MAE -0.0203. 3 features. Sharpe reversed to -0.260.",
+      "attempt_9": "Gate 3 PASS MAE -0.0141. 5 features. Strictly worse than attempt 8 on all metrics."
+    }
   },
   "dxy": {
     "status": "completed",
