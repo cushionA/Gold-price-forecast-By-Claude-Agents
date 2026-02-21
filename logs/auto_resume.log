@@ -198,3 +198,10 @@ Max wait time: 3.0 hours
 2026-02-21 19:47:58,269 [INFO] Claude Code exited (code=0)
 2026-02-21 19:47:58,269 [INFO] Done. Claude Code session completed.
 2026-02-21 19:47:58,269 [INFO] auto_resume exiting.
+2026-02-21 20:13:26,555 [INFO] ============================================================
+2026-02-21 20:13:26,555 [INFO] auto_resume started
+2026-02-21 20:13:26,569 [INFO] auto_resume_remaining set to 1
+2026-02-21 20:13:26,570 [INFO] Watching: real_rate attempt 8
+2026-02-21 20:13:26,570 [INFO] Kernel: bigbigzabuton/gold-real-rate-8
+2026-02-21 20:13:26,570 [INFO] Remaining loops: 1
+2026-02-21 20:13:26,570 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)

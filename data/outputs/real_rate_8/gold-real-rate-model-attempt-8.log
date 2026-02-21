@@ -1,0 +1,146 @@
+[{"stream_name":"stderr","time":8.573371128,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.573438486,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.573443445,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.573446143,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.405978502,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.406027144,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.406033484,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.406037808,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.754858313,"data":"Started: 2026-02-21T11:13:39.466895\n"}
+,{"stream_name":"stdout","time":11.754936538,"data":"Libraries loaded successfully\n"}
+,{"stream_name":"stdout","time":11.774905643,"data":"FRED public CSV fetcher ready (no API key required)\n"}
+,{"stream_name":"stdout","time":11.955081092,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":11.955131115,"data":"DATA FETCHING\n"}
+,{"stream_name":"stdout","time":11.955152537,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":13.057814148,"data":"  DFII5: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.166581516,"data":"  DFII10: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.81010371,"data":"  DFII30: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.810148761,"data":"\n"}
+,{"stream_name":"stdout","time":14.810152826,"data":"Combined (all 3 non-null): 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.838717812,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.838762138,"data":"INTERMEDIATE SERIES\n"}
+,{"stream_name":"stdout","time":14.838767573,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.838771956,"data":"Slope range: -0.400 to 1.950 (mean=0.673)\n"}
+,{"stream_name":"stdout","time":14.83877576,"data":"Curvature range: -0.550 to 0.320 (mean=-0.182)\n"}
+,{"stream_name":"stdout","time":14.838779663,"data":"DFII10 daily chg: [-0.4500, 0.3900]\n"}
+,{"stream_name":"stdout","time":14.838783181,"data":"Slope daily chg: [-0.2600, 0.2100]\n"}
+,{"stream_name":"stdout","time":14.838786872,"data":"Curvature daily chg: [-0.1500, 0.2200]\n"}
+,{"stream_name":"stdout","time":14.860511871,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.860575509,"data":"DATASET PATH RESOLUTION\n"}
+,{"stream_name":"stdout","time":14.860582351,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.860587741,"data":"Found submodel dataset at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":14.860592959,"data":"Submodel files (13): ['yield_curve.csv', 'options_market.csv', 'technical.csv', 'inflation_expectation.csv', 'cny_demand.csv', 'base_features_raw.csv', 'temporal_context.csv', 'regime_classification.csv', 'vix.csv', 'dxy.csv']\n"}
+,{"stream_name":"stdout","time":14.899018112,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.899072841,"data":"FEATURE COMPUTATION (ATTEMPT 8: 3 CLEAN CHANGE FEATURES)\n"}
+,{"stream_name":"stdout","time":14.899079613,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.899084663,"data":"CHANGE FROM ATTEMPT 7: Removed rr_slope_level_z (autocorr=0.937)\n"}
+,{"stream_name":"stdout","time":14.899089678,"data":"Rationale: High-autocorr level feature degraded DA (-0.00149pp). Pure change features are cleaner.\n"}
+,{"stream_name":"stdout","time":14.899094166,"data":"\n"}
+,{"stream_name":"stdout","time":14.899098141,"data":"Features computed (3 total):\n"}
+,{"stream_name":"stdout","time":14.899102236000001,"data":"  rr_level_change_z: valid=2776, nan=15 (0.5%), autocorr=0.0219, std=0.9925\n"}
+,{"stream_name":"stdout","time":14.899106849,"data":"  rr_slope_chg_z: valid=2761, nan=30 (1.1%), autocorr=-0.0508, std=0.9994\n"}
+,{"stream_name":"stdout","time":14.899111292,"data":"  rr_curvature_chg_z: valid=2761, nan=30 (1.1%), autocorr=-0.2076, std=0.9854\n"}
+,{"stream_name":"stdout","time":14.998484046,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.998532806,"data":"ALIGNMENT TO SCHEMA DATES\n"}
+,{"stream_name":"stdout","time":14.998538533,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.399622731,"data":"Gold trading calendar: 2804 dates, 2014-01-02 to 2025-02-27\n"}
+,{"stream_name":"stdout","time":17.399680447,"data":"Schema dates: 2542 dates, 2015-01-02 to 2025-02-12\n"}
+,{"stream_name":"stdout","time":17.399687003,"data":"Features aligned shape: (2542, 3)\n"}
+,{"stream_name":"stdout","time":17.399691733,"data":"NaN counts after alignment:\n"}
+,{"stream_name":"stdout","time":17.399696054,"data":"  rr_level_change_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.39970052,"data":"  rr_slope_chg_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.399704649,"data":"  rr_curvature_chg_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":17.42286427,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.422916088,"data":"DATA SPLIT\n"}
+,{"stream_name":"stdout","time":17.422922538,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.422926984,"data":"Common dates (features + target): 2542\n"}
+,{"stream_name":"stdout","time":17.422931315,"data":"Train: 1779 (2015-01-02 to 2022-01-28)\n"}
+,{"stream_name":"stdout","time":17.422935887,"data":"Val:   381 (2022-01-31 to 2023-08-07)\n"}
+,{"stream_name":"stdout","time":17.422940192,"data":"Test:  382 (2023-08-08 to 2025-02-12)\n"}
+,{"stream_name":"stdout","time":17.446270273,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.446322639999998,"data":"GATE 1: STANDALONE QUALITY\n"}
+,{"stream_name":"stdout","time":17.446328337,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.446332415,"data":"  rr_level_change_z: PASS | nan=0.0%, std=0.9902, autocorr=0.0317\n"}
+,{"stream_name":"stdout","time":17.44633633,"data":"  rr_slope_chg_z: PASS | nan=0.0%, std=1.0006, autocorr=-0.0417\n"}
+,{"stream_name":"stdout","time":17.44634049,"data":"  rr_curvature_chg_z: PASS | nan=0.0%, std=0.9878, autocorr=-0.1983\n"}
+,{"stream_name":"stdout","time":17.446344273,"data":"\n"}
+,{"stream_name":"stdout","time":17.446347887,"data":"Overfit ratio: 1.00 (deterministic, no training)\n"}
+,{"stream_name":"stdout","time":17.446372898,"data":"Gate 1 Overall: PASS\n"}
+,{"stream_name":"stdout","time":17.590250587,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.590293252,"data":"GATE 2: INFORMATION GAIN\n"}
+,{"stream_name":"stdout","time":17.590299335,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.557276862,"data":"WARNING: Could not load base features: [Errno 2] No such file or directory: '/kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/meta_model_input.csv'\n"}
+,{"stream_name":"stdout","time":19.557335103,"data":"  MI(rr_level_change_z) = 0.514569\n"}
+,{"stream_name":"stdout","time":19.557342694,"data":"  MI(rr_slope_chg_z) = 0.513861\n"}
+,{"stream_name":"stdout","time":19.557347711,"data":"  MI(rr_curvature_chg_z) = 0.561338\n"}
+,{"stream_name":"stdout","time":19.557352429,"data":"\n"}
+,{"stream_name":"stdout","time":19.557356157,"data":"New features MI total: 1.589768\n"}
+,{"stream_name":"stdout","time":19.557361067,"data":"Baseline MI total: 0.100000\n"}
+,{"stream_name":"stdout","time":19.557366087,"data":"MI increase: 1589.77% (threshold: \u003e 5%)\n"}
+,{"stream_name":"stdout","time":19.557370983,"data":"Gate 2 MI: PASS\n"}
+,{"stream_name":"stdout","time":19.55737613,"data":"Max VIF: 1.214 (threshold: \u003c 10)\n"}
+,{"stream_name":"stdout","time":19.557380421,"data":"Max rolling corr std: 0.1589 (threshold: \u003c 0.15)\n"}
+,{"stream_name":"stdout","time":19.557385379,"data":"Gate 2 Overall: PASS (MI=True, VIF=True, stability=False)\n"}
+,{"stream_name":"stdout","time":19.889390199,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.889439439,"data":"GATE 3: ABLATION TEST (4-FOLD CV)\n"}
+,{"stream_name":"stdout","time":19.889443433,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":20.172697036,"data":"meta_model_input.csv not found - constructing from base_features_raw.csv + submodel CSVs\n"}
+,{"stream_name":"stdout","time":20.172750822,"data":"  base_features_raw.csv: (3050, 6)\n"}
+,{"stream_name":"stdout","time":20.172756376,"data":"  cny_demand.csv: (2765, 1)\n"}
+,{"stream_name":"stdout","time":20.17276074,"data":"  cross_asset.csv: (2522, 3)\n"}
+,{"stream_name":"stdout","time":20.172764999,"data":"  dxy.csv: (2862, 3)\n"}
+,{"stream_name":"stdout","time":20.172769216,"data":"  etf_flow.csv: (2838, 3)\n"}
+,{"stream_name":"stdout","time":20.172774003,"data":"  inflation_expectation.csv: (2924, 3)\n"}
+,{"stream_name":"stdout","time":20.172778333,"data":"  WARNING: Could not load options_market.csv: Tz-aware datetime.datetime cannot be converted to datetime64 unless utc=True, at position 22\n"}
+,{"stream_name":"stdout","time":20.172782988,"data":"  regime_classification.csv: (2976, 3)\n"}
+,{"stream_name":"stdout","time":20.456436723,"data":"  WARNING: Could not load technical.csv: Tz-aware datetime.datetime cannot be converted to datetime64 unless utc=True, at position 23\n"}
+,{"stream_name":"stdout","time":20.4564902,"data":"  temporal_context.csv: (2461, 1)\n"}
+,{"stream_name":"stdout","time":20.45649478,"data":"  vix.csv: (2857, 3)\n"}
+,{"stream_name":"stdout","time":20.456498621,"data":"  yield_curve.csv: (2794, 3)\n"}
+,{"stream_name":"stdout","time":20.456502702,"data":"Meta model input (constructed): (3050, 29)\n"}
+,{"stream_name":"stdout","time":20.456506661,"data":"Columns: ['gold_return_next', 'real_rate_real_rate', 'dxy_dxy', 'vix_vix', 'yield_curve_yield_spread', 'inflation_expectation_inflation_expectation', 'cny_demand_spread_z', 'xasset_regime_prob', 'xasset_recession_signal', 'xasset_divergence']...\n"}
+,{"stream_name":"stdout","time":20.456536536,"data":"Target column: gold_return_next\n"}
+,{"stream_name":"stdout","time":20.45654023,"data":"Base feature columns: 28\n"}
+,{"stream_name":"stdout","time":20.456543732,"data":"  Fold 1: skipped (insufficient training data)\n"}
+,{"stream_name":"stdout","time":20.456547392,"data":"Running 3 folds...\n"}
+,{"stream_name":"stdout","time":20.94067057,"data":"  Fold 1: Base DA=0.4959, Ext DA=0.4845 (delta=-0.0114)\n"}
+,{"stream_name":"stdout","time":20.940718237,"data":"           Base Sharpe=-1.0207, Ext Sharpe=-0.5367 (delta=+0.4839)\n"}
+,{"stream_name":"stdout","time":20.940722773,"data":"           Base MAE=0.6570, Ext MAE=0.6095 (delta=-0.0475)\n"}
+,{"stream_name":"stdout","time":21.353590305,"data":"  Fold 2: Base DA=0.4871, Ext DA=0.4759 (delta=-0.0113)\n"}
+,{"stream_name":"stdout","time":21.353635482,"data":"           Base Sharpe=0.0003, Ext Sharpe=-0.2582 (delta=-0.2586)\n"}
+,{"stream_name":"stdout","time":21.353640285,"data":"           Base MAE=0.8649, Ext MAE=0.8511 (delta=-0.0138)\n"}
+,{"stream_name":"stdout","time":21.587050591,"data":"  Fold 3: Base DA=0.5050, Ext DA=0.4835 (delta=-0.0215)\n"}
+,{"stream_name":"stdout","time":21.587099893,"data":"           Base Sharpe=0.6315, Ext Sharpe=-0.3740 (delta=-1.0055)\n"}
+,{"stream_name":"stdout","time":21.587104711,"data":"           Base MAE=0.7067, Ext MAE=0.7070 (delta=+0.0003)\n"}
+,{"stream_name":"stdout","time":21.58710845,"data":"\n"}
+,{"stream_name":"stdout","time":21.587112129,"data":"--- Gate 3 Summary ---\n"}
+,{"stream_name":"stdout","time":21.587115998,"data":"Direction Accuracy: 0.4960 -\u003e 0.4813 (delta=-0.0147)\n"}
+,{"stream_name":"stdout","time":21.587120005,"data":"Sharpe Ratio:       -0.1296 -\u003e -0.3896 (delta=-0.2600)\n"}
+,{"stream_name":"stdout","time":21.587123621,"data":"MAE:                0.7429 -\u003e 0.7225 (delta=-0.0203)\n"}
+,{"stream_name":"stdout","time":21.587127591,"data":"Gate 3: DA=False, Sharpe=False, MAE=True\n"}
+,{"stream_name":"stdout","time":21.587131084,"data":"Gate 3 Overall: PASS\n"}
+,{"stream_name":"stdout","time":21.642414198,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":21.64246408,"data":"SAVING OUTPUTS\n"}
+,{"stream_name":"stdout","time":21.642470844,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":21.64247535,"data":"Saved submodel_output.csv: (2542, 3)\n"}
+,{"stream_name":"stdout","time":21.642479835,"data":"Columns: ['rr_level_change_z', 'rr_slope_chg_z', 'rr_curvature_chg_z']\n"}
+,{"stream_name":"stdout","time":21.642493729999998,"data":"Saved training_result.json\n"}
+,{"stream_name":"stdout","time":21.642498025,"data":"\n"}
+,{"stream_name":"stdout","time":21.642502084,"data":"Finished: 2026-02-21T11:13:49.354811\n"}
+,{"stream_name":"stdout","time":21.642506542,"data":"Training complete!\n"}
+,{"stream_name":"stdout","time":21.642510693,"data":"Gate 1: PASS\n"}
+,{"stream_name":"stdout","time":21.642515135,"data":"Gate 2: PASS (MI +1589.8%, VIF 1.21)\n"}
+,{"stream_name":"stdout","time":21.642520015,"data":"Gate 3: PASS (DA -0.0147, Sharpe -0.2600, MAE -0.0203)\n"}
+,{"stream_name":"stderr","time":25.672086723,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":25.672143704,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":25.882328996,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":25.882384857,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":26.617094177,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.617139504,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.6551025,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":27.063357961,"data":"[NbConvertApp] Writing 46225 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":30.278968452,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":30.279030504,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":30.305153643,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":31.488009534,"data":"[NbConvertApp] Writing 410992 bytes to __results__.html\n"}
+]
