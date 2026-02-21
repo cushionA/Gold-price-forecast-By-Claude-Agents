@@ -1,19 +1,26 @@
 {
   "status": "in_progress",
   "phase": "phase2_submodel_extra",
-  "current_feature": "options_market",
-  "current_attempt": 3,
-  "resume_from": "evaluator",
+  "current_feature": "yield_curve",
+  "current_attempt": 5,
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
-  "builder_model_status": "notebook_generated",
-  "evaluator_status": "options_market_attempt3_all_gates_pass_completed_best",
+  "architect_status": "completed",
+  "builder_model_status": "",
+  "evaluator_status": "",
   "retry_ctx": {
     "automation_test": true,
-    "max_attempt": 5
+    "max_attempt": 7
   },
-  "auto_resume_remaining": 2,
+  "retry_context": {
+    "feature": "yield_curve",
+    "max_attempt": 7,
+    "automation_test": true,
+    "note": "Automation pipeline test: run yield_curve attempts 5-7. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor(max_loops=1). STOP after evaluating attempt 7."
+  },
+  "auto_resume_remaining": 3,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
