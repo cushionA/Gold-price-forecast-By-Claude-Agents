@@ -268,3 +268,15 @@ Max wait time: 3.0 hours
 2026-02-21 22:32:41,164 [INFO] auto_resume_remaining=0. NOT launching Claude. Loop stopped.
 2026-02-21 22:32:41,164 [INFO] Results are fetched. Run manually: claude -p 'Resume from evaluator'
 2026-02-21 22:32:41,165 [INFO] auto_resume exiting.
+2026-02-21 22:49:58,165 [INFO] ============================================================
+2026-02-21 22:49:58,165 [INFO] auto_resume started
+2026-02-21 22:49:58,188 [INFO] auto_resume_remaining set to 3
+2026-02-21 22:49:58,189 [INFO] Watching: yield_curve attempt 2
+2026-02-21 22:49:58,189 [INFO] Kernel: bigbigzabuton/gold-yield-curve-model-attempt-2
+2026-02-21 22:49:58,189 [INFO] Remaining loops: 3
+2026-02-21 22:49:58,189 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)
+2026-02-21 22:52:36,193 [INFO] Monitor exited (code=1)
+2026-02-21 22:52:36,194 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-21 22:52:36,194 [INFO] Kaggle ERROR: auto_resume_remaining NOT decremented (kept at 3)
+2026-02-21 22:52:36,194 [INFO] Lock released. Launching Claude...
+2026-02-21 22:52:36,202 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
