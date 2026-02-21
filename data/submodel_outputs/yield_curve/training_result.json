@@ -1,46 +1,55 @@
 {
   "feature": "yield_curve",
-  "attempt": 3,
-  "timestamp": "2026-02-21T14:44:54.871353",
+  "attempt": 4,
+  "timestamp": "2026-02-21T16:20:04.001002",
   "best_params": {
-    "change_window_short": 3,
-    "velocity_zscore_window": 21,
-    "level_zscore_window": 356,
-    "vol_window": 13
+    "accel_zscore_window": 30,
+    "curv_zscore_window": 30,
+    "momentum_window": 7,
+    "mom_zscore_window": 90,
+    "vol_window": 30,
+    "vol_zscore_window": 60
   },
   "metrics": {
-    "mi_individual": {
-      "yc_curvature_z": 0.5602075508922185,
-      "yc_10y3m_velocity_z": 0.49726489280394104,
-      "yc_spread_level_z": 0.5010023795451163,
-      "yc_vol_regime_z": 0.5650618090863728
+    "mi_sum_val": 2.335195,
+    "mi_individual_val": {
+      "yc_spread_accel_z": 0.555899,
+      "yc_curv_change_z": 0.611698,
+      "yc_mom_divergence_z": 0.578206,
+      "yc_vol_ratio_chg_z": 0.589391
     },
-    "mi_sum": 2.1235366323276486,
+    "mi_individual_test": {
+      "yc_spread_accel_z": 0.585281,
+      "yc_curv_change_z": 0.534073,
+      "yc_mom_divergence_z": 0.531724,
+      "yc_vol_ratio_chg_z": 0.548704
+    },
+    "mi_sum_test": 2.199782,
     "autocorr": {
-      "yc_curvature_z": -0.17822756224679273,
-      "yc_10y3m_velocity_z": 0.6028865917079045,
-      "yc_spread_level_z": 0.9926223519730103,
-      "yc_vol_regime_z": 0.8618884615627845
+      "yc_spread_accel_z": -0.5065,
+      "yc_curv_change_z": -0.1863,
+      "yc_mom_divergence_z": 0.7733,
+      "yc_vol_ratio_chg_z": 0.1519
     },
-    "optuna_best_value": 2.1235366323276486,
+    "optuna_best_value": 2.335195,
     "optuna_trials_completed": 50
   },
   "output_shape": [
-    2799,
+    2523,
     4
   ],
   "output_columns": [
-    "yc_curvature_z",
-    "yc_10y3m_velocity_z",
-    "yc_spread_level_z",
-    "yc_vol_regime_z"
+    "yc_spread_accel_z",
+    "yc_curv_change_z",
+    "yc_mom_divergence_z",
+    "yc_vol_ratio_chg_z"
   ],
   "data_info": {
-    "total_samples": 2799,
-    "train_samples": 1959,
-    "val_samples": 420,
-    "test_samples": 420,
-    "date_range_start": "2015-01-02",
-    "date_range_end": "2026-02-19"
+    "total_samples": 2523,
+    "train_samples": 1766,
+    "val_samples": 378,
+    "test_samples": 379,
+    "date_range_start": "2015-01-30",
+    "date_range_end": "2025-02-12"
   }
 }

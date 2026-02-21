@@ -368,3 +368,10 @@ Max wait time: 3.0 hours
 2026-02-22 01:16:45,654 [INFO] auto_resume_remaining=0. NOT launching Claude. Loop stopped.
 2026-02-22 01:16:45,654 [INFO] Error fix needed. Run manually: python scripts/auto_resume.py
 2026-02-22 01:16:45,654 [INFO] auto_resume exiting.
+2026-02-22 01:19:48,515 [INFO] ============================================================
+2026-02-22 01:19:48,515 [INFO] auto_resume started
+2026-02-22 01:19:48,533 [INFO] auto_resume_remaining set to 3
+2026-02-22 01:19:48,534 [INFO] Watching: yield_curve attempt 4
+2026-02-22 01:19:48,534 [INFO] Kernel: bigbigzabuton/gold-yield-curve-model-attempt-4
+2026-02-22 01:19:48,534 [INFO] Remaining loops: 3
+2026-02-22 01:19:48,535 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=120s)
