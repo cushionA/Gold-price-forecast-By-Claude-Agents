@@ -56,3 +56,9 @@ Max wait time: 3.0 hours
 2026-02-21 17:42:35,241 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-16
 2026-02-21 17:42:35,241 [INFO] Remaining loops: 3
 2026-02-21 17:42:35,241 [INFO] Starting monitor (interval=60s, max=3.0h)
+2026-02-21 17:43:47,138 [INFO] Monitor exited (code=0)
+2026-02-21 17:43:47,141 [INFO] auto_resume_remaining: 3 → 2
+2026-02-21 17:43:47,141 [INFO] Launching claude -p ...
+2026-02-21 17:43:47,161 [ERROR] 'claude' not found in PATH
+2026-02-21 17:43:47,161 [ERROR] Claude Code failed. Manual resume needed.
+2026-02-21 17:43:47,162 [INFO] auto_resume exiting.
