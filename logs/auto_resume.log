@@ -264,3 +264,7 @@ Max wait time: 3.0 hours
 2026-02-21 22:31:38,267 [INFO] Claude Code exited (code=0)
 2026-02-21 22:31:38,268 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
 2026-02-21 22:31:38,268 [INFO] auto_resume exiting.
+2026-02-21 22:32:41,163 [INFO] Monitor exited (code=0)
+2026-02-21 22:32:41,164 [INFO] auto_resume_remaining=0. NOT launching Claude. Loop stopped.
+2026-02-21 22:32:41,164 [INFO] Results are fetched. Run manually: claude -p 'Resume from evaluator'
+2026-02-21 22:32:41,165 [INFO] auto_resume exiting.
