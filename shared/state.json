@@ -1,14 +1,14 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_retry",
   "current_feature": "real_rate",
-  "current_attempt": 8,
-  "resume_from": "evaluator",
+  "current_attempt": 9,
+  "resume_from": "architect",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "gate3_pass_sharpe_attempt_7",
+  "evaluator_status": "gate3_pass_mae_attempt_8",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -39,7 +39,7 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-real-rate-8",
+  "kaggle_kernel": "bigbigzabuton/gold-real-rate-model-attempt-8",
   "submitted_at": "2026-02-21T20:13:24.286296",
   "baseline_metrics": {
     "test_mae": 0.7139,
@@ -168,6 +168,24 @@
           "rr_slope_level_z_autocorr=0.937_high"
         ],
         "note": "Gate 3 PASS via Sharpe (+0.329, 6.6x threshold, 3/4 folds). DA marginally fails (-0.00149pp). User requested attempt 8 to improve DA while maintaining Sharpe. Improvement: remove rr_slope_level_z (high autocorr), add slope/curvature momentum-direction features."
+      },
+      "attempt_8": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "gate3_pass_mae_attempt+1_to_9",
+        "primary_successes": [
+          "gate3_mae_delta=-0.0203_2.03x_threshold",
+          "gate1_all_pass_overfit_1.0",
+          "gate2_vif_max_1.214_excellent",
+          "mae_improved_2_of_3_folds"
+        ],
+        "primary_failures": [
+          "gate3_sharpe_delta=-0.260_reversed_from_attempt_7_+0.329",
+          "gate3_da_delta=-0.01471_worse_than_attempt_7",
+          "sharpe_improved_only_1_of_3_folds"
+        ],
+        "note": "Gate 3 PASS via MAE (-0.0203, 2.03x threshold). Removing rr_slope_level_z traded Sharpe gain for MAE gain. Key insight: rr_slope_level_z is essential for Sharpe but hurts MAE. Attempt 9 goal: retain all 4 attempt 7 features + add 5th momentum feature."
       }
     },
     "vix": {
@@ -837,9 +855,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T20:13:24.286309",
+  "last_updated": "2026-02-21T20:31:53.085307",
   "error_type": null,
-  "auto_resume_remaining": 1,
+  "auto_resume_remaining": 0,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
