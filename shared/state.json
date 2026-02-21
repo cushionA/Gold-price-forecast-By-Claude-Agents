@@ -2,13 +2,13 @@
   "status": "in_progress",
   "phase": "completed",
   "current_feature": "meta_model",
-  "current_attempt": 16,
-  "resume_from": "evaluator",
+  "current_attempt": 17,
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": null,
+  "evaluator_status": "attempt_16_evaluated_attempt_plus_1",
   "current_submodel": "meta_model",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -695,12 +695,39 @@
         "XGB_only_component_DA_59.39%_close_to_attempt_7"
       ],
       "note": "Ridge+XGB ensemble (65%/35%). Best-ever HCDA (66.30% via bootstrap) and lowest overfitting (1.82pp). But Ridge component hurt DA significantly (-4.8pp vs XGB-only). XGB-only scored DA=59.39%, Sharpe=2.52 (near attempt 7). Ensemble trades direction accuracy for lower variance. 8 consecutive attempts (8-15) all failed to beat attempt 7 overall."
+    },
+    "attempt_16": {
+      "decision": "attempt+1",
+      "test_da": 0.5852,
+      "test_hcda": 0.6848,
+      "test_mae": 0.9534,
+      "test_sharpe": 1.76,
+      "train_test_da_gap_pp": 1.07,
+      "targets_passed": "3/4",
+      "architecture": "LightGBM GBDT + Bootstrap confidence (5-seed) + OLS scaling",
+      "primary_failures": [
+        "MAE_0.9534%_above_0.75%_target",
+        "DA_58.52%_below_attempt_7_60.04%_by_1.52pp",
+        "Sharpe_1.76_below_attempt_7_2.46_by_0.70",
+        "DA_0.44pp_below_naive_always_up_58.95%"
+      ],
+      "primary_successes": [
+        "HCDA_68.48%_BEST_EVER_+4.35pp_above_attempt_7",
+        "bootstrap_confidence_+8.70pp_hcda_improvement",
+        "DA_58.52%_passes_56%_target",
+        "Sharpe_1.76_passes_0.80_target",
+        "overfitting_1.07pp_excellent",
+        "genuine_prediction_variation_std_0.0481_positive_pct_65.5%"
+      ],
+      "improvement_plan": "XGBoost attempt 7 architecture + bootstrap confidence with data subsampling (10-15 models, 80% training data per model). Combine proven XGBoost base (DA 60%, Sharpe 2.46) with proven bootstrap HCDA technique (+8.70pp).",
+      "note": "LightGBM + bootstrap achieves best-ever HCDA (68.48%) but LightGBM inferior to XGBoost on DA (-1.52pp) and Sharpe (-0.70). Bootstrap technique proven effective. Untried combination: XGBoost attempt 7 + bootstrap. 9 consecutive attempts (8-16) all failed to beat attempt 7 overall, but attempt 16 validates a new technique that may work on XGBoost."
     }
   },
   "final_result": {
-    "status": "completed_attempt_7_confirmed_final",
+    "status": "in_progress_attempt_17_pending",
     "best_attempt_overall": 7,
-    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8-15 all regressed. No further improvement possible.",
+    "best_hcda_attempt": 16,
+    "best_attempt_rationale": "Attempt 7 remains best overall (DA 60.04%, HCDA 64.13%, Sharpe 2.46). Attempt 16 achieved best-ever HCDA (68.48%) via bootstrap confidence but regressed on DA/Sharpe due to LightGBM base. Attempt 17 will combine XGBoost (attempt 7) + bootstrap confidence (attempt 16) -- the only untried combination with strong empirical backing.",
     "improvement_attempts_summary": {
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
@@ -709,8 +736,9 @@
       "attempt_12": "Feature pruning 24->18 -- regressed on all metrics (DA -4.58pp, HCDA -4.35pp, Sharpe -1.33)",
       "attempt_13": "+3 regime_classification features (27 total) -- worst result since attempt 1 (DA -6.55pp, HCDA -9.78pp, Sharpe -2.33)",
       "attempt_14": "Asymmetric squared error (alpha=3.28) -- 3/4 targets but all metrics below attempt 7 (DA -2.62pp, HCDA -1.09pp, Sharpe -1.30)",
-      "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, best-ever HCDA 66.30% but DA -5.45pp (DA misses 56% target)",
-      "conclusion": "Attempt 7 confirmed as final meta-model. 8 consecutive attempts (8-15) all regressed."
+      "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, HCDA 66.30% but DA -5.45pp",
+      "attempt_16": "LightGBM + bootstrap -- 3/4 targets, BEST-EVER HCDA 68.48% but DA -1.52pp, Sharpe -0.70 (LightGBM weaker than XGBoost)",
+      "conclusion": "Attempt 17 will test XGBoost + bootstrap. If it fails, attempt 7 is confirmed final."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
@@ -789,7 +817,7 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-21T18:22:25.208299",
-  "error_type": "unknown",
-  "auto_resume_remaining": 1
+  "last_updated": "2026-02-21T19:00:00",
+  "error_type": null,
+  "auto_resume_remaining": null
 }

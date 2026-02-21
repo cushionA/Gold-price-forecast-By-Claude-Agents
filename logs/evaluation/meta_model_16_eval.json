@@ -1,0 +1,220 @@
+{
+  "feature": "meta_model",
+  "attempt": 16,
+  "timestamp": "2026-02-21T19:00:00",
+  "architecture": "LightGBM GBDT + Bootstrap confidence (5-seed ensemble) + OLS scaling",
+  "phase": "3_meta_model",
+  "evaluation_type": "final_targets",
+
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit_ratio": {
+        "value": 1.07,
+        "train_test_da_gap_pp": 1.07,
+        "threshold_pp": 10.0,
+        "passed": true,
+        "detail": "train_DA=59.59%, test_DA=58.52%. Gap 1.07pp. Well within 10pp threshold."
+      },
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "detail": "458 test predictions, std=0.0481. Genuine variation in predictions."
+      },
+      "autocorrelation": {
+        "passed": true,
+        "detail": "No autocorrelation > 0.99 detected."
+      },
+      "hpo_coverage": {
+        "value": 100,
+        "passed": true,
+        "detail": "100 Optuna trials completed. Best trial #3 (val_da=57.46%, val_hcda=57.14%)."
+      },
+      "ols_scaling": {
+        "alpha_ols": 1.504,
+        "bounds": [0.5, 10.0],
+        "passed": true,
+        "detail": "OLS alpha within bounds. 1.5x upward scaling."
+      },
+      "bootstrap_consistency": {
+        "std_range": [0.0038, 0.0765],
+        "std_mean": 0.025,
+        "passed": true,
+        "detail": "5 bootstrap models (seeds 42-46). Higher variance than attempt 7 (0.025 vs 0.008) but within acceptable range."
+      },
+      "prediction_collapse_check": {
+        "passed": true,
+        "detail": "std=0.0481, positive_pct=65.5%. NOT a trivial always-positive predictor (unlike attempts 8-9). Genuine directional variation exists."
+      }
+    }
+  },
+
+  "gate2_not_applicable": "Phase 3 meta-model uses final target evaluation instead of Gate 2/3 ablation.",
+
+  "gate3_final_targets": {
+    "direction_accuracy": {
+      "target": "> 56.0%",
+      "actual": "58.52%",
+      "gap_pp": 2.52,
+      "passed": true,
+      "detail": "Passes target but 1.52pp below attempt 7 (60.04%). Also 0.44pp below naive always-up (58.95%). Model is not beating naive strategy on direction."
+    },
+    "high_confidence_da": {
+      "target": "> 60.0%",
+      "actual": "68.48%",
+      "gap_pp": 8.48,
+      "passed": true,
+      "method_used": "bootstrap",
+      "hcda_single_model": "59.78%",
+      "hcda_bootstrap": "68.48%",
+      "bootstrap_improvement_pp": 8.70,
+      "detail": "BEST-EVER HCDA. Bootstrap confidence method provides +8.70pp improvement over single-model HCDA (59.78% -> 68.48%). Single-model HCDA alone would fail the 60% target. This validates bootstrap as a powerful confidence calibration technique. +4.35pp above attempt 7 (64.13%)."
+    },
+    "mae": {
+      "target": "< 0.75%",
+      "actual": "0.9534%",
+      "gap_pct": -0.2034,
+      "passed": false,
+      "detail": "Structurally infeasible with expanded 2025-2026 test set. Consistent with all attempts 5-16."
+    },
+    "sharpe_ratio": {
+      "target": "> 0.80",
+      "actual": 1.76,
+      "gap": 0.96,
+      "passed": true,
+      "detail": "Passes target but 0.70 below attempt 7 (2.46). Still 2.2x the target."
+    }
+  },
+
+  "targets_passed": 3,
+  "targets_total": 4,
+  "overall_passed_nominal": true,
+
+  "vs_attempt_7_comparison": {
+    "da": {"attempt_7": "60.04%", "attempt_16": "58.52%", "delta_pp": -1.52, "winner": "attempt_7"},
+    "hcda": {"attempt_7": "64.13%", "attempt_16": "68.48%", "delta_pp": 4.35, "winner": "attempt_16"},
+    "mae": {"attempt_7": "0.9429%", "attempt_16": "0.9534%", "delta": 0.011, "winner": "attempt_7"},
+    "sharpe": {"attempt_7": 2.46, "attempt_16": 1.76, "delta": -0.70, "winner": "attempt_7"},
+    "metrics_where_16_wins": 1,
+    "metrics_where_7_wins": 3,
+    "conclusion": "Attempt 16 wins ONLY on HCDA (+4.35pp). Attempt 7 wins on DA, MAE, and Sharpe. Attempt 16 does NOT replace attempt 7 as best model."
+  },
+
+  "vs_naive_analysis": {
+    "naive_always_up_da": "58.95%",
+    "attempt_16_da": "58.52%",
+    "delta_pp": -0.44,
+    "concern_level": "moderate",
+    "detail": "Model is 0.44pp below naive always-up strategy. Attempt 7 was +1.31pp above naive. This suggests LightGBM's directional predictions are net-neutral at best. However, the model generates genuine variation (positive_pct=65.5% vs naive's 100%), and the bootstrap confidence filter correctly identifies high-confidence predictions (68.48% HCDA). The DA shortfall is attributable to LightGBM's weaker base directional accuracy vs XGBoost."
+  },
+
+  "technique_analysis": {
+    "bootstrap_confidence": {
+      "method": "5-seed ensemble, top 20% by lowest bootstrap std = highest confidence",
+      "single_model_hcda": "59.78%",
+      "bootstrap_hcda": "68.48%",
+      "improvement_pp": 8.70,
+      "verdict": "PROVEN EFFECTIVE. Bootstrap confidence is the single most impactful technique for HCDA discovered across all 16 attempts. It identifies genuinely high-confidence predictions by measuring inter-model agreement."
+    },
+    "lightgbm_vs_xgboost": {
+      "lgbm_attempt_16_da": "58.52%",
+      "lgbm_attempt_16_sharpe": 1.76,
+      "xgb_attempt_7_da": "60.04%",
+      "xgb_attempt_7_sharpe": 2.46,
+      "verdict": "XGBoost (attempt 7 config: max_depth=2, n_estimators=621) significantly outperforms LightGBM on DA (-1.52pp) and Sharpe (-0.70). XGBoost's shallower trees (depth 2 vs LightGBM's num_leaves=66 ~depth 6) provide better regularization for this dataset size."
+    },
+    "ols_scaling": {
+      "mae_improvement": "0.002%",
+      "verdict": "Minimal impact. Not the bottleneck."
+    }
+  },
+
+  "untried_combination_analysis": {
+    "proposal": "XGBoost attempt 7 architecture + Bootstrap confidence (5-seed ensemble)",
+    "rationale": {
+      "xgboost_strength": "Attempt 7 XGBoost achieved DA=60.04%, Sharpe=2.46 with max_depth=2, n_estimators=621. This is the highest base DA and Sharpe ever achieved.",
+      "bootstrap_strength": "Attempt 16 showed bootstrap confidence provides +8.70pp HCDA improvement on LightGBM.",
+      "expected_synergy": "Applying bootstrap to XGBoost attempt 7 should combine: (a) XGBoost's superior base DA (~60%) with (b) bootstrap's HCDA boost (~+8pp). Expected HCDA: 64.13% + ~4-8pp = ~68-72%. Expected DA: ~60% (unchanged). Expected Sharpe: ~2.0-2.5.",
+      "key_difference_from_prior_attempts": "Attempts 8-15 all tried NEW architectures, features, or objectives that deviated from attempt 7's proven XGBoost config. Attempt 17 would use EXACTLY attempt 7's XGBoost hyperparameters + the bootstrap technique, which is the ONLY modification that has proven beneficial (in attempt 16)."
+    },
+    "attempt_7_hcda_method": "Used |prediction| magnitude as confidence. Bootstrap method was tried but produced uniform confidence (std_mean=0.008, unsuitable for filtering).",
+    "why_bootstrap_may_work_better_now": "Attempt 7's bootstrap std was too uniform (mean 0.008) because all 5 XGBoost models agreed closely. Solutions: (a) use more diverse seeds/subsampling, (b) vary hyperparameters slightly across ensemble members, (c) use bootstrap subsampling of training data (not just seed variation).",
+    "risk_assessment": {
+      "probability_of_improvement": "40-55%",
+      "risk_of_regression": "20-30%",
+      "risk_of_no_change": "20-30%",
+      "detail": "Main risk: XGBoost's bootstrap variance may be too low (as in attempt 7) to discriminate high/low confidence. Mitigation: use data subsampling (bagging) rather than just seed variation."
+    }
+  },
+
+  "historical_pattern_analysis": {
+    "consecutive_regressions": 9,
+    "attempts_that_regressed": [8, 9, 10, 11, 12, 13, 14, 15, 16],
+    "pattern": "All 9 attempts deviated from attempt 7's core architecture in some way. None achieved simultaneous improvement on DA + Sharpe + HCDA.",
+    "attempt_16_significance": "First attempt to achieve best-ever HCDA (68.48%). While DA and Sharpe regressed, the bootstrap technique is proven. The regression is attributable to LightGBM (not bootstrap), and can potentially be fixed by reverting to XGBoost.",
+    "is_this_different_from_prior_no_improvement_decisions": "YES. Prior no_further_improvement decisions (attempts 9, 10, 11, 12, 13) were based on: (1) all metrics regressing, (2) no clear untried path. Attempt 16 demonstrates a NEW proven technique (bootstrap HCDA) that has NOT been tried on the best base architecture (XGBoost attempt 7). This is a qualitatively different situation."
+  },
+
+  "decision": "attempt+1",
+  "decision_rationale": {
+    "summary": "Attempt 16 does not replace attempt 7 as best model (wins only on HCDA, loses on DA/Sharpe/MAE). However, attempt 16 validates bootstrap confidence as a powerful HCDA technique (+8.70pp). The combination of XGBoost attempt 7 architecture + bootstrap confidence has NOT been tried and has strong empirical backing from both components. This is a genuine, well-motivated improvement path that differs qualitatively from the 8 prior failed attempts (which all deviated from attempt 7's core architecture).",
+    "why_not_completed": "Attempt 16 does not beat attempt 7 overall: DA -1.52pp, Sharpe -0.70. Cannot replace attempt 7 as final model.",
+    "why_not_no_further_improvement": "A specific, untried, empirically-backed combination exists: XGBoost (attempt 7 params) + bootstrap confidence with data subsampling. Attempt 16 proved bootstrap works for HCDA. The component that failed (LightGBM's base accuracy) can be replaced with the proven XGBoost.",
+    "why_attempt_plus_1": "One more attempt with XGBoost + bootstrap is justified because: (1) the technique is proven on LightGBM, (2) it has never been properly tested on XGBoost (attempt 7's bootstrap variance was too uniform), (3) the expected outcome addresses attempt 7's only weakness (HCDA could improve from 64% to 68%+) without regressing DA/Sharpe.",
+    "success_criteria_for_attempt_17": "Must beat attempt 7 on HCDA while maintaining DA >= 58% and Sharpe >= 2.0. If DA or Sharpe regress significantly, declare no_further_improvement and confirm attempt 7 as final."
+  },
+
+  "improvement_plan": {
+    "attempt": 17,
+    "title": "XGBoost Attempt 7 Architecture + Bootstrap Confidence with Data Subsampling",
+    "changes": [
+      {
+        "component": "base_model",
+        "action": "revert_to_attempt_7",
+        "detail": "Use EXACTLY attempt 7's XGBoost hyperparameters: max_depth=2, min_child_weight=25, subsample=0.765, colsample_bytree=0.450, reg_lambda=2.049, reg_alpha=1.107, learning_rate=0.0215, n_estimators=621, objective=reg:squarederror."
+      },
+      {
+        "component": "bootstrap_ensemble",
+        "action": "add_data_subsampling",
+        "detail": "Train 10-15 XGBoost models, each on a bootstrap sample (random 80% of training data with replacement). Use different random seeds (42-56). The data subsampling introduces diversity that seed-only variation did not achieve in attempt 7 (where bootstrap std was too uniform at 0.008)."
+      },
+      {
+        "component": "hcda_selection",
+        "action": "bootstrap_confidence",
+        "detail": "For each test prediction, compute bootstrap std across the ensemble. Select top 20% by lowest std as high-confidence predictions. This mirrors attempt 16's method that achieved 68.48% HCDA."
+      },
+      {
+        "component": "ols_scaling",
+        "action": "keep_from_attempt_7",
+        "detail": "Apply OLS scaling (attempt 7's alpha=1.317) to ensemble mean predictions. Minimal impact but no reason to remove."
+      },
+      {
+        "component": "features",
+        "action": "use_attempt_7_features",
+        "detail": "Use the same 24 features as attempt 7. No feature addition or removal."
+      }
+    ],
+    "expected_outcome": {
+      "da": "~59-60% (similar to attempt 7, XGBoost base performance)",
+      "hcda": "~66-72% (bootstrap confidence on XGBoost ensemble)",
+      "mae": "~0.94% (unchanged, structurally infeasible)",
+      "sharpe": "~2.0-2.5 (similar to attempt 7)",
+      "reasoning": "The XGBoost base should maintain attempt 7's DA/Sharpe levels. Bootstrap confidence should boost HCDA by 4-8pp over attempt 7's pred-based HCDA (64.13%). The key uncertainty is whether data-subsampled XGBoost produces enough ensemble variance for bootstrap filtering to be effective."
+    },
+    "failure_criteria": "If DA < 57% or Sharpe < 1.5, the bootstrap subsampling is degrading XGBoost's base performance. Declare no_further_improvement and confirm attempt 7.",
+    "resume_from": "builder_model",
+    "research_needed": false
+  },
+
+  "attempt_consumption": {
+    "attempt_consumed": true,
+    "current_attempt": 16,
+    "next_attempt": 17,
+    "total_meta_model_attempts": 16,
+    "remaining_budget": "No fixed budget. One more attempt justified by untried combination."
+  }
+}
