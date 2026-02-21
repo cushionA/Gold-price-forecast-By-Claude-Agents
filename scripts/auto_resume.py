@@ -145,9 +145,14 @@ def launch_claude(prompt: str) -> bool:
         log.error("'claude' not found in PATH or fallback locations")
         return False
     log.info(f"Launching {claude_cmd} -p ...")
+    # On Windows, .CMD files must be run via cmd /c to be interpreted as shell scripts
+    if claude_cmd.upper().endswith(".CMD"):
+        cmd_args = ["cmd", "/c", claude_cmd, "-p", prompt]
+    else:
+        cmd_args = [claude_cmd, "-p", prompt]
     try:
         result = subprocess.run(
-            [claude_cmd, "-p", prompt],
+            cmd_args,
             cwd=str(PROJECT_ROOT),
             timeout=3600,
         )
