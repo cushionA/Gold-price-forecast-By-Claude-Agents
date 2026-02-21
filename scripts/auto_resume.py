@@ -28,6 +28,7 @@ Claude終了後のstate確認 (パイプライン未完了検知):
     python scripts/auto_resume.py --stop
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -339,56 +340,41 @@ def run_monitor(interval: int = 60, max_hours: float = 3.0, initial_wait: int = 
         return False
 
 
-def find_claude_executable() -> str | None:
-    """Find the claude executable, checking PATH and known fallback locations."""
-    import shutil
-    claude_cmd = shutil.which("claude")
-    if claude_cmd:
-        return claude_cmd
-    # Windows fallback: npm global install locations
-    fallback_paths = [
-        r"C:\Users\tatuk\AppData\Roaming\npm\claude.CMD",
-        r"C:\Users\tatuk\AppData\Roaming\npm\claude.cmd",
-    ]
-    for fp in fallback_paths:
-        if os.path.exists(fp):
-            log.info(f"Found claude at fallback path: {fp}")
-            return fp
-    return None
-
-
 def launch_claude(prompt: str) -> bool:
-    claude_cmd = find_claude_executable()
-    if claude_cmd is None:
-        log.error("'claude' not found in PATH or fallback locations")
-        return False
-    log.info(f"Launching {claude_cmd} -p ...")
-    # On Windows, .CMD files must be run via cmd /c to be interpreted as shell scripts
-    if claude_cmd.upper().endswith(".CMD"):
-        cmd_args = ["cmd", "/c", claude_cmd, "-p", prompt]
-    else:
-        cmd_args = [claude_cmd, "-p", prompt]
-    # Remove CLAUDECODE env var: claude refuses to start inside another claude session
-    env = os.environ.copy()
-    env.pop("CLAUDECODE", None)
-    try:
-        result = subprocess.run(
-            cmd_args,
+    """Launch Claude Code via claude-agent-sdk (replaces 'claude -p' subprocess)."""
+    from claude_agent_sdk import query, ClaudeAgentOptions
+    from claude_agent_sdk._errors import CLINotFoundError, ProcessError
+
+    async def _run() -> None:
+        options = ClaudeAgentOptions(
+            permission_mode="bypassPermissions",
             cwd=str(PROJECT_ROOT),
-            timeout=3600,
-            env=env,
         )
-        log.info(f"Claude Code exited (code={result.returncode})")
-        return result.returncode == 0
-    except subprocess.TimeoutExpired:
-        log.error("Claude Code timed out (1h)")
+        async for _ in query(prompt=prompt, options=options):
+            pass
+
+    # Temporarily remove CLAUDECODE so the new session doesn't see "inside claude"
+    claudecode_backup = os.environ.pop("CLAUDECODE", None)
+    log.info("Launching Claude via SDK...")
+    try:
+        asyncio.run(asyncio.wait_for(_run(), timeout=3600))
+        log.info("Claude SDK completed successfully")
+        return True
+    except asyncio.TimeoutError:
+        log.error("Claude SDK timed out (1h)")
         return False
-    except FileNotFoundError:
-        log.error(f"'{claude_cmd}' not found or failed to execute")
+    except CLINotFoundError:
+        log.error("Claude Code CLI not found (is it installed?)")
+        return False
+    except ProcessError as e:
+        log.error(f"Claude SDK process error: {e}")
         return False
     except Exception as e:
-        log.error(f"Claude launch failed: {e}")
+        log.error(f"Claude SDK launch failed: {e}")
         return False
+    finally:
+        if claudecode_backup is not None:
+            os.environ["CLAUDECODE"] = claudecode_backup
 
 
 # ---------------------------------------------------------------------------
@@ -542,9 +528,9 @@ def main():
             else:
                 log.info(f"auto_resume_remaining={remaining}. NOT launching Claude. Loop stopped.")
                 if ok:
-                    log.info("Results are fetched. Run manually: claude -p 'Resume from evaluator'")
+                    log.info("Results are fetched. Run manually: python scripts/auto_resume.py")
                 else:
-                    log.info(f"Error fix needed. Run manually: claude -p 'Resume from builder_model'")
+                    log.info(f"Error fix needed. Run manually: python scripts/auto_resume.py")
                 return
 
         # 7. Decrement counter
