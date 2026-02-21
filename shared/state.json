@@ -2,13 +2,13 @@
   "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
-  "current_attempt": 2,
-  "resume_from": "evaluator",
+  "current_attempt": 3,
+  "resume_from": "architect",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "options_market_attempt2_gate3_pass_retry_requested",
+  "evaluator_status": "options_market_attempt2_gate3_pass_plan_attempt3",
   "retry_ctx": {"automation_test": true, "max_attempt": 5},
   "auto_resume_remaining": 3,
   "current_submodel": "real_rate",
@@ -479,15 +479,27 @@
         "gate1": true,
         "gate2": false,
         "gate3": true,
-        "decision": "completed",
+        "decision": "completed_automation_test_continue",
         "primary_successes": [
           "gate3_mae_delta=-0.1562_15.6x_threshold",
           "dimensionality_reduction_3to1_successful"
         ],
         "primary_failures": [
-          "gate2_mi_increase=4.96%_marginally_below_5%"
+          "gate2_mi_increase=4.96%_marginally_below_5%",
+          "gate2_stability=0.1555_marginally_above_0.15",
+          "gate3_da_delta=-0.0024_negative",
+          "gate3_sharpe_delta=-0.1413_negative"
         ],
-        "note": "Single column output. Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds)."
+        "note": "Single column output. Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds). automation_test: continuing to attempt 3 to improve Gate 2 compliance and DA/Sharpe."
+      },
+      "attempt_3": {
+        "gate1": null,
+        "gate2": null,
+        "gate3": null,
+        "decision": "planned",
+        "improvement_plan": "Option A: EMA-smoothed regime_prob (fix stability 0.1555->0.15) + complementary volatility trend signal (fix MI 4.96%->5%). Target: Gate 2 compliance + positive DA/Sharpe deltas.",
+        "resume_from": "architect",
+        "note": "Planned from evaluator. Primary: fix Gate 2 (MI +0.04pp, stability -0.006). Secondary: improve DA and Sharpe into positive territory."
       }
     },
     "dxy": {
@@ -1017,7 +1029,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T02:45:00.000000",
+  "last_updated": "2026-02-22T03:15:00.000000",
   "error_type": "unknown",
   "auto_resume_remaining": 1,
   "saved_meta_model_state": {
