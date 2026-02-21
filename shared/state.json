@@ -1,15 +1,15 @@
 {
   "status": "in_progress",
-  "phase": "completed",
-  "current_feature": "meta_model",
-  "current_attempt": 17,
-  "resume_from": "evaluator",
+  "phase": "phase2_submodel_retry",
+  "current_feature": "real_rate",
+  "current_attempt": 7,
+  "resume_from": "researcher",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": "attempt_16_evaluated_attempt_plus_1",
-  "current_submodel": "meta_model",
+  "evaluator_status": null,
+  "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
-  "submitted_at": "2026-02-21T19:13:53.366514",
+  "kaggle_kernel": null,
+  "submitted_at": null,
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -816,8 +816,25 @@
       "note": "Constant-output collapse FIXED. Model produces genuine variation. But variation is net-harmful: negative predictions wrong 62% of time. DA skill -2.84pp (worse than Attempt 1's 0.00pp). Sharpe A dropped 2.03 to 0.71 due to harmful trades. Moved from 'no skill, no harm' to 'some variation, net harmful'."
     }
   },
-  "kaggle_version": 4,
-  "last_updated": "2026-02-21T19:15:49.126516",
-  "error_type": "unknown",
-  "auto_resume_remaining": 0
+  "kaggle_version": null,
+  "last_updated": "2026-02-21T19:23:27.590509",
+  "error_type": null,
+  "auto_resume_remaining": 2,
+  "saved_meta_model_state": {
+    "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
+    "submitted_at": "2026-02-21T19:13:53.366514",
+    "current_attempt": 17,
+    "status": "results_fetched_awaiting_evaluator",
+    "resume_from": "evaluator",
+    "phase": "phase3_meta_model",
+    "saved_at": "2026-02-21T19:23:27.590471"
+  },
+  "real_rate_retry_context": {
+    "user_requested": true,
+    "attempts_remaining": 3,
+    "reason": "User explicitly requested 3 more attempts with automated pipeline",
+    "previous_no_further_improvement": true,
+    "max_loops": 2,
+    "new_approach": "Real yield curve shape (DFII5/DFII7/DFII10/DFII20/DFII30 - all daily, no forward-fill)"
+  }
 }
