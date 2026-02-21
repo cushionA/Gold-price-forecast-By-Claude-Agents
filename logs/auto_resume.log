@@ -297,3 +297,27 @@ Max wait time: 3.0 hours
 2026-02-21 23:58:30,121 [INFO] Claude Code exited (code=0)
 2026-02-21 23:58:30,139 [INFO] Claude completed (status=completed, resume_from=None). Evaluator made stop/continue decision.
 2026-02-21 23:58:30,139 [INFO] auto_resume exiting.
+2026-02-22 00:24:20,144 [INFO] ============================================================
+2026-02-22 00:24:20,145 [INFO] auto_resume started
+2026-02-22 00:24:20,163 [INFO] auto_resume_remaining set to 1
+2026-02-22 00:24:20,163 [INFO] Watching: yield_curve attempt 4
+2026-02-22 00:24:20,163 [INFO] Kernel: bigbigzabuton/gold-yield-curve-model-attempt-4
+2026-02-22 00:24:20,164 [INFO] Remaining loops: 1
+2026-02-22 00:24:20,164 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=120s)
+2026-02-22 00:27:28,381 [INFO] Monitor exited (code=1)
+2026-02-22 00:27:28,382 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-22 00:27:28,382 [INFO] Kaggle ERROR: auto_resume_remaining NOT decremented (kept at 1)
+2026-02-22 00:27:28,394 [INFO] Lock released (owner-checked). Launching Claude...
+2026-02-22 00:27:34,895 [INFO] Launching Claude via SDK...
+2026-02-22 00:27:34,938 [INFO] Using bundled Claude Code CLI: C:\Users\tatuk\AppData\Local\Programs\Python\Python313\Lib\site-packages\claude_agent_sdk\_bundled\claude.exe
+2026-02-22 00:27:42,413 [ERROR] Claude SDK launch failed: Unknown message type: rate_limit_event
+2026-02-22 00:27:42,413 [ERROR] Claude Code failed to launch. Manual resume needed.
+2026-02-22 00:27:42,413 [INFO] auto_resume exiting.
+2026-02-22 00:52:32,020 [INFO] ============================================================
+2026-02-22 00:52:32,021 [INFO] auto_resume started
+2026-02-22 00:52:32,022 [INFO] State=in_progress, resume_from=builder_model, remaining=1. Launching Claude directly.
+2026-02-22 00:52:32,025 [INFO] auto_resume_remaining: 1 → 0
+2026-02-22 00:52:32,025 [INFO] Detected prior Kaggle error (error_type=unknown). Prompting Claude to fix.
+2026-02-22 00:52:32,035 [INFO] Lock released (owner-checked). Launching Claude...
+2026-02-22 00:52:32,988 [INFO] Launching Claude via SDK...
+2026-02-22 00:52:33,052 [INFO] Using bundled Claude Code CLI: C:\Users\tatuk\AppData\Local\Programs\Python\Python313\Lib\site-packages\claude_agent_sdk\_bundled\claude.exe
