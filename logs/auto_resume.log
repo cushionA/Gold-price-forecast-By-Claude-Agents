@@ -393,3 +393,15 @@ Max wait time: 3.0 hours
 2026-02-22 01:47:13,702 [INFO] Claude SDK completed successfully
 2026-02-22 01:47:13,703 [INFO] Claude completed (status=in_progress, resume_from=None). Evaluator made stop/continue decision.
 2026-02-22 01:47:13,703 [INFO] auto_resume exiting.
+2026-02-22 02:33:02,639 [INFO] ============================================================
+2026-02-22 02:33:02,639 [INFO] auto_resume started
+2026-02-22 02:33:02,652 [INFO] auto_resume_remaining set to 2
+2026-02-22 02:33:02,652 [INFO] Watching: options_market attempt 3
+2026-02-22 02:33:02,652 [INFO] Kernel: bigbigzabuton/gold-options-market-model-attempt-3
+2026-02-22 02:33:02,652 [INFO] Remaining loops: 2
+2026-02-22 02:33:02,652 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=120s)
+2026-02-22 02:35:11,193 [INFO] Monitor exited (code=0)
+2026-02-22 02:35:11,193 [INFO] auto_resume_remaining: 2 → 1
+2026-02-22 02:35:11,196 [INFO] Lock released (owner-checked). Launching Claude...
+2026-02-22 02:35:14,031 [INFO] Launching Claude via SDK...
+2026-02-22 02:35:14,078 [INFO] Using bundled Claude Code CLI: C:\Users\tatuk\AppData\Local\Programs\Python\Python313\Lib\site-packages\claude_agent_sdk\_bundled\claude.exe
