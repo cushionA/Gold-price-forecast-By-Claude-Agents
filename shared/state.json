@@ -3,11 +3,11 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
   "current_attempt": 3,
-  "resume_from": "builder_model",
+  "resume_from": "kaggle_submit",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
-  "builder_model_status": null,
+  "builder_model_status": "notebook_generated",
   "evaluator_status": "options_market_attempt2_gate3_pass_plan_attempt3",
   "retry_ctx": {
     "automation_test": true,
@@ -1032,7 +1032,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T02:24:27.158534",
+  "last_updated": "2026-02-22T02:32:02.458521",
   "error_type": "unknown",
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
