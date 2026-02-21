@@ -602,6 +602,19 @@ def monitor(
             print(f"  [FAIL] Training ERROR: {error_type}")
             print(f"  {failure_msg[:200]}")
 
+            # Wait one more interval and re-check before treating as final error.
+            # Kaggle may return the old version's error status while the new
+            # version is still being queued. A second confirmation avoids
+            # false positives that cause unnecessary claude relaunch cycles.
+            if not once and check_count <= 3:
+                print(f"  [WARN] Re-checking in {check_interval}s to confirm (attempt {check_count}/3)...")
+                time.sleep(check_interval)
+                sr2 = kernel_status(kid)
+                if sr2.success and sr2.data["status"] != "error":
+                    s2 = sr2.data["status"]
+                    print(f"  [OK] Status changed to '{s2}' - was stale error. Continuing...")
+                    continue  # Back to top of loop with updated status
+
             state = _load_state()
             state.update(
                 {
