@@ -101,14 +101,15 @@ def save_state(state: dict):
 # ---------------------------------------------------------------------------
 # Core
 # ---------------------------------------------------------------------------
-def run_monitor(interval: int = 60, max_hours: float = 3.0) -> bool:
+def run_monitor(interval: int = 60, max_hours: float = 3.0, initial_wait: int = 90) -> bool:
     cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "kaggle_ops.py"),
         "monitor",
         "--interval", str(interval),
+        "--initial-wait", str(initial_wait),
     ]
-    log.info(f"Starting monitor (interval={interval}s, max={max_hours}h)")
+    log.info(f"Starting monitor (interval={interval}s, max={max_hours}h, initial_wait={initial_wait}s)")
     try:
         result = subprocess.run(cmd, cwd=str(PROJECT_ROOT), timeout=max_hours * 3600)
         log.info(f"Monitor exited (code={result.returncode})")
@@ -282,7 +283,7 @@ def main():
         log.info(f"Remaining loops: {'unlimited' if remaining is None else remaining}")
 
         # 4. Block until Kaggle completes
-        ok = run_monitor(interval=args.interval, max_hours=args.max_hours)
+        ok = run_monitor(interval=args.interval, max_hours=args.max_hours, initial_wait=90)
 
         # 5. Re-read state (monitor updated it)
         state = load_state()

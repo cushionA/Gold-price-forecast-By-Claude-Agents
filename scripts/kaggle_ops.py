@@ -494,6 +494,7 @@ def monitor(
     check_interval: int = 60,
     max_hours: float = 3.0,
     once: bool = False,
+    initial_wait: int = 90,
 ) -> KaggleResult:
     """
     state.json の kaggle_kernel を監視し、完了時に結果を取得する。
@@ -535,6 +536,14 @@ def monitor(
     if once:
         print("Mode: single check")
     print()
+
+    # Wait before first poll to allow Kaggle to transition from previous
+    # error/complete state to queued/running for the newly submitted version.
+    # Without this delay, the monitor may detect the OLD failed version's status
+    # and immediately exit with error, before the new version is even queued.
+    if initial_wait > 0 and not once:
+        print(f"Waiting {initial_wait}s for Kaggle to queue new submission...")
+        time.sleep(initial_wait)
 
     start = datetime.now()
     max_wait = timedelta(hours=max_hours)
@@ -679,6 +688,9 @@ def main():
     p.add_argument("--once", action="store_true", help="Check once and exit")
     p.add_argument("--interval", type=int, default=60, help="Check interval in seconds (default: 60)")
     p.add_argument("--max-hours", type=float, default=3.0, help="Max monitoring hours (default: 3)")
+    p.add_argument("--initial-wait", type=int, default=90,
+                   help="Seconds to wait before first poll (default: 90). "
+                        "Allows Kaggle to queue new submission before detecting old error state.")
 
     args = parser.parse_args()
 
@@ -697,6 +709,7 @@ def main():
             check_interval=args.interval,
             max_hours=args.max_hours,
             once=args.once,
+            initial_wait=args.initial_wait,
         ),
     }
 
