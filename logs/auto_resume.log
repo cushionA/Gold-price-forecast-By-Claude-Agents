@@ -190,3 +190,8 @@ Max wait time: 3.0 hours
 2026-02-21 19:40:02,049 [INFO] Claude Code exited (code=0)
 2026-02-21 19:40:02,050 [INFO] Done. Claude Code session completed.
 2026-02-21 19:40:02,050 [INFO] auto_resume exiting.
+2026-02-21 19:42:28,545 [INFO] Monitor exited (code=1)
+2026-02-21 19:42:28,545 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-21 19:42:28,547 [INFO] auto_resume_remaining: 1 → 0
+2026-02-21 19:42:28,547 [INFO] Lock released. Launching Claude...
+2026-02-21 19:42:28,553 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...

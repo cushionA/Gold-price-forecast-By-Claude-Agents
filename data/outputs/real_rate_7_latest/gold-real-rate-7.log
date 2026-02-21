@@ -1,0 +1,157 @@
+[{"stream_name":"stderr","time":8.645083636,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.645166478,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.645172670000001,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.645175623,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.459770009,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.459814005,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.459820336,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.459827778,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.843316871,"data":"Started: 2026-02-21T10:40:07.204186\n"}
+,{"stream_name":"stdout","time":11.843432197,"data":"Libraries loaded successfully\n"}
+,{"stream_name":"stdout","time":11.86443881,"data":"FRED public CSV fetcher ready (no API key required)\n"}
+,{"stream_name":"stdout","time":12.043940431,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":12.043979308,"data":"DATA FETCHING\n"}
+,{"stream_name":"stdout","time":12.043984906,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":12.814372012,"data":"  DFII5: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":13.430554469,"data":"  DFII7: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":13.430587989,"data":"  DFII10: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.229517366,"data":"  DFII20: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.549592831,"data":"  DFII30: 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.549639105,"data":"\n"}
+,{"stream_name":"stdout","time":14.549646234,"data":"Combined (all 5 non-null): 2791 obs, 2014-01-02 to 2025-02-28\n"}
+,{"stream_name":"stdout","time":14.576814284,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.576853935,"data":"INTERMEDIATE SERIES\n"}
+,{"stream_name":"stdout","time":14.576859559,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.576863791,"data":"Slope range: -0.400 to 1.950 (mean=0.673)\n"}
+,{"stream_name":"stdout","time":14.576866975,"data":"Curvature range: -0.550 to 0.320 (mean=-0.182)\n"}
+,{"stream_name":"stdout","time":14.57686966,"data":"DFII10 daily chg: [-0.4500, 0.3900]\n"}
+,{"stream_name":"stdout","time":14.576872193,"data":"Slope daily chg: [-0.2600, 0.2100]\n"}
+,{"stream_name":"stdout","time":14.576874718,"data":"Curvature daily chg: [-0.1500, 0.2200]\n"}
+,{"stream_name":"stdout","time":14.607590134,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.6076283,"data":"DATASET PATH RESOLUTION\n"}
+,{"stream_name":"stdout","time":14.607634459,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.607639324,"data":"Found submodel dataset at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":14.607643851,"data":"Submodel files (13): ['yield_curve.csv', 'options_market.csv', 'technical.csv', 'inflation_expectation.csv', 'cny_demand.csv', 'base_features_raw.csv', 'temporal_context.csv', 'regime_classification.csv', 'vix.csv', 'dxy.csv']\n"}
+,{"stream_name":"stdout","time":14.648038028,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.64807836,"data":"FEATURE COMPUTATION\n"}
+,{"stream_name":"stdout","time":14.648084333,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.648088146,"data":"Features computed:\n"}
+,{"stream_name":"stdout","time":14.648111656,"data":"  rr_level_change_z: valid=2776, nan=15 (0.5%), autocorr=0.0219, std=0.9925\n"}
+,{"stream_name":"stdout","time":14.648117145,"data":"  rr_slope_chg_z: valid=2761, nan=30 (1.1%), autocorr=-0.0508, std=0.9994\n"}
+,{"stream_name":"stdout","time":14.648121752,"data":"  rr_curvature_chg_z: valid=2761, nan=30 (1.1%), autocorr=-0.2076, std=0.9854\n"}
+,{"stream_name":"stdout","time":14.648126087,"data":"  rr_slope_level_z: valid=2762, nan=29 (1.0%), autocorr=0.9398, std=1.3804\n"}
+,{"stream_name":"stdout","time":14.741319717,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":14.741366287,"data":"ALIGNMENT TO SCHEMA DATES\n"}
+,{"stream_name":"stdout","time":14.741372712,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.678027364,"data":"Gold trading calendar: 2804 dates, 2014-01-02 to 2025-02-27\n"}
+,{"stream_name":"stdout","time":16.6780791,"data":"Schema dates: 2542 dates, 2015-01-02 to 2025-02-12\n"}
+,{"stream_name":"stdout","time":16.678085094,"data":"Features aligned shape: (2542, 4)\n"}
+,{"stream_name":"stdout","time":16.678089143,"data":"NaN counts after alignment:\n"}
+,{"stream_name":"stdout","time":16.67812706,"data":"  rr_level_change_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":16.678131814,"data":"  rr_slope_chg_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":16.678135843,"data":"  rr_curvature_chg_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":16.67813984,"data":"  rr_slope_level_z: 0 NaN (0.0%)\n"}
+,{"stream_name":"stdout","time":16.699237983,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.699280114,"data":"DATA SPLIT\n"}
+,{"stream_name":"stdout","time":16.699285459,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.699289312,"data":"Common dates (features + target): 2542\n"}
+,{"stream_name":"stdout","time":16.699293231,"data":"Train: 1779 (2015-01-02 to 2022-01-28)\n"}
+,{"stream_name":"stdout","time":16.699296967,"data":"Val:   381 (2022-01-31 to 2023-08-07)\n"}
+,{"stream_name":"stdout","time":16.699300901,"data":"Test:  382 (2023-08-08 to 2025-02-12)\n"}
+,{"stream_name":"stdout","time":16.721555634,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.7216351,"data":"GATE 1: STANDALONE QUALITY\n"}
+,{"stream_name":"stdout","time":16.721642798,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.721646803,"data":"  rr_level_change_z: PASS | nan=0.0%, std=0.9902, autocorr=0.0317\n"}
+,{"stream_name":"stdout","time":16.721650362,"data":"  rr_slope_chg_z: PASS | nan=0.0%, std=1.0006, autocorr=-0.0417\n"}
+,{"stream_name":"stdout","time":16.721653139,"data":"  rr_curvature_chg_z: PASS | nan=0.0%, std=0.9878, autocorr=-0.1983\n"}
+,{"stream_name":"stdout","time":16.721655937,"data":"  rr_slope_level_z: PASS | nan=0.0%, std=1.3614, autocorr=0.9374\n"}
+,{"stream_name":"stdout","time":16.721691814,"data":"\n"}
+,{"stream_name":"stdout","time":16.721696988,"data":"Overfit ratio: 1.00 (deterministic, no training)\n"}
+,{"stream_name":"stdout","time":16.721700966,"data":"Gate 1 Overall: PASS\n"}
+,{"stream_name":"stdout","time":16.871529187,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":16.871562385,"data":"GATE 2: INFORMATION GAIN\n"}
+,{"stream_name":"stdout","time":16.871567669,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":18.763921399,"data":"WARNING: Could not load base features: [Errno 2] No such file or directory: '/kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/meta_model_input.csv'\n"}
+,{"stream_name":"stdout","time":18.763964168,"data":"  MI(rr_level_change_z) = 0.514569\n"}
+,{"stream_name":"stdout","time":18.763970062,"data":"  MI(rr_slope_chg_z) = 0.513861\n"}
+,{"stream_name":"stdout","time":18.763974259,"data":"  MI(rr_curvature_chg_z) = 0.561338\n"}
+,{"stream_name":"stdout","time":18.763978416,"data":"  MI(rr_slope_level_z) = 0.525638\n"}
+,{"stream_name":"stdout","time":18.763982262,"data":"\n"}
+,{"stream_name":"stdout","time":18.763985939,"data":"New features MI total: 2.115405\n"}
+,{"stream_name":"stdout","time":18.76398975,"data":"Baseline MI total: 0.100000\n"}
+,{"stream_name":"stdout","time":18.763994139,"data":"MI increase: 2115.41% (threshold: \u003e 5%)\n"}
+,{"stream_name":"stdout","time":18.763998693,"data":"Gate 2 MI: PASS\n"}
+,{"stream_name":"stdout","time":18.764002559,"data":"Max VIF: 1.215 (threshold: \u003c 10)\n"}
+,{"stream_name":"stdout","time":18.764007321,"data":"Max rolling corr std: 0.1589 (threshold: \u003c 0.15)\n"}
+,{"stream_name":"stdout","time":18.764011613,"data":"Gate 2 Overall: PASS (MI=True, VIF=True, stability=False)\n"}
+,{"stream_name":"stdout","time":19.08983817,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.089876223,"data":"GATE 3: ABLATION TEST (5-FOLD CV)\n"}
+,{"stream_name":"stdout","time":19.089881456,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":19.912874433,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":19.912907318,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":19.912913978,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":19.913811733,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":19.913834394,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":19.913838258,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":19.913841024,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":19.913845214,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":19.913849075,"data":"Exception encountered at \"In [11]\":\n"}
+,{"stream_name":"stderr","time":19.91385297,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":19.913856608,"data":"FileNotFoundError                         Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":19.913861018,"data":"/tmp/ipykernel_17/1253093227.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":19.913892844,"data":"      9 # Load meta-model input (base features + submodels) from Kaggle dataset\n"}
+,{"stream_name":"stderr","time":19.913897825,"data":"     10 meta_input_path = os.path.join(SUBMODEL_PATH, 'meta_model_input.csv')\n"}
+,{"stream_name":"stderr","time":19.913901882,"data":"---\u003e 11 meta_df = pd.read_csv(meta_input_path, index_col=0, parse_dates=True)\n"}
+,{"stream_name":"stderr","time":19.913906112,"data":"     12 meta_df.index = pd.to_datetime(meta_df.index)\n"}
+,{"stream_name":"stderr","time":19.913910095,"data":"     13 print(f'Meta model input: {meta_df.shape}')\n"}
+,{"stream_name":"stderr","time":19.913914118,"data":"\n"}
+,{"stream_name":"stderr","time":19.913922206,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)\n"}
+,{"stream_name":"stderr","time":19.913932502,"data":"   1024     kwds.update(kwds_defaults)\n"}
+,{"stream_name":"stderr","time":19.913936535,"data":"   1025 \n"}
+,{"stream_name":"stderr","time":19.913940616,"data":"-\u003e 1026     return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":19.913944684,"data":"   1027 \n"}
+,{"stream_name":"stderr","time":19.913948364,"data":"   1028 \n"}
+,{"stream_name":"stderr","time":19.913952989,"data":"\n"}
+,{"stream_name":"stderr","time":19.913956791,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":19.91396075,"data":"    618 \n"}
+,{"stream_name":"stderr","time":19.913964904,"data":"    619     # Create the parser.\n"}
+,{"stream_name":"stderr","time":19.913968669,"data":"--\u003e 620     parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":19.913973275,"data":"    621 \n"}
+,{"stream_name":"stderr","time":19.913977194,"data":"    622     if chunksize or iterator:\n"}
+,{"stream_name":"stderr","time":19.913981565,"data":"\n"}
+,{"stream_name":"stderr","time":19.913985295,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in __init__(self, f, engine, **kwds)\n"}
+,{"stream_name":"stderr","time":19.913990993,"data":"   1618 \n"}
+,{"stream_name":"stderr","time":19.913994838,"data":"   1619         self.handles: IOHandles | None = None\n"}
+,{"stream_name":"stderr","time":19.913999069,"data":"-\u003e 1620         self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":19.914003319,"data":"   1621 \n"}
+,{"stream_name":"stderr","time":19.914007271,"data":"   1622     def close(self) -\u003e None:\n"}
+,{"stream_name":"stderr","time":19.914011365,"data":"\n"}
+,{"stream_name":"stderr","time":19.914015017,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _make_engine(self, f, engine)\n"}
+,{"stream_name":"stderr","time":19.91401913,"data":"   1878                 if \"b\" not in mode:\n"}
+,{"stream_name":"stderr","time":19.914023195,"data":"   1879                     mode += \"b\"\n"}
+,{"stream_name":"stderr","time":19.914027226,"data":"-\u003e 1880             self.handles = get_handle(\n"}
+,{"stream_name":"stderr","time":19.914040379,"data":"   1881                 f,\n"}
+,{"stream_name":"stderr","time":19.914044059,"data":"   1882                 mode,\n"}
+,{"stream_name":"stderr","time":19.914046699,"data":"\n"}
+,{"stream_name":"stderr","time":19.91405041,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/common.py in get_handle(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)\n"}
+,{"stream_name":"stderr","time":19.914054615,"data":"    871         if ioargs.encoding and \"b\" not in ioargs.mode:\n"}
+,{"stream_name":"stderr","time":19.914059047,"data":"    872             # Encoding\n"}
+,{"stream_name":"stderr","time":19.914062778999998,"data":"--\u003e 873             handle = open(\n"}
+,{"stream_name":"stderr","time":19.914067304,"data":"    874                 handle,\n"}
+,{"stream_name":"stderr","time":19.914071811,"data":"    875                 ioargs.mode,\n"}
+,{"stream_name":"stderr","time":19.914075641,"data":"\n"}
+,{"stream_name":"stderr","time":19.914079564,"data":"FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/meta_model_input.csv'\n"}
+,{"stream_name":"stderr","time":19.914084071,"data":"\n"}
+,{"stream_name":"stderr","time":22.495580138,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.495625029,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":22.69948494,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":22.699516118,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23.390951036,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":23.39099265,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":23.426699078,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":23.828798279,"data":"[NbConvertApp] Writing 52124 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":26.872797323,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.872839163,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.898617595,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":28.068584986,"data":"[NbConvertApp] Writing 414149 bytes to __results__.html\n"}
+]
