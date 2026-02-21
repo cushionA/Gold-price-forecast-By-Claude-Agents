@@ -340,10 +340,44 @@ def run_monitor(interval: int = 60, max_hours: float = 3.0, initial_wait: int = 
         return False
 
 
+def _patch_sdk_for_unknown_messages() -> None:
+    """
+    Monkey-patch claude_agent_sdk._internal.client.parse_message to silently
+    ignore unknown message types (e.g. rate_limit_event) instead of raising.
+
+    The SDK raises MessageParseError on any unrecognised 'type' field.
+    rate_limit_event is a normal Claude Code message that signals a rate-limit
+    pause; it is NOT an error — Claude resumes automatically after the pause.
+    Without this patch the SDK dies with "Unknown message type: rate_limit_event".
+    """
+    try:
+        import claude_agent_sdk._internal.client as _client
+        from claude_agent_sdk._internal.message_parser import (
+            parse_message as _orig_parse,
+            MessageParseError,
+        )
+
+        def _safe_parse(data: dict):
+            try:
+                return _orig_parse(data)
+            except MessageParseError as exc:
+                if "Unknown message type" in str(exc):
+                    log.debug(f"SDK: ignoring unknown message type '{data.get('type', '?')}'")
+                    return None          # caller yields None; our loop does pass
+                raise
+
+        _client.parse_message = _safe_parse
+    except Exception as e:
+        log.warning(f"Could not patch SDK message parser: {e}")
+
+
 def launch_claude(prompt: str) -> bool:
     """Launch Claude Code via claude-agent-sdk (replaces 'claude -p' subprocess)."""
     from claude_agent_sdk import query, ClaudeAgentOptions
     from claude_agent_sdk._errors import CLINotFoundError, ProcessError
+
+    # Patch before first call so rate_limit_event doesn't crash the loop
+    _patch_sdk_for_unknown_messages()
 
     async def _run() -> None:
         options = ClaudeAgentOptions(
@@ -351,7 +385,7 @@ def launch_claude(prompt: str) -> bool:
             cwd=str(PROJECT_ROOT),
         )
         async for _ in query(prompt=prompt, options=options):
-            pass
+            pass  # None values (unknown msg types) are silently skipped
 
     # Temporarily remove CLAUDECODE so the new session doesn't see "inside claude"
     claudecode_backup = os.environ.pop("CLAUDECODE", None)
@@ -444,7 +478,17 @@ def main():
                 state["auto_resume_remaining"] = remaining - 1
                 save_state(state)
                 log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
-            prompt = _build_evaluator_prompt(state, kaggle_status="complete")
+            # If error_type is set and resume_from=builder_model, this was a Kaggle failure.
+            # Pass the correct status so Claude gets the error-specific prompt.
+            _err_type = state.get("error_type", "")
+            _err_ctx  = state.get("error_context", "")
+            if _err_type and resume_from == "builder_model":
+                _kstatus = "error"
+                log.info(f"Detected prior Kaggle error (error_type={_err_type}). Prompting Claude to fix.")
+            else:
+                _kstatus = "complete"
+            prompt = _build_evaluator_prompt(state, kaggle_status=_kstatus,
+                                             error_type=_err_type, error_context=_err_ctx)
             # _launch_with_pipeline_check releases lock before launching Claude,
             # then relaunches if Claude stops mid-pipeline (BUILD_PHASES).
             _launch_with_pipeline_check(prompt)
