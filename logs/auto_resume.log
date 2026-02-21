@@ -168,3 +168,25 @@ Max wait time: 3.0 hours
 2026-02-21 19:14:06,635 [INFO] Claude Code exited (code=0)
 2026-02-21 19:14:06,635 [INFO] Done. Claude Code session completed.
 2026-02-21 19:14:06,635 [INFO] auto_resume exiting.
+2026-02-21 19:34:48,212 [INFO] ============================================================
+2026-02-21 19:34:48,212 [INFO] auto_resume started
+2026-02-21 19:34:48,226 [INFO] auto_resume_remaining set to 2
+2026-02-21 19:34:48,227 [INFO] Watching: real_rate attempt 7
+2026-02-21 19:34:48,227 [INFO] Kernel: bigbigzabuton/gold-real-rate-7
+2026-02-21 19:34:48,228 [INFO] Remaining loops: 2
+2026-02-21 19:34:48,228 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)
+2026-02-21 19:37:24,259 [INFO] Monitor exited (code=1)
+2026-02-21 19:37:24,260 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-21 19:37:24,262 [INFO] auto_resume_remaining: 2 → 1
+2026-02-21 19:37:24,262 [INFO] Lock released. Launching Claude...
+2026-02-21 19:37:24,268 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 19:39:52,109 [INFO] ============================================================
+2026-02-21 19:39:52,109 [INFO] auto_resume started
+2026-02-21 19:39:52,120 [INFO] auto_resume_remaining set to 1
+2026-02-21 19:39:52,121 [INFO] Watching: real_rate attempt 7
+2026-02-21 19:39:52,121 [INFO] Kernel: bigbigzabuton/gold-real-rate-7
+2026-02-21 19:39:52,121 [INFO] Remaining loops: 1
+2026-02-21 19:39:52,121 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=90s)
+2026-02-21 19:40:02,049 [INFO] Claude Code exited (code=0)
+2026-02-21 19:40:02,050 [INFO] Done. Claude Code session completed.
+2026-02-21 19:40:02,050 [INFO] auto_resume exiting.
