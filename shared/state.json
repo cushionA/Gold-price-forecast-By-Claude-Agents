@@ -1,14 +1,14 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_retry",
   "current_feature": "real_rate",
-  "current_attempt": 7,
-  "resume_from": "evaluator",
+  "current_attempt": 8,
+  "resume_from": "architect",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": null,
+  "evaluator_status": "gate3_pass_sharpe_attempt_7",
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -148,6 +148,26 @@
           "stability_0.139_below_0.15"
         ],
         "note": "Deterministic bond vol regime + momentum persistence. US-only daily DFII10 data. Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). 6 consecutive Gate 3 failures across fundamentally different approaches. Information in DFII10 derivatives beyond raw daily change is redundant with existing submodel features. No_further_improvement permanent."
+      },
+      "attempt_7": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "gate3_pass_sharpe_user_continue_to_attempt_8",
+        "primary_successes": [
+          "gate1_all_pass_overfit_1.0",
+          "gate2_mi_increase=+10.92pct_proper_calculation",
+          "gate2_vif_max_1.21_excellent_orthogonality",
+          "gate2_stability_max_0.087_well_below_0.15",
+          "gate3_sharpe_delta=+0.329_6.6x_threshold",
+          "gate3_sharpe_improved_3_of_4_folds"
+        ],
+        "primary_failures": [
+          "gate3_da_delta=-0.00149_fail",
+          "gate3_mae_delta=-0.00221_below_0.01_threshold",
+          "rr_slope_level_z_autocorr=0.937_high"
+        ],
+        "note": "Gate 3 PASS via Sharpe (+0.329, 6.6x threshold, 3/4 folds). DA marginally fails (-0.00149pp). User requested attempt 8 to improve DA while maintaining Sharpe. Improvement: remove rr_slope_level_z (high autocorr), add slope/curvature momentum-direction features."
       }
     },
     "vix": {
@@ -817,9 +837,9 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T19:47:46.214887",
-  "error_type": "unknown",
-  "auto_resume_remaining": 0,
+  "last_updated": "2026-02-21T20:07:50.544275",
+  "error_type": null,
+  "auto_resume_remaining": 1,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -831,10 +851,13 @@
   },
   "real_rate_retry_context": {
     "user_requested": true,
-    "attempts_remaining": 3,
-    "reason": "User explicitly requested 3 more attempts with automated pipeline",
+    "attempts_remaining": 1,
+    "reason": "User wants auto-run until attempt 9 (2 more Kaggle submissions after attempt 7)",
     "previous_no_further_improvement": true,
-    "max_loops": 2,
-    "new_approach": "Real yield curve shape (DFII5/DFII7/DFII10/DFII20/DFII30 - all daily, no forward-fill)"
+    "max_loops": 1,
+    "new_approach": "Real yield curve shape (DFII5/DFII7/DFII10/DFII20/DFII30 - all daily)",
+    "attempt7_result_downloaded": true,
+    "attempt7_self_gate3": "PASS (Sharpe +0.329)",
+    "note": "Only count attempt increments on Kaggle submissions, not planning cycles"
   }
 }
