@@ -1,0 +1,53 @@
+{
+  "feature": "real_rate",
+  "attempt": 7,
+  "timestamp": "2026-02-21T19:31:15.767671",
+  "steps": [
+    {
+      "step": "file_check",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "basic_stats",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "missing_values",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "future_leak",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "temporal",
+      "issues": [],
+      "passed": true
+    },
+    {
+      "step": "multi_country",
+      "issues": [],
+      "note": "Not applicable - US-only FRED data",
+      "passed": true
+    }
+  ],
+  "critical_issues": [],
+  "warnings": [],
+  "action": "PASS",
+  "overall_passed": true,
+  "summary": {
+    "total_rows": 2542,
+    "columns": [
+      "rr_level_change_z",
+      "rr_slope_chg_z",
+      "rr_curvature_chg_z",
+      "rr_slope_level_z"
+    ],
+    "nan_pct_max": 4.956726986624705,
+    "autocorr_max": 0.9342507694223051
+  }
+}

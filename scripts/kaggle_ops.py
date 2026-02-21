@@ -130,12 +130,23 @@ def notebook_push(folder: str) -> KaggleResult:
         response = api.kernels_push(folder)
 
         ref = getattr(response, "ref", None) or kernel_id
-        url = getattr(response, "url", None) or f"https://www.kaggle.com/code/{kernel_id}"
+        url = getattr(response, "url", None) or f"https://www.kaggle.com/code/{ref}"
+
+        # Verify the ref is actually reachable via the API.
+        # When creating a NEW kernel, Kaggle may ignore the metadata `id` and
+        # generate a slug from the title instead (e.g. "Gold Real Rate Model -
+        # Attempt 8" → "gold-real-rate-model-attempt-8"), causing a mismatch.
+        # If kernel_status returns 403, search kernels_list for the real slug.
+        verified_ref = _resolve_actual_kernel_ref(ref, metadata.get("title", ""))
+        if verified_ref != ref:
+            print(f"  [INFO] Kaggle slug mismatch: metadata='{ref}' → actual='{verified_ref}'")
+            ref = verified_ref
+            url = f"https://www.kaggle.com/code/{ref}"
 
         return KaggleResult(
             True,
             f"Notebook pushed: {ref}",
-            {"kernel_ref": ref, "url": url, "kernel_id": kernel_id},
+            {"kernel_ref": ref, "url": url, "kernel_id": ref},
         )
     except Exception as e:
         error_msg = str(e)
@@ -147,6 +158,47 @@ def notebook_push(folder: str) -> KaggleResult:
                 {"kernel_id": kernel_id, "error_type": "conflict"},
             )
         return KaggleResult(False, f"Push failed: {e}")
+
+
+# ---------------------------------------------------------------------------
+# 1b. Kernel ref resolver (slug mismatch fix)
+# ---------------------------------------------------------------------------
+def _resolve_actual_kernel_ref(pushed_ref: str, metadata_title: str) -> str:
+    """
+    push後にAPIで実際のカーネルスラッグを検証する。
+
+    Kaggleは新規カーネル作成時、metadata JSONの`id`を無視して
+    タイトルからスラッグを生成することがある。この場合、
+    `kernel_status(pushed_ref)` が 403 を返すので `kernels_list` で
+    マッチするカーネルを探して正しいスラッグを返す。
+
+    Args:
+        pushed_ref: notebook_push が返した ref (metadata id ベース)
+        metadata_title: kernel-metadata.json の "title" フィールド
+
+    Returns:
+        実際に使えるカーネルスラッグ (文字列)
+    """
+    # まず pushed_ref が正常かチェック
+    sr = kernel_status(pushed_ref)
+    if sr.success:
+        return pushed_ref  # 問題なし
+
+    # 403 等のエラー → kernels_list から正しい ref を探す
+    try:
+        api = _get_api()
+        kernels = api.kernels_list(mine=True, page_size=20)
+        title_lower = metadata_title.lower().strip()
+        for k in kernels:
+            k_title = getattr(k, "title", "") or ""
+            k_ref = getattr(k, "ref", "") or ""
+            if k_title.lower().strip() == title_lower and k_ref:
+                return k_ref
+    except Exception:
+        pass
+
+    # 見つからなければ元の ref を返す（後続でエラーになる）
+    return pushed_ref
 
 
 # ---------------------------------------------------------------------------
@@ -381,7 +433,9 @@ def submit(
     if not push_result.success:
         return push_result
 
-    kernel_id = push_result.data.get("kernel_id", "")
+    # Use kernel_ref (the verified actual Kaggle slug) not kernel_id (metadata value).
+    # These can differ when Kaggle generates a slug from the title for new kernels.
+    kernel_id = push_result.data.get("kernel_ref") or push_result.data.get("kernel_id", "")
 
     # Update state
     state = _load_state()
@@ -419,36 +473,50 @@ def submit_and_monitor(
     folder: str,
     feature: str,
     attempt: int,
+    max_loops: int | None = None,
 ) -> KaggleResult:
     """
-    提出 → バックグラウンドで監視スクリプトを起動。
+    提出 → バックグラウンドで auto_resume.py を起動。
 
-    監視完了後は state.json が更新される。
-    evaluator は Claude Code で手動実行する前提。
+    auto_resume.py が monitor (ブロッキング) → 完了検知 → claude -p を1回起動 → 自然終了。
+    claude -p 内で再度 submit_and_monitor() が呼ばれると新しい auto_resume.py が生まれ、
+    max_loops 回まで自動ループする。
+
+    Args:
+        max_loops: 自動再開の最大回数。None=無制限、3=3回だけ自動実行。
     """
     result = submit(folder, feature, attempt)
     if not result.success:
         return result
 
-    # Start background monitor
+    # Start background auto_resume (monitor + claude -p trigger)
+    auto_resume_script = str(Path(__file__).resolve().parent / "auto_resume.py")
+    cmd_args = [auto_resume_script]
+    if max_loops is not None:
+        cmd_args += ["--max-loops", str(max_loops)]
+
     try:
-        script = str(Path(__file__).resolve())
         if sys.platform == "win32":
+            pythonw = str(Path(sys.executable).parent / "pythonw.exe")
+            if not Path(pythonw).exists():
+                pythonw = sys.executable
             subprocess.Popen(
-                [sys.executable, script, "monitor"],
-                creationflags=subprocess.CREATE_NEW_CONSOLE | subprocess.DETACHED_PROCESS,
-                cwd=_PROJECT_ROOT,
+                [pythonw] + cmd_args,
+                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS,
+                cwd=str(_PROJECT_ROOT),
             )
         else:
             subprocess.Popen(
-                [sys.executable, script, "monitor"],
+                [sys.executable] + cmd_args,
                 start_new_session=True,
-                cwd=_PROJECT_ROOT,
+                cwd=str(_PROJECT_ROOT),
             )
-        print("[OK] Background monitor started")
+        loops_str = f"max {max_loops} loops" if max_loops is not None else "unlimited"
+        print(f"[OK] auto_resume started ({loops_str})")
+        print("     Status: python scripts/auto_resume.py --status")
     except Exception as e:
-        print(f"[WARN] Could not start monitor: {e}")
-        print(f"  Run manually: python scripts/kaggle_ops.py monitor")
+        print(f"[WARN] Could not start auto_resume: {e}")
+        print(f"  Run manually: python scripts/auto_resume.py")
 
     return result
 
@@ -480,6 +548,7 @@ def monitor(
     check_interval: int = 60,
     max_hours: float = 3.0,
     once: bool = False,
+    initial_wait: int = 90,
 ) -> KaggleResult:
     """
     state.json の kaggle_kernel を監視し、完了時に結果を取得する。
@@ -521,6 +590,14 @@ def monitor(
     if once:
         print("Mode: single check")
     print()
+
+    # Wait before first poll to allow Kaggle to transition from previous
+    # error/complete state to queued/running for the newly submitted version.
+    # Without this delay, the monitor may detect the OLD failed version's status
+    # and immediately exit with error, before the new version is even queued.
+    if initial_wait > 0 and not once:
+        print(f"Waiting {initial_wait}s for Kaggle to queue new submission...")
+        time.sleep(initial_wait)
 
     start = datetime.now()
     max_wait = timedelta(hours=max_hours)
@@ -578,6 +655,19 @@ def monitor(
             error_type = _classify_error(failure_msg)
             print(f"  [FAIL] Training ERROR: {error_type}")
             print(f"  {failure_msg[:200]}")
+
+            # Wait one more interval and re-check before treating as final error.
+            # Kaggle may return the old version's error status while the new
+            # version is still being queued. A second confirmation avoids
+            # false positives that cause unnecessary claude relaunch cycles.
+            if not once and check_count <= 3:
+                print(f"  [WARN] Re-checking in {check_interval}s to confirm (attempt {check_count}/3)...")
+                time.sleep(check_interval)
+                sr2 = kernel_status(kid)
+                if sr2.success and sr2.data["status"] != "error":
+                    s2 = sr2.data["status"]
+                    print(f"  [OK] Status changed to '{s2}' - was stale error. Continuing...")
+                    continue  # Back to top of loop with updated status
 
             state = _load_state()
             state.update(
@@ -657,12 +747,17 @@ def main():
     p.add_argument("feature", help="Feature name (e.g. real_rate)")
     p.add_argument("attempt", type=int, help="Attempt number")
     p.add_argument("--monitor", action="store_true", help="Start background monitor after submit")
+    p.add_argument("--max-loops", type=int, default=None,
+                   help="Max auto-resume loops (requires --monitor). None=unlimited, 3=3 loops")
 
     # monitor
     p = subparsers.add_parser("monitor", help="Monitor running kernel until complete")
     p.add_argument("--once", action="store_true", help="Check once and exit")
     p.add_argument("--interval", type=int, default=60, help="Check interval in seconds (default: 60)")
     p.add_argument("--max-hours", type=float, default=3.0, help="Max monitoring hours (default: 3)")
+    p.add_argument("--initial-wait", type=int, default=90,
+                   help="Seconds to wait before first poll (default: 90). "
+                        "Allows Kaggle to queue new submission before detecting old error state.")
 
     args = parser.parse_args()
 
@@ -673,7 +768,7 @@ def main():
         "dataset-create": lambda: dataset_create(args.folder),
         "dataset-update": lambda: dataset_update(args.folder, args.version_notes),
         "submit": lambda: (
-            submit_and_monitor(args.folder, args.feature, args.attempt)
+            submit_and_monitor(args.folder, args.feature, args.attempt, max_loops=args.max_loops)
             if args.monitor
             else submit(args.folder, args.feature, args.attempt)
         ),
@@ -681,6 +776,7 @@ def main():
             check_interval=args.interval,
             max_hours=args.max_hours,
             once=args.once,
+            initial_wait=args.initial_wait,
         ),
     }
 

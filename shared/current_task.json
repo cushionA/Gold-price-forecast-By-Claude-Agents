@@ -1,223 +1,76 @@
 {
-  "feature": "regime_classification",
-  "attempt": 1,
-  "source": "entrance",
-  "phase": "phase2_submodel",
+  "feature": "real_rate",
+  "attempt": 10,
+  "phase": "phase2_submodel_retry",
+  "created_at": "2026-02-21",
+  "agent_sequence": ["architect", "builder_data", "datachecker", "builder_model"],
 
-  "summary": "Build a multi-dimensional macro regime classification submodel that detects what broad market state we are in (Risk-On, Risk-Off, Stagflation, Calm) using joint dynamics of VIX, Yield Spread, DXY, Gold Volatility, and Equity Returns simultaneously. This is fundamentally different from (a) the existing single-feature HMMs that detect regime in ONE asset at a time, and (b) the failed binary classifier that tried to predict UP/DOWN directly. The regime_classification model uses unsupervised learning (GMM or multi-dimensional HMM) on multi-asset joint distributions to identify macro-level market states that none of the existing single-feature regime detectors can capture. Output: a probability vector across 3-5 macro regimes for each day.",
+  "objective": "Build a real interest rate submodel attempt 10 using a fundamentally different feature extraction approach from attempts 7-9. Use PCA on daily DFII changes to produce data-driven orthogonal features, avoiding the hand-crafted Sharpe-MAE tradeoff observed in attempts 7-9.",
 
-  "problem_analysis": {
-    "why_this_model": {
-      "meta_model_weakness": "The meta-model (attempt 7, DA 60.04%, HCDA 64.13%, Sharpe 2.46) has strong overall performance but a 87.3% bullish prediction bias. It lacks awareness of MACRO-LEVEL market state transitions -- the kind of information that would help it calibrate confidence and reduce false-positive UP predictions during risk-off periods.",
-      "classifier_failure_lessons": "Two attempts at direct UP/DOWN classification failed: attempt 1 collapsed to all-DOWN trivial predictor, attempt 2 produced non-trivial predictions but was anti-predictive (highest P(DOWN) on UP days). Direct direction prediction is too noisy for daily gold. Instead, providing macro-state context to the regression model is a more robust approach.",
-      "gap_in_existing_submodels": "The 8 existing HMM-based submodels each detect regime in a single feature (VIX regime, technical regime, cross-asset regime, etc.). No submodel captures the JOINT state across multiple market dimensions simultaneously. When VIX is elevated AND yield curve is inverting AND DXY is strengthening simultaneously, this is a qualitatively different macro regime than any single indicator would detect alone."
-    },
-    "existing_regime_features_in_meta_model": {
-      "vix_regime_probability": "3-state HMM on VIX dynamics only",
-      "tech_trend_regime_prob": "2D HMM on GLD z-score + GK volatility only",
-      "xasset_regime_prob": "3-state HMM on cross-asset correlations only",
-      "etf_regime_prob": "3-state HMM on volume + returns only",
-      "ie_regime_prob": "3-state HMM on inflation expectation dynamics only",
-      "options_risk_regime_prob": "3-state HMM on SKEW/GVZ only",
-      "limitation": "Each captures regime in its OWN feature space. None captures MULTI-FEATURE joint regime. The meta-model's XGBoost tries to learn these interactions via tree splits, but tree-based models are weak at capturing simultaneous multi-dimensional state transitions."
-    },
-    "what_macro_regimes_look_like": {
-      "risk_on": "Low VIX, rising equities, stable or weakening DXY, tight credit spreads, low gold volatility. Gold tends to drift sideways or slowly appreciate on inflation expectations.",
-      "risk_off": "High VIX, falling equities, strengthening DXY, widening spreads, high gold volatility. Gold's response depends on whether it is a liquidity crisis (gold DOWN with everything) or quality flight (gold UP).",
-      "stagflation": "Rising inflation expectations, rising rates, weak equities, mixed DXY. Gold historically performs well in stagflation as a real asset hedge.",
-      "calm_transition": "Low volatility across all assets, narrow yield curve, stable DXY. Gold performance driven by micro factors (ETF flows, technicals) rather than macro regime."
-    }
+  "background": {
+    "attempt_7_result": "Gate 3 PASS via Sharpe +0.329 (6.6x threshold). 4 features: rr_level_change_z, rr_slope_chg_z, rr_curvature_chg_z, rr_slope_level_z. BEST overall attempt.",
+    "attempt_8_result": "Gate 3 PASS via MAE -0.0203 (2.0x threshold). 3 features: removed rr_slope_level_z. Sharpe reversed to -0.260.",
+    "attempt_9_result": "Gate 3 PASS via MAE -0.0141 (1.4x threshold). 5 features: attempt 7 + interaction. STRICTLY WORSE than attempt 8 on ALL metrics. Combination strategy failed.",
+    "fundamental_tradeoff": "rr_slope_level_z (252-day rolling z-score, autocorr=0.937) drives Sharpe improvement but hurts MAE/DA. Without it, MAE improves but Sharpe degrades. Adding more hand-crafted features (attempt 9) makes everything worse.",
+    "key_lesson": "Hand-crafted feature combinations have been exhausted. Need fundamentally different approach."
   },
 
-  "requirements": "Build an unsupervised/semi-supervised multi-dimensional regime classification model that jointly analyzes 4-6 market dimensions (VIX level/change, yield spread dynamics, DXY momentum, realized gold volatility, equity returns) to output a probability vector across 3-5 macro regimes. The model must capture cross-asset synchronization that individual single-feature HMMs cannot detect. Output columns should be regime probabilities (one per regime) and optionally a regime transition velocity measure. The probabilities must sum to 1.0 per row and should be continuous (not binary). Each regime should have an interpretable economic meaning (Risk-On, Risk-Off, etc.) even though regime labels are assigned post-hoc.",
-
-  "research_questions": [
-    "What is the optimal number of macro-economic regimes for gold-relevant market state classification? Academic literature on regime-switching models for commodities typically finds 2-4 states. With 4-6 input dimensions, how many components does BIC/AIC suggest for a Gaussian Mixture Model or multi-dimensional HMM?",
-    "Gaussian Mixture Model (GMM) vs multi-dimensional Hidden Markov Model (HMM) for financial regime detection: what are the tradeoffs? GMM is simpler (no temporal dependence) but each day is classified independently. HMM captures regime persistence (regimes tend to last days/weeks, not flip daily) which is more realistic. What does the literature recommend for daily financial data with 4-6 dimensions?",
-    "What input features should be used for multi-dimensional regime classification? Candidates: (a) VIX level or z-score, (b) yield spread (10Y-2Y) level or change, (c) DXY change or momentum, (d) gold realized volatility (5d or 10d), (e) S&P 500 return (1d or 5d), (f) gold-silver ratio change. Which subset maximizes regime separation while minimizing multicollinearity? Should we use levels, changes, or z-scores?",
-    "How to handle the dimensionality of input to GMM/HMM? With 4-6 raw inputs, should we (a) use raw standardized features directly, (b) apply PCA first and use top 2-3 principal components, or (c) use an autoencoder for nonlinear dimensionality reduction? What is the impact on regime interpretability?",
-    "Bayesian GMM (variational inference) vs classical EM-based GMM: does Bayesian GMM's automatic component number selection (via Dirichlet process) offer practical advantages over manually selecting K via BIC? What are the computational costs on 2500 daily observations with 4-6 dimensions?",
-    "How to ensure orthogonality of the regime_classification output with existing single-feature regime probabilities (vix_regime_prob, xasset_regime_prob, etc.)? If the multi-dimensional regime is highly correlated with any single existing regime feature, it adds no new information. What VIF threshold should we target, and how to decorrelate during training if needed?",
-    "Regime transition dynamics: should we output just the static regime probability vector, or also a 'regime transition velocity' feature that captures how rapidly the market is transitioning between regimes? A high transition velocity (unstable regime) may be informative for gold volatility.",
-    "What is the expected regime persistence (average duration of each regime in days)? If regimes switch too frequently (daily), the feature will be noisy and unhelpful. If they persist for months, the feature will be too slow-moving (similar to the yield_curve HMM that collapsed to constant). Target: average regime duration of 5-30 trading days.",
-    "Should we use a rolling-window GMM/HMM (re-fit periodically) or a single fit on the entire training period? Rolling window captures non-stationary regime dynamics but introduces instability. Single fit is more stable but may miss structural changes post-training."
-  ],
-
-  "architecture_candidates": {
-    "primary": {
-      "model": "Multi-dimensional Gaussian Mixture Model (GMM) with 3-5 components",
-      "input": "4-5 standardized features: VIX z-score (20d), yield spread z-score (20d), DXY 5d momentum z-score, gold 10d realized volatility z-score, S&P 500 5d return z-score",
-      "output": "K probability columns (one per component), summing to 1.0 per row",
-      "rationale": "GMM is the simplest multi-dimensional clustering approach. Each component represents a macro regime. Posterior probabilities provide soft assignments. Scikit-learn GaussianMixture is well-tested and fast. K selected by BIC on training data.",
-      "advantages": ["Simple, well-understood", "Probability output is calibrated by definition", "Fast training (seconds)", "BIC provides principled K selection", "No temporal assumptions needed"],
-      "disadvantages": ["No regime persistence modeling (each day independent)", "Assumes Gaussian clusters (may miss non-ellipsoidal regimes)", "May need PCA preprocessing if features are correlated"]
-    },
-    "alternative_1": {
-      "model": "Multi-dimensional Hidden Markov Model (HMM) with Gaussian emissions, 3-4 states",
-      "input": "Same as GMM",
-      "output": "K state probability columns + regime transition velocity",
-      "rationale": "HMM adds temporal structure: regimes persist and transition with learned probabilities. This is more realistic for financial markets where Risk-Off periods last weeks, not single days. hmmlearn library provides GaussianHMM.",
-      "advantages": ["Captures regime persistence", "Transition matrix is interpretable", "Smoother regime probabilities over time"],
-      "disadvantages": ["More complex to train (EM with forward-backward)", "May converge to degenerate solutions (as seen in yield_curve HMM)", "hmmlearn GaussianHMM with full covariance and 4-5 dimensions may have convergence issues", "Risk of one state dominating (as seen with yc_regime_prob becoming constant)"]
-    },
-    "alternative_2": {
-      "model": "Bayesian Gaussian Mixture Model (BGMM) with Dirichlet Process prior",
-      "input": "Same as GMM",
-      "output": "K probability columns (K automatically determined)",
-      "rationale": "Bayesian approach automatically determines the number of components via the concentration parameter. Avoids manual BIC selection. Scikit-learn BayesianGaussianMixture implements this.",
-      "advantages": ["Automatic K selection", "Regularized by prior (avoids degenerate clusters)", "Still provides calibrated probabilities"],
-      "disadvantages": ["Slower than standard GMM", "Dirichlet process may underestimate K for financial data", "Hyperparameter (weight_concentration_prior) needs tuning"]
-    },
-    "not_recommended": {
-      "model_1": "K-Means clustering",
-      "reason": "No probability output. Hard assignments lose information. Not suitable for regime probabilities.",
-      "model_2": "Supervised binary classifier (UP/DOWN)",
-      "reason": "Already failed twice (classifier attempts 1 and 2). Direct direction prediction is too noisy for daily gold."
-    }
+  "previous_feedback": {
+    "attempt_9_gate3": "PASS via MAE (-0.0141) but strictly worse than attempt 8 on all metrics",
+    "anti_patterns": [
+      "DO NOT add features on top of attempt 7 set (attempt 9 proved counterproductive)",
+      "DO NOT use rr_slope_level_z and expect MAE improvement (structural tradeoff)",
+      "DO NOT remove rr_slope_level_z and expect Sharpe improvement (structural tradeoff)",
+      "DO NOT use 252-day rolling window for level features (causes autocorr=0.937)"
+    ]
   },
 
-  "input_specification": {
-    "principle": "Use RAW market data, not existing submodel outputs. The regime_classification model should detect joint macro dynamics from primary sources. Using submodel outputs would create circular dependencies and guarantee high VIF.",
-    "candidate_features": [
-      {
-        "name": "vix_z",
-        "source": "FRED: VIXCLS",
-        "formula": "(VIX - rolling_mean_20d) / rolling_std_20d",
-        "rationale": "VIX level relative to recent history. High z = elevated fear. Standardization makes it comparable across time periods.",
-        "note": "Use z-score, not raw level, to handle the non-stationary VIX trend"
-      },
-      {
-        "name": "yield_spread_z",
-        "source": "FRED: DGS10, DGS2 -> spread = DGS10 - DGS2",
-        "formula": "(spread - rolling_mean_60d) / rolling_std_60d",
-        "rationale": "Yield spread relative to medium-term average. Use 60d window because yield curve dynamics are slower. Inverted curve (negative z) = recession risk.",
-        "note": "60d window to capture slower yield curve dynamics"
-      },
-      {
-        "name": "dxy_momentum_z",
-        "source": "Yahoo: DX-Y.NYB",
-        "formula": "z-score of 5d DXY return using 60d rolling stats",
-        "rationale": "DXY momentum captures USD strength/weakness trend. Positive z = strengthening dollar = headwind for gold.",
-        "note": "5d return rather than 1d to reduce noise"
-      },
-      {
-        "name": "gold_rvol_z",
-        "source": "Yahoo: GC=F",
-        "formula": "z-score of 10d realized volatility (annualized) using 60d rolling stats",
-        "rationale": "Gold-specific volatility captures the turbulence in gold itself. High rvol may indicate regime transition.",
-        "note": "10d window balances responsiveness vs noise"
-      },
-      {
-        "name": "equity_return_z",
-        "source": "Yahoo: ^GSPC",
-        "formula": "z-score of 5d S&P 500 return using 60d rolling stats",
-        "rationale": "Equity market trajectory captures the risk-on/risk-off dimension most directly. Large negative = risk-off.",
-        "note": "5d return to capture trend, not daily noise"
-      }
+  "design_approach": {
+    "name": "PCA on Daily DFII Changes",
+    "data_sources": [
+      "FRED: DFII5 (5Y TIPS yield, daily)",
+      "FRED: DFII7 (7Y TIPS yield, daily)",
+      "FRED: DFII10 (10Y TIPS yield, daily)",
+      "FRED: DFII20 (20Y TIPS yield, daily)",
+      "FRED: DFII30 (30Y TIPS yield, daily)"
     ],
-    "optional_6th_feature": {
-      "name": "inflation_expectation_z",
-      "source": "FRED: T10YIE",
-      "formula": "z-score of T10YIE change (5d) using 60d rolling stats",
-      "rationale": "Inflation expectations help distinguish stagflation (rising inflation + weak growth) from simple risk-off (falling inflation + weak growth). Would add a unique dimension.",
-      "decision": "Include if GMM with 5 features shows clear stagflation cluster. Exclude if it adds noise or creates a degenerate 6th dimension."
+    "feature_design": {
+      "approach": "Compute daily changes for all 5 DFII series. Apply rolling PCA (window 252 or expanding) to the 5-dimensional change vector. Output the projection onto the top 2-3 principal components as rolling z-scores.",
+      "rationale": "PCA produces orthogonal components by construction. No autocorrelation issue since we use daily changes not levels. Data-driven -- not biased by hand-crafted assumptions about which combinations matter."
     },
-    "preprocessing": {
-      "standardization": "All inputs must be z-scored with rolling windows (20d or 60d). This ensures stationarity and comparability across features.",
-      "nan_handling": "Initial NaN rows from rolling windows (~60 rows at start) are dropped from training. For production output, impute with 0.0 (neutral z-score).",
-      "correlation_check": "Verify that pairwise correlation between the 5 input features is < 0.7. If higher, consider PCA or dropping one feature."
-    }
+    "alternative": {
+      "approach": "Exponential decay weighting. Same 3 change features as attempt 8 but add a 4th feature: EWM slope level with half-life 10-20 days (instead of 252-day rolling). This captures the same information as rr_slope_level_z but with much lower autocorrelation.",
+      "rationale": "Short memory exponential decay may preserve the Sharpe signal from rr_slope_level_z while avoiding the autocorrelation problem that hurts MAE."
+    },
+    "architect_decides": "Choose PCA approach (priority 1) or exponential decay (priority 2) based on feasibility and expected information content"
   },
 
-  "output_specification": {
-    "columns": {
-      "regime_prob_0": "Probability of being in Regime 0 (to be labeled post-hoc, e.g., 'Risk-On')",
-      "regime_prob_1": "Probability of being in Regime 1 (e.g., 'Risk-Off')",
-      "regime_prob_2": "Probability of being in Regime 2 (e.g., 'Calm/Transition')",
-      "regime_prob_3": "(Only if K=4) Probability of being in Regime 3 (e.g., 'Stagflation')",
-      "regime_transition_velocity": "(Optional) Rate of change in regime probabilities: sqrt(sum((prob_t - prob_{t-1})^2)). High values indicate unstable/transitioning regime."
-    },
-    "properties": {
-      "probability_constraint": "All regime_prob columns must sum to 1.0 per row (within floating-point tolerance)",
-      "range": "Each probability in [0, 1]",
-      "smoothness": "Regime probabilities should not flip between 0 and 1 on consecutive days. Average regime duration target: 5-30 trading days.",
-      "rows": "Same date range as other submodel outputs (2015-02 to 2025-02 approximately)"
-    },
-    "format": "CSV with Date column + regime probability columns + optional transition velocity",
-    "save_path": "data/submodel_outputs/regime_classification.csv",
-    "meta_model_integration": "The regime probability columns become additional features for the XGBoost meta-model (attempt 7+). They are appended alongside the existing 24 features."
-  },
-
-  "evaluation_criteria": {
-    "gate_1_standalone_quality": {
-      "overfit_ratio": "< 1.5 (train log-likelihood vs validation log-likelihood for GMM/HMM)",
-      "no_constant_output": "No regime probability column should have std < 0.01 (learned from yield_curve HMM failure where yc_regime_prob was constant)",
-      "no_all_nan": "Zero NaN in output",
-      "regime_balance": "No single regime should dominate > 80% of days (degenerate clustering). Each regime should have at least 10% representation.",
-      "regime_persistence": "Average regime duration should be 5-30 days. If < 2 days (noisy) or > 100 days (too slow), FAIL."
-    },
-    "gate_2_information_gain": {
-      "mi_increase": "> 5% total mutual information increase when regime_classification outputs are added to the existing 24 features",
-      "vif": "< 10 for each new regime probability column. Critical: must be orthogonal to existing regime probabilities (vix_regime_prob, xasset_regime_prob, etc.)",
-      "stability": "Rolling correlation std < 0.15 for each output column",
-      "note": "VIF is the key risk. If multi-dimensional regime highly correlates with any single-feature regime, it adds no value."
-    },
-    "gate_3_ablation": {
-      "direction_accuracy": "+0.5% improvement when regime_classification features are added to meta-model",
-      "sharpe": "+0.05 improvement (after transaction costs)",
-      "mae": "-0.01% improvement",
-      "note": "Any ONE of these three criteria is sufficient to pass Gate 3",
-      "special_attention": "Monitor HCDA. If regime features help the model be more confident on correct predictions, HCDA could improve even without DA improvement."
-    }
+  "output_spec": {
+    "file": "data/processed/real_rate/data.csv",
+    "format": "CSV with date index",
+    "columns": "2-4 features, architect decides",
+    "date_range": "Matching target.csv",
+    "nan_handling": "NaN for warmup period. No forward-fill."
   },
 
   "constraints": [
-    "5-day data delay rule: VIX, DXY, GC=F, ^GSPC, DGS10, DGS2, T10YIE are all available same-day or T+1. All safe.",
-    "Submodel does NOT predict gold prices or gold direction. It classifies the macro regime state only.",
-    "Use only free data sources: yfinance (GC=F, DX-Y.NYB, ^GSPC), FRED (VIXCLS, DGS10, DGS2, T10YIE). No paid APIs.",
-    "Must be trainable on Kaggle with GPU in < 10 minutes (GMM/HMM training is fast -- seconds to minutes).",
-    "Time-series split 70/15/15 for evaluation. GMM/HMM is fit on training data only.",
-    "No future information leakage: all rolling windows must use backward-looking windows only.",
-    "Input features must be RAW market data (z-scored), NOT existing submodel outputs. This prevents circular dependencies and ensures orthogonality.",
-    "Output regime probabilities must sum to 1.0 per row.",
-    "Must include dataset_sources: bigbigzabuton/gold-prediction-submodels in kernel-metadata.json.",
-    "Number of regimes K should be determined by BIC/AIC on training data, not hardcoded. Expected range: 3-5.",
-    "Rolling window lengths for z-scores (20d or 60d) must be consistent and justified by the feature's characteristic timescale."
+    "Maximum 4 output features",
+    "All sources must be daily frequency from FRED",
+    "No forward-fill of monthly-to-daily",
+    "No neural network training required -- pure deterministic features",
+    "FRED API key via Kaggle Secrets (UserSecretsClient)",
+    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']"
   ],
 
-  "success_hypothesis": "Multi-dimensional macro regime classification using 5 jointly-analyzed market dimensions (VIX, yield spread, DXY, gold volatility, equity returns) will capture cross-asset synchronization patterns that individual single-feature HMMs miss. The regime probability vector will provide the meta-model with macro-state awareness, improving direction accuracy by +0.5% or more through better calibration of predictions during regime transitions. The key difference from existing features: this model captures the JOINT distribution of multiple markets, not individual asset dynamics.",
-
-  "differentiation_from_existing_features": {
-    "vs_vix_regime_prob": "vix_regime_prob uses VIX dynamics ONLY. regime_classification uses VIX jointly with 4 other dimensions. The multi-dimensional approach detects states where VIX is moderate but other indicators signal stress (e.g., yield curve inversion + DXY strength without extreme VIX).",
-    "vs_xasset_regime_prob": "xasset_regime_prob uses cross-asset correlations. regime_classification uses the LEVELS and momentum of multiple assets, not their correlations. These are geometrically different: correlation captures co-movement tendency, while joint levels capture the state itself.",
-    "vs_tech_trend_regime_prob": "tech_trend_regime_prob uses gold-specific z-score and volatility. regime_classification includes gold volatility but also VIX, yield curve, DXY, and equities -- capturing the macro context that drives gold, not just gold's own dynamics.",
-    "vs_classifier_approach": "The failed classifier tried to predict UP/DOWN directly (supervised). regime_classification uses unsupervised learning to detect WHAT STATE the market is in, with no direct link to gold direction. The meta-model then learns which regimes are bullish/bearish for gold."
+  "success_criteria": {
+    "gate1": "No overfitting, no all-NaN or constant columns",
+    "gate2": "MI increase > 5%",
+    "gate3": "Any one of: DA +0.5pp, Sharpe +0.05, MAE -0.01%. Goal: beat attempt 7 Sharpe +0.329 or attempt 8 MAE -0.0203. Realistically, matching either would be a success."
   },
 
-  "risk_assessment": {
-    "risk_1_vif_overlap": {
-      "probability": "30-40%",
-      "description": "Multi-dimensional regime probabilities may correlate highly with existing single-feature regime probabilities, especially vix_regime_prob. If VIF > 10, the feature adds noise rather than signal.",
-      "mitigation": "Use RAW market data as inputs (not submodel outputs). Monitor VIF during evaluation. If one regime probability correlates with existing features, consider dropping it or orthogonalizing via residualization."
-    },
-    "risk_2_regime_collapse": {
-      "probability": "15-25%",
-      "description": "GMM/HMM may converge to a degenerate solution where one component captures 90%+ of observations (as happened with yield_curve HMM). Multi-dimensional data reduces this risk but does not eliminate it.",
-      "mitigation": "Use regularized covariance (Bayesian GMM or GMM with reg_covar parameter). Require minimum 10% representation per regime. If collapse occurs, try different K or different input features."
-    },
-    "risk_3_too_many_output_columns": {
-      "probability": "20-30%",
-      "description": "If K=5, we add 5-6 new features to the meta-model (already at 24). Meta-model attempts 8-12 showed that adding features tends to degrade performance. The regime_classification output may suffer the same fate.",
-      "mitigation": "Prefer K=3 (3 new columns) over K=5 (5 new columns). Alternatively, output only the top 2 most informative regime probabilities plus transition velocity (3 columns total). The evaluator can test full vs reduced output."
-    },
-    "risk_4_non_stationarity": {
-      "probability": "25-35%",
-      "description": "Market regime structure may shift over the 10-year training period. A GMM fit on 2015-2022 data may not capture post-COVID or 2025-2026 regime dynamics accurately.",
-      "mitigation": "Evaluate regime assignments in the test period (2023-2025) for economic interpretability. If test-period regimes are nonsensical, consider rolling-window GMM or expanding training data."
-    }
-  },
-
-  "previous_feedback": null,
-  "created_at": "2026-02-18T15:00:00",
-  "created_by": "entrance"
+  "kaggle_config": {
+    "kernel_id": "bigbigzabuton/gold-real-rate-10",
+    "notebook_path": "notebooks/real_rate_10/",
+    "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"]
+  }
 }

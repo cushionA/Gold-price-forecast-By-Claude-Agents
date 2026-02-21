@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-02-21T22:00:00",
+  "feature": "real_rate",
+  "attempt": 9,
+  "method": "deterministic_yield_curve_5feature_with_interaction",
+  "gate1_pass": true,
+  "gate2_pass": true,
+  "gate3_pass": true,
+  "gate3_pass_via": "MAE",
+  "gate3_metrics": {
+    "direction_accuracy_delta": -0.0173,
+    "sharpe_delta": -0.186,
+    "mae_delta": -0.0141
+  },
+  "decision": "gate3_pass_mae_but_worse_than_attempts_7_and_8",
+  "attempt_consumed": true,
+  "next_action": "continue_to_attempt_10_per_user_directive",
+  "evaluator_recommendation": "no_further_improvement_accept_attempt_7",
+  "cross_attempt_ranking": {
+    "best_sharpe": {"attempt": 7, "delta": 0.329},
+    "best_mae": {"attempt": 8, "delta": -0.0203},
+    "best_da": {"attempt": 7, "delta": -0.00149},
+    "best_overall": 7
+  }
+}

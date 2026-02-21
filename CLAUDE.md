@@ -241,12 +241,36 @@ from scripts.kaggle_ops import submit, submit_and_monitor, monitor
 # Submit: push + state.json update + git commit & push
 result = submit("notebooks/real_rate_1/", feature="real_rate", attempt=1)
 
-# Submit + start background monitor
+# Submit + auto-resume (unlimited loops)
 result = submit_and_monitor("notebooks/real_rate_1/", feature="real_rate", attempt=1)
 
-# Monitor: poll until complete, then download results + update state + git commit
+# Submit + auto-resume (3回だけ自動改善)
+result = submit_and_monitor("notebooks/real_rate_1/", feature="real_rate", attempt=1, max_loops=3)
+
+# Monitor only: poll until complete, then download results + update state + git commit
 result = monitor()  # reads kernel_id from state.json
 ```
+
+#### Auto-Resume (`scripts/auto_resume.py`)
+
+submit_and_monitor() が自動で起動する使い捨てプロセス。
+Kaggle完了を待ち → 結果fetch → `claude -p` を1回起動 → 自然終了。
+
+```bash
+# 状態確認
+python scripts/auto_resume.py --status
+
+# 途中で止める（次のclaude起動をキャンセル）
+python scripts/auto_resume.py --stop
+
+# PC再起動後に手動で起動
+pythonw scripts/auto_resume.py &
+```
+
+**ループ制御** (`state.json` の `auto_resume_remaining`):
+- `null` (未設定) → 無制限ループ
+- `3` → あと3回だけ自動実行、0になったら停止
+- `0` → claude -p を起動せず結果fetchだけして停止
 
 #### CLI
 
@@ -258,13 +282,16 @@ python scripts/kaggle_ops.py kernel-output bigbigzabuton/gold-real-rate-1 data/o
 python scripts/kaggle_ops.py dataset-create data/submodel_outputs/
 python scripts/kaggle_ops.py dataset-update data/dataset_upload_clean/ "v3: notes"
 
-# Workflow: submit + state + git
+# Workflow: submit + state + git (auto-resume なし)
 python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1
 
-# Workflow: submit + background monitor
+# Workflow: submit + auto-resume (unlimited)
 python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1 --monitor
 
-# Workflow: monitor (reads from state.json)
+# Workflow: submit + auto-resume (3回だけ)
+python scripts/kaggle_ops.py submit notebooks/real_rate_1/ real_rate 1 --monitor --max-loops 3
+
+# Monitor only (reads from state.json)
 python scripts/kaggle_ops.py monitor
 python scripts/kaggle_ops.py monitor --once          # single check
 python scripts/kaggle_ops.py monitor --interval 120  # check every 2 min
@@ -275,25 +302,26 @@ python scripts/kaggle_ops.py monitor --interval 120  # check every 2 min
 ```
 [PC on] builder_model: Generate Kaggle Notebook
   ↓
-orchestrator: submit_and_monitor()
+orchestrator: submit_and_monitor(max_loops=3)
   - Python API: kernels_push
-  - state.json → "waiting_training"
+  - state.json → "waiting_training", auto_resume_remaining=3
   - git commit & push
-  - Start background monitor
+  - auto_resume.py をバックグラウンド起動
   ↓
-[PC off OK] monitor polls every 1 min (max 3 hours)
+[PC on] auto_resume.py: monitor (ブロッキング、60秒ごとにKaggle確認)
   ↓
-[Kaggle complete] monitor detects completion
-  - Python API: kernels_output (download results)
-  - state.json → "in_progress", resume_from="evaluator"
-  - git commit & push
+[Kaggle complete] monitor が完了検知
+  - 結果ダウンロード → state.json更新 → git push
+  - auto_resume_remaining: 3→2 にデクリメント
+  - claude -p "Resume from evaluator" を1回実行
   ↓
-[Continue] User says "Resume from where we left off"
-  - orchestrator reads state.json
-  - evaluator runs Gate 1/2/3 (Claude Code agent, not inline)
-  - evaluator decides next action
+[Auto] Claude Code セッション内で evaluator → 改善 → submit_and_monitor()
+  - 新しい auto_resume.py が起動（remaining=2）
   ↓
-[Loop continues with fresh context]
+... remaining=0 になるまで自動ループ ...
+  ↓
+[Stop] remaining=0 → 結果fetchだけしてclaude起動しない
+  - ログ: "Results are fetched. Run manually: claude -p 'Resume from evaluator'"
 ```
 
 #### Error Handling

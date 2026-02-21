@@ -1,15 +1,15 @@
 {
   "status": "completed",
-  "phase": "completed",
+  "phase": "phase3_meta_model",
   "current_feature": "meta_model",
-  "current_attempt": 15,
+  "current_attempt": 18,
   "resume_from": null,
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
   "builder_model_status": null,
-  "evaluator_status": null,
-  "current_submodel": "meta_model",
+  "evaluator_status": "final_evaluation_attempt_18_complete_attempt_7_confirmed_as_final",
+  "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
     "attempt": 1,
@@ -39,8 +39,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-15",
-  "submitted_at": "2026-02-18T22:29:38.550806",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-18",
+  "submitted_at": "2026-02-21T21:45:38.268717",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -148,6 +148,64 @@
           "stability_0.139_below_0.15"
         ],
         "note": "Deterministic bond vol regime + momentum persistence. US-only daily DFII10 data. Gate 1 PASS, Gate 2 FAIL (MI +1.95%), Gate 3 FAIL (DA -0.57pp, Sharpe -0.25, MAE -0.0007). 6 consecutive Gate 3 failures across fundamentally different approaches. Information in DFII10 derivatives beyond raw daily change is redundant with existing submodel features. No_further_improvement permanent."
+      },
+      "attempt_7": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "gate3_pass_sharpe_user_continue_to_attempt_8",
+        "primary_successes": [
+          "gate1_all_pass_overfit_1.0",
+          "gate2_mi_increase=+10.92pct_proper_calculation",
+          "gate2_vif_max_1.21_excellent_orthogonality",
+          "gate2_stability_max_0.087_well_below_0.15",
+          "gate3_sharpe_delta=+0.329_6.6x_threshold",
+          "gate3_sharpe_improved_3_of_4_folds"
+        ],
+        "primary_failures": [
+          "gate3_da_delta=-0.00149_fail",
+          "gate3_mae_delta=-0.00221_below_0.01_threshold",
+          "rr_slope_level_z_autocorr=0.937_high"
+        ],
+        "note": "Gate 3 PASS via Sharpe (+0.329, 6.6x threshold, 3/4 folds). DA marginally fails (-0.00149pp). User requested attempt 8 to improve DA while maintaining Sharpe. Improvement: remove rr_slope_level_z (high autocorr), add slope/curvature momentum-direction features."
+      },
+      "attempt_8": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "gate3_pass_mae_attempt+1_to_9",
+        "primary_successes": [
+          "gate3_mae_delta=-0.0203_2.03x_threshold",
+          "gate1_all_pass_overfit_1.0",
+          "gate2_vif_max_1.214_excellent",
+          "mae_improved_2_of_3_folds"
+        ],
+        "primary_failures": [
+          "gate3_sharpe_delta=-0.260_reversed_from_attempt_7_+0.329",
+          "gate3_da_delta=-0.01471_worse_than_attempt_7",
+          "sharpe_improved_only_1_of_3_folds"
+        ],
+        "note": "Gate 3 PASS via MAE (-0.0203, 2.03x threshold). Removing rr_slope_level_z traded Sharpe gain for MAE gain. Key insight: rr_slope_level_z is essential for Sharpe but hurts MAE. Attempt 9 goal: retain all 4 attempt 7 features + add 5th momentum feature."
+      },
+      "attempt_9": {
+        "gate1": true,
+        "gate2": true,
+        "gate3": true,
+        "decision": "gate3_pass_mae_but_worse_than_7_and_8",
+        "primary_successes": [
+          "gate3_mae_delta=-0.0141_1.4x_threshold",
+          "gate1_all_pass_overfit_1.0",
+          "gate2_vif_max_1.24_excellent",
+          "new_interaction_feature_low_autocorr_0.059"
+        ],
+        "primary_failures": [
+          "gate3_sharpe_delta=-0.186_worse_than_attempt_8_-0.260",
+          "gate3_da_delta=-0.0173_worst_of_attempts_7_8_9",
+          "gate3_mae_delta=-0.0141_weaker_than_attempt_8_-0.0203",
+          "strictly_worse_than_attempt_8_on_all_metrics",
+          "combination_strategy_counterproductive"
+        ],
+        "note": "Gate 3 PASS via MAE (-0.0141, 1.4x threshold). However, attempt 9 is STRICTLY WORSE than attempt 8 on ALL metrics (MAE -0.0141 vs -0.0203, Sharpe -0.186 vs -0.260, DA -0.0173 vs -0.01471). Adding rr_slope_level_z back + interaction feature degraded everything vs attempt 8. 3-attempt sequence (7,8,9) confirms irreconcilable Sharpe-MAE tradeoff. Evaluator recommends attempt 7 as final output. Continuing to attempt 10 per user directive (max_attempt=11)."
       }
     },
     "vix": {
@@ -676,9 +734,9 @@
     "attempt_15": {
       "decision": "no_further_improvement",
       "test_da": 0.5459,
-      "test_hcda": 0.6630,
+      "test_hcda": 0.663,
       "test_mae": 0.9544,
-      "test_sharpe": 0.90,
+      "test_sharpe": 0.9,
       "train_test_da_gap_pp": 1.82,
       "targets_passed": "2/4",
       "architecture": "Ridge + XGBoost Weighted Average Ensemble (w=0.65)",
@@ -695,12 +753,89 @@
         "XGB_only_component_DA_59.39%_close_to_attempt_7"
       ],
       "note": "Ridge+XGB ensemble (65%/35%). Best-ever HCDA (66.30% via bootstrap) and lowest overfitting (1.82pp). But Ridge component hurt DA significantly (-4.8pp vs XGB-only). XGB-only scored DA=59.39%, Sharpe=2.52 (near attempt 7). Ensemble trades direction accuracy for lower variance. 8 consecutive attempts (8-15) all failed to beat attempt 7 overall."
+    },
+    "attempt_16": {
+      "decision": "attempt+1",
+      "test_da": 0.5852,
+      "test_hcda": 0.6848,
+      "test_mae": 0.9534,
+      "test_sharpe": 1.76,
+      "train_test_da_gap_pp": 1.07,
+      "targets_passed": "3/4",
+      "architecture": "LightGBM GBDT + Bootstrap confidence (5-seed) + OLS scaling",
+      "primary_failures": [
+        "MAE_0.9534%_above_0.75%_target",
+        "DA_58.52%_below_attempt_7_60.04%_by_1.52pp",
+        "Sharpe_1.76_below_attempt_7_2.46_by_0.70",
+        "DA_0.44pp_below_naive_always_up_58.95%"
+      ],
+      "primary_successes": [
+        "HCDA_68.48%_BEST_EVER_+4.35pp_above_attempt_7",
+        "bootstrap_confidence_+8.70pp_hcda_improvement",
+        "DA_58.52%_passes_56%_target",
+        "Sharpe_1.76_passes_0.80_target",
+        "overfitting_1.07pp_excellent",
+        "genuine_prediction_variation_std_0.0481_positive_pct_65.5%"
+      ],
+      "improvement_plan": "XGBoost attempt 7 architecture + bootstrap confidence with data subsampling (10-15 models, 80% training data per model). Combine proven XGBoost base (DA 60%, Sharpe 2.46) with proven bootstrap HCDA technique (+8.70pp).",
+      "note": "LightGBM + bootstrap achieves best-ever HCDA (68.48%) but LightGBM inferior to XGBoost on DA (-1.52pp) and Sharpe (-0.70). Bootstrap technique proven effective. Untried combination: XGBoost attempt 7 + bootstrap. 9 consecutive attempts (8-16) all failed to beat attempt 7 overall, but attempt 16 validates a new technique that may work on XGBoost."
+    },
+    "attempt_17": {
+      "decision": "attempt+1",
+      "test_da": 0.5873,
+      "test_hcda": 0.5978,
+      "test_mae": 0.9558,
+      "test_sharpe": 1.96,
+      "train_test_da_gap_pp": "N/A",
+      "targets_passed": "2/4",
+      "architecture": "XGBoost (attempt 7 params) + Bootstrap data subsampling (12 models, 80% data, 24 features)",
+      "primary_failures": [
+        "HCDA_59.78%_misses_60%_target_by_0.22pp",
+        "MAE_0.9558%_above_0.75%_target",
+        "DA_58.73%_below_attempt_7_60.04%_by_1.31pp",
+        "Sharpe_1.96_below_attempt_7_2.46_by_0.50"
+      ],
+      "primary_successes": [
+        "DA_58.73%_passes_56%_target",
+        "Sharpe_1.96_passes_0.80_target",
+        "no_prediction_collapse"
+      ],
+      "note": "XGBoost + 12-model data subsampling (24 features). Bootstrap HCDA failed on XGBoost -- too-uniform variance. HCDA dropped to 59.78% (below 60% target). All metrics regressed from attempt 7. 10 consecutive regressions (8-17)."
+    },
+    "attempt_18": {
+      "decision": "no_further_improvement_FINAL",
+      "test_da": 0.5830,
+      "test_hcda": 0.6304,
+      "test_mae": 0.9527,
+      "test_sharpe": 1.86,
+      "train_test_da_gap_pp": 5.96,
+      "targets_passed": "3/4",
+      "architecture": "XGBoost (attempt 7 params) + Bootstrap data subsampling (12 models, 80% data) + real_rate submodel features (28 total features)",
+      "primary_failures": [
+        "MAE_0.9527%_above_0.75%_target",
+        "DA_58.30%_below_attempt_7_60.04%_by_1.74pp",
+        "HCDA_63.04%_below_attempt_7_64.13%_by_1.09pp",
+        "Sharpe_1.86_below_attempt_7_2.46_by_0.60",
+        "ALL_4_metrics_regressed_from_attempt_7",
+        "DA_0.66pp_below_naive_always_up"
+      ],
+      "primary_successes": [
+        "DA_58.30%_passes_56%_target",
+        "HCDA_63.04%_passes_60%_target",
+        "Sharpe_1.86_passes_0.80_target",
+        "HCDA_improved_3.26pp_vs_attempt_17",
+        "no_prediction_collapse_std_0.2132"
+      ],
+      "note": "FINAL ATTEMPT. Added 4 real_rate submodel features (28 total). rr_level_change_z ranked #2 (4.78%) but net effect negative -- all metrics regressed from attempt 7. 11 consecutive regressions (8-18). Attempt 7 confirmed as permanent final meta-model."
     }
   },
   "final_result": {
-    "status": "completed_attempt_7_confirmed_final",
+    "status": "completed",
     "best_attempt_overall": 7,
-    "best_attempt_rationale": "Attempt 7 passed 3/4 targets (DA, HCDA, Sharpe) with best-ever metrics. First to pass both DA and HCDA simultaneously. First to beat naive strategy. Attempts 8-15 all regressed. No further improvement possible.",
+    "best_hcda_attempt": 16,
+    "total_attempts": 18,
+    "consecutive_regressions_from_best": 11,
+    "best_attempt_rationale": "Attempt 7 confirmed as permanent final meta-model after 11 consecutive improvement attempts (8-18) all failed to beat it. No approach -- stacking, feature addition/pruning, asymmetric loss, ensemble methods, alternative GBDT, bootstrap subsampling -- could improve on attempt 7's combination of DA, HCDA, and Sharpe.",
     "improvement_attempts_summary": {
       "attempt_8": "Stacking + Ridge -- collapsed to constant predictor (FAIL)",
       "attempt_9": "Single XGB + interactions + directional loss -- collapsed to constant predictor (FAIL)",
@@ -709,8 +844,11 @@
       "attempt_12": "Feature pruning 24->18 -- regressed on all metrics (DA -4.58pp, HCDA -4.35pp, Sharpe -1.33)",
       "attempt_13": "+3 regime_classification features (27 total) -- worst result since attempt 1 (DA -6.55pp, HCDA -9.78pp, Sharpe -2.33)",
       "attempt_14": "Asymmetric squared error (alpha=3.28) -- 3/4 targets but all metrics below attempt 7 (DA -2.62pp, HCDA -1.09pp, Sharpe -1.30)",
-      "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, best-ever HCDA 66.30% but DA -5.45pp (DA misses 56% target)",
-      "conclusion": "Attempt 7 confirmed as final meta-model. 8 consecutive attempts (8-15) all regressed."
+      "attempt_15": "Ridge+XGB ensemble (65/35) -- 2/4 targets, HCDA 66.30% but DA -5.45pp",
+      "attempt_16": "LightGBM + bootstrap -- 3/4 targets, BEST-EVER HCDA 68.48% but DA -1.52pp, Sharpe -0.70",
+      "attempt_17": "XGBoost + 12-model bootstrap (24 feat) -- 2/4 targets, HCDA 59.78% bootstrap failed on XGBoost",
+      "attempt_18": "XGBoost + 12-model bootstrap + real_rate (28 feat) -- 3/4 targets but ALL metrics below attempt 7",
+      "conclusion": "Attempt 7 is the permanent final meta-model. 11 diverse improvement strategies all regressed."
     },
     "final_attempt_results": {
       "targets_passed": "3/4 (DA, HCDA, Sharpe)",
@@ -788,7 +926,38 @@
       "note": "Constant-output collapse FIXED. Model produces genuine variation. But variation is net-harmful: negative predictions wrong 62% of time. DA skill -2.84pp (worse than Attempt 1's 0.00pp). Sharpe A dropped 2.03 to 0.71 due to harmful trades. Moved from 'no skill, no harm' to 'some variation, net harmful'."
     }
   },
-  "kaggle_version": 4,
-  "last_updated": "2026-02-18T22:31:25.536840",
-  "error_type": "unknown"
+  "kaggle_version": null,
+  "last_updated": "2026-02-21T21:47:16.402871",
+  "error_type": null,
+  "auto_resume_remaining": 0,
+  "saved_meta_model_state": {
+    "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
+    "submitted_at": "2026-02-21T19:13:53.366514",
+    "current_attempt": 17,
+    "status": "results_fetched_awaiting_evaluator",
+    "resume_from": "evaluator",
+    "phase": "phase3_meta_model",
+    "saved_at": "2026-02-21T19:23:27.590471"
+  },
+  "real_rate_retry_context": {
+    "user_requested": true,
+    "attempts_remaining": 0,
+    "reason": "User wants auto-run until attempt 9 (2 more Kaggle submissions after attempt 7)",
+    "previous_no_further_improvement": true,
+    "max_loops": 1,
+    "new_approach": "Real yield curve shape (DFII5/DFII7/DFII10/DFII20/DFII30 - all daily)",
+    "attempt7_result_downloaded": true,
+    "attempt7_self_gate3": "PASS (Sharpe +0.329)",
+    "note": "Run until attempt 11. After evaluating each attempt, submit next with submit_and_monitor(max_loops=1). STOP after evaluating attempt 11 - do NOT submit attempt 12. Chain: evaluate9→submit10(max_loops=1) → evaluate10→submit11(max_loops=1) → evaluate11→STOP.",
+    "max_attempt": 11
+  },
+  "retry_context": {
+    "feature": "meta_model",
+    "max_attempt": 19,
+    "user_requested": true,
+    "automation_test": true,
+    "note": "COMPLETED. Attempt 18 evaluated as FINAL. User instructed to declare attempt 7 as final and NOT submit attempt 19. 11 consecutive regressions confirm attempt 7 as robust optimum.",
+    "improvement_mandate": "NONE -- project completed",
+    "final_decision": "attempt_7_permanent_final"
+  }
 }
