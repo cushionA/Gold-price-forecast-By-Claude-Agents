@@ -118,3 +118,10 @@ Max wait time: 3.0 hours
 2026-02-21 18:49:38,625 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
 2026-02-21 18:49:38,627 [INFO] auto_resume_remaining: 2 → 1
 2026-02-21 18:49:38,633 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
+2026-02-21 18:53:24,226 [INFO] ============================================================
+2026-02-21 18:53:24,226 [INFO] auto_resume started
+2026-02-21 18:53:24,241 [INFO] auto_resume_remaining set to 1
+2026-02-21 18:53:24,241 [INFO] Another auto_resume is already running. Exiting.
+2026-02-21 18:53:34,264 [INFO] Claude Code exited (code=0)
+2026-02-21 18:53:34,264 [INFO] Done. Claude Code session completed.
+2026-02-21 18:53:34,265 [INFO] auto_resume exiting.

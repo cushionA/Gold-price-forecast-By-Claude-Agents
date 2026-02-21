@@ -40,7 +40,7 @@
     "regime_classification"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
-  "submitted_at": "2026-02-21T18:53:22.265692",
+  "submitted_at": "2026-02-21T18:56:34.568546",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -817,7 +817,7 @@
     }
   },
   "kaggle_version": 4,
-  "last_updated": "2026-02-21T18:53:22.265702",
+  "last_updated": "2026-02-21T18:56:34.568558",
   "error_type": "unknown",
   "auto_resume_remaining": 1
 }

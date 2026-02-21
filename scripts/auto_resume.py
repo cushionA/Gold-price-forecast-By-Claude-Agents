@@ -245,13 +245,17 @@ def main():
                 f"Results have been fetched and state.json updated. "
                 f"Resume from {resume_from}."
             )
+            # Release lock BEFORE launching Claude so submit_and_monitor()'s
+            # child auto_resume can acquire the lock and monitor the next kernel.
+            release_lock()
+            log.info("Lock released. Launching Claude...")
             launched = launch_claude(prompt)
             if launched:
                 log.info("Done. Claude Code session completed.")
             else:
                 log.error("Claude Code failed. Manual resume needed.")
         finally:
-            release_lock()
+            release_lock()  # No-op if already released; safe due to missing_ok=True
             log.info("auto_resume exiting.")
         return
 
@@ -329,6 +333,14 @@ def main():
                 f"Results have been fetched and state.json updated. "
                 f"Resume from {resume_from}."
             )
+
+        # Release lock BEFORE launching Claude so that submit_and_monitor()'s
+        # child auto_resume can acquire the lock and monitor the next kernel.
+        # Without this, child auto_resume sees "Another auto_resume is already running"
+        # and exits, leaving nobody to monitor the next training run.
+        release_lock()
+        log.info("Lock released. Launching Claude...")
+
         launched = launch_claude(prompt)
 
         if launched:
@@ -337,7 +349,7 @@ def main():
             log.error("Claude Code failed. Manual resume needed.")
 
     finally:
-        release_lock()
+        release_lock()  # No-op if already released; safe due to missing_ok=True
         log.info("auto_resume exiting.")
 
 
