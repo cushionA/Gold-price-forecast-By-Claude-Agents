@@ -1,0 +1,133 @@
+[{"stream_name":"stderr","time":6.309804363,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.309884423,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.309890088,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.309895503,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.908006531,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.908036722,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.9080415219999995,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.9080457410000005,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.272140397,"data":"XGBoost version: 3.1.3\n"}
+,{"stream_name":"stdout","time":10.272192406,"data":"Pandas version: 2.3.3\n"}
+,{"stream_name":"stdout","time":10.272198619,"data":"NumPy version: 2.0.2\n"}
+,{"stream_name":"stdout","time":10.272203213,"data":"Started: 2026-02-21T09:48:35.789914\n"}
+,{"stream_name":"stdout","time":10.272207734,"data":"Attempt: 17\n"}
+,{"stream_name":"stdout","time":10.272212161,"data":"Architecture: XGBoost (attempt 7 params) + Bootstrap Data Subsampling Ensemble\n"}
+,{"stream_name":"stdout","time":10.471924597,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":10.471966987,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":10.47197543,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":13.181004075,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":13.220394698,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":13.241105673,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":13.278331057,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.279581961,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":13.281349601,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":13.282285547,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":13.29387931,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":13.306107775,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":13.383690765,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":13.38372456,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":13.383732014,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":13.383736082,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.383757817,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":13.383762596,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":13.383767096,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":13.383771508,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":13.383776137,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":15.233174064,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":15.256811888,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":15.435747035,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":15.435783365,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":15.435787008,"data":"Kaggle Secrets unavailable (ConnectionError: Connection error trying to communicate with service.)\n"}
+,{"stream_name":"stderr","time":16.074608563,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":16.074635438,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":16.074645629,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":16.074691453,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":16.074732734,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":16.074885539,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":16.075356597,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":16.075373653,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":16.075378509,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":16.075382438,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":16.0753862,"data":"HTTPError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":16.075390355,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py in make_post_request(self, data, endpoint, timeout)\n"}
+,{"stream_name":"stderr","time":16.075394429,"data":"     45         try:\n"}
+,{"stream_name":"stderr","time":16.075398373,"data":"---\u003e 46             with urllib.request.urlopen(req, timeout=timeout) as response:\n"}
+,{"stream_name":"stderr","time":16.075403045,"data":"     47                 response_json = json.loads(response.read())\n"}
+,{"stream_name":"stderr","time":16.075407284,"data":"\n"}
+,{"stream_name":"stderr","time":16.075410924,"data":"/usr/lib/python3.12/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)\n"}
+,{"stream_name":"stderr","time":16.075415014,"data":"    214         opener = _opener\n"}
+,{"stream_name":"stderr","time":16.075428062,"data":"--\u003e 215     return opener.open(url, data, timeout)\n"}
+,{"stream_name":"stderr","time":16.075432325,"data":"    216 \n"}
+,{"stream_name":"stderr","time":16.075436166,"data":"\n"}
+,{"stream_name":"stderr","time":16.0754398,"data":"/usr/lib/python3.12/urllib/request.py in open(self, fullurl, data, timeout)\n"}
+,{"stream_name":"stderr","time":16.075443563,"data":"    520             meth = getattr(processor, meth_name)\n"}
+,{"stream_name":"stderr","time":16.075446975,"data":"--\u003e 521             response = meth(req, response)\n"}
+,{"stream_name":"stderr","time":16.075450095,"data":"    522 \n"}
+,{"stream_name":"stderr","time":16.075453914,"data":"\n"}
+,{"stream_name":"stderr","time":16.075457582,"data":"/usr/lib/python3.12/urllib/request.py in http_response(self, request, response)\n"}
+,{"stream_name":"stderr","time":16.075461597,"data":"    629         if not (200 \u003c= code \u003c 300):\n"}
+,{"stream_name":"stderr","time":16.075465592,"data":"--\u003e 630             response = self.parent.error(\n"}
+,{"stream_name":"stderr","time":16.075469586,"data":"    631                 'http', request, response, code, msg, hdrs)\n"}
+,{"stream_name":"stderr","time":16.075473137,"data":"\n"}
+,{"stream_name":"stderr","time":16.075476312,"data":"/usr/lib/python3.12/urllib/request.py in error(self, proto, *args)\n"}
+,{"stream_name":"stderr","time":16.075479785,"data":"    558             args = (dict, 'default', 'http_error_default') + orig_args\n"}
+,{"stream_name":"stderr","time":16.075483287,"data":"--\u003e 559             return self._call_chain(*args)\n"}
+,{"stream_name":"stderr","time":16.075486738,"data":"    560 \n"}
+,{"stream_name":"stderr","time":16.075489967,"data":"\n"}
+,{"stream_name":"stderr","time":16.075493305,"data":"/usr/lib/python3.12/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)\n"}
+,{"stream_name":"stderr","time":16.075496941,"data":"    491             func = getattr(handler, meth_name)\n"}
+,{"stream_name":"stderr","time":16.075500414,"data":"--\u003e 492             result = func(*args)\n"}
+,{"stream_name":"stderr","time":16.075503814,"data":"    493             if result is not None:\n"}
+,{"stream_name":"stderr","time":16.075507193,"data":"\n"}
+,{"stream_name":"stderr","time":16.075510371,"data":"/usr/lib/python3.12/urllib/request.py in http_error_default(self, req, fp, code, msg, hdrs)\n"}
+,{"stream_name":"stderr","time":16.075513934,"data":"    638     def http_error_default(self, req, fp, code, msg, hdrs):\n"}
+,{"stream_name":"stderr","time":16.075517471,"data":"--\u003e 639         raise HTTPError(req.full_url, code, msg, hdrs, fp)\n"}
+,{"stream_name":"stderr","time":16.075521104,"data":"    640 \n"}
+,{"stream_name":"stderr","time":16.075524376,"data":"\n"}
+,{"stream_name":"stderr","time":16.075529268,"data":"HTTPError: HTTP Error 400: Bad Request\n"}
+,{"stream_name":"stderr","time":16.075532366,"data":"\n"}
+,{"stream_name":"stderr","time":16.075535863,"data":"The above exception was the direct cause of the following exception:\n"}
+,{"stream_name":"stderr","time":16.075538264,"data":"\n"}
+,{"stream_name":"stderr","time":16.075541614,"data":"ConnectionError                           Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":16.075543931,"data":"/tmp/ipykernel_24/1900616048.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":16.075546305,"data":"     17     secrets = UserSecretsClient()\n"}
+,{"stream_name":"stderr","time":16.075548577,"data":"---\u003e 18     FRED_API_KEY = secrets.get_secret(\"FRED_API_KEY\")\n"}
+,{"stream_name":"stderr","time":16.075554077,"data":"     19     print(\"FRED API key loaded from Kaggle Secrets\")\n"}
+,{"stream_name":"stderr","time":16.075556584,"data":"\n"}
+,{"stream_name":"stderr","time":16.075558743,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_secrets.py in get_secret(self, label)\n"}
+,{"stream_name":"stderr","time":16.075561166,"data":"     63         }\n"}
+,{"stream_name":"stderr","time":16.075563409,"data":"---\u003e 64         response_json = self.web_client.make_post_request(request_body, self.GET_USER_SECRET_BY_LABEL_ENDPOINT)\n"}
+,{"stream_name":"stderr","time":16.075565855,"data":"     65         if 'secret' not in response_json:\n"}
+,{"stream_name":"stderr","time":16.075568139,"data":"\n"}
+,{"stream_name":"stderr","time":16.075570356,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py in make_post_request(self, data, endpoint, timeout)\n"}
+,{"stream_name":"stderr","time":16.075572782,"data":"     57                     'Timeout error trying to communicate with service. Please ensure internet is on.') from e\n"}
+,{"stream_name":"stderr","time":16.075575146,"data":"---\u003e 58             raise ConnectionError(\n"}
+,{"stream_name":"stderr","time":16.075577404,"data":"     59                 'Connection error trying to communicate with service.') from e\n"}
+,{"stream_name":"stderr","time":16.075579749,"data":"\n"}
+,{"stream_name":"stderr","time":16.075581858,"data":"ConnectionError: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stderr","time":16.075584216,"data":"\n"}
+,{"stream_name":"stderr","time":16.075591794,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":16.075594284,"data":"\n"}
+,{"stream_name":"stderr","time":16.075596524,"data":"KeyError                                  Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":16.075598841,"data":"/tmp/ipykernel_24/1900616048.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":16.075601211,"data":"     22     FRED_API_KEY = os.environ.get('FRED_API_KEY')\n"}
+,{"stream_name":"stderr","time":16.075603506,"data":"     23     if not FRED_API_KEY:\n"}
+,{"stream_name":"stderr","time":16.075605732,"data":"---\u003e 24         raise KeyError(\"FRED_API_KEY not found in Kaggle Secrets or environment variable\")\n"}
+,{"stream_name":"stderr","time":16.075608195,"data":"     25     print(\"FRED API key loaded from environment variable\")\n"}
+,{"stream_name":"stderr","time":16.075610548,"data":"     26 fred = Fred(api_key=FRED_API_KEY)\n"}
+,{"stream_name":"stderr","time":16.075612774,"data":"\n"}
+,{"stream_name":"stderr","time":16.075614927,"data":"KeyError: 'FRED_API_KEY not found in Kaggle Secrets or environment variable'\n"}
+,{"stream_name":"stderr","time":16.075617254,"data":"\n"}
+,{"stream_name":"stderr","time":18.102658609,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":18.102690157,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":18.2505022,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":18.250529249,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":18.80413277,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":18.804186686,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":18.832112197,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":19.150556516,"data":"[NbConvertApp] Writing 67216 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":21.599107215,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":21.599141309,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":21.619530776,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":22.579684861,"data":"[NbConvertApp] Writing 489270 bytes to __results__.html\n"}
+]

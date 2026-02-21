@@ -108,3 +108,13 @@ Max wait time: 3.0 hours
 2026-02-21 18:43:03,034 [INFO] Claude Code exited (code=0)
 2026-02-21 18:43:03,034 [INFO] Done. Claude Code session completed.
 2026-02-21 18:43:03,034 [INFO] auto_resume exiting.
+2026-02-21 18:48:32,684 [INFO] ============================================================
+2026-02-21 18:48:32,684 [INFO] auto_resume started
+2026-02-21 18:48:32,694 [INFO] Watching: meta_model attempt 17
+2026-02-21 18:48:32,694 [INFO] Kernel: bigbigzabuton/gold-meta-model-attempt-17
+2026-02-21 18:48:32,694 [INFO] Remaining loops: 2
+2026-02-21 18:48:32,694 [INFO] Starting monitor (interval=60s, max=3.0h)
+2026-02-21 18:49:38,624 [INFO] Monitor exited (code=1)
+2026-02-21 18:49:38,625 [WARNING] Training FAILED (error_type=unknown). Launching Claude to fix.
+2026-02-21 18:49:38,627 [INFO] auto_resume_remaining: 2 → 1
+2026-02-21 18:49:38,633 [INFO] Launching C:\Users\tatuk\AppData\Roaming\npm\claude.CMD -p ...
