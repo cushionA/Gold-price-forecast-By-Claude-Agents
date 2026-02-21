@@ -255,10 +255,42 @@ def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIP
                     f"Manual resume needed."
                 )
             else:
-                log.info(
-                    f"Claude completed (status={status_after}, resume_from={resume_after}). "
-                    f"Evaluator made stop/continue decision."
+                # automation_test: evaluatorが早期停止したが attempts_left > 0 → 強制継続
+                retry_ctx_after = (
+                    state_after.get("real_rate_retry_context")
+                    or state_after.get("retry_context")
+                    or {}
                 )
+                auto_test = retry_ctx_after.get("automation_test", False)
+                max_att = retry_ctx_after.get("max_attempt")
+                cur_att = state_after.get("current_attempt", 0)
+                left = (max_att - int(cur_att)) if (auto_test and max_att) else 0
+
+                if auto_test and left > 0 and status_after == "completed" and attempt_num < max_relaunch:
+                    log.warning(
+                        f"automation_test: Evaluator declared completed early (attempts_left={left}). "
+                        f"Force-continuing to next attempt (relaunch {attempt_num + 1}/{max_relaunch})."
+                    )
+                    # reset state to in_progress to allow submission
+                    state_after["status"] = "in_progress"
+                    state_after["resume_from"] = "builder_model"
+                    save_state(state_after)
+                    force_prompt = (
+                        f"AUTOMATION TEST OVERRIDE: The evaluator declared the project complete at attempt {cur_att}, "
+                        f"but max_attempt={max_att} requires continuing to attempt {cur_att + 1}. "
+                        f"IGNORE the previous no_further_improvement decision. "
+                        f"Build and submit meta_model attempt {cur_att + 1} now. "
+                        f"Use submit_and_monitor(max_loops=1). "
+                        f"Context from retry_context: {retry_ctx_after.get('improvement_mandate', '')}"
+                    )
+                    prompt = force_prompt
+                    # continue the for-loop to relaunch
+                    continue
+                else:
+                    log.info(
+                        f"Claude completed (status={status_after}, resume_from={resume_after}). "
+                        f"Evaluator made stop/continue decision."
+                    )
             return
 
 
@@ -459,19 +491,50 @@ def main():
         # 6. Check remaining count
         remaining = state.get("auto_resume_remaining")
 
+        # automation_test mode: compute attempts_left from retry_context
+        retry_ctx = (
+            state.get("real_rate_retry_context")
+            or state.get("retry_context")
+            or {}
+        )
+        automation_test = retry_ctx.get("automation_test", False)
+        max_attempt_ctx = retry_ctx.get("max_attempt")
+        current_attempt_ctx = state.get("current_attempt", 0)
+        attempts_left = (
+            (max_attempt_ctx - int(current_attempt_ctx))
+            if (automation_test and max_attempt_ctx is not None)
+            else None
+        )
+
         if remaining is not None and remaining <= 0:
-            log.info(f"auto_resume_remaining={remaining}. NOT launching Claude. Loop stopped.")
-            if ok:
-                log.info("Results are fetched. Run manually: claude -p 'Resume from evaluator'")
+            # automation_test: もし attempts_left > 0 なら残り回数を補充して継続
+            if automation_test and attempts_left is not None and attempts_left > 0:
+                log.info(
+                    f"automation_test: auto_resume_remaining=0 but attempts_left={attempts_left}. "
+                    f"Resetting remaining to 1 to continue chain."
+                )
+                remaining = 1
+                state["auto_resume_remaining"] = remaining
+                save_state(state)
             else:
-                log.info(f"Error fix needed. Run manually: claude -p 'Resume from builder_model'")
-            return
+                log.info(f"auto_resume_remaining={remaining}. NOT launching Claude. Loop stopped.")
+                if ok:
+                    log.info("Results are fetched. Run manually: claude -p 'Resume from evaluator'")
+                else:
+                    log.info(f"Error fix needed. Run manually: claude -p 'Resume from builder_model'")
+                return
 
         # 7. Decrement counter
+        # automation_test mode: attempts_left>0 の間は残り回数を消費しない（1に保つ）
         if remaining is not None:
-            state["auto_resume_remaining"] = remaining - 1
+            if automation_test and attempts_left is not None and attempts_left > 0:
+                new_remaining = max(1, remaining - 1)  # 少なくとも1は残す
+                log.info(f"automation_test: auto_resume_remaining kept at {new_remaining} (attempts_left={attempts_left})")
+            else:
+                new_remaining = remaining - 1
+                log.info(f"auto_resume_remaining: {remaining} → {new_remaining}")
+            state["auto_resume_remaining"] = new_remaining
             save_state(state)
-            log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
 
         # 8. Fire Claude Code (with pipeline completion check)
         prompt = _build_evaluator_prompt(

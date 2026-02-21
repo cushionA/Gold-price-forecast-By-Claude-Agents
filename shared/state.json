@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 19,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": null,
@@ -40,7 +40,7 @@
     "regime_classification"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-19",
-  "submitted_at": "2026-02-21T22:05:44.840127",
+  "submitted_at": "2026-02-21T22:22:36.432122",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -927,7 +927,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T22:08:21.828479",
+  "last_updated": "2026-02-21T22:22:36.432132",
   "error_type": "unknown",
   "auto_resume_remaining": 1,
   "saved_meta_model_state": {
@@ -956,8 +956,7 @@
     "max_attempt": 19,
     "user_requested": true,
     "automation_test": true,
-    "note": "COMPLETED. Attempt 18 evaluated as FINAL. User instructed to declare attempt 7 as final and NOT submit attempt 19. 11 consecutive regressions confirm attempt 7 as robust optimum.",
-    "improvement_mandate": "NONE -- project completed",
-    "final_decision": "attempt_7_permanent_final"
+    "note": "Automation test: run until attempt 19. After evaluating attempt 19, declare best attempt as final and STOP. Do not submit attempt 20.",
+    "improvement_mandate": "attempt 19: Optuna HPO (100 trials) tuned for 28-feature space + bootstrap ensemble (12 models, 80%). Evaluate and declare final."
   }
 }

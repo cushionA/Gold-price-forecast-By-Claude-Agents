@@ -1,0 +1,72 @@
+[{"stream_name":"stderr","time":6.027381892,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.027454112,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.027460378,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.027464625,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.594450037,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.594477252,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.594480518,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.594483285,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.27284773,"data":"XGBoost version: 3.1.3\n"}
+,{"stream_name":"stdout","time":10.272901603,"data":"Optuna version: 4.7.0\n"}
+,{"stream_name":"stdout","time":10.272908854,"data":"Started: 2026-02-21T13:05:58.364997\n"}
+,{"stream_name":"stdout","time":10.272914617,"data":"Attempt: 19\n"}
+,{"stream_name":"stdout","time":10.27291931,"data":"Architecture: Optuna HPO (100 trials) + Bootstrap Data Subsampling Ensemble (12 models, 80%)\n"}
+,{"stream_name":"stdout","time":10.294177596,"data":"Features defined: 28 features\n"}
+,{"stream_name":"stdout","time":10.492538352,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":10.493131355,"data":"FETCHING DATA FROM APIs\n"}
+,{"stream_name":"stdout","time":10.496080032,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":13.361339067,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":13.400714604,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":13.421623366,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":13.459546298,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.460861324,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":13.462543229,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":13.463516275,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":13.475207273,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":13.488775262,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":13.563919991,"data":"Collecting fredapi\n"}
+,{"stream_name":"stdout","time":13.563953839,"data":"  Downloading fredapi-0.5.2-py3-none-any.whl.metadata (5.0 kB)\n"}
+,{"stream_name":"stdout","time":13.56396005,"data":"Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from fredapi) (2.3.3)\n"}
+,{"stream_name":"stdout","time":13.563980599,"data":"Requirement already satisfied: numpy\u003e=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.0.2)\n"}
+,{"stream_name":"stdout","time":13.563984439,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":13.563988638,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.2)\n"}
+,{"stream_name":"stdout","time":13.563992768,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-\u003efredapi) (2025.3)\n"}
+,{"stream_name":"stdout","time":13.563995411,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas-\u003efredapi) (1.17.0)\n"}
+,{"stream_name":"stdout","time":13.563998038,"data":"Downloading fredapi-0.5.2-py3-none-any.whl (11 kB)\n"}
+,{"stream_name":"stdout","time":15.445315055,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":15.470856088,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stdout","time":15.64783177,"data":"Installing collected packages: fredapi\n"}
+,{"stream_name":"stdout","time":15.647864634,"data":"Successfully installed fredapi-0.5.2\n"}
+,{"stream_name":"stderr","time":16.397269133,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":16.397297981,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":16.397314873,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":16.397399009,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":16.3974271,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":16.397570571,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":16.397845265,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":16.397857554,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":16.397861739,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":16.397865813,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":16.397869921,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":16.397873981,"data":"/tmp/ipykernel_25/1315017714.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":16.397878033,"data":"     26 \n"}
+,{"stream_name":"stderr","time":16.397881706,"data":"     27 if not FRED_API_KEY:\n"}
+,{"stream_name":"stderr","time":16.397885419,"data":"---\u003e 28     raise ValueError(\"FRED_API_KEY not found in Kaggle Secrets or environment variables\")\n"}
+,{"stream_name":"stderr","time":16.397889447,"data":"     29 \n"}
+,{"stream_name":"stderr","time":16.397893035,"data":"     30 fred = Fred(api_key=FRED_API_KEY)\n"}
+,{"stream_name":"stderr","time":16.397896941,"data":"\n"}
+,{"stream_name":"stderr","time":16.397902163,"data":"ValueError: FRED_API_KEY not found in Kaggle Secrets or environment variables\n"}
+,{"stream_name":"stderr","time":16.397905534,"data":"\n"}
+,{"stream_name":"stderr","time":18.527500112,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":18.527557762,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":18.680161492,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":18.680189796,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":19.249571866,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":19.249607978,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":19.277266002,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":19.602865352,"data":"[NbConvertApp] Writing 63931 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":22.184635431,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":22.18466998,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":22.205889649,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":23.214118898,"data":"[NbConvertApp] Writing 493338 bytes to __results__.html\n"}
+]
