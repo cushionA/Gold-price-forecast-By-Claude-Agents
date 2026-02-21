@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "options_market",
   "current_attempt": 3,
@@ -13,7 +13,7 @@
     "automation_test": true,
     "max_attempt": 5
   },
-  "auto_resume_remaining": 1,
+  "auto_resume_remaining": 2,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -1032,7 +1032,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T02:33:00.061185",
+  "last_updated": "2026-02-22T02:35:08.832177",
   "error_type": "unknown",
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",

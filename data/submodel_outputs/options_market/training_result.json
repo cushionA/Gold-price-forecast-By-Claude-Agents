@@ -1,39 +1,66 @@
 {
   "feature": "options_market",
-  "attempt": 1,
-  "timestamp": "2026-02-15T16:30:41.552865",
+  "attempt": 3,
+  "timestamp": "2026-02-21T17:33:43.821724",
   "best_params": {
-    "hmm_n_components": 3,
-    "skew_zscore_window": 40,
-    "skew_momentum_window": 10
+    "hmm_n_components": 2,
+    "input_scaling": false,
+    "ema_span": 7,
+    "gvz_ema_short": 9,
+    "gvz_ema_long": 24,
+    "gvz_norm_window": 62
   },
-  "optuna_trials_completed": 30,
-  "optuna_best_value": 1.7276272645780955,
+  "optuna_trials_completed": 50,
+  "optuna_best_value": 0.07618522463640387,
   "output_shape": [
-    2606,
-    3
+    2741,
+    2
   ],
   "output_columns": [
-    "options_risk_regime_prob",
-    "options_tail_risk_z",
-    "options_skew_momentum_z"
+    "options_regime_smooth",
+    "options_gvz_momentum_z"
   ],
-  "data_info": {
-    "train_samples": 1824,
-    "val_samples": 390,
-    "test_samples": 392,
-    "full_samples": 2606
-  },
-  "metrics": {
-    "autocorr_lag1": {
-      "options_risk_regime_prob": 0.8733386306545293,
-      "options_tail_risk_z": 0.8514766584420995,
-      "options_skew_momentum_z": 0.8130428622134763
+  "output_stats": {
+    "options_regime_smooth": {
+      "mean": 0.2253580565740532,
+      "std": 0.26301490880485784,
+      "min": 0.003854112316125696,
+      "max": 0.9986996671686623,
+      "autocorr_lag1": 0.9728371179281063,
+      "nan_ratio": 0.0
     },
-    "mi_scores_validation": {
-      "options_risk_regime_prob": 0.5244329259658325,
-      "options_tail_risk_z": 0.5868965897795544,
-      "options_skew_momentum_z": 0.6162977488327086
+    "options_gvz_momentum_z": {
+      "mean": 0.1321993044469789,
+      "std": 1.2230882887534527,
+      "min": -2.646201490551852,
+      "max": 3.0,
+      "autocorr_lag1": 0.9781118898485232,
+      "nan_ratio": 0.0
     }
+  },
+  "data_info": {
+    "total_samples": 2802,
+    "train_samples": 1961,
+    "val_samples": 420,
+    "test_samples": 421,
+    "date_range_start": "2014-10-02 00:00:00",
+    "date_range_end": "2026-02-19 00:00:00",
+    "output_date_range_start": "2014-12-30 00:00:00",
+    "output_date_range_end": "2026-02-19 00:00:00",
+    "output_rows": 2741
+  },
+  "design_changes_from_attempt_2": {
+    "output_columns": "Increased from 1 to 2",
+    "column_1_change": "options_risk_regime_prob (raw) -> options_regime_smooth (EMA post-smoothed)",
+    "column_2_added": "options_gvz_momentum_z (GVZ EMA momentum z-score)",
+    "new_optuna_params": [
+      "ema_span",
+      "gvz_ema_short",
+      "gvz_ema_long",
+      "gvz_norm_window"
+    ],
+    "optuna_objective": "Sum of MI for both columns (was single-column MI)",
+    "autocorr_guard": "Reject trials with autocorr > 0.98 for either column",
+    "optuna_trials": "50 (was 30)"
   }
 }

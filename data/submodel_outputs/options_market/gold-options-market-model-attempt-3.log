@@ -1,0 +1,133 @@
+[{"stream_name":"stderr","time":8.595952511,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.596016558,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.596022213,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.596025073,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.369783158,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.369824694,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.369829799,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.369850473,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.870990899,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":13.43381835,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":13.636679445,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.952614732,"data":"hmmlearn installed successfully\n"}
+,{"stream_name":"stdout","time":21.136290381,"data":"All libraries imported successfully\n"}
+,{"stream_name":"stdout","time":21.136331575,"data":"Execution started: 2026-02-21T17:33:25.393194\n"}
+,{"stream_name":"stdout","time":21.170511204,"data":"DATASET_PATH: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":21.170548353,"data":"Files: ['yield_curve.csv', 'options_market.csv', 'base_features.csv', 'technical.csv', 'inflation_expectation.csv', 'cny_demand.csv', 'base_features_raw.csv', 'temporal_context.csv', 'regime_classification.csv', 'vix.csv']\n"}
+,{"stream_name":"stdout","time":21.336560137,"data":"\n"}
+,{"stream_name":"stdout","time":21.33660716,"data":"=== Fetching Data ===\n"}
+,{"stream_name":"stdout","time":21.336612423,"data":"Fetching SKEW Index (^SKEW)...\n"}
+,{"stream_name":"stdout","time":21.950016733,"data":"  SKEW: 2807 rows, 2014-10-01 00:00:00 to 2026-02-20 00:00:00\n"}
+,{"stream_name":"stdout","time":21.950067998,"data":"Fetching Gold Volatility Index (^GVZ)...\n"}
+,{"stream_name":"stdout","time":22.157133696,"data":"  GVZ: 2864 rows, 2014-10-01 00:00:00 to 2026-02-20 00:00:00\n"}
+,{"stream_name":"stdout","time":22.157175047,"data":"Fetching Gold futures (GC=F)...\n"}
+,{"stream_name":"stdout","time":22.157180612,"data":"  Gold: 2863 rows, 2014-10-01 00:00:00 to 2026-02-20 00:00:00\n"}
+,{"stream_name":"stdout","time":22.157185067,"data":"\n"}
+,{"stream_name":"stdout","time":22.157189055,"data":"Aligning data on common dates...\n"}
+,{"stream_name":"stdout","time":22.157194202,"data":"  Aligned: 2804 rows\n"}
+,{"stream_name":"stdout","time":22.161472434,"data":"\n"}
+,{"stream_name":"stdout","time":22.161506029,"data":"Final dataset: 2802 rows\n"}
+,{"stream_name":"stdout","time":22.161511493,"data":"Date range: 2014-10-02 00:00:00 to 2026-02-19 00:00:00\n"}
+,{"stream_name":"stdout","time":22.161515809,"data":"\n"}
+,{"stream_name":"stdout","time":22.161537735,"data":"=== Data Quality Checks ===\n"}
+,{"stream_name":"stdout","time":22.161542897,"data":"SKEW range: [110.3, 183.1] (expected [100, 200])\n"}
+,{"stream_name":"stdout","time":22.161569715,"data":"GVZ range: [8.9, 49.0] (expected [5, 80])\n"}
+,{"stream_name":"stdout","time":22.161574553,"data":"SKEW change std: 3.90\n"}
+,{"stream_name":"stdout","time":22.161578455,"data":"GVZ change std: 1.01\n"}
+,{"stream_name":"stdout","time":22.161582583,"data":"Missing data: 0 cells\n"}
+,{"stream_name":"stdout","time":22.190011912,"data":"\n"}
+,{"stream_name":"stdout","time":22.190049751,"data":"=== Data Split ===\n"}
+,{"stream_name":"stdout","time":22.190054796,"data":"Total samples: 2802\n"}
+,{"stream_name":"stdout","time":22.190059643,"data":"Train: 1961 samples (0 to 1960)\n"}
+,{"stream_name":"stdout","time":22.190063811,"data":"Val:   420 samples (1961 to 2380)\n"}
+,{"stream_name":"stdout","time":22.190067978,"data":"Test:  421 samples (2381 to 2801)\n"}
+,{"stream_name":"stdout","time":22.190071868,"data":"\n"}
+,{"stream_name":"stdout","time":22.190076108,"data":"Date ranges:\n"}
+,{"stream_name":"stdout","time":22.190080273,"data":"Train: 2014-10-02 00:00:00 to 2022-08-31 00:00:00\n"}
+,{"stream_name":"stdout","time":22.190084436,"data":"Val:   2022-09-01 00:00:00 to 2024-06-03 00:00:00\n"}
+,{"stream_name":"stdout","time":22.190088475,"data":"Test:  2024-06-04 00:00:00 to 2026-02-19 00:00:00\n"}
+,{"stream_name":"stdout","time":22.220438828,"data":"Feature generation functions defined\n"}
+,{"stream_name":"stdout","time":22.249085501,"data":"Optuna objective function defined\n"}
+,{"stream_name":"stdout","time":22.360911606,"data":"\n"}
+,{"stream_name":"stdout","time":22.360947159,"data":"=== Running Optuna Hyperparameter Optimization ===\n"}
+,{"stream_name":"stdout","time":22.360951637,"data":"Objective: Maximize sum of MI for both output columns on validation set\n"}
+,{"stream_name":"stdout","time":22.360955817,"data":"Search space:\n"}
+,{"stream_name":"stdout","time":22.36095955,"data":"  hmm_n_components: [2, 3]\n"}
+,{"stream_name":"stdout","time":22.360963262,"data":"  input_scaling: [True, False]\n"}
+,{"stream_name":"stdout","time":22.36096687,"data":"  ema_span: [3, 8]\n"}
+,{"stream_name":"stdout","time":22.360970352,"data":"  gvz_ema_short: [3, 10]\n"}
+,{"stream_name":"stdout","time":22.360974105,"data":"  gvz_ema_long: [15, 50]\n"}
+,{"stream_name":"stdout","time":22.360978019,"data":"  gvz_norm_window: [30, 90]\n"}
+,{"stream_name":"stdout","time":22.360982227,"data":"Trials: 50, Timeout: 600s\n"}
+,{"stream_name":"stdout","time":22.3609859,"data":"Autocorrelation guard: reject trials with autocorr \u003e 0.98\n"}
+,{"stream_name":"stdout","time":22.360990093,"data":"\n"}
+,{"stream_name":"stdout","time":39.211719302,"data":"\n"}
+,{"stream_name":"stdout","time":39.211772709,"data":"=== Optuna Results ===\n"}
+,{"stream_name":"stdout","time":39.211779204,"data":"Completed trials: 50\n"}
+,{"stream_name":"stdout","time":39.211789899,"data":"Best value (sum of MI): 0.076185\n"}
+,{"stream_name":"stdout","time":39.211795432,"data":"Best params: {'hmm_n_components': 2, 'input_scaling': False, 'ema_span': 7, 'gvz_ema_short': 9, 'gvz_ema_long': 24, 'gvz_norm_window': 62}\n"}
+,{"stream_name":"stdout","time":39.406001176,"data":"\n"}
+,{"stream_name":"stdout","time":39.406040313,"data":"=== Generating Final Submodel Output ===\n"}
+,{"stream_name":"stdout","time":39.406047027,"data":"Using best parameters: {'hmm_n_components': 2, 'input_scaling': False, 'ema_span': 7, 'gvz_ema_short': 9, 'gvz_ema_long': 24, 'gvz_norm_window': 62}\n"}
+,{"stream_name":"stdout","time":39.448381058,"data":"\n"}
+,{"stream_name":"stdout","time":39.448469228,"data":"Output shape: (2741, 2)\n"}
+,{"stream_name":"stdout","time":39.448474954,"data":"Output columns: ['options_regime_smooth', 'options_gvz_momentum_z']\n"}
+,{"stream_name":"stdout","time":39.448479592,"data":"\n"}
+,{"stream_name":"stdout","time":39.448502215,"data":"Output statistics:\n"}
+,{"stream_name":"stdout","time":39.448506389,"data":"       options_regime_smooth  options_gvz_momentum_z\n"}
+,{"stream_name":"stdout","time":39.44851044,"data":"count            2741.000000             2741.000000\n"}
+,{"stream_name":"stdout","time":39.448514543,"data":"mean                0.225358                0.132199\n"}
+,{"stream_name":"stdout","time":39.448518535,"data":"std                 0.263015                1.223088\n"}
+,{"stream_name":"stdout","time":39.4485226,"data":"min                 0.003854               -2.646201\n"}
+,{"stream_name":"stdout","time":39.448526609,"data":"25%                 0.023210               -0.795725\n"}
+,{"stream_name":"stdout","time":39.448530721,"data":"50%                 0.100600               -0.061189\n"}
+,{"stream_name":"stdout","time":39.44853468,"data":"75%                 0.356809                0.801872\n"}
+,{"stream_name":"stdout","time":39.448538733,"data":"max                 0.998700                3.000000\n"}
+,{"stream_name":"stdout","time":39.448542741,"data":"options_regime_smooth autocorr(lag=1): 0.9728\n"}
+,{"stream_name":"stdout","time":39.44854679,"data":"options_gvz_momentum_z autocorr(lag=1): 0.9781\n"}
+,{"stream_name":"stdout","time":39.448550812,"data":"\n"}
+,{"stream_name":"stdout","time":39.448554686,"data":"Output validation: PASS\n"}
+,{"stream_name":"stdout","time":39.494215109,"data":"Per-column statistics:\n"}
+,{"stream_name":"stdout","time":39.494262528,"data":"  options_regime_smooth:\n"}
+,{"stream_name":"stdout","time":39.494267864,"data":"    mean: 0.2254\n"}
+,{"stream_name":"stdout","time":39.494272393,"data":"    std: 0.2630\n"}
+,{"stream_name":"stdout","time":39.494276387,"data":"    min: 0.0039\n"}
+,{"stream_name":"stdout","time":39.494280345,"data":"    max: 0.9987\n"}
+,{"stream_name":"stdout","time":39.494284283,"data":"    autocorr_lag1: 0.9728\n"}
+,{"stream_name":"stdout","time":39.494288252,"data":"    nan_ratio: 0.0000\n"}
+,{"stream_name":"stdout","time":39.494293239,"data":"  options_gvz_momentum_z:\n"}
+,{"stream_name":"stdout","time":39.49429787,"data":"    mean: 0.1322\n"}
+,{"stream_name":"stdout","time":39.494302613,"data":"    std: 1.2231\n"}
+,{"stream_name":"stdout","time":39.494307003,"data":"    min: -2.6462\n"}
+,{"stream_name":"stdout","time":39.494311716,"data":"    max: 3.0000\n"}
+,{"stream_name":"stdout","time":39.494316221,"data":"    autocorr_lag1: 0.9781\n"}
+,{"stream_name":"stdout","time":39.494320845,"data":"    nan_ratio: 0.0000\n"}
+,{"stream_name":"stdout","time":39.570757817,"data":"\n"}
+,{"stream_name":"stdout","time":39.570793531,"data":"=== Saving Results ===\n"}
+,{"stream_name":"stdout","time":39.570805042,"data":"Saved: submodel_output.csv\n"}
+,{"stream_name":"stdout","time":39.570824999,"data":"Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":39.570830005,"data":"\n"}
+,{"stream_name":"stdout","time":39.570834662,"data":"=== Training Complete ===\n"}
+,{"stream_name":"stdout","time":39.570839073,"data":"Finished: 2026-02-21T17:33:43.827488\n"}
+,{"stream_name":"stdout","time":39.570844146,"data":"\n"}
+,{"stream_name":"stdout","time":39.570849109,"data":"Final summary:\n"}
+,{"stream_name":"stdout","time":39.570853442,"data":"  Feature: options_market\n"}
+,{"stream_name":"stdout","time":39.570876044,"data":"  Attempt: 3\n"}
+,{"stream_name":"stdout","time":39.570880579,"data":"  Output: 2 columns (options_regime_smooth, options_gvz_momentum_z)\n"}
+,{"stream_name":"stdout","time":39.570891309,"data":"  Best Optuna MI sum: 0.076185\n"}
+,{"stream_name":"stdout","time":39.570894489,"data":"  Best params: {'hmm_n_components': 2, 'input_scaling': False, 'ema_span': 7, 'gvz_ema_short': 9, 'gvz_ema_long': 24, 'gvz_norm_window': 62}\n"}
+,{"stream_name":"stdout","time":39.570897374,"data":"  Output shape: (2741, 2)\n"}
+,{"stream_name":"stdout","time":39.570900048,"data":"  Output date range: 2014-12-30 00:00:00 to 2026-02-19 00:00:00\n"}
+,{"stream_name":"stderr","time":43.0524851,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":43.052525174,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":43.257529817,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":43.257559018,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":43.967366705,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":43.967432473,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":44.01228953,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":44.409686904,"data":"[NbConvertApp] Writing 38157 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":47.520390483,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":47.520450158,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":47.547806206,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":48.686429669,"data":"[NbConvertApp] Writing 367671 bytes to __results__.html\n"}
+]
