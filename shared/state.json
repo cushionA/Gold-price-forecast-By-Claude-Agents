@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase3_meta_model",
   "current_feature": "meta_model",
   "current_attempt": 18,
@@ -875,7 +875,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-21T21:45:38.268727",
+  "last_updated": "2026-02-21T21:47:16.402871",
   "error_type": null,
   "auto_resume_remaining": 1,
   "saved_meta_model_state": {
