@@ -1,0 +1,13 @@
+{
+  "id": "bigbigzabuton/gold-yield-curve-model-attempt-7",
+  "title": "Gold Yield Curve Model - Attempt 7",
+  "code_file": "train.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"],
+  "competition_sources": [],
+  "kernel_sources": []
+}

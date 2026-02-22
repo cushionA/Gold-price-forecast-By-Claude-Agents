@@ -1,22 +1,22 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
-  "current_attempt": 6,
+  "current_attempt": 7,
   "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
   "architect_status": "completed",
   "builder_model_status": "notebook_generated",
-  "evaluator_status": "yield_curve_attempt5_gate3_fail_automation_continue",
+  "evaluator_status": "yield_curve_attempt6_gate2_gate3_fail_automation_continue",
   "retry_context": {
     "feature": "yield_curve",
     "max_attempt": 7,
     "automation_test": true,
     "note": "Automation pipeline test: run yield_curve attempts 5-7. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor(max_loops=1). STOP after evaluating attempt 7."
   },
-  "auto_resume_remaining": 2,
+  "auto_resume_remaining": 1,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -47,8 +47,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-6",
-  "submitted_at": "2026-02-22T10:03:08.913554",
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-7",
+  "submitted_at": "2026-02-22T10:12:06.989456",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1134,7 +1134,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T10:05:15.731755",
+  "last_updated": "2026-02-22T10:12:06.989463",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
