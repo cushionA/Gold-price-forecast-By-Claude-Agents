@@ -12,19 +12,25 @@
 パイプラインが回った記録の一部：
 
 ```
+kaggle: yield_curve attempt 5 - submitted
+kaggle: yield_curve attempt 5 - error (unknown) → 自動修正 → 再提出
+kaggle: yield_curve attempt 5 - results fetched
 eval: yield_curve attempt 5 - gate3 fail → 改善計画立案
 model: yield_curve attempt 6 - notebook generated
 kaggle: yield_curve attempt 6 - submitted
-kaggle: yield_curve attempt 6 - results fetched (Kaggle error → 自動修正 → 再提出)
+kaggle: yield_curve attempt 6 - error (unknown) → 自動修正 → 再提出
+kaggle: yield_curve attempt 6 - results fetched
 eval: yield_curve attempt 6 - gate3 fail → 改善計画立案
 model: yield_curve attempt 7 - notebook generated
 kaggle: yield_curve attempt 7 - submitted
+kaggle: yield_curve attempt 7 - error (unknown) → 自動修正 → 再提出
+kaggle: yield_curve attempt 7 - error (unknown) → 自動修正 → 再々提出
 kaggle: yield_curve attempt 7 - results fetched
 eval: yield_curve attempt 7 - ALL GATES PASS
 ```
 
 この一連の流れが、**人間のキーボード操作なしで自動的に走りました。**
-途中でKaggleがエラーを返してもパイプラインが自動で原因を分析して修正し、再提出しています。
+途中でKaggleが計4回エラーを返していますが、パイプラインが毎回自動で原因を分析して修正し、再提出しています。
 
 この記事では、金（Gold）の翌日リターンを予測するモデルの中身よりも、**パイプラインをどう設計し、何が起きて、どう解決したか**に焦点を当てて解説します。
 
@@ -35,8 +41,8 @@ eval: yield_curve attempt 7 - ALL GATES PASS
 # 全体構成：何を自動化したのか
 
 ## 目標
-
-金価格に影響する9つの特徴量（実質金利・ドル指数・VIXなど）に対して、それぞれ「サブモデル」を構築します。
+今回のモデル設計について軽く触れておきます。
+まず、金価格に影響する9つの特徴量（実質金利・ドル指数・VIXなど）に対して、それぞれ「サブモデル」を構築します。
 サブモデルは金価格を直接予測するのではなく、各特徴量の裏にある**レジーム（局面）や持続性といった潜在パターンを抽出**する役割です。
 これらのサブモデル出力をメタモデルに統合して、最終的な予測を行います。
 
@@ -45,7 +51,7 @@ eval: yield_curve attempt 7 - ALL GATES PASS
 ```
 
 このような設計にした意図は、より多くの文脈を圧縮して金予想モデルに持たせたかったからです。
-1サブモデルあたり1〜6回の設計→学習→評価サイクルを回す必要があり、計30回以上のイテレーションが発生します。これを手動でやるのはまず無理なので、全部エージェントに任せるわけです。
+1サブモデルあたり1〜9回の設計→学習→評価サイクルを回す必要があり、計30回以上のイテレーションが発生します。これを手動でやるのは私には無理なので、全部エージェントに任せるわけです。
 
 ## 7つの専門エージェント
 
@@ -68,7 +74,7 @@ Orchestratorが `shared/state.json` を読み、現在の進捗に応じて適�
 
 |<font color=""> **パイプライン全体像** </font>|
 |:-:|
-|![パイプライン全体像](証跡画像/pipeline_overview.png)|
+|![パイプライン全体像](https://raw.githubusercontent.com/cushionA/Gold-price-forecast-By-Claude-Agents/develop/%E8%A8%98%E4%BA%8B/%E8%A8%BC%E8%B7%A1%E7%94%BB%E5%83%8F/pipeline_overview.png)|
 
 ---
 
@@ -93,7 +99,7 @@ builder_model: 「PyTorch学習スクリプトをJupyter Notebookとして生成
     ↓
 evaluator: 「Gate 1/2/3で品質評価 → PASS or 改善計画」
     ↓
-（FAIL の場合）→ attempt+1 として再びentranceへ
+（FAIL の場合）→ attempt+1 としてevaluatorの改善計画に基づきarchitectへ
 ```
 
 ポイントは**この全サイクルが人間の介入なしにループし続けること**です。
@@ -118,6 +124,7 @@ Claude Codeはローカルで動作するツールです。
 また、学習コードをKaggle Notebook（Jupyter形式）として管理することで、学習の再現性が担保されます。
 
 Claude Code（設計・コード生成）とKaggle（学習実行）の分離は、責務の分離として自然な設計です。
+~~あと私のPCが七年物のオンボロゲーミングノートなのであんまり無理させたくなかった。~~
 
 ## 実行の流れ
 
@@ -201,7 +208,7 @@ evaluatorは以下の3段階でサブモデルの品質を評価します。全G
 - MAE -0.01%
 
 Gate 3がこのシステムの肝です。
-情報理論的には良さそうに見えても（Gate 2 PASS）、実際のアブレーションで効果が出ないケース（Gate 3 FAIL）は何度もありました。
+情報理論的には良さそうに見えても（Gate 2 PASS）、実際にメタモデルに組み込むと効果が出ないケース（Gate 3 FAIL）は何度もありました。
 「理屈上は有用なはず」と「実際に予測が良くなる」の間にはギャップがあり、Gate 3はそのギャップを検出する最後の関門です。
 
 ---
@@ -229,7 +236,7 @@ python scripts/validate_notebook.py notebooks/vix_1/
 |---|------------|------|
 | 1 | Python構文チェック（ast.parse） | 構文エラーはKaggleでも即死 |
 | 2 | メソッド名タイポ（`.UPPER()` 等） | LLMが大文字メソッドを生成しがち |
-| 3 | SHAP + XGBoost 2.x 互換性 | Kaggle環境のバージョン不整合 |
+| 3 | SHAP + XGBoost 3.x 互換性 | Kaggle環境のバージョン不整合 |
 | 4 | データセットパス参照の整合性 | API v2のパス変更で頻発 |
 | 5 | kernel-metadata.json検証 | 必須フィールド・設定値チェック |
 | 6 | 未定義変数の基本検出 | セル間依存の漏れを検出 |
@@ -274,7 +281,7 @@ Claude Codeには `.claude/` 配下にプロジェクト固有のメモリファ
 - Windows cp932 problem: builtins.openをパッチしてUTF-8強制
 - Auth mapping: .envのKAGGLE_API_TOKENをKAGGLE_KEYにリマップ必要
 - Dataset mount path (API v2): /kaggle/input/datasets/{owner}/{slug}/
-  （旧パス /kaggle/input/{slug}/ は動かない）
+  （Web UI作成のカーネルは /kaggle/input/{slug}/。動的パス解決が必要）
 - 409 Conflict: 実行中のkernelがあるとpush失敗。Web UIから停止が必要
 - Notebook内ではKaggle CLI認証が効かない。Secretsが必要
 
@@ -365,6 +372,7 @@ b7b23f4 research: regime_classification attempt 1
 
 `entrance → research → design → data → datacheck → model → kaggle submit → kaggle fetch → eval` という一連のコミットが一つのサブモデルに対応しています。
 デバッグやロールバックの際に「どの時点でどのエージェントが何をしたか」が完全にトレース可能です。
+~~私はもう追いきれてないんですがエージェントは理解してくれています。~~
 
 ---
 
@@ -372,7 +380,7 @@ b7b23f4 research: regime_classification attempt 1
 
 ## yield_curve自動化テスト：3 attemptを連続で回す
 
-パイプラインのロバスト性検証として、yield_curveサブモデルのattempt 5→6→7を `automation_test` モードで連続実行するテストを行いました。
+パイプラインの動作検証として、yield_curveサブモデルのattempt 5→6→7を `automation_test` モードで連続実行するテストを行いました。
 
 `automation_test` モードとは、evaluatorがGate 3 PASSと判定しても「改善の余地なし」と止まらず、強制的に次のattemptに進む設定です。
 
@@ -385,77 +393,19 @@ retry_context = {
 }
 ```
 
-結果として、**Kaggleが2回エラーを返したにもかかわらず**、パイプラインは3 attempt（5→6→7）を完走しました。
+結果として、**Kaggleが計4回エラーを返したにもかかわらず**、パイプラインは3 attempt（5→6→7）を完走しました。
 
 ```
-attempt 5: Gate 3 FAIL → 改善計画 → attempt 6へ
+attempt 5: Kaggle ERROR → 自動修正 → 再提出 → Gate 3 FAIL → 改善計画 → attempt 6へ
 attempt 6: Kaggle ERROR → 自動修正 → 再提出 → Gate 3 FAIL → 改善計画 → attempt 7へ
-attempt 7: Kaggle ERROR → 自動修正 → 再提出 → ALL GATES PASS → 完了
+attempt 7: Kaggle ERROR → 自動修正 → 再提出 → Kaggle ERROR → 再修正 → 再々提出 → ALL GATES PASS → 完了
 ```
 
-Kaggleエラー2件はいずれも `unknown` 分類でしたが、**パイプラインが自律的に原因を特定して修正し、再提出しました。**
+Kaggleエラー4件はいずれも `unknown` 分類でしたが、**パイプラインが自律的に原因を特定して修正し、再提出しました。**
 ここで人間が操作したことはゼロです。
-
-## パイプラインのバグを発見・修正した話
-
-このテストで重大なバグが2つ見つかりました。
-
-### Bug 1: state.jsonの重複キー問題
-
-`state.json` はPythonの `json.load()` で読み込みます。
-JSONの仕様では同じキーが複数あった場合の動作は未定義ですが、Pythonの実装は**最後に出現したキーを採用**します。
-
-テキストエディタ相当の操作（EditツールによるJSON直書き）で `retry_context` を追記したとき、古い `retry_context`（options_marketサブモデル用、`max_attempt=5`）がファイルの後方に残留していました。
-`json.load()` はその古い方を「正しい値」として採用し、`attempts_left = 5 - 5 = 0` → パイプラインが停止するという現象が起きました。
-
-**修正**: `state.json` は必ずPython経由で書き換える。テキスト直書きは禁止。
-```python
-# 正しい書き方（重複キーが発生しない）
-state = json.load(f)
-state["retry_context"] = {"feature": "yield_curve", ...}
-json.dump(state, f)
-```
-
-さらに `_load_state()` に重複キー検出ログを追加し、万が一発生した場合に警告を出すようにしました。
-
-### Bug 2: エラー修正後のループカウンターリセット
-
-Kaggleがエラーを返したとき、auto_resumeはClaudeを起動してエラーの修正を依頼します。
-このとき渡すプロンプトに問題がありました。
-
-**修正前**:
-```
-エラーを修正して、submit_and_monitor(max_loops=1) で再提出してください
-```
-
-`max_loops=1` と書いてしまうと、元々 `remaining=3` だったカウンターが `1` にリセットされます。
-エラーから復帰した後、1回しかループが走らなくなるわけです。
-
-**修正後**:
-```python
-remaining = state.get("auto_resume_remaining", 1)
-safe_loops = max(1, remaining)
-# プロンプト内: f"submit_and_monitor(max_loops={safe_loops}) で再提出"
-```
-
-現在の残りループ数を引き継ぐよう修正しました。
-
----
+スクリプトがKaggleのカーネル実行エラーを検知して、エラーログから修正依頼プロンプトをAgentに投げてくれます。
 
 # 実際の運用で学んだこと
-
-## 完全自律ではない
-
-誤解のないように書いておくと、これは「ボタン一つで完成品ができる」システムではありません。
-
-実際の運用では以下のような人間の介入がありました。
-
-- **Kaggle Secrets（APIキー）の設定**: ブラウザでの手動設定が必要
-- **409 Conflictの対応**: Kaggle上でKernelが既に実行中のとき、Web UIから手動で停止する場面があった
-- **方針の軌道修正**: 「実質金利はもう諦めて次に行こう」「メタモデルのAttempt 7をファイナルにしよう」といった大きな判断
-
-逆に言うと、**それ以外は全てエージェントが自律的に回しました。**
-設計書の作成・データ取得・前処理・学習スクリプト生成・Kaggle提出・結果取得・Gate評価・改善計画の立案と次イテレーションへの引き継ぎ。
 
 ## エージェントの「思い込み」をファクトチェックで防ぐ
 
@@ -493,7 +443,7 @@ builtins.open = _utf8_open
 
 |<font color=""> **過学習（Train-Test Gap）の改善推移** </font>|
 |:-:|
-|![過学習の改善推移](証跡画像/overfitting_progress.png)|
+|![過学習の改善推移](https://raw.githubusercontent.com/cushionA/Gold-price-forecast-By-Claude-Agents/develop/%E8%A8%98%E4%BA%8B/%E8%A8%BC%E8%B7%A1%E7%94%BB%E5%83%8F/overfitting_progress.png)|
 
 evaluatorが立案した改善策は、主に以下の3点でした。
 
@@ -503,8 +453,8 @@ evaluatorが立案した改善策は、主に以下の3点でした。
 
 ## 改善の限界を自律的に判断する
 
-Attempt 7以降、8回連続でAttempt 7を下回る結果が出ました。
-スタッキング、非対称損失関数、特徴量追加、特徴量削減、アンサンブルなど多様なアプローチを試しましたが、いずれもAttempt 7に及びません。
+Attempt 7以降、11回連続でAttempt 7を下回る結果が出ました。
+スタッキング、非対称損失関数、特徴量追加、特徴量削減、アンサンブル、LightGBMへの切り替え、ブートストラップサブサンプリングなど多様なアプローチを試しましたが、いずれもAttempt 7に及びません。
 
 evaluatorが自律的に「これ以上の改善は困難」と判断し、Attempt 7をファイナルモデルとして確定しています。
 この「いつ止めるか」の判断もパイプラインの一部として組み込まれています。
@@ -517,7 +467,7 @@ evaluatorが自律的に「これ以上の改善は困難」と判断し、Attem
 
 |<font color=""> **ベースラインからの改善** </font>|
 |:-:|
-|![ベースライン vs 最終モデル](証跡画像/baseline_vs_final.png)|
+|![ベースライン vs 最終モデル](https://raw.githubusercontent.com/cushionA/Gold-price-forecast-By-Claude-Agents/develop/%E8%A8%98%E4%BA%8B/%E8%A8%BC%E8%B7%A1%E7%94%BB%E5%83%8F/baseline_vs_final.png)|
 
 <table>
   <caption>最終メタモデル（Attempt 7）の成績</caption>
@@ -615,5 +565,5 @@ PC起動 → Claude Code起動 → 設計→スクリプト生成→Kaggle提出
 
 今回の `state.json` による状態管理と `kaggle_ops.py` によるAPI連携の設計は、そのための土台としてそのまま流用できるはずです。
 
-AIエージェントによる自動開発は、まだ発展途上の段階です。
-しかし、実行基盤のクラウド化が進めば、人間の役割は「何を作るか」「どこで止めるか」の意思決定だけになっていくのかもしれません。
+正直私は金予想にはそこまでの興味がないのですが、機械学習には大いに興味があります。
+今後も機械学習で色々とやりたいことがあるので、こうしたスキームは今後も活用していきたいと考えています。
