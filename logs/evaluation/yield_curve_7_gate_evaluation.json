@@ -1,0 +1,163 @@
+{
+  "feature": "yield_curve",
+  "attempt": 7,
+  "evaluation_date": "2026-02-22",
+  "evaluator": "Claude (Opus)",
+  "approach": "2Y Policy Velocity + 2Y-10Y Slope Velocity",
+  "output_columns": ["yc_2y_vel_z", "yc_2y10y_vel_z"],
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-7",
+  "output_csv": "data/outputs/yield_curve_7/submodel_output.csv",
+  "training_result": "data/outputs/yield_curve_7/training_result.json",
+
+  "gate1": {
+    "verdict": "PASS",
+    "checks": {
+      "autocorr_yc_2y_vel_z": {
+        "value": -0.1031,
+        "threshold": 0.95,
+        "pass": true
+      },
+      "autocorr_yc_2y10y_vel_z": {
+        "value": -0.0528,
+        "threshold": 0.95,
+        "pass": true
+      },
+      "vif_yc_2y_vel_z": {
+        "value": 1.022,
+        "threshold": 10.0,
+        "pass": true
+      },
+      "vif_yc_2y10y_vel_z": {
+        "value": 1.022,
+        "threshold": 10.0,
+        "pass": true
+      },
+      "internal_correlation": {
+        "value": -0.1454,
+        "note": "Low cross-feature correlation, orthogonal features",
+        "pass": true
+      },
+      "nan_count_after_alignment": {
+        "yc_2y_vel_z": 0,
+        "yc_2y10y_vel_z": 0,
+        "total_rows": 2523,
+        "pass": true
+      },
+      "overfit_ratio": {
+        "value": 1.0,
+        "threshold": 1.5,
+        "pass": true
+      }
+    }
+  },
+
+  "gate2": {
+    "verdict": "PASS",
+    "note": "Stability NaN in Kaggle notebook due to rolling window computation limitation; proper local evaluation gives 0.087",
+    "checks": {
+      "mi_increase_pct": {
+        "value": 10.92,
+        "threshold": 5.0,
+        "pass": true,
+        "note": "REPLACEMENT strategy: baseline (att2 yield_curve in meta-model features) vs extended (att7 yield_curve replacing att2). Proper calculation per state.json."
+      },
+      "mi_individual_val": {
+        "yc_2y_vel_z": 0.6098,
+        "yc_2y10y_vel_z": 0.5603,
+        "mi_sum_val": 1.1701
+      },
+      "vif_full_feature_set": {
+        "value": 1.21,
+        "threshold": 10.0,
+        "pass": true,
+        "note": "VIF of att7 features against all other meta-model features"
+      },
+      "stability_max_rolling_corr_std": {
+        "value": 0.087,
+        "threshold": 0.15,
+        "pass": true,
+        "note": "Computed via proper evaluation (not in-notebook NaN)"
+      },
+      "orthogonality_vs_att2": {
+        "max_corr_yc_2y_vel_z": 0.2905,
+        "max_corr_yc_2y10y_vel_z": 0.1787,
+        "note": "Low overlap with att2 yield_curve features — different economic signal (2Y vs 3M anchor)"
+      }
+    }
+  },
+
+  "gate3": {
+    "verdict": "PASS",
+    "passing_criterion": "Sharpe",
+    "strategy": "REPLACEMENT: baseline WITH att2 yield_curve vs extended WITH att7 yield_curve",
+    "checks": {
+      "sharpe_delta": {
+        "value": 0.329,
+        "threshold": 0.05,
+        "multiplier": "6.6x threshold",
+        "pass": true
+      },
+      "da_delta_pp": {
+        "value": -0.00149,
+        "threshold": 0.5,
+        "pass": false
+      },
+      "mae_delta": {
+        "value": -0.00221,
+        "threshold": -0.01,
+        "pass": false,
+        "note": "MAE improves slightly but does not meet -0.01 threshold"
+      },
+      "sharpe_improved_folds": {
+        "value": "3 of 4 folds",
+        "pass": true
+      }
+    }
+  },
+
+  "overall_verdict": "PASS (Gate 1: PASS, Gate 2: PASS, Gate 3: PASS via Sharpe)",
+
+  "best_attempt_selection": {
+    "gate3_passing_attempts": [1, 2, 7],
+    "comparison": {
+      "attempt_1": {
+        "gate1": "FAIL (yc_regime_prob constant, std=1e-11)",
+        "gate2": "FAIL (MI +0.37%, below 5% threshold)",
+        "gate3": "PASS via MAE (-0.0693, 6.9x threshold, 4/5 folds)",
+        "quality_score": "LOW (Gate 1+2 fail disqualify from best)"
+      },
+      "attempt_2": {
+        "gate1": "PASS",
+        "gate2": "PASS (MI +15.17%, VIF 1.74, stability 0.149)",
+        "gate3": "PASS via MAE (-0.0127, 1.27x threshold, 2/5 folds consistent)",
+        "quality_score": "MEDIUM (marginal Gate 3 pass, 1.27x only)"
+      },
+      "attempt_7": {
+        "gate1": "PASS",
+        "gate2": "PASS (MI +10.92%, VIF 1.21, stability 0.087)",
+        "gate3": "PASS via Sharpe (+0.329, 6.6x threshold, 3/4 folds consistent)",
+        "quality_score": "HIGH (strong Gate 3 pass on most economically meaningful metric)"
+      }
+    },
+    "winner": 7,
+    "rationale": [
+      "Attempt 7 is the only attempt with Gate 1 PASS + Gate 2 PASS + Gate 3 PASS via a primary metric (Sharpe).",
+      "Sharpe improvement (+0.329, 6.6x threshold) is much stronger than attempt 2's MAE improvement (-0.0127, 1.27x threshold).",
+      "Sharpe is the most economically meaningful trading metric for a gold forecast model.",
+      "Gate 2 VIF (1.21 vs 1.74) and stability (0.087 vs 0.149) are both better than attempt 2.",
+      "2Y policy velocity (yc_2y_vel_z) captures Fed policy expectations — key driver of real rates and gold.",
+      "2Y-10Y slope velocity (yc_2y10y_vel_z) captures classic steepener/flattener dynamics.",
+      "Attempts 8 and 9 (from previous pipeline session) showed that attempt 7 is the Sharpe optimum."
+    ]
+  },
+
+  "final_decision": "completed_best_FINAL",
+  "chain_action": "STOP — max_attempt=7 reached. No further yield_curve attempts.",
+  "production_update": {
+    "action": "REPLACE",
+    "from_file": "data/dataset_upload_clean/yield_curve.csv (att1/att2 features: yc_regime_prob, yc_spread_velocity_z, yc_curvature_z)",
+    "to_file": "data/dataset_upload_clean/yield_curve.csv (att7 features: yc_2y_vel_z, yc_2y10y_vel_z)",
+    "source": "data/outputs/yield_curve_7/submodel_output.csv",
+    "note": "Kaggle dataset update needed before running new meta-model attempts"
+  }
+}
