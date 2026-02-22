@@ -509,3 +509,11 @@ Max wait time: 3.0 hours
 2026-02-22 10:23:51,153 [INFO] Claude SDK completed successfully
 2026-02-22 10:23:51,154 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
 2026-02-22 10:23:51,155 [INFO] auto_resume exiting.
+2026-02-22 10:25:50,692 [INFO] Monitor exited (code=0)
+2026-02-22 10:25:50,694 [INFO] auto_resume_remaining: 1 → 0
+2026-02-22 10:25:50,697 [INFO] Lock released (owner-checked). Launching Claude...
+2026-02-22 10:25:51,270 [INFO] Launching Claude via SDK...
+2026-02-22 10:25:51,303 [INFO] Using bundled Claude Code CLI: C:\Users\tatuk\AppData\Local\Programs\Python\Python313\Lib\site-packages\claude_agent_sdk\_bundled\claude.exe
+2026-02-22 10:39:48,023 [INFO] Claude SDK completed successfully
+2026-02-22 10:39:48,024 [INFO] Claude completed (status=completed, resume_from=None). Evaluator made stop/continue decision.
+2026-02-22 10:39:48,025 [INFO] auto_resume exiting.
