@@ -1,0 +1,44 @@
+[{"stream_name":"stderr","time":8.463262843,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.463378773,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.463383473,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.463385903,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.210337159,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.210378259,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.210383259,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.210387049,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":20.228682058,"data":"=== Gold SubModel Training: yield_curve attempt 6 ===\n"}
+,{"stream_name":"stdout","time":20.228736458,"data":"Approach: Yield Decomposition Velocity (Breakeven + TIPS velocity z-scores)\n"}
+,{"stream_name":"stdout","time":20.228741618,"data":"Started: 2026-02-22T00:55:15.753791\n"}
+,{"stream_name":"stdout","time":20.471956938,"data":"WARNING: FRED_API_KEY not found in Kaggle Secrets or environment\n"}
+,{"stream_name":"stderr","time":21.306576252,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":21.306605712,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":21.306611212,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":21.306674672,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":21.306682272,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":21.306835242,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":21.306962612,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":21.306992682,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":21.306996292,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":21.306999522,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":21.307002622,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":21.307005602,"data":"/tmp/ipykernel_17/4000127691.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":21.307009182,"data":"     13 \n"}
+,{"stream_name":"stderr","time":21.307012262,"data":"     14 if not FRED_API_KEY:\n"}
+,{"stream_name":"stderr","time":21.307015432,"data":"---\u003e 15     raise RuntimeError('FRED_API_KEY not found in Kaggle Secrets or environment. '\n"}
+,{"stream_name":"stderr","time":21.307019022,"data":"     16                        'Add FRED_API_KEY to Kaggle Secrets at kaggle.com/settings.')\n"}
+,{"stream_name":"stderr","time":21.307021182,"data":"\n"}
+,{"stream_name":"stderr","time":21.307023152,"data":"RuntimeError: FRED_API_KEY not found in Kaggle Secrets or environment. Add FRED_API_KEY to Kaggle Secrets at kaggle.com/settings.\n"}
+,{"stream_name":"stderr","time":21.307025632,"data":"\n"}
+,{"stream_name":"stderr","time":23.687668459,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":23.687709759,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":23.871652138,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":23.871677798,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":24.470626495,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":24.470691125,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":24.506291155,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":24.791463943,"data":"[NbConvertApp] Writing 29177 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":27.510483948,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":27.510531038,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":27.534585188,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":28.467151163,"data":"[NbConvertApp] Writing 365498 bytes to __results__.html\n"}
+]
