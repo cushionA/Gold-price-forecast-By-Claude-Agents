@@ -1,49 +1,46 @@
 {
   "feature": "yield_curve",
-  "attempt": 5,
-  "timestamp": "2026-02-22T00:11:02.134693",
-  "approach": "Cross-Tenor Correlation Dynamics",
-  "description": "Z-scored daily changes in rolling cross-tenor yield correlations. 3 features: 10Y-3M corr change, 10Y-2Y corr change, 1Y-10Y corr change. CHANGE not level avoids autocorrelation (level ~0.98, change ~0.05).",
+  "attempt": 6,
+  "timestamp": "2026-02-22T01:03:33.641161",
+  "approach": "Yield Decomposition Velocity",
+  "description": "Z-scored daily changes in 10Y breakeven inflation rate and TIPS real yield. 2 features: yc_be_vel_z (breakeven velocity = DGS10-DFII10 daily change z-score), yc_tips_vel_z (real rate velocity = DFII10 daily change z-score). Decomposes nominal yield dynamics into inflation premium and real rate components. Both use shared zscore_window for temporal consistency. Velocity not level avoids autocorrelation (level >0.99, velocity ~0.046).",
   "best_params": {
-    "corr_window": 45,
-    "zscore_window": 60
+    "zscore_window": 45
   },
   "metrics": {
     "overfit_ratio": 1.0,
-    "mi_sum_val": 1.783934,
+    "train_loss": 0.0,
+    "val_loss": 0.0,
+    "mi_sum_val": 1.167781,
     "mi_individual_val": {
-      "yc_corr_long_short_z": 0.592948,
-      "yc_corr_long_mid_z": 0.557999,
-      "yc_corr_1y10y_z": 0.632987
+      "yc_be_vel_z": 0.569487,
+      "yc_tips_vel_z": 0.598294
     },
     "mi_individual_test": {
-      "yc_corr_long_short_z": 0.558662,
-      "yc_corr_long_mid_z": 0.577181,
-      "yc_corr_1y10y_z": 0.558709
+      "yc_be_vel_z": 0.603158,
+      "yc_tips_vel_z": 0.539111
     },
-    "mi_sum_test": 1.694552,
-    "autocorr": {
-      "yc_corr_long_short_z": 0.073753,
-      "yc_corr_long_mid_z": -0.025359,
-      "yc_corr_1y10y_z": 0.038322
+    "mi_sum_test": 1.142269,
+    "autocorrelations": {
+      "yc_be_vel_z": 0.037534,
+      "yc_tips_vel_z": 0.012333
     },
-    "max_internal_corr": 0.540084,
-    "optuna_trials_completed": 30,
-    "optuna_best_value": 1.783934,
+    "max_internal_corr": 0.031056,
+    "max_vif": 1.001,
+    "optuna_trials_completed": 20,
+    "optuna_best_value": 1.167781,
     "output_nan_counts": {
-      "yc_corr_long_short_z": 0,
-      "yc_corr_long_mid_z": 0,
-      "yc_corr_1y10y_z": 0
+      "yc_be_vel_z": 0,
+      "yc_tips_vel_z": 0
     }
   },
   "output_shape": [
     2523,
-    3
+    2
   ],
   "output_columns": [
-    "yc_corr_long_short_z",
-    "yc_corr_long_mid_z",
-    "yc_corr_1y10y_z"
+    "yc_be_vel_z",
+    "yc_tips_vel_z"
   ],
   "data_info": {
     "total_aligned": 2523,
@@ -54,9 +51,7 @@
     "date_range_end": "2025-02-12",
     "fred_tickers": [
       "DGS10",
-      "DGS2",
-      "DGS3MO",
-      "DGS1"
+      "DFII10"
     ],
     "gold_ticker": "GC=F"
   }

@@ -452,3 +452,13 @@ Max wait time: 3.0 hours
 2026-02-22 09:57:28,339 [INFO] Lock released (owner-checked). Launching Claude...
 2026-02-22 09:57:28,925 [INFO] Launching Claude via SDK...
 2026-02-22 09:57:28,962 [INFO] Using bundled Claude Code CLI: C:\Users\tatuk\AppData\Local\Programs\Python\Python313\Lib\site-packages\claude_agent_sdk\_bundled\claude.exe
+2026-02-22 10:03:10,898 [INFO] ============================================================
+2026-02-22 10:03:10,898 [INFO] auto_resume started
+2026-02-22 10:03:10,910 [INFO] auto_resume_remaining set to 2
+2026-02-22 10:03:10,910 [INFO] Watching: yield_curve attempt 6
+2026-02-22 10:03:10,910 [INFO] Kernel: bigbigzabuton/gold-yield-curve-model-attempt-6
+2026-02-22 10:03:10,910 [INFO] Remaining loops: 2
+2026-02-22 10:03:10,910 [INFO] Starting monitor (interval=60s, max=3.0h, initial_wait=120s)
+2026-02-22 10:03:24,985 [INFO] Claude SDK completed successfully
+2026-02-22 10:03:24,986 [INFO] Claude reached waiting_training (submitted to Kaggle). Cycle complete.
+2026-02-22 10:03:24,987 [INFO] auto_resume exiting.
