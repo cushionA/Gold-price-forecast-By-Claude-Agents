@@ -1,9 +1,9 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 6,
-  "resume_from": "submit",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -47,8 +47,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-5",
-  "submitted_at": "2026-02-22T09:10:21.241790",
+  "kaggle_kernel": "bigbigzabuton/gold-yield-curve-model-attempt-6",
+  "submitted_at": "2026-02-22T09:54:19.499581",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1134,7 +1134,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T10:30:00.000000",
+  "last_updated": "2026-02-22T09:54:19.499589",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
