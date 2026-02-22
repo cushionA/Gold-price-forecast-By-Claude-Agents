@@ -1,26 +1,26 @@
 {
-  "status": "completed",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
-  "current_attempt": 5,
-  "resume_from": null,
+  "current_attempt": 6,
+  "resume_from": "architect",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
-  "architect_status": "completed",
-  "builder_model_status": "notebook_generated",
-  "evaluator_status": "no_further_improvement_FINAL",
+  "architect_status": "",
+  "builder_model_status": "",
+  "evaluator_status": "yield_curve_attempt5_gate3_fail_automation_continue",
   "retry_ctx": {
     "automation_test": true,
     "max_attempt": 7
   },
   "retry_context": {
-    "feature": "options_market",
-    "max_attempt": 5,
+    "feature": "yield_curve",
+    "max_attempt": 7,
     "automation_test": true,
-    "note": "Automation pipeline test: run options_market for attempts 3-5. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor. STOP after evaluating attempt 5."
+    "note": "Automation pipeline test: run yield_curve attempts 5-7. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor(max_loops=1). STOP after evaluating attempt 7."
   },
-  "auto_resume_remaining": 0,
+  "auto_resume_remaining": 2,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -427,11 +427,31 @@
           "da_improved_folds": "2/5",
           "sharpe_improved_folds": "2/5",
           "mae_improved_folds": "2/5",
-          "fold1": {"da_delta_pp": 1.28, "sharpe_delta": 0.8688, "mae_delta": -0.005467},
-          "fold2": {"da_delta_pp": -0.26, "sharpe_delta": 0.3730, "mae_delta": -0.012487},
-          "fold3": {"da_delta_pp": -2.56, "sharpe_delta": -0.9512, "mae_delta": 0.015055},
-          "fold4": {"da_delta_pp": 0.26, "sharpe_delta": -0.5343, "mae_delta": 0.019037},
-          "fold5": {"da_delta_pp": -1.79, "sharpe_delta": -0.2783, "mae_delta": 0.047205},
+          "fold1": {
+            "da_delta_pp": 1.28,
+            "sharpe_delta": 0.8688,
+            "mae_delta": -0.005467
+          },
+          "fold2": {
+            "da_delta_pp": -0.26,
+            "sharpe_delta": 0.373,
+            "mae_delta": -0.012487
+          },
+          "fold3": {
+            "da_delta_pp": -2.56,
+            "sharpe_delta": -0.9512,
+            "mae_delta": 0.015055
+          },
+          "fold4": {
+            "da_delta_pp": 0.26,
+            "sharpe_delta": -0.5343,
+            "mae_delta": 0.019037
+          },
+          "fold5": {
+            "da_delta_pp": -1.79,
+            "sharpe_delta": -0.2783,
+            "mae_delta": 0.047205
+          },
           "strategy": "REPLACEMENT: baseline WITH att2 yield_curve vs extended WITH att5 yield_curve"
         },
         "note": "Cross-Tenor Correlation Dynamics (daily change in 45-day rolling cross-tenor correlations). 3 features: yc_corr_long_short_z, yc_corr_long_mid_z, yc_corr_1y10y_z. Most orthogonal approach ever (max corr=0.073 with att2). Gate 1 PASS (autocorr max 0.074, excellent). Gate 2 borderline PASS (MI +5.33%, only yc_corr_long_short_z has non-zero MI, two features are zero). Gate 3 FAIL: DA -0.61pp, Sharpe -0.104, MAE +0.013. All metrics degraded. 3rd consecutive Gate 3 failure. Even with near-perfect orthogonality, cross-tenor correlations add noise rather than signal. The meta-model cannot benefit from this information type. FINAL: attempt 2 is the permanent best yield_curve submodel. 6 remaining attempts (6-11) skipped per evaluator authority.",
