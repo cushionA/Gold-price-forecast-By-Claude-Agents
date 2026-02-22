@@ -1,0 +1,191 @@
+[{"stream_name":"stderr","time":7.41412894,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.41422828,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.41423226,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.41423456,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.051719644,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.051754174,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.051758974,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.051763454,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.232005918,"data":"Yield Curve Submodel — Attempt 7\n"}
+,{"stream_name":"stdout","time":12.232056278,"data":"Approach: 2Y Policy Velocity + 2Y-10Y Slope Velocity\n"}
+,{"stream_name":"stdout","time":12.232061448,"data":"Output columns: ['yc_2y_vel_z', 'yc_2y10y_vel_z']\n"}
+,{"stream_name":"stdout","time":12.252033806,"data":"DATASET_PATH = /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":12.252075136,"data":"Contents: ['yield_curve.csv', 'options_market.csv', 'base_features.csv', 'technical.csv', 'inflation_expectation.csv', 'cny_demand.csv', 'base_features_raw.csv', 'temporal_context.csv', 'regime_classification.csv', 'vix.csv']\n"}
+,{"stream_name":"stdout","time":12.714848666,"data":"WARNING: FRED_API_KEY not available (Connection error trying to communicate with service.). Will use FRED public CSV endpoints (no key required).\n"}
+,{"stream_name":"stdout","time":16.741338593000002,"data":"FRED API: will use public CSV fallback (no key)\n"}
+,{"stream_name":"stdout","time":16.943155654999998,"data":"Fetching FRED yield data...\n"}
+,{"stream_name":"stdout","time":17.226807687,"data":"  DGS10: loaded via public CSV (2930 obs)\n"}
+,{"stream_name":"stdout","time":18.729533939,"data":"  DGS2: loaded via public CSV (2930 obs)\n"}
+,{"stream_name":"stdout","time":18.835873509,"data":"  DGS3MO: loaded via public CSV (2930 obs)\n"}
+,{"stream_name":"stdout","time":18.835909929,"data":"Yield data: 3059 rows\n"}
+,{"stream_name":"stdout","time":18.835930629,"data":"  Date range: 2014-06-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":18.835937349,"data":"  DGS10 range: 0.52% to 4.98%\n"}
+,{"stream_name":"stdout","time":18.835940729,"data":"  DGS2  range: 0.09% to 5.19%\n"}
+,{"stream_name":"stdout","time":18.835943739,"data":"  DGS3MO range: 0.00% to 5.63%\n"}
+,{"stream_name":"stdout","time":18.835946939,"data":"  10Y-2Y spread range: -1.08% to 2.21%\n"}
+,{"stream_name":"stdout","time":18.835950339,"data":"  Current 10Y-2Y: 0.61%\n"}
+,{"stream_name":"stdout","time":20.092902878,"data":"Fetching gold price data...\n"}
+,{"stream_name":"stdout","time":21.264629586,"data":"Gold data: 2947 valid observations\n"}
+,{"stream_name":"stdout","time":21.264676096,"data":"  Date range: 2014-06-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":21.302013603,"data":"Base features: 2523 rows\n"}
+,{"stream_name":"stdout","time":21.302051293,"data":"  Date range: 2015-01-30 to 2025-02-12\n"}
+,{"stream_name":"stdout","time":21.302055563,"data":"  Columns: ['gold_return_next', 'real_rate_real_rate', 'dxy_dxy', 'vix_vix', 'technical_gld_open']...\n"}
+,{"stream_name":"stdout","time":21.318428532,"data":"Feature generation functions defined\n"}
+,{"stream_name":"stdout","time":21.318472732,"data":"Features: ['yc_2y_vel_z', 'yc_2y10y_vel_z']\n"}
+,{"stream_name":"stdout","time":21.33354578,"data":"MI computation helper defined\n"}
+,{"stream_name":"stdout","time":21.356129728,"data":"Common dates: 2523 total\n"}
+,{"stream_name":"stdout","time":21.356166798,"data":"  Train: 1766 (2015-01-30 to 2022-02-07)\n"}
+,{"stream_name":"stdout","time":21.356171968,"data":"  Val:   378   (2022-02-08 to 2023-08-10)\n"}
+,{"stream_name":"stdout","time":21.356175648,"data":"  Test:  379  (2023-08-11 to 2025-02-12)\n"}
+,{"stream_name":"stdout","time":21.466472509,"data":"Running Optuna HPO (z-score window selection)...\n"}
+,{"stream_name":"stdout","time":21.68493409,"data":"\n"}
+,{"stream_name":"stdout","time":21.68497451,"data":"Optuna complete: 25 trials\n"}
+,{"stream_name":"stdout","time":21.684979419,"data":"Best params: {'zscore_window': 90}\n"}
+,{"stream_name":"stdout","time":21.68498321,"data":"Best MI sum (val): 1.1701\n"}
+,{"stream_name":"stdout","time":21.684986759,"data":"\n"}
+,{"stream_name":"stdout","time":21.68498981,"data":"=== All Optuna Trials (sorted by MI sum) ===\n"}
+,{"stream_name":"stdout","time":21.68499305,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.684996299,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.68499837,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.68500031,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.68500223,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.685004159000002,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.68500613,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.685008039,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.68500993,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.685011839,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.685013719,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.685015599,"data":"  window=  90  MI_sum=1.1701\n"}
+,{"stream_name":"stdout","time":21.68501749,"data":"  window=  60  MI_sum=1.1378\n"}
+,{"stream_name":"stdout","time":21.68501981,"data":"  window=  60  MI_sum=1.1378\n"}
+,{"stream_name":"stdout","time":21.685022939,"data":"  window=  20  MI_sum=1.1314\n"}
+,{"stream_name":"stdout","time":21.685026530000002,"data":"  window=  20  MI_sum=1.1314\n"}
+,{"stream_name":"stdout","time":21.685030419,"data":"  window= 120  MI_sum=1.0974\n"}
+,{"stream_name":"stdout","time":21.685033479,"data":"  window= 120  MI_sum=1.0974\n"}
+,{"stream_name":"stdout","time":21.68503685,"data":"  window=  45  MI_sum=1.0706\n"}
+,{"stream_name":"stdout","time":21.685040199,"data":"  window=  45  MI_sum=1.0706\n"}
+,{"stream_name":"stdout","time":21.685043479,"data":"  window=  45  MI_sum=1.0706\n"}
+,{"stream_name":"stdout","time":21.685046939,"data":"  window=  30  MI_sum=1.0669\n"}
+,{"stream_name":"stdout","time":21.68505023,"data":"  window=  30  MI_sum=1.0669\n"}
+,{"stream_name":"stdout","time":21.685053559,"data":"  window=  30  MI_sum=1.0669\n"}
+,{"stream_name":"stdout","time":21.68505709,"data":"  window=  30  MI_sum=1.0669\n"}
+,{"stream_name":"stdout","time":21.712909257,"data":"\n"}
+,{"stream_name":"stdout","time":21.712966697,"data":"Generating final features with zscore_window=90...\n"}
+,{"stream_name":"stdout","time":21.712991087,"data":"Generated features shape: (3059, 2)\n"}
+,{"stream_name":"stdout","time":21.712995157,"data":"Sample (last 5 rows):\n"}
+,{"stream_name":"stdout","time":21.712998837,"data":"                  yc_2y_vel_z  yc_2y10y_vel_z\n"}
+,{"stream_name":"stdout","time":21.713002017,"data":"observation_date                             \n"}
+,{"stream_name":"stdout","time":21.713005367,"data":"2026-02-13          -1.981865        0.850681\n"}
+,{"stream_name":"stdout","time":21.713009007,"data":"2026-02-16           0.038483       -0.055370\n"}
+,{"stream_name":"stdout","time":21.713012837,"data":"2026-02-17           0.884250       -0.940419\n"}
+,{"stream_name":"stdout","time":21.713016287,"data":"2026-02-18           1.160580       -0.035203\n"}
+,{"stream_name":"stdout","time":21.713019737,"data":"2026-02-19          -0.019953       -0.471816\n"}
+,{"stream_name":"stdout","time":21.744270324,"data":"\n"}
+,{"stream_name":"stdout","time":21.744310124,"data":"=== GATE 1: Quality Checks ===\n"}
+,{"stream_name":"stdout","time":21.744314494,"data":"  Autocorr(lag=1) yc_2y_vel_z: -0.1031 [PASS]\n"}
+,{"stream_name":"stdout","time":21.744317984,"data":"  Autocorr(lag=1) yc_2y10y_vel_z: -0.0528 [PASS]\n"}
+,{"stream_name":"stdout","time":21.744321364,"data":"\n"}
+,{"stream_name":"stdout","time":21.744324784,"data":"  Internal correlation (yc_2y_vel_z vs yc_2y10y_vel_z): -0.1454\n"}
+,{"stream_name":"stdout","time":21.744326854,"data":"  VIF yc_2y_vel_z: 1.022 [PASS]\n"}
+,{"stream_name":"stdout","time":21.744328824,"data":"  VIF yc_2y10y_vel_z: 1.022 [PASS]\n"}
+,{"stream_name":"stdout","time":21.744330934,"data":"\n"}
+,{"stream_name":"stdout","time":21.744333954,"data":"  NaN counts:\n"}
+,{"stream_name":"stdout","time":21.744337464,"data":"    yc_2y_vel_z: 45/3059 (1.5%)\n"}
+,{"stream_name":"stdout","time":21.744340934,"data":"    yc_2y10y_vel_z: 45/3059 (1.5%)\n"}
+,{"stream_name":"stdout","time":21.744344634,"data":"\n"}
+,{"stream_name":"stdout","time":21.744348084,"data":"  Descriptive statistics:\n"}
+,{"stream_name":"stdout","time":21.744351694,"data":"       yc_2y_vel_z  yc_2y10y_vel_z\n"}
+,{"stream_name":"stdout","time":21.744355544,"data":"count    3014.0000       3014.0000\n"}
+,{"stream_name":"stdout","time":21.744359234,"data":"mean        0.0008          0.0017\n"}
+,{"stream_name":"stdout","time":21.744362784,"data":"std         1.0132          0.9964\n"}
+,{"stream_name":"stdout","time":21.744366354,"data":"min        -4.0000         -3.7859\n"}
+,{"stream_name":"stdout","time":21.744369804,"data":"25%        -0.5656         -0.6223\n"}
+,{"stream_name":"stdout","time":21.744373424,"data":"50%         0.0000         -0.0119\n"}
+,{"stream_name":"stdout","time":21.744376834,"data":"75%         0.6055          0.5731\n"}
+,{"stream_name":"stdout","time":21.744380364,"data":"max         4.0000          4.0000\n"}
+,{"stream_name":"stdout","time":21.777450771,"data":"\n"}
+,{"stream_name":"stdout","time":21.777489481,"data":"=== GATE 2: Information Content ===\n"}
+,{"stream_name":"stdout","time":21.777492981,"data":"  MI(yc_2y_vel_z, gold_return_next) = 0.6098\n"}
+,{"stream_name":"stdout","time":21.777495101,"data":"  MI(yc_2y10y_vel_z, gold_return_next) = 0.5603\n"}
+,{"stream_name":"stdout","time":21.777497331,"data":"  Total MI sum: 1.1701\n"}
+,{"stream_name":"stdout","time":21.777499241,"data":"\n"}
+,{"stream_name":"stdout","time":21.777501071,"data":"  Rolling correlation std (stability):\n"}
+,{"stream_name":"stdout","time":21.777502921,"data":"    yc_2y_vel_z: nan [FAIL]\n"}
+,{"stream_name":"stdout","time":21.777525570999998,"data":"    yc_2y10y_vel_z: nan [FAIL]\n"}
+,{"stream_name":"stdout","time":21.815259308,"data":"\n"}
+,{"stream_name":"stdout","time":21.815301438,"data":"=== Correlation with Attempt 2 yield_curve features ===\n"}
+,{"stream_name":"stderr","time":22.666187794,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":22.666216014,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":22.666221763,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":22.666309934,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":22.666318483,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":22.666437783,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":22.666752493,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":22.666760413,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":22.666764543,"data":"Exception encountered at \"In [14]\":\n"}
+,{"stream_name":"stderr","time":22.666768103,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":22.666772143,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":22.666775913,"data":"/tmp/ipykernel_17/2526638598.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":22.666779713,"data":"      5 yc_path = os.path.join(DATASET_PATH, 'yield_curve.csv')\n"}
+,{"stream_name":"stderr","time":22.666783533,"data":"      6 if os.path.exists(yc_path):\n"}
+,{"stream_name":"stderr","time":22.666786923,"data":"----\u003e 7     yc_df = pd.read_csv(yc_path, parse_dates=['Date'], index_col='Date')\n"}
+,{"stream_name":"stderr","time":22.666790073,"data":"      8     print(f\"  Loaded yield_curve.csv: {yc_df.shape}, columns: {list(yc_df.columns)}\")\n"}
+,{"stream_name":"stderr","time":22.666793533,"data":"      9 \n"}
+,{"stream_name":"stderr","time":22.666796423,"data":"\n"}
+,{"stream_name":"stderr","time":22.666800503,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)\n"}
+,{"stream_name":"stderr","time":22.666807653,"data":"   1024     kwds.update(kwds_defaults)\n"}
+,{"stream_name":"stderr","time":22.666810913,"data":"   1025 \n"}
+,{"stream_name":"stderr","time":22.666814083,"data":"-\u003e 1026     return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":22.666818053,"data":"   1027 \n"}
+,{"stream_name":"stderr","time":22.666821303,"data":"   1028 \n"}
+,{"stream_name":"stderr","time":22.666825253,"data":"\n"}
+,{"stream_name":"stderr","time":22.666828763,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":22.666832503,"data":"    618 \n"}
+,{"stream_name":"stderr","time":22.666847633,"data":"    619     # Create the parser.\n"}
+,{"stream_name":"stderr","time":22.666866213,"data":"--\u003e 620     parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":22.666869513,"data":"    621 \n"}
+,{"stream_name":"stderr","time":22.666871443,"data":"    622     if chunksize or iterator:\n"}
+,{"stream_name":"stderr","time":22.666873453,"data":"\n"}
+,{"stream_name":"stderr","time":22.666875383,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in __init__(self, f, engine, **kwds)\n"}
+,{"stream_name":"stderr","time":22.666877533,"data":"   1618 \n"}
+,{"stream_name":"stderr","time":22.666879443,"data":"   1619         self.handles: IOHandles | None = None\n"}
+,{"stream_name":"stderr","time":22.666881513,"data":"-\u003e 1620         self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":22.666883633,"data":"   1621 \n"}
+,{"stream_name":"stderr","time":22.666885583,"data":"   1622     def close(self) -\u003e None:\n"}
+,{"stream_name":"stderr","time":22.666887663,"data":"\n"}
+,{"stream_name":"stderr","time":22.666890083,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py in _make_engine(self, f, engine)\n"}
+,{"stream_name":"stderr","time":22.666892312999998,"data":"   1896 \n"}
+,{"stream_name":"stderr","time":22.666894223,"data":"   1897         try:\n"}
+,{"stream_name":"stderr","time":22.666896203,"data":"-\u003e 1898             return mapping[engine](f, **self.options)\n"}
+,{"stream_name":"stderr","time":22.666898343,"data":"   1899         except Exception:\n"}
+,{"stream_name":"stderr","time":22.666900383,"data":"   1900             if self.handles is not None:\n"}
+,{"stream_name":"stderr","time":22.666902383,"data":"\n"}
+,{"stream_name":"stderr","time":22.666904333,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/c_parser_wrapper.py in __init__(self, src, **kwds)\n"}
+,{"stream_name":"stderr","time":22.666906473,"data":"    159 \n"}
+,{"stream_name":"stderr","time":22.666908363,"data":"    160         # error: Cannot determine type of 'names'\n"}
+,{"stream_name":"stderr","time":22.666910423,"data":"--\u003e 161         self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]\n"}
+,{"stream_name":"stderr","time":22.666912543,"data":"    162         self._set_noconvert_columns()\n"}
+,{"stream_name":"stderr","time":22.666940633,"data":"    163 \n"}
+,{"stream_name":"stderr","time":22.666944353,"data":"\n"}
+,{"stream_name":"stderr","time":22.666947873,"data":"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/base_parser.py in _validate_parse_dates_presence(self, columns)\n"}
+,{"stream_name":"stderr","time":22.666951883,"data":"    241         )\n"}
+,{"stream_name":"stderr","time":22.666955353,"data":"    242         if missing_cols:\n"}
+,{"stream_name":"stderr","time":22.666965633,"data":"--\u003e 243             raise ValueError(\n"}
+,{"stream_name":"stderr","time":22.666969413,"data":"    244                 f\"Missing column provided to 'parse_dates': '{missing_cols}'\"\n"}
+,{"stream_name":"stderr","time":22.666973463,"data":"    245             )\n"}
+,{"stream_name":"stderr","time":22.666976973,"data":"\n"}
+,{"stream_name":"stderr","time":22.666980283,"data":"ValueError: Missing column provided to 'parse_dates': 'Date'\n"}
+,{"stream_name":"stderr","time":22.666983413,"data":"\n"}
+,{"stream_name":"stderr","time":24.849520942,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":24.849580412,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":25.024080587,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":25.024106427,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":25.598640767,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":25.598677047,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":25.630003734,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":25.908265269,"data":"[NbConvertApp] Writing 47054 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":28.420999829,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":28.421058969,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":28.441229887,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":29.303855292,"data":"[NbConvertApp] Writing 382792 bytes to __results__.html\n"}
+]
