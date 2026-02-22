@@ -1,0 +1,230 @@
+{
+  "feature": "yield_curve",
+  "attempt": 5,
+  "timestamp": "2026-02-22T09:19:58.198875",
+  "method": "Cross-Tenor Correlation Dynamics",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "no_all_nan": {
+        "value": [],
+        "passed": true,
+        "detail": "0 all-NaN columns found"
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true,
+        "detail": "0 constant columns found"
+      },
+      "autocorrelation": {
+        "details": {
+          "yc_corr_long_short_z": {
+            "value": 0.073753,
+            "passed": true
+          },
+          "yc_corr_long_mid_z": {
+            "value": -0.025359,
+            "passed": true
+          },
+          "yc_corr_1y10y_z": {
+            "value": 0.038322,
+            "passed": true
+          }
+        },
+        "passed": true,
+        "detail": "All columns below 0.99 threshold"
+      },
+      "hpo_quality": {
+        "optuna_trials": 30,
+        "passed": true,
+        "detail": "Optuna completed 30 trials (>= 10 required)"
+      },
+      "overfit_ratio": {
+        "value": 1.0,
+        "passed": true,
+        "detail": "Overfit ratio: 1.0000 (< 1.5)"
+      }
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base_sum": 0.4763843392687701,
+        "extended_sum": 0.5017645982006094,
+        "increase": 0.05327685407431572,
+        "increase_pct": "5.33%",
+        "individual_mi": {
+          "yc_corr_long_short_z": 0.02263674908715796,
+          "yc_corr_long_mid_z": 0.0,
+          "yc_corr_1y10y_z": 0.0
+        },
+        "passed": true,
+        "detail": "MI increase: 5.33% (> 5%)"
+      },
+      "vif": {
+        "individual": {
+          "yc_corr_long_short_z": 1.0732505219962043,
+          "yc_corr_long_mid_z": 1.4165580061383491,
+          "yc_corr_1y10y_z": 1.4695960943351358
+        },
+        "max": 1.4695960943351358,
+        "passed": true,
+        "detail": "Max VIF: 1.4696 (< 10)"
+      },
+      "stability": {
+        "individual_stds": {
+          "yc_corr_long_short_z": 0.11993807134937842,
+          "yc_corr_long_mid_z": 0.14577967779373513,
+          "yc_corr_1y10y_z": 0.13776988008447238
+        },
+        "max_std": 0.14577967779373513,
+        "passed": true,
+        "detail": "Max rolling corr std: 0.145780 (< 0.15)"
+      }
+    }
+  },
+  "gate3": {
+    "passed": false,
+    "strategy": "replacement",
+    "checks": {
+      "direction": {
+        "delta": -0.006127702435618776,
+        "delta_pp": "-0.61pp",
+        "passed": false,
+        "threshold": "+0.5pp",
+        "folds_improved": "2/5",
+        "detail": "DA delta: -0.61pp (<= 0.5pp)"
+      },
+      "sharpe": {
+        "delta": -0.10441991005614082,
+        "passed": false,
+        "threshold": "+0.05",
+        "folds_improved": "2/5",
+        "detail": "Sharpe delta: -0.1044 (<= 0.05)"
+      },
+      "mae": {
+        "delta": 0.012668692261634584,
+        "passed": false,
+        "threshold": "-0.01",
+        "folds_improved": "2/5",
+        "detail": "MAE delta: +0.012669 (>= -0.01)"
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.530515,
+      "mae": 0.718694,
+      "sharpe": 1.057583
+    },
+    "extended": {
+      "direction_accuracy": 0.524387,
+      "mae": 0.731363,
+      "sharpe": 0.953163
+    },
+    "fold_details": [
+      {
+        "fold": 1,
+        "train_size": 397,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5461538461538461,
+          "mae": 0.5317752127261154,
+          "sharpe": 1.4497936906371263
+        },
+        "extended": {
+          "direction_accuracy": 0.558974358974359,
+          "mae": 0.5263080325712187,
+          "sharpe": 2.3186168649993357
+        },
+        "delta_da": 0.012820512820512886,
+        "delta_sharpe": 0.8688231743622095,
+        "delta_mae": -0.005467180154896667
+      },
+      {
+        "fold": 2,
+        "train_size": 789,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5219638242894057,
+          "mae": 0.6893959263870879,
+          "sharpe": 0.36665655155246596
+        },
+        "extended": {
+          "direction_accuracy": 0.5193798449612403,
+          "mae": 0.6769093680919626,
+          "sharpe": 0.7396170899491492
+        },
+        "delta_da": -0.0025839793281653423,
+        "delta_sharpe": 0.37296053839668325,
+        "delta_mae": -0.01248655829512535
+      },
+      {
+        "fold": 3,
+        "train_size": 1181,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5728900255754475,
+          "mae": 0.7630763541888982,
+          "sharpe": 2.18423773613305
+        },
+        "extended": {
+          "direction_accuracy": 0.5473145780051151,
+          "mae": 0.7781318099118172,
+          "sharpe": 1.2329967618636866
+        },
+        "delta_da": -0.025575447570332477,
+        "delta_sharpe": -0.9512409742693635,
+        "delta_mae": 0.015055455722918998
+      },
+      {
+        "fold": 4,
+        "train_size": 1573,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.5345268542199488,
+          "mae": 0.7470997209313055,
+          "sharpe": 1.674727907222902
+        },
+        "extended": {
+          "direction_accuracy": 0.5370843989769821,
+          "mae": 0.7661364854494751,
+          "sharpe": 1.1404310296350053
+        },
+        "delta_da": 0.002557544757033292,
+        "delta_sharpe": -0.5342968775878967,
+        "delta_mae": 0.019036764518169602
+      },
+      {
+        "fold": 5,
+        "train_size": 1965,
+        "test_size": 392,
+        "baseline": {
+          "direction_accuracy": 0.4770408163265306,
+          "mae": 0.8621231137596589,
+          "sharpe": -0.3874999136217787
+        },
+        "extended": {
+          "direction_accuracy": 0.45918367346938777,
+          "mae": 0.9093280932767649,
+          "sharpe": -0.6658453248041142
+        },
+        "delta_da": -0.01785714285714285,
+        "delta_sharpe": -0.27834541118233547,
+        "delta_mae": 0.047204979517106005
+      }
+    ],
+    "passing_criteria": []
+  },
+  "overall_passed": false,
+  "final_gate_reached": 3,
+  "decision": "attempt+1",
+  "data_info": {
+    "evaluation_samples": 2357,
+    "yc5_output_shape": [
+      2523,
+      3
+    ],
+    "existing_features_baseline": 41,
+    "date_range": "2015-06-25 to 2025-02-12"
+  }
+}
