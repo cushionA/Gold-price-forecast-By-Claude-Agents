@@ -1,55 +1,63 @@
 {
   "feature": "yield_curve",
-  "attempt": 4,
-  "timestamp": "2026-02-21T16:20:04.001002",
+  "attempt": 5,
+  "timestamp": "2026-02-22T00:11:02.134693",
+  "approach": "Cross-Tenor Correlation Dynamics",
+  "description": "Z-scored daily changes in rolling cross-tenor yield correlations. 3 features: 10Y-3M corr change, 10Y-2Y corr change, 1Y-10Y corr change. CHANGE not level avoids autocorrelation (level ~0.98, change ~0.05).",
   "best_params": {
-    "accel_zscore_window": 30,
-    "curv_zscore_window": 30,
-    "momentum_window": 7,
-    "mom_zscore_window": 90,
-    "vol_window": 30,
-    "vol_zscore_window": 60
+    "corr_window": 45,
+    "zscore_window": 60
   },
   "metrics": {
-    "mi_sum_val": 2.335195,
+    "overfit_ratio": 1.0,
+    "mi_sum_val": 1.783934,
     "mi_individual_val": {
-      "yc_spread_accel_z": 0.555899,
-      "yc_curv_change_z": 0.611698,
-      "yc_mom_divergence_z": 0.578206,
-      "yc_vol_ratio_chg_z": 0.589391
+      "yc_corr_long_short_z": 0.592948,
+      "yc_corr_long_mid_z": 0.557999,
+      "yc_corr_1y10y_z": 0.632987
     },
     "mi_individual_test": {
-      "yc_spread_accel_z": 0.585281,
-      "yc_curv_change_z": 0.534073,
-      "yc_mom_divergence_z": 0.531724,
-      "yc_vol_ratio_chg_z": 0.548704
+      "yc_corr_long_short_z": 0.558662,
+      "yc_corr_long_mid_z": 0.577181,
+      "yc_corr_1y10y_z": 0.558709
     },
-    "mi_sum_test": 2.199782,
+    "mi_sum_test": 1.694552,
     "autocorr": {
-      "yc_spread_accel_z": -0.5065,
-      "yc_curv_change_z": -0.1863,
-      "yc_mom_divergence_z": 0.7733,
-      "yc_vol_ratio_chg_z": 0.1519
+      "yc_corr_long_short_z": 0.073753,
+      "yc_corr_long_mid_z": -0.025359,
+      "yc_corr_1y10y_z": 0.038322
     },
-    "optuna_best_value": 2.335195,
-    "optuna_trials_completed": 50
+    "max_internal_corr": 0.540084,
+    "optuna_trials_completed": 30,
+    "optuna_best_value": 1.783934,
+    "output_nan_counts": {
+      "yc_corr_long_short_z": 0,
+      "yc_corr_long_mid_z": 0,
+      "yc_corr_1y10y_z": 0
+    }
   },
   "output_shape": [
     2523,
-    4
+    3
   ],
   "output_columns": [
-    "yc_spread_accel_z",
-    "yc_curv_change_z",
-    "yc_mom_divergence_z",
-    "yc_vol_ratio_chg_z"
+    "yc_corr_long_short_z",
+    "yc_corr_long_mid_z",
+    "yc_corr_1y10y_z"
   ],
   "data_info": {
-    "total_samples": 2523,
+    "total_aligned": 2523,
     "train_samples": 1766,
     "val_samples": 378,
     "test_samples": 379,
     "date_range_start": "2015-01-30",
-    "date_range_end": "2025-02-12"
+    "date_range_end": "2025-02-12",
+    "fred_tickers": [
+      "DGS10",
+      "DGS2",
+      "DGS3MO",
+      "DGS1"
+    ],
+    "gold_ticker": "GC=F"
   }
 }

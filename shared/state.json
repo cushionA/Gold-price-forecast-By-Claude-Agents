@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 5,
@@ -20,7 +20,7 @@
     "automation_test": true,
     "note": "Automation pipeline test: run options_market for attempts 3-5. ALWAYS continue to next attempt regardless of evaluator decision (automation_test=True). Do NOT declare no_further_improvement. After evaluating attempt N: continue to architect -> builder_model -> submit_and_monitor. STOP after evaluating attempt 5."
   },
-  "auto_resume_remaining": 3,
+  "auto_resume_remaining": 1,
   "current_submodel": "real_rate",
   "parallel_submodel": {
     "feature": "temporal_context",
@@ -1076,7 +1076,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T09:10:21.241797",
+  "last_updated": "2026-02-22T09:12:28.065175",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
