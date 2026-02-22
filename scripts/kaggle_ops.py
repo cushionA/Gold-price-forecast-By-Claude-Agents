@@ -384,11 +384,22 @@ _STATE_FILE = _PROJECT_ROOT / "shared" / "state.json"
 
 
 def _load_state() -> dict:
-    with open(_STATE_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    text = _STATE_FILE.read_text(encoding="utf-8")
+    # Duplicate key detection: warn if state.json was manually edited and has duplicate keys.
+    # Python json.load() silently takes the last value for duplicates, causing stale reads.
+    import re
+    from collections import Counter
+    top_level_keys = re.findall(r'^\s{2}"([^"]+)"\s*:', text, re.MULTILINE)
+    dupes = [k for k, c in Counter(top_level_keys).items() if c > 1]
+    if dupes:
+        print(f"[WARN] state.json has duplicate top-level keys: {dupes}. "
+              f"This causes stale reads. Fix by editing via Python (not text editor).")
+    return json.loads(text)
 
 
 def _save_state(state: dict):
+    # Clean up legacy fields that are never read by code
+    state.pop("retry_ctx", None)  # superseded by retry_context
     state["last_updated"] = datetime.now().isoformat()
     with open(_STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
@@ -447,6 +458,9 @@ def submit(
             "submitted_at": datetime.now().isoformat(),
             "current_feature": feature,
             "current_attempt": attempt,
+            # Clear stale error fields from previous failed runs
+            "error_type": None,
+            "error_context": "",
         }
     )
     _save_state(state)

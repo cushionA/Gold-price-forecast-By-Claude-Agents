@@ -139,6 +139,36 @@ MAX_PIPELINE_RELAUNCH = 2
 # Prompt helpers
 # ---------------------------------------------------------------------------
 
+def _get_retry_context(state: dict) -> dict:
+    """
+    現在の feature に合致する retry_context を返す。
+
+    - real_rate_retry_context: current_feature=real_rate のときのみ適用
+    - retry_context: feature フィールドが current_feature と一致するか検証
+    - ミスマッチの場合は警告して {} を返す（stale context を無視）
+    """
+    feature = state.get("current_feature", "")
+
+    # real_rate_retry_context は real_rate feature のときのみ使用
+    rr_ctx = state.get("real_rate_retry_context")
+    if rr_ctx and feature == "real_rate":
+        return rr_ctx
+
+    ctx = state.get("retry_context", {})
+    if not ctx:
+        return {}
+
+    ctx_feature = ctx.get("feature", "")
+    if ctx_feature and ctx_feature != feature:
+        log.warning(
+            f"retry_context.feature='{ctx_feature}' != current_feature='{feature}'. "
+            f"Ignoring stale retry_context (likely leftover from a previous automation run)."
+        )
+        return {}
+
+    return ctx
+
+
 def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "", error_context: str = "") -> str:
     """
     evaluator 向けプロンプトを生成する。
@@ -150,22 +180,21 @@ def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "
     resume_from = state.get("resume_from", "evaluator")
 
     if kaggle_status == "error":
+        # Bug fix: preserve auto_resume_remaining instead of hardcoding max_loops=1
+        remaining = state.get("auto_resume_remaining", 1)
+        safe_loops = max(1, remaining)
         return (
             f"Kaggle training for {feature} attempt {attempt} FAILED "
             f"(error_type={error_type}). "
             f"error_context: {error_context[:300] if error_context else 'see state.json'}. "
             f"state.json has been updated with resume_from=builder_model. "
             f"Fix the notebook error in notebooks/{feature}_{attempt}/train.ipynb, "
-            f"then call submit_and_monitor(max_loops=1) to re-submit and keep the auto-resume chain alive. "
+            f"then call submit_and_monitor(max_loops={safe_loops}) to re-submit and keep the auto-resume chain alive. "
             f"NEVER use submit() alone — it does not spawn auto_resume and breaks the automation loop."
         )
 
-    # retry_context の情報を読み込んでプロンプトに含める
-    retry_ctx = (
-        state.get("real_rate_retry_context")
-        or state.get("retry_context")
-        or {}
-    )
+    # retry_context の情報を読み込んでプロンプトに含める（feature validation 付き）
+    retry_ctx = _get_retry_context(state)
     max_attempt = retry_ctx.get("max_attempt")
 
     chain_note = ""
@@ -286,11 +315,7 @@ def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIP
                 return
 
         # --- ケース3: evaluatorが判断した（resume_from not in BUILD_PHASES） ---
-        retry_ctx_after = (
-            state_after.get("real_rate_retry_context")
-            or state_after.get("retry_context")
-            or {}
-        )
+        retry_ctx_after = _get_retry_context(state_after)
         auto_test = retry_ctx_after.get("automation_test", False)
         max_att = retry_ctx_after.get("max_attempt")
         cur_att = state_after.get("current_attempt", 0)
@@ -553,12 +578,8 @@ def main():
         # 6. Check remaining count
         remaining = state.get("auto_resume_remaining")
 
-        # automation_test mode: compute attempts_left from retry_context
-        retry_ctx = (
-            state.get("real_rate_retry_context")
-            or state.get("retry_context")
-            or {}
-        )
+        # automation_test mode: compute attempts_left from retry_context（feature validation付き）
+        retry_ctx = _get_retry_context(state)
         automation_test = retry_ctx.get("automation_test", False)
         max_attempt_ctx = retry_ctx.get("max_attempt")
         current_attempt_ctx = state.get("current_attempt", 0)

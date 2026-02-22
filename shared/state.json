@@ -10,10 +10,6 @@
   "architect_status": "",
   "builder_model_status": "",
   "evaluator_status": "yield_curve_attempt5_gate3_fail_automation_continue",
-  "retry_ctx": {
-    "automation_test": true,
-    "max_attempt": 7
-  },
   "retry_context": {
     "feature": "yield_curve",
     "max_attempt": 7,
@@ -1152,7 +1148,7 @@
     "gate3": "PASS (DA +0.86pp, 5/5 folds)",
     "note": "New 2-column output replaces 1-column attempt 2 output. Meta-model feature set changes from options_risk_regime_prob to options_regime_smooth+options_gvz_momentum_z. Kaggle dataset update needed before running new meta-model attempts."
   },
-  "error_type": "unknown",
+  "error_type": null,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
@@ -1161,18 +1157,6 @@
     "resume_from": "evaluator",
     "phase": "phase3_meta_model",
     "saved_at": "2026-02-21T19:23:27.590471"
-  },
-  "real_rate_retry_context": {
-    "user_requested": true,
-    "attempts_remaining": 0,
-    "reason": "User wants auto-run until attempt 9 (2 more Kaggle submissions after attempt 7)",
-    "previous_no_further_improvement": true,
-    "max_loops": 1,
-    "new_approach": "Real yield curve shape (DFII5/DFII7/DFII10/DFII20/DFII30 - all daily)",
-    "attempt7_result_downloaded": true,
-    "attempt7_self_gate3": "PASS (Sharpe +0.329)",
-    "note": "Run until attempt 11. After evaluating each attempt, submit next with submit_and_monitor(max_loops=1). STOP after evaluating attempt 11 - do NOT submit attempt 12. Chain: evaluate9→submit10(max_loops=1) → evaluate10→submit11(max_loops=1) → evaluate11→STOP.",
-    "max_attempt": 11
   },
   "kaggle_results_fetched": true,
   "kaggle_results_path": "data/outputs/yield_curve_2/",
