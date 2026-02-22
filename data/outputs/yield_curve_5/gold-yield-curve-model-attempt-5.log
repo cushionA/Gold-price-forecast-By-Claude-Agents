@@ -1,0 +1,102 @@
+[{"stream_name":"stderr","time":8.32952835,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.329606341,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.32961153,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.329614985,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.110810043,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.110848867,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.110855374,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.110860021,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":20.274166157,"data":"=== Gold SubModel Training: yield_curve attempt 5 ===\n"}
+,{"stream_name":"stdout","time":20.274227273,"data":"Approach: Cross-Tenor Correlation Dynamics\n"}
+,{"stream_name":"stdout","time":20.274234876,"data":"Started: 2026-02-21T23:56:06.668718\n"}
+,{"stream_name":"stderr","time":21.135988125,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":21.136022872,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":21.136032751,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":21.136219587,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":21.136247373,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":21.1365871,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":21.137060992,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":21.137078727,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":21.137085692,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":21.13709146,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":21.137096988,"data":"HTTPError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":21.137104376,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py in make_post_request(self, data, endpoint, timeout)\n"}
+,{"stream_name":"stderr","time":21.137113764,"data":"     45         try:\n"}
+,{"stream_name":"stderr","time":21.137117539,"data":"---\u003e 46             with urllib.request.urlopen(req, timeout=timeout) as response:\n"}
+,{"stream_name":"stderr","time":21.137121752,"data":"     47                 response_json = json.loads(response.read())\n"}
+,{"stream_name":"stderr","time":21.137125549,"data":"\n"}
+,{"stream_name":"stderr","time":21.137129041,"data":"/usr/lib/python3.12/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)\n"}
+,{"stream_name":"stderr","time":21.137132917,"data":"    214         opener = _opener\n"}
+,{"stream_name":"stderr","time":21.137136423,"data":"--\u003e 215     return opener.open(url, data, timeout)\n"}
+,{"stream_name":"stderr","time":21.137140123000002,"data":"    216 \n"}
+,{"stream_name":"stderr","time":21.137143635,"data":"\n"}
+,{"stream_name":"stderr","time":21.137177003,"data":"/usr/lib/python3.12/urllib/request.py in open(self, fullurl, data, timeout)\n"}
+,{"stream_name":"stderr","time":21.137183227,"data":"    520             meth = getattr(processor, meth_name)\n"}
+,{"stream_name":"stderr","time":21.137188085,"data":"--\u003e 521             response = meth(req, response)\n"}
+,{"stream_name":"stderr","time":21.137192818,"data":"    522 \n"}
+,{"stream_name":"stderr","time":21.137196739,"data":"\n"}
+,{"stream_name":"stderr","time":21.137200505,"data":"/usr/lib/python3.12/urllib/request.py in http_response(self, request, response)\n"}
+,{"stream_name":"stderr","time":21.137204683,"data":"    629         if not (200 \u003c= code \u003c 300):\n"}
+,{"stream_name":"stderr","time":21.137208918,"data":"--\u003e 630             response = self.parent.error(\n"}
+,{"stream_name":"stderr","time":21.137215004,"data":"    631                 'http', request, response, code, msg, hdrs)\n"}
+,{"stream_name":"stderr","time":21.137222587,"data":"\n"}
+,{"stream_name":"stderr","time":21.137225335,"data":"/usr/lib/python3.12/urllib/request.py in error(self, proto, *args)\n"}
+,{"stream_name":"stderr","time":21.137228015,"data":"    558             args = (dict, 'default', 'http_error_default') + orig_args\n"}
+,{"stream_name":"stderr","time":21.137230703,"data":"--\u003e 559             return self._call_chain(*args)\n"}
+,{"stream_name":"stderr","time":21.137233402,"data":"    560 \n"}
+,{"stream_name":"stderr","time":21.137235995,"data":"\n"}
+,{"stream_name":"stderr","time":21.137238451,"data":"/usr/lib/python3.12/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)\n"}
+,{"stream_name":"stderr","time":21.137241253,"data":"    491             func = getattr(handler, meth_name)\n"}
+,{"stream_name":"stderr","time":21.137243912,"data":"--\u003e 492             result = func(*args)\n"}
+,{"stream_name":"stderr","time":21.137246676,"data":"    493             if result is not None:\n"}
+,{"stream_name":"stderr","time":21.137249329,"data":"\n"}
+,{"stream_name":"stderr","time":21.137252843,"data":"/usr/lib/python3.12/urllib/request.py in http_error_default(self, req, fp, code, msg, hdrs)\n"}
+,{"stream_name":"stderr","time":21.137270512,"data":"    638     def http_error_default(self, req, fp, code, msg, hdrs):\n"}
+,{"stream_name":"stderr","time":21.137275409,"data":"--\u003e 639         raise HTTPError(req.full_url, code, msg, hdrs, fp)\n"}
+,{"stream_name":"stderr","time":21.137280273000002,"data":"    640 \n"}
+,{"stream_name":"stderr","time":21.137295663,"data":"\n"}
+,{"stream_name":"stderr","time":21.137300391,"data":"HTTPError: HTTP Error 400: Bad Request\n"}
+,{"stream_name":"stderr","time":21.137304415,"data":"\n"}
+,{"stream_name":"stderr","time":21.137308188,"data":"The above exception was the direct cause of the following exception:\n"}
+,{"stream_name":"stderr","time":21.137312236,"data":"\n"}
+,{"stream_name":"stderr","time":21.137317046,"data":"ConnectionError                           Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":21.137321229,"data":"/tmp/ipykernel_17/3364007558.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":21.137325367,"data":"      4     from kaggle_secrets import UserSecretsClient\n"}
+,{"stream_name":"stderr","time":21.137329346,"data":"----\u003e 5     FRED_API_KEY = UserSecretsClient().get_secret('FRED_API_KEY')\n"}
+,{"stream_name":"stderr","time":21.137333521,"data":"      6     print('FRED_API_KEY loaded from Kaggle Secrets')\n"}
+,{"stream_name":"stderr","time":21.137337499,"data":"\n"}
+,{"stream_name":"stderr","time":21.137352054,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_secrets.py in get_secret(self, label)\n"}
+,{"stream_name":"stderr","time":21.137370275,"data":"     63         }\n"}
+,{"stream_name":"stderr","time":21.137375306,"data":"---\u003e 64         response_json = self.web_client.make_post_request(request_body, self.GET_USER_SECRET_BY_LABEL_ENDPOINT)\n"}
+,{"stream_name":"stderr","time":21.137380687,"data":"     65         if 'secret' not in response_json:\n"}
+,{"stream_name":"stderr","time":21.137385518,"data":"\n"}
+,{"stream_name":"stderr","time":21.137389831,"data":"/usr/local/lib/python3.12/dist-packages/kaggle_web_client.py in make_post_request(self, data, endpoint, timeout)\n"}
+,{"stream_name":"stderr","time":21.137394249,"data":"     57                     'Timeout error trying to communicate with service. Please ensure internet is on.') from e\n"}
+,{"stream_name":"stderr","time":21.137398402,"data":"---\u003e 58             raise ConnectionError(\n"}
+,{"stream_name":"stderr","time":21.137402469,"data":"     59                 'Connection error trying to communicate with service.') from e\n"}
+,{"stream_name":"stderr","time":21.137406609,"data":"\n"}
+,{"stream_name":"stderr","time":21.137410335,"data":"ConnectionError: Connection error trying to communicate with service.\n"}
+,{"stream_name":"stderr","time":21.137414466,"data":"\n"}
+,{"stream_name":"stderr","time":21.137418363,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":21.137422451,"data":"\n"}
+,{"stream_name":"stderr","time":21.13742623,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":21.137430506,"data":"/tmp/ipykernel_17/3364007558.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":21.137434585,"data":"     10         print('FRED_API_KEY loaded from environment')\n"}
+,{"stream_name":"stderr","time":21.137438635,"data":"     11     else:\n"}
+,{"stream_name":"stderr","time":21.137442548,"data":"---\u003e 12         raise RuntimeError('FRED_API_KEY not found in Kaggle Secrets or environment')\n"}
+,{"stream_name":"stderr","time":21.137448536,"data":"\n"}
+,{"stream_name":"stderr","time":21.137452209,"data":"RuntimeError: FRED_API_KEY not found in Kaggle Secrets or environment\n"}
+,{"stream_name":"stderr","time":21.137456073,"data":"\n"}
+,{"stream_name":"stderr","time":23.675044214,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":23.675101157,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":23.869464257,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":23.869562965,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":24.579793689,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":24.579835356,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":24.616213311,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":25.008135349,"data":"[NbConvertApp] Writing 37563 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":28.03882071,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":28.038876756,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":28.066736282,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":29.185646121,"data":"[NbConvertApp] Writing 371627 bytes to __results__.html\n"}
+]
