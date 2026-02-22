@@ -1,0 +1,26 @@
+{
+  "step": "datachecker_options_market_3",
+  "timestamp": "2026-02-22T02:28:03.571327",
+  "feature": "options_market",
+  "attempt": 3,
+  "data_file": "data/processed/options_market/data.csv",
+  "checks": {
+    "file_existence": true,
+    "row_count": 2806,
+    "row_count_acceptable": true,
+    "duplicate_dates": 0,
+    "missing_values_total_pct": 0.0,
+    "infinite_values": 0,
+    "all_numeric": true,
+    "outliers_found": 0,
+    "zero_variance_columns": 0,
+    "target_overlap_pct": 97.7,
+    "target_overlap_sufficient": true
+  },
+  "critical_issues": [],
+  "warnings": [],
+  "passed": true,
+  "overall_status": "PASS",
+  "checks_passed": 9,
+  "checks_total": 9
+}

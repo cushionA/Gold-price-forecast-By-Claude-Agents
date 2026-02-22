@@ -1,0 +1,148 @@
+[{"stream_name":"stderr","time":11.311299378,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.311382009,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.311386993,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.311389775,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.227063626,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.227104647,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.227108971,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.2271121,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":25.940073169,"data":"=== Gold SubModel Training: yield_curve attempt 4 ===\n"}
+,{"stream_name":"stdout","time":25.940126447,"data":"Approach: Acceleration + Structural Decomposition (2nd-order dynamics)\n"}
+,{"stream_name":"stdout","time":25.940134005,"data":"Started: 2026-02-21T16:19:59.248455\n"}
+,{"stream_name":"stdout","time":26.113062065,"data":"FRED_API_KEY not found - will use public FRED CSV endpoint (no key required)\n"}
+,{"stream_name":"stdout","time":26.139342876,"data":"Dataset found: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":26.139392662,"data":"  Files (14): ['base_features.csv', 'base_features_raw.csv', 'cny_demand.csv', 'cross_asset.csv', 'dxy.csv', 'etf_flow.csv', 'inflation_expectation.csv', 'options_market.csv', 'real_rate.csv', 'regime_classification.csv']\n"}
+,{"stream_name":"stdout","time":26.578299633,"data":"DGS10: 2958 obs (via public CSV)\n"}
+,{"stream_name":"stdout","time":26.578347505,"data":"DGS2: 2958 obs (via public CSV)\n"}
+,{"stream_name":"stdout","time":26.907874039,"data":"DGS5: 2958 obs (via public CSV)\n"}
+,{"stream_name":"stdout","time":28.120943028,"data":"DGS3MO: 2958 obs (via public CSV)\n"}
+,{"stream_name":"stdout","time":28.120988587,"data":"Combined yields: 2958 obs, 2014-10-01 to 2026-01-30\n"}
+,{"stream_name":"stdout","time":28.528895677,"data":"Aligned: 2849 obs\n"}
+,{"stream_name":"stdout","time":28.554612387,"data":"Feature generation functions defined\n"}
+,{"stream_name":"stdout","time":28.600476473,"data":"Using base features file: base_features.csv\n"}
+,{"stream_name":"stdout","time":28.600517521,"data":"TARGET_DATES: 2523 dates, 2015-01-30 to 2025-02-12\n"}
+,{"stream_name":"stdout","time":28.600523964,"data":"Total: 2523, Train: 1766, Val: 378, Test: 379\n"}
+,{"stream_name":"stdout","time":28.600529128,"data":"Train: 2015-01-30 to 2022-02-07\n"}
+,{"stream_name":"stdout","time":28.600534562,"data":"Val:   2022-02-08 to 2023-08-10\n"}
+,{"stream_name":"stdout","time":28.600539524,"data":"Test:  2023-08-11 to 2025-02-12\n"}
+,{"stream_name":"stdout","time":28.731932786,"data":"Running Optuna HPO (50 trials, timeout=600s)...\n"}
+,{"stream_name":"stdout","time":30.513184116,"data":"Optuna complete: 50 trials\n"}
+,{"stream_name":"stdout","time":30.513228783,"data":"Best params: {'accel_zscore_window': 30, 'curv_zscore_window': 30, 'momentum_window': 7, 'mom_zscore_window': 90, 'vol_window': 30, 'vol_zscore_window': 60}\n"}
+,{"stream_name":"stdout","time":30.513236297,"data":"Best MI sum (val): 2.335195\n"}
+,{"stream_name":"stdout","time":30.575324418,"data":"Autocorrelations (Gate 1 threshold: 0.95):\n"}
+,{"stream_name":"stdout","time":30.575380809,"data":"  yc_spread_accel_z: -0.5065 [OK]\n"}
+,{"stream_name":"stdout","time":30.575387841,"data":"  yc_curv_change_z: -0.1863 [OK]\n"}
+,{"stream_name":"stdout","time":30.575392124,"data":"  yc_mom_divergence_z: 0.7733 [OK]\n"}
+,{"stream_name":"stdout","time":30.575396165,"data":"  yc_vol_ratio_chg_z: 0.1519 [OK]\n"}
+,{"stream_name":"stdout","time":30.575400082,"data":"\n"}
+,{"stream_name":"stdout","time":30.575403824,"data":"Output shape: (2523, 4)\n"}
+,{"stream_name":"stdout","time":30.575408017,"data":"NaN counts: {'yc_spread_accel_z': 16, 'yc_curv_change_z': 15, 'yc_mom_divergence_z': 45, 'yc_vol_ratio_chg_z': 45}\n"}
+,{"stream_name":"stdout","time":30.575412155,"data":"\n"}
+,{"stream_name":"stdout","time":30.575415671000002,"data":"Output summary:\n"}
+,{"stream_name":"stdout","time":30.575419342,"data":"       yc_spread_accel_z  yc_curv_change_z  yc_mom_divergence_z  \\\n"}
+,{"stream_name":"stdout","time":30.575422854,"data":"count       2.507000e+03       2508.000000          2478.000000   \n"}
+,{"stream_name":"stdout","time":30.575425645,"data":"mean        6.875467e-04          0.003643             0.015265   \n"}
+,{"stream_name":"stdout","time":30.57542825,"data":"std         9.854296e-01          0.981664             1.355808   \n"}
+,{"stream_name":"stdout","time":30.575430712,"data":"min        -3.389479e+00         -2.965800            -4.713664   \n"}
+,{"stream_name":"stdout","time":30.57543334,"data":"25%        -6.649813e-01         -0.651570            -0.830992   \n"}
+,{"stream_name":"stdout","time":30.575435857,"data":"50%        -9.276884e-17          0.000000             0.016515   \n"}
+,{"stream_name":"stdout","time":30.575438244,"data":"75%         6.591440e-01          0.646443             0.872279   \n"}
+,{"stream_name":"stdout","time":30.575440628,"data":"max         3.818375e+00          4.000000             5.432056   \n"}
+,{"stream_name":"stdout","time":30.575443037,"data":"\n"}
+,{"stream_name":"stdout","time":30.575445648,"data":"       yc_vol_ratio_chg_z  \n"}
+,{"stream_name":"stdout","time":30.57546532,"data":"count         2478.000000  \n"}
+,{"stream_name":"stdout","time":30.575472716,"data":"mean             0.026636  \n"}
+,{"stream_name":"stdout","time":30.575476436,"data":"std              1.029817  \n"}
+,{"stream_name":"stdout","time":30.57548019,"data":"min             -4.000000  \n"}
+,{"stream_name":"stdout","time":30.575483941999998,"data":"25%             -0.570415  \n"}
+,{"stream_name":"stdout","time":30.575487942,"data":"50%              0.041242  \n"}
+,{"stream_name":"stdout","time":30.575491897,"data":"75%              0.597167  \n"}
+,{"stream_name":"stdout","time":30.575495739,"data":"max              4.000000  \n"}
+,{"stream_name":"stdout","time":30.643686737,"data":"Test set MI per feature:\n"}
+,{"stream_name":"stdout","time":30.643726745,"data":"  yc_spread_accel_z: 0.585281\n"}
+,{"stream_name":"stdout","time":30.64373236,"data":"  yc_curv_change_z: 0.534073\n"}
+,{"stream_name":"stdout","time":30.643736031,"data":"  yc_mom_divergence_z: 0.531724\n"}
+,{"stream_name":"stdout","time":30.643739621,"data":"  yc_vol_ratio_chg_z: 0.548704\n"}
+,{"stream_name":"stdout","time":30.643743234,"data":"  Test MI sum: 2.199782\n"}
+,{"stream_name":"stdout","time":30.643745894,"data":"\n"}
+,{"stream_name":"stdout","time":30.643748673,"data":"Val set MI per feature:\n"}
+,{"stream_name":"stdout","time":30.643751377,"data":"  yc_spread_accel_z: 0.555899\n"}
+,{"stream_name":"stdout","time":30.643753874,"data":"  yc_curv_change_z: 0.611698\n"}
+,{"stream_name":"stdout","time":30.643771816,"data":"  yc_mom_divergence_z: 0.578206\n"}
+,{"stream_name":"stdout","time":30.643774424,"data":"  yc_vol_ratio_chg_z: 0.589391\n"}
+,{"stream_name":"stdout","time":30.643776836,"data":"  Val MI sum: 2.335194\n"}
+,{"stream_name":"stdout","time":30.698194949,"data":"Saved: submodel_output.csv\n"}
+,{"stream_name":"stdout","time":30.698234615,"data":"Saved: training_result.json\n"}
+,{"stream_name":"stdout","time":30.698240257,"data":"\n"}
+,{"stream_name":"stdout","time":30.698244945,"data":"=== Training complete! ===\n"}
+,{"stream_name":"stdout","time":30.698249197,"data":"Finished: 2026-02-21T16:20:04.007162\n"}
+,{"stream_name":"stdout","time":30.698253354,"data":"Output columns: ['yc_spread_accel_z', 'yc_curv_change_z', 'yc_mom_divergence_z', 'yc_vol_ratio_chg_z']\n"}
+,{"stream_name":"stdout","time":30.69825778,"data":"Output shape: (2523, 4)\n"}
+,{"stream_name":"stdout","time":30.698261437,"data":"{\n"}
+,{"stream_name":"stdout","time":30.69826535,"data":"  \"feature\": \"yield_curve\",\n"}
+,{"stream_name":"stdout","time":30.698268214,"data":"  \"attempt\": 4,\n"}
+,{"stream_name":"stdout","time":30.698270882,"data":"  \"timestamp\": \"2026-02-21T16:20:04.001002\",\n"}
+,{"stream_name":"stdout","time":30.69827443,"data":"  \"best_params\": {\n"}
+,{"stream_name":"stdout","time":30.698292561,"data":"    \"accel_zscore_window\": 30,\n"}
+,{"stream_name":"stdout","time":30.698295283,"data":"    \"curv_zscore_window\": 30,\n"}
+,{"stream_name":"stdout","time":30.698297941,"data":"    \"momentum_window\": 7,\n"}
+,{"stream_name":"stdout","time":30.69830046,"data":"    \"mom_zscore_window\": 90,\n"}
+,{"stream_name":"stdout","time":30.69830302,"data":"    \"vol_window\": 30,\n"}
+,{"stream_name":"stdout","time":30.698305667,"data":"    \"vol_zscore_window\": 60\n"}
+,{"stream_name":"stdout","time":30.698309346,"data":"  },\n"}
+,{"stream_name":"stdout","time":30.698313211,"data":"  \"metrics\": {\n"}
+,{"stream_name":"stdout","time":30.698317318,"data":"    \"mi_sum_val\": 2.335195,\n"}
+,{"stream_name":"stdout","time":30.698321326,"data":"    \"mi_individual_val\": {\n"}
+,{"stream_name":"stdout","time":30.698325131,"data":"      \"yc_spread_accel_z\": 0.555899,\n"}
+,{"stream_name":"stdout","time":30.698328902,"data":"      \"yc_curv_change_z\": 0.611698,\n"}
+,{"stream_name":"stdout","time":30.698333141,"data":"      \"yc_mom_divergence_z\": 0.578206,\n"}
+,{"stream_name":"stdout","time":30.698336866,"data":"      \"yc_vol_ratio_chg_z\": 0.589391\n"}
+,{"stream_name":"stdout","time":30.698340803,"data":"    },\n"}
+,{"stream_name":"stdout","time":30.698344942,"data":"    \"mi_individual_test\": {\n"}
+,{"stream_name":"stdout","time":30.698348973,"data":"      \"yc_spread_accel_z\": 0.585281,\n"}
+,{"stream_name":"stdout","time":30.698352879,"data":"      \"yc_curv_change_z\": 0.534073,\n"}
+,{"stream_name":"stdout","time":30.698356903,"data":"      \"yc_mom_divergence_z\": 0.531724,\n"}
+,{"stream_name":"stdout","time":30.698360918,"data":"      \"yc_vol_ratio_chg_z\": 0.548704\n"}
+,{"stream_name":"stdout","time":30.698365162,"data":"    },\n"}
+,{"stream_name":"stdout","time":30.698368963,"data":"    \"mi_sum_test\": 2.199782,\n"}
+,{"stream_name":"stdout","time":30.698372781,"data":"    \"autocorr\": {\n"}
+,{"stream_name":"stdout","time":30.698377052,"data":"      \"yc_spread_accel_z\": -0.5065,\n"}
+,{"stream_name":"stdout","time":30.698380573,"data":"      \"yc_curv_change_z\": -0.1863,\n"}
+,{"stream_name":"stdout","time":30.698384325,"data":"      \"yc_mom_divergence_z\": 0.7733,\n"}
+,{"stream_name":"stdout","time":30.698402275,"data":"      \"yc_vol_ratio_chg_z\": 0.1519\n"}
+,{"stream_name":"stdout","time":30.698406627,"data":"    },\n"}
+,{"stream_name":"stdout","time":30.698410255,"data":"    \"optuna_best_value\": 2.335195,\n"}
+,{"stream_name":"stdout","time":30.698414094,"data":"    \"optuna_trials_completed\": 50\n"}
+,{"stream_name":"stdout","time":30.698417954,"data":"  },\n"}
+,{"stream_name":"stdout","time":30.698421947,"data":"  \"output_shape\": [\n"}
+,{"stream_name":"stdout","time":30.698425868,"data":"    2523,\n"}
+,{"stream_name":"stdout","time":30.698429621,"data":"    4\n"}
+,{"stream_name":"stdout","time":30.698433327,"data":"  ],\n"}
+,{"stream_name":"stdout","time":30.698437132,"data":"  \"output_columns\": [\n"}
+,{"stream_name":"stdout","time":30.698440552,"data":"    \"yc_spread_accel_z\",\n"}
+,{"stream_name":"stdout","time":30.69844397,"data":"    \"yc_curv_change_z\",\n"}
+,{"stream_name":"stdout","time":30.698447536,"data":"    \"yc_mom_divergence_z\",\n"}
+,{"stream_name":"stdout","time":30.698473461,"data":"    \"yc_vol_ratio_chg_z\"\n"}
+,{"stream_name":"stdout","time":30.698477363,"data":"  ],\n"}
+,{"stream_name":"stdout","time":30.698480692,"data":"  \"data_info\": {\n"}
+,{"stream_name":"stdout","time":30.698484241,"data":"    \"total_samples\": 2523,\n"}
+,{"stream_name":"stdout","time":30.698487604,"data":"    \"train_samples\": 1766,\n"}
+,{"stream_name":"stdout","time":30.698490906,"data":"    \"val_samples\": 378,\n"}
+,{"stream_name":"stdout","time":30.698494619,"data":"    \"test_samples\": 379,\n"}
+,{"stream_name":"stdout","time":30.698497997,"data":"    \"date_range_start\": \"2015-01-30\",\n"}
+,{"stream_name":"stdout","time":30.698501841,"data":"    \"date_range_end\": \"2025-02-12\"\n"}
+,{"stream_name":"stdout","time":30.698505442,"data":"  }\n"}
+,{"stream_name":"stdout","time":30.698508583,"data":"}\n"}
+,{"stream_name":"stderr","time":34.231632288,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":34.231670729,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":34.47226383,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":34.472302333,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":35.208394568,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":35.208446627,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":35.248612038,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":35.643436041,"data":"[NbConvertApp] Writing 32784 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":38.807639401,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":38.807680556,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":38.836083831,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":40.004925965,"data":"[NbConvertApp] Writing 362378 bytes to __results__.html\n"}
+]

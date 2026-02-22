@@ -1,76 +1,100 @@
 {
-  "feature": "real_rate",
-  "attempt": 10,
+  "feature": "options_market",
+  "attempt": 3,
   "phase": "phase2_submodel_retry",
-  "created_at": "2026-02-21",
+  "created_at": "2026-02-22",
   "agent_sequence": ["architect", "builder_data", "datachecker", "builder_model"],
 
-  "objective": "Build a real interest rate submodel attempt 10 using a fundamentally different feature extraction approach from attempts 7-9. Use PCA on daily DFII changes to produce data-driven orthogonal features, avoiding the hand-crafted Sharpe-MAE tradeoff observed in attempts 7-9.",
+  "objective": "Improve options_market submodel to fix Gate 2 compliance (MI >5%, stability <0.15) while preserving strong MAE improvement (-0.1562) and targeting positive DA/Sharpe deltas. This is automation_test mode (max_attempt=5).",
 
   "background": {
-    "attempt_7_result": "Gate 3 PASS via Sharpe +0.329 (6.6x threshold). 4 features: rr_level_change_z, rr_slope_chg_z, rr_curvature_chg_z, rr_slope_level_z. BEST overall attempt.",
-    "attempt_8_result": "Gate 3 PASS via MAE -0.0203 (2.0x threshold). 3 features: removed rr_slope_level_z. Sharpe reversed to -0.260.",
-    "attempt_9_result": "Gate 3 PASS via MAE -0.0141 (1.4x threshold). 5 features: attempt 7 + interaction. STRICTLY WORSE than attempt 8 on ALL metrics. Combination strategy failed.",
-    "fundamental_tradeoff": "rr_slope_level_z (252-day rolling z-score, autocorr=0.937) drives Sharpe improvement but hurts MAE/DA. Without it, MAE improves but Sharpe degrades. Adding more hand-crafted features (attempt 9) makes everything worse.",
-    "key_lesson": "Hand-crafted feature combinations have been exhausted. Need fundamentally different approach."
+    "attempt_1_result": "Gate 3 FAIL. 3 output columns (regime_prob + tail_risk_z + skew_momentum_z). DA degraded in ALL 5 folds. Gate 2 PASS (MI +17.12%). Problem: too many noisy columns.",
+    "attempt_2_result": "Gate 3 PASS via MAE (-0.1562, 15.6x threshold, 4/5 folds). Reduced to 1 column (options_risk_regime_prob only). DA improved 3/5 folds vs 0/5 in attempt 1. Gate 2 FAIL marginally: MI 4.96% (threshold 5%), stability 0.1555 (threshold 0.15). Feature rank: #2 (7.55% importance).",
+    "remaining_weaknesses": {
+      "DA_delta": -0.0024,
+      "Sharpe_delta": -0.1413,
+      "MI_increase": 0.0496,
+      "stability": 0.1555,
+      "gate2_passed": false
+    }
   },
 
   "previous_feedback": {
-    "attempt_9_gate3": "PASS via MAE (-0.0141) but strictly worse than attempt 8 on all metrics",
+    "attempt_2_gate3": "PASS via MAE only. DA and Sharpe still negative.",
+    "evaluator_diagnosis": {
+      "gate2_mi_fix": "MI 4.96% missed 5% by 0.04pp. Adding one complementary column should push MI above threshold. Attempt 1's 3 columns had 17.12% MI -- 2 columns should be sufficient.",
+      "gate2_stability_fix": "Stability 0.1555 missed 0.15 by 0.006. EMA smoothing (span 5-10 days) on raw regime probability will dampen sharp HMM transitions and reduce rolling correlation std below threshold.",
+      "da_sharpe_improvement": "Regime probability alone captures risk level but lacks directional information. A volatility trend signal captures momentum direction that may improve DA. Smoother regime probabilities reduce position switches, improving Sharpe via lower transaction costs."
+    },
     "anti_patterns": [
-      "DO NOT add features on top of attempt 7 set (attempt 9 proved counterproductive)",
-      "DO NOT use rr_slope_level_z and expect MAE improvement (structural tradeoff)",
-      "DO NOT remove rr_slope_level_z and expect Sharpe improvement (structural tradeoff)",
-      "DO NOT use 252-day rolling window for level features (causes autocorr=0.937)"
+      "DO NOT use 3+ output columns -- attempt 1 proved this adds noise (DA degraded ALL 5 folds)",
+      "DO NOT use raw unsmoothed HMM regime probabilities -- stability exceeds 0.15",
+      "DO NOT include tail_risk_z (MI 0.002) or skew_momentum_z (MI 0.017) from attempt 1"
+    ],
+    "what_worked_in_attempt_2": [
+      "Dimensionality reduction 3->1 column: DA improved from -1.05% (0/5 folds) to -0.24% (3/5 folds)",
+      "HMM regime detection: 7.55% feature importance, rank #2/20",
+      "MAE improvement: -0.1562 (15.6x threshold), 4/5 folds"
     ]
   },
 
   "design_approach": {
-    "name": "PCA on Daily DFII Changes",
-    "data_sources": [
-      "FRED: DFII5 (5Y TIPS yield, daily)",
-      "FRED: DFII7 (7Y TIPS yield, daily)",
-      "FRED: DFII10 (10Y TIPS yield, daily)",
-      "FRED: DFII20 (20Y TIPS yield, daily)",
-      "FRED: DFII30 (30Y TIPS yield, daily)"
+    "recommended": "Option A: Smoothed regime prob + complementary volatility trend signal",
+    "components": [
+      {
+        "name": "EMA-smoothed regime probability",
+        "description": "Apply EMA smoothing (span 5-10 days, Optuna-tunable) to raw HMM options_risk_regime_prob output. Preserves risk level information while dampening sharp transitions.",
+        "expected_effect": "Stability 0.1555 -> <0.15. Sharpe improvement from fewer position switches."
+      },
+      {
+        "name": "Options volatility trend z-score",
+        "description": "Rate-of-change of options-implied volatility (GVZ or SKEW), normalized as z-score with rolling window. Captures directional momentum in options market.",
+        "expected_effect": "MI increase above 5% threshold. DA improvement from directional signal."
+      }
     ],
-    "feature_design": {
-      "approach": "Compute daily changes for all 5 DFII series. Apply rolling PCA (window 252 or expanding) to the 5-dimensional change vector. Output the projection onto the top 2-3 principal components as rolling z-scores.",
-      "rationale": "PCA produces orthogonal components by construction. No autocorrelation issue since we use daily changes not levels. Data-driven -- not biased by hand-crafted assumptions about which combinations matter."
-    },
-    "alternative": {
-      "approach": "Exponential decay weighting. Same 3 change features as attempt 8 but add a 4th feature: EWM slope level with half-life 10-20 days (instead of 252-day rolling). This captures the same information as rr_slope_level_z but with much lower autocorrelation.",
-      "rationale": "Short memory exponential decay may preserve the Sharpe signal from rr_slope_level_z while avoiding the autocorrelation problem that hurts MAE."
-    },
-    "architect_decides": "Choose PCA approach (priority 1) or exponential decay (priority 2) based on feasibility and expected information content"
+    "alternatives": [
+      "Option B: 3-state HMM (more states for more MI, risk: stability may worsen)",
+      "Option C: Different input features for HMM (put/call ratio, VIX term structure)"
+    ],
+    "architect_decides": "Choose best signal for second column (GVZ vs SKEW vs VIX-based). Verify VIF < 10. Design Optuna search space for EMA span and z-score window."
   },
 
   "output_spec": {
-    "file": "data/processed/real_rate/data.csv",
+    "file": "data/processed/options_market/data.csv",
     "format": "CSV with date index",
-    "columns": "2-4 features, architect decides",
+    "columns": "2 features maximum (smoothed_regime_prob + vol_trend_z)",
     "date_range": "Matching target.csv",
     "nan_handling": "NaN for warmup period. No forward-fill."
   },
 
   "constraints": [
-    "Maximum 4 output features",
-    "All sources must be daily frequency from FRED",
-    "No forward-fill of monthly-to-daily",
-    "No neural network training required -- pure deterministic features",
+    "Maximum 2 output features",
+    "VIF between output columns < 10",
+    "Each column autocorrelation < 0.99",
+    "No hardcoded API keys",
+    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']",
     "FRED API key via Kaggle Secrets (UserSecretsClient)",
-    "kernel-metadata.json must include dataset_sources: ['bigbigzabuton/gold-prediction-submodels']"
+    "Standard notebook path resolution block (see MEMORY.md)"
   ],
 
   "success_criteria": {
-    "gate1": "No overfitting, no all-NaN or constant columns",
-    "gate2": "MI increase > 5%",
-    "gate3": "Any one of: DA +0.5pp, Sharpe +0.05, MAE -0.01%. Goal: beat attempt 7 Sharpe +0.329 or attempt 8 MAE -0.0203. Realistically, matching either would be a success."
+    "gate1": "No overfitting, no all-NaN or constant columns, autocorr < 0.99",
+    "gate2": "MI increase > 5% AND stability < 0.15 AND VIF < 10 (all must pass)",
+    "gate3": "Any one of: DA delta > +0.5%, Sharpe delta > +0.05, MAE delta < -0.01%",
+    "stretch_goal": "Pass Gate 2 while maintaining MAE improvement AND achieving positive DA or Sharpe delta"
   },
 
   "kaggle_config": {
-    "kernel_id": "bigbigzabuton/gold-real-rate-10",
-    "notebook_path": "notebooks/real_rate_10/",
+    "kernel_id": "bigbigzabuton/gold-options-market-3",
+    "notebook_path": "notebooks/options_market_3/",
     "dataset_sources": ["bigbigzabuton/gold-prediction-submodels"]
+  },
+
+  "automation_test_ctx": {
+    "automation_test": true,
+    "max_attempt": 5,
+    "current_attempt": 3,
+    "remaining_attempts": 3,
+    "note": "Pipeline will automatically continue to attempts 4 and 5 regardless of evaluator decision. This tests the automation pipeline end-to-end."
   }
 }

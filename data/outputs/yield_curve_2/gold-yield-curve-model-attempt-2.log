@@ -1,0 +1,107 @@
+[{"stream_name":"stderr","time":8.341143146,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.341211476,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.341216036,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.341218656,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.024221991,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.024443741,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.024457171,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.024461051,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":19.27262486,"data":"=== Gold SubModel Training: yield_curve attempt 2 ===\n"}
+,{"stream_name":"stdout","time":19.27265524,"data":"Approach: Deterministic z-score features (no HMM)\n"}
+,{"stream_name":"stdout","time":19.27266025,"data":"Started: 2026-02-21T13:50:22.668660\n"}
+,{"stream_name":"stdout","time":19.638007912,"data":"FRED API key loaded from environment\n"}
+,{"stream_name":"stdout","time":19.839565059,"data":"Fetching yield curve data from FRED...\n"}
+,{"stream_name":"stderr","time":20.778872289,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":20.778903799,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":20.778909209,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":20.778960209,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":20.779101269,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":20.779168699,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":20.779594549,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":20.779605719,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":20.779609599,"data":"Exception encountered at \"In [6]\":\n"}
+,{"stream_name":"stderr","time":20.779612959,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":20.779615759,"data":"HTTPError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":20.779618569,"data":"/usr/local/lib/python3.12/dist-packages/fredapi/fred.py in __fetch_data(self, url)\n"}
+,{"stream_name":"stderr","time":20.779621689,"data":"     83         try:\n"}
+,{"stream_name":"stderr","time":20.779624909,"data":"---\u003e 84             response = urlopen(url)\n"}
+,{"stream_name":"stderr","time":20.779628539,"data":"     85             root = ET.fromstring(response.read())\n"}
+,{"stream_name":"stderr","time":20.779632109,"data":"\n"}
+,{"stream_name":"stderr","time":20.779635329,"data":"/usr/lib/python3.12/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)\n"}
+,{"stream_name":"stderr","time":20.779638459,"data":"    214         opener = _opener\n"}
+,{"stream_name":"stderr","time":20.779641859,"data":"--\u003e 215     return opener.open(url, data, timeout)\n"}
+,{"stream_name":"stderr","time":20.779655759,"data":"    216 \n"}
+,{"stream_name":"stderr","time":20.779659399,"data":"\n"}
+,{"stream_name":"stderr","time":20.779662269,"data":"/usr/lib/python3.12/urllib/request.py in open(self, fullurl, data, timeout)\n"}
+,{"stream_name":"stderr","time":20.779665179,"data":"    520             meth = getattr(processor, meth_name)\n"}
+,{"stream_name":"stderr","time":20.779668409,"data":"--\u003e 521             response = meth(req, response)\n"}
+,{"stream_name":"stderr","time":20.779671779,"data":"    522 \n"}
+,{"stream_name":"stderr","time":20.779675089,"data":"\n"}
+,{"stream_name":"stderr","time":20.779677198999998,"data":"/usr/lib/python3.12/urllib/request.py in http_response(self, request, response)\n"}
+,{"stream_name":"stderr","time":20.779679279,"data":"    629         if not (200 \u003c= code \u003c 300):\n"}
+,{"stream_name":"stderr","time":20.779681379,"data":"--\u003e 630             response = self.parent.error(\n"}
+,{"stream_name":"stderr","time":20.779683409,"data":"    631                 'http', request, response, code, msg, hdrs)\n"}
+,{"stream_name":"stderr","time":20.779685399,"data":"\n"}
+,{"stream_name":"stderr","time":20.779687249,"data":"/usr/lib/python3.12/urllib/request.py in error(self, proto, *args)\n"}
+,{"stream_name":"stderr","time":20.779689199,"data":"    558             args = (dict, 'default', 'http_error_default') + orig_args\n"}
+,{"stream_name":"stderr","time":20.779691199,"data":"--\u003e 559             return self._call_chain(*args)\n"}
+,{"stream_name":"stderr","time":20.779693159,"data":"    560 \n"}
+,{"stream_name":"stderr","time":20.779695049,"data":"\n"}
+,{"stream_name":"stderr","time":20.779696869,"data":"/usr/lib/python3.12/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)\n"}
+,{"stream_name":"stderr","time":20.779698849,"data":"    491             func = getattr(handler, meth_name)\n"}
+,{"stream_name":"stderr","time":20.779700789,"data":"--\u003e 492             result = func(*args)\n"}
+,{"stream_name":"stderr","time":20.779702709,"data":"    493             if result is not None:\n"}
+,{"stream_name":"stderr","time":20.779704619,"data":"\n"}
+,{"stream_name":"stderr","time":20.779706479,"data":"/usr/lib/python3.12/urllib/request.py in http_error_default(self, req, fp, code, msg, hdrs)\n"}
+,{"stream_name":"stderr","time":20.779708479,"data":"    638     def http_error_default(self, req, fp, code, msg, hdrs):\n"}
+,{"stream_name":"stderr","time":20.779710419,"data":"--\u003e 639         raise HTTPError(req.full_url, code, msg, hdrs, fp)\n"}
+,{"stream_name":"stderr","time":20.779712419,"data":"    640 \n"}
+,{"stream_name":"stderr","time":20.779714269,"data":"\n"}
+,{"stream_name":"stderr","time":20.779716109,"data":"HTTPError: HTTP Error 400: Bad Request\n"}
+,{"stream_name":"stderr","time":20.779718019,"data":"\n"}
+,{"stream_name":"stderr","time":20.779719829,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":20.779721829,"data":"\n"}
+,{"stream_name":"stderr","time":20.779723649,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":20.779726219,"data":"/tmp/ipykernel_17/1414891694.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":20.779728359,"data":"      1 # === Fetch Data ===\n"}
+,{"stream_name":"stderr","time":20.779730309,"data":"----\u003e 2 data_df, target_df = fetch_data()\n"}
+,{"stream_name":"stderr","time":20.779732309,"data":"      3 \n"}
+,{"stream_name":"stderr","time":20.779734189,"data":"      4 n = len(data_df)\n"}
+,{"stream_name":"stderr","time":20.779739279,"data":"      5 train_end = int(n * 0.70)\n"}
+,{"stream_name":"stderr","time":20.779741289,"data":"\n"}
+,{"stream_name":"stderr","time":20.779743119,"data":"/tmp/ipykernel_17/2440848412.py in fetch_data()\n"}
+,{"stream_name":"stderr","time":20.779745019,"data":"      8     print('Fetching yield curve data from FRED...')\n"}
+,{"stream_name":"stderr","time":20.779746959,"data":"      9 \n"}
+,{"stream_name":"stderr","time":20.779748839,"data":"---\u003e 10     dgs10 = fred.get_series('DGS10', observation_start=start) / 100\n"}
+,{"stream_name":"stderr","time":20.779750869,"data":"     11     dgs2 = fred.get_series('DGS2', observation_start=start) / 100\n"}
+,{"stream_name":"stderr","time":20.779752929,"data":"     12     dgs5 = fred.get_series('DGS5', observation_start=start) / 100\n"}
+,{"stream_name":"stderr","time":20.779754889,"data":"\n"}
+,{"stream_name":"stderr","time":20.779756869,"data":"/usr/local/lib/python3.12/dist-packages/fredapi/fred.py in get_series(self, series_id, observation_start, observation_end, **kwargs)\n"}
+,{"stream_name":"stderr","time":20.779758959,"data":"    149         if kwargs.keys():\n"}
+,{"stream_name":"stderr","time":20.779760859,"data":"    150             url += '\u0026' + urlencode(kwargs)\n"}
+,{"stream_name":"stderr","time":20.779762829,"data":"--\u003e 151         root = self.__fetch_data(url)\n"}
+,{"stream_name":"stderr","time":20.779764759,"data":"    152         if root is None:\n"}
+,{"stream_name":"stderr","time":20.779766679,"data":"    153             raise ValueError('No data exists for series id: ' + series_id)\n"}
+,{"stream_name":"stderr","time":20.779768639,"data":"\n"}
+,{"stream_name":"stderr","time":20.779770479,"data":"/usr/local/lib/python3.12/dist-packages/fredapi/fred.py in __fetch_data(self, url)\n"}
+,{"stream_name":"stderr","time":20.779772479000002,"data":"     86         except HTTPError as exc:\n"}
+,{"stream_name":"stderr","time":20.779774409,"data":"     87             root = ET.fromstring(exc.read())\n"}
+,{"stream_name":"stderr","time":20.779776359,"data":"---\u003e 88             raise ValueError(root.get('message'))\n"}
+,{"stream_name":"stderr","time":20.779778349,"data":"     89         return root\n"}
+,{"stream_name":"stderr","time":20.779780279,"data":"     90 \n"}
+,{"stream_name":"stderr","time":20.779782149,"data":"\n"}
+,{"stream_name":"stderr","time":20.779784059,"data":"ValueError: Bad Request.  The value for variable api_key is not a 32 character alpha-numeric lower-case string.  Read https://fred.stlouisfed.org/docs/api/api_key.html for more information.\n"}
+,{"stream_name":"stderr","time":20.779787189,"data":"\n"}
+,{"stream_name":"stderr","time":22.963551425,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.963586885,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":23.145897086,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":23.145941156,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23.719171114,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":23.719207494,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":23.754693887,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":24.02346647,"data":"[NbConvertApp] Writing 32751 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":26.489578255,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":26.489610875,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":26.51099611,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":27.379015336,"data":"[NbConvertApp] Writing 347864 bytes to __results__.html\n"}
+]

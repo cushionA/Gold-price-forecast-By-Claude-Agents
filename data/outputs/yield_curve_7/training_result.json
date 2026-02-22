@@ -1,0 +1,43 @@
+{
+  "feature": "yield_curve",
+  "attempt": 7,
+  "timestamp": "2026-02-22T01:24:11.943994",
+  "approach": "2Y Policy Velocity + 2Y-10Y Slope Velocity",
+  "description": "Z-scored daily changes in the 2Y Treasury yield (yc_2y_vel_z: Fed policy expectations) and the 10Y-2Y spread (yc_2y10y_vel_z: classic steepener/flattener). Uses the policy-sensitive 2Y anchor vs att2's overnight 3M anchor. 2 features, both velocity-based (daily changes), no level variables.",
+  "output_columns": [
+    "yc_2y_vel_z",
+    "yc_2y10y_vel_z"
+  ],
+  "best_params": {
+    "zscore_window": 90
+  },
+  "n_trials": 25,
+  "best_mi_sum_val": 1.1701112160359073,
+  "metrics": {
+    "autocorrelations": {
+      "yc_2y_vel_z": -0.10311985968302728,
+      "yc_2y10y_vel_z": -0.052829393522339334
+    },
+    "individual_mi_val": {
+      "yc_2y_vel_z": 0.6098287891138491,
+      "yc_2y10y_vel_z": 0.5602824269220583
+    },
+    "internal_correlation": -0.1454344253188183,
+    "stability": {
+      "yc_2y_vel_z": NaN,
+      "yc_2y10y_vel_z": NaN
+    },
+    "vif_max": 1.02160821105798
+  },
+  "output_shape": [
+    2523,
+    2
+  ],
+  "output_nan_counts": {
+    "yc_2y_vel_z": 0,
+    "yc_2y10y_vel_z": 0
+  },
+  "gate1_expected": "PASS (velocity features, near-zero autocorr expected)",
+  "gate2_expected": "UNCERTAIN (2Y is different tenor than att2; some overlap possible)",
+  "gate3_expected": "UNCERTAIN (2Y policy channel is key for gold; different from att6)"
+}

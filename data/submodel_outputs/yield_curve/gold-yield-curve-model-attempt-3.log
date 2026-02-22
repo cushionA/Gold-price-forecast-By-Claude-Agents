@@ -1,0 +1,75 @@
+[{"stream_name":"stderr","time":7.653130866,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.653237206,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.653241016,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.653243376,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.309160129,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.309195329,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.309199549,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.309202879,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":18.059658634,"data":"=== Gold SubModel Training: yield_curve attempt 3 ===\n"}
+,{"stream_name":"stdout","time":18.059711004,"data":"Approach: Mixed z-score features - velocity + level/regime signals\n"}
+,{"stream_name":"stdout","time":18.059714264,"data":"Started: 2026-02-21T14:44:47.865138\n"}
+,{"stream_name":"stdout","time":18.071859845,"data":"Using pandas_datareader for FRED data (no API key required)\n"}
+,{"stream_name":"stdout","time":18.259839716,"data":"Fetching yield curve data from FRED via pandas_datareader...\n"}
+,{"stream_name":"stdout","time":22.613670015,"data":"Yield data: 3166 rows from 2014-01-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":22.613707484,"data":"Fetching GLD for gold target...\n"}
+,{"stream_name":"stdout","time":23.754241959,"data":"Aligned: 2799 rows from 2015-01-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":23.754287799,"data":"\n"}
+,{"stream_name":"stdout","time":23.754319879,"data":"Data split:\n"}
+,{"stream_name":"stdout","time":23.754323969,"data":"  Train: 1959 rows (2015-01-02 - 2022-10-12)\n"}
+,{"stream_name":"stdout","time":23.754327179,"data":"  Val:   420 rows (2022-10-13 - 2024-06-14)\n"}
+,{"stream_name":"stdout","time":23.754330559,"data":"  Test:  420 rows (2024-06-17 - 2026-02-19)\n"}
+,{"stream_name":"stdout","time":23.95910467,"data":"Running Optuna HPO (50 trials)...\n"}
+,{"stream_name":"stdout","time":24.966604173,"data":"\n"}
+,{"stream_name":"stdout","time":24.966643993,"data":"Optuna complete:\n"}
+,{"stream_name":"stdout","time":24.966647133,"data":"  Best MI sum: 2.1235\n"}
+,{"stream_name":"stdout","time":24.966649473,"data":"  Best params: {'change_window_short': 3, 'velocity_zscore_window': 21, 'level_zscore_window': 356, 'vol_window': 13}\n"}
+,{"stream_name":"stdout","time":24.966651593,"data":"  Completed trials: 50\n"}
+,{"stream_name":"stdout","time":25.002224598,"data":"\n"}
+,{"stream_name":"stdout","time":25.002257797,"data":"Generating final submodel output...\n"}
+,{"stream_name":"stdout","time":25.002261988,"data":"Output shape: (2799, 4)\n"}
+,{"stream_name":"stdout","time":25.002265477,"data":"Output columns: ['yc_curvature_z', 'yc_10y3m_velocity_z', 'yc_spread_level_z', 'yc_vol_regime_z']\n"}
+,{"stream_name":"stdout","time":25.002268917,"data":"Date range: 2015-01-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":25.002272437,"data":"\n"}
+,{"stream_name":"stdout","time":25.002275317,"data":"Output summary:\n"}
+,{"stream_name":"stdout","time":25.002278788,"data":"       yc_curvature_z  yc_10y3m_velocity_z  yc_spread_level_z  yc_vol_regime_z\n"}
+,{"stream_name":"stdout","time":25.002307397,"data":"count    2.789000e+03          2787.000000        2622.000000      2784.000000\n"}
+,{"stream_name":"stdout","time":25.002314877,"data":"mean     5.956667e-03            -0.000489          -0.107906        -0.028161\n"}
+,{"stream_name":"stdout","time":25.002318257,"data":"std      9.663154e-01             1.035734           1.489901         1.258916\n"}
+,{"stream_name":"stdout","time":25.002321748,"data":"min     -3.023500e+00            -2.854671          -3.001490        -2.986405\n"}
+,{"stream_name":"stdout","time":25.002324608,"data":"25%     -6.498576e-01            -0.693646          -1.483886        -1.031303\n"}
+,{"stream_name":"stdout","time":25.002327577,"data":"50%      8.134465e-16             0.007740          -0.405912        -0.184055\n"}
+,{"stream_name":"stdout","time":25.002330448,"data":"75%      6.324555e-01             0.708913           1.243370         1.001628\n"}
+,{"stream_name":"stdout","time":25.002333377,"data":"max      3.678892e+00             3.166323           4.000000         3.540794\n"}
+,{"stream_name":"stdout","time":25.002336217,"data":"\n"}
+,{"stream_name":"stdout","time":25.002339037,"data":"Gate 1 checks (training set):\n"}
+,{"stream_name":"stdout","time":25.002341748,"data":"  yc_curvature_z: std=0.9727, autocorr=-0.1782 [OK]\n"}
+,{"stream_name":"stdout","time":25.002344947,"data":"  yc_10y3m_velocity_z: std=1.0427, autocorr=0.6029 [OK]\n"}
+,{"stream_name":"stdout","time":25.002347927,"data":"  yc_spread_level_z: std=1.4844, autocorr=0.9926 [WARN]\n"}
+,{"stream_name":"stdout","time":25.002350957,"data":"  yc_vol_regime_z: std=1.2600, autocorr=0.8619 [OK]\n"}
+,{"stream_name":"stdout","time":25.028940904,"data":"MI results (validation set):\n"}
+,{"stream_name":"stdout","time":25.028975104,"data":"  yc_curvature_z: 0.5602\n"}
+,{"stream_name":"stdout","time":25.028979444,"data":"  yc_10y3m_velocity_z: 0.4973\n"}
+,{"stream_name":"stdout","time":25.028983244,"data":"  yc_spread_level_z: 0.5010\n"}
+,{"stream_name":"stdout","time":25.028986694,"data":"  yc_vol_regime_z: 0.5651\n"}
+,{"stream_name":"stdout","time":25.028989714,"data":"  MI Sum: 2.1235\n"}
+,{"stream_name":"stdout","time":25.067747851,"data":"\n"}
+,{"stream_name":"stdout","time":25.067778201,"data":"Saving results...\n"}
+,{"stream_name":"stdout","time":25.067784111,"data":"=== Training complete! ===\n"}
+,{"stream_name":"stdout","time":25.067789191,"data":"Finished: 2026-02-21T14:44:54.874143\n"}
+,{"stream_name":"stdout","time":25.067794271,"data":"Files: submodel_output.csv, training_result.json\n"}
+,{"stream_name":"stdout","time":25.067799291,"data":"Output shape: (2799, 4)\n"}
+,{"stream_name":"stdout","time":25.067804041,"data":"Columns: ['yc_curvature_z', 'yc_10y3m_velocity_z', 'yc_spread_level_z', 'yc_vol_regime_z']\n"}
+,{"stream_name":"stderr","time":27.704166693,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":27.704205872,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":27.8643812,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":27.86442079,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":28.404504379,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":28.404560829,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":28.447470817,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":28.71004233,"data":"[NbConvertApp] Writing 26440 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":31.101707506,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":31.101748376,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":31.123704313,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":31.918080685,"data":"[NbConvertApp] Writing 342766 bytes to __results__.html\n"}
+]

@@ -1,0 +1,162 @@
+{
+  "feature": "yield_curve",
+  "attempt": 3,
+  "timestamp": "2026-02-21T23:55:24.386072",
+  "gate1": {
+    "passed": false,
+    "checks": {
+      "no_all_nan": {
+        "value": [],
+        "passed": true
+      },
+      "no_zero_var": {
+        "value": [],
+        "passed": true
+      },
+      "autocorr": {
+        "yc_curvature_z": {
+          "value": -0.1749577573894905,
+          "passed": true
+        },
+        "yc_10y3m_velocity_z": {
+          "value": 0.6190222195275717,
+          "passed": true
+        },
+        "yc_spread_level_z": {
+          "value": 0.9937307654716542,
+          "passed": false
+        },
+        "yc_vol_regime_z": {
+          "value": 0.8615255672139207,
+          "passed": true
+        }
+      }
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base": 0.3568587526391398,
+        "extended": 0.3800072508279211,
+        "increase": 0.06486739644495312,
+        "passed": true
+      },
+      "vif": {
+        "max": 1.24,
+        "passed": true
+      },
+      "stability": {
+        "max_std": 0.14765925726206025,
+        "passed": true
+      }
+    }
+  },
+  "gate3": {
+    "passed": false,
+    "checks": {
+      "direction": {
+        "delta": -0.01568504916313679,
+        "passed": false
+      },
+      "sharpe": {
+        "delta": -0.23317393602158518,
+        "passed": false
+      },
+      "mae": {
+        "delta": 0.0048427624808928815,
+        "passed": false
+      }
+    },
+    "baseline": {
+      "direction_accuracy": 0.4933772376864658,
+      "mae": 0.7661443254137361,
+      "sharpe": -0.15684765867881287
+    },
+    "extended": {
+      "direction_accuracy": 0.477692188523329,
+      "mae": 0.770987087894629,
+      "sharpe": -0.39002159470039804
+    }
+  },
+  "overall_passed": false,
+  "final_gate_reached": 1,
+  "fold_results": {
+    "baseline": [
+      {
+        "da": 0.4821852731591449,
+        "mae": 0.6793784856793184,
+        "sharpe": -0.28729539650684877
+      },
+      {
+        "da": 0.5035799522673031,
+        "mae": 0.563123698529504,
+        "sharpe": -0.21129791430159603
+      },
+      {
+        "da": 0.48931116389548696,
+        "mae": 0.893580096317874,
+        "sharpe": 0.5046644134291557
+      },
+      {
+        "da": 0.5355450236966824,
+        "mae": 0.8017496012001661,
+        "sharpe": -0.035798425376747114
+      },
+      {
+        "da": 0.4562647754137116,
+        "mae": 0.8928897453418179,
+        "sharpe": -0.7545109706380281
+      }
+    ],
+    "extended": [
+      {
+        "da": 0.46318289786223277,
+        "mae": 0.676351424082189,
+        "sharpe": -0.9598462202702791
+      },
+      {
+        "da": 0.47494033412887826,
+        "mae": 0.5691412642739113,
+        "sharpe": -0.8194144300287293
+      },
+      {
+        "da": 0.4916864608076009,
+        "mae": 0.938786774437502,
+        "sharpe": 1.2563237702981078
+      },
+      {
+        "da": 0.509478672985782,
+        "mae": 0.7840899346893571,
+        "sharpe": -0.6707783844916582
+      },
+      {
+        "da": 0.4491725768321513,
+        "mae": 0.8865660419901856,
+        "sharpe": -0.7563927090094316
+      }
+    ]
+  },
+  "v3_feature_rankings": {
+    "yc_curvature_z": {
+      "rank": 26,
+      "total": 43,
+      "importance": 0.02169853076338768
+    },
+    "yc_10y3m_velocity_z": {
+      "rank": 18,
+      "total": 43,
+      "importance": 0.02352227456867695
+    },
+    "yc_spread_level_z": {
+      "rank": 21,
+      "total": 43,
+      "importance": 0.022732138633728027
+    },
+    "yc_vol_regime_z": {
+      "rank": 16,
+      "total": 43,
+      "importance": 0.023975621908903122
+    }
+  }
+}

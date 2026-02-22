@@ -1,0 +1,58 @@
+{
+  "feature": "yield_curve",
+  "attempt": 6,
+  "timestamp": "2026-02-22T01:03:33.641161",
+  "approach": "Yield Decomposition Velocity",
+  "description": "Z-scored daily changes in 10Y breakeven inflation rate and TIPS real yield. 2 features: yc_be_vel_z (breakeven velocity = DGS10-DFII10 daily change z-score), yc_tips_vel_z (real rate velocity = DFII10 daily change z-score). Decomposes nominal yield dynamics into inflation premium and real rate components. Both use shared zscore_window for temporal consistency. Velocity not level avoids autocorrelation (level >0.99, velocity ~0.046).",
+  "best_params": {
+    "zscore_window": 45
+  },
+  "metrics": {
+    "overfit_ratio": 1.0,
+    "train_loss": 0.0,
+    "val_loss": 0.0,
+    "mi_sum_val": 1.167781,
+    "mi_individual_val": {
+      "yc_be_vel_z": 0.569487,
+      "yc_tips_vel_z": 0.598294
+    },
+    "mi_individual_test": {
+      "yc_be_vel_z": 0.603158,
+      "yc_tips_vel_z": 0.539111
+    },
+    "mi_sum_test": 1.142269,
+    "autocorrelations": {
+      "yc_be_vel_z": 0.037534,
+      "yc_tips_vel_z": 0.012333
+    },
+    "max_internal_corr": 0.031056,
+    "max_vif": 1.001,
+    "optuna_trials_completed": 20,
+    "optuna_best_value": 1.167781,
+    "output_nan_counts": {
+      "yc_be_vel_z": 0,
+      "yc_tips_vel_z": 0
+    }
+  },
+  "output_shape": [
+    2523,
+    2
+  ],
+  "output_columns": [
+    "yc_be_vel_z",
+    "yc_tips_vel_z"
+  ],
+  "data_info": {
+    "total_aligned": 2523,
+    "train_samples": 1766,
+    "val_samples": 378,
+    "test_samples": 379,
+    "date_range_start": "2015-01-30",
+    "date_range_end": "2025-02-12",
+    "fred_tickers": [
+      "DGS10",
+      "DFII10"
+    ],
+    "gold_ticker": "GC=F"
+  }
+}

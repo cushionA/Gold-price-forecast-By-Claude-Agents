@@ -1,0 +1,45 @@
+{
+  "feature": "yield_curve",
+  "attempt": 2,
+  "timestamp": "2026-02-21T13:58:30.606621",
+  "best_params": {
+    "change_window": 5,
+    "velocity_zscore_window": 30,
+    "curvature_zscore_window": 60
+  },
+  "metrics": {
+    "mi_individual": {
+      "yc_curvature_z": 0.5563052511295148,
+      "yc_spread_velocity_z": 0.5110692951460727,
+      "yc_10y3m_velocity_z": 0.5421436137116734,
+      "yc_dgs3mo_velocity_z": 0.5554962080971557
+    },
+    "mi_sum": 2.1650143680844165,
+    "autocorr": {
+      "yc_curvature_z": -0.16315062668732935,
+      "yc_spread_velocity_z": 0.740947228857672,
+      "yc_10y3m_velocity_z": 0.7505709436489043,
+      "yc_dgs3mo_velocity_z": 0.680419606184791
+    },
+    "optuna_best_value": 2.1650143680844165,
+    "optuna_trials_completed": 50
+  },
+  "output_shape": [
+    2799,
+    4
+  ],
+  "output_columns": [
+    "yc_curvature_z",
+    "yc_spread_velocity_z",
+    "yc_10y3m_velocity_z",
+    "yc_dgs3mo_velocity_z"
+  ],
+  "data_info": {
+    "total_samples": 2799,
+    "train_samples": 1959,
+    "val_samples": 420,
+    "test_samples": 420,
+    "date_range_start": "2015-01-02",
+    "date_range_end": "2026-02-19"
+  }
+}

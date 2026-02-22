@@ -1,53 +1,61 @@
 {
-  "feature": "real_rate",
-  "attempt": 10,
+  "feature": "options_market",
+  "attempt": 3,
   "items": [
     {
       "priority": 1,
-      "type": "feature_engineering",
-      "description": "PCA on 5 DFII daily changes (DFII5/7/10/20/30), output top 2-3 principal components as z-scores. Purely orthogonal by construction, no autocorrelation issue from rolling windows.",
-      "reason": "Attempts 7-9 reveal irreconcilable Sharpe-MAE tradeoff with hand-crafted features. rr_slope_level_z (autocorr=0.937) helps Sharpe but hurts MAE. PCA may find a compromise linear combination. All previous attempts used hand-crafted features; PCA lets the data determine the optimal linear combination of yield curve changes.",
+      "type": "output_processing",
+      "description": "Apply EMA smoothing (span 5-10 days, Optuna-tunable) to raw options_risk_regime_prob output. This reduces stability from 0.1555 to below 0.15 threshold by dampening sharp HMM state transitions.",
+      "reason": "Gate 2 stability fails by only 0.006 (0.1555 vs 0.15). EMA smoothing is the most direct fix with minimal risk to existing MAE performance. Cross-asset submodel had identical issue (stability 0.156) that smoothing would have addressed.",
       "resume_from": "architect",
-      "research_needed": false,
-      "caution": "High probability (>60%) that attempt 10 will also fail to beat attempt 7. The Sharpe +0.329 result may be near-optimal for deterministic yield curve features."
+      "research_needed": false
     },
     {
       "priority": 2,
       "type": "feature_engineering",
-      "description": "Attempt 7's 3 change features + exponential decay weighting on slope/curvature (half-life 10-20 days instead of 252-day rolling window)",
-      "reason": "The autocorrelation problem in rr_slope_level_z comes from the 252-day rolling window. Exponential decay with short half-life captures rate dynamics without the persistence artifact that causes MAE degradation.",
+      "description": "Add a second output column: options volatility trend z-score. Candidate signals (architect to choose): (a) GVZ rate-of-change z-score, (b) SKEW change z-score, (c) VIX term structure slope change. Must have VIF < 10 with smoothed regime_prob.",
+      "reason": "Gate 2 MI fails by only 0.04pp (4.96% vs 5%). Reducing from 3 to 1 column lost MI (17.12% -> 4.96%). A single complementary directional signal should recover MI above 5% without reintroducing the noise from attempt 1's tail_risk_z and skew_momentum_z.",
       "resume_from": "architect",
+      "research_needed": false,
+      "constraints": [
+        "Maximum 2 output columns total",
+        "VIF between columns < 10",
+        "Second column must have standalone MI > 0.01",
+        "Second column autocorrelation < 0.99"
+      ]
+    },
+    {
+      "priority": 3,
+      "type": "model_tuning",
+      "description": "Optuna HPO for EMA span (5-20 days) and z-score normalization window (20-252 days) for the second column. Objective: maximize combined MI with gold returns.",
+      "reason": "Previous attempts show that window parameters significantly affect stability and MI. Optuna should find the optimal balance.",
+      "resume_from": "builder_model",
       "research_needed": false
     }
   ],
   "previous_feedback": {
-    "attempt": 9,
+    "attempt": 2,
     "gate1_passed": true,
-    "gate2_passed": true,
+    "gate2_passed": false,
     "gate3_passed": true,
-    "gate3_pass_via": "MAE (-0.0141, 1.4x threshold)",
-    "root_cause": "Combination strategy failed. Adding rr_slope_level_z back (attempt 7 feature) + 5th interaction feature did NOT combine Sharpe and MAE strengths. Instead produced worst of both: Sharpe -0.186 (worse than attempt 8 -0.260), MAE -0.0141 (worse than attempt 8 -0.0203), DA -0.0173 (worst of 7/8/9).",
+    "gate3_pass_via": "MAE (-0.1562, 15.6x threshold)",
+    "root_cause": "Single column output has marginal MI (4.96%) and marginal stability (0.1555). Regime probability alone captures risk level but not direction. DA and Sharpe remain negative because the feature helps MAE (error reduction) but does not provide directional edge.",
     "key_evidence": [
-      "Attempt 9 STRICTLY WORSE than attempt 8 on ALL metrics",
-      "0/3 folds improved DA, 0/3 improved Sharpe (1/3 improved trivially due to negative base)",
-      "5 features introduced more noise than 3 features (attempt 8) or 4 features (attempt 7)",
-      "Interaction feature (slope_diff * curvature_diff z-score) contributed negligible information"
+      "MI decreased from 17.12% (3 cols) to 4.96% (1 col) -- expected but now below threshold",
+      "Stability 0.1555 is inherent to raw HMM outputs (regime switches are abrupt)",
+      "DA improved from -1.05% (attempt 1) to -0.24% (attempt 2) -- trend is positive but still negative",
+      "MAE improvement is very strong: -0.1562 (15.6x threshold), consistent across 4/5 folds",
+      "Feature importance rank #2 at 7.55% -- highly valued by meta-model"
     ],
-    "cross_attempt_analysis": {
-      "attempt_7": "Sharpe +0.329 (BEST), MAE -0.0022, DA -0.00149. 4 features including rr_slope_level_z.",
-      "attempt_8": "Sharpe -0.260, MAE -0.0203 (BEST), DA -0.01471. 3 features without rr_slope_level_z.",
-      "attempt_9": "Sharpe -0.186, MAE -0.0141, DA -0.0173. 5 features. WORST of all three."
-    },
-    "fundamental_tradeoff": "rr_slope_level_z (252-day rolling z-score, autocorr=0.937) is the key variable. With it: Sharpe improves, MAE/DA degrade. Without it: MAE improves, Sharpe degrades. Adding more features on top makes everything worse.",
     "anti_patterns": [
-      "DO NOT add features on top of attempt 7 set (attempt 9 proved this counterproductive)",
-      "DO NOT use rr_slope_level_z and expect MAE improvement (structural tradeoff)",
-      "DO NOT remove rr_slope_level_z and expect Sharpe improvement (structural tradeoff)"
+      "DO NOT use 3+ output columns -- attempt 1 proved this adds noise",
+      "DO NOT use raw (unsmoothed) HMM regime probabilities if stability > 0.15",
+      "DO NOT include tail_risk_z or skew_momentum_z -- low MI (0.002, 0.017) in attempt 1"
     ],
-    "what_to_try": [
-      "Completely different feature extraction: PCA on daily changes (data-driven, not hand-crafted)",
-      "Different time scale: exponential decay instead of 252-day rolling window",
-      "Accept that attempt 7 may be near-optimal and focus on confirming this"
+    "what_worked": [
+      "Dimensionality reduction from 3 to 1 column improved DA consistency (0/5 -> 3/5 folds)",
+      "HMM regime detection captures genuine risk structure (7.55% feature importance)",
+      "MAE improvement is robust across folds and time periods"
     ]
   }
 }

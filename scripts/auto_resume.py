@@ -28,6 +28,7 @@ Claude終了後のstate確認 (パイプライン未完了検知):
     python scripts/auto_resume.py --stop
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -88,6 +89,25 @@ def release_lock():
         pass
 
 
+def _release_if_owner():
+    """
+    ロックファイルが自プロセス(PID一致)のものである場合のみ解放する。
+
+    release_lock() は常にファイルを削除するため、別プロセス(AR2等)が
+    ロックを取得している状態で呼ぶと誤って削除してしまう。
+    このヘルパーはPIDを確認してから解放することでその問題を防ぐ。
+    """
+    try:
+        if not LOCK_FILE.exists():
+            return
+        lock_data = json.loads(LOCK_FILE.read_text(encoding="utf-8"))
+        if lock_data.get("pid") == os.getpid():
+            LOCK_FILE.unlink(missing_ok=True)
+        # else: 別プロセスのlock → 削除しない
+    except Exception:
+        pass  # 読み取り失敗時は安全側に倒してスキップ
+
+
 # ---------------------------------------------------------------------------
 # State helpers
 # ---------------------------------------------------------------------------
@@ -119,6 +139,36 @@ MAX_PIPELINE_RELAUNCH = 2
 # Prompt helpers
 # ---------------------------------------------------------------------------
 
+def _get_retry_context(state: dict) -> dict:
+    """
+    現在の feature に合致する retry_context を返す。
+
+    - real_rate_retry_context: current_feature=real_rate のときのみ適用
+    - retry_context: feature フィールドが current_feature と一致するか検証
+    - ミスマッチの場合は警告して {} を返す（stale context を無視）
+    """
+    feature = state.get("current_feature", "")
+
+    # real_rate_retry_context は real_rate feature のときのみ使用
+    rr_ctx = state.get("real_rate_retry_context")
+    if rr_ctx and feature == "real_rate":
+        return rr_ctx
+
+    ctx = state.get("retry_context", {})
+    if not ctx:
+        return {}
+
+    ctx_feature = ctx.get("feature", "")
+    if ctx_feature and ctx_feature != feature:
+        log.warning(
+            f"retry_context.feature='{ctx_feature}' != current_feature='{feature}'. "
+            f"Ignoring stale retry_context (likely leftover from a previous automation run)."
+        )
+        return {}
+
+    return ctx
+
+
 def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "", error_context: str = "") -> str:
     """
     evaluator 向けプロンプトを生成する。
@@ -130,20 +180,21 @@ def _build_evaluator_prompt(state: dict, kaggle_status: str, error_type: str = "
     resume_from = state.get("resume_from", "evaluator")
 
     if kaggle_status == "error":
+        # Bug fix: preserve auto_resume_remaining instead of hardcoding max_loops=1
+        remaining = state.get("auto_resume_remaining", 1)
+        safe_loops = max(1, remaining)
         return (
             f"Kaggle training for {feature} attempt {attempt} FAILED "
             f"(error_type={error_type}). "
             f"error_context: {error_context[:300] if error_context else 'see state.json'}. "
             f"state.json has been updated with resume_from=builder_model. "
-            f"Fix the notebook error and re-submit."
+            f"Fix the notebook error in notebooks/{feature}_{attempt}/train.ipynb, "
+            f"then call submit_and_monitor(max_loops={safe_loops}) to re-submit and keep the auto-resume chain alive. "
+            f"NEVER use submit() alone — it does not spawn auto_resume and breaks the automation loop."
         )
 
-    # retry_context の情報を読み込んでプロンプトに含める
-    retry_ctx = (
-        state.get("real_rate_retry_context")
-        or state.get("retry_context")
-        or {}
-    )
+    # retry_context の情報を読み込んでプロンプトに含める（feature validation 付き）
+    retry_ctx = _get_retry_context(state)
     max_attempt = retry_ctx.get("max_attempt")
 
     chain_note = ""
@@ -218,13 +269,18 @@ def _build_relaunch_prompt(state: dict) -> str:
 def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIPELINE_RELAUNCH) -> None:
     """
     Claudeを起動し、終了後にパイプライン完了を確認する。
-    BUILD_PHASESで止まった場合は最大 max_relaunch 回まで再起動する。
-    evaluatorが停止判断した場合（resume_from not in BUILD_PHASES）は再起動しない。
+
+    再起動ロジックを2種類に分離:
+    1. BUILD_PHASES 再起動: パイプライン途中クラッシュ → max_relaunch 回まで
+    2. automation_test 継続: evaluatorが早期停止した場合 → attempts_left > 0 の間は無制限
+       (attempt_num カウンターと独立して動作する)
     """
     prompt = initial_prompt
-    for attempt_num in range(max_relaunch + 1):
-        release_lock()
-        log.info("Lock released. Launching Claude...")
+    build_relaunch_count = 0  # BUILD_PHASES クラッシュ用カウンター（max_relaunhと比較）
+
+    while True:
+        _release_if_owner()
+        log.info("Lock released (owner-checked). Launching Claude...")
         launched = launch_claude(prompt)
 
         if not launched:
@@ -236,30 +292,62 @@ def _launch_with_pipeline_check(initial_prompt: str, max_relaunch: int = MAX_PIP
         status_after = state_after.get("status")
         resume_after = state_after.get("resume_from")
 
+        # --- ケース1: Kaggle提出まで到達 → 正常終了 ---
         if status_after == "waiting_training":
             log.info("Claude reached waiting_training (submitted to Kaggle). Cycle complete.")
             return
 
-        if resume_after in BUILD_PHASES and attempt_num < max_relaunch:
-            # パイプライン途中で止まった → evaluatorはまだ判断していない → 再起動
-            log.warning(
-                f"Claude exited at resume_from='{resume_after}' without submitting "
-                f"(relaunch {attempt_num + 1}/{max_relaunch}). Relaunching..."
-            )
-            prompt = _build_relaunch_prompt(state_after)
-        else:
-            # evaluatorが停止判断した、または再起動上限に達した
-            if resume_after in BUILD_PHASES:
-                log.error(
-                    f"Claude exited at resume_from='{resume_after}' after {max_relaunch} relaunch(es). "
-                    f"Manual resume needed."
+        # --- ケース2: BUILD_PHASES で止まった（evaluatorの判断前） ---
+        if resume_after in BUILD_PHASES:
+            if build_relaunch_count < max_relaunch:
+                build_relaunch_count += 1
+                log.warning(
+                    f"Claude exited at resume_from='{resume_after}' without submitting "
+                    f"(build relaunch {build_relaunch_count}/{max_relaunch}). Relaunching..."
                 )
+                prompt = _build_relaunch_prompt(state_after)
+                continue  # 再起動
             else:
-                log.info(
-                    f"Claude completed (status={status_after}, resume_from={resume_after}). "
-                    f"Evaluator made stop/continue decision."
+                log.error(
+                    f"Claude exited at resume_from='{resume_after}' after {max_relaunch} "
+                    f"build relaunch(es). Manual resume needed."
                 )
-            return
+                return
+
+        # --- ケース3: evaluatorが判断した（resume_from not in BUILD_PHASES） ---
+        retry_ctx_after = _get_retry_context(state_after)
+        auto_test = retry_ctx_after.get("automation_test", False)
+        max_att = retry_ctx_after.get("max_attempt")
+        cur_att = state_after.get("current_attempt", 0)
+        left = (max_att - int(cur_att)) if (auto_test and max_att is not None) else 0
+
+        if auto_test and left > 0 and (status_after in ("completed", "paused_max_iterations") or resume_after == "completed"):
+            # automation_test: attempt_num < max_relaunch 制約なし（独立した継続ロジック）
+            feature = state_after.get("current_feature", "?")
+            log.warning(
+                f"automation_test: Evaluator declared '{status_after}' at {feature} attempt {cur_att} "
+                f"(attempts_left={left}). Force-continuing to attempt {cur_att + 1}."
+            )
+            state_after["status"] = "in_progress"
+            state_after["resume_from"] = "architect"
+            save_state(state_after)
+            prompt = (
+                f"AUTOMATION TEST OVERRIDE: The evaluator declared '{status_after}' for "
+                f"{feature} at attempt {cur_att}, but retry_context.max_attempt={max_att} "
+                f"requires continuing to attempt {cur_att + 1}. "
+                f"IGNORE the previous no_further_improvement/completed decision. "
+                f"Resume from architect for {feature} attempt {cur_att + 1}: "
+                f"architect -> builder_model -> submit_and_monitor(max_loops=1). "
+                f"Note from retry_context: {retry_ctx_after.get('note', '')}"
+            )
+            continue  # 次のattemptへ（build_relaunch_countはリセットしない）
+
+        # --- ケース4: evaluatorが正常停止判断 → 終了 ---
+        log.info(
+            f"Claude completed (status={status_after}, resume_from={resume_after}). "
+            f"Evaluator made stop/continue decision."
+        )
+        return
 
 
 # ---------------------------------------------------------------------------
@@ -286,56 +374,75 @@ def run_monitor(interval: int = 60, max_hours: float = 3.0, initial_wait: int = 
         return False
 
 
-def find_claude_executable() -> str | None:
-    """Find the claude executable, checking PATH and known fallback locations."""
-    import shutil
-    claude_cmd = shutil.which("claude")
-    if claude_cmd:
-        return claude_cmd
-    # Windows fallback: npm global install locations
-    fallback_paths = [
-        r"C:\Users\tatuk\AppData\Roaming\npm\claude.CMD",
-        r"C:\Users\tatuk\AppData\Roaming\npm\claude.cmd",
-    ]
-    for fp in fallback_paths:
-        if os.path.exists(fp):
-            log.info(f"Found claude at fallback path: {fp}")
-            return fp
-    return None
+def _patch_sdk_for_unknown_messages() -> None:
+    """
+    Monkey-patch claude_agent_sdk._internal.client.parse_message to silently
+    ignore unknown message types (e.g. rate_limit_event) instead of raising.
+
+    The SDK raises MessageParseError on any unrecognised 'type' field.
+    rate_limit_event is a normal Claude Code message that signals a rate-limit
+    pause; it is NOT an error — Claude resumes automatically after the pause.
+    Without this patch the SDK dies with "Unknown message type: rate_limit_event".
+    """
+    try:
+        import claude_agent_sdk._internal.client as _client
+        from claude_agent_sdk._internal.message_parser import (
+            parse_message as _orig_parse,
+            MessageParseError,
+        )
+
+        def _safe_parse(data: dict):
+            try:
+                return _orig_parse(data)
+            except MessageParseError as exc:
+                if "Unknown message type" in str(exc):
+                    log.debug(f"SDK: ignoring unknown message type '{data.get('type', '?')}'")
+                    return None          # caller yields None; our loop does pass
+                raise
+
+        _client.parse_message = _safe_parse
+    except Exception as e:
+        log.warning(f"Could not patch SDK message parser: {e}")
 
 
 def launch_claude(prompt: str) -> bool:
-    claude_cmd = find_claude_executable()
-    if claude_cmd is None:
-        log.error("'claude' not found in PATH or fallback locations")
-        return False
-    log.info(f"Launching {claude_cmd} -p ...")
-    # On Windows, .CMD files must be run via cmd /c to be interpreted as shell scripts
-    if claude_cmd.upper().endswith(".CMD"):
-        cmd_args = ["cmd", "/c", claude_cmd, "-p", prompt]
-    else:
-        cmd_args = [claude_cmd, "-p", prompt]
-    # Remove CLAUDECODE env var: claude refuses to start inside another claude session
-    env = os.environ.copy()
-    env.pop("CLAUDECODE", None)
-    try:
-        result = subprocess.run(
-            cmd_args,
+    """Launch Claude Code via claude-agent-sdk (replaces 'claude -p' subprocess)."""
+    from claude_agent_sdk import query, ClaudeAgentOptions
+    from claude_agent_sdk._errors import CLINotFoundError, ProcessError
+
+    # Patch before first call so rate_limit_event doesn't crash the loop
+    _patch_sdk_for_unknown_messages()
+
+    async def _run() -> None:
+        options = ClaudeAgentOptions(
+            permission_mode="bypassPermissions",
             cwd=str(PROJECT_ROOT),
-            timeout=3600,
-            env=env,
         )
-        log.info(f"Claude Code exited (code={result.returncode})")
-        return result.returncode == 0
-    except subprocess.TimeoutExpired:
-        log.error("Claude Code timed out (1h)")
+        async for _ in query(prompt=prompt, options=options):
+            pass  # None values (unknown msg types) are silently skipped
+
+    # Temporarily remove CLAUDECODE so the new session doesn't see "inside claude"
+    claudecode_backup = os.environ.pop("CLAUDECODE", None)
+    log.info("Launching Claude via SDK...")
+    try:
+        asyncio.run(asyncio.wait_for(_run(), timeout=3600))
+        log.info("Claude SDK completed successfully")
+        return True
+    except asyncio.TimeoutError:
+        log.error("Claude SDK timed out (1h)")
         return False
-    except FileNotFoundError:
-        log.error(f"'{claude_cmd}' not found or failed to execute")
+    except CLINotFoundError:
+        log.error("Claude Code CLI not found (is it installed?)")
+        return False
+    except ProcessError as e:
+        log.error(f"Claude SDK process error: {e}")
         return False
     except Exception as e:
-        log.error(f"Claude launch failed: {e}")
+        log.error(f"Claude SDK launch failed: {e}")
         return False
+    finally:
+        if claudecode_backup is not None:
+            os.environ["CLAUDECODE"] = claudecode_backup
 
 
 # ---------------------------------------------------------------------------
@@ -405,12 +512,22 @@ def main():
                 state["auto_resume_remaining"] = remaining - 1
                 save_state(state)
                 log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
-            prompt = _build_evaluator_prompt(state, kaggle_status="complete")
+            # If error_type is set and resume_from=builder_model, this was a Kaggle failure.
+            # Pass the correct status so Claude gets the error-specific prompt.
+            _err_type = state.get("error_type", "")
+            _err_ctx  = state.get("error_context", "")
+            if _err_type and resume_from == "builder_model":
+                _kstatus = "error"
+                log.info(f"Detected prior Kaggle error (error_type={_err_type}). Prompting Claude to fix.")
+            else:
+                _kstatus = "complete"
+            prompt = _build_evaluator_prompt(state, kaggle_status=_kstatus,
+                                             error_type=_err_type, error_context=_err_ctx)
             # _launch_with_pipeline_check releases lock before launching Claude,
             # then relaunches if Claude stops mid-pipeline (BUILD_PHASES).
             _launch_with_pipeline_check(prompt)
         finally:
-            release_lock()  # No-op if already released; safe due to missing_ok=True
+            _release_if_owner()  # PID確認してから解放 (AR2のlockを誤削除しない)
             log.info("auto_resume exiting.")
         return
 
@@ -437,7 +554,9 @@ def main():
         log.info(f"Remaining loops: {'unlimited' if remaining is None else remaining}")
 
         # 4. Block until Kaggle completes
-        ok = run_monitor(interval=args.interval, max_hours=args.max_hours, initial_wait=90)
+        # initial_wait=120: 新カーネルはQUEUEDからRUNNINGに移行するまで90秒以上かかることがある。
+        # 90秒だと古いエラーステータスを誤読みしてfalse-positive errorが発生する。
+        ok = run_monitor(interval=args.interval, max_hours=args.max_hours, initial_wait=120)
 
         # 5. Re-read state (monitor updated it)
         state = load_state()
@@ -459,19 +578,52 @@ def main():
         # 6. Check remaining count
         remaining = state.get("auto_resume_remaining")
 
+        # automation_test mode: compute attempts_left from retry_context（feature validation付き）
+        retry_ctx = _get_retry_context(state)
+        automation_test = retry_ctx.get("automation_test", False)
+        max_attempt_ctx = retry_ctx.get("max_attempt")
+        current_attempt_ctx = state.get("current_attempt", 0)
+        attempts_left = (
+            (max_attempt_ctx - int(current_attempt_ctx))
+            if (automation_test and max_attempt_ctx is not None)
+            else None
+        )
+
         if remaining is not None and remaining <= 0:
-            log.info(f"auto_resume_remaining={remaining}. NOT launching Claude. Loop stopped.")
-            if ok:
-                log.info("Results are fetched. Run manually: claude -p 'Resume from evaluator'")
+            # automation_test: もし attempts_left > 0 なら残り回数を補充して継続
+            if automation_test and attempts_left is not None and attempts_left > 0:
+                log.info(
+                    f"automation_test: auto_resume_remaining=0 but attempts_left={attempts_left}. "
+                    f"Resetting remaining to 1 to continue chain."
+                )
+                remaining = 1
+                state["auto_resume_remaining"] = remaining
+                save_state(state)
             else:
-                log.info(f"Error fix needed. Run manually: claude -p 'Resume from builder_model'")
-            return
+                log.info(f"auto_resume_remaining={remaining}. NOT launching Claude. Loop stopped.")
+                if ok:
+                    log.info("Results are fetched. Run manually: python scripts/auto_resume.py")
+                else:
+                    log.info(f"Error fix needed. Run manually: python scripts/auto_resume.py")
+                return
 
         # 7. Decrement counter
+        # エラー時は残り回数を消費しない（エラー修正は attempt消費に含めない）
+        # automation_test mode: attempts_left>0 の間は残り回数を消費しない（1に保つ）
         if remaining is not None:
-            state["auto_resume_remaining"] = remaining - 1
-            save_state(state)
-            log.info(f"auto_resume_remaining: {remaining} → {remaining - 1}")
+            if kaggle_status == "error":
+                # エラーは attempt カウント対象外 → デクリメントしない
+                log.info(f"Kaggle ERROR: auto_resume_remaining NOT decremented (kept at {remaining})")
+            elif automation_test and attempts_left is not None and attempts_left > 0:
+                new_remaining = max(1, remaining - 1)  # 少なくとも1は残す
+                log.info(f"automation_test: auto_resume_remaining kept at {new_remaining} (attempts_left={attempts_left})")
+                state["auto_resume_remaining"] = new_remaining
+                save_state(state)
+            else:
+                new_remaining = remaining - 1
+                log.info(f"auto_resume_remaining: {remaining} → {new_remaining}")
+                state["auto_resume_remaining"] = new_remaining
+                save_state(state)
 
         # 8. Fire Claude Code (with pipeline completion check)
         prompt = _build_evaluator_prompt(
@@ -486,7 +638,7 @@ def main():
         _launch_with_pipeline_check(prompt)
 
     finally:
-        release_lock()  # No-op if already released; safe due to missing_ok=True
+        _release_if_owner()  # PID確認してから解放 (AR2のlockを誤削除しない)
         log.info("auto_resume exiting.")
 
 

@@ -1,0 +1,112 @@
+{
+  "feature": "yield_curve",
+  "attempt": 2,
+  "timestamp": "2026-02-21T23:30:00",
+  "gate1": {
+    "passed": true,
+    "checks": {
+      "overfit": {"value": "N/A", "passed": true, "note": "Deterministic feature engineering, no train/val loss"},
+      "no_all_nan": {"value": [], "passed": true},
+      "no_zero_var": {"value": [], "passed": true},
+      "autocorr_yc_curvature_z": {"value": -0.165, "passed": true},
+      "autocorr_yc_spread_velocity_z": {"value": 0.738, "passed": true},
+      "autocorr_yc_10y3m_velocity_z": {"value": 0.756, "passed": true},
+      "autocorr_yc_dgs3mo_velocity_z": {"value": 0.701, "passed": true},
+      "optuna_trials": {"value": 50, "passed": true}
+    }
+  },
+  "gate2": {
+    "passed": true,
+    "checks": {
+      "mi": {
+        "base": 0.3008,
+        "extended": 0.3465,
+        "increase": 0.1517,
+        "passed": true,
+        "individual": {
+          "yc_curvature_z": 0.0043,
+          "yc_spread_velocity_z": 0.0000,
+          "yc_10y3m_velocity_z": 0.0361,
+          "yc_dgs3mo_velocity_z": 0.0000
+        }
+      },
+      "vif": {
+        "max": 1.74,
+        "passed": true,
+        "individual": {
+          "yc_curvature_z": 1.06,
+          "yc_spread_velocity_z": 1.64,
+          "yc_10y3m_velocity_z": 1.74,
+          "yc_dgs3mo_velocity_z": 1.07
+        }
+      },
+      "stability": {
+        "max_std": 0.1494,
+        "passed": true,
+        "individual": {
+          "yc_curvature_z": 0.1494,
+          "yc_spread_velocity_z": 0.1400,
+          "yc_10y3m_velocity_z": 0.1251,
+          "yc_dgs3mo_velocity_z": 0.1473
+        }
+      }
+    }
+  },
+  "gate3": {
+    "passed": true,
+    "note": "Replacement test: v1 replaced by v2 in extended. Baseline includes all existing submodels with yc_v1.",
+    "samples": 2357,
+    "n_folds": 5,
+    "checks": {
+      "direction": {"delta": -0.0108, "passed": false},
+      "sharpe": {"delta": -0.0151, "passed": false},
+      "mae": {"delta": -0.0127, "passed": true, "multiplier": "1.27x threshold"}
+    },
+    "baseline": {
+      "direction_accuracy": 0.5265,
+      "mae": 0.9333,
+      "sharpe": 0.6455,
+      "n_features": 43
+    },
+    "extended": {
+      "direction_accuracy": 0.5156,
+      "mae": 0.9206,
+      "sharpe": 0.6304,
+      "n_features": 44
+    },
+    "fold_results": [
+      {"fold": 1, "train": 397, "test": 392, "da_delta": -0.0128, "mae_delta": 0.1602, "sharpe_delta": -1.134},
+      {"fold": 2, "train": 789, "test": 392, "da_delta": -0.0362, "mae_delta": 0.0375, "sharpe_delta": -0.171},
+      {"fold": 3, "train": 1181, "test": 392, "da_delta": -0.0205, "mae_delta": -0.1419, "sharpe_delta": -0.118},
+      {"fold": 4, "train": 1573, "test": 392, "da_delta": -0.0332, "mae_delta": 0.1108, "sharpe_delta": -0.809},
+      {"fold": 5, "train": 1965, "test": 392, "da_delta": 0.0485, "mae_delta": -0.2304, "sharpe_delta": 2.156}
+    ],
+    "fold_consistency": {
+      "da_improved": "1/5",
+      "mae_improved": "2/5",
+      "sharpe_improved": "1/5"
+    },
+    "feature_importance": {
+      "yc_10y3m_velocity_z": {"importance": 0.0361, "rank": "6/44"},
+      "yc_spread_velocity_z": {"importance": 0.0289, "rank": "9/44"},
+      "yc_curvature_z": {"importance": 0.0220, "rank": "20/44"},
+      "yc_dgs3mo_velocity_z": {"importance": 0.0159, "rank": "38/44"}
+    }
+  },
+  "overall_passed": true,
+  "final_gate_reached": 3,
+  "decision": "completed",
+  "comparison_with_attempt_1": {
+    "attempt_1_gate1": "FAIL (constant column)",
+    "attempt_2_gate1": "PASS",
+    "attempt_1_gate2_mi": "+0.37% (FAIL)",
+    "attempt_2_gate2_mi": "+15.17% (PASS)",
+    "attempt_1_gate3_mae": -0.0693,
+    "attempt_2_gate3_mae": -0.0127,
+    "attempt_1_gate3_mae_multiplier": "6.9x",
+    "attempt_2_gate3_mae_multiplier": "1.27x",
+    "attempt_1_fold_consistency_mae": "4/5",
+    "attempt_2_fold_consistency_mae": "2/5",
+    "summary": "Attempt 2 has better information quality (Gate 1/2 all PASS) but weaker Gate 3 MAE ablation. Attempt 1 remains the stronger submodel for MAE impact."
+  }
+}

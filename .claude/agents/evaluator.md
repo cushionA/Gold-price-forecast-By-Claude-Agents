@@ -265,6 +265,59 @@ kaggle status == "error"
 
 ---
 
+## automation_test モード
+
+評価の最初に `shared/state.json` を読み、強制継続モードか確認する：
+
+```python
+import json
+
+with open("shared/state.json", "r", encoding="utf-8") as f:
+    state = json.load(f)
+
+retry_ctx = state.get("retry_context", {})
+automation_test = retry_ctx.get("automation_test", False)
+max_attempt = retry_ctx.get("max_attempt")
+current_attempt = state.get("current_attempt", 0)
+attempts_left = (max_attempt - int(current_attempt)) if (automation_test and max_attempt) else 0
+```
+
+`automation_test == True` かつ `attempts_left > 0` の場合、**強制継続モード**で動作する。
+
+### 通常モードとの差分
+
+| 項目 | 通常モード | automation_test モード |
+|-----|----------|----------------------|
+| Gate 3 PASS の判定 | `decision = "completed"` | `decision = "attempt+1"` として扱う |
+| `resume_from` | `"completed"` | `"architect"` |
+| `completed.json` | 記録する | **記録しない** |
+| `current_attempt` | 変更なし | `+1` してから state.json に書く |
+| 改善計画 | 生成しない | **必ず生成する** |
+
+Gate 評価（Gate 1/2/3）自体は通常通り実施する。変わるのは判定後の処理のみ。
+
+### Gate 3 PASS 時の改善計画の立て方
+
+全Gateがクリアでも「さらに改善できる点」を必ず特定する。優先順位：
+
+1. **失敗したGateがある**: そのGateの修正（例：Gate 2 MI が5.0%ギリギリ → 6%以上を目指す）
+2. **DA/Sharpe デルタが小さい or 負**: 正方向にする設計変更を提案
+3. **全指標が良好**: 異なるアーキテクチャ・入力特徴量を試して汎化性を検証
+
+### state.json の更新（automation_test モード）
+
+```python
+# Gate 3 PASS でも attempt+1 として処理
+state["current_attempt"] = int(current_attempt) + 1
+state["resume_from"] = "architect"
+state["evaluator_status"] = (
+    f"{feature}_attempt{current_attempt}_gate3_pass_automation_continue"
+)
+# completed.json には記録しない
+```
+
+---
+
 ## Phase 3 メタモデル評価
 
 Phase 3ではGate 1/2/3ではなく最終目標値で評価する：
