@@ -3,11 +3,11 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 6,
-  "resume_from": "architect",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
-  "architect_status": "",
+  "architect_status": "completed",
   "builder_model_status": "",
   "evaluator_status": "yield_curve_attempt5_gate3_fail_automation_continue",
   "retry_context": {
