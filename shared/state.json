@@ -1,9 +1,9 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "yield_curve",
   "current_attempt": 6,
-  "resume_from": "evaluator",
+  "resume_from": "builder_model",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -1134,7 +1134,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-02-22T09:54:19.499589",
+  "last_updated": "2026-02-22T09:57:24.557242",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
@@ -1148,7 +1148,7 @@
     "gate3": "PASS (DA +0.86pp, 5/5 folds)",
     "note": "New 2-column output replaces 1-column attempt 2 output. Meta-model feature set changes from options_risk_regime_prob to options_regime_smooth+options_gvz_momentum_z. Kaggle dataset update needed before running new meta-model attempts."
   },
-  "error_type": null,
+  "error_type": "unknown",
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
