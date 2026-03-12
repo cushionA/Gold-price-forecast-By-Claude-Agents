@@ -1,0 +1,77 @@
+{
+  "test_date": "2026-03-12T23:44:06.666748",
+  "model": "meta_model_attempt_7_rebuild",
+  "n_features": 24,
+  "n_ensemble": 5,
+  "xgb_params": {
+    "objective": "reg:squarederror",
+    "max_depth": 2,
+    "min_child_weight": 25,
+    "subsample": 0.765,
+    "colsample_bytree": 0.45,
+    "reg_lambda": 2.049,
+    "reg_alpha": 1.107,
+    "learning_rate": 0.0215,
+    "n_estimators": 621,
+    "tree_method": "hist",
+    "random_state": 42,
+    "verbosity": 0
+  },
+  "alpha_ols": 0.5,
+  "splits": {
+    "train": {
+      "n": 1765,
+      "start": "2015-02-02",
+      "end": "2022-02-07"
+    },
+    "val": {
+      "n": 378,
+      "start": "2022-02-08",
+      "end": "2023-08-10"
+    },
+    "test": {
+      "n": 379,
+      "start": "2023-08-11",
+      "end": "2025-02-12"
+    }
+  },
+  "test_metrics": {
+    "direction_accuracy": 0.5461741424802111,
+    "high_confidence_da_abs": 0.6052631578947368,
+    "high_confidence_da_bootstrap": 0.5131578947368421,
+    "mae": 0.6872675794207366,
+    "mae_raw": 0.6951124500249494,
+    "mae_scaled": 0.6872675794207366,
+    "sharpe_ratio": -0.26987993961436163,
+    "cumulative_return": -0.07139271104593359
+  },
+  "targets": {
+    "da": {
+      "target": 0.56,
+      "actual": 0.5461741424802111,
+      "passed": false
+    },
+    "hcda": {
+      "target": 0.6,
+      "actual": 0.6052631578947368,
+      "passed": true
+    },
+    "mae": {
+      "target": 0.75,
+      "actual": 0.6872675794207366,
+      "passed": true
+    },
+    "sharpe": {
+      "target": 0.8,
+      "actual": -0.26987993961436163,
+      "passed": false
+    }
+  },
+  "targets_passed": 2,
+  "overfitting": {
+    "train_da": 0.6472934472934473,
+    "val_da": 0.5172413793103449,
+    "test_da": 0.5461741424802111,
+    "gap_pp": 10.111930481323617
+  }
+}

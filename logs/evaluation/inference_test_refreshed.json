@@ -1,0 +1,44 @@
+{
+  "test_date": "2026-03-12T23:53:25.951990",
+  "data_refreshed": true,
+  "data_rows": 3021,
+  "data_range": [
+    "2014-01-03",
+    "2026-03-11"
+  ],
+  "n_features": 24,
+  "n_ensemble": 5,
+  "alpha_ols": 0.5,
+  "splits": {
+    "train": {
+      "n": 2114,
+      "start": "2014-01-03",
+      "end": "2022-07-08"
+    },
+    "val": {
+      "n": 453,
+      "start": "2022-07-11",
+      "end": "2024-05-06"
+    },
+    "test": {
+      "n": 454,
+      "start": "2024-05-07",
+      "end": "2026-03-11"
+    }
+  },
+  "test_metrics": {
+    "direction_accuracy": 0.5286343612334802,
+    "high_confidence_da_abs": 0.5494505494505495,
+    "high_confidence_da_bootstrap": 0.5384615384615384,
+    "mae": 0.9878804192627227,
+    "sharpe_ratio": 0.9224947931486872,
+    "cumulative_return": 0.3856773904917161
+  },
+  "targets_passed": 1,
+  "comparison_vs_kaggle_attempt7": {
+    "da_delta_pp": -7.176563876651983,
+    "hcda_delta_pp": -9.184945054945047,
+    "mae_delta": 0.04498041926272278,
+    "sharpe_delta": -1.541105206851313
+  }
+}

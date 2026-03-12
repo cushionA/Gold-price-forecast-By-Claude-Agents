@@ -1,7 +1,7 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
-  "current_feature": "meta_model_final",
+  "current_feature": "refresh_submodels",
   "current_attempt": 1,
   "resume_from": "evaluator",
   "error_context": "",
@@ -47,8 +47,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-meta-model-final-full-data-training",
-  "submitted_at": "2026-03-12T22:28:08.195327",
+  "kaggle_kernel": "bigbigzabuton/gold-refresh-all-submodels",
+  "submitted_at": "2026-03-13T00:08:49.132145",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1141,7 +1141,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-03-12T22:47:01.786751",
+  "last_updated": "2026-03-13T00:08:49.132153",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
@@ -1155,7 +1155,7 @@
     "gate3": "PASS (DA +0.86pp, 5/5 folds)",
     "note": "New 2-column output replaces 1-column attempt 2 output. Meta-model feature set changes from options_risk_regime_prob to options_regime_smooth+options_gvz_momentum_z. Kaggle dataset update needed before running new meta-model attempts."
   },
-  "error_type": "unknown",
+  "error_type": null,
   "saved_meta_model_state": {
     "kaggle_kernel": "bigbigzabuton/gold-meta-model-attempt-17",
     "submitted_at": "2026-02-21T19:13:53.366514",
