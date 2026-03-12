@@ -1,5 +1,5 @@
 {
-  "status": "waiting_training",
+  "status": "in_progress",
   "phase": "phase2_submodel_extra",
   "current_feature": "meta_model_final",
   "current_attempt": 1,
@@ -1141,7 +1141,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-03-13T00:27:12.982805",
+  "last_updated": "2026-03-13T00:29:08.989087",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
