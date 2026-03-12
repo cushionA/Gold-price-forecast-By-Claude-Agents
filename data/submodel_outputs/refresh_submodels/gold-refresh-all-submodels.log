@@ -1,0 +1,160 @@
+[{"stream_name":"stderr","time":6.187493944,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.1875664,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.187573261,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.187575903,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.779556953,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.779584532,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.779589694,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.77959382,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":7.993669343,"data":"Installing hmmlearn...\n"}
+,{"stream_name":"stdout","time":9.87595702,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":10.077930829,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 166.0/166.0 kB 4.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.356258666,"data":"Started: 2026-03-12T15:24:07.825628\n"}
+,{"stream_name":"stdout","time":15.356288553,"data":"Dataset path: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels\n"}
+,{"stream_name":"stdout","time":15.356293238,"data":"Dataset files: ['base_features.csv', 'base_features_raw.csv', 'cny_demand.csv', 'cross_asset.csv', 'dgs10.csv', 'dgs2.csv', 'dxy.csv', 'etf_flow.csv', 'inflation_expectation.csv', 'options_market.csv', 'real_rate.csv', 'regime_classification.csv', 't10yie.csv', 'technical.csv', 'temporal_context.csv', 'vix.csv', 'vixcls.csv', 'yield_curve.csv']\n"}
+,{"stream_name":"stdout","time":15.356298195,"data":"Utility functions ready\n"}
+,{"stream_name":"stdout","time":15.551372011,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.551419031,"data":"FETCHING ALL RAW DATA\n"}
+,{"stream_name":"stdout","time":15.551423995,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":15.956746923,"data":"Gold: 3065 rows, last=2026-03-12\n"}
+,{"stream_name":"stdout","time":15.956782817,"data":"GLD: 3066 rows\n"}
+,{"stream_name":"stdout","time":17.807184852,"data":"  real_rate.csv (DFII10): 3046 rows, last=2026-03-10\n"}
+,{"stream_name":"stdout","time":17.807220387,"data":"  vixcls.csv (VIXCLS): 3094 rows, last=2026-03-11\n"}
+,{"stream_name":"stdout","time":17.807227187,"data":"  dgs10.csv (DGS10): 3046 rows, last=2026-03-10\n"}
+,{"stream_name":"stdout","time":17.80723404,"data":"  dgs2.csv (DGS2): 3046 rows, last=2026-03-10\n"}
+,{"stream_name":"stdout","time":17.807239311,"data":"  t10yie.csv (T10YIE): 3047 rows, last=2026-03-11\n"}
+,{"stream_name":"stdout","time":17.80724628,"data":"\n"}
+,{"stream_name":"stdout","time":17.807251603,"data":"All data fetched. FRED last dates:\n"}
+,{"stream_name":"stdout","time":17.807257157,"data":"  DFII10: 2026-03-10\n"}
+,{"stream_name":"stdout","time":17.807262794,"data":"  VIXCLS: 2026-03-11\n"}
+,{"stream_name":"stdout","time":17.807268392,"data":"  T10YIE: 2026-03-11\n"}
+,{"stream_name":"stdout","time":17.966860836,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":17.966922957,"data":"SUBMODEL 1: VIX\n"}
+,{"stream_name":"stdout","time":17.966930442,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.17751418,"data":"VIX output: 4451 rows, 2014-01-03 to 2026-03-11\n"}
+,{"stream_name":"stdout","time":19.383161349,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":19.383196176,"data":"SUBMODEL 2: TECHNICAL\n"}
+,{"stream_name":"stdout","time":19.383200323,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":19.607701636,"data":"Model is not converging.  Current: 16908.244375325103 is not greater than 16910.277968181705. Delta is -2.0335928566018993\n"}
+,{"stream_name":"stderr","time":19.607734636,"data":"\n"}
+,{"stream_name":"stderr","time":19.607738568,"data":"Model is not converging.  Current: 16908.244375325103 is not greater than 16910.277968181705. Delta is -2.0335928566018993\n"}
+,{"stream_name":"stderr","time":19.832018441,"data":"Model is not converging.  Current: 16908.13093641524 is not greater than 16909.954706812605. Delta is -1.8237703973645694\n"}
+,{"stream_name":"stderr","time":19.832051384,"data":"\n"}
+,{"stream_name":"stderr","time":19.832056229,"data":"Model is not converging.  Current: 16908.13093641524 is not greater than 16909.954706812605. Delta is -1.8237703973645694\n"}
+,{"stream_name":"stderr","time":20.12837596,"data":"Model is not converging.  Current: 16909.322137795833 is not greater than 16916.074894847316. Delta is -6.752757051483059\n"}
+,{"stream_name":"stderr","time":20.128409645,"data":"\n"}
+,{"stream_name":"stderr","time":20.128413841,"data":"Model is not converging.  Current: 16909.322137795833 is not greater than 16916.074894847316. Delta is -6.752757051483059\n"}
+,{"stream_name":"stdout","time":20.142366437,"data":"Technical output: 3065 rows\n"}
+,{"stream_name":"stdout","time":20.343890061,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":20.343925313,"data":"SUBMODEL 3: CROSS-ASSET\n"}
+,{"stream_name":"stdout","time":20.343929627,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":20.792695666,"data":"Model is not converging.  Current: 28805.981862675326 is not greater than 28805.982166868467. Delta is -0.0003041931413463317\n"}
+,{"stream_name":"stderr","time":20.792758156,"data":"\n"}
+,{"stream_name":"stderr","time":20.795780793,"data":"Model is not converging.  Current: 28805.981862675326 is not greater than 28805.982166868467. Delta is -0.0003041931413463317\n"}
+,{"stream_name":"stderr","time":21.361594257,"data":"Model is not converging.  Current: 28811.60491714059 is not greater than 28811.619078150616. Delta is -0.014161010025418364\n"}
+,{"stream_name":"stderr","time":21.361631573,"data":"\n"}
+,{"stream_name":"stderr","time":21.361650601,"data":"Model is not converging.  Current: 28811.60491714059 is not greater than 28811.619078150616. Delta is -0.014161010025418364\n"}
+,{"stream_name":"stderr","time":22.717848892,"data":"Model is not converging.  Current: 28808.73828242876 is not greater than 28808.764750154765. Delta is -0.02646772600564873\n"}
+,{"stream_name":"stderr","time":22.717932813,"data":"\n"}
+,{"stream_name":"stderr","time":22.718320238,"data":"Model is not converging.  Current: 28808.73828242876 is not greater than 28808.764750154765. Delta is -0.02646772600564873\n"}
+,{"stream_name":"stderr","time":25.223932559,"data":"Model is not converging.  Current: 28807.396411070884 is not greater than 28807.407958076667. Delta is -0.011547005782631459\n"}
+,{"stream_name":"stderr","time":25.224026686,"data":"\n"}
+,{"stream_name":"stderr","time":25.225771705,"data":"Model is not converging.  Current: 28807.396411070884 is not greater than 28807.407958076667. Delta is -0.011547005782631459\n"}
+,{"stream_name":"stderr","time":26.540498897,"data":"Model is not converging.  Current: 28810.401444510873 is not greater than 28810.40382167257. Delta is -0.002377161697950214\n"}
+,{"stream_name":"stderr","time":26.540538618,"data":"\n"}
+,{"stream_name":"stderr","time":26.540545246,"data":"Model is not converging.  Current: 28810.401444510873 is not greater than 28810.40382167257. Delta is -0.002377161697950214\n"}
+,{"stream_name":"stdout","time":27.601769854,"data":"Cross-asset output: 2794 rows\n"}
+,{"stream_name":"stdout","time":27.80413311,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":27.804196645,"data":"SUBMODEL 4: YIELD CURVE\n"}
+,{"stream_name":"stdout","time":27.804203601,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":28.549500854,"data":"Model is not converging.  Current: 21546.729914589872 is not greater than 21546.73022609976. Delta is -0.0003115098879789002\n"}
+,{"stream_name":"stderr","time":28.549538109,"data":"\n"}
+,{"stream_name":"stderr","time":28.550024322,"data":"Model is not converging.  Current: 21546.729914589872 is not greater than 21546.73022609976. Delta is -0.0003115098879789002\n"}
+,{"stream_name":"stdout","time":28.840815957,"data":"Yield curve output: 2873 rows\n"}
+,{"stream_name":"stdout","time":29.041558369,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":29.041593484,"data":"SUBMODEL 5: ETF FLOW\n"}
+,{"stream_name":"stdout","time":29.041598549,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":30.087924592,"data":"Model is not converging.  Current: 6394.888455483144 is not greater than 6395.022264468311. Delta is -0.13380898516697926\n"}
+,{"stream_name":"stderr","time":30.087959476,"data":"\n"}
+,{"stream_name":"stderr","time":30.088373121,"data":"Model is not converging.  Current: 6394.888455483144 is not greater than 6395.022264468311. Delta is -0.13380898516697926\n"}
+,{"stream_name":"stderr","time":30.652153257,"data":"Model is not converging.  Current: 6387.489457605215 is not greater than 6387.4900732127735. Delta is -0.0006156075587568921\n"}
+,{"stream_name":"stderr","time":30.65222972,"data":"\n"}
+,{"stream_name":"stderr","time":30.653795017,"data":"Model is not converging.  Current: 6387.489457605215 is not greater than 6387.4900732127735. Delta is -0.0006156075587568921\n"}
+,{"stream_name":"stderr","time":31.175564885,"data":"Model is not converging.  Current: 6418.741733791305 is not greater than 6418.770017806812. Delta is -0.028284015506869764\n"}
+,{"stream_name":"stderr","time":31.175595397,"data":"\n"}
+,{"stream_name":"stderr","time":31.17560056,"data":"Model is not converging.  Current: 6418.741733791305 is not greater than 6418.770017806812. Delta is -0.028284015506869764\n"}
+,{"stream_name":"stderr","time":31.551949976,"data":"Model is not converging.  Current: 6417.202190227945 is not greater than 6417.204253925361. Delta is -0.002063697415906063\n"}
+,{"stream_name":"stderr","time":31.551986284,"data":"\n"}
+,{"stream_name":"stderr","time":31.551992008,"data":"Model is not converging.  Current: 6417.202190227945 is not greater than 6417.204253925361. Delta is -0.002063697415906063\n"}
+,{"stream_name":"stderr","time":31.901822646,"data":"Model is not converging.  Current: 6420.193479296274 is not greater than 6420.207172904547. Delta is -0.013693608273570135\n"}
+,{"stream_name":"stderr","time":31.901875257,"data":"\n"}
+,{"stream_name":"stderr","time":31.901879496,"data":"Model is not converging.  Current: 6420.193479296274 is not greater than 6420.207172904547. Delta is -0.013693608273570135\n"}
+,{"stream_name":"stderr","time":32.137717412,"data":"Model is not converging.  Current: 6416.8736643098155 is not greater than 6417.076414883639. Delta is -0.20275057382332307\n"}
+,{"stream_name":"stderr","time":32.137750514,"data":"\n"}
+,{"stream_name":"stderr","time":32.137754507,"data":"Model is not converging.  Current: 6416.8736643098155 is not greater than 6417.076414883639. Delta is -0.20275057382332307\n"}
+,{"stream_name":"stderr","time":32.475379142,"data":"Model is not converging.  Current: 6420.762309362311 is not greater than 6420.812751811307. Delta is -0.050442448996363964\n"}
+,{"stream_name":"stderr","time":32.475435839,"data":"\n"}
+,{"stream_name":"stderr","time":32.475440664,"data":"Model is not converging.  Current: 6420.762309362311 is not greater than 6420.812751811307. Delta is -0.050442448996363964\n"}
+,{"stream_name":"stderr","time":33.494628366,"data":"Model is not converging.  Current: 6419.793547914698 is not greater than 6419.805504635314. Delta is -0.011956720615671657\n"}
+,{"stream_name":"stderr","time":33.494681254,"data":"\n"}
+,{"stream_name":"stderr","time":33.494687309,"data":"Model is not converging.  Current: 6419.793547914698 is not greater than 6419.805504635314. Delta is -0.011956720615671657\n"}
+,{"stream_name":"stdout","time":33.512423794,"data":"ETF flow output: 3047 rows\n"}
+,{"stream_name":"stdout","time":33.713809699,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":33.713843297,"data":"SUBMODEL 6: INFLATION EXPECTATION\n"}
+,{"stream_name":"stdout","time":33.713855094,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":34.39231493,"data":"Model is not converging.  Current: 17991.254296771942 is not greater than 17991.711330040125. Delta is -0.45703326818329515\n"}
+,{"stream_name":"stderr","time":34.392356614,"data":"\n"}
+,{"stream_name":"stderr","time":34.392362689,"data":"Model is not converging.  Current: 17991.254296771942 is not greater than 17991.711330040125. Delta is -0.45703326818329515\n"}
+,{"stream_name":"stdout","time":34.602226487,"data":"Inflation expectation output: 4447 rows\n"}
+,{"stream_name":"stdout","time":34.804708901,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":34.804741499,"data":"SUBMODEL 7: OPTIONS MARKET\n"}
+,{"stream_name":"stdout","time":34.804746217,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":34.804750377,"data":"Options market output: 2877 rows\n"}
+,{"stream_name":"stdout","time":35.112373642,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":35.112406341,"data":"SUBMODEL 8: TEMPORAL CONTEXT (Transformer)\n"}
+,{"stream_name":"stdout","time":35.112410758,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":38.755821521,"data":"Device: cuda\n"}
+,{"stream_name":"stdout","time":38.755864191,"data":"TC input: (3064, 14), features: 14\n"}
+,{"stream_name":"stdout","time":38.755870071,"data":"Model params: 5895\n"}
+,{"stream_name":"stdout","time":44.791011619,"data":"  Epoch 0: train=1.147271, val=1.299155, patience=0\n"}
+,{"stream_name":"stdout","time":45.384728536,"data":"  Early stopping at epoch 16\n"}
+,{"stream_name":"stdout","time":45.384778049,"data":"Temporal context output: 3055 rows, score range: [0.2033, 0.9683]\n"}
+,{"stream_name":"stdout","time":45.409800627,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":45.409831829,"data":"GENERATING base_features_raw.csv\n"}
+,{"stream_name":"stdout","time":45.409836832,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":45.409841269,"data":"base_features_raw: 3064 rows, 2014-01-02 to 2026-03-11\n"}
+,{"stream_name":"stdout","time":45.409844938,"data":"Columns: ['gold_return_next', 'real_rate_real_rate', 'dxy_dxy', 'vix_vix', 'yield_curve_yield_spread', 'inflation_expectation_inflation_expectation']\n"}
+,{"stream_name":"stdout","time":45.574313175,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":45.574340575,"data":"SAVING ALL OUTPUTS\n"}
+,{"stream_name":"stdout","time":45.574345034,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":45.574348954,"data":"Saved vix.csv: 4451 rows\n"}
+,{"stream_name":"stdout","time":45.574352482,"data":"Saved technical.csv: 3065 rows\n"}
+,{"stream_name":"stdout","time":45.574356095,"data":"Saved cross_asset.csv: 2794 rows\n"}
+,{"stream_name":"stdout","time":45.574359648,"data":"Saved yield_curve.csv: 2873 rows\n"}
+,{"stream_name":"stdout","time":45.57436329,"data":"Saved etf_flow.csv: 3047 rows\n"}
+,{"stream_name":"stdout","time":45.574366831,"data":"Saved inflation_expectation.csv: 4447 rows\n"}
+,{"stream_name":"stdout","time":45.611131405,"data":"Saved options_market.csv: 2877 rows\n"}
+,{"stream_name":"stdout","time":45.611157717,"data":"Saved temporal_context.csv: 3055 rows\n"}
+,{"stream_name":"stdout","time":45.61205172,"data":"Saved base_features_raw.csv: 3064 rows\n"}
+,{"stream_name":"stdout","time":45.612071864,"data":"\n"}
+,{"stream_name":"stdout","time":45.612076069,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":45.612079669,"data":"ALL OUTPUTS SAVED SUCCESSFULLY\n"}
+,{"stream_name":"stdout","time":45.61208319,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":45.612086815,"data":"Finished: 2026-03-12T15:24:38.086984\n"}
+,{"stream_name":"stdout","time":45.612090773,"data":"\n"}
+,{"stream_name":"stdout","time":45.612094529,"data":"Files: vix.csv, technical.csv, cross_asset.csv, yield_curve.csv,\n"}
+,{"stream_name":"stdout","time":45.612105615,"data":"  etf_flow.csv, inflation_expectation.csv, options_market.csv,\n"}
+,{"stream_name":"stdout","time":45.612108975,"data":"  temporal_context.csv, base_features_raw.csv\n"}
+,{"stream_name":"stderr","time":50.339578233,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":50.339609551,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":50.485048134,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":50.485073972,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":51.052382782,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":51.052428678,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":51.079206524,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":51.408771866,"data":"[NbConvertApp] Writing 52419 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":53.788845024,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":53.788880988,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":53.809471809,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":54.765355148,"data":"[NbConvertApp] Writing 470561 bytes to __results__.html\n"}
+]
