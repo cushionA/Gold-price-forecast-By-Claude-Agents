@@ -1,7 +1,7 @@
 {
-  "status": "in_progress",
+  "status": "waiting_training",
   "phase": "phase2_submodel_extra",
-  "current_feature": "refresh_submodels",
+  "current_feature": "meta_model_final",
   "current_attempt": 1,
   "resume_from": "evaluator",
   "error_context": "",
@@ -47,8 +47,8 @@
     "temporal_context",
     "regime_classification"
   ],
-  "kaggle_kernel": "bigbigzabuton/gold-refresh-all-submodels",
-  "submitted_at": "2026-03-13T00:23:47.686982",
+  "kaggle_kernel": "bigbigzabuton/gold-meta-model-final-full-data-training",
+  "submitted_at": "2026-03-13T00:27:12.982791",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1141,7 +1141,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-03-13T00:25:42.173865",
+  "last_updated": "2026-03-13T00:27:12.982805",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
