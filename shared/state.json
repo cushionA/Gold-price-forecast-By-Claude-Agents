@@ -48,7 +48,7 @@
     "regime_classification"
   ],
   "kaggle_kernel": "bigbigzabuton/gold-refresh-all-submodels",
-  "submitted_at": "2026-03-13T00:08:49.132145",
+  "submitted_at": "2026-03-13T00:14:30.536999",
   "baseline_metrics": {
     "test_mae": 0.7139,
     "test_direction_accuracy": 0.4354,
@@ -1141,7 +1141,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-03-13T00:08:49.132153",
+  "last_updated": "2026-03-13T00:14:30.537029",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
