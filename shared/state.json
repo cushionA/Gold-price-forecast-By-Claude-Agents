@@ -3,7 +3,7 @@
   "phase": "phase2_submodel_extra",
   "current_feature": "meta_model_final",
   "current_attempt": 1,
-  "resume_from": "builder_model",
+  "resume_from": "evaluator",
   "error_context": "",
   "user_action_required": false,
   "datachecker_status": "PASS",
@@ -1141,7 +1141,7 @@
     }
   },
   "kaggle_version": null,
-  "last_updated": "2026-03-12T22:35:23.716623",
+  "last_updated": "2026-03-12T22:47:01.786751",
   "options_market_attempt3_result": {
     "decision": "completed_best",
     "production_columns": [
@@ -1203,5 +1203,6 @@
       "verdict": "FAIL all 3 criteria"
     }
   },
-  "builder_data_status": "completed"
+  "builder_data_status": "completed",
+  "kaggle_kernel_id": "bigbigzabuton/gold-meta-model-final-full-data-training"
 }

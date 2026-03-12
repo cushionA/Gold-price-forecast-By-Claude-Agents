@@ -1,0 +1,92 @@
+[{"stream_name":"stderr","time":5.873325716,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":5.873372308,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":5.873376132,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":5.873378636,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.435931038,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.435960073,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.435965767,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.435969941,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.764612894999999,"data":"XGBoost version: 3.1.3\n"}
+,{"stream_name":"stdout","time":9.76463881,"data":"Pandas version: 2.3.3\n"}
+,{"stream_name":"stdout","time":9.764642822,"data":"NumPy version: 2.0.2\n"}
+,{"stream_name":"stdout","time":9.764646429999999,"data":"Started: 2026-03-12T13:34:37.303461\n"}
+,{"stream_name":"stdout","time":9.764651616,"data":"Mode: FINAL PRODUCTION MODEL - Full Data Training\n"}
+,{"stream_name":"stdout","time":9.824344745,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":9.824369603,"data":"LOADING DATA FROM KAGGLE DATASET\n"}
+,{"stream_name":"stdout","time":9.824374986,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":9.824378754,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels (pattern: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/base_features_raw.csv)\n"}
+,{"stream_name":"stdout","time":9.824382823,"data":"\n"}
+,{"stream_name":"stdout","time":9.824386361,"data":"Loading base_features_raw.csv from dataset...\n"}
+,{"stream_name":"stdout","time":9.824391311,"data":"  Loaded: 3050 rows, 2014-01-02 to 2026-02-19\n"}
+,{"stream_name":"stdout","time":9.824394561,"data":"  Columns: ['gold_return_next', 'real_rate_real_rate', 'dxy_dxy', 'vix_vix', 'yield_curve_yield_spread', 'inflation_expectation_inflation_expectation']\n"}
+,{"stream_name":"stdout","time":9.824397251,"data":"  Base features: 3050 rows, 6 columns\n"}
+,{"stream_name":"stdout","time":9.824399676,"data":"\n"}
+,{"stream_name":"stdout","time":9.824401879,"data":"Data loading complete\n"}
+,{"stream_name":"stdout","time":9.839269659,"data":"\n"}
+,{"stream_name":"stdout","time":9.839294593,"data":"Applying transformations...\n"}
+,{"stream_name":"stdout","time":9.839300184,"data":"  Base transformations applied\n"}
+,{"stream_name":"stdout","time":9.839305189,"data":"  Columns so far: ['gold_return_next', 'real_rate_change', 'dxy_change', 'vix', 'yield_spread_change', 'inflation_exp_change']\n"}
+,{"stream_name":"stdout","time":9.851653942,"data":"Features defined: 24 features\n"}
+,{"stream_name":"stdout","time":9.881802341,"data":"Dataset found at: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels (pattern: /kaggle/input/datasets/bigbigzabuton/gold-prediction-submodels/vix.csv)\n"}
+,{"stream_name":"stdout","time":9.97350812,"data":"\n"}
+,{"stream_name":"stdout","time":9.973529399,"data":"Loading submodel outputs from Kaggle Dataset...\n"}
+,{"stream_name":"stdout","time":9.973534024,"data":"  vix: 2857 rows\n"}
+,{"stream_name":"stdout","time":9.978955995,"data":"  technical: 2860 rows\n"}
+,{"stream_name":"stdout","time":10.039558707,"data":"  cross_asset: 2522 rows\n"}
+,{"stream_name":"stdout","time":10.039589637,"data":"  yield_curve: 2794 rows\n"}
+,{"stream_name":"stdout","time":10.03959466,"data":"  etf_flow: 2838 rows\n"}
+,{"stream_name":"stdout","time":10.052016967,"data":"  inflation_expectation: 2924 rows\n"}
+,{"stream_name":"stderr","time":10.514632262,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10.514657801,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":10.514663406,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":10.514756276,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":10.514799369,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":10.514967656,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":10.51530634,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":10.515311202,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":10.515313873,"data":"Exception encountered at \"In [6]\":\n"}
+,{"stream_name":"stderr","time":10.51531658,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":10.515319114,"data":"KeyError                                  Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":10.515321564,"data":"/tmp/ipykernel_24/504373962.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":10.515324102,"data":"     65         else:\n"}
+,{"stream_name":"stderr","time":10.515326408,"data":"     66             df['Date'] = pd.to_datetime(df[date_col]).dt.strftime('%Y-%m-%d')\n"}
+,{"stream_name":"stderr","time":10.515328717,"data":"---\u003e 67     df = df[['Date'] + spec['columns']]\n"}
+,{"stream_name":"stderr","time":10.515331007,"data":"     68     df = df.set_index('Date')\n"}
+,{"stream_name":"stderr","time":10.515333211,"data":"     69     submodel_dfs[feature] = df\n"}
+,{"stream_name":"stderr","time":10.515335602,"data":"\n"}
+,{"stream_name":"stderr","time":10.515338825,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/frame.py in __getitem__(self, key)\n"}
+,{"stream_name":"stderr","time":10.515344182,"data":"   4117             if is_iterator(key):\n"}
+,{"stream_name":"stderr","time":10.515353479,"data":"   4118                 key = list(key)\n"}
+,{"stream_name":"stderr","time":10.515357804,"data":"-\u003e 4119             indexer = self.columns._get_indexer_strict(key, \"columns\")[1]\n"}
+,{"stream_name":"stderr","time":10.515362207,"data":"   4120 \n"}
+,{"stream_name":"stderr","time":10.515365535,"data":"   4121         # take() does not accept boolean indexers\n"}
+,{"stream_name":"stderr","time":10.515368966,"data":"\n"}
+,{"stream_name":"stderr","time":10.515372279,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/indexes/base.py in _get_indexer_strict(self, key, axis_name)\n"}
+,{"stream_name":"stderr","time":10.515377737,"data":"   6210             keyarr, indexer, new_indexer = self._reindex_non_unique(keyarr)\n"}
+,{"stream_name":"stderr","time":10.515381025,"data":"   6211 \n"}
+,{"stream_name":"stderr","time":10.515383305,"data":"-\u003e 6212         self._raise_if_missing(keyarr, indexer, axis_name)\n"}
+,{"stream_name":"stderr","time":10.515394711,"data":"   6213 \n"}
+,{"stream_name":"stderr","time":10.515397109,"data":"   6214         keyarr = self.take(indexer)\n"}
+,{"stream_name":"stderr","time":10.515399377,"data":"\n"}
+,{"stream_name":"stderr","time":10.515401555,"data":"/usr/local/lib/python3.12/dist-packages/pandas/core/indexes/base.py in _raise_if_missing(self, key, indexer, axis_name)\n"}
+,{"stream_name":"stderr","time":10.51540411,"data":"   6262 \n"}
+,{"stream_name":"stderr","time":10.515406279,"data":"   6263             not_found = list(ensure_index(key)[missing_mask.nonzero()[0]].unique())\n"}
+,{"stream_name":"stderr","time":10.515408997,"data":"-\u003e 6264             raise KeyError(f\"{not_found} not in index\")\n"}
+,{"stream_name":"stderr","time":10.515411389,"data":"   6265 \n"}
+,{"stream_name":"stderr","time":10.515413549,"data":"   6266     @overload\n"}
+,{"stream_name":"stderr","time":10.51541586,"data":"\n"}
+,{"stream_name":"stderr","time":10.515417982,"data":"KeyError: \"['options_risk_regime_prob'] not in index\"\n"}
+,{"stream_name":"stderr","time":10.515435277,"data":"\n"}
+,{"stream_name":"stderr","time":12.541456018,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":12.541488257,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12.680151979,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12.680179981,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":13.231206367,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":13.231244588,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":13.257815846,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":13.549874339,"data":"[NbConvertApp] Writing 43240 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":15.788864198,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":15.788903592,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":15.809312679,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":16.656961711,"data":"[NbConvertApp] Writing 396342 bytes to __results__.html\n"}
+]

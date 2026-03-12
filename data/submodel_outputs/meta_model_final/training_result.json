@@ -1,0 +1,128 @@
+{
+  "feature": "meta_model",
+  "attempt": "FINAL",
+  "timestamp": "2026-03-12T13:45:41.206135",
+  "architecture": "XGBoost (attempt 7 params) + Bootstrap Data Subsampling Ensemble (12 models)",
+  "mode": "PRODUCTION - Full Data Training (no train/val/test split)",
+  "based_on": "attempt 17 (validated: DA 60.04%, HCDA 64.13%, Sharpe 2.46)",
+  "model_config": {
+    "algorithm": "XGBoost",
+    "n_features": 24,
+    "total_samples": 3049,
+    "samples_per_feature_ratio": 127.04166666666667,
+    "xgb_params": {
+      "objective": "reg:squarederror",
+      "max_depth": 2,
+      "min_child_weight": 25,
+      "subsample": 0.765,
+      "colsample_bytree": 0.45,
+      "reg_lambda": 2.049,
+      "reg_alpha": 1.107,
+      "learning_rate": 0.0215,
+      "n_estimators": 621,
+      "tree_method": "hist",
+      "device": "cuda",
+      "random_state": 42,
+      "verbosity": 0
+    },
+    "n_ensemble": 12,
+    "bootstrap_fraction": 0.8,
+    "bootstrap_sample_size": 2439,
+    "alpha_ols_fixed": 0.5
+  },
+  "training_data": {
+    "date_range": [
+      "2014-01-03",
+      "2026-02-19"
+    ],
+    "total_rows": 3049,
+    "split": "NONE - all data used for training"
+  },
+  "in_sample_metrics": {
+    "direction_accuracy": 0.6300197498354181,
+    "mae_raw": 0.6545254623647724,
+    "mae_scaled": 0.6734432563532214,
+    "sharpe_ratio": 4.701890784265845,
+    "note": "In-sample only. Out-of-sample validated in attempt 17."
+  },
+  "validated_oos_metrics_attempt17": {
+    "direction_accuracy": 0.6004,
+    "high_confidence_da": 0.6413,
+    "sharpe_ratio": 2.46,
+    "targets_passed": "3/4"
+  },
+  "bootstrap_diversity": {
+    "std_range": [
+      0.024484440684318542,
+      1.157953143119812
+    ],
+    "std_mean": 0.1413033902645111
+  },
+  "confidence_thresholds": {
+    "hc_std_threshold": 0.07870855182409286,
+    "hc_abs_threshold": 0.21660953760147095
+  },
+  "feature_importance": {
+    "method": "xgboost_gain_averaged_over_ensemble",
+    "top_10": [
+      {
+        "feature": "tech_trend_regime_prob",
+        "importance_pct": 5.290168762207031
+      },
+      {
+        "feature": "options_risk_regime_prob",
+        "importance_pct": 5.177998065948486
+      },
+      {
+        "feature": "xasset_regime_prob",
+        "importance_pct": 5.126664638519287
+      },
+      {
+        "feature": "ie_anchoring_z",
+        "importance_pct": 5.066643238067627
+      },
+      {
+        "feature": "inflation_exp_change",
+        "importance_pct": 4.776262283325195
+      },
+      {
+        "feature": "real_rate_change",
+        "importance_pct": 4.561450481414795
+      },
+      {
+        "feature": "tech_mean_reversion_z",
+        "importance_pct": 4.452030181884766
+      },
+      {
+        "feature": "temporal_context_score",
+        "importance_pct": 4.438572883605957
+      },
+      {
+        "feature": "etf_regime_prob",
+        "importance_pct": 4.284250736236572
+      },
+      {
+        "feature": "etf_capital_intensity",
+        "importance_pct": 4.145183563232422
+      }
+    ]
+  },
+  "output_files": [
+    "predictions.csv",
+    "inference_config.json",
+    "feature_importance.csv",
+    "training_result.json",
+    "ensemble_model_0.json",
+    "ensemble_model_1.json",
+    "ensemble_model_2.json",
+    "ensemble_model_3.json",
+    "ensemble_model_4.json",
+    "ensemble_model_5.json",
+    "ensemble_model_6.json",
+    "ensemble_model_7.json",
+    "ensemble_model_8.json",
+    "ensemble_model_9.json",
+    "ensemble_model_10.json",
+    "ensemble_model_11.json"
+  ]
+}

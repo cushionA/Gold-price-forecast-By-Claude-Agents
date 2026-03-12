@@ -1,0 +1,53 @@
+{
+  "feature_columns": [
+    "real_rate_change",
+    "dxy_change",
+    "vix",
+    "yield_spread_change",
+    "inflation_exp_change",
+    "vix_regime_probability",
+    "vix_mean_reversion_z",
+    "vix_persistence",
+    "tech_trend_regime_prob",
+    "tech_mean_reversion_z",
+    "tech_volatility_regime",
+    "xasset_regime_prob",
+    "xasset_recession_signal",
+    "xasset_divergence",
+    "yc_spread_velocity_z",
+    "yc_curvature_z",
+    "etf_regime_prob",
+    "etf_capital_intensity",
+    "etf_pv_divergence",
+    "ie_regime_prob",
+    "ie_anchoring_z",
+    "ie_gold_sensitivity_z",
+    "options_risk_regime_prob",
+    "temporal_context_score"
+  ],
+  "n_ensemble": 12,
+  "alpha_ols": 0.5,
+  "xgb_params": {
+    "objective": "reg:squarederror",
+    "max_depth": 2,
+    "min_child_weight": 25,
+    "subsample": 0.765,
+    "colsample_bytree": 0.45,
+    "reg_lambda": 2.049,
+    "reg_alpha": 1.107,
+    "learning_rate": 0.0215,
+    "n_estimators": 621,
+    "tree_method": "hist",
+    "device": "cuda",
+    "random_state": 42,
+    "verbosity": 0
+  },
+  "bootstrap_fraction": 0.8,
+  "hc_std_threshold": 0.07870855182409286,
+  "hc_abs_threshold": 0.21660953760147095,
+  "training_date_range": [
+    "2014-01-03",
+    "2026-02-19"
+  ],
+  "training_samples": 3049
+}
